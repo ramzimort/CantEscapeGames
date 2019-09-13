@@ -7,8 +7,8 @@ Primary Author: Ramzi Mourtada
 #include "WindowManager.h"
 #include <string>
 #include <assert.h>
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_events.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include "FrameManager.h"
 
 WindowManager::WindowManager()

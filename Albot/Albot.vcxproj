@@ -83,6 +83,9 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <EntryPointSymbol>
@@ -112,6 +115,9 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\ThirdParty\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -142,7 +148,6 @@
   <ItemGroup>
     <ClCompile Include="Code\Main.cpp" />
     <ClCompile Include="Code\Managers\WindowManager.cpp" />
-    <ClCompile Include="Code\Managers\WindowManager.h" />
     <ClCompile Include="Code\Managers\InputManager.cpp" />
     <ClCompile Include="Code\Managers\FrameManager.cpp" />
     <ClCompile Include="Code\Managers\EventManager.cpp" />
@@ -151,6 +156,7 @@
     <ClInclude Include="Code\Managers\InputManager.h" />
     <ClInclude Include="Code\Managers\FrameManager.h" />
     <ClInclude Include="Code\Managers\EventManager.h" />
+    <ClInclude Include="Code\Managers\WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
