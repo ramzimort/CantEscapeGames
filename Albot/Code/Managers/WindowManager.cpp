@@ -7,7 +7,6 @@ Primary Author: Ramzi Mourtada
 #include "WindowManager.h"
 #include <string>
 #include <assert.h>
-#include "GL/glew.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_events.h"
 #include "FrameManager.h"
@@ -33,13 +32,6 @@ WindowManager::WindowManager()
 		600,												
 		SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	assert(mp_window != NULL);
-
-	SDL_GLContext m_context = SDL_GL_CreateContext(mp_window);
-	assert(m_context != NULL);
-
-	GLenum err = glewInit();
-	assert(err == GLEW_OK);
-	assert(GLEW_VERSION_2_1);
 
 	SDL_GL_SetSwapInterval(1);
 	SDL_ShowCursor(SDL_DISABLE);
