@@ -25,9 +25,6 @@ WindowManager::WindowManager()
 		SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	assert(mp_window != NULL);
 
-	SDL_GL_SetSwapInterval(1);
-	SDL_ShowCursor(SDL_DISABLE);
-
 	mp_frame_manager = new FrameManager();
 }
 
@@ -40,7 +37,6 @@ void WindowManager::Run()
 {
 	SDL_Event quit_event;
 
-	// While EventManager has not quit 
 	bool isQuit = false;
 	while (!isQuit)
 	{
@@ -48,17 +44,10 @@ void WindowManager::Run()
 			if (quit_event.type == SDL_QUIT)
 				isQuit = true;
 
-		// Start frame
 		mp_frame_manager->StartFrame();
-		//float delta = m_frame_rate_controller.Get_Frame_Time();
 
-		//World::Get()->Get_Input_Manager()->Update();
 
-		//World::Get()->Get_Event_Manager()->Process_Queued_Events(delta);
 
-		//End frame
 		mp_frame_manager->EndFrame();
-
-		SDL_GL_SwapWindow(mp_window);
 	}
 }

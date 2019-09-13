@@ -7,14 +7,6 @@ Other Authors : <None>
 
 #pragma once
 
-enum ContollerType {
-	Keyboard,
-	Joystick,
-	NumControllerTypes
-};
-
-class ControllerComponent;
-
 class InputManager
 {
 public:
