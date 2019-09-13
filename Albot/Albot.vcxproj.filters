@@ -18,12 +18,6 @@
     <ClCompile Include="Code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Managers\WindowManager.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Managers\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,6 +25,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Code\Managers\FrameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Managers\WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Managers\WindowManager.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
