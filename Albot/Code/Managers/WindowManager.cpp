@@ -11,6 +11,13 @@ Primary Author: Ramzi Mourtada
 #include <SDL2/SDL_events.h>
 #include "FrameManager.h"
 
+
+//GameObject experiment (TODO - ERASE)
+#include "../GameObjects/GameObject.h"
+#include "../Components/TransformComponent.h"
+#include "../Components/TestComponent.h"
+
+
 WindowManager::WindowManager()
 {
 	int error = 0;
@@ -45,6 +52,19 @@ void WindowManager::Run()
 				isQuit = true;
 
 		mp_frame_manager->StartFrame();
+
+
+		//GameObject experiment (TODO - erase)
+		GameObject *go01 = new GameObject("Carlos");
+		GameObject *go02 = new GameObject("Juan");
+		GameObject *go03 = new GameObject("Diego");
+		go01->AddComponent<Transform>();
+		go02->AddComponent<TestComp>();
+		Transform *T1 = go03->AddComponent<Transform>();
+		TestComp *T2 = go03->AddComponent<TestComp>();
+		delete go01;
+		delete go02;
+		delete go03;
 
 
 
