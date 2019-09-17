@@ -11,63 +11,35 @@ Primary Author: Ramzi Mourtada
 #include <SDL2/SDL_events.h>
 #include "FrameManager.h"
 
-
-//GameObject experiment (TODO - ERASE)
-#include "../GameObjects/GameObject.h"
-#include "../Components/TransformComponent.h"
-#include "../Components/TestComponent.h"
-
-
 WindowManager::WindowManager()
 {
 	int error = 0;
 	error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC);
 	assert(error >= 0);
-
-	mp_window = SDL_CreateWindow("AL-Bot",					
-		SDL_WINDOWPOS_CENTERED,									
-		SDL_WINDOWPOS_CENTERED,									
-		800,
-		600,												
-		SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
-	assert(mp_window != NULL);
-
-	mp_frame_manager = new FrameManager();
 }
 
 WindowManager::~WindowManager()
+{ }
+
+SDL_Window* WindowManager::CreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags)
 {
-	delete mp_frame_manager;
+	SDL_Window* window = SDL_CreateWindow(title,
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		resx,
+		resy,
+		flags);
+	assert(window != NULL);
+	m_pwindows.push_back(window);
+	m_numwindows++;
+
+	return window;
 }
 
-void WindowManager::Run()
+SDL_Window* WindowManager::GetWindow(const int32_t index) const
 {
-	SDL_Event quit_event;
+	if (index >= m_numwindows)
+		return nullptr;
 
-	bool isQuit = false;
-	while (!isQuit)
-	{
-		while (SDL_PollEvent(&quit_event))
-			if (quit_event.type == SDL_QUIT)
-				isQuit = true;
-
-		mp_frame_manager->StartFrame();
-
-
-		//GameObject experiment (TODO - erase)
-		GameObject *go01 = new GameObject("Carlos");
-		GameObject *go02 = new GameObject("Juan");
-		GameObject *go03 = new GameObject("Diego");
-		go01->AddComponent<Transform>();
-		go02->AddComponent<TestComp>();
-		Transform *T1 = go03->AddComponent<Transform>();
-		TestComp *T2 = go03->AddComponent<TestComp>();
-		delete go01;
-		delete go02;
-		delete go03;
-
-
-
-		mp_frame_manager->EndFrame();
-	}
+	return m_pwindows.at(index);
 }
