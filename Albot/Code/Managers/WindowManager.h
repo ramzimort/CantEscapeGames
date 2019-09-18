@@ -5,6 +5,7 @@ Primary Author: Ramzi Mourtada
 - End Header --------------------------------------------------------*/
 
 #pragma once
+#include <vector>
 
 struct SDL_Window;
 class FrameManager;
@@ -14,10 +15,11 @@ class WindowManager
 public:
 	WindowManager();
 	~WindowManager();
-	
-	void Run();
+
+	SDL_Window* CreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags);
+	SDL_Window* GetWindow(const int32_t index) const;
 
 private:
-	SDL_Window* mp_window;
-	FrameManager* mp_frame_manager;
+	std::vector<SDL_Window*> m_pwindows;
+	int32_t m_numwindows;
 };

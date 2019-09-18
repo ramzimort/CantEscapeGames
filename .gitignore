@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+*.ini
 
 # Build results
 [Dd]eveloper

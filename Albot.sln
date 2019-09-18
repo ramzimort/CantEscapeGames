@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Albot", "Albot\Albot.vcxproj", "{EF79051B-3C41-4F79-9004-95CF4D66E57D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A} = {050DDCBA-59B8-488E-8D33-A7F2E711478A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CantDebug", "CantDebug\CantDebug.vcxproj", "{050DDCBA-59B8-488E-8D33-A7F2E711478A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,17 @@ Global
 		{EF79051B-3C41-4F79-9004-95CF4D66E57D}.Release|x64.Build.0 = Release|x64
 		{EF79051B-3C41-4F79-9004-95CF4D66E57D}.Release|x86.ActiveCfg = Release|Win32
 		{EF79051B-3C41-4F79-9004-95CF4D66E57D}.Release|x86.Build.0 = Release|Win32
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Debug|x64.ActiveCfg = Debug|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Debug|x64.Build.0 = Debug|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Debug|x86.ActiveCfg = Debug|Win32
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Debug|x86.Build.0 = Debug|Win32
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Developer|x64.ActiveCfg = Debug|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Developer|x64.Build.0 = Debug|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Developer|x86.ActiveCfg = Developer|Win32
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Developer|x86.Build.0 = Developer|Win32
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Release|x64.ActiveCfg = Release|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Release|x64.Build.0 = Release|x64
+		{050DDCBA-59B8-488E-8D33-A7F2E711478A}.Release|x86.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
