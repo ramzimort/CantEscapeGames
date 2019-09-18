@@ -26,11 +26,11 @@ GameObject::GameObject(std::string tag) :
 
 GameObject::~GameObject()
 {
-	for (auto& node : components) 
-	{
-		delete node.second;
-	}
-	components.clear();
+	//for (auto& node : components) 
+	//{
+	//	delete node.second;
+	//}
+	//components.clear();
 }
 
 size_t GameObject::GetId() const
