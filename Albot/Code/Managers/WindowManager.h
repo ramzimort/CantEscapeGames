@@ -16,7 +16,7 @@ public:
 	WindowManager();
 	~WindowManager();
 
-	SDL_Window* CreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags);
+	SDL_Window* SDLCreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags);
 	SDL_Window* GetWindow(const int32_t index) const;
 
 private:

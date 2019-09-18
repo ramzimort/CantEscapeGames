@@ -21,7 +21,7 @@ WindowManager::WindowManager()
 WindowManager::~WindowManager()
 { }
 
-SDL_Window* WindowManager::CreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags)
+SDL_Window* WindowManager::SDLCreateWindow(const char* title, int32_t resx, int32_t resy, int32_t flags)
 {
 	SDL_Window* window = SDL_CreateWindow(title,
 		SDL_WINDOWPOS_CENTERED,
