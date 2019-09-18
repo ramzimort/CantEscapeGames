@@ -235,7 +235,7 @@
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
-    <ClInclude Include="Code\Developer\CantDebug.h" />
+    <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
     <ClInclude Include="Code\Graphics\Camera.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />

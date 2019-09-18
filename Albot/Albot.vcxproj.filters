@@ -83,10 +83,10 @@
     <ClInclude Include="Code\Components\TestComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Developer\CantDebug.h">
+    <ClInclude Include="Code\Memory\StackAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Memory\StackAllocator.h">
+    <ClInclude Include="Code\CantDebug\CantDebug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
