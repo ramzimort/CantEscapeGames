@@ -12,13 +12,6 @@ Primary Author: Ramzi Mourtada
 #include "FrameManager.h"
 
 
-//GameObject experiment (TODO - ERASE)
-#include "../GameObjects/GameObject.h"
-#include "../Components/TransformComponent.h"
-#include "../Components/TestComponent.h"
-//GameObject experiment (TODO - erase)
-
-
 WindowManager::WindowManager()
 {
 	int error = 0;
