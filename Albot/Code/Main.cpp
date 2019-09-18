@@ -2,22 +2,38 @@
 #include <iostream>
 #include <SDL2/SDL_events.h>
 
+#include <d3d11.h>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <DirectXColors.h>
+#include "DirectXTK/Inc/SimpleMath.h"
+#include "DirectXTK/Inc/DirectXHelpers.h"
+#include "DirectXTK/Inc/DDSTextureLoader.h"
+#include "DirectXTK/Inc/WICTextureLoader.h"
+#include "DirectXTK/Inc/CommonStates.h"
+using namespace DirectX::SimpleMath;
+
+
 #include "Managers/WindowManager.h"
 #include "Managers/FrameManager.h"
-#include "Developer/CantDebug.h"
+#include "CantDebug/CantDebug.h"
+
 
 int main()
 {
 	// Create Window
 	WindowManager window_manager;
 	
-	DEBUG_INIT(window_manager.CreateWindow("CantDebug", 1280, 720, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI));
+	DEBUG_INIT(window_manager.SDLCreateWindow("CantDebug", 1280, 720, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI));
 
-	SDL_Window* main_window = window_manager.CreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
+	SDL_Window* main_window = window_manager.SDLCreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	FrameManager frame_manager;
 	SDL_Event quit_event;
 	bool done = false;
 	float dt;
+
+
+
 	while (!done)
 	{
 		while (SDL_PollEvent(&quit_event))
