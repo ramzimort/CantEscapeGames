@@ -4,7 +4,7 @@
 
 #include "Managers/WindowManager.h"
 #include "Managers/FrameManager.h"
-#include "Developer/CantDebug.hpp"
+#include "Developer/CantDebug.h"
 
 int main()
 {
