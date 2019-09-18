@@ -221,6 +221,7 @@
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TransformComponent.cpp" />
+    <ClCompile Include="Code\Developer\CantDebug.cpp" />
     <ClCompile Include="Code\GameObjects\GameObject.cpp" />
     <ClCompile Include="Code\Graphics\Camera.cpp" />
     <ClCompile Include="Code\Main.cpp" />
@@ -229,11 +230,13 @@
     <ClCompile Include="Code\Managers\InputManager.cpp" />
     <ClCompile Include="Code\Managers\FrameManager.cpp" />
     <ClCompile Include="Code\Managers\EventManager.cpp" />
+    <ClCompile Include="Code\Memory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
+    <ClInclude Include="Code\Developer\CantDebug.hpp" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
     <ClInclude Include="Code\Graphics\Camera.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />

@@ -130,12 +130,12 @@ namespace CantDebug
 		SDL_DestroyWindow(g_mainWindow);
 	}
 
-	void Log()
+	void ImLog()
 	{
 
 	}
 
-	void Print(std::string data)
+	void ImPrint(std::string data)
 	{
 		g_logQueue->Push(data);
 	}
