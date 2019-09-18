@@ -59,7 +59,8 @@ private:
 	//Tag will be an optional identifier, set by us in the json file
 	std::string tag;
 
-	std::unordered_map<BaseComponent::ComponentId, BaseComponent*> components;
+	//std::unordered_map<BaseComponent::ComponentId, BaseComponent*> components;
+	BaseComponent* components[MAX_NUM_COMPONENTS]; //128 bytes
 };
 
 

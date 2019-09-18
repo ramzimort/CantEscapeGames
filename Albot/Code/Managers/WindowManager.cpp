@@ -16,6 +16,7 @@ Primary Author: Ramzi Mourtada
 #include "../GameObjects/GameObject.h"
 #include "../Components/TransformComponent.h"
 #include "../Components/TestComponent.h"
+//GameObject experiment (TODO - erase)
 
 
 WindowManager::WindowManager()
@@ -62,9 +63,13 @@ void WindowManager::Run()
 		go02->AddComponent<TestComp>();
 		Transform *T1 = go03->AddComponent<Transform>();
 		TestComp *T2 = go03->AddComponent<TestComp>();
+
+		Transform *T = go01->GetComponent<Transform>();
+
 		delete go01;
 		delete go02;
 		delete go03;
+		//GameObject experiment (TODO - erase)
 
 
 
