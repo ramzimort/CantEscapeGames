@@ -8,10 +8,11 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 ///Includes
-#include <iostream>
 
 ///Forward dec
 class GameObject;
+
+#define MAX_NUM_COMPONENTS			32	//Max number of components (for bit string)
 
 
 class BaseComponent 
@@ -38,7 +39,7 @@ private:
 	BaseComponent(BaseComponent& rhs);
 
 
-public:
+protected:
 	static ComponentId numberOfTypes;
 
 

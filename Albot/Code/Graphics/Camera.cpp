@@ -6,7 +6,6 @@ Primary Author: Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
 #include "Camera.h"
-#include <iostream>
 
 //Macros for std constructor
 #define STD_NEAR		0.01f
@@ -46,7 +45,7 @@ void Camera::initCamera()
 
 void Camera::Update(float dt)
 {
-	std::cout << dt << std::endl;
+	///std::cout << dt << std::endl;
 }
 
 void Camera::GetView(Matrix4& view)

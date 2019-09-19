@@ -13,9 +13,6 @@ Primary Author: Jose Rosenbluth
 #include <unordered_map>
 
 
-#define MAX_NUM_COMPONENTS			32	//Max number of components (for bit string)
-
-
 class GameObject
 {
 
@@ -40,7 +37,7 @@ public:
 	void Destroy();
 	bool Is_marked_for_remove() const;
 
-private:
+	//Getters
 	ComponentMask GetComponentMask() const;
 	size_t GetId() const;
 	std::string GetTag() const;
@@ -60,7 +57,7 @@ private:
 	std::string tag;
 
 	//std::unordered_map<BaseComponent::ComponentId, BaseComponent*> components;
-	BaseComponent* components[MAX_NUM_COMPONENTS]; //128 bytes
+	BaseComponent* components[MAX_NUM_COMPONENTS] = { 0 }; //128 bytes
 };
 
 
@@ -81,7 +78,7 @@ T* GameObject::GetComponent()
 	if (!HasComponent<T>())
 		return nullptr;
 
-	return components[componentTypeId];
+	return static_cast<T*>(components[componentTypeId]);
 }
 
 
