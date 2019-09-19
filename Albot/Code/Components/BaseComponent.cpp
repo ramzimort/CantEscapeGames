@@ -7,5 +7,4 @@ Primary Author: Jose Rosenbluth
 
 #include "BaseComponent.h"
 
-
 unsigned int BaseComponent::numberOfTypes = 0;

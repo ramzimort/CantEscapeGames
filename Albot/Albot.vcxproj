@@ -118,6 +118,10 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
       <PreprocessorDefinitions>DEVELOPER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -148,6 +152,10 @@
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -175,6 +183,10 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
       <PreprocessorDefinitions>DEVELOPER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -225,25 +237,31 @@
     <ClCompile Include="Code\Graphics\Camera.cpp" />
     <ClCompile Include="Code\Main.cpp" />
     <ClCompile Include="Code\Managers\CameraManager.cpp" />
-    <ClCompile Include="Code\Managers\WindowManager.cpp" />
-    <ClCompile Include="Code\Managers\InputManager.cpp" />
-    <ClCompile Include="Code\Managers\FrameManager.cpp" />
     <ClCompile Include="Code\Managers\EventManager.cpp" />
+    <ClCompile Include="Code\Managers\FrameManager.cpp" />
+    <ClCompile Include="Code\Managers\InputManager.cpp" />
+    <ClCompile Include="Code\Managers\WindowManager.cpp" />
     <ClCompile Include="Code\Memory\StackAllocator.cpp" />
+    <ClCompile Include="Code\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
-    <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
     <ClInclude Include="Code\Graphics\Camera.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />
-    <ClInclude Include="Code\Managers\InputManager.h" />
-    <ClInclude Include="Code\Managers\FrameManager.h" />
     <ClInclude Include="Code\Managers\EventManager.h" />
+    <ClInclude Include="Code\Managers\FrameManager.h" />
+    <ClInclude Include="Code\Managers\InputManager.h" />
     <ClInclude Include="Code\Managers\WindowManager.h" />
     <ClInclude Include="Code\Memory\StackAllocator.h" />
+    <ClInclude Include="Code\stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
