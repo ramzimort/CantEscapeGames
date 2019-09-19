@@ -98,13 +98,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">
-    <OutDir>$(SolutionDir)\Output\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,20 +139,33 @@
       <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2/SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK/DirectXTK_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win32\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\ThirdParty\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEVELOPER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;</ForcedIncludeFiles>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -162,11 +190,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EntryPointSymbol>
       </EntryPointSymbol>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2/SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK/DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win32\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">
@@ -193,41 +221,62 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EntryPointSymbol>
       </EntryPointSymbol>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2/SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK/DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>NotSet</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\*.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win32\*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\ThirdParty\Include</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;%(AdditionalDependencies);%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)\ThirdParty\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEVELOPER;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(ProjectDir)code\stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)Code\$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ForcedIncludeFiles>$(ProjectDir)code\stdafx.h;</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;%(AdditionalDependencies);%(AdditionalDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win64\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
@@ -246,6 +295,7 @@
     <ClCompile Include="Code\Managers\InputManager.cpp" />
     <ClCompile Include="Code\Managers\SystemManager.cpp" />
     <ClCompile Include="Code\Managers\WindowManager.cpp" />
+    <ClCompile Include="Code\Memory\PoolAllocator.cpp" />
     <ClCompile Include="Code\Memory\StackAllocator.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
@@ -258,6 +308,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
@@ -280,6 +333,7 @@
     <ClInclude Include="Code\Managers\InputManager.h" />
     <ClInclude Include="Code\Managers\SystemManager.h" />
     <ClInclude Include="Code\Managers\WindowManager.h" />
+    <ClInclude Include="Code\Memory\PoolAllocator.h" />
     <ClInclude Include="Code\Memory\StackAllocator.h" />
     <ClInclude Include="Code\Physics\Geometry\Aabb.h" />
     <ClInclude Include="Code\Physics\Geometry\Intersection.h" />

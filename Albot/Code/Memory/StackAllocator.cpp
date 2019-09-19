@@ -2,12 +2,10 @@
 
 namespace CantMemory
 {
-	StackAllocator::StackAllocator(uint32_t stackSize_bytes) : 
-		m_mem0(nullptr),
-		m_marker(0)
-	{
-		m_mem0 = new char[stackSize_bytes];
-	}
+	char* StackAllocator::m_mem0 = new char[1048576];;
+	Marker StackAllocator::m_marker = 0;
+
+	StackAllocator::StackAllocator(uint32_t stackSize_bytes) {	}
 
 	void* StackAllocator::Allocate(uint32_t size_bytes)
 	{

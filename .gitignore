@@ -15,6 +15,7 @@
 [Rr]eleases/
 x64/
 x86/
+Output/
 bld/
 [Bb]in/
 [Oo]bj/
