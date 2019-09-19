@@ -15,8 +15,12 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <chrono>
 #include <memory>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 
 
 //DirectX and DirectXTK

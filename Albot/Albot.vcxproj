@@ -247,6 +247,13 @@
     <ClCompile Include="Code\Managers\SystemManager.cpp" />
     <ClCompile Include="Code\Managers\WindowManager.cpp" />
     <ClCompile Include="Code\Memory\StackAllocator.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
+    <ClCompile Include="Code\Physics\PhysicsManager.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
     <ClCompile Include="Code\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Create</PrecompiledHeader>
@@ -274,6 +281,15 @@
     <ClInclude Include="Code\Managers\SystemManager.h" />
     <ClInclude Include="Code\Managers\WindowManager.h" />
     <ClInclude Include="Code\Memory\StackAllocator.h" />
+    <ClInclude Include="Code\Physics\Geometry\Aabb.h" />
+    <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
+    <ClInclude Include="Code\Physics\Geometry\Shape.h" />
+    <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
+    <ClInclude Include="Code\Physics\PhysicsManager.h" />
+    <ClInclude Include="Code\Physics\PhysicsUtils.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
