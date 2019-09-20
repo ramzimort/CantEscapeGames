@@ -6,9 +6,8 @@ Primary Author: Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
 
-#include <assert.h>
 #include "GameObjectManager.h"
-#include "../GameObjects/GameObject.h"
+#include "GameObjects/GameObject.h"
 
 //TODO - delete when replacing for a message
 #include "SystemManager.h"

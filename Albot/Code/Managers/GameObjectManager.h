@@ -7,7 +7,7 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include "../Components/BaseComponent.h" //TODO check if this really needs to be here
+#include "Components/BaseComponent.h" //TODO check if this really needs to be here
 #include <bitset>
 #include <string>
 #include <unordered_map>

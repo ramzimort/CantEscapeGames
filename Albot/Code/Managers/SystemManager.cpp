@@ -7,11 +7,11 @@ Primary Author: Jose Rosenbluth
 
 
 #include "SystemManager.h"
-#include "../Systems/BaseSystem.h"
+#include "Systems/BaseSystem.h"
 
 //For now, all custom system headers
-#include "../Systems/RenderingSystem.h"
-#include "../Systems/RigidbodySystem.h"
+#include "Systems/RenderingSystem.h"
+#include "Systems/RigidbodySystem.h"
 
 
 SystemManager::SystemManager()

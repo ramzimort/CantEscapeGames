@@ -7,15 +7,15 @@ Primary Author: Jose Rosenbluth
 
 
 #include "Factory.h"
-#include "../GameObjects/GameObject.h"
-#include "../Managers/SystemManager.h"
-#include "../Managers/GameObjectManager.h"
+#include "GameObjects/GameObject.h"
+#include "Managers/SystemManager.h"
+#include "Managers/GameObjectManager.h"
 
 // ALL COMPONENTS
-#include "../Components/TransformComponent.h"
-#include "../Components/RendererComponent.h"
-#include "../Components/RigidbodyComponent.h"
-#include "../Components/TestComponent.h"
+#include "Components/TransformComponent.h"
+#include "Components/RendererComponent.h"
+#include "Components/RigidbodyComponent.h"
+#include "Components/TestComponent.h"
 
 
 //TODO - Delete globals

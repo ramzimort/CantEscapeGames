@@ -7,7 +7,7 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include "../Components/BaseComponent.h"
+#include "Components/BaseComponent.h"
 #include <string>
 #include <bitset>
 #include <unordered_map>

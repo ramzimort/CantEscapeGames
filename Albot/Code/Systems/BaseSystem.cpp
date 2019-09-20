@@ -6,7 +6,7 @@ Primary Author: Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
 #include "BaseSystem.h"
-#include "../GameObjects/GameObject.h"
+#include "GameObjects/GameObject.h"
 
 
 unsigned int BaseSystem::numberOfTypes = 0;

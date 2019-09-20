@@ -7,7 +7,7 @@ Primary Author: Jose Rosenbluth
 
 
 #include "CameraManager.h"
-#include "../Graphics/Camera.h"
+#include "Graphics/Camera.h"
 
 
 CameraManager::CameraManager()

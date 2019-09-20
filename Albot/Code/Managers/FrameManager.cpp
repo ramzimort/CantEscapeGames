@@ -1,6 +1,5 @@
 
 #include "FrameManager.h"
-#include "SDL2/SDL_timer.h"
 
 FrameManager::FrameManager(unsigned int maxFrameRate) :
 	m_tick_start(0),

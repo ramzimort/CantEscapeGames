@@ -9,7 +9,7 @@ Primary Author: Jose Rosenbluth
 #include "GameObject.h"
 
 //TODO - Remove when replacing for event call
-#include "../Managers/GameObjectManager.h"
+#include "Managers/GameObjectManager.h"
 extern GameObjectManager *goMgr;
 
 
