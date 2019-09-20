@@ -10,26 +10,23 @@ Primary Author: Jose Rosenbluth
 ///Includes
 #include "BaseSystem.h"
 
-class Transform;
-class Renderer;
+class TestComp;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
 
-struct RenderingCompNode : BaseSystemCompNode
+struct TestCompCompNode : BaseSystemCompNode
 {
-	Transform *n_transform;
-	Renderer *n_renderer;
+	TestComp *n_testComp;
 
 	//Ctor
-	RenderingCompNode(Transform *transform, 
-		Renderer *renderer) : n_transform(transform), 
-		n_renderer(renderer) 
+	TestCompCompNode(TestComp *test) :
+		n_testComp(test)
 	{}
 };
 
 
-class RenderingSystem : public BaseSystem 
+class TestSystem : public BaseSystem
 {
 
 //Friend classes
@@ -38,19 +35,14 @@ public:
 
 //Public interface
 public:
-	RenderingSystem();
-	virtual ~RenderingSystem() {}
+	TestSystem();
+	virtual ~TestSystem() {}
 
-	virtual void Register_GameObject(GameObject *go) override;
-	virtual void Update(float dt, BaseSystemCompNode *compNode) override;
-
-	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
-
-private:
-	RenderingSystem(RenderingSystem const& rhs);
+	virtual void Register_GameObject(GameObject *go);
+	virtual void Update(float dt, BaseSystemCompNode *compNode);
 
 protected:
-	//protected vars
+	void printFloat(float a);
 
 public:
 	//To compare when using templates

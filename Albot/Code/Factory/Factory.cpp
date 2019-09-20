@@ -2,7 +2,7 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
+Primary Author:
 - End Header --------------------------------------------------------*/
 
 
@@ -18,15 +18,20 @@ Primary Author: Jose Rosenbluth
 #include "Components/TestComponent.h"
 
 
-//TODO - Delete globals
-extern GameObjectManager *goMgr;
-extern SystemManager *sysMgr;
-
-
-Factory::Factory()
+Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr)
 {
+	//If either of these is nullptr, we have to stop
+	if (!goMgr || !sysMgr) 
+	{
+		//TODO - Call debug stuff here for error
+		return;
+	}
+
+
+	/////////////////////////////////////////////////////////////
+	// LATER, THIS PART HAS TO BE DONE USING THE PATH  //////////
+	/////////////////////////////////////////////////////////////
 	// EXAMPLE OF HOW TO ADD GAMEOBJECTS ////////////////////////
-	// (Supposing the info is gotten from the factory)       ////
 													         ////
 													         ////
 	//Will register in rendering system				         ////

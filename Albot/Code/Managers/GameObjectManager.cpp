@@ -11,11 +11,11 @@ Primary Author: Jose Rosenbluth
 
 //TODO - delete when replacing for a message
 #include "SystemManager.h"
-extern SystemManager *sysMgr;
 
 
-GameObjectManager::GameObjectManager()
+GameObjectManager::GameObjectManager(SystemManager *sysMgr)
 {
+	this->m_systemMgr = sysMgr;
 }
 
 GameObjectManager::~GameObjectManager()
@@ -58,7 +58,7 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 		instantiationQueue.pop();
 
 		//Create the new GameObject
-		GameObject *go = descriptor.tag == "" ? new GameObject() : new GameObject(descriptor.tag);
+		GameObject *go = descriptor.tag == "" ? new GameObject(this) : new GameObject(this, descriptor.tag);
 		if (go) 
 		{
 			//Add components and override using lambda or delegate
@@ -67,7 +67,7 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 
 			//Register on the system
 			//TODO - REPLACE WITH MESSAGE TO SYSTEM MGR (for testing that)
-			sysMgr->RegisterGameObject(go);
+			m_systemMgr->RegisterGameObject(go);
 
 			//Finally, add to map of gameObjects
 			this->m_gameObjects[go->GetId()] = go;
@@ -91,7 +91,7 @@ void GameObjectManager::Destroy_Queued_GameObjects()
 			m_gameObjects.erase(go_id);
 
 			//Unsuscribe from system
-			sysMgr->Unregister_GameObject(go_id);
+			m_systemMgr->Unregister_GameObject(go_id);
 
 			//Delete
 			delete go;

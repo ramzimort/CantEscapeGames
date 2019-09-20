@@ -35,7 +35,7 @@ struct GameObjectDesc
 class GameObjectManager
 {
 public:
-	GameObjectManager();
+	GameObjectManager(SystemManager *sysMgr);
 	~GameObjectManager();
 
 	//For now, the once a frame method that will process the queues
@@ -52,4 +52,6 @@ private:
 	std::unordered_map<size_t, GameObject*> m_gameObjects;
 	std::queue<GameObjectDesc> instantiationQueue;
 	std::queue<size_t> DestructionQueue;
+
+	SystemManager *m_systemMgr;
 };

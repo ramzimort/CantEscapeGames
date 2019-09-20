@@ -12,6 +12,7 @@ Primary Author: Jose Rosenbluth
 //For now, all custom system headers
 #include "Systems/RenderingSystem.h"
 #include "Systems/RigidbodySystem.h"
+#include "Systems/TestSystem.h"
 
 
 SystemManager::SystemManager()
@@ -20,6 +21,9 @@ SystemManager::SystemManager()
 
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
+
+	//Test (erase later)
+	this->AddSystem<TestSystem>();
 }
 
 SystemManager::~SystemManager()
@@ -59,5 +63,15 @@ void SystemManager::Update(float dt)
 	{
 		BaseSystem *system = node.second;
 		system->UpdateAllNodes(dt);
+	}
+}
+
+
+void SystemManager::Draw(float dt)
+{
+	for (auto& node : systems)
+	{
+		BaseSystem *system = node.second;
+		system->DrawAllNodes(dt);
 	}
 }

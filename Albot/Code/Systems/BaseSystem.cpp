@@ -32,6 +32,15 @@ void BaseSystem::UpdateAllNodes(float dt)
 }
 
 
+void BaseSystem::DrawAllNodes(float dt)
+{
+	for (auto& node : go_components_map)
+	{
+		this->Draw(dt, node.second);
+	}
+}
+
+
 bool BaseSystem::Can_Register_GameObject(GameObject *go)
 {
 	//Check for nullptr
@@ -57,4 +66,10 @@ void BaseSystem::Unregister_GameObject(size_t go_id)
 		go_components_map.erase(go_id);
 		delete node;
 	}
+}
+
+
+void BaseSystem::Draw(float dt,
+	BaseSystemCompNode *compNode) 
+{
 }

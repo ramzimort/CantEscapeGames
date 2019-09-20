@@ -12,6 +12,8 @@ Primary Author:
 ///INCLUDES
 #include "BaseComponent.h"
 
+#include "../Events/Multicast.h"
+
 
 class TestComp : public BaseComponent
 {
@@ -27,8 +29,11 @@ public:
 
 	virtual void Init() override;
 
-
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
+
+	//Multicast testing
+	Multicast<void(float)> onWhateverFires;
+
 };

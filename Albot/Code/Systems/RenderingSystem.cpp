@@ -47,3 +47,14 @@ void RenderingSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 	//UPDATE CODE GOES HERE
 }
+
+
+void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
+{
+	// 5 - Get the pointer to the components, and then freely update
+	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
+	Transform *T = node->n_transform;
+	Renderer *R = node->n_renderer;
+
+	//DRAW CODE GOES HERE
+}

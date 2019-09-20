@@ -7,24 +7,21 @@ Primary Author: Jose Rosenbluth
 
 
 #include "GameObject.h"
-
-//TODO - Remove when replacing for event call
-#include "Managers/GameObjectManager.h"
-extern GameObjectManager *goMgr;
+#include "../Managers/GameObjectManager.h"
 
 
 // Initialize static member of class
 int GameObject::go_count = 0;
 
 
-GameObject::GameObject() : 
-	id(go_count++), comp_mask(0), 
+GameObject::GameObject(GameObjectManager *goMgr) :
+	m_gameObjectMgr(goMgr), id(go_count++), comp_mask(0),
 	marked_for_remove(false)
 {
 }
 
-GameObject::GameObject(std::string tag) :
-	id(go_count++), comp_mask(0), 
+GameObject::GameObject(GameObjectManager *goMgr, std::string tag) :
+	m_gameObjectMgr(goMgr), id(go_count++), comp_mask(0), 
 	marked_for_remove(false), tag(tag)
 {
 }
@@ -60,7 +57,7 @@ void GameObject::Destroy()
 
 	// 1- Communicate to the GO MGR so the go is queued for deletion
 	// TODO - Change for event call
-	goMgr->Queue_GameObject_Destruction(this->GetId());
+	m_gameObjectMgr->Queue_GameObject_Destruction(this->GetId());
 }
 
 bool GameObject::Is_marked_for_remove() const

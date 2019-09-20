@@ -5,15 +5,9 @@
 #include "CantDebug/CantDebug.h"
 
 
-#ifdef DEVELOPER
-#include "Factory/Factory.h"
-#include "Managers/SystemManager.h"
-#include "Managers/GameObjectManager.h"
-
-GameObjectManager *goMgr;
-SystemManager *sysMgr;
-Factory *factory;
-#endif
+// TODO - REMOVE LATER (jose)
+#include "Managers/StateManager.h"
+StateManager *stateMgr;
 
 
 int main()
@@ -29,12 +23,9 @@ int main()
 	bool done = false;
 	float dt;
 
-
-	#ifdef DEVELOPER
-	goMgr = new GameObjectManager();
-	sysMgr = new SystemManager();
-	factory = new Factory();
-	#endif
+	// TODO - REMOVE LATER (jose)
+	stateMgr = new StateManager();
+	stateMgr->SwitchState(new State("level1.json"));
 
 
 	while (!done)
@@ -53,12 +44,12 @@ int main()
 		DEBUG_TRACE("Frame Time: %f ms", dt);
 		DEBUG_TRACE("Framerate: %f Hz", 1000.f/dt);
 
-		
-		#ifdef DEVELOPER
-		goMgr->ProcessQueues();
-		sysMgr->Update(dt);
-		#endif
 
+		// TODO - REMOVE LATER (jose)
+		stateMgr->ProcessInstantiationAndDestruction();
+		stateMgr->UpdateStack(dt);
+		stateMgr->DrawStack(dt);          
+		
 		
 		DEBUG_UPDATE
 		frame_manager.EndFrame();
@@ -66,11 +57,8 @@ int main()
 
 	DEBUG_CLOSE;
 
-	#ifdef DEVELOPER
-	delete goMgr;
-	delete sysMgr;
-	delete factory;
-	#endif
+	// TODO - REMOVE LATER (jose)
+	delete stateMgr;
 
 	return 0;
 }

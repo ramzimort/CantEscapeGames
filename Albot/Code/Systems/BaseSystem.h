@@ -35,10 +35,14 @@ public:
 	BaseSystem() { }
 	virtual ~BaseSystem();
 
-	virtual void Update(float dt, 
+	virtual void Update(float dt,
 		BaseSystemCompNode *compNode) = 0;
 
+	virtual void Draw(float dt,
+		BaseSystemCompNode *compNode);
+
 	void UpdateAllNodes(float dt);
+	void DrawAllNodes(float dt);
 
 protected:
 	template <typename T>
