@@ -105,8 +105,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)</OutDir>
-    <IntDir>Output\$(Platform)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)\Output\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Output\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
