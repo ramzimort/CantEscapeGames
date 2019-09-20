@@ -8,8 +8,6 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 //Placeholder
-struct Vector2 {};
-struct Vector4 {};
 struct Matrix4 {};
 
 

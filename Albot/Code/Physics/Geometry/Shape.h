@@ -13,8 +13,10 @@ class Sphere;
 class Shape
 {
 public:
+#ifdef DEVELOPER
 	virtual void DebugDraw(const DirectX::SimpleMath::Vector4& color) const = 0;
-
+#endif
+	
 	virtual bool IsIntersect(const Aabb& aabb) const = 0;
 	virtual bool IsIntersect(const Sphere& sphere) const = 0;
 	

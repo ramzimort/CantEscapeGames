@@ -61,7 +61,7 @@ namespace PhysicsUtils
 		return rhs * rhs;
 	}
 
-#ifdef _DEBUG
+#ifdef DEVELOPER
 	class MathPrinter
 	{
 	public:

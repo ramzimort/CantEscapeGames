@@ -5,6 +5,7 @@
 
 #pragma once
 
+
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files
 #include <windows.h>
@@ -43,4 +44,5 @@
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_events.h>
 
+using namespace DirectX::SimpleMath;
 
