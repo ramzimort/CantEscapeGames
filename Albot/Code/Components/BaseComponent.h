@@ -28,11 +28,11 @@ public:
 	BaseComponent(GameObject *owner, ComponentId type)
 	{
 		this->m_owner = owner;
-		this->type = type;
+		this->m_type = type;
 	}
 	virtual ~BaseComponent() { }
 	virtual void Init() = 0;
-	ComponentId GetType() const { return type; }
+	ComponentId GetType() const { return m_type; }
 
 
 private:
@@ -44,6 +44,6 @@ protected:
 
 
 protected:
-	ComponentId type;
+	ComponentId m_type;
 	GameObject *m_owner;
 };

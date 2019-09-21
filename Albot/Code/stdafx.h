@@ -22,6 +22,8 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <bitset>
+#include <queue>
 
 
 //DirectX and DirectXTK

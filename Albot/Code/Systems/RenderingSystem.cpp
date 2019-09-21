@@ -32,9 +32,9 @@ void RenderingSystem::Register_GameObject(GameObject *go)
 	Renderer *renderer = go->GetComponent<Renderer>();
 
 	BaseSystemCompNode *component_node = new RenderingCompNode(transform, renderer);
-	component_node->go_id = go->GetId();
+	component_node->m_goID = go->GetId();
 
-	this->go_components_map[go->GetId()] = component_node;
+	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
 
 

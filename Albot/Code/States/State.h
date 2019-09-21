@@ -8,8 +8,6 @@ Primary Author:
 
 #pragma once
 
-#include <string>
-
 class Factory;
 
 //Check which managers the state has

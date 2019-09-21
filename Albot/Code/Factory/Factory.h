@@ -7,8 +7,6 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include <string>
-
 class GameObjectManager;
 class SystemManager;
 

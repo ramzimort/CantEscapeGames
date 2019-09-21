@@ -16,13 +16,13 @@ CameraManager::CameraManager()
 
 CameraManager::~CameraManager()
 {
-	for (auto& node : RegisteredCameras) 
+	for (auto& node : m_registeredCameras) 
 	{
 		CameraInfo& camInfo = node.second;
-		if (camInfo.camera != nullptr)
-			delete camInfo.camera;
+		if (camInfo.m_camera != nullptr)
+			delete camInfo.m_camera;
 	}
-	RegisteredCameras.clear();
+	m_registeredCameras.clear();
 }
 
 void CameraManager::Update(float dt)

@@ -27,15 +27,15 @@ SystemManager::SystemManager()
 
 SystemManager::~SystemManager()
 {
-	for (auto& node : systems)
+	for (auto& node : m_systems)
 		delete node.second;
-	systems.clear();
+	m_systems.clear();
 }
 
 
 bool SystemManager::RegisterGameObject(GameObject *go) 
 {
-	for (auto& node : systems)
+	for (auto& node : m_systems)
 	{
 		BaseSystem *system = node.second;
 		if (system->Can_Register_GameObject(go))
@@ -48,7 +48,7 @@ bool SystemManager::RegisterGameObject(GameObject *go)
 
 void SystemManager::Unregister_GameObject(size_t go_id)
 {
-	for (auto& node : systems)
+	for (auto& node : m_systems)
 	{
 		BaseSystem *system = node.second;
 		system->Unregister_GameObject(go_id);
@@ -58,7 +58,7 @@ void SystemManager::Unregister_GameObject(size_t go_id)
 
 void SystemManager::UpdateSystems(float dt)
 {
-	for (auto& node : systems) 
+	for (auto& node : m_systems) 
 	{
 		BaseSystem *system = node.second;
 
@@ -76,7 +76,7 @@ void SystemManager::UpdateSystems(float dt)
 
 void SystemManager::Draw(float dt)
 {
-	for (auto& node : systems)
+	for (auto& node : m_systems)
 	{
 		BaseSystem *system = node.second;
 		system->DrawAllNodes(dt);

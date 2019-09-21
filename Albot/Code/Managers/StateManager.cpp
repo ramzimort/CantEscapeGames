@@ -21,9 +21,9 @@ StateManager::~StateManager()
 void StateManager::UpdateStack(float dt)
 {
 	//Update only happens on top state
-	size_t index = stateStack.size() - 1;
+	size_t index = m_stateStack.size() - 1;
 
-	State *topState = stateStack[index];
+	State *topState = m_stateStack[index];
 	topState->Update(dt);
 }
 
@@ -32,9 +32,9 @@ void StateManager::DrawStack(float dt)
 	//Drawing happens from bottom to top
 	// TODO - Do we want the GraphicsManager to actually draw between these calls?
 
-	for (int i = 0; i < stateStack.size(); ++i)
+	for (int i = 0; i < m_stateStack.size(); ++i)
 	{
-		State *state = stateStack[i];
+		State *state = m_stateStack[i];
 		state->Draw(dt);
 	}
 }
@@ -42,9 +42,9 @@ void StateManager::DrawStack(float dt)
 void StateManager::SwitchState(State *newState)
 {
 	//Empty the stateStack (deletion could be another thread maybe?)
-	for (State *state : stateStack) 
+	for (State *state : m_stateStack) 
 		delete state;
-	stateStack.clear();
+	m_stateStack.clear();
 
 	//This is for having this call also clear the stack when called with 0
 	if (newState == nullptr) return;
@@ -56,20 +56,20 @@ void StateManager::SwitchState(State *newState)
 void StateManager::PushState(State *state)
 {
 	// TODO - Check what else may need to be done
-	stateStack.push_back(state);
+	m_stateStack.push_back(state);
 }
 
 void StateManager::PopState()
 {
-	size_t index = stateStack.size() - 1;
-	State *topState = stateStack[index];
+	size_t index = m_stateStack.size() - 1;
+	State *topState = m_stateStack[index];
 	delete topState;
-	stateStack.pop_back();
+	m_stateStack.pop_back();
 }
 
 void StateManager::ProcessInstantiationAndDestruction() 
 {
-	for (State *state : stateStack)
+	for (State *state : m_stateStack)
 	{
 		state->ProcessInstantiationAndDestruction();
 	}

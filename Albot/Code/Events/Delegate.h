@@ -26,8 +26,8 @@ public:
 	using Callback_Type = RET(*)(void *this_, PARAMS ...);
 
 private:
-	Callback_Type callback = nullptr;
-	void *this_obj = nullptr;
+	Callback_Type m_callback = nullptr;
+	void *m_thisObj = nullptr;
 
 public:
 	//FOR METHODS
@@ -60,21 +60,21 @@ public:
 
 	RET operator() (PARAMS ... params)
 	{
-		return callback(this_obj, params ...);
+		return m_callback(m_thisObj, params ...);
 	}
 
 	bool operator ==(delegate const& rhs) const
 	{
-		return (this_obj == rhs.this_obj) && (callback == rhs.callback);
+		return (m_thisObj == rhs.m_thisObj) && (m_callback == rhs.m_callback);
 	}
 
 	bool operator !=(delegate const& rhs) const
 	{
-		return (this_obj != rhs.this_obj) || (callback != rhs.callback);
+		return (m_thisObj != rhs.m_thisObj) || (m_callback != rhs.m_callback);
 	}
 
 	delegate(delegate const& rhs) :
-		this_obj(rhs.this_obj), callback(rhs.callback)
+		m_thisObj(rhs.m_thisObj), m_callback(rhs.m_callback)
 	{
 		//std::cout << "COPYING DELEGATE" << std::endl;
 	}
@@ -83,8 +83,8 @@ public:
 	{
 		if (*this != rhs)
 		{
-			this->this_obj = rhs.this_obj;
-			this->callback = rhs.callback;
+			this->m_thisObj = rhs.m_thisObj;
+			this->m_callback = rhs.m_callback;
 		}
 		else
 		{
@@ -124,7 +124,7 @@ private:
 		return (*caller)(params ...);
 	}
 
-	delegate(void *obj, Callback_Type cback) : this_obj(obj), callback(cback)
+	delegate(void *obj, Callback_Type cback) : m_thisObj(obj), m_callback(cback)
 	{
 		//std::cout << "DELEGATE CTOR" << std::endl;
 	}

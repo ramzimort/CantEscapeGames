@@ -32,9 +32,9 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 	Rigidbody *rigidbody = go->GetComponent<Rigidbody>();
 
 	BaseSystemCompNode *component_node = new RigidbodyCompNode(transform, rigidbody);
-	component_node->go_id = go->GetId();
+	component_node->m_goID = go->GetId();
 
-	this->go_components_map[go->GetId()] = component_node;
+	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
 
 
@@ -42,7 +42,7 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 //Access all the components data and stuff through the unordered_map
 void RigidbodySystem::LateUpdate(float dt) 
 {
-	for (auto& node : go_components_map)
+	for (auto& node : m_ObjComponentsMap)
 	{
 		RigidbodyCompNode *rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
 

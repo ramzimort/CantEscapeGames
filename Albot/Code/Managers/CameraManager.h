@@ -7,9 +7,6 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include <unordered_map>
-#include <string>
-
 class Camera;
 
 
@@ -17,18 +14,18 @@ class Camera;
 struct CameraInfo 
 {
 	//Camera should have the width height info
-	Camera *camera;
+	Camera *m_camera;
 
 	//This is in viewport coords
-	int leftBottomX;
-	int leftBottomY;
+	int m_leftBottomX;
+	int m_leftBottomY;
 
 	//For now not used?
-	int zOrder;
+	int m_zOrder;
 
 	CameraInfo(Camera* cam, int x, int y) : 
-		camera(cam), leftBottomX(x), 
-		leftBottomY(y), zOrder(0)
+		m_camera(cam), m_leftBottomX(x), 
+		m_leftBottomY(y), m_zOrder(0)
 	{}
 };
 
@@ -45,6 +42,6 @@ public:
 	void UnregisterCamera(unsigned cameraId);
 
 private:
-	std::unordered_map<std::string, CameraInfo&> RegisteredCameras;
+	std::unordered_map<std::string, CameraInfo&> m_registeredCameras;
 };
 

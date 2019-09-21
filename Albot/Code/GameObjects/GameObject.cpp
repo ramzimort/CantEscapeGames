@@ -15,14 +15,14 @@ int GameObject::go_count = 0;
 
 
 GameObject::GameObject(GameObjectManager *goMgr) :
-	m_gameObjectMgr(goMgr), id(go_count++), comp_mask(0),
-	marked_for_remove(false)
+	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0),
+	m_markedForRemoval(false)
 {
 }
 
 GameObject::GameObject(GameObjectManager *goMgr, std::string tag) :
-	m_gameObjectMgr(goMgr), id(go_count++), comp_mask(0), 
-	marked_for_remove(false), tag(tag)
+	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0), 
+	m_markedForRemoval(false), m_tag(tag)
 {
 }
 
@@ -30,28 +30,28 @@ GameObject::~GameObject()
 {
 	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i) 
 	{
-		delete components[i];
+		delete m_components[i];
 	}
 }
 
 size_t GameObject::GetId() const
 {
-	return this->id;
+	return this->m_id;
 }
 
 GameObject::ComponentMask GameObject::GetComponentMask() const
 {
-	return comp_mask;
+	return m_compMask;
 }
 
 std::string GameObject::GetTag() const
 {
-	return this->tag;
+	return this->m_tag;
 }
 
 void GameObject::Destroy()
 {
-	this->marked_for_remove = true;
+	this->m_markedForRemoval = true;
 
 	//Stuff that must happen when a gameobject is marked for remove
 
@@ -62,5 +62,5 @@ void GameObject::Destroy()
 
 bool GameObject::Is_marked_for_remove() const
 {
-	return marked_for_remove;
+	return m_markedForRemoval;
 }

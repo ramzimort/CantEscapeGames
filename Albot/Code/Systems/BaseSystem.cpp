@@ -17,15 +17,15 @@ BaseSystem::~BaseSystem()
 {
 	//Delete the ComponentNodes, but not the components, 
 	//since those are deleted by the GameObject
-	for (auto& node : go_components_map)
+	for (auto& node : m_ObjComponentsMap)
 		delete node.second;
-	go_components_map.clear();
+	m_ObjComponentsMap.clear();
 }
 
 
 void BaseSystem::UpdateAllNodes(float dt)
 {
-	for (auto& node : go_components_map)
+	for (auto& node : m_ObjComponentsMap)
 	{
 		this->Update(dt, node.second);
 	}
@@ -34,7 +34,7 @@ void BaseSystem::UpdateAllNodes(float dt)
 
 void BaseSystem::DrawAllNodes(float dt)
 {
-	for (auto& node : go_components_map)
+	for (auto& node : m_ObjComponentsMap)
 	{
 		this->Draw(dt, node.second);
 	}
@@ -49,7 +49,7 @@ bool BaseSystem::Can_Register_GameObject(GameObject *go)
 
 	//Check if the gameobject has the required components
 	std::bitset<MAX_NUM_COMPONENTS> compMask = go->GetComponentMask();
-	if ((compMask & required_comp_mask) != required_comp_mask)
+	if ((compMask & m_requiredCompMask) != m_requiredCompMask)
 		return false;
 
 	//Experiment
@@ -59,11 +59,11 @@ bool BaseSystem::Can_Register_GameObject(GameObject *go)
 
 void BaseSystem::Unregister_GameObject(size_t go_id)
 {
-	BaseSystemCompNode *node = go_components_map[go_id];
+	BaseSystemCompNode *node = m_ObjComponentsMap[go_id];
 	if (node)
 	{
 		//Delete node and delete entry from map
-		go_components_map.erase(go_id);
+		m_ObjComponentsMap.erase(go_id);
 		delete node;
 	}
 }

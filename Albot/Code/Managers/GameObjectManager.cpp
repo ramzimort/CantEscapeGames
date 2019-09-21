@@ -30,12 +30,12 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::Queue_GameObject_Instantiation(GameObjectDesc *goDesc)
 {
-	instantiationQueue.push(*goDesc);
+	m_instantiationQueue.push(*goDesc);
 }
 
 void GameObjectManager::Queue_GameObject_Destruction(size_t go_id)
 {
-	DestructionQueue.push(go_id);
+	m_destructionQueue.push(go_id);
 }
 
 //Once a frame, this method will empty the instantiaion and destroy queues
@@ -51,11 +51,11 @@ void GameObjectManager::ProcessQueues()
 //TODO - When replacing for message, we can remove the sysMgr param
 void GameObjectManager::Instantiate_Queued_GameObjects() 
 {
-	while (!instantiationQueue.empty())
+	while (!m_instantiationQueue.empty())
 	{
 		//Dequeue the elements of the queue
-		GameObjectDesc descriptor = instantiationQueue.front();
-		instantiationQueue.pop();
+		GameObjectDesc descriptor = m_instantiationQueue.front();
+		m_instantiationQueue.pop();
 
 		//Create the new GameObject
 		GameObject *go = descriptor.tag == "" ? new GameObject(this) : new GameObject(this, descriptor.tag);
@@ -77,11 +77,11 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 
 void GameObjectManager::Destroy_Queued_GameObjects() 
 {
-	while (!DestructionQueue.empty())
+	while (!m_destructionQueue.empty())
 	{
 		//Dequeue the elements of the queue
-		size_t go_id = DestructionQueue.front();
-		DestructionQueue.pop();
+		size_t go_id = m_destructionQueue.front();
+		m_destructionQueue.pop();
 
 		//Destroy the GameObject
 		GameObject *go = m_gameObjects[go_id];

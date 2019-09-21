@@ -7,7 +7,7 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include <unordered_map>
+//#include <unordered_map>
 
 class BaseSystem;
 class GameObject;
@@ -31,7 +31,7 @@ public:
 private:
 
 	//For now, this will have a vector of systems
-	std::unordered_map<unsigned int, BaseSystem*> systems;
+	std::unordered_map<unsigned int, BaseSystem*> m_systems;
 };
 
 
@@ -41,11 +41,11 @@ void SystemManager::AddSystem()
 	unsigned int SystemTypeId = T::static_type;
 
 	//If the system has not been created
-	if (systems.count(SystemTypeId) == 0) 
+	if (m_systems.count(SystemTypeId) == 0) 
 	{
 		T* system = new T();
 
 		if (system)
-			systems[SystemTypeId] = system;
+			m_systems[SystemTypeId] = system;
 	}
 }

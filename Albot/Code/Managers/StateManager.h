@@ -7,7 +7,7 @@ Primary Author:
 
 #pragma once
 
-#include <vector>
+//#include <vector>
 #include "../States/State.h"
 
 
@@ -31,6 +31,6 @@ public:
 	void PopState();
 
 private:
-	std::vector<State*> stateStack;
+	std::vector<State*> m_stateStack;
 };
 

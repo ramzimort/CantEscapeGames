@@ -39,5 +39,5 @@ public:
 
 private:
 	//Flag for knowing if the object moved
-	bool needToRecalculateModel;
+	bool m_needToRecalculateModel;
 };

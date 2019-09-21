@@ -8,9 +8,6 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 #include "Components/BaseComponent.h"
-#include <string>
-#include <bitset>
-#include <unordered_map>
 
 
 class GameObjectManager;
@@ -49,18 +46,18 @@ public:
 private:
 	static int go_count;
 
-	ComponentMask comp_mask;
-	bool marked_for_remove;
+	ComponentMask m_compMask;
+	bool m_markedForRemoval;
 
 
 private:
 	//Id will be unique identifier, not optional, set by default.
-	size_t id;
+	size_t m_id;
 
 	//Tag will be an optional identifier, set by us in the json file
-	std::string tag;
+	std::string m_tag;
 
-	BaseComponent* components[MAX_NUM_COMPONENTS] = { 0 }; //128 bytes
+	BaseComponent* m_components[MAX_NUM_COMPONENTS] = { 0 }; //128 bytes
 	GameObjectManager *m_gameObjectMgr;
 };
 
@@ -70,7 +67,7 @@ template<typename T>
 bool GameObject::HasComponent()
 {
 	BaseComponent::ComponentId componentTypeId = T::static_type;
-	return this->comp_mask[componentTypeId];
+	return this->m_compMask[componentTypeId];
 }
 
 
@@ -82,7 +79,7 @@ T* GameObject::GetComponent()
 	if (!HasComponent<T>())
 		return nullptr;
 
-	return static_cast<T*>(components[componentTypeId]);
+	return static_cast<T*>(m_components[componentTypeId]);
 }
 
 
@@ -94,8 +91,8 @@ T* GameObject::AddComponent()
 
 	if (component)
 	{
-		this->comp_mask[componentTypeId] = 1;
-		this->components[componentTypeId] = component;
+		this->m_compMask[componentTypeId] = 1;
+		this->m_components[componentTypeId] = component;
 		return component;
 	}
 	return nullptr;

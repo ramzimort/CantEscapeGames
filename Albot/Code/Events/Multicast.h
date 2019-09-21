@@ -8,7 +8,6 @@ Other Authors : <None>
 
 #pragma once
 #include "Delegate.h"
-#include <list>
 
 
 template <typename T>

@@ -8,10 +8,6 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 #include "Components/BaseComponent.h" //TODO check if this really needs to be here
-#include <bitset>
-#include <string>
-#include <unordered_map>
-#include <queue>
 
 class GameObject;
 class SystemManager;
@@ -50,8 +46,8 @@ private:
 
 private:
 	std::unordered_map<size_t, GameObject*> m_gameObjects;
-	std::queue<GameObjectDesc> instantiationQueue;
-	std::queue<size_t> DestructionQueue;
+	std::queue<GameObjectDesc> m_instantiationQueue;
+	std::queue<size_t> m_destructionQueue;
 
 	SystemManager *m_systemMgr;
 };

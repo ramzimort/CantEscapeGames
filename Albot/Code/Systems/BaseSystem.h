@@ -8,8 +8,8 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 ///Includes
-#include <bitset>
-#include <unordered_map>
+///#include <bitset>
+///#include <unordered_map>
 #include "../Components/BaseComponent.h"
 
 
@@ -17,7 +17,7 @@ Primary Author: Jose Rosenbluth
 //belonging to each GameObject suscribed
 struct BaseSystemCompNode
 {
-	size_t go_id;
+	size_t m_goID;
 };
 
 
@@ -64,10 +64,10 @@ protected:
 
 protected:
 	//Identifier of required components
-	std::bitset<MAX_NUM_COMPONENTS> required_comp_mask;
+	std::bitset<MAX_NUM_COMPONENTS> m_requiredCompMask;
 
 	//Map of go_id to node holding all its components
-	std::unordered_map<size_t, BaseSystemCompNode*> go_components_map;
+	std::unordered_map<size_t, BaseSystemCompNode*> m_ObjComponentsMap;
 };
 
 
@@ -76,5 +76,5 @@ template <typename T>
 void BaseSystem::Push_required_comp() 
 {
 	unsigned componentId = T::static_type;
-	this->required_comp_mask[componentId] = 1;
+	this->m_requiredCompMask[componentId] = 1;
 }

@@ -29,9 +29,9 @@ void TestSystem::Register_GameObject(GameObject *go)
 	TestComp *test = go->GetComponent<TestComp>();
 
 	BaseSystemCompNode *component_node = new TestCompCompNode(test);
-	component_node->go_id = go->GetId();
+	component_node->m_goID = go->GetId();
 
-	this->go_components_map[go->GetId()] = component_node;
+	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
 
 

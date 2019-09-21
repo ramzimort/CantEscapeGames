@@ -12,7 +12,7 @@ unsigned const Transform::static_type = BaseComponent::numberOfTypes++;
 
 Transform::Transform(GameObject *owner) :
 	BaseComponent(owner, Transform::static_type),
-	needToRecalculateModel(0)
+	m_needToRecalculateModel(0)
 {
 }
 
@@ -29,13 +29,13 @@ void Transform::Init()
 
 void Transform::Translate(float x, float y, float z)
 {
-	needToRecalculateModel = 1;
+	m_needToRecalculateModel = 1;
 }
 
 
 void Transform::Rotate(float angle_deg/*, Vector4 const& axis*/)
 {
-	needToRecalculateModel = 1;
+	m_needToRecalculateModel = 1;
 }
 
 
@@ -47,5 +47,5 @@ void Transform::Scale(float val)
 
 void Transform::Scale(float x, float y, float z)
 {
-	needToRecalculateModel = 1;
+	m_needToRecalculateModel = 1;
 }
