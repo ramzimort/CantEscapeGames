@@ -1,9 +1,14 @@
 #include "StackAllocator.h"
 
-char* StackAllocator::m_mem0 = new char[1048576];;
-Marker StackAllocator::m_marker = 0;
+StackAllocator::StackAllocator(uint32_t stackSize_bytes) :
+	m_mem0(new char[stackSize_bytes]),
+	m_marker(0)
+{ }
 
-StackAllocator::StackAllocator(uint32_t stackSize_bytes) {	}
+StackAllocator::~StackAllocator()
+{
+	delete m_mem0;
+}
 
 void* StackAllocator::Allocate(uint32_t size_bytes)
 {
