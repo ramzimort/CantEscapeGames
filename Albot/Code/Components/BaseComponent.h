@@ -31,7 +31,12 @@ public:
 		this->m_type = type;
 	}
 	virtual ~BaseComponent() { }
+
+	//Init should be called when instantiating the component
 	virtual void Init() = 0;
+	//Begin should be called once all the gameobject components have been created
+	virtual void Begin() = 0;
+
 	ComponentId GetType() const { return m_type; }
 
 

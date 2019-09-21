@@ -26,6 +26,7 @@ public:
 	virtual ~Renderer();
 
 	virtual void Init() override;
+	virtual void Begin() override;
 
 
 public:

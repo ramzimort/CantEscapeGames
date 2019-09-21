@@ -17,7 +17,7 @@ Primary Author: Jose Rosenbluth
 
 
 Camera::Camera() : m_width(STD_WIDTH), m_height(STD_HEIGHT), 
-	m_near(STD_NEAR), m_far(STD_FAR), m_fov(STD_FOV), 
+	m_near(STD_NEAR), m_far(STD_FAR), m_fov(STD_FOV),
 	/*m_eye(), m_look(),*/ m_isOrtho(false)
 {
 	initCamera();

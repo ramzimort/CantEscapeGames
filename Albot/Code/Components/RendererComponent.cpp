@@ -22,3 +22,7 @@ Renderer::~Renderer()
 void Renderer::Init()
 {
 }
+
+void Renderer::Begin()
+{
+}

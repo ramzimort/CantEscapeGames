@@ -29,10 +29,10 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 
 
 	/////////////////////////////////////////////////////////////
-	// LATER, THIS PART HAS TO BE DONE USING THE PATH  //////////
+	//   LATER, THIS PART HAS TO BE DONE USING THE PATH      ////
 	/////////////////////////////////////////////////////////////
-	// EXAMPLE OF HOW TO ADD GAMEOBJECTS ////////////////////////
-													         ////
+	//   EXAMPLE OF HOW TO ADD GAMEOBJECTS                   ////
+                                                             ////
 													         ////
 	//Will register in rendering system				         ////
 	GameObjectDesc desc1;							         ////

@@ -22,3 +22,7 @@ TestComp::~TestComp()
 void TestComp::Init() 
 {
 }
+
+void TestComp::Begin()
+{
+}

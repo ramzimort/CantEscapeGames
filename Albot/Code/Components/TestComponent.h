@@ -28,6 +28,7 @@ public:
 	virtual ~TestComp();
 
 	virtual void Init() override;
+	virtual void Begin() override;
 
 public:
 	//Unique class identifier

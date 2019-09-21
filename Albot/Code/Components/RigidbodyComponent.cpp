@@ -22,3 +22,7 @@ Rigidbody::~Rigidbody()
 void Rigidbody::Init()
 {
 }
+
+void Rigidbody::Begin()
+{
+}

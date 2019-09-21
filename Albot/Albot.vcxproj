@@ -318,6 +318,7 @@
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
     <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
+    <ClCompile Include="Code\Systems\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\CantDebug\CantDebug.h" />
@@ -356,6 +357,7 @@
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
     <ClInclude Include="Code\Systems\RigidbodySystem.h" />
     <ClInclude Include="Code\Systems\TestSystem.h" />
+    <ClInclude Include="Code\Systems\TransformSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

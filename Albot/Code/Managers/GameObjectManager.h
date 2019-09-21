@@ -7,10 +7,9 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-#include "Components/BaseComponent.h" //TODO check if this really needs to be here
-
 class GameObject;
 class SystemManager;
+
 
 
 //Used for storing everything needed to 

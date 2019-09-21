@@ -16,23 +16,42 @@ Primary Author:
 class Transform : public BaseComponent
 {
 
-//Friend classes
+//Friend classes and typedefs
 public:
 	friend class Factory;
 
-//Public interface
+//METHODS
 public:
+	//ctor and dtor
 	Transform(GameObject *owner);
 	virtual ~Transform();
 
+	//Setup methods
 	virtual void Init() override;
+	virtual void Begin() override;
 
-	//To modify the object
+	//Interface
 	void Translate(float x, float y, float z);
-	void Rotate(float angle_deg/*, Vector4 const& axis*/);
+	void Translate(Vector3 const &translate);
+	
+	void Rotate(float angle_deg, Vector3 const& axis);
+
 	void Scale(float val);
 	void Scale(float x, float y, float z);
+	void Scale(Vector3 const &scale);
 
+	//getters
+	Vector3 const& GetPosition() const;
+	Vector3 const& GetRotation() const;
+	Vector3 const& GetScale() const;
+	Matrix const& GetModel() const;
+	void SetModel(Matrix const& model);
+
+	//dirty flag
+	bool NeedToRecalculate(); 
+	void ResetDirtyFlag();
+
+//VARIABLES
 public:
 	//To compare when using templates
 	static ComponentId const static_type;
@@ -40,4 +59,11 @@ public:
 private:
 	//Flag for knowing if the object moved
 	bool m_needToRecalculateModel;
+
+	Vector3 m_position;
+	Vector3 m_rotation;
+	Vector3 m_scale;
+
+	Matrix m_model;
+
 };

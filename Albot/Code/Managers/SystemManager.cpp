@@ -12,12 +12,14 @@ Primary Author: Jose Rosenbluth
 //For now, all custom system headers
 #include "Systems/RenderingSystem.h"
 #include "Systems/RigidbodySystem.h"
+#include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
 
 
 SystemManager::SystemManager()
 {
 	//ADD HERE THE CUSTOM SYSTEMS
+	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
 
