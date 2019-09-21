@@ -57,26 +57,31 @@ void TransformComponent::Translate(Vector3 const& translate)
 }
 
 
-void TransformComponent::Translate(float x, float y, float z)
+void TransformComponent::Translate(float dx, float dy, float dz)
 {
 	m_needToRecalculateModel = 1;
 
-	m_position.x += x;
-	m_position.y += y;
-	m_position.z += z;
+	m_position.x += dx;
+	m_position.y += dy;
+	m_position.z += dz;
 }
 
 
 ///////////////////////////////////////////////////////
 ////           ROTATE METHODS                      ////
 ///////////////////////////////////////////////////////
-void TransformComponent::Rotate(float eulerX, float eulerY, float eulerZ)
+void TransformComponent::Rotate(Vector3 const& rotation)
+{
+	Rotate(rotation.x, rotation.y, rotation.z);
+}
+
+void TransformComponent::Rotate(float eulerDX, float eulerDY, float eulerDZ)
 {
 	m_needToRecalculateModel = 1;
 
-	m_rotation.x += eulerX;
-	m_rotation.y += eulerY;
-	m_rotation.z += eulerZ;
+	m_rotation.x += eulerDX;
+	m_rotation.y += eulerDY;
+	m_rotation.z += eulerDZ;
 }
 
 void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eulerZ)

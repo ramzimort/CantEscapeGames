@@ -34,11 +34,12 @@ public:
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(const Vector3& position);
 	//Interface
-	void Translate(float x, float y, float z);
+	void Translate(float dx, float dy, float dz);
 	void Translate(Vector3 const &translate);
+	
+	void Rotate(float eulerDX, float eulerDY, float eulerDZ); 
+	void Rotate(Vector3 const& rotation);
 	//this is offset rotate
-	void Rotate(float eulerX, float eulerY, float eulerZ);
-
 	void SetLocalRotation(float eulerX, float eulerY, float eulerZ);
 
 	void Scale(float val);
