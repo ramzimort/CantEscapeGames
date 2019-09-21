@@ -34,7 +34,7 @@ public:
 	void Translate(float x, float y, float z);
 	void Translate(Vector3 const &translate);
 	
-	void Rotate(float angle_deg, Vector3 const& axis);
+	void Rotate(float eulerX, float eulerY, float eulerZ);
 
 	void Scale(float val);
 	void Scale(float x, float y, float z);

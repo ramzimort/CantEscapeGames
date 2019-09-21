@@ -57,11 +57,13 @@ void Transform::Translate(float x, float y, float z)
 ///////////////////////////////////////////////////////
 ////           ROTATE METHODS                      ////
 ///////////////////////////////////////////////////////
-void Transform::Rotate(float angle_deg, Vector3 const& axis)
+void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 {
 	m_needToRecalculateModel = 1;
 
-	// TODO - not implemented yet
+	m_rotation.x = eulerX;
+	m_rotation.y = eulerY;
+	m_rotation.z = eulerZ;
 }
 
 
