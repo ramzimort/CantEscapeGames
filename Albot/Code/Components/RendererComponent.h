@@ -13,7 +13,7 @@ Primary Author:
 #include "BaseComponent.h"
 
 
-class Renderer : public BaseComponent
+class RendererComponent : public BaseComponent
 {
 
 //Friend classes
@@ -22,8 +22,8 @@ public:
 
 //Public interface
 public:
-	Renderer(GameObject *owner);
-	virtual ~Renderer();
+	RendererComponent(GameObject *owner);
+	virtual ~RendererComponent();
 
 	virtual void Init() override;
 	virtual void Begin() override;

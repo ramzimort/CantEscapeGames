@@ -7,40 +7,58 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-//Placeholder
-struct Matrix4 {};
 
 
 class Camera
 {
 public:
+	friend class FPSCameraSystem;
+public:
 	Camera();
+
 	Camera(int width, int height, float fov,
-		float near, float far, Vector4& eye, 
-		Vector4& look, bool isOrtho);
+		float nearVal, float farVAl, const Vector3& position);
 	~Camera();
 
-	void Update(float dt);
-	void GetView(Matrix4& view);
-	void GetProj(Matrix4& proj);
+	void SetCameraPosition(float x, float y, float z);
+	void SetCameraPosition(const Vector3& new_position);
 
-	//Getters
-	Vector4& GetEye() const;
-	Vector4& GetLook() const;
-	Vector2 GetSize() const;
+	Vector3 GetCameraPosition() const;
+	void Reset();
 
+	void ApplyRotation(const Matrix& transformation_mat);
+
+
+	const Matrix& GetViewMatrix() const { return m_viewMatrix; }
+	const Matrix& GetInvViewMatrix() const { return m_invViewMatrix; }
+	const Matrix& GetProjectionMatrix() const { return m_projectionMatrix; }
+	const Matrix& GetInvProjectionMatrix() const { return m_invProjectionMatrix; }
+	const Matrix& GetViewProjectionMatrix() const { return m_viewProjectionMatrix; }
+	const Matrix& GetInvViewProjectionMatrix() const { return m_invViewProjectionMatrix; }
+	
+	void update_view_matrix();
+	void update_projection_matrix();
+	void update_view_projection_matrix();
 
 private:
-	void initCamera();
-	void GetPerspective(Matrix4& proj);
-	void GetOrthographic(Matrix4& proj);
-
+	
 private:
-	int m_width, m_height;
-	float m_fov, m_near, m_far, m_aspect;
-	Vector4 m_look;
-	Vector4 m_eye;
-	bool m_isOrtho;
+	Vector3 m_position, m_lookDir, m_upDir, m_rightDir;
 
+	Matrix m_viewMatrix;
+	Matrix m_projectionMatrix;
+
+	Matrix m_invViewMatrix;
+	Matrix m_invProjectionMatrix;
+
+	Matrix m_viewProjectionMatrix;
+	Matrix m_invViewProjectionMatrix;
+
+	float m_fov;
+	float m_aspect;
+	float m_near;
+	float m_far;
+	int32_t m_width;
+	int32_t m_height;
 };
 

@@ -50,3 +50,34 @@
 
 using namespace DirectX::SimpleMath;
 
+#include "Helper/MathUtil.h"
+#include "Helper/Constant.h"
+
+//typedef is used here to have a matching
+//name with HLSL typedef so we can share same struct
+//accross HLSL shading language and C++ source files
+typedef Vector4 float4;
+typedef Vector3 float3;
+typedef Vector2 float2;
+typedef Matrix float4x4;
+
+template<typename T>
+inline void SafeRelease(T& ptr)
+{
+	if (ptr != NULL)
+	{
+		ptr->Release();
+		ptr = NULL;
+	}
+}
+
+template<typename T>
+inline void SafeReleaseDelete(T& ptr)
+{
+	if (ptr != NULL)
+	{
+		ptr->Release();
+		delete ptr;
+		ptr = NULL;
+	}
+}

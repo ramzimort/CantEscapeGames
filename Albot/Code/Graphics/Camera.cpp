@@ -16,57 +16,72 @@ Primary Author: Jose Rosenbluth
 
 
 
-Camera::Camera() : m_width(STD_WIDTH), m_height(STD_HEIGHT), 
-	m_near(STD_NEAR), m_far(STD_FAR), m_fov(STD_FOV),
-	/*m_eye(), m_look(),*/ m_isOrtho(false)
+Camera::Camera(int width, int height, float fov,
+	float nearVal, float farVal, const Vector3& position) : m_width(width),
+	m_height(height), m_near(nearVal), m_far(farVal), m_fov(fov), 
+	m_position(position), 
+	m_lookDir(0.f, 0.f, -1.f),
+	m_upDir(0.f, 1.f, 0.f),
+	m_rightDir(1.f, 0.f, 0.f)
 {
-	initCamera();
-}
-
-Camera::Camera(int width, int height, float fov, 
-	float near, float far, Vector4& eye, 
-	Vector4& look, bool isOrtho) : m_width(width), 
-	m_height(height), m_near(near), m_far(far), m_fov(fov), 
-	m_eye(eye), m_look(look), m_isOrtho(isOrtho)
-{
-	initCamera();
+	m_aspect = static_cast<float>(m_width) / static_cast<float>(m_height);
 }
 
 Camera::~Camera()
 {
-	//DELETE STUFF IF NEEDED
 }
 
-void Camera::initCamera()
+
+void Camera::SetCameraPosition(float x, float y, float z)
 {
-	//Common initialization code
-	this->m_aspect = static_cast<float>(m_width) / m_height;
+	m_position.x = x;
+	m_position.y = y;
+	m_position.z = z;
 }
 
-void Camera::Update(float dt)
+void Camera::SetCameraPosition(const Vector3& new_position)
 {
-	///std::cout << dt << std::endl;
+	m_position = new_position;
 }
 
-void Camera::GetView(Matrix4& view)
+Vector3 Camera::GetCameraPosition() const
 {
-	//CALCULATE VIEW
+	return m_position;
 }
 
-void Camera::GetProj(Matrix4& proj)
+void Camera::Reset()
 {
-	if (m_isOrtho)
-		GetOrthographic(proj);
-	else
-		GetPerspective(proj);
+	//TODO:
 }
 
-void Camera::GetPerspective(Matrix4& proj)
+void Camera::ApplyRotation(const Matrix& transformation_mat)
 {
-	//CALCULATE PERSP
+	using namespace DirectX;
+
+	m_lookDir = XMVector3Normalize(XMVector3TransformNormal(m_lookDir, transformation_mat));
+
+	m_upDir = XMVector3Normalize(XMVector3TransformNormal(m_upDir, transformation_mat));
+
+	Vector3 right_dir = XMVector3Cross(m_lookDir, m_upDir);
+	m_upDir = XMVector3Cross(right_dir, m_lookDir);
 }
 
-void Camera::GetOrthographic(Matrix4& proj)
+void Camera::update_view_matrix()
 {
-	//CALCULATE ORTHO
+	Vector3 focus_point = m_position + m_lookDir;
+	m_viewMatrix = DirectX::XMMatrixLookAtRH(m_position, focus_point, m_upDir);
+	m_invViewMatrix = DirectX::XMMatrixInverse(nullptr, m_viewMatrix);
+}
+
+void Camera::update_projection_matrix()
+{
+	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovRH(
+		DirectX::XMConvertToRadians(m_fov), m_aspect, m_near, m_far);
+	m_invProjectionMatrix =	DirectX::XMMatrixInverse(nullptr, m_projectionMatrix);
+}
+
+void Camera::update_view_projection_matrix()
+{
+	m_viewProjectionMatrix = m_viewMatrix * m_projectionMatrix;
+	m_invViewProjectionMatrix = DirectX::XMMatrixInverse(nullptr, m_viewProjectionMatrix);
 }

@@ -29,14 +29,26 @@ void CameraManager::Update(float dt)
 {
 }
 
-void CameraManager::RegisterCamera(Camera* camera)
+void CameraManager::RegisterCamera(const std::string& cameraTag, Camera* camera)
 {
+	CameraInfo cameraInfo(camera, 0, 0);
+	m_registeredCameras[cameraTag] = cameraInfo;
 }
 
-void CameraManager::UnregisterCamera(std::string& cameraTag)
+void CameraManager::UnregisterCamera(const std::string& cameraTag)
 {
 }
 
 void CameraManager::UnregisterCamera(unsigned cameraId)
 {
+}
+
+const CameraInfo* CameraManager::GetCameraInfo(const std::string& nameTag) const
+{
+	auto find = m_registeredCameras.find(nameTag);
+	if (find == m_registeredCameras.end())
+	{
+		return nullptr;
+	}
+	return &find->second;
 }
