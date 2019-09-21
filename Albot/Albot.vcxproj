@@ -317,6 +317,7 @@
     <ClCompile Include="Code\Managers\StateManager.cpp" />
     <ClCompile Include="Code\Managers\SystemManager.cpp" />
     <ClCompile Include="Code\Managers\WindowManager.cpp" />
+    <ClCompile Include="Code\Memory\CantMemory.cpp" />
     <ClCompile Include="Code\Memory\PoolAllocator.cpp" />
     <ClCompile Include="Code\Memory\StackAllocator.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="Code\Managers\StateManager.h" />
     <ClInclude Include="Code\Managers\SystemManager.h" />
     <ClInclude Include="Code\Managers\WindowManager.h" />
+    <ClInclude Include="Code\Memory\CantMemory.h" />
     <ClInclude Include="Code\Memory\PoolAllocator.h" />
     <ClInclude Include="Code\Memory\StackAllocator.h" />
     <ClInclude Include="Code\Physics\Geometry\Aabb.h" />
