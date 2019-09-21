@@ -7,22 +7,22 @@ Primary Author:
 
 
 #include "RendererComponent.h"
-unsigned const Renderer::static_type = BaseComponent::numberOfTypes++;
+unsigned const RendererComponent::static_type = BaseComponent::numberOfTypes++;
 
 
-Renderer::Renderer(GameObject *owner) :
-	BaseComponent(owner, Renderer::static_type)
+RendererComponent::RendererComponent(GameObject *owner) :
+	BaseComponent(owner, RendererComponent::static_type)
 {
 }
 
-Renderer::~Renderer()
+RendererComponent::~RendererComponent()
 {
 }
 
-void Renderer::Init()
+void RendererComponent::Init()
 {
 }
 
-void Renderer::Begin()
+void RendererComponent::Begin()
 {
 }

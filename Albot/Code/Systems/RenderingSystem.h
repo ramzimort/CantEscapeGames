@@ -11,7 +11,7 @@ Primary Author: Jose Rosenbluth
 #include "BaseSystem.h"
 
 class Transform;
-class Renderer;
+class RendererComponent;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
@@ -19,11 +19,11 @@ class Renderer;
 struct RenderingCompNode : BaseSystemCompNode
 {
 	Transform *n_transform;
-	Renderer *n_renderer;
+	RendererComponent *n_renderer;
 
 	//Ctor
 	RenderingCompNode(Transform *transform, 
-		Renderer *renderer) : n_transform(transform), 
+		RendererComponent *renderer) : n_transform(transform), 
 		n_renderer(renderer) 
 	{}
 };

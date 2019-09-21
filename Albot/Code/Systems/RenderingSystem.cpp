@@ -20,7 +20,7 @@ RenderingSystem::RenderingSystem() :
 {
 	// 3 - Push the comp to set the comp mask
 	Push_required_comp<Transform>();
-	Push_required_comp<Renderer>();
+	Push_required_comp<RendererComponent>();
 }
 
 
@@ -29,7 +29,7 @@ void RenderingSystem::Register_GameObject(GameObject *go)
 	// 4 - Register by adding the components to the system
 
 	Transform *transform = go->GetComponent<Transform>();
-	Renderer *renderer = go->GetComponent<Renderer>();
+	RendererComponent *renderer = go->GetComponent<RendererComponent>();
 
 	BaseSystemCompNode *component_node = new RenderingCompNode(transform, renderer);
 	component_node->m_goID = go->GetId();
@@ -43,7 +43,7 @@ void RenderingSystem::Update(float dt, BaseSystemCompNode *compNode)
 	// 5 - Get the pointer to the components, and then freely update
 	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
 	Transform *T = node->n_transform;
-	Renderer *R = node->n_renderer;
+	RendererComponent *R = node->n_renderer;
 
 	//UPDATE CODE GOES HERE
 }
@@ -54,7 +54,7 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	// 5 - Get the pointer to the components, and then freely update
 	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
 	Transform *T = node->n_transform;
-	Renderer *R = node->n_renderer;
+	RendererComponent *R = node->n_renderer;
 
 	//DRAW CODE GOES HERE
 }

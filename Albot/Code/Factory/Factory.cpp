@@ -42,7 +42,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		auto *T = go->AddComponent<Transform>();	         ////
 		//Override code								         ////
 													         ////
-		auto *R = go->AddComponent<Renderer>();		         ////
+		auto *R = go->AddComponent<RendererComponent>();     ////
 		//Override code								         ////
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc1);	         ////

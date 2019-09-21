@@ -10,6 +10,15 @@
 StateManager *stateMgr;
 
 
+//TODO: remove later (ALBERTO ;_T)
+#include "Managers/ResourceManager.h"
+#include "Graphics/AppRenderer.h"
+#include "Managers/CameraManager.h"
+#include "Graphics/Camera.h"
+AppRenderer* appRenderer;
+ResourceManager* resourceManager;
+CameraManager* gCameraManager;
+
 int main()
 {
 	// Create Window
@@ -27,6 +36,17 @@ int main()
 	stateMgr = new StateManager();
 	stateMgr->SwitchState(new State("level1.json"));
 
+	//TODO - ALBERTO STUFF ;)
+	gCameraManager = new CameraManager();
+	resourceManager = new ResourceManager();
+	appRenderer = new AppRenderer(*main_window, resourceManager, gCameraManager);
+	resourceManager->SetDXRenderer(appRenderer->GetDXRenderer());
+	int32_t windowWidth, windowHeight;
+	SDL_GetWindowSize(main_window, &windowWidth, &windowHeight);
+	Camera* camera = new Camera(windowWidth, windowHeight, 45.f,
+		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
+	gCameraManager->RegisterCamera("Main", camera);
+	//
 
 	while (!done)
 	{
@@ -49,7 +69,12 @@ int main()
 		stateMgr->ProcessInstantiationAndDestruction();
 		stateMgr->UpdateStack(dt);
 		stateMgr->DrawStack(dt);
-		
+		//TODO - ALBERTOOOO
+		appRenderer->UpdateAppRenderer(dt);
+		appRenderer->RenderApp();
+		appRenderer->PresentApp();
+		//
+
 		
 		DEBUG_UPDATE
 		frame_manager.EndFrame();
