@@ -41,8 +41,9 @@ public:
 	RigidbodySystem();
 	virtual ~RigidbodySystem() {}
 
-	virtual void Register_GameObject(GameObject *go);
-	virtual void Update(float dt, BaseSystemCompNode *compNode);
+	virtual void Register_GameObject(GameObject *go) override;
+
+	virtual void LateUpdate(float dt) override;
 
 protected:
 	//protected vars

@@ -38,12 +38,19 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 }
 
 
-void RigidbodySystem::Update(float dt, BaseSystemCompNode *compNode)
+//This one is not called one per object in the system, but once per system.
+//Access all the components data and stuff through the unordered_map
+void RigidbodySystem::LateUpdate(float dt) 
 {
-	// 5 - Get the pointer to the components, and then freely update
-	RigidbodyCompNode *node = static_cast<RigidbodyCompNode*>(compNode);
-	Transform *T = node->n_transform;
-	Rigidbody *R = node->n_rigidbody;
+	for (auto& node : go_components_map)
+	{
+		RigidbodyCompNode *rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
 
-	//UPDATE CODE GOES HERE
+		Rigidbody *RB = rigidbodyNode->n_rigidbody;
+		Transform *T = rigidbodyNode->n_transform;
+
+		//ADD CODE HERE
+	}
 }
+
+

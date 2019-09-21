@@ -48,7 +48,7 @@ int main()
 		// TODO - REMOVE LATER (jose)
 		stateMgr->ProcessInstantiationAndDestruction();
 		stateMgr->UpdateStack(dt);
-		stateMgr->DrawStack(dt);          
+		stateMgr->DrawStack(dt);
 		
 		
 		DEBUG_UPDATE

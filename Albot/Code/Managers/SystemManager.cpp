@@ -18,7 +18,6 @@ Primary Author: Jose Rosenbluth
 SystemManager::SystemManager()
 {
 	//ADD HERE THE CUSTOM SYSTEMS
-
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
 
@@ -57,12 +56,20 @@ void SystemManager::Unregister_GameObject(size_t go_id)
 }
 
 
-void SystemManager::Update(float dt)
+void SystemManager::UpdateSystems(float dt)
 {
 	for (auto& node : systems) 
 	{
 		BaseSystem *system = node.second;
+
+		//Early update (only once per system)
+		system->EarlyUpdate(dt);
+
+		// Regular update (once per object registered in the system)
 		system->UpdateAllNodes(dt);
+
+		//Late update (only once per system)
+		system->LateUpdate(dt);
 	}
 }
 

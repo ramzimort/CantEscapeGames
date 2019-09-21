@@ -34,14 +34,17 @@ public:
 public:
 	BaseSystem() { }
 	virtual ~BaseSystem();
+	
+	virtual void EarlyUpdate(float dt) {}
+	void UpdateAllNodes(float dt);
+	virtual void LateUpdate(float dt) {}
 
 	virtual void Update(float dt,
-		BaseSystemCompNode *compNode) = 0;
+		BaseSystemCompNode *compNode) {}
 
 	virtual void Draw(float dt,
 		BaseSystemCompNode *compNode);
 
-	void UpdateAllNodes(float dt);
 	void DrawAllNodes(float dt);
 
 protected:

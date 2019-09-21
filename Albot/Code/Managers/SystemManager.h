@@ -19,7 +19,7 @@ public:
 	SystemManager();
 	~SystemManager();
 
-	void Update(float dt);
+	void UpdateSystems(float dt);
 	void Draw(float dt);
 
 	bool RegisterGameObject(GameObject *go);

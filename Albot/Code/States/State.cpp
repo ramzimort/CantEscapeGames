@@ -45,7 +45,7 @@ State::~State()
 //Call update on systemManager
 void State::Update(float dt)
 {
-	this->m_systemMgr->Update(dt);
+	this->m_systemMgr->UpdateSystems(dt);
 }
 
 //Call draw on systemManager
