@@ -46,7 +46,10 @@
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_timer.h>
-
+#include <SDL2/SDL_keyboard.h>
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_events.h>
 
 using namespace DirectX::SimpleMath;
 

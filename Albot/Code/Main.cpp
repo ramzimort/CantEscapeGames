@@ -15,9 +15,11 @@ StateManager *stateMgr;
 #include "Graphics/AppRenderer.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
+#include "Managers/InputManager.h"
 AppRenderer* appRenderer;
 ResourceManager* resourceManager;
 CameraManager* gCameraManager;
+InputManager* gInputManager;
 
 int main()
 {
@@ -40,6 +42,7 @@ int main()
 	gCameraManager = new CameraManager();
 	resourceManager = new ResourceManager();
 	appRenderer = new AppRenderer(*main_window, resourceManager, gCameraManager);
+	gInputManager = new InputManager();
 	resourceManager->SetDXRenderer(appRenderer->GetDXRenderer());
 	int32_t windowWidth, windowHeight;
 	SDL_GetWindowSize(main_window, &windowWidth, &windowHeight);
@@ -48,15 +51,8 @@ int main()
 	gCameraManager->RegisterCamera("Main", camera);
 	//
 
-	while (!done)
+	while (!gInputManager->is_Quit())
 	{
-		while (SDL_PollEvent(&quit_event))
-		{
-			if (quit_event.type == SDL_QUIT)
-				done = true;
-			if (quit_event.type == SDL_WINDOWEVENT && quit_event.window.event == SDL_WINDOWEVENT_CLOSE && quit_event.window.windowID == SDL_GetWindowID(main_window))
-				done = true;
-		}
 		frame_manager.StartFrame();
 		
 		dt = static_cast<float>(frame_manager.GetFrameTime());
@@ -64,6 +60,8 @@ int main()
 		DEBUG_TRACE("Frame Time: %f ms", dt);
 		DEBUG_TRACE("Framerate: %f Hz", 1000.f/dt);
 
+		gInputManager->Update();
+		DEBUG_TRACE("Pointer: x = %f, y = %f", gInputManager->Get_Vec2_Pointer_Location().x, gInputManager->Get_Vec2_Pointer_Location().y);
 
 		// TODO - REMOVE LATER (jose)
 		stateMgr->ProcessInstantiationAndDestruction();
