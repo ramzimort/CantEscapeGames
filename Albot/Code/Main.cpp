@@ -50,10 +50,12 @@ int main()
 		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
 	gCameraManager->RegisterCamera("Main", camera);
 	//
-	DEBUG_INIT();
+	DEBUG_INIT;
 	while (!gInputManager->IsQuit())
 	{
 		frame_manager.StartFrame();
+		DEBUG_LOG("TEST %d", 12);
+
 		
 		dt = static_cast<float>(frame_manager.GetFloatFrameTime());
 
@@ -71,8 +73,8 @@ int main()
 		appRenderer->RenderApp();
 		appRenderer->PresentApp();
 		
-		DEBUG_UPDATE
 		frame_manager.EndFrame();
+		DEBUG_UPDATE
 	}
 
 	// TODO - REMOVE LATER (jose)

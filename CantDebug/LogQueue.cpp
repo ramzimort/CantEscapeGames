@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LogQueue.h"
+#include <string>
 
 
 LogQueue::LogQueue()
@@ -9,23 +10,23 @@ LogQueue::LogQueue()
 
 LogQueue::~LogQueue()
 {
-	while (!m_print_queue.empty())
-		m_print_queue.pop();
+	while (!m_printQ.empty())
+		m_printQ.pop();
 }
 
-void LogQueue::Push(std::string data)
+void LogQueue::Push(const char* data)
 {
-	m_print_queue.push(data);
+	m_printQ.push(data);
 }
 
 std::string LogQueue::Pop()
 {
-	std::string data = m_print_queue.front();
-	m_print_queue.pop();
+	std::string data = m_printQ.front();
+	m_printQ.pop();
 	return data;
 }
 
 bool LogQueue::Empty()
 {
-	return m_print_queue.empty();
+	return m_printQ.empty();
 }

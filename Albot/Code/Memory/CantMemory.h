@@ -32,7 +32,8 @@ namespace CantMemory
 	namespace PoolAlloc
 	{
 		template<typename T>
-		class GlobalPool {
+		class GlobalPool 
+		{
 		public:
 			template <typename... Args>
 			static T* Allocate(Args &&... args)

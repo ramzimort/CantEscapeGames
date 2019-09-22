@@ -13,11 +13,13 @@ static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 static SDL_Window*				g_mainWindow = NULL;
+static LogQueue*				g_traceQueue = NULL;
 static LogQueue*				g_logQueue = NULL;
 
 
 // Our State
 bool _update = true;
+bool _showDemoWindow = false;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 // Forward declarations of helper functions
@@ -26,8 +28,10 @@ void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 
-namespace CantDebug
+namespace CantDebugAPI
 {
+
+
 	void InitDebugWindow()
 	{
 		g_mainWindow = SDL_CreateWindow("CantDebug",
@@ -61,6 +65,7 @@ namespace CantDebug
 		ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
 		g_logQueue = new LogQueue();
+		g_traceQueue = new LogQueue();
 
 		// Load Fonts
 		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -82,22 +87,32 @@ namespace CantDebug
 	{
 		if (!_update)
 			return;
+
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
 
-		SDL_Event sdl_event;
+		ImGui::Checkbox("Demo Window", &_showDemoWindow);
+		if (_showDemoWindow)
+			ImGui::ShowDemoWindow();
 
 		// Immediate Window
 		{
 			ImGui::Begin("Immediate Window");
 			ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-			while (!g_logQueue->Empty())
-			{
-				ImGui::Text(g_logQueue->Pop().c_str());
-			}
+			while (!g_traceQueue->Empty())
+				ImGui::Text(g_traceQueue->Pop().c_str());
 			ImGui::End();
 		}
+
+		// Log Window
+		{
+			ImGui::Begin("Log Window");
+			while (!g_logQueue->Empty())
+				ImGui::LogText(g_logQueue->Pop().c_str());
+			ImGui::End();
+		}
+
 		
 		//// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		//if (show_demo_window)
@@ -124,7 +139,7 @@ namespace CantDebug
 		g_pSwapChain->Present(1, 0); // Present with vsync
 		//g_pSwapChain->Present(0, 0); // Present without vsync
 	}
-	
+
 	void CloseDebugWindow(const SDL_Event& _event)
 	{
 		if (_event.type == SDL_WINDOWEVENT &&
@@ -133,25 +148,21 @@ namespace CantDebug
 		{
 			_update = false;
 			// Cleanup
-			ImGui_ImplDX11_Shutdown();
-			ImGui_ImplSDL2_Shutdown();
-			ImGui::DestroyContext();
-			CleanupDeviceD3D();
+
 			SDL_DestroyWindow(g_mainWindow);
 		}
 	}
 
-	void ImLog()
-	{
-
-	}
-
-	void ImPrint(std::string data)
+	void Log(const char* data)
 	{
 		g_logQueue->Push(data);
 	}
-}
 
+	void Trace(const char* data)
+	{
+		g_traceQueue->Push(data);
+	}
+}
 
 // Helper functions
 bool CreateDeviceD3D(HWND hWnd)

@@ -9,10 +9,10 @@ public:
 	LogQueue();
 	~LogQueue();
 
-	void Push(std::string data);
+	void Push(const char* data);
 	std::string Pop();
 	bool Empty();
 
 private:
-	std::queue<std::string> m_print_queue;
+	std::queue<std::string> m_printQ;
 };

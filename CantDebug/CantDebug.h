@@ -8,7 +8,7 @@
 
 struct SDL_Window;
 
-namespace CantDebug
+namespace CantDebugAPI
 {
 	CANTDEBUG_API void InitDebugWindow();
 
@@ -16,7 +16,7 @@ namespace CantDebug
 
 	CANTDEBUG_API void CloseDebugWindow(const SDL_Event& event);
 
-	CANTDEBUG_API void ImLog();
+	CANTDEBUG_API void Log(const char* data);
 
-	CANTDEBUG_API void ImPrint(std::string data);
+	CANTDEBUG_API void Trace(const char* data);
 }
