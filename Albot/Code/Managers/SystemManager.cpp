@@ -14,6 +14,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/RigidbodySystem.h"
 #include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
+#include "Systems/FPSCameraSystem.h"
 
 
 SystemManager::SystemManager()
@@ -22,6 +23,8 @@ SystemManager::SystemManager()
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
+	this->AddSystem<FPSCameraSystem>();
+
 
 	//Test (erase later)
 	this->AddSystem<TestSystem>();
@@ -35,16 +38,13 @@ SystemManager::~SystemManager()
 }
 
 
-bool SystemManager::RegisterGameObject(GameObject *go) 
+void SystemManager::RegisterGameObject(GameObject *go) 
 {
 	for (auto& node : m_systems)
 	{
 		BaseSystem *system = node.second;
-		if (system->Can_Register_GameObject(go))
-			return true;
+		system->Can_Register_GameObject(go);	
 	}
-
-	return false;
 }
 
 

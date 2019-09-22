@@ -67,6 +67,18 @@ void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 }
 
 
+void Transform::SetLocalPosition(float x, float y, float z)
+{
+	m_position.x = x;
+	m_position.y = y;
+	m_position.z = z;
+}
+void  Transform::SetLocalPosition(const Vector3& position)
+{
+	SetLocalPosition(position.x, position.y, position.z);
+}
+
+
 ///////////////////////////////////////////////////////
 ////           SCALE METHODS                       ////
 ///////////////////////////////////////////////////////

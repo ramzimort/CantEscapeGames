@@ -14,6 +14,7 @@ public:
 	void StartFrame();
 	void EndFrame();
 	unsigned int GetFrameTime();
+	float GetFloatFrameTime() const;
 	void SetFrameRate(unsigned int maxFrameRate);
 
 private:

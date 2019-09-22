@@ -28,6 +28,13 @@ void FrameManager::EndFrame()
 	m_current_frame_time = m_tick_end - m_tick_start;
 }
 
+float FrameManager::GetFloatFrameTime() const
+{
+	if (m_current_frame_time == 0.f)
+		return -1.f;
+	return m_current_frame_time / 1000.f;
+}
+
 unsigned int FrameManager::GetFrameTime()
 {
 	return m_current_frame_time;

@@ -62,8 +62,8 @@ void Camera::ApplyRotation(const Matrix& transformation_mat)
 
 	m_upDir = XMVector3Normalize(XMVector3TransformNormal(m_upDir, transformation_mat));
 
-	Vector3 right_dir = XMVector3Cross(m_lookDir, m_upDir);
-	m_upDir = XMVector3Cross(right_dir, m_lookDir);
+	m_rightDir = XMVector3Cross(m_lookDir, m_upDir);
+	m_upDir = XMVector3Cross(m_rightDir, m_lookDir);
 }
 
 void Camera::update_view_matrix()

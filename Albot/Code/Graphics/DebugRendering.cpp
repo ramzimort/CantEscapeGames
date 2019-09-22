@@ -156,7 +156,7 @@ void DebugRendering::render_debug_scene()
 	//TODO: only for testing
 	DebugAABBInstance aabb_instance = {};
 	aabb_instance.m_color = Vector3(1.0, 0.0, 0.0);
-	Vector3 size(4.f);
+	Vector3 size(10.f);
 
 	aabb_instance.m_min_bound = Vector3(-size.x, -size.y, -size.z) / 2.f;
 	aabb_instance.m_max_bound = Vector3(size.x, size.y, size.z) / 2.f;

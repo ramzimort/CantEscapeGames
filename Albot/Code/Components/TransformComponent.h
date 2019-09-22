@@ -30,6 +30,9 @@ public:
 	virtual void Init() override;
 	virtual void Begin() override;
 
+
+	void SetLocalPosition(float x, float y, float z);
+	void SetLocalPosition(const Vector3& position);
 	//Interface
 	void Translate(float x, float y, float z);
 	void Translate(Vector3 const &translate);

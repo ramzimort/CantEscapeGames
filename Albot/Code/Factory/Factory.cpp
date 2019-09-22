@@ -18,6 +18,15 @@ Primary Author:
 #include "Components/TestComponent.h"
 
 
+
+//TODO: albert stuff
+#include "Managers/CameraManager.h"
+#include "Graphics/Camera.h"
+#include "Components/CameraComponent.h"
+#include "Systems/FPSCameraSystem.h"
+extern CameraManager* gCameraManager;
+
+
 Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr)
 {
 	//If either of these is nullptr, we have to stop
@@ -27,6 +36,10 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		return;
 	}
 
+
+
+
+	
 
 	/////////////////////////////////////////////////////////////
 	//   LATER, THIS PART HAS TO BE DONE USING THE PATH      ////
@@ -74,6 +87,21 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc3);	         ////
 													         ////
+	//Wont be registered in any system				         ////
+	GameObjectDesc desc4;							         ////
+	desc4.tag = "FPSPlayer";						         ////
+	desc4.componentSetup = [](GameObject *go)		         ////
+	{												         ////
+		auto *T = go->AddComponent<Transform>();
+		T->SetLocalPosition(0.f, 0.f, 0.f);////
+
+		auto cameraComp = go->AddComponent<CameraComponent>();
+		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
+		cameraComp->SetCamera(cameraInfo->m_camera);
+		//Override code								         ////
+	};												         ////
+	goMgr->Queue_GameObject_Instantiation(&desc4);
+
 	/////////////////////////////////////////////////////////////
 }
 

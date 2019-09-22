@@ -22,7 +22,7 @@ public:
 	void UpdateSystems(float dt);
 	void Draw(float dt);
 
-	bool RegisterGameObject(GameObject *go);
+	void RegisterGameObject(GameObject *go);
 	void Unregister_GameObject(size_t go_id);
 	
 	template<typename T>

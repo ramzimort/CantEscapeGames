@@ -6,12 +6,12 @@ class CameraComponent;
 
 struct FPSCameraCompNode : BaseSystemCompNode
 {
-	Transform *n_transform;
+	Transform *m_transform;
 	CameraComponent* m_camera_comp;
 
 	//Ctor
 	FPSCameraCompNode(Transform *transform,
-		CameraComponent* camera_comp) : n_transform(transform),
+		CameraComponent* camera_comp) : m_transform(transform),
 		m_camera_comp(camera_comp)
 	{}
 };

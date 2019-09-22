@@ -55,7 +55,7 @@ int main()
 	{
 		frame_manager.StartFrame();
 		
-		dt = static_cast<float>(frame_manager.GetFrameTime());
+		dt = static_cast<float>(frame_manager.GetFloatFrameTime());
 
 		DEBUG_TRACE("Frame Time: %f ms", dt);
 		DEBUG_TRACE("Framerate: %f Hz", 1000.f/dt);
