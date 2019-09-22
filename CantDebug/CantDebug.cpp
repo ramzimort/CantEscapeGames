@@ -2,10 +2,9 @@
 
 
 #include "stdafx.h"
-
-
 #include "CantDebug.h"
 #include "LogQueue.h"
+#include "Logger.h"
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;
@@ -15,7 +14,7 @@ static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 static SDL_Window*				g_mainWindow = NULL;
 static LogQueue*				g_traceQueue = NULL;
 static LogQueue*				g_logQueue = NULL;
-
+static ImGuiTextBuffer			g_buf;
 
 // Our State
 bool _update = true;
@@ -105,13 +104,29 @@ namespace CantDebugAPI
 			ImGui::End();
 		}
 
-		// Log Window
+
+		// For the demo: add a debug button _BEFORE_ the normal log window contents
+		// We take advantage of a rarely used feature: multiple calls to Begin()/End() are appending to the _same_ window.
+		// Most of the contents of the window will be added by the log.Draw() call.
 		{
-			ImGui::Begin("Log Window");
+			static Logger log;
+			ImGui::Begin("LogWindow");
 			while (!g_logQueue->Empty())
-				ImGui::LogText(g_logQueue->Pop().c_str());
+				log.AddLog(g_logQueue->Pop().c_str());
 			ImGui::End();
+			log.Draw("LogWindow");
 		}
+
+
+		//// Log Window
+		//{
+		//	ImGui::Begin("Log Window");
+		//	while (!g_logQueue->Empty())
+		//		g_buf.appendfv(g_logQueue->Pop().c_str());
+
+		//	ImGui::End();
+		//}
+
 
 		
 		//// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
@@ -137,7 +152,6 @@ namespace CantDebugAPI
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 		g_pSwapChain->Present(1, 0); // Present with vsync
-		//g_pSwapChain->Present(0, 0); // Present without vsync
 	}
 
 	void CloseDebugWindow(const SDL_Event& _event)

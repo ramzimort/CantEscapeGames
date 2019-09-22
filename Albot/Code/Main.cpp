@@ -23,7 +23,12 @@ InputManager* gInputManager;
 WindowManager* gWindowManager;
 
 
-int main()
+int CALLBACK WinMain(
+	__in  HINSTANCE hInstance,
+	__in  HINSTANCE hPrevInstance,
+	__in  LPSTR lpCmdLine,
+	__in  int nCmdShow
+)
 {
 	// Create Window
 	gWindowManager = new WindowManager();
@@ -51,12 +56,11 @@ int main()
 	gCameraManager->RegisterCamera("Main", camera);
 	//
 	DEBUG_INIT;
+	DEBUG_LOG("Frame Time: %f ms\n", 20.f);
 	while (!gInputManager->IsQuit())
 	{
 		frame_manager.StartFrame();
-		DEBUG_LOG("TEST %d", 12);
-
-		
+	
 		dt = static_cast<float>(frame_manager.GetFloatFrameTime());
 
 		DEBUG_TRACE("Frame Time: %f ms", dt);
@@ -72,7 +76,7 @@ int main()
 		appRenderer->UpdateAppRenderer(dt);
 		appRenderer->RenderApp();
 		appRenderer->PresentApp();
-		
+
 		frame_manager.EndFrame();
 		DEBUG_UPDATE
 	}
