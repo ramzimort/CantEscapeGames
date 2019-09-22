@@ -43,32 +43,32 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 
 	XMFLOAT2 movement_amount(0.f, 0.f);
-	if (gInputManager->is_Key_Pressed(SDL_SCANCODE_W))
+	if (gInputManager->IsKeyPressed(SDL_SCANCODE_W))
 	{
 		movement_amount.y = 1.f;
 	}
 
-	if (gInputManager->is_Key_Pressed(SDL_SCANCODE_S))
+	if (gInputManager->IsKeyPressed(SDL_SCANCODE_S))
 	{
 		movement_amount.y = -1.f;
 	}
 
-	if (gInputManager->is_Key_Pressed(SDL_SCANCODE_A))
+	if (gInputManager->IsKeyPressed(SDL_SCANCODE_A))
 	{
 		movement_amount.x = -1.f;
 	}
 
-	if (gInputManager->is_Key_Pressed(SDL_SCANCODE_D))
+	if (gInputManager->IsKeyPressed(SDL_SCANCODE_D))
 	{
 		movement_amount.x = 1.f;
 	}
 	XMVECTOR right = XMLoadFloat3(&camera_comp->m_camera->m_rightDir);
 
-	if (gInputManager->is_Mouse_Pressed(SDL_BUTTON_LEFT)
-		&& !gInputManager->is_Mouse_Triggered(SDL_BUTTON_LEFT))
+	if (gInputManager->IsMousePressed(SDL_BUTTON_LEFT)
+		&& !gInputManager->IsMouseTriggered(SDL_BUTTON_LEFT))
 	{
 
-		Vector2 mouse_delta = gInputManager->Get_Vec2_Pointer_Delta();
+		Vector2 mouse_delta = gInputManager->GetPointerDeltaVec2();
 		XMFLOAT2 rot_amount;
 
 		rot_amount.x = -mouse_delta.x * 100.f;

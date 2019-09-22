@@ -22,7 +22,7 @@
 /**
  *  \file SDL_quit.h
  *
- *  Include file for SDL quit event handling.
+ *  Include file for SDL m_quit event handling.
  */
 
 #ifndef _SDL_quit_h
@@ -45,12 +45,12 @@
  *  exist, that generate ::SDL_QUIT events as well.  There is no way
  *  to determine the cause of an ::SDL_QUIT event, but setting a signal
  *  handler in your application will override the default generation of
- *  quit events for that signal.
+ *  m_quit events for that signal.
  *
  *  \sa SDL_Quit()
  */
 
-/* There are no functions directly affecting the quit event */
+/* There are no functions directly affecting the m_quit event */
 
 #define SDL_QuitRequested() \
         (SDL_PumpEvents(), (SDL_PeepEvents(NULL,0,SDL_PEEKEVENT,SDL_QUIT,SDL_QUIT) > 0))

@@ -5,15 +5,15 @@
 #include "../../CantDebug/CantDebug.h"
 
 #ifndef DEVELOPER
-#define DEBUG_INIT(SDL_WINDOW)
+#define DEBUG_INIT()
 #define DEBUG_TRACE(fmt, ...)
 #define DEBUG_UPDATE
-#define DEBUG_CLOSE
+#define DEBUG_QUIT(SDL_EVENT)
 #else
-#define DEBUG_INIT(SDL_WINDOW) CantDebug::InitDebugWindow(SDL_WINDOW)
+#define DEBUG_INIT() CantDebug::InitDebugWindow()
 #define DEBUG_TRACE(FMT, ...) CantDebug::Print(FMT, __VA_ARGS__)
 #define DEBUG_UPDATE CantDebug::UpdateDebugWindow();
-#define DEBUG_CLOSE CantDebug::CloseDebugWindow();
+#define DEBUG_QUIT(SDL_EVENT) CantDebug::CloseDebugWindow(SDL_EVENT);
 
 namespace CantDebug
 {

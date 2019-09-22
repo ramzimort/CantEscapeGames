@@ -61,6 +61,7 @@
     <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
+    <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />

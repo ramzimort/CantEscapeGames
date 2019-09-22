@@ -20,15 +20,15 @@ AppRenderer* appRenderer;
 ResourceManager* resourceManager;
 CameraManager* gCameraManager;
 InputManager* gInputManager;
+WindowManager* gWindowManager;
+
 
 int main()
 {
 	// Create Window
-	WindowManager window_manager;
-	
-	DEBUG_INIT(window_manager.SDLCreateWindow("CantDebug", 1280, 720, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI));
+	gWindowManager = new WindowManager();
 
-	SDL_Window* main_window = window_manager.SDLCreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
+	SDL_Window* main_window = gWindowManager->SDLCreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	FrameManager frame_manager;
 	SDL_Event quit_event;
 	bool done = false;
@@ -50,8 +50,8 @@ int main()
 		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
 	gCameraManager->RegisterCamera("Main", camera);
 	//
-
-	while (!gInputManager->is_Quit())
+	DEBUG_INIT();
+	while (!gInputManager->IsQuit())
 	{
 		frame_manager.StartFrame();
 		
@@ -61,24 +61,19 @@ int main()
 		DEBUG_TRACE("Framerate: %f Hz", 1000.f/dt);
 
 		gInputManager->Update();
-		DEBUG_TRACE("Pointer: x = %f, y = %f", gInputManager->Get_Vec2_Pointer_Location().x, gInputManager->Get_Vec2_Pointer_Location().y);
 
 		// TODO - REMOVE LATER (jose)
 		stateMgr->ProcessInstantiationAndDestruction();
 		stateMgr->UpdateStack(dt);
 		stateMgr->DrawStack(dt);
-		//TODO - ALBERTOOOO
+		// TODO - ALBERTOOOO
 		appRenderer->UpdateAppRenderer(dt);
 		appRenderer->RenderApp();
 		appRenderer->PresentApp();
-		//
-
 		
 		DEBUG_UPDATE
 		frame_manager.EndFrame();
 	}
-
-	DEBUG_CLOSE;
 
 	// TODO - REMOVE LATER (jose)
 	delete stateMgr;

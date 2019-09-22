@@ -280,6 +280,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
     <ClCompile Include="Code\Components\CameraComponent.cpp" />
     <ClCompile Include="Code\Components\RendererComponent.cpp" />

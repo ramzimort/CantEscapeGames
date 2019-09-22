@@ -15,9 +15,9 @@ static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 static SDL_Window*				g_mainWindow = NULL;
 static LogQueue*				g_logQueue = NULL;
 
+
 // Our State
-//bool show_demo_window = true;
-bool show_another_window = false;
+bool _update = true;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 // Forward declarations of helper functions
@@ -28,13 +28,15 @@ void CleanupRenderTarget();
 
 namespace CantDebug
 {
-	void InitDebugWindow(SDL_Window* g_window)
+	void InitDebugWindow()
 	{
-		int error = 0;
-		error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC);
-		assert(error >= 0);
+		g_mainWindow = SDL_CreateWindow("CantDebug",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED,
+			800,
+			600,
+			SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
-		g_mainWindow = g_window;
 		SDL_SysWMinfo wmInfo;
 		SDL_VERSION(&wmInfo.version);
 		SDL_GetWindowWMInfo(g_mainWindow, &wmInfo);
@@ -63,7 +65,7 @@ namespace CantDebug
 		// Load Fonts
 		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
 		// - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-		// - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
+		// - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and m_quit).
 		// - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
 		// - Read 'misc/fonts/README.txt' for more instructions and details.
 		// - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
@@ -78,9 +80,13 @@ namespace CantDebug
 
 	void UpdateDebugWindow()
 	{
+		if (!_update)
+			return;
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
+
+		SDL_Event sdl_event;
 
 		// Immediate Window
 		{
@@ -99,15 +105,15 @@ namespace CantDebug
 
 		
 
-		// 3. Show another simple window.
-		if (show_another_window)
-		{
-			ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-			ImGui::Text("Hello from another window!");
-			if (ImGui::Button("Close Me"))
-				show_another_window = false;
-			ImGui::End();
-		}
+		//// 3. Show another simple window.
+		//if (show_another_window)
+		//{
+		//	ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+		//	ImGui::Text("Hello from another window!");
+		//	if (ImGui::Button("Close Me"))
+		//		show_another_window = false;
+		//	ImGui::End();
+		//}
 		
 		// Rendering
 		ImGui::Render();
@@ -119,15 +125,20 @@ namespace CantDebug
 		//g_pSwapChain->Present(0, 0); // Present without vsync
 	}
 	
-	void CloseDebugWindow()
+	void CloseDebugWindow(const SDL_Event& _event)
 	{
-		// Cleanup
-		ImGui_ImplDX11_Shutdown();
-		ImGui_ImplSDL2_Shutdown();
-		ImGui::DestroyContext();
-
-		CleanupDeviceD3D();
-		SDL_DestroyWindow(g_mainWindow);
+		if (_event.type == SDL_WINDOWEVENT &&
+			_event.window.event == SDL_WINDOWEVENT_CLOSE &&
+			_event.window.windowID == SDL_GetWindowID(g_mainWindow))
+		{
+			_update = false;
+			// Cleanup
+			ImGui_ImplDX11_Shutdown();
+			ImGui_ImplSDL2_Shutdown();
+			ImGui::DestroyContext();
+			CleanupDeviceD3D();
+			SDL_DestroyWindow(g_mainWindow);
+		}
 	}
 
 	void ImLog()

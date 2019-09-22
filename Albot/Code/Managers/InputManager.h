@@ -15,10 +15,6 @@ Other Authors : <None>
  *			#include <SDL2/SDL_keycode.h> for key/mouse constants
  */
 
-
-
-class ControllerComponent;
-
 class InputManager
 {
 public:
@@ -28,44 +24,44 @@ public:
 	/** Updates members containing current frame and previous frame values */
 	void Update();
 	/** \brief Check keybaord key press */
-	bool is_Key_Pressed(unsigned int KeyScanCode);
+	bool IsKeyPressed(unsigned int KeyScanCode);
 	/** Check keybaord key trigger (rising edge). */
-	bool is_Key_Triggered(unsigned int KeyScanCode);
+	bool IsKeyTriggered(unsigned int KeyScanCode);
 	/** Check keybaord key release(falling edge) */
-	bool is_Key_Released(unsigned int KeyScanCode);
+	bool IsKeyReleased(unsigned int KeyScanCode);
 	/** Get mouse position in screen space as int[2] array (depends on window width/height) */
-	int* Get_Pointer_Location();
+	int* GetPointerLocation();
 	/** Get mouse position in screen space as vec2 (depends on window width/height) */
-	Vector2 Get_Vec2_Pointer_Location();
+	Vector2 GetPointerLocVec2();
 	/** Get mouse position change b/w frames as vec2 (depends on window width/height) */
-	Vector2 Get_Vec2_Pointer_Delta();
+	Vector2 GetPointerDeltaVec2();
 
 	/** Check mouse button press */
-	bool is_Mouse_Pressed(unsigned int MouseScanCode);
+	bool IsMousePressed(unsigned int MouseScanCode);
 	/** Check mouse button trigger (rising edge) */
-	bool is_Mouse_Triggered(unsigned int MouseScanCode);
+	bool IsMouseTriggered(unsigned int MouseScanCode);
 	/** Check mouse button release (falling edge) */
-	bool is_Mouse_Released(unsigned int MouseScanCode);
+	bool IsMouseReleased(unsigned int MouseScanCode);
 	/** Returns scrolling amount in y-direction*/
-	Sint32 Get_Mouse_Scroll();
+	Sint32 GetMouseScroll();
 
 	/** Check if exit button is pressed (close window) */
-	bool is_Quit();
+	bool IsQuit();
 
-	bool Any_Keyboard_Key_Pressed() const;
+	bool AnyKeyPressed() const;
 
 private:
-	SDL_Event m_Event;
-	Uint8 m_Keyboard_Current_State[512];
-	Uint8 m_Keyboard_Previous_State[512];
+	SDL_Event m_event;
+	Uint8 m_keyboardStateCurrent[512];
+	Uint8 m_keyboardStatePrevious[512];
 
-	Uint32 m_Mouse_Current_State;
-	Uint32 m_Mouse_Previous_State;
+	Uint32 m_mouseStateCurrent;
+	Uint32 m_mouseStatePrevious;
 
-	int m_Mouse_Current_Position[2];
-	int m_Mouse_Previous_Position[2];
-	Sint32 m_wheel_y;
+	int m_mousePositionCurrent[2];
+	int m_mousePositionPrevious[2];
+	Sint32 m_mouseWheelY;
 
-	bool quit = { false };
+	bool m_quit = { false };
 };
 
