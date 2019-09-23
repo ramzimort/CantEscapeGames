@@ -19,7 +19,7 @@ static ImGuiTextBuffer			g_buf;
 // Our State
 bool _update = true;
 bool _showDemoWindow = false;
-ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+ImVec4 clear_color = ImVec4(0.15f, 0.1f, 0.90f, 1.00f);
 
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
@@ -29,8 +29,6 @@ void CleanupRenderTarget();
 
 namespace CantDebugAPI
 {
-
-
 	void InitDebugWindow()
 	{
 		g_mainWindow = SDL_CreateWindow("CantDebug",
@@ -52,12 +50,9 @@ namespace CantDebugAPI
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
 
 		// Setup Platform/Renderer bindings
 		ImGui_ImplSDL2_InitForD3D(g_mainWindow);
@@ -65,21 +60,6 @@ namespace CantDebugAPI
 
 		g_logQueue = new LogQueue();
 		g_traceQueue = new LogQueue();
-
-		// Load Fonts
-		// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-		// - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-		// - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and m_quit).
-		// - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-		// - Read 'misc/fonts/README.txt' for more instructions and details.
-		// - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-		//io.Fonts->AddFontDefault();
-		//io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-		//io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-		//io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-		//io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
-		//ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-		//IM_ASSERT(font != NULL);
 	}
 
 	void UpdateDebugWindow()
@@ -95,63 +75,11 @@ namespace CantDebugAPI
 		if (_showDemoWindow)
 			ImGui::ShowDemoWindow();
 
-		// Immediate Window
-		{
-			ImGui::Begin("Immediate Window");
-			ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
-			while (!g_traceQueue->Empty())
-				ImGui::Text(g_traceQueue->Pop().c_str());
-			ImGui::End();
-		}
-
-
-		// For the demo: add a debug button _BEFORE_ the normal log window contents
-		// We take advantage of a rarely used feature: multiple calls to Begin()/End() are appending to the _same_ window.
-		// Most of the contents of the window will be added by the log.Draw() call.
-		{
-			static Logger log;
-			ImGui::Begin("LogWindow");
-			while (!g_logQueue->Empty())
-				log.AddLog(g_logQueue->Pop().c_str());
-			ImGui::End();
-			log.Draw("LogWindow");
-		}
-
-
-		//// Log Window
-		//{
-		//	ImGui::Begin("Log Window");
-		//	while (!g_logQueue->Empty())
-		//		g_buf.appendfv(g_logQueue->Pop().c_str());
-
-		//	ImGui::End();
-		//}
-
-
+		UpdateLog();
+		UpdateTrace();
+		UpdateMemoryProfile();
 		
-		//// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		//if (show_demo_window)
-		//	ImGui::ShowDemoWindow(&show_demo_window);
-
-		
-
-		//// 3. Show another simple window.
-		//if (show_another_window)
-		//{
-		//	ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-		//	ImGui::Text("Hello from another window!");
-		//	if (ImGui::Button("Close Me"))
-		//		show_another_window = false;
-		//	ImGui::End();
-		//}
-		
-		// Rendering
-		ImGui::Render();
-		g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
-		g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (float*)&clear_color);
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-		g_pSwapChain->Present(1, 0); // Present with vsync
+		Render();
 	}
 
 	void CloseDebugWindow(const SDL_Event& _event)
@@ -179,6 +107,39 @@ namespace CantDebugAPI
 }
 
 // Helper functions
+void UpdateLog()
+{
+	static Logger log;
+	ImGui::Begin("LogWindow");
+	while (!g_logQueue->Empty())
+		log.AddLog(g_logQueue->Pop().c_str());
+	ImGui::End();
+	log.Draw("LogWindow");
+}
+
+void UpdateTrace()
+{
+	ImGui::Begin("Immediate Window");
+	ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+	while (!g_traceQueue->Empty())
+		ImGui::Text(g_traceQueue->Pop().c_str());
+	ImGui::End();
+}
+
+void UpdateMemoryProfile()
+{
+
+}
+
+void Render()
+{
+	ImGui::Render();
+	g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
+	g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (float*)&clear_color);
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	g_pSwapChain->Present(1, 0); // Present with vsync
+}
+
 bool CreateDeviceD3D(HWND hWnd)
 {
 	// Setup swap chain
