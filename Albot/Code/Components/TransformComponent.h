@@ -37,7 +37,7 @@ public:
 	void Translate(float dx, float dy, float dz);
 	void Translate(Vector3 const &translate);
 	
-	void Rotate(float eulerDX, float eulerDY, float eulerDZ); 
+	void Rotate(float pitch, float yaw, float roll);
 	void Rotate(Vector3 const& rotation);
 	//this is offset rotate
 	void SetLocalRotation(float eulerX, float eulerY, float eulerZ);
