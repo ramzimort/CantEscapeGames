@@ -292,6 +292,7 @@
     <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
     <ClCompile Include="Code\Components\CameraComponent.cpp" />
+    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
     <ClCompile Include="Code\Components\RendererComponent.cpp" />
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
@@ -356,6 +357,7 @@
     <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\CameraComponent.h" />
+    <ClInclude Include="Code\Components\MeshesComponent.h" />
     <ClInclude Include="Code\Components\RendererComponent.h" />
     <ClInclude Include="Code\Components\RigidbodyComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
@@ -389,6 +391,8 @@
     <ClInclude Include="Code\Graphics\Shader.h" />
     <ClInclude Include="Code\Graphics\Texture.h" />
     <ClInclude Include="Code\Graphics\VertexLayout.h" />
+    <ClInclude Include="Code\Helper\Constant.h" />
+    <ClInclude Include="Code\Helper\MathUtil.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />
     <ClInclude Include="Code\Managers\EventManager.h" />
     <ClInclude Include="Code\Managers\FrameManager.h" />
@@ -411,6 +415,7 @@
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
+    <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\States\State.h" />
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />

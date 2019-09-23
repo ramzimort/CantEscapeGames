@@ -62,6 +62,7 @@
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
+    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -131,5 +132,9 @@
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
     <ClInclude Include="Code\Memory\AllocatorTypes.h" />
+    <ClInclude Include="Code\Components\MeshesComponent.h" />
+    <ClInclude Include="Code\Shaders\Shading.h" />
+    <ClInclude Include="Code\Helper\Constant.h" />
+    <ClInclude Include="Code\Helper\MathUtil.h" />
   </ItemGroup>
 </Project>

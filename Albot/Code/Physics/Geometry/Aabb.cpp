@@ -27,6 +27,142 @@ Aabb Aabb::BuildFromMinMax(const DirectX::SimpleMath::Vector3& min, const Direct
 	return Aabb(min, max);
 }
 
+Aabb Aabb::BuildFromLocalAABBAndModelMatrix(const Matrix& modelMatrix, const Aabb& localAABB)
+{
+	const Vector3 translationPortion(modelMatrix._41, modelMatrix._42, modelMatrix._43);
+
+	const Vector3& oriMin = localAABB.mMin;
+	const Vector3& oriMax = localAABB.mMax;
+
+	Vector3 worldMinPoint, worldMaxPoint;
+
+	worldMinPoint = translationPortion;
+	worldMaxPoint = translationPortion;
+
+
+	float m11, m12, m13, m21, m22, m23, m31, m32, m33;
+
+	m11 = modelMatrix._11;
+	m12 = modelMatrix._12;
+	m13 = modelMatrix._13;
+	m21 = modelMatrix._21;
+	m22 = modelMatrix._22;
+	m23 = modelMatrix._23;
+	m31 = modelMatrix._31;
+	m32 = modelMatrix._32;
+	m33 = modelMatrix._33;
+
+	if (m11 > 0.f)
+	{
+		worldMinPoint.x += m11 * oriMin.x;
+		worldMaxPoint.x += m11 * oriMax.x;
+	}
+	else
+	{
+		worldMinPoint.x += m11 * oriMax.x;
+		worldMaxPoint.x += m11 * oriMin.x;
+	}
+
+
+	if (m12 > 0.f)
+	{
+		worldMinPoint.y += m12 * oriMin.x;
+		worldMaxPoint.y += m12 * oriMax.x;
+	}
+	else
+	{
+		worldMinPoint.y += m12 * oriMax.x;
+		worldMaxPoint.y += m12 * oriMin.x;
+	}
+
+	if (m13 > 0.f)
+	{
+		worldMinPoint.z += m13 * oriMin.x;
+		worldMaxPoint.z += m13 * oriMax.x;
+	}
+	else
+	{
+		worldMinPoint.z += m13 * oriMax.x;
+		worldMaxPoint.z += m13 * oriMin.x;
+	}
+
+	//
+
+	if (m21 > 0.f)
+	{
+		worldMinPoint.x += m21 * oriMin.y;
+		worldMaxPoint.x += m21 * oriMax.y;
+	}
+	else
+	{
+		worldMinPoint.x += m21 * oriMax.y;
+		worldMaxPoint.x += m21 * oriMin.y;
+	}
+
+
+	if (m22 > 0.f)
+	{
+		worldMinPoint.y += m22 * oriMin.y;
+		worldMaxPoint.y += m22 * oriMax.y;
+	}
+	else
+	{
+		worldMinPoint.y += m22 * oriMax.y;
+		worldMaxPoint.y += m22 * oriMin.y;
+	}
+
+	if (m23 > 0.f)
+	{
+		worldMinPoint.z += m23 * oriMin.y;
+		worldMaxPoint.z += m23 * oriMax.y;
+	}
+	else
+	{
+		worldMinPoint.z += m23 * oriMax.y;
+		worldMaxPoint.z += m23 * oriMin.y;
+	}
+
+	//
+
+
+	if (m31 > 0.f)
+	{
+		worldMinPoint.x += m31 * oriMin.z;
+		worldMaxPoint.x += m31 * oriMax.z;
+	}
+	else
+	{
+		worldMinPoint.x += m31 * oriMax.z;
+		worldMaxPoint.x += m31 * oriMin.z;
+	}
+
+
+	if (m32 > 0.f)
+	{
+		worldMinPoint.y += m32 * oriMin.z;
+		worldMaxPoint.y += m32 * oriMax.z;
+	}
+	else
+	{
+		worldMinPoint.y += m32 * oriMax.z;
+		worldMaxPoint.y += m32 * oriMin.z;
+	}
+
+	if (m33 > 0.f)
+	{
+		worldMinPoint.z += m33 * oriMin.z;
+		worldMaxPoint.z += m33 * oriMax.z;
+	}
+	else
+	{
+		worldMinPoint.z += m33 * oriMax.z;
+		worldMaxPoint.z += m33 * oriMin.z;
+	}
+
+	return BuildFromMinMax(worldMinPoint, worldMaxPoint);
+}
+
+
 float Aabb::GetVolume() const
 {
 	return abs((mMax.x - mMin.x) * (mMax.y - mMin.y) * (mMax.z - mMin.z));

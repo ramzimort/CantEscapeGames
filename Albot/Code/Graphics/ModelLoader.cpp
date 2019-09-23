@@ -213,6 +213,14 @@ void ModelLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, Model& model,
 void ModelLoader::PushVertexData(Model& model, const VertexData& vertex_data)
 {
 	const Vector3& pos = vertex_data.m_position;
+	model.m_aabb.mMin.x = fmin(model.m_aabb.mMin.x, pos.x);
+	model.m_aabb.mMin.y = fmin(model.m_aabb.mMin.y, pos.y);
+	model.m_aabb.mMin.z = fmin(model.m_aabb.mMin.z, pos.z);
+
+	model.m_aabb.mMax.x = fmax(model.m_aabb.mMax.x, pos.x);
+	model.m_aabb.mMax.y = fmax(model.m_aabb.mMax.y, pos.y);
+	model.m_aabb.mMax.z = fmax(model.m_aabb.mMax.z, pos.z);
+
 	model.m_vertices.push_back(vertex_data);
 }
 

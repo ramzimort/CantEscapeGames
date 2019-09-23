@@ -66,7 +66,17 @@ void Model::Release()
 	SafeReleaseDelete(m_index_buffer);
 }
 
-const Model::MeshesList& Model::get_meshes_list() const
+const Model::MeshesList& Model::GetMeshesList() const
 {
 	return m_meshes;
+}
+
+const Model::VerticesList& Model::GetVerticesList() const
+{
+	return m_vertices;
+}
+
+const Aabb& Model::GetAABB() const
+{
+	return m_aabb;
 }

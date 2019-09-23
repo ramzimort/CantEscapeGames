@@ -39,6 +39,7 @@ class Model
 public:
 	friend class ModelLoader;
 	typedef std::vector<Mesh> MeshesList;
+	typedef std::vector<VertexData> VerticesList;
 public:
 	struct Triangle
 	{
@@ -57,23 +58,19 @@ public:
 
 	void Release();
 
-	const MeshesList& get_meshes_list() const;
-
+	const MeshesList& GetMeshesList() const;
+	const VerticesList& GetVerticesList() const;
+	const Aabb& GetAABB() const;
 private:
 	void InitBuffer(DXRenderer* dxrenderer);
-
 private:
 	Aabb m_aabb;
-
 	std::string m_dir_path;
-
-
 	bool m_has_tangent;
-
 	std::vector<Mesh> m_meshes;
 	std::vector<const Texture*> m_textures;
 
-	std::vector<VertexData> m_vertices;
+	VerticesList m_vertices;
 	std::vector<Triangle> m_triangle_indices;
 
 	Buffer* m_vertex_buffer;

@@ -19,6 +19,9 @@ public:
 	static Aabb BuildFromCenterAndHalfExtents(const DirectX::SimpleMath::Vector3& center, const DirectX::SimpleMath::Vector3& halfExtents);
 	static Aabb BuildFromMinMax(const DirectX::SimpleMath::Vector3& min, const DirectX::SimpleMath::Vector3& max);
 
+	//Added by Albert, compute AABB from their original local space to the world space
+	static Aabb BuildFromLocalAABBAndModelMatrix(const Matrix& modelMatrix, const Aabb& aabb);
+
 	// Computes the volume of this aabb.
 	float GetVolume() const;
 	// Computes the surface area of this aabb.

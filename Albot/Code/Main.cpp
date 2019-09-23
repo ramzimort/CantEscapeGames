@@ -80,7 +80,7 @@ int CALLBACK WinMain(
 		frame_manager.EndFrame();
 		DEBUG_UPDATE
 	}
-
+	appRenderer->Release();
 	// TODO - REMOVE LATER (jose)
 	delete stateMgr;
 

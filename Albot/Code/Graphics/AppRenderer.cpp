@@ -307,6 +307,19 @@ void AppRenderer::load_skybox_content()
 	graphics_pipeline_desc.m_vertex_layout = &pos4_layout;
 
 	m_skybox_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+
+	std::array<std::string, 6> cube_texs =
+	{
+		Constant::SkyboxTexturesDir + "right.jpg",
+		Constant::SkyboxTexturesDir + "left.jpg",
+		Constant::SkyboxTexturesDir + "top.jpg",
+		Constant::SkyboxTexturesDir + "bottom.jpg",
+		Constant::SkyboxTexturesDir + "front.jpg",
+		Constant::SkyboxTexturesDir + "back.jpg"
+	};
+
+	m_skybox_texture = DXResourceLoader::Create_CubeTexture(m_dxrenderer, cube_texs);
 }
 
 
@@ -448,7 +461,9 @@ void AppRenderer::RenderApp()
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
+	render_skybox();
 	m_debugRendering.render_debug_scene();
+	
 
 	m_dxrenderer->execute_queued_cmd();	
 }
