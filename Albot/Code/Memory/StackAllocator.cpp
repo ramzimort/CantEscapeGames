@@ -1,4 +1,5 @@
 #include "StackAllocator.h"
+#include "CantDebug/CantDebug.h"
 
 StackAllocator::StackAllocator(uint32_t stackSize_bytes) :
 	m_mem0(new char[stackSize_bytes]),
@@ -7,14 +8,15 @@ StackAllocator::StackAllocator(uint32_t stackSize_bytes) :
 
 StackAllocator::~StackAllocator()
 {
-	delete m_mem0;
+	Clear();
 }
 
 void* StackAllocator::Allocate(uint32_t size_bytes)
 {
-	Marker temp = m_marker;
-	m_marker += size_bytes;
-	return m_mem0 + temp;
+	void* result = m_mem0 + m_marker;
+	m_marker += size_bytes;	
+	DEBUG_ALLOC(typeid(*this).name(), static_cast<const void*>(result));
+	return result;
 }
 
 Marker StackAllocator::GetMarker()
@@ -25,9 +27,11 @@ Marker StackAllocator::GetMarker()
 void StackAllocator::FreeToMarker(Marker marker)
 {
 	m_marker = marker;
+	DEBUG_FREEALL(typeid(*this).name(), static_cast<const void*>(m_mem0 + marker));
 }
 
 void StackAllocator::Clear()
 {
+	m_marker = 0;
 	delete m_mem0;
 }

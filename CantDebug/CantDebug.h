@@ -19,4 +19,10 @@ namespace CantDebugAPI
 	CANTDEBUG_API void Log(const char* data);
 
 	CANTDEBUG_API void Trace(const char* data);
+
+	CANTDEBUG_API void MemoryLog(const char* pool, const void* address);
+
+	CANTDEBUG_API void MemoryFree(const char* pool, const void* address);
+
+	CANTDEBUG_API void MemoryFreeAll(const char* pool, const void* address);
 }

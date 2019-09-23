@@ -1,32 +1,32 @@
 #include "stdafx.h"
-#include "LogQueue.h"
+#include "DataQueue.h"
 #include <string>
 
 
-LogQueue::LogQueue()
+DataQueue::DataQueue()
 {
 }
 
 
-LogQueue::~LogQueue()
+DataQueue::~DataQueue()
 {
 	while (!m_printQ.empty())
 		m_printQ.pop();
 }
 
-void LogQueue::Push(const char* data)
+void DataQueue::Push(const char* data)
 {
 	m_printQ.push(data);
 }
 
-std::string LogQueue::Pop()
+std::string DataQueue::Pop()
 {
 	std::string data = m_printQ.front();
 	m_printQ.pop();
 	return data;
 }
 
-bool LogQueue::Empty()
+bool DataQueue::Empty()
 {
 	return m_printQ.empty();
 }

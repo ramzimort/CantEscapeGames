@@ -39,7 +39,7 @@ namespace CantMemory
 			static T* Allocate(Args &&... args)
 			{
 				static std::auto_ptr<Pool<T>>m_pPool(new Pool<T>(16384));
-				return m_pPool.get()->Allocate();
+				return m_pPool.get()->Allocate(std::forward<Args>(args)...);
 			}
 			static void Free(T* ptr)
 			{
@@ -72,7 +72,7 @@ namespace CantMemory
 		}
 		template <typename T> void Free(T* ptr)
 		{
-			return GlobalPool<T>::Free(T* ptr);
+			GlobalPool<T>::Free(ptr);
 		}
 	}
 }

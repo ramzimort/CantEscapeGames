@@ -3,8 +3,9 @@
 
 #include "stdafx.h"
 #include "CantDebug.h"
-#include "LogQueue.h"
+#include "DataQueue.h"
 #include "Logger.h"
+#include "MemoryProfiler.h"
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;
@@ -12,12 +13,14 @@ static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
 static SDL_Window*				g_mainWindow = NULL;
-static LogQueue*				g_traceQueue = NULL;
-static LogQueue*				g_logQueue = NULL;
-static ImGuiTextBuffer			g_buf;
+static DataQueue*				g_traceQueue = NULL;
+static DataQueue*				g_logQueue = NULL;
+static DataQueue*				g_memoryQueue = NULL;
+static MemoryProfiler*			g_memoryProfiler = NULL;
 
 // Our State
 bool _update = true;
+ImGuiTextBuffer	g_buf;
 bool _showDemoWindow = false;
 ImVec4 clear_color = ImVec4(0.15f, 0.1f, 0.90f, 1.00f);
 
@@ -62,8 +65,9 @@ namespace CantDebugAPI
 		ImGui_ImplSDL2_InitForD3D(g_mainWindow);
 		ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
-		g_logQueue = new LogQueue();
-		g_traceQueue = new LogQueue();
+		g_logQueue = new DataQueue();
+		g_traceQueue = new DataQueue();
+		g_memoryProfiler = new MemoryProfiler();
 	}
 
 	void UpdateDebugWindow()
@@ -108,13 +112,28 @@ namespace CantDebugAPI
 	{
 		g_traceQueue->Push(data);
 	}
+
+	void MemoryLog(const char* pool, const void* address)
+	{
+		g_memoryProfiler->AddElement(pool, address);
+	}
+
+	void MemoryFree(const char* pool, const void* address)
+	{
+		g_memoryProfiler->FreeElement(pool, address);
+	}
+
+	void MemoryFreeAll(const char* pool, const void* address)
+	{
+		g_memoryProfiler->FreeAllElements(pool, address);
+	}
 }
 
 // Helper functions
 void UpdateLog()
 {
 	static Logger log;
-	ImGui::Begin("LogWindow");
+	ImGui::Begin("Log");
 	while (!g_logQueue->Empty())
 		log.AddLog(g_logQueue->Pop().c_str());
 	ImGui::End();
@@ -123,7 +142,7 @@ void UpdateLog()
 
 void UpdateTrace()
 {
-	ImGui::Begin("Immediate Window");
+	ImGui::Begin("Trace");
 	ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 	while (!g_traceQueue->Empty())
 		ImGui::Text(g_traceQueue->Pop().c_str());
@@ -132,7 +151,7 @@ void UpdateTrace()
 
 void UpdateMemoryProfile()
 {
-
+	g_memoryProfiler->Update();
 }
 
 void Render()

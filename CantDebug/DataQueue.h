@@ -1,13 +1,12 @@
 #pragma once
 
 #include <queue>
-class LogData;
 
-class LogQueue
+class DataQueue
 {
 public:
-	LogQueue();
-	~LogQueue();
+	DataQueue();
+	~DataQueue();
 
 	void Push(const char* data);
 	std::string Pop();

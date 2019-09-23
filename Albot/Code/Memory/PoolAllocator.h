@@ -72,11 +72,15 @@ struct Pool
 		T* result = current_item->GetStorage();
 		new (result) T(std::forward<Args>(args)...);
 
+
+		DEBUG_ALLOC(typeid(*this).name(), static_cast<const void*>(result));
 		return result;
 	}
 
 	void Free(T *t)
 	{
+		DEBUG_FREE(typeid(*this).name(), static_cast<const void*>(t));
+
 		t->T::~T();
 		PoolItem* current_item = PoolItem::StorageToItem(t);
 		current_item->SetNextItem(m_free_list);
