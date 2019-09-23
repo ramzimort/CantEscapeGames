@@ -65,11 +65,14 @@ public:
 
 	pointer   allocate(size_type n, const void * = 0)
 	{
-		T* t = (T*)Pool::Allocate(n * sizeof(T));
+		T* t = (T*)PoolAlloc::Allocate<T><T>();
 		return t;
 	}
 
-	void      deallocate(void* p, size_type) { }
+	void      deallocate(void* p, size_type) 
+	{ 
+		PoolAlloc::Free<T>(p); 
+	}
 
 	pointer           address(reference x) const { return &x; }
 	const_pointer     address(const_reference x) const { return &x; }

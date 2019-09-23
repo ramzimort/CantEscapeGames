@@ -22,6 +22,10 @@ bool _showDemoWindow = false;
 ImVec4 clear_color = ImVec4(0.15f, 0.1f, 0.90f, 1.00f);
 
 // Forward declarations of helper functions
+void UpdateLog();
+void UpdateTrace();
+void UpdateMemoryProfile();
+void Render();
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
@@ -34,8 +38,8 @@ namespace CantDebugAPI
 		g_mainWindow = SDL_CreateWindow("CantDebug",
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
-			800,
-			600,
+			1200,
+			900,
 			SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 
 		SDL_SysWMinfo wmInfo;
