@@ -153,7 +153,7 @@ PS_OUT main(PS_IN ps_in)
         discard;
     }
 
-    float ambient_strength = 0.25f;
+    float ambient_strength = 0.15f;
 
 
     float2 clip_pixel = float2((ps_in.UV.x * 2.f) - 1, 1.f - (ps_in.UV.y * 2.f));

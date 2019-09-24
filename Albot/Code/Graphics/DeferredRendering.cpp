@@ -347,13 +347,13 @@ void DeferredRendering::render_deferred_point_light_shade()
 		const PointLightInstanceData& light_inst = m_app_renderer->m_point_light_instance_list[i];
 		const Light* cur_light = light_inst.light;
 
-		Vector4 light_color(cur_light->get_color().x, cur_light->get_color().y, cur_light->get_color().z, 1.f);
+		Vector4 light_color(cur_light->GetColor().x, cur_light->GetColor().y, cur_light->GetColor().z, 1.f);
 
 		m_constant_point_light_data[i].LightColor = light_color;
 		m_constant_point_light_data[i].LightPosition = Vector4(light_inst.light_position.x,
 			light_inst.light_position.y, light_inst.light_position.z, 1.0);
 		m_constant_point_light_data[i].LightMiscData.x = cur_light->get_radius();
-		m_constant_point_light_data[i].LightMiscData.y = cur_light->get_intensity();
+		m_constant_point_light_data[i].LightMiscData.y = cur_light->GetIntensity();
 
 		Vector2 attenuation_constant = cur_light->get_attenuation_constant();
 		m_constant_point_light_data[i].LightMiscData.z = attenuation_constant.x;

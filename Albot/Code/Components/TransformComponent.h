@@ -39,11 +39,16 @@ public:
 	//this is offset rotate
 	void Rotate(float eulerX, float eulerY, float eulerZ);
 
-	void SetRotation(float eulerX, float eulerY, float eulerZ);
+	void SetLocalRotation(float eulerX, float eulerY, float eulerZ);
 
 	void Scale(float val);
 	void Scale(float x, float y, float z);
 	void Scale(Vector3 const &scale);
+
+
+	//TODO: in the future we may have parent child hierachy
+	Vector3 const& GetWorldPosition() const;
+
 
 	//getters
 	Vector3 const& GetPosition() const;

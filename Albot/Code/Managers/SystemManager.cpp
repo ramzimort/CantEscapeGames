@@ -15,7 +15,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
 #include "Systems/FPSCameraSystem.h"
-
+#include "Systems/LightSystem.h"
 
 SystemManager::SystemManager()
 {
@@ -23,12 +23,10 @@ SystemManager::SystemManager()
 		//Test (erase later)
 	this->AddSystem<TestSystem>();
 	this->AddSystem<TransformSystem>();
+	this->AddSystem<LightSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<FPSCameraSystem>();
-
-
-
 }
 
 SystemManager::~SystemManager()

@@ -462,6 +462,30 @@ void AppRenderer::RenderApp()
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
+	uint32_t direction_light_num = m_directionLightInstanceList.size();
+	if (direction_light_num > 0)
+	{
+		for (uint32_t i = 0; i < direction_light_num; ++i)
+		{
+			const DirectionalLightInstanceData& light_inst_data = m_directionLightInstanceList[i];
+
+			m_directional_light_uniform_data.DirectionalLightColor[i] = MathUtil::v3_to_v4(light_inst_data.light->GetColor());
+			m_directional_light_uniform_data.DirectionalLightMiscData[i].y = light_inst_data.light->GetIntensity();
+			m_directional_light_uniform_data.DirectionalLightMiscData[i].z = light_inst_data.light->GetShadowIntensity();
+			m_directional_light_uniform_data.LightDirection[i] = MathUtil::v3_to_v4(light_inst_data.light_direction, 0.0);
+		}
+	}
+
+	m_directional_light_uniform_data.DirectionalLightUniformMiscData.w = direction_light_num;
+
+	BufferUpdateDesc direction_light_update_desc = {};
+	direction_light_update_desc.m_buffer = m_directional_light_uniform_buffer;
+	direction_light_update_desc.m_pSource = &m_directional_light_uniform_data;
+	direction_light_update_desc.m_size = sizeof(DirectionalLightUniformData);
+
+	m_dxrenderer->cmd_update_buffer(direction_light_update_desc);
+
+
 	m_deferrredRendering.RenderDeferredScene();
 
 	LoadActionsDesc next_load_actions_desc = {};
@@ -477,6 +501,7 @@ void AppRenderer::RenderApp()
 	RenderSkybox();
 	m_debugRendering.RenderDebugScene();
 
+	m_directionLightInstanceList.clear();
 	m_basicInstances.clear();
 	m_dxrenderer->execute_queued_cmd();	
 }
@@ -484,6 +509,11 @@ void AppRenderer::RenderApp()
 void AppRenderer::RegisterBasicInstance(const InstanceRenderData& instanceRenderData)
 {
 	m_basicInstances.push_back(instanceRenderData);
+}
+
+void AppRenderer::RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData)
+{
+	m_directionLightInstanceList.push_back(directionalLightInstanceData);
 }
 
 void AppRenderer::AddObjectUniformBuffer()

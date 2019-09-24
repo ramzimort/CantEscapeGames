@@ -91,6 +91,7 @@ public:
 
 
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
+	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
 	
 	void RenderBasicInstances(Pipeline* pipeline);
 private:
@@ -139,7 +140,7 @@ private:
 
 
 	Buffer* m_directional_light_uniform_buffer;
-	DirectionalLightInstanceDataList m_direction_light_instance_list;
+	DirectionalLightInstanceDataList m_directionLightInstanceList;
 	PointLightInstanceDataList m_point_light_instance_list;
 
 	DebugRendering m_debugRendering;

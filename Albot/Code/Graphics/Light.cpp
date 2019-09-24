@@ -8,7 +8,8 @@ Light::Light()
 	m_intensity(1.f),
 	m_cast_shadow(true),
 	m_enabled(true),
-	m_radius(1.f)
+	m_radius(1.f),
+	m_shadow_intensity(1.f)
 {
 }
 
@@ -17,12 +18,12 @@ Light::~Light()
 {
 }
 
-const Vector3& Light::get_color() const
+const Vector3& Light::GetColor() const
 {
 	return m_color;
 }
 
-float Light::get_intensity() const
+float Light::GetIntensity() const
 {
 	return m_intensity;
 }

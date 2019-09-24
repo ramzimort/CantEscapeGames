@@ -17,6 +17,7 @@ Primary Author:
 #include "Components/RigidbodyComponent.h"
 #include "Components/TestComponent.h"
 #include "Components/MeshesComponent.h"
+#include "Components/LightComponent.h"
 
 
 
@@ -134,6 +135,28 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		//Override code								         ////
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc5);
+
+
+	Light directionalLight = {};
+	directionalLight.m_cast_shadow = true;
+	directionalLight.m_color = Vector3(1.f, 1.f, 1.f);
+	directionalLight.m_intensity = 2.f;
+	directionalLight.m_radius = 5.f;
+	directionalLight.m_light_type = ELightType::DIRECTIONAL_LIGHT;
+
+	GameObjectDesc desc6 = {};							         ////
+	desc6.tag = "directionalLight";						         ////
+	desc6.initializeComponentSetup = [directionalLight](GameObject *go)	         ////
+	{												         ////
+		auto *T = go->AddComponent<Transform>();
+		T->SetLocalPosition(0.f, 0.f, 0.f);////
+		T->SetLocalRotation(60.0f, 30.0f, 0.0f);
+
+		auto lightComp = go->AddComponent<LightComponent>();
+		lightComp->SetLight(directionalLight);
+		//Override code								         ////
+	};												         ////
+	goMgr->Queue_GameObject_Instantiation(&desc6);
 
 	/////////////////////////////////////////////////////////////
 }

@@ -69,7 +69,7 @@ void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 	m_rotation.z += eulerZ;
 }
 
-void Transform::SetRotation(float eulerX, float eulerY, float eulerZ)
+void Transform::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
 {
 	m_needToRecalculateModel = 1;
 
@@ -120,6 +120,12 @@ void Transform::Scale(float x, float y, float z)
 ///////////////////////////////////////////////////////
 ////           GETTERS METHODS                     ////
 ///////////////////////////////////////////////////////
+
+Vector3 const& Transform::GetWorldPosition() const
+{
+	return m_position;
+}
+
 Vector3 const& Transform::GetPosition() const
 {
 	return m_position;
