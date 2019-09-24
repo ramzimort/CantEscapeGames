@@ -17,6 +17,7 @@ unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 
 //TODO: Alberto stuff
 #include "Graphics/AppRenderer.h"
+#include "Graphics/Model.h"
 extern AppRenderer* gAppRenderer;
 
 
@@ -76,6 +77,11 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	instanceRenderData.uv_tiling = Vector2(rendererComp->m_x_tile_factor, rendererComp->m_y_tile_factor);
 
 	gAppRenderer->RegisterBasicInstance(instanceRenderData);
+	
+	Aabb new_aabb = Aabb::BuildFromLocalAABBAndModelMatrix(modelMatrix, meshesComp->GetModel()->GetAABB());
+	DebugAABBInstance aabb_instance = {new_aabb.mMin, new_aabb.mMax, Vector3(1.f, 0.f, 0.f)};
+
+	gAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
 
 	//DRAW CODE GOES HERE
 }

@@ -29,6 +29,7 @@ void TestSystem::Register_GameObject(GameObject *go)
 
 	TestComp *test = go->GetComponent<TestComp>();
 
+
 	BaseSystemCompNode *component_node = new TestCompCompNode(test);
 	component_node->m_goID = go->GetId();
 
@@ -42,8 +43,15 @@ void TestSystem::Update(float dt, BaseSystemCompNode *compNode)
 	TestCompCompNode *node = static_cast<TestCompCompNode*>(compNode);
 	TestComp *T = node->n_testComp;
 
+	Transform* transform_comp = T->GetGameObjectOwner()->GetComponent<Transform>();
 
-
+	//TODO: added by albert just to test AABB world space
+	if (transform_comp)
+	{
+		const float rotateSpeedX = 160.f;
+		const float rotateSpeedY = 90.f;
+		transform_comp->Rotate(rotateSpeedX * dt, rotateSpeedY * dt, 0.f);
+	}
 
 	//UPDATE CODE GOES HERE
 	T->onWhateverFires += delegate<void(float)>::Create < TestSystem, &TestSystem::printFloat > (this);

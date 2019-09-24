@@ -44,16 +44,17 @@ public:
 	void RenderDebugScene();
 	void Release();
 
-	void register_debug_line_instance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color);
-	void register_debug_line_instance(const DebugLineInstance& line_instance);
-	void register_debug_aabb(const DebugAABBInstance& debug_aabb_instance);
-	void register_debug_sphere(const DebugSphereInstance& debug_sphere_instance);
+	void RegisterDebugLineInstance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color);
+	void RegisterDebugLineInstance(const DebugLineInstance& line_instance);
+	void RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance);
+	
 
 	void LoadContent(DXRenderer* dxrenderer);
 private:
 	void render_debug_aabb_scene();
 	void render_debug_line_scene();
 	
+	void RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance);
 private:
 	AppRenderer* m_app_renderer;
 	DXRenderer* m_dxrenderer;

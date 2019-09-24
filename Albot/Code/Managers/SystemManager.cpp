@@ -20,14 +20,15 @@ Primary Author: Jose Rosenbluth
 SystemManager::SystemManager()
 {
 	//ADD HERE THE CUSTOM SYSTEMS
+		//Test (erase later)
+	this->AddSystem<TestSystem>();
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<FPSCameraSystem>();
 
 
-	//Test (erase later)
-	this->AddSystem<TestSystem>();
+
 }
 
 SystemManager::~SystemManager()

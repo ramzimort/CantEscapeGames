@@ -125,28 +125,28 @@ void DebugRendering::LoadContent(DXRenderer* dxrenderer)
 #endif
 }
 
-void DebugRendering::register_debug_line_instance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color)
+void DebugRendering::RegisterDebugLineInstance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color)
 {
 #ifdef DEVELOPER
-	register_debug_line_instance(DebugLineInstance{ start_pos, end_pos, color });
+	RegisterDebugLineInstance(DebugLineInstance{ start_pos, end_pos, color });
 #endif
 }
 
-void DebugRendering::register_debug_line_instance(const DebugLineInstance& line_instance)
+void DebugRendering::RegisterDebugLineInstance(const DebugLineInstance& line_instance)
 {
 #ifdef DEVELOPER
 	m_debug_line_instance_list.push_back(line_instance);
 #endif
 }
 
-void DebugRendering::register_debug_aabb(const DebugAABBInstance& debug_aabb_instance)
+void DebugRendering::RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance)
 {
 #ifdef DEVELOPER
 	m_debug_aabb_instance_list.push_back(debug_aabb_instance);
 #endif
 }
 
-void DebugRendering::register_debug_sphere(const DebugSphereInstance& debug_sphere_instance)
+void DebugRendering::RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance)
 {
 }
 
@@ -154,7 +154,7 @@ void DebugRendering::RenderDebugScene()
 {
 #ifdef DEVELOPER
 	//TODO: only for testing
-	DebugAABBInstance aabb_instance = {};
+	/*DebugAABBInstance aabb_instance = {};
 	aabb_instance.m_color = Vector3(1.0, 0.0, 0.0);
 	Vector3 size(10.f);
 
@@ -162,17 +162,17 @@ void DebugRendering::RenderDebugScene()
 	aabb_instance.m_max_bound = Vector3(size.x, size.y, size.z) / 2.f;
 
 
-	register_debug_aabb(aabb_instance);
+	RegisterDebugAABB(aabb_instance);
 
 	aabb_instance.m_color = Vector3(0.0, 1.0, 0.0);
 	aabb_instance.m_min_bound = Vector3(-size.x, -size.y, -size.z);
 	aabb_instance.m_max_bound = Vector3(size.x, size.y, size.z) ;
 
 
-	register_debug_line_instance(Vector3(0, 0.0, 0.0), Vector3(10, 20.0, -10.0), Vector3(1.0, 1.0, 0.0));
-	register_debug_line_instance(Vector3(0, 20.0, -10.0), Vector3(100.0, -10.0, 20.0), Vector3(1.0, 0.0, 1.0));
+	RegisterDebugLineInstance(Vector3(0, 0.0, 0.0), Vector3(10, 20.0, -10.0), Vector3(1.0, 1.0, 0.0));
+	RegisterDebugLineInstance(Vector3(0, 20.0, -10.0), Vector3(100.0, -10.0, 20.0), Vector3(1.0, 0.0, 1.0));
 
-	register_debug_aabb(aabb_instance);
+	RegisterDebugAABB(aabb_instance);*/
 	//only for testing
 
 	render_debug_aabb_scene();

@@ -642,9 +642,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
-				total_params_count += 1;
-
-				
+				++total_params_count;
 
 				params[4].m_binding_location = 0;
 				params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;

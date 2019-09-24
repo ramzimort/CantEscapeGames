@@ -39,7 +39,7 @@ public:
 
 	ComponentId GetType() const { return m_type; }
 
-
+	GameObject* GetGameObjectOwner() const { return m_owner; }
 private:
 	BaseComponent(BaseComponent& rhs);
 

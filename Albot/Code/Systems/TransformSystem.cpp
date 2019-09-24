@@ -66,6 +66,8 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 	//column major way
 	//transformComp->SetModel(T*R*H);
 
+
+
 	//row major way
 	transformComp->SetModel(H * R * T);
 	transformComp->m_rotMatrix = R;

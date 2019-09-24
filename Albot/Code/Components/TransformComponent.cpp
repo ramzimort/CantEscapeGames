@@ -64,6 +64,15 @@ void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 {
 	m_needToRecalculateModel = 1;
 
+	m_rotation.x += eulerX;
+	m_rotation.y += eulerY;
+	m_rotation.z += eulerZ;
+}
+
+void Transform::SetRotation(float eulerX, float eulerY, float eulerZ)
+{
+	m_needToRecalculateModel = 1;
+
 	m_rotation.x = eulerX;
 	m_rotation.y = eulerY;
 	m_rotation.z = eulerZ;
