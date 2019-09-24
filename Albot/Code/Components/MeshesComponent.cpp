@@ -28,3 +28,8 @@ Model* MeshesComponent::GetModel()
 {
 	return m_model;
 }
+
+void MeshesComponent::SetModel(Model* model)
+{
+	m_model = model;
+}

@@ -12,6 +12,7 @@ unsigned const TestSystem::static_type = BaseSystem::numberOfTypes++;
 
 // 2 - Include the components you want to add
 #include "../Components/TestComponent.h"
+#include "Components/TransformComponent.h"
 
 
 TestSystem::TestSystem() :
@@ -40,6 +41,9 @@ void TestSystem::Update(float dt, BaseSystemCompNode *compNode)
 	// 5 - Get the pointer to the components, and then freely update
 	TestCompCompNode *node = static_cast<TestCompCompNode*>(compNode);
 	TestComp *T = node->n_testComp;
+
+
+
 
 	//UPDATE CODE GOES HERE
 	T->onWhateverFires += delegate<void(float)>::Create < TestSystem, &TestSystem::printFloat > (this);

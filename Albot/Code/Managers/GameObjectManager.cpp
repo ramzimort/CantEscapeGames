@@ -65,6 +65,8 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 			if (descriptor.componentSetup)
 				descriptor.componentSetup(go);
 
+			descriptor.initializeComponentSetup(go);
+
 			//Register on the system
 			//TODO - REPLACE WITH MESSAGE TO SYSTEM MGR (for testing that)
 			m_systemMgr->RegisterGameObject(go);

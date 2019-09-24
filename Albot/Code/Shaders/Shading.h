@@ -6,10 +6,16 @@
 #define MAX_LINE_DEBUG_DRAW 2000
 #define MAX_DIRECTIONAL_LIGHT_COUNT 8
 
-#define MAT_ID_COLOR 0
-#define MAT_ID_DIFFUSE_TEXTURE 1
-#define MAT_ID_DIFFUSE_NORMAL_TEXTURE 2
-#define MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE 3
+
+#define MAT_ID_COLOR 1 << 0
+#define MAT_ID_DIFFUSE_TEXTURE 1 << 1 
+#define MAT_ID_NORMAL_TEXTURE 1 << 2
+#define MAT_ID_PARALLAX_TEXTURE 1 << 3
+
+//#define MAT_ID_COLOR 0
+//#define MAT_ID_DIFFUSE_TEXTURE 1
+//#define MAT_ID_DIFFUSE_NORMAL_TEXTURE 2
+//#define MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE 3
 
 static const float PI = 3.14159f;
 
@@ -23,7 +29,7 @@ struct CameraUniformData
 	float4x4 ViewProjectionMat;
 	float4x4 InvViewProjectionMat;
 	float4 CameraPosition;
-	float2 WindowSize;
+	float2 CameraViewportSize;
 };
 
 struct ObjectUniformData

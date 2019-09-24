@@ -12,6 +12,8 @@ Primary Author:
 ///INCLUDES
 #include "BaseComponent.h"
 
+class Material;
+class GameObject;
 
 class RendererComponent : public BaseComponent
 {
@@ -19,7 +21,8 @@ class RendererComponent : public BaseComponent
 //Friend classes
 public:
 	friend class Factory;
-
+	friend class RenderingSystem;
+	friend struct GameObjectDesc;
 //Public interface
 public:
 	RendererComponent(GameObject *owner);
@@ -28,8 +31,19 @@ public:
 	virtual void Init() override;
 	virtual void Begin() override;
 
-
+	//TEMP FUNCTION:
+	//Added by albert, there should not be a public function to set material
+	//TODO
+	void SetMaterial(Material* material);
+	
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
+
+private:
+	std::string m_material_name;
+	Material* m_pMaterial;
+
+	float m_x_tile_factor;
+	float m_y_tile_factor;
 };

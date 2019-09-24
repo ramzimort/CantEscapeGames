@@ -877,7 +877,7 @@ bool DXRenderer::init_d3d11()
 	m_swap_chain.m_p_swap_chain_render_target = new RenderTarget(RenderTargetDesc());
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_width = client_width;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_height = client_height;
-	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clear_val = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
+	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
 
 	hr = m_d3d_device->CreateRenderTargetView(back_buffer,
 		nullptr, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);

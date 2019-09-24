@@ -12,19 +12,21 @@ Primary Author: Jose Rosenbluth
 
 class Transform;
 class RendererComponent;
+class MeshesComponent;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
 
 struct RenderingCompNode : BaseSystemCompNode
 {
-	Transform *n_transform;
-	RendererComponent *n_renderer;
+	Transform *m_transform;
+	RendererComponent *m_renderer;
+	MeshesComponent* m_meshesComponent;
 
 	//Ctor
 	RenderingCompNode(Transform *transform, 
-		RendererComponent *renderer) : n_transform(transform), 
-		n_renderer(renderer) 
+		RendererComponent *renderer, MeshesComponent* meshesComp) : m_transform(transform),
+		m_renderer(renderer), m_meshesComponent(meshesComp)
 	{}
 };
 
@@ -35,7 +37,6 @@ class RenderingSystem : public BaseSystem
 //Friend classes
 public:
 	friend class Factory;
-
 //Public interface
 public:
 	RenderingSystem();

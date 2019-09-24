@@ -63,7 +63,13 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 	Matrix H = Matrix::CreateScale(transformComp->GetScale());
 
 	//Model
-	transformComp->SetModel(T*R*H);
+	//column major way
+	//transformComp->SetModel(T*R*H);
+
+	//row major way
+	transformComp->SetModel(H * R * T);
+	transformComp->m_rotMatrix = R;
+	transformComp->m_scaleMatrix = H;
 
 	transformComp->ResetDirtyFlag();
 }

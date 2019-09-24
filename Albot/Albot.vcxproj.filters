@@ -6,6 +6,13 @@
     <FxCompile Include="Code\Shaders\debug_line_vert.hlsl" />
     <FxCompile Include="Code\Shaders\skybox_frag.hlsl" />
     <FxCompile Include="Code\Shaders\skybox_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\deferred_pass_frag.hlsl" />
+    <FxCompile Include="Code\Shaders\deferred_pass_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\deferred_shade_frag.hlsl" />
+    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl" />
+    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\depth_pass_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
@@ -63,6 +70,7 @@
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
     <ClCompile Include="Code\Components\MeshesComponent.cpp" />
+    <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -136,5 +144,6 @@
     <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\Helper\Constant.h" />
     <ClInclude Include="Code\Helper\MathUtil.h" />
+    <ClInclude Include="Code\Graphics\DeferredRendering.h" />
   </ItemGroup>
 </Project>

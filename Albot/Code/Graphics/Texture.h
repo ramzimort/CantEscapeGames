@@ -29,13 +29,13 @@ struct TextureDesc
 	uint32_t m_bindFlags;
 	Usage_Type m_usageType;
 	CPU_Access_Type m_cpuAccessType;
-	uint32_t m_mip_levels;
+	uint32_t m_mipLevels;
 	uint32_t m_depth;
 	int32_t m_width;
 	int32_t m_height;
-	DXGI_FORMAT m_image_format;
+	DXGI_FORMAT m_imageFormat;
 	Misc_Flags m_miscFlags;
-	ClearValue m_clear_val;
+	ClearValue m_clearVal;
 };
 
 

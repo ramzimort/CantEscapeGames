@@ -37,7 +37,7 @@ const RenderTargetDesc& RenderTarget::get_desc() const
 
 const ClearValue& RenderTarget::get_clear_value() const
 {
-	return m_desc.m_texture_desc.m_clear_val;
+	return m_desc.m_texture_desc.m_clearVal;
 }
 
 ID3D11RenderTargetView* RenderTarget::get_rtv()
@@ -50,7 +50,7 @@ void RenderTarget::Release()
 	//TODO:
 	if (m_texture)
 	{
-		if (DXResourceLoader::is_depth_format(m_texture->get_desc().m_image_format))
+		if (DXResourceLoader::is_depth_format(m_texture->get_desc().m_imageFormat))
 		{
 			SafeRelease(m_p_depth_stencil_view);
 		}

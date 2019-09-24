@@ -17,12 +17,17 @@ enum MeshType
 class MeshesComponent :	public BaseComponent
 {
 public:
+	friend class Factory;
+public:
 	MeshesComponent(GameObject *owner);
 	virtual ~MeshesComponent();
 
 	void Init() override;
 	void Begin() override;
 	Model* GetModel();
+
+	//TODO: temp function, this public function is only for testing
+	void SetModel(Model* model);
 public:
 	static ComponentId const static_type;
 private:

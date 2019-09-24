@@ -16,8 +16,8 @@ StateManager *stateMgr;
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Managers/InputManager.h"
-AppRenderer* appRenderer;
-ResourceManager* resourceManager;
+AppRenderer* gAppRenderer;
+ResourceManager* gResourceManager;
 CameraManager* gCameraManager;
 InputManager* gInputManager;
 WindowManager* gWindowManager;
@@ -39,22 +39,25 @@ int CALLBACK WinMain(
 	bool done = false;
 	float dt;
 
-	// TODO - REMOVE LATER (jose)
-	stateMgr = new StateManager();
-	stateMgr->SwitchState(new State("level1.json"));
 
 	//TODO - ALBERTO STUFF ;)
 	gCameraManager = new CameraManager();
-	resourceManager = new ResourceManager();
-	appRenderer = new AppRenderer(*main_window, resourceManager, gCameraManager);
+	gResourceManager = new ResourceManager();
+	gAppRenderer = new AppRenderer(*main_window, gResourceManager, gCameraManager);
 	gInputManager = new InputManager();
-	resourceManager->SetDXRenderer(appRenderer->GetDXRenderer());
+	gResourceManager->SetDXRenderer(gAppRenderer->GetDXRenderer());
 	int32_t windowWidth, windowHeight;
 	SDL_GetWindowSize(main_window, &windowWidth, &windowHeight);
 	Camera* camera = new Camera(windowWidth, windowHeight, 45.f,
 		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
 	gCameraManager->RegisterCamera("Main", camera);
 	//
+
+	// TODO - REMOVE LATER (jose)
+	stateMgr = new StateManager();
+	stateMgr->SwitchState(new State("level1.json"));
+
+	
 	DEBUG_INIT;
 	DEBUG_LOG("Frame Time: %f ms\n", 20.f);
 	while (!gInputManager->IsQuit())
@@ -73,14 +76,14 @@ int CALLBACK WinMain(
 		stateMgr->UpdateStack(dt);
 		stateMgr->DrawStack(dt);
 		// TODO - ALBERTOOOO
-		appRenderer->UpdateAppRenderer(dt);
-		appRenderer->RenderApp();
-		appRenderer->PresentApp();
+		gAppRenderer->UpdateAppRenderer(dt);
+		gAppRenderer->RenderApp();
+		gAppRenderer->PresentApp();
 
 		frame_manager.EndFrame();
 		DEBUG_UPDATE
 	}
-	appRenderer->Release();
+	gAppRenderer->Release();
 	// TODO - REMOVE LATER (jose)
 	delete stateMgr;
 

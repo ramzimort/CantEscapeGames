@@ -207,7 +207,7 @@ void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
 	ID3D11RenderTargetView** d3d_render_target_view)
 {
 	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
-	rtv_desc.Format = render_target->m_desc.m_texture_desc.m_image_format;
+	rtv_desc.Format = render_target->m_desc.m_texture_desc.m_imageFormat;
 	
 	D3D11_RESOURCE_DIMENSION resource_dim_type = {};
 	render_target->m_texture->m_p_raw_resource->GetType(&resource_dim_type);
@@ -252,7 +252,7 @@ void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget*
 	ID3D11DepthStencilView** d3d_depth_stencil_view)
 {
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
-	dsv_desc.Format = render_target->m_desc.m_texture_desc.m_image_format;
+	dsv_desc.Format = render_target->m_desc.m_texture_desc.m_imageFormat;
 
 	D3D11_RESOURCE_DIMENSION resource_dim_type = {};
 	render_target->m_texture->m_p_raw_resource->GetType(&resource_dim_type);
@@ -394,7 +394,7 @@ RenderTarget* DXResourceLoader::Create_RenderTarget(DXRenderer* renderer, Render
 	RenderTarget* render_target = new RenderTarget(render_target_desc);
 	render_target->m_texture = rt_texture;
 
-	bool is_depth = is_depth_format(load_tex_desc.m_tex_desc->m_image_format);
+	bool is_depth = is_depth_format(load_tex_desc.m_tex_desc->m_imageFormat);
 
 
 	//TODO: add support for mipmap RTV & DSV
@@ -598,8 +598,8 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 	Texture* texture = new Texture(*load_desc.m_tex_desc);
 
-	bool is_depth_texture = DXResourceLoader::is_depth_format(load_desc.m_tex_desc->m_image_format);
-	DXGI_FORMAT final_image_format = load_desc.m_tex_desc->m_image_format;
+	bool is_depth_texture = DXResourceLoader::is_depth_format(load_desc.m_tex_desc->m_imageFormat);
+	DXGI_FORMAT final_image_format = load_desc.m_tex_desc->m_imageFormat;
 	if (is_depth_texture)
 	{
 		if (final_image_format == DXGI_FORMAT_D24_UNORM_S8_UINT)
@@ -619,11 +619,11 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 		d3d_texture3d_desc.BindFlags = Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags);
 		d3d_texture3d_desc.CPUAccessFlags = CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType);
-		d3d_texture3d_desc.Format = load_desc.m_tex_desc->m_image_format;
+		d3d_texture3d_desc.Format = load_desc.m_tex_desc->m_imageFormat;
 		d3d_texture3d_desc.Depth = load_desc.m_tex_desc->m_depth;
 		d3d_texture3d_desc.Width = load_desc.m_tex_desc->m_width;
 		d3d_texture3d_desc.Height = load_desc.m_tex_desc->m_height;
-		d3d_texture3d_desc.MipLevels = load_desc.m_tex_desc->m_mip_levels;
+		d3d_texture3d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
 		d3d_texture3d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
 		
 		ID3D11Texture3D* new_d3d_texture3d = nullptr;
@@ -648,7 +648,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		d3d_texture2d_desc.Format = final_image_format;
 		d3d_texture2d_desc.Width = load_desc.m_tex_desc->m_width;
 		d3d_texture2d_desc.Height = load_desc.m_tex_desc->m_height;
-		d3d_texture2d_desc.MipLevels = load_desc.m_tex_desc->m_mip_levels;
+		d3d_texture2d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
 		d3d_texture2d_desc.SampleDesc.Count = 1;
 		d3d_texture2d_desc.SampleDesc.Quality = 0;
 		d3d_texture2d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
@@ -730,7 +730,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	//TODO
 	if (load_desc.m_tex_desc->m_bindFlags & BIND_UNORDERED_ACCESS)
 	{
-		uav_desc.Format = load_desc.m_tex_desc->m_image_format;
+		uav_desc.Format = load_desc.m_tex_desc->m_imageFormat;
 		renderer->get_device()->CreateUnorderedAccessView(
 			texture->m_p_raw_resource, &uav_desc, &texture->m_p_uav);
 	}

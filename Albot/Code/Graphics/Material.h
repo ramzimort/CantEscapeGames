@@ -8,6 +8,7 @@ class Material{
 public:
 	friend class ResourceManager;
 	friend class ModelLoader;
+	friend class Factory;
 public:
 	Material();
 	~Material();

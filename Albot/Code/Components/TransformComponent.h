@@ -19,7 +19,7 @@ class Transform : public BaseComponent
 //Friend classes and typedefs
 public:
 	friend class Factory;
-
+	friend class TransformSystem;
 //METHODS
 public:
 	//ctor and dtor
@@ -54,6 +54,8 @@ public:
 	bool NeedToRecalculate(); 
 	void ResetDirtyFlag();
 
+	Matrix const& GetRotationMatrix() const;
+	Matrix const& GetScaleMatrix() const;
 //VARIABLES
 public:
 	//To compare when using templates
@@ -68,5 +70,7 @@ private:
 	Vector3 m_scale;
 
 	Matrix m_model;
+	Matrix m_rotMatrix;
+	Matrix m_scaleMatrix;
 
 };

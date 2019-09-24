@@ -5,6 +5,7 @@
 #include "Renderer_Includes.h"
 #include "Light.h"
 #include "DebugRendering.h"
+#include "DeferredRendering.h"
 #include "../Shaders/Shading.h"
 
 
@@ -88,14 +89,21 @@ public:
 	SDL_Window& GetSDLWindow();
 	DebugRendering& GetDebugRendering();
 
+
+	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
+	
+	void RenderBasicInstances(Pipeline* pipeline);
 private:
 	void Initialize();
 	void LoadContent();
 
-	void load_skybox_content();
-	
+	void LoadSkyboxContent();
+	void RenderSkybox();
 
-	void render_skybox();
+
+	void AddObjectUniformBuffer();
+	void AddMaterialUniformBuffer();
+
 private:
 	SDL_Window& m_sdl_window;
 	DXRenderer* m_dxrenderer;
@@ -135,8 +143,9 @@ private:
 	PointLightInstanceDataList m_point_light_instance_list;
 
 	DebugRendering m_debugRendering;
+	DeferredRendering m_deferrredRendering;
 	
-	InstanceRenderList m_basic_instances;
+	InstanceRenderList m_basicInstances;
 	InstanceRenderList m_ui_quad_instances;
 
 	CameraUniformData m_camera_uniform_data;

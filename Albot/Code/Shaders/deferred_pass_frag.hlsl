@@ -91,13 +91,12 @@ PS_OUT main(PS_IN ps_in)
 
     int mat_type = (int) (MaterialUniformData_Buffer.MaterialMiscData.w);
 
-    if (mat_type == MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE)
+    if ((mat_type & MAT_ID_PARALLAX_TEXTURE) != 0)
     {
         UV = CalculateParallaxUV(UV, normalize(ps_in.CameraViewTangent));
     }
 
-    if (mat_type == MAT_ID_DIFFUSE_NORMAL_TEXTURE
-        || mat_type == MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE)
+    if ((mat_type & MAT_ID_NORMAL_TEXTURE) != 0)
     {
         float3 fetched_normal = CalculateObjectNormalVector(UV, ps_in.ObjectNormal,
             ps_in.Tangent, ps_in.Bitangent, -1.f);
@@ -107,12 +106,11 @@ PS_OUT main(PS_IN ps_in)
 
     float3 material_diffuse_color = MaterialUniformData_Buffer.DiffuseColor.xyz;
 
-    if (mat_type == MAT_ID_DIFFUSE_TEXTURE ||
-        mat_type == MAT_ID_DIFFUSE_NORMAL_TEXTURE
-        || mat_type == MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE)
+    if ((mat_type & MAT_ID_DIFFUSE_TEXTURE) != 0)
     {
         material_diffuse_color = Diffuse_Texture.Sample(Texture_Sampler, UV).rgb;
     }
+    
     
     //ps_out.WorldPosition = float4(ps_in.WorldPosition, 1.0);
     ps_out.WorldNormal = float4(world_normal, 1.0);

@@ -41,7 +41,7 @@ public:
 	DebugRendering(AppRenderer* app_renderer, ResourceManager* resourceManager);
 	~DebugRendering();
 
-	void render_debug_scene();
+	void RenderDebugScene();
 	void Release();
 
 	void register_debug_line_instance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color);

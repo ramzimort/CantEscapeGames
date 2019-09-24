@@ -27,20 +27,22 @@ void Material::init()
 
 uint32_t Material::get_shader_material_type_id() const
 {
-	if (m_height_texture && m_diffuse_texture && m_normal_texture)
+	uint32_t materialID = (uint32_t)MAT_ID_COLOR;
+
+	if (m_height_texture)
 	{
-		return MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE;
+		materialID |= (uint32_t)MAT_ID_PARALLAX_TEXTURE;
 	}
-	else if (m_diffuse_texture && m_normal_texture)
+	if (m_diffuse_texture && m_normal_texture)
 	{
-		return MAT_ID_DIFFUSE_NORMAL_TEXTURE;
+		materialID |= (uint32_t)MAT_ID_NORMAL_TEXTURE;
 	}
-	else if (m_diffuse_texture)
+	if (m_diffuse_texture)
 	{
-		return MAT_ID_DIFFUSE_TEXTURE;
+		materialID |= (uint32_t)MAT_ID_DIFFUSE_TEXTURE;
 	}
 
-	return MAT_ID_COLOR;
+	return materialID;
 }
 
 Texture* Material::get_diffuse_texture() const

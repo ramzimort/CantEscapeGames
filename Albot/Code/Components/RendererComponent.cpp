@@ -26,3 +26,8 @@ void RendererComponent::Init()
 void RendererComponent::Begin()
 {
 }
+
+void RendererComponent::SetMaterial(Material* material)
+{
+	m_pMaterial = material;
+}

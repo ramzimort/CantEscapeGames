@@ -150,7 +150,7 @@ void DebugRendering::register_debug_sphere(const DebugSphereInstance& debug_sphe
 {
 }
 
-void DebugRendering::render_debug_scene()
+void DebugRendering::RenderDebugScene()
 {
 #ifdef DEVELOPER
 	//TODO: only for testing

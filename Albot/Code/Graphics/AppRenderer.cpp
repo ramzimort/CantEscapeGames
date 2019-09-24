@@ -14,7 +14,8 @@ AppRenderer::AppRenderer(SDL_Window& sdl_window, ResourceManager* resourceManage
 :m_sdl_window(sdl_window),
 m_debugRendering(this, resourceManager),
 m_resourceManager(resourceManager),
-m_cameraManager(cameraManager)
+m_cameraManager(cameraManager),
+m_deferrredRendering(this, resourceManager)
 {
 	//TODO: call initialize manually
 	Initialize();
@@ -208,20 +209,20 @@ void AppRenderer::LoadContent()
 	depth_rt_desc.m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
 	depth_rt_desc.m_texture_desc.m_width = swap_chain_rt->get_desc().m_texture_desc.m_width;
 	depth_rt_desc.m_texture_desc.m_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
-	depth_rt_desc.m_texture_desc.m_clear_val = ClearValue{ 1.0f, 0.0 };
-	depth_rt_desc.m_texture_desc.m_mip_levels = 1;
-	depth_rt_desc.m_texture_desc.m_image_format = DXGI_FORMAT_D32_FLOAT;
+	depth_rt_desc.m_texture_desc.m_clearVal = ClearValue{ 1.0f, 0.0 };
+	depth_rt_desc.m_texture_desc.m_mipLevels = 1;
+	depth_rt_desc.m_texture_desc.m_imageFormat = DXGI_FORMAT_D32_FLOAT;
 	depth_rt_desc.m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
 	depth_rt_desc.m_texture_desc.m_depth = 1;
 
 	m_depth_rt = DXResourceLoader::Create_RenderTarget(m_dxrenderer, depth_rt_desc);
 
-	load_skybox_content();
+	LoadSkyboxContent();
 	
 
 }
 
-void AppRenderer::load_skybox_content()
+void AppRenderer::LoadSkyboxContent()
 {
 	
 	BufferLoadDesc skybox_uniform_buffer_desc = {};
@@ -335,6 +336,7 @@ void AppRenderer::Initialize()
 	m_dxrenderer->init();
 	LoadContent();
 	m_debugRendering.LoadContent(m_dxrenderer);
+	m_deferrredRendering.LoadContent(m_dxrenderer);
 }
 
 
@@ -352,7 +354,7 @@ void AppRenderer::Release()
 		SafeReleaseDelete(buffer);
 	}
 	
-	
+	m_deferrredRendering.Release();
 	m_debugRendering.Release();
 
 	SafeReleaseDelete(m_cull_none_rasterizer_state);
@@ -427,7 +429,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_camera_uniform_data.InvViewMat = main_camera->GetInvViewMatrix();
 	m_camera_uniform_data.ViewProjectionMat = main_camera->GetViewProjectionMatrix();
 	m_camera_uniform_data.InvViewProjectionMat = main_camera->GetInvViewProjectionMatrix();
-	m_camera_uniform_data.WindowSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
+	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
 		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);
 
 	Matrix no_position_view_mat = m_camera_uniform_data.ViewMat;
@@ -438,7 +440,6 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_skybox_uniform_data.ModelViewProjectionMat =
 		no_position_view_mat * m_camera_uniform_data.ProjectionMat;
 }
-
 void AppRenderer::RenderApp()
 {
 	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
@@ -461,14 +462,234 @@ void AppRenderer::RenderApp()
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
-	render_skybox();
-	m_debugRendering.render_debug_scene();
-	
+	m_deferrredRendering.RenderDeferredScene();
 
+	LoadActionsDesc next_load_actions_desc = {};
+	next_load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+	next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+	next_load_actions_desc.m_clear_depth_stencil = m_depth_rt->get_clear_value();
+	next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+
+	m_dxrenderer->cmd_bind_render_targets(&m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target, 1, m_depth_rt, next_load_actions_desc);
+	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
+		swap_chain_rt->get_desc().m_texture_desc.m_height);
+
+	RenderSkybox();
+	m_debugRendering.RenderDebugScene();
+
+	m_basicInstances.clear();
 	m_dxrenderer->execute_queued_cmd();	
 }
 
-void AppRenderer::render_skybox()
+void AppRenderer::RegisterBasicInstance(const InstanceRenderData& instanceRenderData)
+{
+	m_basicInstances.push_back(instanceRenderData);
+}
+
+void AppRenderer::AddObjectUniformBuffer()
+{
+	BufferLoadDesc object_uniform_buffer_desc = {};
+	object_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	//object_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE_READ;
+	//object_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_STAGING;
+	object_uniform_buffer_desc.m_desc.m_debugName = "Object Uniform Buffer";
+	//object_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_NONE;
+	//object_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_DEFAULT;
+
+	object_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	object_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+
+	object_uniform_buffer_desc.m_rawData = nullptr;
+	object_uniform_buffer_desc.m_size = sizeof(ObjectUniformData);
+
+	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
+	m_object_uniform_buffer_list.push_back(object_uniform_buffer);
+}
+
+void AppRenderer::AddMaterialUniformBuffer()
+{
+	BufferLoadDesc material_uniform_buffer_desc = {};
+	material_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	//material_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE_READ;
+	//material_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_STAGING;
+	material_uniform_buffer_desc.m_desc.m_debugName = "Material Uniform Buffer";
+	material_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	material_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	material_uniform_buffer_desc.m_rawData = nullptr;
+	material_uniform_buffer_desc.m_size = sizeof(MaterialUniformData);
+
+	Buffer* material_uniform_buffer = DXResourceLoader::Create_Buffer(
+		m_dxrenderer, material_uniform_buffer_desc);
+
+	m_material_uniform_buffer_list.push_back(material_uniform_buffer);
+}
+
+
+
+void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
+{
+	if (m_basicInstances.empty())
+	{
+		return;
+	}
+
+	m_dxrenderer->cmd_bind_pipeline(pipeline);
+
+	uint32_t material_index = 0;
+
+	for (uint32_t i = 0; i < m_basicInstances.size(); ++i)
+	{
+		const InstanceRenderData& inst_data = m_basicInstances[i];
+		Model* p_ref_model = inst_data.p_ref_model;
+		Material* p_ref_material = inst_data.p_ref_material;
+
+		if (!p_ref_material || !p_ref_model)
+		{
+			continue;
+		}
+
+		if (i >= m_object_uniform_buffer_list.size())
+		{
+			AddObjectUniformBuffer();
+		}
+
+		Buffer* obj_uniform_buffer = m_object_uniform_buffer_list[i];
+
+		m_object_uniform_data = {};
+		m_object_uniform_data.ModelMat = inst_data.model_mat;
+		m_object_uniform_data.InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
+		m_object_uniform_data.ModelViewProjectionMat = inst_data.model_mat * m_camera_uniform_data.ViewProjectionMat;
+		m_object_uniform_data.NormalMat = inst_data.normal_mat;
+
+		BufferUpdateDesc update_object_uniform_desc = {};
+		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
+		update_object_uniform_desc.m_pSource = &m_object_uniform_data;
+		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
+		m_dxrenderer->instant_update_buffer(update_object_uniform_desc);
+
+
+		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->get_vertex_buffer());
+
+		Buffer* index_buffer = p_ref_model->get_index_buffer();
+		if (index_buffer)
+		{
+			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
+		}
+
+		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
+		uint32_t mesh_instance_count = max(1u, meshes_list.size());
+
+		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
+		{
+
+			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
+
+			//sometimes despite having multiple child of mesh instance it may still not have its own material
+			if (!cur_material_instance)
+			{
+				cur_material_instance = p_ref_material;
+			}
+
+			if (material_index >= m_material_uniform_buffer_list.size())
+			{
+				AddMaterialUniformBuffer();
+			}
+
+			Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
+			m_material_uniform_data = {};
+			m_material_uniform_data.DiffuseColor = cur_material_instance->get_diffuse_color();
+			m_material_uniform_data.SpecularColor = cur_material_instance->get_specular_color();
+			m_material_uniform_data.MaterialMiscData.w = cur_material_instance->get_shader_material_type_id();
+			m_material_uniform_data.MaterialMiscData.x = inst_data.uv_tiling.x;
+			m_material_uniform_data.MaterialMiscData.y = inst_data.uv_tiling.y;
+
+			++material_index;
+
+			BufferUpdateDesc update_material_uniform_desc = {};
+			update_material_uniform_desc.m_buffer = material_uniform_buffer;
+			update_material_uniform_desc.m_pSource = &m_material_uniform_data;
+			update_material_uniform_desc.m_size = sizeof(MaterialUniformData);
+			m_dxrenderer->instant_update_buffer(update_material_uniform_desc);
+
+			DescriptorData params[8] = {};
+			params[0].m_binding_location = 0;
+			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[0].m_buffers = &m_camera_uniform_buffer;
+
+			params[1].m_binding_location = 1;
+			params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[1].m_buffers = &obj_uniform_buffer;
+
+			params[2].m_binding_location = 2;
+			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[2].m_buffers = &material_uniform_buffer;
+
+			params[3].m_binding_location = 0;
+			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+			params[3].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+			params[3].m_samplers = &m_texture_sampler;
+
+			uint32_t total_params_count = 4;
+
+			Texture* diffuse_texture = cur_material_instance->get_diffuse_texture();
+			Texture* normal_texture = cur_material_instance->get_normal_texture();
+			Texture* height_texture = cur_material_instance->get_height_texture();
+
+			uint32_t mat_id = m_material_uniform_data.MaterialMiscData.w;
+
+			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
+			{
+				total_params_count += 1;
+
+				
+
+				params[4].m_binding_location = 0;
+				params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[4].m_textures = &diffuse_texture;
+
+				if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0 || (mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+				{
+					++total_params_count;
+					params[5].m_binding_location = 1;
+					params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+					params[5].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+					params[5].m_textures = &normal_texture;
+
+
+					if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+					{
+						++total_params_count;
+						params[6].m_binding_location = 2;
+						params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+						params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+						params[6].m_textures = &height_texture;
+					}
+
+				}
+			}
+
+
+			m_dxrenderer->cmd_bind_descriptor(pipeline, total_params_count, params);
+
+			if (meshes_list.size() <= 0)
+			{
+				m_dxrenderer->cmd_draw_index(p_ref_model->get_index_total_count(), 0, 0);
+			}
+			else
+			{
+				const Mesh& mesh_instance = meshes_list[mesh_index];
+				m_dxrenderer->cmd_draw_index(mesh_instance.get_index_count(), mesh_instance.get_start_index(), mesh_instance.get_start_vertex());
+			}
+		}
+	}
+
+}
+
+void AppRenderer::RenderSkybox()
 {
 	BufferUpdateDesc update_skybox_buffer_desc = {};
 	update_skybox_buffer_desc.m_buffer = m_skybox_uniform_buffer;

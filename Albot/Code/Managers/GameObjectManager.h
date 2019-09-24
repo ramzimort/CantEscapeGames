@@ -18,12 +18,20 @@ struct GameObjectDesc
 {
 	using FP = void(*)(GameObject *go);
 
+	//added by Albert
+	typedef std::function<void(GameObject*)> InitializeComponentSetup;
+
 	std::string tag;
 	FP componentSetup;
 
+	//added by Albert
+	InitializeComponentSetup initializeComponentSetup;
+
 	GameObjectDesc() : tag(""), 
 		componentSetup(0)
-	{}
+	{
+		initializeComponentSetup = [](GameObject*) {};
+	}
 };
 
 

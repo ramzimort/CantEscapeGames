@@ -37,3 +37,19 @@ void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 }
+
+void ResourceManager::StoreMaterial(const Material& material, const std::string& materialName)
+{
+	m_materials[materialName] = material;
+}
+
+Material* ResourceManager::GetMaterial(const std::string& materialName)
+{
+	auto findMaterialIter = m_materials.find(materialName);
+
+	if (findMaterialIter == m_materials.end())
+	{
+		return nullptr;
+	}
+	return &findMaterialIter->second;
+}

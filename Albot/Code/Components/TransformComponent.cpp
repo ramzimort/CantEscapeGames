@@ -12,7 +12,10 @@ unsigned const Transform::static_type = BaseComponent::numberOfTypes++;
 
 Transform::Transform(GameObject *owner) :
 	BaseComponent(owner, Transform::static_type),
-	m_needToRecalculateModel(0)
+	m_needToRecalculateModel(1),
+	m_position(0.f),
+	m_rotation(0.f),
+	m_scale(1.f)
 {
 }
 
@@ -69,6 +72,7 @@ void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 
 void Transform::SetLocalPosition(float x, float y, float z)
 {
+	m_needToRecalculateModel = 1;
 	m_position.x = x;
 	m_position.y = y;
 	m_position.z = z;
@@ -126,6 +130,17 @@ Matrix const& Transform::GetModel() const
 {
 	return m_model;
 }
+
+Matrix const& Transform::GetRotationMatrix() const
+{
+	return m_rotMatrix;
+}
+
+Matrix const& Transform::GetScaleMatrix() const
+{
+	return m_scaleMatrix;
+}
+
 
 void Transform::SetModel(Matrix const& model) 
 {
