@@ -160,7 +160,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 
 		DescriptorData* cur_descriptor = descriptor_data + i;
 		
-		uint32_t final_var_count = max(cur_descriptor->m_var_count, 1u);
+		uint32_t final_var_count = std::max(cur_descriptor->m_var_count, 1u);
 		
 		uint32_t dx_descriptor_ref_original_size = m_dxdescriptor_data_reference_list.size();
 
@@ -350,7 +350,7 @@ void DXRenderer::execute_queued_cmd()
 					
 					DescriptorType cur_descriptor_type = p_cur_descriptor_data->m_descriptor_type;
 
-					uint32_t var_count = max(1u, p_cur_descriptor_data->m_var_count);
+					uint32_t var_count = std::max(1u, p_cur_descriptor_data->m_var_count);
 					
 					Shader_Stages descriptor_shader_stages = (Shader_Stages)p_cur_descriptor_data->m_shader_stages;
 					if (cur_descriptor_type == DescriptorType::DESCRIPTOR_BUFFER)

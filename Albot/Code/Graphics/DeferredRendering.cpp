@@ -219,8 +219,8 @@ void DeferredRendering::init_deferred_scene_light()
 			int light_color_max = 1000;
 			light.m_color = Vector3((float)(rand() % light_color_max) / (float)light_color_max,
 				(float)(rand() % light_color_max) / (float)light_color_max, (float)(rand() % light_color_max) / (float)light_color_max);
-			light.m_radius = 10 + rand() % 100;
-			light.m_intensity = 2 + rand() % 2;
+			light.m_radius = static_cast<float>(10 + rand() % 100);
+			light.m_intensity = static_cast<float>(2 + rand() % 2);
 			light.m_light_type = ELightType::POINT_LIGHT;
 		}
 	}
@@ -339,7 +339,7 @@ void DeferredRendering::render_deferred_point_light_shade()
 			m_app_renderer->m_point_light_instance_list.push_back(inst_data);
 		}
 	}
-	point_light_inst_count = m_app_renderer->m_point_light_instance_list.size();
+	point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
 
 
 	for (uint32_t i = 0; i < point_light_inst_count; ++i)

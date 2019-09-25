@@ -73,6 +73,7 @@
     <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Components\LightComponent.cpp" />
+    <ClCompile Include="Code\Reflection\Helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -149,5 +150,6 @@
     <ClInclude Include="Code\Graphics\DeferredRendering.h" />
     <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Components\LightComponent.h" />
+    <ClInclude Include="Code\Reflection\Helpers.h" />
   </ItemGroup>
 </Project>

@@ -476,7 +476,7 @@ void AppRenderer::RenderApp()
 		}
 	}
 
-	m_directional_light_uniform_data.DirectionalLightUniformMiscData.w = direction_light_num;
+	m_directional_light_uniform_data.DirectionalLightUniformMiscData.w = static_cast<float>(direction_light_num);
 
 	BufferUpdateDesc direction_light_update_desc = {};
 	direction_light_update_desc.m_buffer = m_directional_light_uniform_buffer;
@@ -607,7 +607,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 		}
 
 		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
-		uint32_t mesh_instance_count = max(1u, meshes_list.size());
+		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
 
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
@@ -629,7 +629,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			m_material_uniform_data = {};
 			m_material_uniform_data.DiffuseColor = cur_material_instance->get_diffuse_color();
 			m_material_uniform_data.SpecularColor = cur_material_instance->get_specular_color();
-			m_material_uniform_data.MaterialMiscData.w = cur_material_instance->get_shader_material_type_id();
+			m_material_uniform_data.MaterialMiscData.w = static_cast<float>(cur_material_instance->get_shader_material_type_id());
 			m_material_uniform_data.MaterialMiscData.x = inst_data.uv_tiling.x;
 			m_material_uniform_data.MaterialMiscData.y = inst_data.uv_tiling.y;
 

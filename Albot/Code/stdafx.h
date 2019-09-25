@@ -32,11 +32,11 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 
-#include <DirectXTK/Inc/SimpleMath.h>
-#include <DirectXTK/Inc/DirectXHelpers.h>
-#include <DirectXTK/Inc/DDSTextureLoader.h>
-#include <DirectXTK/Inc/WICTextureLoader.h>
-#include <DirectXTK/Inc/CommonStates.h>
+#include <DirectXTK/SimpleMath.h>
+#include <DirectXTK/DirectXHelpers.h>
+#include <DirectXTK/DDSTextureLoader.h>
+#include <DirectXTK/WICTextureLoader.h>
+#include <DirectXTK/CommonStates.h>
 
 
 // SDL
@@ -50,6 +50,21 @@
 #include <SDL2/SDL_gamecontroller.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_events.h>
+
+// Reflection : RTTR
+#include "rttr/registration.h"
+#include "rttr/rttr_enable.h"
+#include "rttr/registration_friend.h"
+#include "rttr/policy.h"
+#include "rttr/wrapper_mapper.h"
+#include "rttr/detail/policies/ctor_policies.h"
+
+// Rapidjson
+#include "rapidjson/document.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/istreamwrapper.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/ostreamwrapper.h"
 
 using namespace DirectX::SimpleMath;
 
