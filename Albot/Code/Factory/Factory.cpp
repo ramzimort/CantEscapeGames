@@ -40,11 +40,6 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		return;
 	}
 
-
-
-
-	
-
 	/////////////////////////////////////////////////////////////
 	//   LATER, THIS PART HAS TO BE DONE USING THE PATH      ////
 	/////////////////////////////////////////////////////////////
