@@ -32,12 +32,12 @@ void DXRenderer::Release()
 	SafeRelease(m_d3d_device_context);
 }
 
-bool DXRenderer::init()
+bool DXRenderer::init(uint32_t swap_chain_sample_count)
 {
 	m_descriptor_data_list.reserve(200);
 	m_dxdescriptor_data_reference_list.reserve(200);
 	
-	if (!init_d3d11())
+	if (!init_d3d11(swap_chain_sample_count))
 	{
 		return false;
 	}
@@ -738,7 +738,7 @@ void DXRenderer::unmap_buffer(Buffer* buffer)
 }
 
 
-bool DXRenderer::init_d3d11()
+bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 {
 	RECT client_rect;
 	GetClientRect(m_window_handle, &client_rect);
@@ -757,7 +757,7 @@ bool DXRenderer::init_d3d11()
 	swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.OutputWindow = m_window_handle;
-	swap_chain_desc.SampleDesc.Count = 1;
+	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
 	swap_chain_desc.SampleDesc.Quality = 0;
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swap_chain_desc.Windowed = TRUE;
@@ -877,8 +877,20 @@ bool DXRenderer::init_d3d11()
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_height = client_height;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
 
+	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
+
+	if (swap_chain_sample_count > 1)
+	{
+		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+	}
+	else
+	{
+		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		rtv_desc.Texture2D.MipSlice = 0;
+	}
+
 	hr = m_d3d_device->CreateRenderTargetView(back_buffer,
-		nullptr, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);
+		&rtv_desc, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);
 
 	if (FAILED_HR(hr))
 	{

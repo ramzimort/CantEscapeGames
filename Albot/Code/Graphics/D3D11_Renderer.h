@@ -55,7 +55,8 @@ public:
 
 	void Release();
 
-	bool init();
+
+	bool init(uint32_t swap_chain_sample_count);
 	void init_default_resources();
 	void init_transient_buffer();
 
@@ -65,7 +66,7 @@ public:
 	HWND get_window_handle() const;
 	std::string get_selected_gpu_name() const { return m_cur_gpu_name; }
 private:
-	bool init_d3d11();
+	bool init_d3d11(uint32_t swap_chain_sample_count);
 
 	void reset_shader_resources();
 	void reset_shader_uavs();

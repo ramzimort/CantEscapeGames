@@ -200,17 +200,18 @@ DXResourceLoader::~DXResourceLoader()
 }
 
 
-void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer, 
-	RenderTarget* render_target, 
+
+void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
+	RenderTarget* render_target,
 	uint32_t mip_slice,
 	ID3D11RenderTargetView** d3d_render_target_view)
 {
 	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
 	rtv_desc.Format = render_target->m_desc.m_texture_desc.m_imageFormat;
-	
+
 	D3D11_RESOURCE_DIMENSION resource_dim_type = {};
 	render_target->m_texture->m_p_raw_resource->GetType(&resource_dim_type);
-	
+
 	switch (resource_dim_type)
 	{
 	case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
@@ -223,9 +224,23 @@ void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
 		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 		static_cast<ID3D11Texture2D*>(render_target->m_texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
 
-		//TODO: add support for multi sample texture2d render target
-		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-		rtv_desc.Texture2D.MipSlice = mip_slice;
+		if (d3d_tex2d_desc.SampleDesc.Count > 1)
+		{
+			if (d3d_tex2d_desc.ArraySize > 1)
+			{
+				//TODO: add array MS support
+			}
+			else
+			{
+				rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+			}
+		}
+		else
+		{
+			//TODO: add support for multi sample texture2d render target
+			rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			rtv_desc.Texture2D.MipSlice = mip_slice;
+		}
 		break;
 	}
 	case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
@@ -247,7 +262,7 @@ void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
 }
 
 
-void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget* render_target, uint32_t mip_slice, 
+void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget* render_target, uint32_t mip_slice,
 	ID3D11DepthStencilView** d3d_depth_stencil_view)
 {
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
@@ -267,10 +282,23 @@ void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget*
 	{
 		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 		static_cast<ID3D11Texture2D*>(render_target->m_texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
-
-		//TODO: add support for multi sample texture2d render target
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-		dsv_desc.Texture2D.MipSlice = mip_slice;
+		if (d3d_tex2d_desc.SampleDesc.Count > 1)
+		{
+			if (d3d_tex2d_desc.ArraySize > 1)
+			{
+				//TODO: add array MS support for depth stencil_view
+			}
+			else
+			{
+				dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+			}
+		}
+		else
+		{
+			//TODO: add support for multi sample texture2d render target
+			dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+			dsv_desc.Texture2D.MipSlice = mip_slice;
+		}
 		break;
 	}
 	default:
@@ -285,6 +313,8 @@ void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget*
 		assert(false == true);
 	}
 }
+
+
 
 
 Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& load_desc)
@@ -685,13 +715,20 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		{
 			D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 			static_cast<ID3D11Texture2D*>(texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
+			if (d3d_tex2d_desc.SampleDesc.Count > 1)
+			{
+				//TODO: add Array support
+				srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+			}
+			else
+			{
+				srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+				srv_desc.Texture2D.MipLevels = d3d_tex2d_desc.MipLevels;
+				srv_desc.Texture2D.MostDetailedMip = 0;
 
-			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-			srv_desc.Texture2D.MipLevels = d3d_tex2d_desc.MipLevels;
-			srv_desc.Texture2D.MostDetailedMip = 0;
-
-			uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
-			uav_desc.Texture2D.MipSlice = 0;
+				uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
+				uav_desc.Texture2D.MipSlice = 0;
+			}
 			break;
 		}
 		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:

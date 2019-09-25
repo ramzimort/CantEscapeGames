@@ -333,7 +333,8 @@ void AppRenderer::Initialize()
 	sys_info.info.win.window;
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
-	m_dxrenderer->init();
+	//TODO: add variable MSAA sample count
+	m_dxrenderer->init(1);
 	LoadContent();
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
