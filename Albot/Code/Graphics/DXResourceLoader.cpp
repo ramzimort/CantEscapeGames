@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 
 #include "DXResourceLoader.h"
 #include "Buffer.h"
@@ -436,8 +435,8 @@ Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::a
 		}
 		image_data[i].pixels  = stbi_load(tex_file_names[i].c_str(), &width, &height, &channel, STBI_rgb_alpha);
 		image_data[i].line_width = width * 4;
-		final_width = fmax(final_width, width);
-		final_height = fmax(final_height, height);
+		final_width = std::max(final_width, static_cast<uint32_t>(width));
+		final_height = std::max(final_height, static_cast<uint32_t>(height));
 	}
 
 
@@ -1007,7 +1006,7 @@ Sampler* DXResourceLoader::Create_Sampler(DXRenderer* renderer,
 	d3d_sampler_desc.AddressU = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_u);
 	d3d_sampler_desc.AddressV = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_v);
 	d3d_sampler_desc.AddressW = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_w);
-	d3d_sampler_desc.MaxAnisotropy = sampler_desc.m_max_aniso;
+	d3d_sampler_desc.MaxAnisotropy = static_cast<unsigned int>(sampler_desc.m_max_aniso);
 	d3d_sampler_desc.MipLODBias = sampler_desc.m_mip_los_bias;
 	d3d_sampler_desc.ComparisonFunc = CompareFunc_To_D3D11_ComparisonFunc(sampler_desc.m_compare_func);
 	d3d_sampler_desc.BorderColor[0] = 0.f;

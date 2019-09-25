@@ -70,7 +70,6 @@ namespace CantReflect
 			std::string prefab_val = prefab_value.GetString();
 			return member_type.get_enumeration().name_to_value(prefab_val);
 		}
+		return rttr::variant(NULL);
 	}
-
-
 }

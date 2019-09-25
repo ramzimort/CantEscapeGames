@@ -319,7 +319,7 @@ void DeferredRendering::render_deferred_global_directional_light_shade()
 
 void DeferredRendering::render_deferred_point_light_shade()
 {
-	uint32_t point_light_inst_count = m_app_renderer->m_point_light_instance_list.size();
+	uint32_t point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
 	if (point_light_inst_count == 0)
 	{
 		return;
@@ -363,7 +363,7 @@ void DeferredRendering::render_deferred_point_light_shade()
 	BufferUpdateDesc update_constant_point_light_buffer_desc = {};
 	update_constant_point_light_buffer_desc.m_buffer = m_point_light_buffer;
 	update_constant_point_light_buffer_desc.m_pSource = &m_constant_point_light_data;
-	update_constant_point_light_buffer_desc.m_size = sizeof(ConstantPointLightData) * point_light_inst_count;
+	update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) * point_light_inst_count);
 
 	m_dxrenderer->cmd_update_buffer(update_constant_point_light_buffer_desc);
 

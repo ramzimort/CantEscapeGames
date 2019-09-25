@@ -1,5 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 
 #include "Renderer_Includes.h"
 #include "d3dUtils.h"
@@ -149,7 +147,7 @@ void DXRenderer::cmd_bind_pipeline(Pipeline* pipeline)
 
 void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_count, DescriptorData* descriptor_data)
 {
-	uint32_t ori_size = m_descriptor_data_list.size();
+	size_t ori_size = m_descriptor_data_list.size();
 
 	//TODO
 	for (uint32_t i = 0; i < descriptor_count; ++i)
@@ -162,7 +160,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 		
 		uint32_t final_var_count = std::max(cur_descriptor->m_var_count, 1u);
 		
-		uint32_t dx_descriptor_ref_original_size = m_dxdescriptor_data_reference_list.size();
+		size_t dx_descriptor_ref_original_size = m_dxdescriptor_data_reference_list.size();
 
 		back_desc.m_binding_location = cur_descriptor->m_binding_location;
 		back_desc.m_shader_stages = cur_descriptor->m_shader_stages;
@@ -755,7 +753,7 @@ bool DXRenderer::init_d3d11()
 	swap_chain_desc.BufferDesc.Width = client_width;
 	swap_chain_desc.BufferDesc.Height = client_height;
 	swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	swap_chain_desc.BufferDesc.RefreshRate.Numerator = g_target_fps;
+	swap_chain_desc.BufferDesc.RefreshRate.Numerator = static_cast<UINT>(g_target_fps);
 	swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.OutputWindow = m_window_handle;

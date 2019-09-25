@@ -119,7 +119,7 @@ void ModelLoader::ProcessNode(aiNode *node, const aiScene *scene, Model& model,
 void ModelLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, Model& model, 
 	uint32_t& totalVertexCount, uint32_t& totalIndexCount, bool textured_model)
 {
-	uint32_t mesh_index = model.m_meshes.size();
+	size_t mesh_index = model.m_meshes.size();
 	model.m_meshes.push_back(Mesh());
 
 	Mesh& last_mesh = model.m_meshes.back();

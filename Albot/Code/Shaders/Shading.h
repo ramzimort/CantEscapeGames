@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHADING_H
+#define SHADING_H
+
 
 #define MAX_LIGHT_COUNT 256
 #define MAX_DEFERRED_POINT_LIGHT 1000
@@ -80,3 +82,5 @@ struct LineVertexUniformData
 {
 	float4 Color;
 };
+
+#endif

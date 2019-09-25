@@ -115,7 +115,8 @@ int* InputManager::GetPointerLocation()
 
 Vector2 InputManager::GetPointerLocVec2()
 {
-	return Vector2(m_mousePositionCurrent[0], m_mousePositionCurrent[1]);
+	return Vector2( static_cast<float>(m_mousePositionCurrent[0]), 
+					static_cast<float>(m_mousePositionCurrent[1]));
 }
 
 Vector2 InputManager::GetPointerDeltaVec2()
@@ -123,7 +124,7 @@ Vector2 InputManager::GetPointerDeltaVec2()
 	int deltaX = m_mousePositionCurrent[0] - m_mousePositionPrevious[0];
 	int deltaY = m_mousePositionCurrent[1] - m_mousePositionPrevious[1];
 
-	return Vector2(deltaX, deltaY);
+	return Vector2(static_cast<float>(deltaX), static_cast<float>(deltaY));
 }
 
 bool InputManager::IsMousePressed(unsigned int MouseScanCode)

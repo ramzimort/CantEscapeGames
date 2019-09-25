@@ -462,7 +462,7 @@ void AppRenderer::RenderApp()
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
-	uint32_t direction_light_num = m_directionLightInstanceList.size();
+	size_t direction_light_num = m_directionLightInstanceList.size();
 	if (direction_light_num > 0)
 	{
 		for (uint32_t i = 0; i < direction_light_num; ++i)
@@ -668,7 +668,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			Texture* normal_texture = cur_material_instance->get_normal_texture();
 			Texture* height_texture = cur_material_instance->get_height_texture();
 
-			uint32_t mat_id = m_material_uniform_data.MaterialMiscData.w;
+			size_t mat_id = static_cast<size_t>(m_material_uniform_data.MaterialMiscData.w);
 
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{

@@ -189,7 +189,7 @@ void DebugRendering::RenderDebugScene()
 void DebugRendering::render_debug_line_scene()
 {
 #ifdef DEVELOPER
-	uint32_t debug_line_count = m_debug_line_instance_list.size();
+	size_t debug_line_count = m_debug_line_instance_list.size();
 	if (debug_line_count <= 0)
 	{
 		return;
@@ -231,14 +231,14 @@ void DebugRendering::render_debug_line_scene()
 	params[1].m_buffers = &m_line_uniform_structured_buffer;
 
 	m_dxrenderer->cmd_bind_descriptor(m_line_draw_pipeline, 2, params);
-	m_dxrenderer->cmd_draw(m_raw_line_vertices.size(), 0);
+	m_dxrenderer->cmd_draw(static_cast<uint32_t>(m_raw_line_vertices.size()), 0);
 #endif
 }
 
 void DebugRendering::render_debug_aabb_scene()
 {
 #ifdef DEVELOPER
-	uint32_t debug_instance_count = m_debug_aabb_instance_list.size();
+	uint32_t debug_instance_count = static_cast<uint32_t>(m_debug_aabb_instance_list.size());
 	if (debug_instance_count <= 0)
 	{
 		return;

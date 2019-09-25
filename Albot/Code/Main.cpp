@@ -35,7 +35,6 @@ int CALLBACK WinMain(
 
 	SDL_Window* main_window = gWindowManager->SDLCreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	FrameManager frame_manager;
-	SDL_Event quit_event;
 	bool done = false;
 	float dt;
 

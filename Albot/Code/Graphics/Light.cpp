@@ -40,6 +40,6 @@ float Light::get_radius() const
 
 Vector2 Light::get_attenuation_constant() const
 {
-	Vector2 atten_cost (1.0 / (m_radius * m_radius), 2.0 / m_radius);
+	Vector2 atten_cost (1.0f / (m_radius * m_radius), 2.0f / m_radius);
 	return atten_cost;
 }
