@@ -15,8 +15,7 @@ public:
 	
 	static void InitCommonModel(DXRenderer* dxrenderer);
 
-	static void LoadModel(DXRenderer* dxrenderer, const std::string& path, Model& model, bool textured_model);
-
+	static Model* LoadModel(DXRenderer* dxrenderer, const std::string& path, bool textured_model);
 	static void CalculateModelTangents(Model& model);
 
 private:

@@ -22,9 +22,9 @@
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <functional>
 #include <bitset>
 #include <queue>
-
 
 //DirectX and DirectXTK
 #include <d3d11.h>

@@ -259,7 +259,7 @@ void DebugRendering::render_debug_aabb_scene()
 		m_debug_aabb_instance_uniform_data[i].Color = MathUtil::v3_to_v4(debug_instance.m_color);
 	}
 
-	Model* cube_model = m_resourceManager->GetModel("Cube.fbx", false);
+	Model* cube_model = m_resourceManager->GetModel(SID("Cube.fbx"));
 
 	BufferUpdateDesc update_debug_instance_buffer_desc = {};
 	update_debug_instance_buffer_desc.m_buffer = m_debug_aabb_instance_uniform_buffer;

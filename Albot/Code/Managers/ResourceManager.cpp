@@ -2,35 +2,13 @@
 #include "../Graphics/ModelLoader.h"
 #include "../Graphics/D3D11_Renderer.h"
 
-ResourceManager::ResourceManager()
-	:m_dxrenderer(nullptr)
+ResourceManager::ResourceManager() : 
+	m_dxrenderer(nullptr)
 {
 }
-
 
 ResourceManager::~ResourceManager()
 {
-}
-
-
-
-
-void ResourceManager::StoreModel(Model* model, const std::string& model_key_name)
-{
-	m_models[model_key_name] = model;
-}
-
-Model* ResourceManager::GetModel(const std::string& modelPath, bool texturedModel)
-{
-	Model *model = m_models[modelPath];
-
-	if (model == nullptr)
-	{
-		model = new Model();
-		ModelLoader::LoadModel(m_dxrenderer, Constant::ModelsDir + modelPath, *model, texturedModel);
-		m_models[modelPath] = model;
-	}
-	return model;
 }
 
 void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
@@ -38,18 +16,36 @@ void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
 	m_dxrenderer = dxrenderer;
 }
 
-void ResourceManager::StoreMaterial(const Material& material, const std::string& materialName)
+Model* ResourceManager::GetModel(StringId modelId)
 {
-	m_materials[materialName] = material;
+	return static_cast<Model*>(m_resources[modelId]);
 }
 
-Material* ResourceManager::GetMaterial(const std::string& materialName)
+Material* ResourceManager::GetMaterial(StringId materialId)
 {
-	auto findMaterialIter = m_materials.find(materialName);
+	return static_cast<Material*>(m_resources[materialId]);
+}
 
-	if (findMaterialIter == m_materials.end())
-	{
-		return nullptr;
-	}
-	return &findMaterialIter->second;
+Texture* ResourceManager::GetTexture(StringId textureId)
+{
+	return static_cast<Texture*>(m_resources[textureId]);
+}
+
+void ResourceManager::LoadModel(const std::string& filePath, bool texturedModel)
+{
+	StringId id(filePath);
+	Model* model = static_cast<Model*>(m_resources[id]);
+	if (model == nullptr)
+		m_resources[id] = ModelLoader::LoadModel(m_dxrenderer, filePath, texturedModel);
+}
+
+void ResourceManager::LoadMaterial(const std::string& filePath)
+{
+
+}
+
+// Returns null if surface does not exist
+void ResourceManager::LoadTexture(const std::string& filePath)
+{
+
 }

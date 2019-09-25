@@ -369,7 +369,7 @@ void DeferredRendering::render_deferred_point_light_shade()
 
 	m_dxrenderer->cmd_bind_pipeline(m_deferred_shade_pointlight_pipeline);
 
-	Model* sphere_model = m_resourceManager->GetModel("Sphere.fbx", false);
+	Model* sphere_model = m_resourceManager->GetModel(SID("Sphere.fbx"));
 
 	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
 	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
