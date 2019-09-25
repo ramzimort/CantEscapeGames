@@ -102,34 +102,36 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	goMgr->Queue_GameObject_Instantiation(&desc4);
 
 
-	//Model* mitsubaSphereModel = gResourceManager->GetModel("mitsuba-sphere.obj", false);
+	gResourceManager->LoadModel("mitsuba-sphere.obj", false);
 
-	//Material red_diffuse_purple_specular_desc = {};
-	//red_diffuse_purple_specular_desc.m_diffuse_color = Vector4(1.f, 0.f, 0.f, 1.f);
-	//red_diffuse_purple_specular_desc.m_specular_color = Vector4(1.f, 0.f, 1.f, 1.f);
+	Model* mitsubaSphereModel = gResourceManager->GetModel(SID("mitsuba-sphere.obj"));
+
+	Material* red_diffuse_purple_specular = new Material();
+	red_diffuse_purple_specular->m_diffuse_color = Vector4(1.f, 0.f, 0.f, 1.f);
+	red_diffuse_purple_specular->m_specular_color = Vector4(1.f, 0.f, 1.f, 1.f);
 
 	//gResourceManager->GetMaterial(red_diffuse_purple_specular_desc, "Red_Diffuse_Purple_Specular");
 
 	//Material* red_diffuse_purple_specular = gResourceManager->GetMaterial("Red_Diffuse_Purple_Specular");
 
-	////Wont be registered in any system				         ////
-	//GameObjectDesc desc5 = {};							         ////
-	//desc5.tag = "mitsubaismybottom";						         ////
-	//desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)	         ////
-	//{												         ////
-	//	auto *T = go->AddComponent<Transform>();
-	//	T->SetLocalPosition(0.f, 0.f, 0.f);////
+	//Wont be registered in any system				         ////
+	GameObjectDesc desc5 = {};							         ////
+	desc5.tag = "mitsubaismybottom";						         ////
+	desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)	         ////
+	{												         ////
+		auto *T = go->AddComponent<Transform>();
+		T->SetLocalPosition(0.f, 0.f, 0.f);////
 
-	//	go->AddComponent<TestComp>();
+		go->AddComponent<TestComp>();
 
-	//	auto rendererComp = go->AddComponent<RendererComponent>();
-	//	rendererComp->SetMaterial(red_diffuse_purple_specular);
-	//	
-	//	auto meshesComp = go->AddComponent<MeshesComponent>();
-	//	meshesComp->SetModel(mitsubaSphereModel);
-	//	//Override code								         ////
-	//};												         ////
-	//goMgr->Queue_GameObject_Instantiation(&desc5);
+		auto rendererComp = go->AddComponent<RendererComponent>();
+		rendererComp->SetMaterial(red_diffuse_purple_specular);
+		
+		auto meshesComp = go->AddComponent<MeshesComponent>();
+		meshesComp->SetModel(mitsubaSphereModel);
+		//Override code								         ////
+	};												         ////
+	goMgr->Queue_GameObject_Instantiation(&desc5);
 
 
 	Light directionalLight = {};

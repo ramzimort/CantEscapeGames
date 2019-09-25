@@ -42,7 +42,6 @@ public:
 	Material* GetMaterial(StringId materialId);
 	Texture* GetTexture(StringId textureId);
 
-private:
 	void LoadModel(const std::string& filePath, bool texturedModel = false);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);

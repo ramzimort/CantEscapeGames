@@ -69,10 +69,11 @@ void ModelLoader::InitCommonModel(DXRenderer* dxrenderer)
 
 Model* ModelLoader::LoadModel(DXRenderer* dxrenderer, const std::string& path, bool textured_model)
 {
+	const std::string finalPath = Constant::ModelsDir + path;
 	Model* model = new Model();
 
 	Assimp::Importer importer;
-	aiScene const *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+	aiScene const *scene = importer.ReadFile(finalPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
 	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -85,7 +86,7 @@ Model* ModelLoader::LoadModel(DXRenderer* dxrenderer, const std::string& path, b
 	uint32_t totalIndexCount = 0;
 	   
 	//model.m_dir_path = path.substr(0, path.find_last_of('/'));
-	model->m_dir_path = path;
+	model->m_dir_path = finalPath;
 	ProcessNode(scene->mRootNode, scene, *model, totalVertexCount, totalIndexCount, textured_model);
 
 	if (!model->m_has_tangent)
