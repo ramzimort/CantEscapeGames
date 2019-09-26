@@ -60,8 +60,10 @@ public:
 	void init_default_resources();
 	void init_transient_buffer();
 
-	const SwapChain* get_swap_chain() const;
-	SwapChain* get_swap_chain();
+	const SwapChain* GetSwapChain() const;
+	SwapChain* GetSwapChain();
+	SwapChain& GetRefSwapChain();
+	const SwapChain& GetRefSwapChain() const;
 
 	HWND get_window_handle() const;
 	std::string get_selected_gpu_name() const { return m_cur_gpu_name; }

@@ -6,7 +6,8 @@
 #include "Light.h"
 #include "DebugRendering.h"
 #include "DeferredRendering.h"
-#include "../Shaders/Shading.h"
+#include "Shaders/Shading.h"
+#include "Graphics/MSAAResolvePass.h"
 
 
 class Material;
@@ -69,6 +70,7 @@ public:
 	friend class DeferredRendering;
 	friend class DebugRendering;
 	friend class DepthPassRendering;
+	friend class MSAAResolvePass;
 
 	typedef std::vector<Buffer*> BufferList;
 	typedef std::vector<InstanceRenderData> InstanceRenderList;
@@ -125,7 +127,9 @@ private:
 
 	DepthState* m_less_equal_depth_state = nullptr;
 	DepthState* m_disabled_depth_state = nullptr;
-
+	
+	RenderTarget* m_cur_main_rt = nullptr;
+	RenderTarget* m_msaa_main_rt = nullptr;
 	RenderTarget* m_depth_rt = nullptr;
 	Sampler* m_clamp_linear_sampler = nullptr;
 
@@ -143,6 +147,8 @@ private:
 	BlendState* m_blend_state_one_zero_add;
 	BlendState* m_skybox_blend_state;
 
+
+	MSAAResolvePass m_msaa_resolve_pass;
 
 	Buffer* m_directional_light_uniform_buffer;
 	DirectionalLightInstanceDataList m_directionLightInstanceList;

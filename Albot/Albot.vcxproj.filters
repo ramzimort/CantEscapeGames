@@ -531,6 +531,7 @@
     <ClCompile Include="Code\Components\LightComponent.cpp" />
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
+    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -617,5 +618,24 @@
     <ClInclude Include="Code\Components\LightComponent.h" />
     <ClInclude Include="Code\Reflection\Helpers.h" />
     <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
+    <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Code\Shaders\debug_frag.hlsl" />
+    <Text Include="Code\Shaders\debug_instance_vert.hlsl" />
+    <Text Include="Code\Shaders\debug_line_vert.hlsl" />
+    <Text Include="Code\Shaders\deferred_pass_frag.hlsl" />
+    <Text Include="Code\Shaders\deferred_pass_vert.hlsl" />
+    <Text Include="Code\Shaders\deferred_shade_frag.hlsl" />
+    <Text Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl" />
+    <Text Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl" />
+    <Text Include="Code\Shaders\depth_pass_vert.hlsl" />
+    <Text Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
+    <Text Include="Code\Shaders\skybox_frag.hlsl" />
+    <Text Include="Code\Shaders\skybox_vert.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Code\Shaders\msaa_resolve_frag.hlsl" />
+    <FxCompile Include="Code\Shaders\msaa_resolve_vert.hlsl" />
   </ItemGroup>
 </Project>

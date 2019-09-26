@@ -82,7 +82,7 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	pos_layout.m_attribs[0].m_semantic = Attrib_Semantic::POSITION;
 
 
-	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
+	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	swap_chain_rt->get_desc().m_texture_desc.m_width;
 
@@ -275,17 +275,17 @@ void DeferredRendering::render_deferred_pass()
 
 void DeferredRendering::render_deferred_global_directional_light_shade()
 {
-	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
+	//RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	LoadActionsDesc load_actions_desc = {};
-	load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+	load_actions_desc.m_clear_color_values[0] = m_app_renderer->m_cur_main_rt->get_clear_value();
 	load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
 	load_actions_desc.m_clear_depth_stencil = m_app_renderer->m_depth_rt->get_clear_value();
 	load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
 
-	m_dxrenderer->cmd_bind_render_targets(&m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target, 1, nullptr, load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
-		swap_chain_rt->get_desc().m_texture_desc.m_height);
+	m_dxrenderer->cmd_bind_render_targets(&m_app_renderer->m_cur_main_rt, 1, nullptr, load_actions_desc);
+	m_dxrenderer->cmd_set_viewport(0, 0, m_app_renderer->m_cur_main_rt->get_desc().m_texture_desc.m_width,
+		m_app_renderer->m_cur_main_rt->get_desc().m_texture_desc.m_height);
 
 	m_dxrenderer->cmd_bind_pipeline(m_deferred_shade_pipeline);
 

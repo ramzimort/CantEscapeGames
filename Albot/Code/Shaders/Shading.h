@@ -83,4 +83,13 @@ struct LineVertexUniformData
 	float4 Color;
 };
 
+
+struct MSAAResolveUniformData
+{
+	float4 SampleOffsets[8];
+	float FilterSize;
+	int SampleRadius;
+};
+
+
 #endif
