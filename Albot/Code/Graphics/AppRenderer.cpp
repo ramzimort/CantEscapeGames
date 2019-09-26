@@ -552,7 +552,7 @@ void AppRenderer::RenderApp()
 	next_load_actions_desc.m_clear_depth_stencil = m_depth_rt->get_clear_value();
 	next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
 
-	m_dxrenderer->cmd_bind_render_targets(&m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target, 1, m_depth_rt, next_load_actions_desc);
+	m_dxrenderer->cmd_bind_render_targets(&m_cur_main_rt, 1, m_depth_rt, next_load_actions_desc);
 	m_dxrenderer->cmd_set_viewport(0, 0, m_cur_main_rt->get_desc().m_texture_desc.m_width,
 		m_cur_main_rt->get_desc().m_texture_desc.m_height);
 

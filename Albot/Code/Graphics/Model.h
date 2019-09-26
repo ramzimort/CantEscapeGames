@@ -38,6 +38,8 @@ class Model
 {
 public:
 	friend class ModelLoader;
+	//TODO: temp way
+	friend class Factory;
 	typedef std::vector<Mesh> MeshesList;
 	typedef std::vector<VertexData> VerticesList;
 public:
