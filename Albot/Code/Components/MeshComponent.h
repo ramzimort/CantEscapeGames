@@ -36,7 +36,7 @@ private:
 	std::string m_model_name;
 	bool m_calculate_missing_tangents;
 
-	//RTTR_ENABLE(BaseComponent);
-	//RTTR_REGISTRATION_FRIEND;
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };
 

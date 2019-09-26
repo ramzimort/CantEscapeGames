@@ -26,7 +26,7 @@ namespace CantDebugAPI
 	template<typename... Args> 
 	inline void Trace(const char * fmt, Args... args)
 	{
-		static char buffer[128];
+		static char buffer[1024];
 		sprintf_s(buffer, fmt, args...);
 		CantDebugAPI::Trace(buffer);
 	}
@@ -34,7 +34,7 @@ namespace CantDebugAPI
 	template<typename... Args>
 	inline void Log(const char * fmt, Args... args)
 	{
-		static char buffer[128];
+		static char buffer[1024];
 		sprintf_s(buffer, fmt, args...);
 		CantDebugAPI::Log(buffer);
 	}

@@ -27,16 +27,15 @@ public:
 private:
 	Vector4 m_diffuseColor;
 	Vector4 m_specularColor;
+	Texture* m_pDiffuseTexture;
+	Texture* m_pNormalTexture;
+	Texture* m_pHeightTexture;
 	std::string m_materialName;
 	std::string m_diffuseTextureDirectory;
 	std::string m_normalTextureDirectory;
 	std::string m_heightTextureDirectory;
-	Texture* m_pDiffuseTexture;
-	Texture* m_pNormalTexture;
-	Texture* m_pHeightTexture;
 
-
-	//RTTR_ENABLE();
-	//RTTR_REGISTRATION_FRIEND;
+	RTTR_ENABLE();
+	RTTR_REGISTRATION_FRIEND;
 };
 

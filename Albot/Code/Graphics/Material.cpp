@@ -1,9 +1,16 @@
 #include "Material.h"
 #include "../Shaders/Shading.h"
 
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<Material>("Material")
+		.property("Model", &Material::m_diffuseColor)
+		.property("Name", &Material::m_specularColor)
+		.method("Init", &Material::Init);
+}
 
-Material::Material()
-	:m_materialName(""),
+Material::Material() :
+	m_materialName(""),
 	m_diffuseColor(),
 	m_diffuseTextureDirectory(""),
 	m_normalTextureDirectory(""),
@@ -23,7 +30,6 @@ void Material::Init()
 {
 
 }
-
 
 uint32_t Material::GetShaderMaterialType() const
 {

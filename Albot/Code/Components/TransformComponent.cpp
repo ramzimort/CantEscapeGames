@@ -9,15 +9,15 @@ Primary Author:
 #include "TransformComponent.h"
 unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
 
-//RTTR_REGISTRATION
-//{
-//	rttr::registration::class_<TransformComponent>("TransformComponent")
-//	.property("Position", &TransformComponent::m_position)
-//	.property("Rotation", &TransformComponent::m_rotation)
-//	.property("Scale", &TransformComponent::m_scale)
-//	.method("Init", &TransformComponent::Init)
-//	.method("Begin", &TransformComponent::Begin);
-//}
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<TransformComponent>("TransformComponent")
+	.property("Position", &TransformComponent::m_position)
+	.property("Rotation", &TransformComponent::m_rotation)
+	.property("Scale", &TransformComponent::m_scale)
+	.method("Init", &TransformComponent::Init)
+	.method("Begin", &TransformComponent::Begin);
+}
 
 
 TransformComponent::TransformComponent(GameObject *owner) :

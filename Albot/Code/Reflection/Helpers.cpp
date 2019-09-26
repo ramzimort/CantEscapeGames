@@ -42,7 +42,6 @@ namespace CantReflect
 				writer.Double(var.to_double());
 			else if (t == type::get<double>())
 				writer.Double(var.to_double());
-
 			return true;
 		}
 		else if (t.is_enumeration())
@@ -71,6 +70,37 @@ namespace CantReflect
 			return true;
 		}
 
+		else if (t == type::get<Vector2>())
+		{
+			Vector2 val = var.get_value<Vector2>();
+			writer.StartArray();
+			writer.Double(val.x);
+			writer.Double(val.y);
+			writer.EndArray();
+			return true;
+		}
+		else if (t == type::get<Vector3>())
+		{
+			Vector3 val = var.get_value<Vector3>();
+			writer.StartArray();
+			writer.Double(val.x);
+			writer.Double(val.y);
+			writer.Double(val.z);
+			writer.EndArray();
+			return true;
+		}
+		else if (t == type::get<Vector4>())
+		{
+
+			Vector4 val = var.get_value<Vector4>();
+			writer.StartArray();
+			writer.Double(val.x);
+			writer.Double(val.y);
+			writer.Double(val.z);
+			writer.Double(val.w);
+			writer.EndArray();
+			return true;
+		}
 		return false;
 	}
 
@@ -139,7 +169,7 @@ namespace CantReflect
 		writer.StartObject();
 		instance obj = obj2.get_type().get_raw_type().is_wrapper() ? obj2.get_wrapped_instance() : obj2;
 
-		auto prop_list = obj.get_derived_type().get_properties();
+		auto prop_list = obj.get_type().get_properties();
 		for (auto prop : prop_list)
 		{
 			if (prop.get_metadata("NO_SERIALIZE"))

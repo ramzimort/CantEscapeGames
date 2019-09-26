@@ -80,6 +80,6 @@ private:
 	Matrix m_rotMatrix;
 	Matrix m_scaleMatrix;
 
-	//RTTR_ENABLE(BaseComponent);
-	//RTTR_REGISTRATION_FRIEND;
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };
