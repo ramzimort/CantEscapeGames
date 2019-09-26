@@ -532,6 +532,8 @@
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
     <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
+    <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
+    <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -619,6 +621,8 @@
     <ClInclude Include="Code\Reflection\Helpers.h" />
     <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
     <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
+    <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
+    <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Code\Shaders\debug_frag.hlsl" />
@@ -633,9 +637,7 @@
     <Text Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
     <Text Include="Code\Shaders\skybox_frag.hlsl" />
     <Text Include="Code\Shaders\skybox_vert.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Code\Shaders\msaa_resolve_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
+    <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
   </ItemGroup>
 </Project>

@@ -315,6 +315,7 @@
     <ClCompile Include="Code\Graphics\D3D11_Renderer.cpp" />
     <ClCompile Include="Code\Graphics\DebugRendering.cpp" />
     <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
+    <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
     <ClCompile Include="Code\Graphics\DepthState.cpp" />
     <ClCompile Include="Code\Graphics\DXResourceLoader.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
@@ -328,6 +329,7 @@
     <ClCompile Include="Code\Graphics\RenderTarget.cpp" />
     <ClCompile Include="Code\Graphics\Sampler.cpp" />
     <ClCompile Include="Code\Graphics\Shader.cpp" />
+    <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
     <ClCompile Include="Code\Graphics\Texture.cpp" />
     <ClCompile Include="Code\Main.cpp" />
     <ClCompile Include="Code\Managers\CameraManager.cpp" />
@@ -398,6 +400,7 @@
     <ClInclude Include="Code\Graphics\D3D_Commands.h" />
     <ClInclude Include="Code\Graphics\DebugRendering.h" />
     <ClInclude Include="Code\Graphics\DeferredRendering.h" />
+    <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
     <ClInclude Include="Code\Graphics\DepthState.h" />
     <ClInclude Include="Code\Graphics\DescriptorData.h" />
     <ClInclude Include="Code\Graphics\DXResourceLoader.h" />
@@ -413,6 +416,7 @@
     <ClInclude Include="Code\Graphics\RenderTarget.h" />
     <ClInclude Include="Code\Graphics\Sampler.h" />
     <ClInclude Include="Code\Graphics\Shader.h" />
+    <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
     <ClInclude Include="Code\Graphics\Texture.h" />
     <ClInclude Include="Code\Graphics\VertexLayout.h" />
     <ClInclude Include="Code\Helper\Constant.h" />

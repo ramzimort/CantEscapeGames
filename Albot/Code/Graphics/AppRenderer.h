@@ -71,6 +71,7 @@ public:
 	friend class DebugRendering;
 	friend class DepthPassRendering;
 	friend class MSAAResolvePass;
+	friend class ShadowMapRendering;
 
 	typedef std::vector<Buffer*> BufferList;
 	typedef std::vector<InstanceRenderData> InstanceRenderList;
