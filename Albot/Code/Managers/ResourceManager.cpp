@@ -1,6 +1,11 @@
+
 #include "ResourceManager.h"
-#include "../Graphics/ModelLoader.h"
-#include "../Graphics/D3D11_Renderer.h"
+#include "Graphics/Model.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Material.h"
+#include "Graphics/ModelLoader.h"
+#include "Graphics/D3D11_Renderer.h"
+#include "Reflection/Serialization.h"
 
 ResourceManager::ResourceManager() : 
 	m_dxrenderer(nullptr)
@@ -33,7 +38,7 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 
 void ResourceManager::LoadModel(const std::string& filePath, bool texturedModel)
 {
-	StringId id(filePath);
+	StringId id = CANTID(filePath);
 	Model* model = static_cast<Model*>(m_resources[id]);
 	if (model == nullptr)
 		m_resources[id] = ModelLoader::LoadModel(m_dxrenderer, filePath, texturedModel);
@@ -41,11 +46,26 @@ void ResourceManager::LoadModel(const std::string& filePath, bool texturedModel)
 
 void ResourceManager::LoadMaterial(const std::string& filePath)
 {
+	StringId id = CANTID(filePath);
+	Material* material = static_cast<Material*>(m_resources[id]);
+	if (material != nullptr)
+		return;
 
+	material = new Material();
+	CantReflect::FromJson(filePath, material);
+	m_resources[id] = material;
 }
 
 // Returns null if surface does not exist
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
 
+}
+
+void ResourceManager::ClearModel(Model * model)
+{
+}
+
+void ResourceManager::ClearMaterial(Material * material)
+{
 }

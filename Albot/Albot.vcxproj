@@ -399,6 +399,7 @@
     <ClInclude Include="Code\Graphics\Texture.h" />
     <ClInclude Include="Code\Graphics\VertexLayout.h" />
     <ClInclude Include="Code\Helper\Constant.h" />
+    <ClInclude Include="Code\Helper\Hash.h" />
     <ClInclude Include="Code\Helper\MathUtil.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />
     <ClInclude Include="Code\Managers\EventManager.h" />
@@ -562,6 +563,9 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

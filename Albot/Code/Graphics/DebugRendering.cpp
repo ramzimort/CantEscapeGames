@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "Material.h"
 #include "AppRenderer.h"
+#include "Helper/Hash.h"
 #include "../Managers/ResourceManager.h"
 
 DebugRendering::DebugRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)
@@ -260,7 +261,7 @@ void DebugRendering::render_debug_aabb_scene()
 	}
 	m_resourceManager->LoadModel("Cube.fbx", false);
 
-	Model* cube_model = m_resourceManager->GetModel(SID("Cube.fbx"));
+	Model* cube_model = m_resourceManager->GetModel(CANTID("Cube.fbx"));
 
 	BufferUpdateDesc update_debug_instance_buffer_desc = {};
 	update_debug_instance_buffer_desc.m_buffer = m_debug_aabb_instance_uniform_buffer;

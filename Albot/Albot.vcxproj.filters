@@ -153,5 +153,9 @@
     <ClInclude Include="Code\Reflection\Helpers.h" />
     <ClInclude Include="Code\Reflection\Serialization.h" />
     <ClInclude Include="Code\Components\MeshComponent.h" />
+    <ClInclude Include="Code\Helper\Hash.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
