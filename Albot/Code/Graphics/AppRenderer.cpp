@@ -16,7 +16,8 @@ AppRenderer::AppRenderer(SDL_Window& sdl_window, ResourceManager* resourceManage
 m_debugRendering(this, resourceManager),
 m_resourceManager(resourceManager),
 m_cameraManager(cameraManager),
-m_deferrredRendering(this, resourceManager)
+m_deferrredRendering(this, resourceManager),
+m_msaa_resolve_pass(this)
 {
 	//TODO: call initialize manually
 	Initialize();
@@ -230,7 +231,21 @@ void AppRenderer::LoadContent()
 	m_directional_light_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, directional_light_uniform_buffer_desc);
 
 
-	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
+	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
+
+	RenderTargetDesc msaa_rt_desc = {};
+	msaa_rt_desc.m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
+	msaa_rt_desc.m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	msaa_rt_desc.m_texture_desc.m_width = swap_chain_rt->get_desc().m_texture_desc.m_width;
+	msaa_rt_desc.m_texture_desc.m_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
+	msaa_rt_desc.m_texture_desc.m_clearVal = ClearValue{ 0.f, 0.0, 0.f, 0.f };
+	msaa_rt_desc.m_texture_desc.m_mipLevels = 1;
+	msaa_rt_desc.m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
+	msaa_rt_desc.m_texture_desc.m_imageFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+	msaa_rt_desc.m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
+	msaa_rt_desc.m_texture_desc.m_depth = 1;
+
+	m_msaa_main_rt = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
 	RenderTargetDesc depth_rt_desc = {};
 	depth_rt_desc.m_texture_desc.m_bindFlags = Bind_Flags::BIND_DEPTH_STENCIL | BIND_SHADER_RESOURCE;
@@ -245,6 +260,16 @@ void AppRenderer::LoadContent()
 	depth_rt_desc.m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_depth_rt = DXResourceLoader::Create_RenderTarget(m_dxrenderer, depth_rt_desc);
+
+
+	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+	{
+		m_cur_main_rt = m_msaa_main_rt;
+	}
+	else
+	{
+		m_cur_main_rt = swap_chain_rt;
+	}
 
 	LoadSkyboxContent();
 	
@@ -330,9 +355,9 @@ void AppRenderer::LoadSkyboxContent()
 	graphics_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	graphics_pipeline_desc.m_render_target_count = 1;
 	graphics_pipeline_desc.m_rasterizer_state = m_cull_none_rasterizer_state;
-	graphics_pipeline_desc.m_depth_state = m_less_equal_depth_state;
-	//graphics_pipeline_desc.m_depth_state = g_disabled_depth_state;
-	//graphics_pipeline_desc.m_blend_state = m_skybox_blend_state;
+	//graphics_pipeline_desc.m_depth_state = m_less_equal_depth_state;
+	graphics_pipeline_desc.m_depth_state = m_disabled_depth_state;
+	graphics_pipeline_desc.m_blend_state = m_skybox_blend_state;
 	graphics_pipeline_desc.m_shader = m_skybox_shader;
 	graphics_pipeline_desc.m_vertex_layout = &pos4_layout;
 
@@ -362,10 +387,11 @@ void AppRenderer::Initialize()
 	sys_info.info.win.window;
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
-	m_dxrenderer->init(GraphicsSettings::MSAA_SAMPLE_COUNT);
+	m_dxrenderer->init(1);
 	LoadContent();
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
+	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
 }
 
 
@@ -385,6 +411,7 @@ void AppRenderer::Release()
 	
 	m_deferrredRendering.Release();
 	m_debugRendering.Release();
+	m_msaa_resolve_pass.Release();
 
 	SafeReleaseDelete(m_cull_none_rasterizer_state);
 	SafeReleaseDelete(m_cull_front_rasterizer_state);
@@ -447,7 +474,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	const CameraInfo* cameraInfo = cameraManager->GetCameraInfo("Main");
 	Camera* main_camera = cameraInfo->m_camera;
 
-	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
+	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	main_camera->update_view_matrix();
 	main_camera->update_projection_matrix();
@@ -474,17 +501,17 @@ void AppRenderer::UpdateAppRenderer(float dt)
 }
 void AppRenderer::RenderApp()
 {
-	RenderTarget* swap_chain_rt = m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target;
+	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	LoadActionsDesc load_actions_desc = {};
-	load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+	load_actions_desc.m_clear_color_values[0] = m_cur_main_rt->get_clear_value();
 	load_actions_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
 	load_actions_desc.m_clear_depth_stencil = m_depth_rt->get_clear_value();
 	load_actions_desc.m_load_action_depth = LoadActionType::CLEAR;
 
-	m_dxrenderer->cmd_bind_render_targets(&swap_chain_rt, 1, m_depth_rt, load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
-		swap_chain_rt->get_desc().m_texture_desc.m_height);
+	m_dxrenderer->cmd_bind_render_targets(&m_cur_main_rt, 1, m_depth_rt, load_actions_desc);
+	m_dxrenderer->cmd_set_viewport(0, 0, m_cur_main_rt->get_desc().m_texture_desc.m_width,
+		m_cur_main_rt->get_desc().m_texture_desc.m_height);
 
 
 	BufferUpdateDesc update_camera_desc = {};
@@ -517,18 +544,19 @@ void AppRenderer::RenderApp()
 
 	m_dxrenderer->cmd_update_buffer(direction_light_update_desc);
 
-
 	m_deferrredRendering.RenderDeferredScene();
 
 	LoadActionsDesc next_load_actions_desc = {};
-	next_load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+	next_load_actions_desc.m_clear_color_values[0] = m_cur_main_rt->get_clear_value();
 	next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
 	next_load_actions_desc.m_clear_depth_stencil = m_depth_rt->get_clear_value();
 	next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
 
-	m_dxrenderer->cmd_bind_render_targets(&m_dxrenderer->get_swap_chain()->m_p_swap_chain_render_target, 1, m_depth_rt, next_load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
-		swap_chain_rt->get_desc().m_texture_desc.m_height);
+	m_dxrenderer->cmd_bind_render_targets(&m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target, 1, m_depth_rt, next_load_actions_desc);
+	m_dxrenderer->cmd_set_viewport(0, 0, m_cur_main_rt->get_desc().m_texture_desc.m_width,
+		m_cur_main_rt->get_desc().m_texture_desc.m_height);
+
+	m_msaa_resolve_pass.ResolveMSAASwapChain();
 
 	RenderSkybox();
 	m_debugRendering.RenderDebugScene();

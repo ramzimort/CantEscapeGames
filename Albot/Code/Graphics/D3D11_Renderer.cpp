@@ -89,14 +89,24 @@ ID3D11DeviceContext* DXRenderer::get_device_context() const
 	return m_d3d_device_context;
 }
 
-const SwapChain* DXRenderer::get_swap_chain() const
+const SwapChain* DXRenderer::GetSwapChain() const
 {
 	return &m_swap_chain;
 }
 
-SwapChain* DXRenderer::get_swap_chain()
+SwapChain* DXRenderer::GetSwapChain()
 {
 	return &m_swap_chain;
+}
+
+SwapChain& DXRenderer::GetRefSwapChain()
+{
+	return m_swap_chain;
+}
+
+const SwapChain& DXRenderer::GetRefSwapChain() const
+{
+	return m_swap_chain;
 }
 
 HWND DXRenderer::get_window_handle() const
