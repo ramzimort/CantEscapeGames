@@ -4,7 +4,8 @@
 
 class Texture;
 
-class Material{
+class Material
+{
 public:
 	friend class ResourceManager;
 	friend class ModelLoader;
@@ -13,38 +14,29 @@ public:
 	Material();
 	~Material();
 
-
-	void init();
+	void Init();
 
 	//Check Shaders/Shading.h
-	uint32_t get_shader_material_type_id() const;
-
-
-	Texture* get_diffuse_texture() const;
-	Texture* get_normal_texture()const ;
-	Texture* get_height_texture()const;
-
-	Vector4 get_diffuse_color() const;
-	Vector4 get_specular_color() const;
-
-
-	
+	uint32_t GetShaderMaterialType() const;
+	Texture* GetDiffuseTexture() const;
+	Texture* GetNormalTexture()const ;
+	Texture* GetHeightTexture()const;
+	Vector4 GetDiffuseColor() const;
+	Vector4 GetSpecularColor() const;
 
 private:
-	
-	std::string m_material_name;
+	Vector4 m_diffuseColor;
+	Vector4 m_specularColor;
+	std::string m_materialName;
+	std::string m_diffuseTextureDirectory;
+	std::string m_normalTextureDirectory;
+	std::string m_heightTextureDirectory;
+	Texture* m_pDiffuseTexture;
+	Texture* m_pNormalTexture;
+	Texture* m_pHeightTexture;
 
-	std::string m_diffuse_tex_dir;
-	Texture* m_diffuse_texture;
 
-	std::string m_normal_tex_dir;
-	Texture* m_normal_texture;
-
-	std::string m_height_tex_dir;
-	Texture* m_height_texture;
-
-	Vector4 m_diffuse_color;
-	Vector4 m_specular_color;
-
+	//RTTR_ENABLE();
+	//RTTR_REGISTRATION_FRIEND;
 };
 

@@ -18,7 +18,7 @@ TransformSystem::TransformSystem() :
 	BaseSystem()
 {
 	// 3 - Push the comp to set the comp mask
-	Push_required_comp<Transform>();
+	Push_required_comp<TransformComponent>();
 }
 
 
@@ -26,7 +26,7 @@ void TransformSystem::Register_GameObject(GameObject *go)
 {
 	// 4 - Register by adding the components to the system
 
-	Transform *transform = go->GetComponent<Transform>();
+	TransformComponent *transform = go->GetComponent<TransformComponent>();
 
 	TransformCompNode *component_node = new TransformCompNode(transform);
 	component_node->m_goID = go->GetId();
@@ -39,7 +39,7 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 {
 	// 5 - Get the pointer to the components, and then freely update
 	TransformCompNode *node = static_cast<TransformCompNode*>(compNode);
-	Transform *transformComp = node->n_transform;
+	TransformComponent *transformComp = node->n_transform;
 
 	//UPDATE CODE GOES HERE
 	

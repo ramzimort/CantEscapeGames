@@ -13,7 +13,7 @@ Primary Author:
 #include "BaseComponent.h"
 
 
-class Transform : public BaseComponent
+class TransformComponent : public BaseComponent
 {
 
 //Friend classes and typedefs
@@ -23,8 +23,8 @@ public:
 //METHODS
 public:
 	//ctor and dtor
-	Transform(GameObject *owner);
-	virtual ~Transform();
+	TransformComponent(GameObject *owner);
+	virtual ~TransformComponent();
 
 	//Setup methods
 	virtual void Init() override;
@@ -80,4 +80,6 @@ private:
 	Matrix m_rotMatrix;
 	Matrix m_scaleMatrix;
 
+	//RTTR_ENABLE(BaseComponent);
+	//RTTR_REGISTRATION_FRIEND;
 };

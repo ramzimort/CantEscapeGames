@@ -1,16 +1,16 @@
 #pragma once
 #include "BaseSystem.h"
 
-class Transform;
+class TransformComponent;
 class CameraComponent;
 
 struct FPSCameraCompNode : BaseSystemCompNode
 {
-	Transform *m_transform;
+	TransformComponent *m_transform;
 	CameraComponent* m_camera_comp;
 
 	//Ctor
-	FPSCameraCompNode(Transform *transform,
+	FPSCameraCompNode(TransformComponent *transform,
 		CameraComponent* camera_comp) : m_transform(transform),
 		m_camera_comp(camera_comp)
 	{}

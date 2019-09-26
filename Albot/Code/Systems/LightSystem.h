@@ -1,15 +1,15 @@
 #pragma once
 #include "BaseSystem.h"
 
-class Transform;
+class TransformComponent;
 class LightComponent;
 
 struct LightCompNode : BaseSystemCompNode
 {
-	Transform *m_transform;
+	TransformComponent *m_transform;
 	LightComponent* m_light_comp;
 	//Ctor
-	LightCompNode(Transform *transform,
+	LightCompNode(TransformComponent *transform,
 		LightComponent* light_comp) : m_transform(transform),
 		m_light_comp(light_comp)
 	{}

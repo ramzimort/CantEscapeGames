@@ -10,22 +10,22 @@ Primary Author: Jose Rosenbluth
 ///Includes
 #include "BaseSystem.h"
 
-class Transform;
+class TransformComponent;
 class RendererComponent;
-class MeshesComponent;
+class MeshComponent;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
 
 struct RenderingCompNode : BaseSystemCompNode
 {
-	Transform *m_transform;
+	TransformComponent *m_transform;
 	RendererComponent *m_renderer;
-	MeshesComponent* m_meshesComponent;
+	MeshComponent* m_meshesComponent;
 
 	//Ctor
-	RenderingCompNode(Transform *transform, 
-		RendererComponent *renderer, MeshesComponent* meshesComp) : m_transform(transform),
+	RenderingCompNode(TransformComponent *transform, 
+		RendererComponent *renderer, MeshComponent* meshesComp) : m_transform(transform),
 		m_renderer(renderer), m_meshesComponent(meshesComp)
 	{}
 };

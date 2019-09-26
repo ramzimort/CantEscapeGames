@@ -100,7 +100,7 @@ convert_to(const F& from, T& to)
 {
     if (from > std::numeric_limits<T>::max())
         return false; // value too large
-    else if (from < std::numeric_limits<T>:: min())
+    else if (from < std::numeric_limits<T>::min())
         return false; // value too small
 
     to = static_cast<T>(from);

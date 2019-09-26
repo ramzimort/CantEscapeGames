@@ -69,11 +69,12 @@
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
-    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
     <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Components\LightComponent.cpp" />
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
+    <ClCompile Include="Code\Reflection\Serialization.cpp" />
+    <ClCompile Include="Code\Components\MeshComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -143,7 +144,6 @@
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
     <ClInclude Include="Code\Memory\AllocatorTypes.h" />
-    <ClInclude Include="Code\Components\MeshesComponent.h" />
     <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\Helper\Constant.h" />
     <ClInclude Include="Code\Helper\MathUtil.h" />
@@ -151,5 +151,7 @@
     <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Components\LightComponent.h" />
     <ClInclude Include="Code\Reflection\Helpers.h" />
+    <ClInclude Include="Code\Reflection\Serialization.h" />
+    <ClInclude Include="Code\Components\MeshComponent.h" />
   </ItemGroup>
 </Project>

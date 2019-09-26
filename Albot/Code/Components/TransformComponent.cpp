@@ -7,11 +7,21 @@ Primary Author:
 
 
 #include "TransformComponent.h"
-unsigned const Transform::static_type = BaseComponent::numberOfTypes++;
+unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
+
+//RTTR_REGISTRATION
+//{
+//	rttr::registration::class_<TransformComponent>("TransformComponent")
+//	.property("Position", &TransformComponent::m_position)
+//	.property("Rotation", &TransformComponent::m_rotation)
+//	.property("Scale", &TransformComponent::m_scale)
+//	.method("Init", &TransformComponent::Init)
+//	.method("Begin", &TransformComponent::Begin);
+//}
 
 
-Transform::Transform(GameObject *owner) :
-	BaseComponent(owner, Transform::static_type),
+TransformComponent::TransformComponent(GameObject *owner) :
+	BaseComponent(owner, TransformComponent::static_type),
 	m_needToRecalculateModel(1),
 	m_position(0.f),
 	m_rotation(0.f),
@@ -20,7 +30,7 @@ Transform::Transform(GameObject *owner) :
 }
 
 
-Transform::~Transform()
+TransformComponent::~TransformComponent()
 {
 }
 
@@ -28,12 +38,12 @@ Transform::~Transform()
 ///////////////////////////////////////////////////////
 ////           INITIALIZATION METHODS              ////
 ///////////////////////////////////////////////////////
-void Transform::Init()
+void TransformComponent::Init()
 {
 }
 
 
-void Transform::Begin()
+void TransformComponent::Begin()
 {
 }
 
@@ -41,13 +51,13 @@ void Transform::Begin()
 ///////////////////////////////////////////////////////
 ////           TRANSLATE METHODS                   ////
 ///////////////////////////////////////////////////////
-void Transform::Translate(Vector3 const& translate)
+void TransformComponent::Translate(Vector3 const& translate)
 {
 	Translate(translate.x, translate.y, translate.z);
 }
 
 
-void Transform::Translate(float x, float y, float z)
+void TransformComponent::Translate(float x, float y, float z)
 {
 	m_needToRecalculateModel = 1;
 
@@ -60,7 +70,7 @@ void Transform::Translate(float x, float y, float z)
 ///////////////////////////////////////////////////////
 ////           ROTATE METHODS                      ////
 ///////////////////////////////////////////////////////
-void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
+void TransformComponent::Rotate(float eulerX, float eulerY, float eulerZ)
 {
 	m_needToRecalculateModel = 1;
 
@@ -69,7 +79,7 @@ void Transform::Rotate(float eulerX, float eulerY, float eulerZ)
 	m_rotation.z += eulerZ;
 }
 
-void Transform::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
+void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
 {
 	m_needToRecalculateModel = 1;
 
@@ -79,14 +89,14 @@ void Transform::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
 }
 
 
-void Transform::SetLocalPosition(float x, float y, float z)
+void TransformComponent::SetLocalPosition(float x, float y, float z)
 {
 	m_needToRecalculateModel = 1;
 	m_position.x = x;
 	m_position.y = y;
 	m_position.z = z;
 }
-void  Transform::SetLocalPosition(const Vector3& position)
+void  TransformComponent::SetLocalPosition(const Vector3& position)
 {
 	SetLocalPosition(position.x, position.y, position.z);
 }
@@ -95,19 +105,19 @@ void  Transform::SetLocalPosition(const Vector3& position)
 ///////////////////////////////////////////////////////
 ////           SCALE METHODS                       ////
 ///////////////////////////////////////////////////////
-void Transform::Scale(float val)
+void TransformComponent::Scale(float val)
 {
 	Scale(val, val, val);
 }
 
 
-void Transform::Scale(Vector3 const& scale)
+void TransformComponent::Scale(Vector3 const& scale)
 {
 	Scale(scale.x, scale.y, scale.z);
 }
 
 
-void Transform::Scale(float x, float y, float z)
+void TransformComponent::Scale(float x, float y, float z)
 {
 	m_needToRecalculateModel = 1;
 
@@ -121,43 +131,43 @@ void Transform::Scale(float x, float y, float z)
 ////           GETTERS METHODS                     ////
 ///////////////////////////////////////////////////////
 
-Vector3 const& Transform::GetWorldPosition() const
+Vector3 const& TransformComponent::GetWorldPosition() const
 {
 	return m_position;
 }
 
-Vector3 const& Transform::GetPosition() const
+Vector3 const& TransformComponent::GetPosition() const
 {
 	return m_position;
 }
 
-Vector3 const& Transform::GetRotation() const
+Vector3 const& TransformComponent::GetRotation() const
 {
 	return m_rotation;
 }
 
-Vector3 const& Transform::GetScale() const
+Vector3 const& TransformComponent::GetScale() const
 {
 	return m_scale;
 }
 
-Matrix const& Transform::GetModel() const
+Matrix const& TransformComponent::GetModel() const
 {
 	return m_model;
 }
 
-Matrix const& Transform::GetRotationMatrix() const
+Matrix const& TransformComponent::GetRotationMatrix() const
 {
 	return m_rotMatrix;
 }
 
-Matrix const& Transform::GetScaleMatrix() const
+Matrix const& TransformComponent::GetScaleMatrix() const
 {
 	return m_scaleMatrix;
 }
 
 
-void Transform::SetModel(Matrix const& model) 
+void TransformComponent::SetModel(Matrix const& model) 
 {
 	this->m_model = model;
 }
@@ -166,12 +176,12 @@ void Transform::SetModel(Matrix const& model)
 ///////////////////////////////////////////////////////
 ////           DIRTY FLAG STUFF                    ////
 ///////////////////////////////////////////////////////
-bool Transform::NeedToRecalculate()
+bool TransformComponent::NeedToRecalculate()
 {
 	return m_needToRecalculateModel;
 }
 
-void Transform::ResetDirtyFlag()
+void TransformComponent::ResetDirtyFlag()
 {
 	m_needToRecalculateModel = false;
 }

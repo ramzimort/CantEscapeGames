@@ -9,6 +9,12 @@ Primary Author:
 #include "RigidbodyComponent.h"
 unsigned const Rigidbody::static_type = BaseComponent::numberOfTypes++;
 
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<Rigidbody>("Rigidbody")
+		.method("Init", &Rigidbody::Init)
+		.method("Begin", &Rigidbody::Begin);
+}
 
 Rigidbody::Rigidbody(GameObject *owner) :
 	BaseComponent(owner, Rigidbody::static_type)

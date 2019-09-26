@@ -46,4 +46,7 @@ private:
 
 	float m_x_tile_factor;
 	float m_y_tile_factor;
+
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };

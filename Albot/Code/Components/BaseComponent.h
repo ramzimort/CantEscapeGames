@@ -40,9 +40,6 @@ public:
 	ComponentId GetType() const { return m_type; }
 
 	GameObject* GetGameObjectOwner() const { return m_owner; }
-private:
-	BaseComponent(BaseComponent& rhs);
-
 
 protected:
 	static ComponentId numberOfTypes;
@@ -51,4 +48,10 @@ protected:
 protected:
 	ComponentId m_type;
 	GameObject *m_owner;
+
+private:
+	BaseComponent(BaseComponent& rhs);
+
+	RTTR_ENABLE();
+	RTTR_REGISTRATION_FRIEND;
 };

@@ -32,4 +32,7 @@ public:
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
+
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };

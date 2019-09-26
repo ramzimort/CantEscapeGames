@@ -16,7 +16,7 @@ Primary Author:
 #include "Components/RendererComponent.h"
 #include "Components/RigidbodyComponent.h"
 #include "Components/TestComponent.h"
-#include "Components/MeshesComponent.h"
+#include "Components/MeshComponent.h"
 #include "Components/LightComponent.h"
 
 
@@ -51,7 +51,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	desc1.tag = "monoRojo";							         ////
 	desc1.componentSetup = [](GameObject *go)		         ////
 	{												         ////
-		auto *T = go->AddComponent<Transform>();	         ////
+		auto *T = go->AddComponent<TransformComponent>();	         ////
 		//Override code								         ////
 													         ////
 		auto *R = go->AddComponent<RendererComponent>();     ////
@@ -66,7 +66,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	desc2.tag = "monoAzul";							         ////
 	desc2.componentSetup = [](GameObject *go)		         ////
 	{												         ////
-		auto *T = go->AddComponent<Transform>();	         ////
+		auto *T = go->AddComponent<TransformComponent>();	         ////
 		//Override code								         ////
 		                                                     ////
 		auto *R = go->AddComponent<Rigidbody>();	         ////
@@ -91,7 +91,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	desc4.tag = "FPSPlayer";						         ////
 	desc4.componentSetup = [](GameObject *go)		         ////
 	{												         ////
-		auto *T = go->AddComponent<Transform>();
+		auto *T = go->AddComponent<TransformComponent>();
 		T->SetLocalPosition(0.f, 0.f, 0.f);////
 
 		auto cameraComp = go->AddComponent<CameraComponent>();
@@ -107,8 +107,8 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	Model* mitsubaSphereModel = gResourceManager->GetModel(SID("mitsuba-sphere.obj"));
 
 	Material* red_diffuse_purple_specular = new Material();
-	red_diffuse_purple_specular->m_diffuse_color = Vector4(1.f, 0.f, 0.f, 1.f);
-	red_diffuse_purple_specular->m_specular_color = Vector4(1.f, 0.f, 1.f, 1.f);
+	red_diffuse_purple_specular->m_diffuseColor = Vector4(1.f, 0.f, 0.f, 1.f);
+	red_diffuse_purple_specular->m_specularColor = Vector4(1.f, 0.f, 1.f, 1.f);
 
 	//gResourceManager->GetMaterial(red_diffuse_purple_specular_desc, "Red_Diffuse_Purple_Specular");
 
@@ -119,7 +119,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	desc5.tag = "mitsubaismybottom";						         ////
 	desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)	         ////
 	{												         ////
-		auto *T = go->AddComponent<Transform>();
+		auto *T = go->AddComponent<TransformComponent>();
 		T->SetLocalPosition(0.f, 0.f, 0.f);////
 
 		go->AddComponent<TestComp>();
@@ -127,7 +127,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		auto rendererComp = go->AddComponent<RendererComponent>();
 		rendererComp->SetMaterial(red_diffuse_purple_specular);
 		
-		auto meshesComp = go->AddComponent<MeshesComponent>();
+		auto meshesComp = go->AddComponent<MeshComponent>();
 		meshesComp->SetModel(mitsubaSphereModel);
 		//Override code								         ////
 	};												         ////
@@ -145,7 +145,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	desc6.tag = "directionalLight";						         ////
 	desc6.initializeComponentSetup = [directionalLight](GameObject *go)	         ////
 	{												         ////
-		auto *T = go->AddComponent<Transform>();
+		auto *T = go->AddComponent<TransformComponent>();
 		T->SetLocalPosition(0.f, 0.f, 0.f);////
 		T->SetLocalRotation(60.0f, 30.0f, 0.0f);
 

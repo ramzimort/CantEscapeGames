@@ -9,6 +9,9 @@ Primary Author: Jose Rosenbluth
 #include "TestComponent.h"
 unsigned const TestComp::static_type = BaseComponent::numberOfTypes++;
 
+RTTR_REGISTRATION
+{
+}
 
 TestComp::TestComp(GameObject *owner) : 
 	BaseComponent(owner, TestComp::static_type) 

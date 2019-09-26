@@ -14,7 +14,16 @@ Primary Author: Jose Rosenbluth
 #define STD_WIDTH		1280
 #define STD_HEIGHT		720
 
-
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<Camera>("Camera")
+		.property("Width", &Camera::m_width)
+		.property("Height", &Camera::m_height)
+		.property("Width", &Camera::m_near)
+		.property("Width", &Camera::m_far)
+		.property("Width", &Camera::m_fov)
+		.property("Width", &Camera::m_position);
+}
 
 Camera::Camera(int width, int height, float fov,
 	float nearVal, float farVal, const Vector3& position) : m_width(width),

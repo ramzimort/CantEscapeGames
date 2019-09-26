@@ -11,7 +11,7 @@ unsigned const FPSCameraSystem::static_type = BaseSystem::numberOfTypes++;
 
 FPSCameraSystem::FPSCameraSystem()
 {
-	Push_required_comp<Transform>();
+	Push_required_comp<TransformComponent>();
 	Push_required_comp<CameraComponent>();
 }
 
@@ -23,7 +23,7 @@ FPSCameraSystem::~FPSCameraSystem()
 
 void FPSCameraSystem::Register_GameObject(GameObject *go)
 {
-	Transform *transform = go->GetComponent<Transform>();
+	TransformComponent *transform = go->GetComponent<TransformComponent>();
 	CameraComponent* camera_comp = go->GetComponent<CameraComponent>();
 
 	BaseSystemCompNode *component_node = new FPSCameraCompNode(transform, camera_comp);

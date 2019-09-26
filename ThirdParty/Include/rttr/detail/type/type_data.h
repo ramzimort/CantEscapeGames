@@ -103,6 +103,12 @@ enum class type_trait_infos : std::size_t
     TYPE_TRAIT_COUNT
 };
 
+enum class type_of_visit : bool
+{
+    begin_visit_type,
+    end_visit_type
+};
+
  using type_traits = std::bitset<static_cast<std::size_t>(type_trait_infos::TYPE_TRAIT_COUNT)>;
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -115,6 +121,7 @@ using get_base_types_func  = decltype(&base_classes<int>::get_types);
 using create_wrapper_func  = void(*)(const argument& arg, variant& var);
 using get_metadata_func    = std::vector<metadata>&(*)(void);
 using get_class_data_func  = class_data&(*)(void);
+using visit_type_func      = void(*)(type_of_visit, visitor&, const type&);
 
 } // end namespace impl
 
@@ -139,23 +146,16 @@ struct RTTR_LOCAL type_data
     enumeration_wrapper_base*  enum_wrapper;
     impl::get_metadata_func    get_metadata;
     impl::create_wrapper_func  create_wrapper;
-    impl::get_class_data_func  get_class_data;
+    impl::visit_type_func      visit_type;
 
     bool is_valid;
     RTTR_FORCE_INLINE bool type_trait_value(type_trait_infos type_trait) const RTTR_NOEXCEPT { return m_type_traits.test(static_cast<std::size_t>(type_trait)); }
 
 
     type_traits m_type_traits;
+    class_data  m_class_data;
+
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-template<typename T>
-RTTR_LOCAL RTTR_INLINE class_data& get_type_class_data() RTTR_NOEXCEPT
-{
-    static std::unique_ptr<class_data> info = detail::make_unique<class_data>(get_most_derived_info_func<T>(), template_type_trait<T>::get_template_arguments());
-    return (*info.get());
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -281,6 +281,19 @@ using type_trait_value = uint64_t;
 #define TYPE_TRAIT_TO_BITSET_VALUE(trait) (static_cast<std::uint64_t>(std::trait<T>::value) << static_cast<std::size_t>(type_trait_infos::trait))
 #define TYPE_TRAIT_TO_BITSET_VALUE_2(trait, enum_key) (static_cast<std::uint64_t>(trait<T>::value) << static_cast<std::size_t>(type_trait_infos::enum_key))
 
+} // end namespace detail
+} // end namespace rttr
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+namespace rttr
+{
+namespace detail
+{
+
 template<typename T>
 RTTR_LOCAL std::unique_ptr<type_data> make_type_data()
 {
@@ -302,7 +315,7 @@ RTTR_LOCAL std::unique_ptr<type_data> make_type_data()
                             &get_metadata_func_impl<T>,
                             get_create_wrapper_func<T>(),
 
-                            &get_type_class_data<T>,
+                            nullptr,
                             true,
                             type_trait_value{ TYPE_TRAIT_TO_BITSET_VALUE(is_class) |
                                               TYPE_TRAIT_TO_BITSET_VALUE(is_enum) |
@@ -315,7 +328,8 @@ RTTR_LOCAL std::unique_ptr<type_data> make_type_data()
                                               TYPE_TRAIT_TO_BITSET_VALUE_2(::rttr::detail::is_associative_container, is_associative_container) |
                                               TYPE_TRAIT_TO_BITSET_VALUE_2(::rttr::detail::is_sequential_container, is_sequential_container) |
                                               TYPE_TRAIT_TO_BITSET_VALUE_2(::rttr::detail::template_type_trait, is_template_instantiation)
-                                            }
+                                            },
+                            class_data(get_most_derived_info_func<T>(), template_type_trait<T>::get_template_arguments())
                         }
                );
     return obj;

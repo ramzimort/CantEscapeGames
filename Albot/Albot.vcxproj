@@ -161,7 +161,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc141-mtd.lib;SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc141-mtd.lib;SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;librttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -251,7 +251,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -279,7 +279,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -293,7 +293,7 @@
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
     <ClCompile Include="Code\Components\CameraComponent.cpp" />
     <ClCompile Include="Code\Components\LightComponent.cpp" />
-    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
+    <ClCompile Include="Code\Components\MeshComponent.cpp" />
     <ClCompile Include="Code\Components\RendererComponent.cpp" />
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
@@ -339,6 +339,7 @@
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
+    <ClCompile Include="Code\Reflection\Serialization.cpp" />
     <ClCompile Include="Code\States\State.cpp" />
     <ClCompile Include="Code\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -362,7 +363,7 @@
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\CameraComponent.h" />
     <ClInclude Include="Code\Components\LightComponent.h" />
-    <ClInclude Include="Code\Components\MeshesComponent.h" />
+    <ClInclude Include="Code\Components\MeshComponent.h" />
     <ClInclude Include="Code\Components\RendererComponent.h" />
     <ClInclude Include="Code\Components\RigidbodyComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
@@ -422,6 +423,7 @@
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
     <ClInclude Include="Code\Reflection\Helpers.h" />
+    <ClInclude Include="Code\Reflection\Serialization.h" />
     <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\States\State.h" />
     <ClInclude Include="Code\stdafx.h" />

@@ -13,7 +13,7 @@ unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 // 2 - Include the components you want to add
 #include "../Components/TransformComponent.h"
 #include "../Components/RendererComponent.h"
-#include "Components/MeshesComponent.h"
+#include "Components/MeshComponent.h"
 
 //TODO: Alberto stuff
 #include "Graphics/AppRenderer.h"
@@ -25,9 +25,9 @@ RenderingSystem::RenderingSystem() :
 	BaseSystem()
 {
 	// 3 - Push the comp to set the comp mask
-	Push_required_comp<Transform>();
+	Push_required_comp<TransformComponent>();
 	Push_required_comp<RendererComponent>();
-	Push_required_comp<MeshesComponent>();
+	Push_required_comp<MeshComponent>();
 }
 
 
@@ -35,9 +35,9 @@ void RenderingSystem::Register_GameObject(GameObject *go)
 {
 	// 4 - Register by adding the components to the system
 
-	Transform *transform = go->GetComponent<Transform>();
+	TransformComponent *transform = go->GetComponent<TransformComponent>();
 	RendererComponent *renderer = go->GetComponent<RendererComponent>();
-	MeshesComponent* meshesComp = go->GetComponent<MeshesComponent>();
+	MeshComponent* meshesComp = go->GetComponent<MeshComponent>();
 
 	BaseSystemCompNode *component_node = new RenderingCompNode(transform, renderer, meshesComp);
 	component_node->m_goID = go->GetId();
@@ -50,7 +50,7 @@ void RenderingSystem::Update(float dt, BaseSystemCompNode *compNode)
 {
 	// 5 - Get the pointer to the components, and then freely update
 	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
-	Transform *T = node->m_transform;
+	TransformComponent *T = node->m_transform;
 	RendererComponent *R = node->m_renderer;
 
 	//UPDATE CODE GOES HERE
@@ -61,9 +61,9 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 {
 	// 5 - Get the pointer to the components, and then freely update
 	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
-	Transform *transformComp = node->m_transform;
+	TransformComponent *transformComp = node->m_transform;
 	RendererComponent *rendererComp = node->m_renderer;
-	MeshesComponent* meshesComp = node->m_meshesComponent;
+	MeshComponent* meshesComp = node->m_meshesComponent;
 
 	const Matrix& modelMatrix = transformComp->GetModel();
 	const Matrix& rotMatrix = transformComp->GetRotationMatrix();

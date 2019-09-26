@@ -52,14 +52,18 @@
 #include <SDL2/SDL_events.h>
 
 // Reflection : RTTR
-#include "rttr/registration.h"
-#include "rttr/rttr_enable.h"
-#include "rttr/registration_friend.h"
-#include "rttr/policy.h"
-#include "rttr/wrapper_mapper.h"
+#include <rttr/type>
+#include <rttr/rttr_enable.h>
+#include <rttr/registration.h>
+#include <rttr/registration_friend.h>
+#include <rttr/wrapper_mapper.h>
+#include <rttr/associative_mapper.h>
+#include <rttr/policy.h>
 #include "rttr/detail/policies/ctor_policies.h"
 
 // Rapidjson
+#define RAPIDJSON_HAS_STDSTRING 1
+
 #include "rapidjson/document.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/istreamwrapper.h"

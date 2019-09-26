@@ -11,7 +11,7 @@ unsigned const LightSystem::static_type = BaseSystem::numberOfTypes++;
 
 LightSystem::LightSystem()
 {
-	Push_required_comp<Transform>();
+	Push_required_comp<TransformComponent>();
 	Push_required_comp<LightComponent>();
 }
 
@@ -23,7 +23,7 @@ LightSystem::~LightSystem()
 
 void LightSystem::Register_GameObject(GameObject *go)
 {
-	Transform *transform = go->GetComponent<Transform>();
+	TransformComponent *transform = go->GetComponent<TransformComponent>();
 	LightComponent* light_comp = go->GetComponent<LightComponent>();
 
 	BaseSystemCompNode *component_node = new LightCompNode(transform, light_comp);
@@ -41,7 +41,7 @@ void LightSystem::Draw(float dt, BaseSystemCompNode *compNode)
 {
 	// 5 - Get the pointer to the components, and then freely update
 	LightCompNode *node = static_cast<LightCompNode*>(compNode);
-	Transform *transformComp = node->m_transform;
+	TransformComponent *transformComp = node->m_transform;
 	LightComponent* lightComp = node->m_light_comp;
 
 	const Light* light = lightComp->GetLight();

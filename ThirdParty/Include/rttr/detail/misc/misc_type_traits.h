@@ -33,7 +33,7 @@
 #include "rttr/detail/misc/function_traits.h"
 
 #include "rttr/detail/misc/std_type_traits.h"
-
+#include "rttr/type_list.h"
 
 #include <type_traits>
 #include <memory>
@@ -316,12 +316,6 @@ namespace detail
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-    // A simple list for types
-    // use it like this:
-    // using my_list = type_list<int, bool>;
-
-    template<typename... T>
-    struct type_list {};
 
     template<typename...T>
     struct as_type_list
@@ -595,7 +589,7 @@ namespace detail
     /////////////////////////////////////////////////////////////////////////////////////
 
     template<typename T>
-    using remove_cv_ref_t = typename detail::remove_cv<typename std::remove_reference<T>::type>::type;
+    using remove_cv_ref_t = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 
     /*!
      * A slightly different decay than in the standard, the extent of arrays are not removed.

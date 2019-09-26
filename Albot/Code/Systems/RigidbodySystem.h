@@ -10,7 +10,7 @@ Primary Author: Jose Rosenbluth
 ///Includes
 #include "BaseSystem.h"
 
-class Transform;
+class TransformComponent;
 class Rigidbody;
 
 
@@ -18,11 +18,11 @@ class Rigidbody;
 
 struct RigidbodyCompNode : BaseSystemCompNode
 {
-	Transform *n_transform;
+	TransformComponent *n_transform;
 	Rigidbody *n_rigidbody;
 
 	//Ctor
-	RigidbodyCompNode(Transform *transform,
+	RigidbodyCompNode(TransformComponent *transform,
 		Rigidbody *rigidbody) : n_transform(transform),
 		n_rigidbody(rigidbody)
 	{}

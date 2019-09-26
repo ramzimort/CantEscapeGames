@@ -627,9 +627,9 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 			Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
 			m_material_uniform_data = {};
-			m_material_uniform_data.DiffuseColor = cur_material_instance->get_diffuse_color();
-			m_material_uniform_data.SpecularColor = cur_material_instance->get_specular_color();
-			m_material_uniform_data.MaterialMiscData.w = static_cast<float>(cur_material_instance->get_shader_material_type_id());
+			m_material_uniform_data.DiffuseColor = cur_material_instance->GetDiffuseColor();
+			m_material_uniform_data.SpecularColor = cur_material_instance->GetSpecularColor();
+			m_material_uniform_data.MaterialMiscData.w = static_cast<float>(cur_material_instance->GetShaderMaterialType());
 			m_material_uniform_data.MaterialMiscData.x = inst_data.uv_tiling.x;
 			m_material_uniform_data.MaterialMiscData.y = inst_data.uv_tiling.y;
 
@@ -664,9 +664,9 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 			uint32_t total_params_count = 4;
 
-			Texture* diffuse_texture = cur_material_instance->get_diffuse_texture();
-			Texture* normal_texture = cur_material_instance->get_normal_texture();
-			Texture* height_texture = cur_material_instance->get_height_texture();
+			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
+			Texture* normal_texture = cur_material_instance->GetNormalTexture();
+			Texture* height_texture = cur_material_instance->GetHeightTexture();
 
 			size_t mat_id = static_cast<size_t>(m_material_uniform_data.MaterialMiscData.w);
 

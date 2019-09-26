@@ -9,7 +9,8 @@ typedef enum ELightType
 	ELIGHT_TYPE_TOTAL_COUNT
 }ELightType;
 
-class Light{
+class Light
+{
 public:
 	friend class AppRenderer;
 	friend class DeferredRendering;
@@ -18,7 +19,6 @@ public:
 public:
 	Light();
 	~Light();
-
 
 	const Vector3& GetColor() const;
 	float GetIntensity() const;
@@ -35,6 +35,7 @@ private:
 	bool m_enabled;
 	bool m_cast_shadow;
 
-	
+	RTTR_ENABLE();
+	RTTR_REGISTRATION_FRIEND;
 };
 

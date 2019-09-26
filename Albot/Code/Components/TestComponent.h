@@ -36,5 +36,4 @@ public:
 
 	//Multicast testing
 	Multicast<void(float)> onWhateverFires;
-
 };

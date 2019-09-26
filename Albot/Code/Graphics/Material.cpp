@@ -3,13 +3,13 @@
 
 
 Material::Material()
-	:m_material_name(""),
-	m_diffuse_color(),
-	m_diffuse_tex_dir(""),
-	m_normal_tex_dir(""),
-	m_diffuse_texture(nullptr),
-	m_normal_texture(nullptr),
-	m_height_texture(nullptr)
+	:m_materialName(""),
+	m_diffuseColor(),
+	m_diffuseTextureDirectory(""),
+	m_normalTextureDirectory(""),
+	m_pDiffuseTexture(nullptr),
+	m_pNormalTexture(nullptr),
+	m_pHeightTexture(nullptr)
 {
 }
 
@@ -19,25 +19,25 @@ Material::~Material()
 }
 
 
-void Material::init()
+void Material::Init()
 {
 
 }
 
 
-uint32_t Material::get_shader_material_type_id() const
+uint32_t Material::GetShaderMaterialType() const
 {
 	uint32_t materialID = (uint32_t)MAT_ID_COLOR;
 
-	if (m_height_texture)
+	if (m_pHeightTexture)
 	{
 		materialID |= (uint32_t)MAT_ID_PARALLAX_TEXTURE;
 	}
-	if (m_diffuse_texture && m_normal_texture)
+	if (m_pDiffuseTexture && m_pNormalTexture)
 	{
 		materialID |= (uint32_t)MAT_ID_NORMAL_TEXTURE;
 	}
-	if (m_diffuse_texture)
+	if (m_pDiffuseTexture)
 	{
 		materialID |= (uint32_t)MAT_ID_DIFFUSE_TEXTURE;
 	}
@@ -45,27 +45,27 @@ uint32_t Material::get_shader_material_type_id() const
 	return materialID;
 }
 
-Texture* Material::get_diffuse_texture() const
+Texture* Material::GetDiffuseTexture() const
 {
-	return m_diffuse_texture;
+	return m_pDiffuseTexture;
 }
 
-Texture* Material::get_normal_texture() const
+Texture* Material::GetNormalTexture() const
 {
-	return m_normal_texture;
+	return m_pNormalTexture;
 }
 
-Texture* Material::get_height_texture() const
+Texture* Material::GetHeightTexture() const
 {
-	return m_height_texture;
+	return m_pHeightTexture;
 }
 
-Vector4 Material::get_diffuse_color() const
+Vector4 Material::GetDiffuseColor() const
 {
-	return m_diffuse_color;
+	return m_diffuseColor;
 }
 
-Vector4 Material::get_specular_color() const
+Vector4 Material::GetSpecularColor() const
 {
-	return m_specular_color;
+	return m_specularColor;
 }

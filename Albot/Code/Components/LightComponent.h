@@ -1,4 +1,5 @@
 #pragma once
+
 #include "BaseComponent.h"
 #include "Graphics/Light.h"
 
@@ -24,5 +25,8 @@ public:
 
 private:
 	Light m_light;
+
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };
 

@@ -23,6 +23,8 @@ public:
 private:
 	Camera* m_camera;
 	//Unique class identifier
-	
+
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;	
 };
 

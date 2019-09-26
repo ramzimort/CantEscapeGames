@@ -14,7 +14,7 @@ class Camera
 public:
 	friend class FPSCameraSystem;
 public:
-	Camera();
+	Camera() = default;
 
 	Camera(int width, int height, float fov,
 		float nearVal, float farVAl, const Vector3& position);
@@ -60,5 +60,8 @@ private:
 	float m_far;
 	int32_t m_width;
 	int32_t m_height;
+
+	RTTR_ENABLE();
+	RTTR_REGISTRATION_FRIEND;
 };
 

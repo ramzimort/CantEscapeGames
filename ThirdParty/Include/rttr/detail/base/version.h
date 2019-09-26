@@ -30,8 +30,8 @@
 
 #define RTTR_VERSION_MAJOR 0
 #define RTTR_VERSION_MINOR 9
-#define RTTR_VERSION_PATCH 6
-#define RTTR_VERSION       906
-#define RTTR_VERSION_STR   "0.9.6"
+#define RTTR_VERSION_PATCH 7
+#define RTTR_VERSION       907
+#define RTTR_VERSION_STR   "0.9.7"
 
 #endif // RTTR_VERSION_H_

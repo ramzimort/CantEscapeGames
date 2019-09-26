@@ -8,3 +8,8 @@ Primary Author: Jose Rosenbluth
 #include "BaseComponent.h"
 
 unsigned int BaseComponent::numberOfTypes = 0;
+
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<BaseComponent>("BaseComponent");
+}

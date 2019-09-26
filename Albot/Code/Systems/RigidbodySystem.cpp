@@ -19,7 +19,7 @@ RigidbodySystem::RigidbodySystem() :
 	BaseSystem()
 {
 	// 3 - Push the comp to set the comp mask
-	Push_required_comp<Transform>();
+	Push_required_comp<TransformComponent>();
 	Push_required_comp<Rigidbody>();
 }
 
@@ -28,7 +28,7 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 {
 	// 4 - Register by adding the components to the system
 
-	Transform *transform = go->GetComponent<Transform>();
+	TransformComponent *transform = go->GetComponent<TransformComponent>();
 	Rigidbody *rigidbody = go->GetComponent<Rigidbody>();
 
 	BaseSystemCompNode *component_node = new RigidbodyCompNode(transform, rigidbody);
@@ -47,7 +47,7 @@ void RigidbodySystem::LateUpdate(float dt)
 		RigidbodyCompNode *rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
 
 		Rigidbody *RB = rigidbodyNode->n_rigidbody;
-		Transform *T = rigidbodyNode->n_transform;
+		TransformComponent *T = rigidbodyNode->n_transform;
 
 		//ADD CODE HERE
 	}

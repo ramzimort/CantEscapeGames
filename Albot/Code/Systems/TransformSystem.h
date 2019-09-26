@@ -10,17 +10,17 @@ Primary Author: Jose Rosenbluth
 ///Includes
 #include "BaseSystem.h"
 
-class Transform;
+class TransformComponent;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
 
 struct TransformCompNode : BaseSystemCompNode
 {
-	Transform *n_transform;
+	TransformComponent *n_transform;
 
 	//Ctor
-	TransformCompNode(Transform *transform) :
+	TransformCompNode(TransformComponent *transform) :
 		n_transform(transform)
 	{}
 };
