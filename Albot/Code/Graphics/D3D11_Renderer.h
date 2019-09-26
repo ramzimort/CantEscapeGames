@@ -31,7 +31,7 @@ public:
 	ID3D11Device* get_device() const;
 	ID3D11DeviceContext* get_device_context() const;
 
-	void cmd_bind_render_targets(RenderTarget** color_rts, 
+	void cmd_bind_render_targets(RenderTarget** color_rts,
 		uint32_t color_rts_count, RenderTarget* depth_stencil_rt, const LoadActionsDesc& load_actions_desc);
 
 	void cmd_bind_pipeline(Pipeline* pipeline);
@@ -42,7 +42,7 @@ public:
 	void cmd_set_viewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
 	void cmd_draw(uint32_t vertex_count, uint32_t first_vertex);
 	void cmd_draw_index(uint32_t indices_count, uint32_t first_index, uint32_t first_vertex);
-	void cmd_draw_index_instanced(uint32_t instance_count, uint32_t first_instance, uint32_t indices_count, 
+	void cmd_draw_index_instanced(uint32_t instance_count, uint32_t first_instance, uint32_t indices_count,
 		uint32_t first_index, uint32_t first_vertex);
 
 	//TODO: temmp function / cmd, should use staging buffer way to update gpu buffer
@@ -55,7 +55,8 @@ public:
 
 	void Release();
 
-	bool init();
+
+	bool init(uint32_t swap_chain_sample_count);
 	void init_default_resources();
 	void init_transient_buffer();
 
@@ -65,14 +66,14 @@ public:
 	HWND get_window_handle() const;
 	std::string get_selected_gpu_name() const { return m_cur_gpu_name; }
 private:
-	bool init_d3d11();
+	bool init_d3d11(uint32_t swap_chain_sample_count);
 
 	void reset_shader_resources();
 	void reset_shader_uavs();
-	void set_shader_resources(uint32_t binding_loc, Shader_Stages shader_stages, 
+	void set_shader_resources(uint32_t binding_loc, Shader_Stages shader_stages,
 		uint32_t num_resources, ID3D11ShaderResourceView** pp_resource_views);
 
-	void set_samplers(uint32_t binding_loc, Shader_Stages shader_stages, 
+	void set_samplers(uint32_t binding_loc, Shader_Stages shader_stages,
 		uint32_t num_resources, ID3D11SamplerState** sampler_states);
 
 	void set_constant_buffer(uint32_t binding_loc, Shader_Stages shader_stages,
@@ -94,8 +95,8 @@ private:
 	std::vector<DescriptorData> m_descriptor_data_list;
 
 	std::vector<DXDescriptorDataReference> m_dxdescriptor_data_reference_list;
-	
-	   
+
+
 	std::vector<DXCMD> m_cmd_list;
 
 	SwapChain m_swap_chain;

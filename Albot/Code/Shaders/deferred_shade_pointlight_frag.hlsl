@@ -1,9 +1,18 @@
 #include "Shading.h"
 
+
+
+#if SAMPLE_COUNT > 1
+Texture2DMS<float4, SAMPLE_COUNT> WorldNormal_Texture : register(t1);
+Texture2DMS<float4, SAMPLE_COUNT> Albedo_Texture : register(t2);
+Texture2DMS<float4, SAMPLE_COUNT> Specular_Texture : register(t3);
+Texture2DMS<float, SAMPLE_COUNT> Depth_Texture : register(t4);
+#else
 Texture2D<float4> WorldNormal_Texture : register(t1);
 Texture2D<float4> Albedo_Texture : register(t2);
 Texture2D<float4> Specular_Texture : register(t3);
 Texture2D<float> Depth_Texture : register(t4);
+#endif
 
 
 struct PS_IN
@@ -66,13 +75,17 @@ float CalculatePolynomialAttenuation(float3 world_pos, float3 light_pos, float2 
     return saturate((r2 * atten_constant.x * (sqrt(r2) * atten_constant.y - 3.0f) + 1.0));
 }
 
-PS_OUT main(PS_IN ps_in)
+PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 {
     PS_OUT ps_out;
     ps_out.Color = float4(0.0, 0.0, 0.0, 1.0);
     
 
+#if SAMPLE_COUNT > 1
+    float depth = Depth_Texture.Load(float2(ps_in.Position.xy), sample_index);
+#else
     float depth = Depth_Texture.Load(float3(ps_in.Position.xy, 0.0));
+#endif
     
     if(depth >= 1)
     {
@@ -93,7 +106,20 @@ PS_OUT main(PS_IN ps_in)
     {
         discard;
     }
+    
 
+    float3 total_diffuse_power = float3(0.0, 0.0, 0.0);
+    float3 total_specular_power = float3(0.0, 0.0, 0.0);
+#if SAMPLE_COUNT > 1
+    float3 world_normal = WorldNormal_Texture.Load(float2(ps_in.Position.xy), sample_index).xyz;
+    float3 material_diffuse_color = Albedo_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+    float3 material_specular_color = Specular_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+#else
+    float3 world_normal = WorldNormal_Texture.Load(float3(ps_in.Position.xy, 0.0)).xyz;
+    float3 material_diffuse_color = Albedo_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
+    float3 material_specular_color = Specular_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
+#endif
+    
     const float light_intensity = ps_in.LightMiscData.y;
     const float2 light_atten_constant = ps_in.LightMiscData.zw;
 
@@ -101,20 +127,10 @@ PS_OUT main(PS_IN ps_in)
 
     float3 light_illuminance = light_intensity * light_atten * ps_in.LightColor;
 
-    float3 total_diffuse_power = float3(0.0, 0.0, 0.0);
-    float3 total_specular_power = float3(0.0, 0.0, 0.0);
-
-    float3 world_normal = WorldNormal_Texture.Load(float3(ps_in.Position.xy, 0.0)).xyz;
-    
-
     PhongCalculateTotalLightFactor(world_normal, world_position, ps_in.LightPosition, light_illuminance,
         total_diffuse_power, total_specular_power);
 
-    float3 material_diffuse_color = Albedo_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
-
-    float3 material_specular_color = Specular_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
-
-    float3 final_color =  total_diffuse_power * material_diffuse_color * (1.f / PI);
+    float3 final_color = total_diffuse_power * material_diffuse_color * (1.f / PI);
 
     final_color += total_specular_power * material_specular_color.rgb;
 

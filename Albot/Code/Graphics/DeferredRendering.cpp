@@ -6,7 +6,7 @@
 #include "Graphics/Light.h"
 #include "Managers/ResourceManager.h"
 #include "Graphics/AppRenderer.h"
-
+#include "Graphics/GraphicsSettings.h"
 
 
 DeferredRendering::DeferredRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)
@@ -43,6 +43,12 @@ void DeferredRendering::Release()
 
 void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 {
+	char buff[100];
+	snprintf(buff, sizeof(buff), "%d", GraphicsSettings::MSAA_SAMPLE_COUNT);
+	std::string sample_count_definition = buff;
+
+	ShaderMacro msaa_sample_macro = { "SAMPLE_COUNT", sample_count_definition };
+
 	m_dxrenderer = dxrenderer;
 
 	VertexLayout pos_normal_tangent_bitangent_uv_layout = {};
@@ -98,6 +104,7 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_WORLD_NORMAL] = DXResourceLoader::Create_RenderTarget(
 		m_dxrenderer, rt_desc[DEFERRED_WORLD_NORMAL]);
@@ -113,6 +120,7 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_ALBEDO] = DXResourceLoader::Create_RenderTarget(
 		m_dxrenderer, rt_desc[DEFERRED_ALBEDO]);
@@ -127,6 +135,7 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_SPECULAR] = DXResourceLoader::Create_RenderTarget(
 		m_dxrenderer, rt_desc[DEFERRED_SPECULAR]);
@@ -141,7 +150,8 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	ShaderLoadDesc deferred_shade_shader_load_desc = {};
 	deferred_shade_shader_load_desc.m_desc.m_vertex_shader_path = "fullscreen_quad_vert.hlsl";
 	deferred_shade_shader_load_desc.m_desc.m_pixel_shader_path = "deferred_shade_frag.hlsl";
-
+	deferred_shade_shader_load_desc.m_shader_macro_count = 1;
+	deferred_shade_shader_load_desc.m_shader_macro = &msaa_sample_macro;
 	m_deferred_shade_shader = DXResourceLoader::Create_Shader(m_dxrenderer,
 		deferred_shade_shader_load_desc);
 
@@ -152,7 +162,14 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	GraphicsPipelineDesc& graphic_pipeline_desc = pipeline_desc.m_graphics_desc;
 	graphic_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	graphic_pipeline_desc.m_render_target_count = DEFERRED_TOTAL_COUNT;
-	graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_front_rasterizer_state;
+	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+	{
+		graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_front_rasterizer_ms_state;
+	}
+	else
+	{
+		graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_front_rasterizer_state;
+	}
 	graphic_pipeline_desc.m_depth_state = m_app_renderer->m_less_equal_depth_state;
 	graphic_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;
 	graphic_pipeline_desc.m_shader = m_deferred_pass_shader;
@@ -174,6 +191,8 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	ShaderLoadDesc deferred_shade_pointlight_shader_desc = {};
 	deferred_shade_pointlight_shader_desc.m_desc.m_vertex_shader_path = "deferred_shade_pointlight_vert.hlsl";
 	deferred_shade_pointlight_shader_desc.m_desc.m_pixel_shader_path = "deferred_shade_pointlight_frag.hlsl";
+	deferred_shade_pointlight_shader_desc.m_shader_macro_count = 1;
+	deferred_shade_pointlight_shader_desc.m_shader_macro = &msaa_sample_macro;
 
 	m_deferred_shade_pointlight_shader = DXResourceLoader::Create_Shader(m_dxrenderer, deferred_shade_pointlight_shader_desc);
 

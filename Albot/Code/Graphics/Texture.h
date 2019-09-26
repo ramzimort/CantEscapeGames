@@ -23,6 +23,15 @@ struct ClearValue
 };
 
 
+enum SampleCount
+{
+	SAMPLE_COUNT_1 = 1,
+	SAMPLE_COUNT_2 = 2,
+	SAMPLE_COUNT_4 = 4
+};
+
+
+
 struct TextureDesc
 {
 	bool m_is_srgb;
@@ -36,6 +45,7 @@ struct TextureDesc
 	DXGI_FORMAT m_imageFormat;
 	Misc_Flags m_miscFlags;
 	ClearValue m_clearVal;
+	SampleCount m_sampleCount = SAMPLE_COUNT_1;
 };
 
 

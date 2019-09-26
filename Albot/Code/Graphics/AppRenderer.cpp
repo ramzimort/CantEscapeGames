@@ -5,6 +5,7 @@
 #include "Light.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
+#include "Graphics/GraphicsSettings.h"
 
 
 extern CameraManager* gCameraManager;
@@ -29,6 +30,11 @@ AppRenderer::~AppRenderer()
 
 void AppRenderer::LoadContent()
 {
+
+	m_object_uniform_data_list.reserve(500);
+	m_material_uniform_data_list.reserve(500);
+
+
 	DepthStateDesc less_equal_depth_state_desc = {};
 	less_equal_depth_state_desc.m_depth_enable = true;
 	less_equal_depth_state_desc.m_depth_write_mask = DepthWriteMask::WRITE_DEPTH;
@@ -65,6 +71,28 @@ void AppRenderer::LoadContent()
 	cull_back_state_desc.m_fill_mode = FillMode::SOLID;
 
 	m_cull_back_rasterizer_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_back_state_desc);
+
+
+	RasterizerStateDesc cull_none_state_ms_desc = {};
+	cull_none_state_ms_desc.m_cull_mode = CullMode::NONE;
+	cull_none_state_ms_desc.m_fill_mode = FillMode::SOLID;
+	cull_none_state_ms_desc.m_multiSample = true;
+
+	m_cull_none_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_none_state_ms_desc);
+
+	RasterizerStateDesc cull_front_state_ms_desc = {};
+	cull_front_state_ms_desc.m_cull_mode = CullMode::FRONT;
+	cull_front_state_ms_desc.m_fill_mode = FillMode::SOLID;
+	cull_front_state_ms_desc.m_multiSample = true;
+
+	m_cull_front_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_front_state_ms_desc);
+
+	RasterizerStateDesc cull_back_state_ms_desc = {};
+	cull_back_state_ms_desc.m_cull_mode = CullMode::BACK;
+	cull_back_state_ms_desc.m_fill_mode = FillMode::SOLID;
+	cull_back_state_ms_desc.m_multiSample = true;
+
+	m_cull_back_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_back_state_ms_desc);
 
 
 	RasterizerStateDesc cull_none_wireframe_state_desc = {};
@@ -214,6 +242,7 @@ void AppRenderer::LoadContent()
 	depth_rt_desc.m_texture_desc.m_imageFormat = DXGI_FORMAT_D32_FLOAT;
 	depth_rt_desc.m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
 	depth_rt_desc.m_texture_desc.m_depth = 1;
+	depth_rt_desc.m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_depth_rt = DXResourceLoader::Create_RenderTarget(m_dxrenderer, depth_rt_desc);
 
@@ -333,7 +362,7 @@ void AppRenderer::Initialize()
 	sys_info.info.win.window;
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
-	m_dxrenderer->init();
+	m_dxrenderer->init(GraphicsSettings::MSAA_SAMPLE_COUNT);
 	LoadContent();
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
@@ -361,6 +390,9 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_cull_front_rasterizer_state);
 	SafeReleaseDelete(m_cull_back_rasterizer_state);
 	SafeReleaseDelete(m_cull_none_wireframe_state);
+	SafeReleaseDelete(m_cull_none_rasterizer_ms_state);
+	SafeReleaseDelete(m_cull_front_rasterizer_ms_state);
+	SafeReleaseDelete(m_cull_back_rasterizer_ms_state);
 
 	SafeReleaseDelete(m_less_equal_depth_state);
 	SafeReleaseDelete(m_disabled_depth_state);
@@ -534,6 +566,8 @@ void AppRenderer::AddObjectUniformBuffer()
 
 	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
 	m_object_uniform_buffer_list.push_back(object_uniform_buffer);
+
+	m_object_uniform_data_list.push_back(ObjectUniformData());
 }
 
 void AppRenderer::AddMaterialUniformBuffer()
@@ -552,6 +586,8 @@ void AppRenderer::AddMaterialUniformBuffer()
 		m_dxrenderer, material_uniform_buffer_desc);
 
 	m_material_uniform_buffer_list.push_back(material_uniform_buffer);
+	m_material_uniform_data_list.push_back(MaterialUniformData());
+
 }
 
 
@@ -585,17 +621,17 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 		Buffer* obj_uniform_buffer = m_object_uniform_buffer_list[i];
 
-		m_object_uniform_data = {};
-		m_object_uniform_data.ModelMat = inst_data.model_mat;
-		m_object_uniform_data.InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
-		m_object_uniform_data.ModelViewProjectionMat = inst_data.model_mat * m_camera_uniform_data.ViewProjectionMat;
-		m_object_uniform_data.NormalMat = inst_data.normal_mat;
+		m_object_uniform_data_list[i] = {};
+		m_object_uniform_data_list[i].ModelMat = inst_data.model_mat;
+		m_object_uniform_data_list[i].InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
+		m_object_uniform_data_list[i].ModelViewProjectionMat = inst_data.model_mat * m_camera_uniform_data.ViewProjectionMat;
+		m_object_uniform_data_list[i].NormalMat = inst_data.normal_mat;
 
 		BufferUpdateDesc update_object_uniform_desc = {};
 		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
-		update_object_uniform_desc.m_pSource = &m_object_uniform_data;
+		update_object_uniform_desc.m_pSource = &m_object_uniform_data_list[i];
 		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
-		m_dxrenderer->instant_update_buffer(update_object_uniform_desc);
+		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
 
 		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->get_vertex_buffer());
@@ -626,20 +662,25 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			}
 
 			Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
-			m_material_uniform_data = {};
-			m_material_uniform_data.DiffuseColor = cur_material_instance->get_diffuse_color();
-			m_material_uniform_data.SpecularColor = cur_material_instance->get_specular_color();
-			m_material_uniform_data.MaterialMiscData.w = static_cast<float>(cur_material_instance->get_shader_material_type_id());
-			m_material_uniform_data.MaterialMiscData.x = inst_data.uv_tiling.x;
-			m_material_uniform_data.MaterialMiscData.y = inst_data.uv_tiling.y;
+			m_material_uniform_data_list[material_index] = {};
+			m_material_uniform_data_list[material_index].DiffuseColor = cur_material_instance->get_diffuse_color();
+			m_material_uniform_data_list[material_index].SpecularColor = cur_material_instance->get_specular_color();
+			m_material_uniform_data_list[material_index].MaterialMiscData.w = static_cast<float>(cur_material_instance->get_shader_material_type_id());
+			m_material_uniform_data_list[material_index].MaterialMiscData.x = inst_data.uv_tiling.x;
+			m_material_uniform_data_list[material_index].MaterialMiscData.y = inst_data.uv_tiling.y;
 
-			++material_index;
+
+			size_t mat_id = static_cast<size_t>(m_material_uniform_data_list[material_index].MaterialMiscData.w);
 
 			BufferUpdateDesc update_material_uniform_desc = {};
 			update_material_uniform_desc.m_buffer = material_uniform_buffer;
-			update_material_uniform_desc.m_pSource = &m_material_uniform_data;
+			update_material_uniform_desc.m_pSource = &m_material_uniform_data_list[material_index];
 			update_material_uniform_desc.m_size = sizeof(MaterialUniformData);
-			m_dxrenderer->instant_update_buffer(update_material_uniform_desc);
+			m_dxrenderer->cmd_update_buffer(update_material_uniform_desc);
+
+			++material_index;
+
+			
 
 			DescriptorData params[8] = {};
 			params[0].m_binding_location = 0;
@@ -668,7 +709,6 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			Texture* normal_texture = cur_material_instance->get_normal_texture();
 			Texture* height_texture = cur_material_instance->get_height_texture();
 
-			size_t mat_id = static_cast<size_t>(m_material_uniform_data.MaterialMiscData.w);
 
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
