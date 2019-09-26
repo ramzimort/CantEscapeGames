@@ -1,10 +1,17 @@
 #include "Shading.h"
 
 //Texture2D<float4> WorldPosition_Texture : register(t0);
+#if SAMPLE_COUNT > 1
+Texture2DMS<float4, SAMPLE_COUNT> WorldNormal_Texture : register(t0);
+Texture2DMS<float4, SAMPLE_COUNT> Albedo_Texture : register(t1);
+Texture2DMS<float4, SAMPLE_COUNT> Specular_Texture : register(t2);
+Texture2DMS<float, SAMPLE_COUNT> Depth_Texture : register(t3);
+#else
 Texture2D<float4> WorldNormal_Texture : register(t0);
 Texture2D<float4> Albedo_Texture : register(t1);
 Texture2D<float4> Specular_Texture : register(t2);
 Texture2D<float> Depth_Texture : register(t3);
+#endif
 
 
 
@@ -143,10 +150,14 @@ float LinearizeDepth(float depth)
     return (2.0 * near_plane * far_plane) / (far_plane + near_plane - z * (far_plane - near_plane));
 }
 
-PS_OUT main(PS_IN ps_in)
+PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 {
     PS_OUT ps_out;
+#if SAMPLE_COUNT > 1
+    float depth = Depth_Texture.Load(float2(ps_in.Position.xy), sample_index).r;
+#else
     float depth = Depth_Texture.Load(float3(ps_in.Position.xy, 0.f)).r;
+#endif
     
     if(depth >= 1.f)
     {
@@ -163,9 +174,17 @@ PS_OUT main(PS_IN ps_in)
 
   
 
+  
+#if SAMPLE_COUNT > 1
+    float3 albedo = Albedo_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+    float3 world_normal = WorldNormal_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+    float3 specular = Specular_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+#else
     float3 albedo = Albedo_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
     float3 world_normal = WorldNormal_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
     float3 specular = Specular_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
+#endif
+
 
     float3 total_diffuse_power = float3(0.0, 0.0, 0.0);
    

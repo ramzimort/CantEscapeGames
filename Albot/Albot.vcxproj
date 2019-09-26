@@ -317,6 +317,7 @@
     <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
     <ClCompile Include="Code\Graphics\DepthState.cpp" />
     <ClCompile Include="Code\Graphics\DXResourceLoader.cpp" />
+    <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
     <ClCompile Include="Code\Graphics\Light.cpp" />
     <ClCompile Include="Code\Graphics\Material.cpp" />
     <ClCompile Include="Code\Graphics\Mesh.cpp" />
@@ -400,6 +401,7 @@
     <ClInclude Include="Code\Graphics\DepthState.h" />
     <ClInclude Include="Code\Graphics\DescriptorData.h" />
     <ClInclude Include="Code\Graphics\DXResourceLoader.h" />
+    <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
     <ClInclude Include="Code\Graphics\Light.h" />
     <ClInclude Include="Code\Graphics\Material.h" />
     <ClInclude Include="Code\Graphics\Mesh.h" />
@@ -458,7 +460,7 @@
     <ClInclude Include="Code\Physics\CollisionTable.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Code\Shaders\debug_frag.hlsl">
+    <Text Include="Code\Shaders\debug_frag.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Pixel</ShaderType>
@@ -471,8 +473,9 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\debug_instance_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\debug_instance_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Vertex</ShaderType>
@@ -485,8 +488,9 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\debug_line_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\debug_line_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Vertex</ShaderType>
@@ -499,64 +503,72 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\deferred_pass_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\deferred_pass_frag.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\deferred_pass_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\deferred_pass_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\deferred_shade_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\deferred_shade_frag.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\depth_pass_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\depth_pass_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\fullscreen_quad_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\fullscreen_quad_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\skybox_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\skybox_frag.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Pixel</ShaderType>
@@ -569,8 +581,9 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="Code\Shaders\skybox_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\skybox_vert.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Developer|Win32'">Vertex</ShaderType>
@@ -583,7 +596,8 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
-    </FxCompile>
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

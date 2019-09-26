@@ -525,6 +525,12 @@
     <FxCompile Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl" />
     <FxCompile Include="Code\Shaders\depth_pass_vert.hlsl" />
     <FxCompile Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
+    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
+    <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
+    <ClCompile Include="Code\Systems\LightSystem.cpp" />
+    <ClCompile Include="Code\Components\LightComponent.cpp" />
+    <ClCompile Include="Code\Reflection\Helpers.cpp" />
+    <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -602,5 +608,14 @@
     <None Include="Code\Scripts\test01Comp.lua" />
     <None Include="Code\Scripts\test02Comp.lua" />
     <None Include="cpp.hint" />
+    <ClInclude Include="Code\Components\MeshesComponent.h" />
+    <ClInclude Include="Code\Shaders\Shading.h" />
+    <ClInclude Include="Code\Helper\Constant.h" />
+    <ClInclude Include="Code\Helper\MathUtil.h" />
+    <ClInclude Include="Code\Graphics\DeferredRendering.h" />
+    <ClInclude Include="Code\Systems\LightSystem.h" />
+    <ClInclude Include="Code\Components\LightComponent.h" />
+    <ClInclude Include="Code\Reflection\Helpers.h" />
+    <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
   </ItemGroup>
 </Project>

@@ -112,6 +112,11 @@ private:
 	CameraManager* m_cameraManager;
 
 
+
+	RasterizerState* m_cull_none_rasterizer_ms_state = nullptr;
+	RasterizerState* m_cull_front_rasterizer_ms_state = nullptr;
+	RasterizerState* m_cull_back_rasterizer_ms_state = nullptr;
+
 	RasterizerState* m_cull_none_rasterizer_state = nullptr;
 	RasterizerState* m_cull_front_rasterizer_state = nullptr;
 	RasterizerState* m_cull_back_rasterizer_state = nullptr;
@@ -156,8 +161,10 @@ private:
 
 	SkyboxUniformData m_skybox_uniform_data;
 
-	ObjectUniformData m_object_uniform_data;
-	MaterialUniformData m_material_uniform_data;
+	std::vector<ObjectUniformData> m_object_uniform_data_list;
+	std::vector<MaterialUniformData> m_material_uniform_data_list;
+	//ObjectUniformData m_object_uniform_data;
+	//MaterialUniformData m_material_uniform_data;
 
 	Buffer* m_point_light_uniform_buffer;
 	Buffer* m_camera_uniform_buffer;

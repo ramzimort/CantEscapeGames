@@ -146,6 +146,8 @@ ShaderClass* Load_Shader(ID3D11Device* device,
 	const std::string& file_name,
 	const std::string& entry_point,
 	const std::string& profile_args,
+	uint32_t shader_macro_count,
+	ShaderMacro* pp_shader_macro,
 	ID3DBlob*& out_shader_blob)
 {
 	ID3DBlob* p_shader_blob = nullptr;
@@ -160,13 +162,26 @@ ShaderClass* Load_Shader(ID3D11Device* device,
 
 	UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if _DEBUG
-	flags |= D3DCOMPILE_DEBUG;
+	flags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#else
+	flags |= D3DCOMPILE_OPTIMIZATION_LEVEL3;
 #endif
 
 	std::wstring file_name_w(file_name.begin(), file_name.end());
+
+	D3D_SHADER_MACRO* d3d_shader_macro = (D3D_SHADER_MACRO*)alloca((shader_macro_count + 1) * sizeof(D3D_SHADER_MACRO));
+
+	for (uint32_t i = 0; i < shader_macro_count; ++i)
+	{
+		d3d_shader_macro[i].Name = pp_shader_macro[i].m_name.c_str();
+		d3d_shader_macro[i].Definition = pp_shader_macro[i].m_definition.c_str();
+	}
+
+	d3d_shader_macro[shader_macro_count] = { NULL, NULL };
+
 	HRESULT hr = D3DCompileFromFile(
 		file_name_w.c_str(),
-		nullptr,
+		d3d_shader_macro,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		entry_point.c_str(), profile.c_str(),
 		flags, 0, &p_shader_blob, &p_error_blob);
@@ -214,27 +229,28 @@ Shader::~Shader()
 
 
 
-void Shader::Inner_Initialize(ID3D11Device* device)
+void Shader::Inner_Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_desc)
 {
-	Initialize(device, m_desc.m_vertex_shader_path, m_desc.m_pixel_shader_path);
+	Initialize(device, shader_load_desc);
 }
 
-void Shader::Initialize(ID3D11Device* device,
-	const std::string& vertex_path, const std::string& fragment_path)
+void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_desc)
 {
-	if (vertex_path != "")
+	if (shader_load_desc.m_desc.m_vertex_shader_path != "")
 	{
 		m_vertex_shader = Load_Shader<ID3D11VertexShader>(device,
-			Constant::ShadersDir + vertex_path, "main", "latest",
+			Constant::ShadersDir + shader_load_desc.m_desc.m_vertex_shader_path, "main", "latest",
+			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_vertex_shader_blob);
 
 		m_shader_stages |= Shader_Stages::VERTEX_STAGE;
 	}
 
-	if (fragment_path != "")
+	if (shader_load_desc.m_desc.m_pixel_shader_path != "")
 	{
 		m_pixel_shader = Load_Shader<ID3D11PixelShader>(device,
-			Constant::ShadersDir + fragment_path, "main", "latest",
+			Constant::ShadersDir + shader_load_desc.m_desc.m_pixel_shader_path, "main", "latest",
+			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_pixel_shader_blob);
 
 		m_shader_stages |= Shader_Stages::PIXEL_STAGE;

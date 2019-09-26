@@ -32,12 +32,12 @@ void DXRenderer::Release()
 	SafeRelease(m_d3d_device_context);
 }
 
-bool DXRenderer::init()
+bool DXRenderer::init(uint32_t swap_chain_sample_count)
 {
-	m_descriptor_data_list.reserve(1000);
-	m_dxdescriptor_data_reference_list.reserve(1000);
-	
-	if (!init_d3d11())
+	m_descriptor_data_list.reserve(200);
+	m_dxdescriptor_data_reference_list.reserve(200);
+
+	if (!init_d3d11(swap_chain_sample_count))
 	{
 		return false;
 	}
@@ -118,7 +118,7 @@ void DXRenderer::cmd_bind_render_targets(RenderTarget** color_rts,
 	cmd.m_cmd_bind_rendertargets.m_color_rts = color_rts;
 	cmd.m_cmd_bind_rendertargets.m_color_rts_count = color_rts_count;
 	cmd.m_cmd_bind_rendertargets.m_depth_stencil_rt = depth_stencil_rt;
-	
+
 	cmd.m_cmd_bind_rendertargets.m_load_actions_desc.
 		m_load_action_depth = load_actions_desc.m_load_action_depth;
 	cmd.m_cmd_bind_rendertargets.m_load_actions_desc.
@@ -157,9 +157,9 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 		DescriptorData& back_desc = m_descriptor_data_list.back();
 
 		DescriptorData* cur_descriptor = descriptor_data + i;
-		
+
 		uint32_t final_var_count = std::max(cur_descriptor->m_var_count, 1u);
-		
+
 		size_t dx_descriptor_ref_original_size = m_dxdescriptor_data_reference_list.size();
 
 		back_desc.m_binding_location = cur_descriptor->m_binding_location;
@@ -197,7 +197,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 
 			back_desc.m_samplers = &m_dxdescriptor_data_reference_list[dx_descriptor_ref_original_size].p_sampler;
 
-			
+
 		}
 		else if (cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_TEXTURE)
 		{
@@ -208,7 +208,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 				dx_descriptor_data.p_texture = cur_descriptor->m_textures[j];
 				m_dxdescriptor_data_reference_list.push_back(dx_descriptor_data);
 
-			
+
 
 			}
 
@@ -219,12 +219,12 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 
 		//m_descriptor_data_list.push_back(*(descriptor_data + i));
 	}
-	
+
 	DXCMD cmd = {};
 	cmd.m_type = DXCMD_Type::Bind_Descriptors;
 	cmd.m_cmd_bind_descriptors.m_descriptor_count = descriptor_count;
 	cmd.m_cmd_bind_descriptors.m_pipeline = pipeline;
-	
+
 	DescriptorData* start_p = &m_descriptor_data_list[0];
 	DescriptorData* new_begin_p = start_p + ori_size;
 
@@ -279,10 +279,10 @@ void DXRenderer::cmd_draw_index(uint32_t indices_count, uint32_t first_index, ui
 }
 
 void DXRenderer::cmd_draw_index_instanced(
-	uint32_t instance_count, 
+	uint32_t instance_count,
 	uint32_t first_instance,
 	uint32_t indices_count,
-	uint32_t first_index, 
+	uint32_t first_index,
 	uint32_t first_vertex)
 {
 	DXCMD cmd = {};
@@ -338,290 +338,290 @@ void DXRenderer::execute_queued_cmd()
 
 		switch (cmd.m_type)
 		{
-			case DXCMD_Type::Bind_Descriptors:
+		case DXCMD_Type::Bind_Descriptors:
+		{
+			const DXCMD_Bind_Descriptors& cmd_bind_descriptors = cmd.m_cmd_bind_descriptors;
+
+			for (uint32_t i = 0; i < cmd_bind_descriptors.m_descriptor_count; ++i)
 			{
-				const DXCMD_Bind_Descriptors& cmd_bind_descriptors = cmd.m_cmd_bind_descriptors;
-				
-				for (uint32_t i = 0; i < cmd_bind_descriptors.m_descriptor_count; ++i)
+				DescriptorData* p_cur_descriptor_data = cmd_bind_descriptors.m_p_descriptor_data + i;
+
+				DescriptorType cur_descriptor_type = p_cur_descriptor_data->m_descriptor_type;
+
+				uint32_t var_count = std::max(1u, p_cur_descriptor_data->m_var_count);
+
+				Shader_Stages descriptor_shader_stages = (Shader_Stages)p_cur_descriptor_data->m_shader_stages;
+				if (cur_descriptor_type == DescriptorType::DESCRIPTOR_BUFFER)
 				{
-					DescriptorData* p_cur_descriptor_data = cmd_bind_descriptors.m_p_descriptor_data + i;
-					
-					DescriptorType cur_descriptor_type = p_cur_descriptor_data->m_descriptor_type;
+					const BufferDesc& buffer_desc = p_cur_descriptor_data->m_buffers[0]->m_desc;
 
-					uint32_t var_count = std::max(1u, p_cur_descriptor_data->m_var_count);
-					
-					Shader_Stages descriptor_shader_stages = (Shader_Stages)p_cur_descriptor_data->m_shader_stages;
-					if (cur_descriptor_type == DescriptorType::DESCRIPTOR_BUFFER)
+					if (buffer_desc.m_bindFlags & Bind_Flags::BIND_SHADER_RESOURCE)
 					{
-						const BufferDesc& buffer_desc = p_cur_descriptor_data->m_buffers[0]->m_desc;
-
-						if (buffer_desc.m_bindFlags & Bind_Flags::BIND_SHADER_RESOURCE)
-						{
-							//TODO: figure out the dynamic allocation
-							ID3D11ShaderResourceView* srvs[32] = { nullptr };
-
-							for (uint32_t srv_i = 0; srv_i < var_count; ++srv_i)
-							{
-								Buffer* p_cur_buffer = p_cur_descriptor_data->m_buffers[srv_i];
-								srvs[srv_i] = p_cur_buffer->m_srv;
-							}
-							set_shader_resources(p_cur_descriptor_data->m_binding_location,
-								descriptor_shader_stages, var_count, srvs);
-						}
-						else if (buffer_desc.m_bindFlags & Bind_Flags::BIND_CONSTANT_BUFFER)
-						{
-							//TODO: probably need multiple constant buffer support
-
-							for (uint32_t index = 0; index < var_count; ++index)
-							{
-								Buffer* constant_buffer = p_cur_descriptor_data->m_buffers[index];
-
-
-								//ID3D11Buffer* d3d_constant_buffer = constant_buffer->m_p_buffer;
-								//set_constant_buffer(p_cur_descriptor_data->m_binding_location, descriptor_shader_stages, 1, &d3d_constant_buffer);
-								
-								if ( (p_cur_descriptor_data->p_offsets[index] == 0 && p_cur_descriptor_data->p_sizes[index] == 0) ||
-									(constant_buffer->get_desc().m_usageType == Usage_Type::USAGE_DEFAULT) )
-								{
-									ID3D11Buffer* d3d_constant_buffer = constant_buffer->m_p_buffer;
-									set_constant_buffer(p_cur_descriptor_data->m_binding_location, descriptor_shader_stages, 1, &d3d_constant_buffer);
-								}
-								else
-								{
-									D3D11_MAPPED_SUBRESOURCE read_mapped_data = {};
-									m_d3d_device_context->Map(constant_buffer->m_p_buffer, 0, D3D11_MAP_READ, 0, &read_mapped_data);
-
-									D3D11_MAPPED_SUBRESOURCE write_mapped_data = {};
-									m_d3d_device_context->Map(m_p_transient_constant_buffer->m_p_buffer, 0, 
-										D3D11_MAP_WRITE_DISCARD, 0, &write_mapped_data);
-
-									memcpy(write_mapped_data.pData, 
-										reinterpret_cast<uint8_t*>(read_mapped_data.pData) + p_cur_descriptor_data->p_offsets[index], 
-										p_cur_descriptor_data->p_sizes[index]);
-									
-									m_d3d_device_context->Unmap(m_p_transient_constant_buffer->m_p_buffer, 0);
-									m_d3d_device_context->Unmap(constant_buffer->m_p_buffer, 0);
-									
-									set_constant_buffer(p_cur_descriptor_data->m_binding_location, 
-										descriptor_shader_stages, 1, &m_p_transient_constant_buffer->m_p_buffer);
-								}
-							}
-						}
-						else if (buffer_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS)
-						{
-							//TODO:
-							
-						}
-					}
-
-					else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_SAMPLER)
-					{
-						//TODO:
-
-						ID3D11SamplerState* sampler_states[32] = { nullptr };
-						for (uint32_t sampler_i = 0; sampler_i < var_count; ++sampler_i)
-						{
-							Sampler* p_cur_sampler = p_cur_descriptor_data->m_samplers[sampler_i];
-							sampler_states[sampler_i] = p_cur_sampler->m_sampler_state;
-						}
-
-						set_samplers(p_cur_descriptor_data->m_binding_location,
-							descriptor_shader_stages, var_count, sampler_states);
-					}
-					else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_TEXTURE)
-					{
-						//TODO: do for UAV
+						//TODO: figure out the dynamic allocation
 						ID3D11ShaderResourceView* srvs[32] = { nullptr };
+
 						for (uint32_t srv_i = 0; srv_i < var_count; ++srv_i)
 						{
-							Texture* p_cur_texture = (*p_cur_descriptor_data->m_textures) + srv_i;
-
-							srvs[srv_i] = p_cur_texture->m_p_srv;
+							Buffer* p_cur_buffer = p_cur_descriptor_data->m_buffers[srv_i];
+							srvs[srv_i] = p_cur_buffer->m_srv;
 						}
-
 						set_shader_resources(p_cur_descriptor_data->m_binding_location,
 							descriptor_shader_stages, var_count, srvs);
 					}
-					
-				}
-				break;
-			}
-			case DXCMD_Type::Bind_Indices_Buffer:
-			{
-				const DXCMD_Bind_Indices_Buffer& cmd_bind_indices_buffer = cmd.m_cmd_bind_indices_buffer;
-				m_d3d_device_context->IASetIndexBuffer(cmd_bind_indices_buffer.m_indices_buffer->m_p_buffer, 
-					cmd_bind_indices_buffer.m_indices_buffer->m_dxgi_index_format, 0);
-				break;
-			}
-			case DXCMD_Type::Bind_Pipeline:
-			{
-				const DXCMD_Bind_Pipeline& cmd_bind_pipeline = cmd.m_cmd_bind_pipeline;
-
-				Pipeline* pipeline = cmd_bind_pipeline.m_pipeline;
-				if (pipeline)
-				{
-					reset_shader_resources();
-					PipelineType pipeline_type = cmd_bind_pipeline.m_pipeline->m_desc.m_pipeline_type;
-					if (pipeline_type == PipelineType::GRAPHICS)
+					else if (buffer_desc.m_bindFlags & Bind_Flags::BIND_CONSTANT_BUFFER)
 					{
-						m_d3d_device_context->RSSetState(pipeline->m_desc.m_graphics_desc.
-							m_rasterizer_state->m_d3d_rasterizer_state);
-						m_d3d_device_context->OMSetDepthStencilState(
-							pipeline->m_desc.m_graphics_desc.m_depth_state->m_p_depth_stencil_state, 0);
-						m_d3d_device_context->IASetPrimitiveTopology(pipeline->m_d3d_primitive_topo_type);
-						m_d3d_device_context->IASetInputLayout(pipeline->m_input_layout);
+						//TODO: probably need multiple constant buffer support
 
-						m_d3d_device_context->OMSetBlendState(pipeline->m_desc.m_graphics_desc.
-							m_blend_state->m_d3d_blend_state, clear_color_black, (~0));
-						
-						ID3D11VertexShader* vertex_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_vertex_shader;
-						ID3D11PixelShader* pixel_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_pixel_shader;
+						for (uint32_t index = 0; index < var_count; ++index)
+						{
+							Buffer* constant_buffer = p_cur_descriptor_data->m_buffers[index];
 
-						m_d3d_device_context->VSSetShader(vertex_shader, nullptr, 0);
-						m_d3d_device_context->PSSetShader(pixel_shader, nullptr, 0);
+
+							//ID3D11Buffer* d3d_constant_buffer = constant_buffer->m_p_buffer;
+							//set_constant_buffer(p_cur_descriptor_data->m_binding_location, descriptor_shader_stages, 1, &d3d_constant_buffer);
+
+							if ((p_cur_descriptor_data->p_offsets[index] == 0 && p_cur_descriptor_data->p_sizes[index] == 0) ||
+								(constant_buffer->get_desc().m_usageType == Usage_Type::USAGE_DEFAULT))
+							{
+								ID3D11Buffer* d3d_constant_buffer = constant_buffer->m_p_buffer;
+								set_constant_buffer(p_cur_descriptor_data->m_binding_location, descriptor_shader_stages, 1, &d3d_constant_buffer);
+							}
+							else
+							{
+								D3D11_MAPPED_SUBRESOURCE read_mapped_data = {};
+								m_d3d_device_context->Map(constant_buffer->m_p_buffer, 0, D3D11_MAP_READ, 0, &read_mapped_data);
+
+								D3D11_MAPPED_SUBRESOURCE write_mapped_data = {};
+								m_d3d_device_context->Map(m_p_transient_constant_buffer->m_p_buffer, 0,
+									D3D11_MAP_WRITE_DISCARD, 0, &write_mapped_data);
+
+								memcpy(write_mapped_data.pData,
+									reinterpret_cast<uint8_t*>(read_mapped_data.pData) + p_cur_descriptor_data->p_offsets[index],
+									p_cur_descriptor_data->p_sizes[index]);
+
+								m_d3d_device_context->Unmap(m_p_transient_constant_buffer->m_p_buffer, 0);
+								m_d3d_device_context->Unmap(constant_buffer->m_p_buffer, 0);
+
+								set_constant_buffer(p_cur_descriptor_data->m_binding_location,
+									descriptor_shader_stages, 1, &m_p_transient_constant_buffer->m_p_buffer);
+							}
+						}
 					}
-					else if (pipeline_type == PipelineType::COMPUTE)
+					else if (buffer_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS)
 					{
 						//TODO:
-						
+
 					}
 				}
-				else
-				{
-					m_d3d_device_context->VSSetShader(nullptr, nullptr, 0);
-					m_d3d_device_context->PSSetShader(nullptr, nullptr, 0);
-					m_d3d_device_context->RSSetState(nullptr);
-					m_d3d_device_context->OMSetDepthStencilState(nullptr, 0);
 
-					m_d3d_device_context->IASetInputLayout(nullptr);
+				else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_SAMPLER)
+				{
+					//TODO:
+
+					ID3D11SamplerState* sampler_states[32] = { nullptr };
+					for (uint32_t sampler_i = 0; sampler_i < var_count; ++sampler_i)
+					{
+						Sampler* p_cur_sampler = p_cur_descriptor_data->m_samplers[sampler_i];
+						sampler_states[sampler_i] = p_cur_sampler->m_sampler_state;
+					}
+
+					set_samplers(p_cur_descriptor_data->m_binding_location,
+						descriptor_shader_stages, var_count, sampler_states);
+				}
+				else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_TEXTURE)
+				{
+					//TODO: do for UAV
+					ID3D11ShaderResourceView* srvs[32] = { nullptr };
+					for (uint32_t srv_i = 0; srv_i < var_count; ++srv_i)
+					{
+						Texture* p_cur_texture = (*p_cur_descriptor_data->m_textures) + srv_i;
+
+						srvs[srv_i] = p_cur_texture->m_p_srv;
+					}
+
+					set_shader_resources(p_cur_descriptor_data->m_binding_location,
+						descriptor_shader_stages, var_count, srvs);
 				}
 
-
-				break;
 			}
-			case DXCMD_Type::Bind_RenderTargets:
-			{
-				const DXCMD_Bind_RenderTargets& cmd_bind_rendertargets = cmd.m_cmd_bind_rendertargets;
+			break;
+		}
+		case DXCMD_Type::Bind_Indices_Buffer:
+		{
+			const DXCMD_Bind_Indices_Buffer& cmd_bind_indices_buffer = cmd.m_cmd_bind_indices_buffer;
+			m_d3d_device_context->IASetIndexBuffer(cmd_bind_indices_buffer.m_indices_buffer->m_p_buffer,
+				cmd_bind_indices_buffer.m_indices_buffer->m_dxgi_index_format, 0);
+			break;
+		}
+		case DXCMD_Type::Bind_Pipeline:
+		{
+			const DXCMD_Bind_Pipeline& cmd_bind_pipeline = cmd.m_cmd_bind_pipeline;
 
+			Pipeline* pipeline = cmd_bind_pipeline.m_pipeline;
+			if (pipeline)
+			{
 				reset_shader_resources();
-				static ID3D11RenderTargetView* null_rtvs[MAX_RENDER_TARGET_ATTACHMENTS] = { NULL };
-				m_d3d_device_context->OMSetRenderTargets(MAX_RENDER_TARGET_ATTACHMENTS, null_rtvs, nullptr);
-
-				ID3D11RenderTargetView* rtvs[MAX_RENDER_TARGET_ATTACHMENTS] = { NULL };
-
-				for (uint32_t i = 0; i < cmd_bind_rendertargets.m_color_rts_count; ++i)
+				PipelineType pipeline_type = cmd_bind_pipeline.m_pipeline->m_desc.m_pipeline_type;
+				if (pipeline_type == PipelineType::GRAPHICS)
 				{
-					rtvs[i] = cmd_bind_rendertargets.m_color_rts[i]->m_p_render_target_view;
+					m_d3d_device_context->RSSetState(pipeline->m_desc.m_graphics_desc.
+						m_rasterizer_state->m_d3d_rasterizer_state);
+					m_d3d_device_context->OMSetDepthStencilState(
+						pipeline->m_desc.m_graphics_desc.m_depth_state->m_p_depth_stencil_state, 0);
+					m_d3d_device_context->IASetPrimitiveTopology(pipeline->m_d3d_primitive_topo_type);
+					m_d3d_device_context->IASetInputLayout(pipeline->m_input_layout);
+
+					m_d3d_device_context->OMSetBlendState(pipeline->m_desc.m_graphics_desc.
+						m_blend_state->m_d3d_blend_state, clear_color_black, (~0));
+
+					ID3D11VertexShader* vertex_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_vertex_shader;
+					ID3D11PixelShader* pixel_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_pixel_shader;
+
+					m_d3d_device_context->VSSetShader(vertex_shader, nullptr, 0);
+					m_d3d_device_context->PSSetShader(pixel_shader, nullptr, 0);
 				}
-				
-				ID3D11DepthStencilView* dsv = nullptr;
-
-				if (cmd_bind_rendertargets.m_depth_stencil_rt)
+				else if (pipeline_type == PipelineType::COMPUTE)
 				{
-					dsv = cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view;
+					//TODO:
+
 				}
+			}
+			else
+			{
+				m_d3d_device_context->VSSetShader(nullptr, nullptr, 0);
+				m_d3d_device_context->PSSetShader(nullptr, nullptr, 0);
+				m_d3d_device_context->RSSetState(nullptr);
+				m_d3d_device_context->OMSetDepthStencilState(nullptr, 0);
 
-				m_d3d_device_context->OMSetRenderTargets(cmd_bind_rendertargets.m_color_rts_count, rtvs, dsv);
+				m_d3d_device_context->IASetInputLayout(nullptr);
+			}
 
-				const LoadActionsDesc& load_actions_desc = cmd_bind_rendertargets.m_load_actions_desc;
 
-				for (uint32_t i = 0; i < cmd_bind_rendertargets.m_color_rts_count; ++i)
+			break;
+		}
+		case DXCMD_Type::Bind_RenderTargets:
+		{
+			const DXCMD_Bind_RenderTargets& cmd_bind_rendertargets = cmd.m_cmd_bind_rendertargets;
+
+			reset_shader_resources();
+			static ID3D11RenderTargetView* null_rtvs[MAX_RENDER_TARGET_ATTACHMENTS] = { NULL };
+			m_d3d_device_context->OMSetRenderTargets(MAX_RENDER_TARGET_ATTACHMENTS, null_rtvs, nullptr);
+
+			ID3D11RenderTargetView* rtvs[MAX_RENDER_TARGET_ATTACHMENTS] = { NULL };
+
+			for (uint32_t i = 0; i < cmd_bind_rendertargets.m_color_rts_count; ++i)
+			{
+				rtvs[i] = cmd_bind_rendertargets.m_color_rts[i]->m_p_render_target_view;
+			}
+
+			ID3D11DepthStencilView* dsv = nullptr;
+
+			if (cmd_bind_rendertargets.m_depth_stencil_rt)
+			{
+				dsv = cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view;
+			}
+
+			m_d3d_device_context->OMSetRenderTargets(cmd_bind_rendertargets.m_color_rts_count, rtvs, dsv);
+
+			const LoadActionsDesc& load_actions_desc = cmd_bind_rendertargets.m_load_actions_desc;
+
+			for (uint32_t i = 0; i < cmd_bind_rendertargets.m_color_rts_count; ++i)
+			{
+				if (load_actions_desc.m_load_actions_color[i] == LoadActionType::CLEAR)
 				{
-					if (load_actions_desc.m_load_actions_color[i] == LoadActionType::CLEAR)
+					FLOAT d3d_clear_values[4] =
 					{
-						FLOAT d3d_clear_values[4] = 
-						{
-							load_actions_desc.m_clear_color_values[i].r,
-							load_actions_desc.m_clear_color_values[i].g, 
-							load_actions_desc.m_clear_color_values[i].b, 
-							load_actions_desc.m_clear_color_values[i].a 
-						};
-						m_d3d_device_context->ClearRenderTargetView(rtvs[i], d3d_clear_values);
-					}
+						load_actions_desc.m_clear_color_values[i].r,
+						load_actions_desc.m_clear_color_values[i].g,
+						load_actions_desc.m_clear_color_values[i].b,
+						load_actions_desc.m_clear_color_values[i].a
+					};
+					m_d3d_device_context->ClearRenderTargetView(rtvs[i], d3d_clear_values);
 				}
+			}
 
-				if (cmd_bind_rendertargets.m_depth_stencil_rt && (
-					load_actions_desc.m_load_action_depth == LoadActionType::CLEAR || 
-					load_actions_desc.m_load_action_stencil == LoadActionType::CLEAR))
+			if (cmd_bind_rendertargets.m_depth_stencil_rt && (
+				load_actions_desc.m_load_action_depth == LoadActionType::CLEAR ||
+				load_actions_desc.m_load_action_stencil == LoadActionType::CLEAR))
+			{
+				uint32_t final_depth_stencil_clear_flags = 0;
+				if (load_actions_desc.m_load_action_depth == LoadActionType::CLEAR)
 				{
-					uint32_t final_depth_stencil_clear_flags = 0;
-					if (load_actions_desc.m_load_action_depth == LoadActionType::CLEAR)
-					{
-						final_depth_stencil_clear_flags |= D3D11_CLEAR_DEPTH;
-					}
-					if (load_actions_desc.m_load_action_stencil == LoadActionType::CLEAR)
-					{
-						final_depth_stencil_clear_flags |= D3D11_CLEAR_STENCIL;
-					}
-					m_d3d_device_context->ClearDepthStencilView(cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view,
-						final_depth_stencil_clear_flags, load_actions_desc.m_clear_depth_stencil.m_depth, 0);
+					final_depth_stencil_clear_flags |= D3D11_CLEAR_DEPTH;
 				}
-				break;
+				if (load_actions_desc.m_load_action_stencil == LoadActionType::CLEAR)
+				{
+					final_depth_stencil_clear_flags |= D3D11_CLEAR_STENCIL;
+				}
+				m_d3d_device_context->ClearDepthStencilView(cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view,
+					final_depth_stencil_clear_flags, load_actions_desc.m_clear_depth_stencil.m_depth, 0);
 			}
+			break;
+		}
 
-			case DXCMD_Type::Update_Buffer:
-			{
-				//TODO: only temp way
-				const DXCMD_Update_Buffer& cmd_update_buffer = cmd.m_cmd_update_buffer;
-				const BufferUpdateDesc& buffer_update_desc = cmd_update_buffer.m_update_desc;
+		case DXCMD_Type::Update_Buffer:
+		{
+			//TODO: only temp way
+			const DXCMD_Update_Buffer& cmd_update_buffer = cmd.m_cmd_update_buffer;
+			const BufferUpdateDesc& buffer_update_desc = cmd_update_buffer.m_update_desc;
 
-				instant_update_buffer(buffer_update_desc);
-				break;
-			}
+			instant_update_buffer(buffer_update_desc);
+			break;
+		}
 
-			case DXCMD_Type::Bind_Vertex_Buffer:
-			{
-				const DXCMD_Bind_Vertex_Buffer& cmd_bind_vertex_buffer = cmd.m_cmd_bind_vertex_buffer;
-				Buffer* p_vertex_buffer = cmd_bind_vertex_buffer.m_vertex_buffer;
-				uint32_t offset = 0;
-				m_d3d_device_context->IASetVertexBuffers(0, 1, &p_vertex_buffer->m_p_buffer, 
-					&p_vertex_buffer->m_desc.m_vertexStride, &offset);
-				break;
-			}
-			case DXCMD_Type::Set_Viewport:
-			{
-				const DXCMD_Set_Viewport& cmd_set_viewport = cmd.m_cmd_set_viewport;
-				D3D11_VIEWPORT viewport;
-				ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
-				viewport.MinDepth = 0.f;
-				viewport.MaxDepth = 1.f;
-				viewport.TopLeftX = static_cast<FLOAT>(cmd_set_viewport.m_x);
-				viewport.TopLeftY = static_cast<FLOAT>( cmd_set_viewport.m_y );
-				viewport.Width = static_cast<FLOAT>(cmd_set_viewport.m_width);
-				viewport.Height = static_cast<FLOAT>(cmd_set_viewport.m_height);
-				m_d3d_device_context->RSSetViewports(1, &viewport);
-				break;
-			}
-			case DXCMD_Type::Draw:
-			{
-				const DXCMD_Draw& cmd_draw = cmd.m_cmd_draw;
-				m_d3d_device_context->Draw(cmd_draw.m_vertex_count, cmd_draw.m_first_vertex);
-				break;
-			}
-			case DXCMD_Type::Draw_Index:
-			{
-				const DXCMD_Draw_Index& cmd_draw_index = cmd.m_cmd_draw_index;
-				m_d3d_device_context->DrawIndexed(cmd_draw_index.m_index_count, 
-					cmd_draw_index.m_first_index, cmd_draw_index.m_first_index);
-				break;
-			}
-			case DXCMD_Type::Draw_Index_Instanced:
-			{
-				const DXCMD_Draw_Index_Instanced& cmd_draw_index_instanced = cmd.m_cmd_draw_index_instanced;
-				m_d3d_device_context->DrawIndexedInstanced(
-					cmd_draw_index_instanced.m_indices_count,
-					cmd_draw_index_instanced.m_instance_count,
-					cmd_draw_index_instanced.m_first_index,
-					cmd_draw_index_instanced.m_first_vertex,
-					cmd_draw_index_instanced.m_first_instance);
-				break;
-			}
+		case DXCMD_Type::Bind_Vertex_Buffer:
+		{
+			const DXCMD_Bind_Vertex_Buffer& cmd_bind_vertex_buffer = cmd.m_cmd_bind_vertex_buffer;
+			Buffer* p_vertex_buffer = cmd_bind_vertex_buffer.m_vertex_buffer;
+			uint32_t offset = 0;
+			m_d3d_device_context->IASetVertexBuffers(0, 1, &p_vertex_buffer->m_p_buffer,
+				&p_vertex_buffer->m_desc.m_vertexStride, &offset);
+			break;
+		}
+		case DXCMD_Type::Set_Viewport:
+		{
+			const DXCMD_Set_Viewport& cmd_set_viewport = cmd.m_cmd_set_viewport;
+			D3D11_VIEWPORT viewport;
+			ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+			viewport.MinDepth = 0.f;
+			viewport.MaxDepth = 1.f;
+			viewport.TopLeftX = static_cast<FLOAT>(cmd_set_viewport.m_x);
+			viewport.TopLeftY = static_cast<FLOAT>(cmd_set_viewport.m_y);
+			viewport.Width = static_cast<FLOAT>(cmd_set_viewport.m_width);
+			viewport.Height = static_cast<FLOAT>(cmd_set_viewport.m_height);
+			m_d3d_device_context->RSSetViewports(1, &viewport);
+			break;
+		}
+		case DXCMD_Type::Draw:
+		{
+			const DXCMD_Draw& cmd_draw = cmd.m_cmd_draw;
+			m_d3d_device_context->Draw(cmd_draw.m_vertex_count, cmd_draw.m_first_vertex);
+			break;
+		}
+		case DXCMD_Type::Draw_Index:
+		{
+			const DXCMD_Draw_Index& cmd_draw_index = cmd.m_cmd_draw_index;
+			m_d3d_device_context->DrawIndexed(cmd_draw_index.m_index_count,
+				cmd_draw_index.m_first_index, cmd_draw_index.m_first_index);
+			break;
+		}
+		case DXCMD_Type::Draw_Index_Instanced:
+		{
+			const DXCMD_Draw_Index_Instanced& cmd_draw_index_instanced = cmd.m_cmd_draw_index_instanced;
+			m_d3d_device_context->DrawIndexedInstanced(
+				cmd_draw_index_instanced.m_indices_count,
+				cmd_draw_index_instanced.m_instance_count,
+				cmd_draw_index_instanced.m_first_index,
+				cmd_draw_index_instanced.m_first_vertex,
+				cmd_draw_index_instanced.m_first_instance);
+			break;
+		}
 		}
 	}
 	m_descriptor_data_list.clear();
-	//m_descriptor_data_list.reserve(100);
+	m_descriptor_data_list.reserve(100);
 	m_dxdescriptor_data_reference_list.clear();
-	//m_dxdescriptor_data_reference_list.reserve(100);
+	m_dxdescriptor_data_reference_list.reserve(100);
 	m_cmd_list.clear();
 }
 
@@ -646,7 +646,7 @@ void DXRenderer::set_shader_resources(uint32_t binding_loc, Shader_Stages shader
 {
 	if (shader_stages & Shader_Stages::VERTEX_STAGE)
 	{
-		m_d3d_device_context->VSSetShaderResources(binding_loc, 
+		m_d3d_device_context->VSSetShaderResources(binding_loc,
 			num_resources, pp_resource_views);
 	}
 
@@ -738,7 +738,7 @@ void DXRenderer::unmap_buffer(Buffer* buffer)
 }
 
 
-bool DXRenderer::init_d3d11()
+bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 {
 	RECT client_rect;
 	GetClientRect(m_window_handle, &client_rect);
@@ -757,7 +757,7 @@ bool DXRenderer::init_d3d11()
 	swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.OutputWindow = m_window_handle;
-	swap_chain_desc.SampleDesc.Count = 1;
+	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
 	swap_chain_desc.SampleDesc.Quality = 0;
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swap_chain_desc.Windowed = TRUE;
@@ -780,7 +780,7 @@ bool DXRenderer::init_d3d11()
 
 	D3D_FEATURE_LEVEL feature_level;
 
-	
+
 
 
 	HRESULT dxgi_hr = CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&m_dxgi_factory));
@@ -798,7 +798,7 @@ bool DXRenderer::init_d3d11()
 	DXGI_ADAPTER_DESC1 desc1 = {};
 	DXGI_ADAPTER_DESC1 desc2 = {};
 
-	
+
 
 	for (uint32_t i = 0; DXGI_ERROR_NOT_FOUND != m_dxgi_factory->EnumAdapters1(i, (IDXGIAdapter1**)&adapter); ++i)
 	{
@@ -822,7 +822,7 @@ bool DXRenderer::init_d3d11()
 			adapter->GetDesc1(&desc2);
 		}
 
-		
+
 		if (gpu_name.find("NVIDIA") != std::string::npos)
 		{
 			m_cur_gpu_name = gpu_name;
@@ -877,8 +877,20 @@ bool DXRenderer::init_d3d11()
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_height = client_height;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
 
+	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
+
+	if (swap_chain_sample_count > 1)
+	{
+		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+	}
+	else
+	{
+		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		rtv_desc.Texture2D.MipSlice = 0;
+	}
+
 	hr = m_d3d_device->CreateRenderTargetView(back_buffer,
-		nullptr, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);
+		&rtv_desc, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);
 
 	if (FAILED_HR(hr))
 	{

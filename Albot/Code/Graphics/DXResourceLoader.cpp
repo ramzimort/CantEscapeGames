@@ -66,14 +66,14 @@ D3D11_COMPARISON_FUNC DXResourceLoader::CompareFunc_To_D3D11_ComparisonFunc(Comp
 	D3D11_COMPARISON_FUNC d3d_comparison_func = D3D11_COMPARISON_NEVER;
 	switch (compare_func)
 	{
-		case CompareFunc::CMP_LESS: d3d_comparison_func = D3D11_COMPARISON_LESS; break;
-		case CompareFunc::CMP_EQUAL: d3d_comparison_func = D3D11_COMPARISON_EQUAL; break;
-		case CompareFunc::CMP_LEQUAL: d3d_comparison_func = D3D11_COMPARISON_LESS_EQUAL; break;
-		case CompareFunc::CMP_GREATER: d3d_comparison_func = D3D11_COMPARISON_GREATER; break;
-		case CompareFunc::CMP_NOTEQUAL: d3d_comparison_func = D3D11_COMPARISON_NOT_EQUAL; break;
-		case CompareFunc::CMP_GEQUAL: d3d_comparison_func = D3D11_COMPARISON_GREATER_EQUAL; break;
-		case CompareFunc::CMP_ALWAYS: d3d_comparison_func = D3D11_COMPARISON_ALWAYS; break;
-		default:break;
+	case CompareFunc::CMP_LESS: d3d_comparison_func = D3D11_COMPARISON_LESS; break;
+	case CompareFunc::CMP_EQUAL: d3d_comparison_func = D3D11_COMPARISON_EQUAL; break;
+	case CompareFunc::CMP_LEQUAL: d3d_comparison_func = D3D11_COMPARISON_LESS_EQUAL; break;
+	case CompareFunc::CMP_GREATER: d3d_comparison_func = D3D11_COMPARISON_GREATER; break;
+	case CompareFunc::CMP_NOTEQUAL: d3d_comparison_func = D3D11_COMPARISON_NOT_EQUAL; break;
+	case CompareFunc::CMP_GEQUAL: d3d_comparison_func = D3D11_COMPARISON_GREATER_EQUAL; break;
+	case CompareFunc::CMP_ALWAYS: d3d_comparison_func = D3D11_COMPARISON_ALWAYS; break;
+	default:break;
 	}
 
 	return d3d_comparison_func;
@@ -82,13 +82,13 @@ D3D11_COMPARISON_FUNC DXResourceLoader::CompareFunc_To_D3D11_ComparisonFunc(Comp
 D3D11_TEXTURE_ADDRESS_MODE DXResourceLoader::AddressMode_To_D3D11_AddressMode(SamplerAddressMode sampler_address_mode)
 {
 	D3D11_TEXTURE_ADDRESS_MODE d3d_texture_address_mode = (D3D11_TEXTURE_ADDRESS_MODE)(0);
-	
+
 	switch (sampler_address_mode)
 	{
-		case SamplerAddressMode::ADDRESS_MODE_CLAMP_TO_BORDER: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_BORDER;  break;
-		case SamplerAddressMode::ADDRESS_MODE_CLAMP_TO_EDGE: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_CLAMP;  break;
-		case SamplerAddressMode::ADDRESS_MODE_MIRROR: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_MIRROR; break;
-		case SamplerAddressMode::ADDRESS_MODE_REPEAT: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_WRAP; break;
+	case SamplerAddressMode::ADDRESS_MODE_CLAMP_TO_BORDER: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_BORDER;  break;
+	case SamplerAddressMode::ADDRESS_MODE_CLAMP_TO_EDGE: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_CLAMP;  break;
+	case SamplerAddressMode::ADDRESS_MODE_MIRROR: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_MIRROR; break;
+	case SamplerAddressMode::ADDRESS_MODE_REPEAT: d3d_texture_address_mode = D3D11_TEXTURE_ADDRESS_WRAP; break;
 	default:break;
 	}
 
@@ -128,7 +128,7 @@ D3D11_BIND_FLAG DXResourceLoader::Bind_Flags_To_D3D11_Bind_Flags(uint32_t bind_f
 	{
 		d3d11_final_bind_flag |= D3D11_BIND_RENDER_TARGET;
 	}
-	
+
 
 	return static_cast<D3D11_BIND_FLAG>(d3d11_final_bind_flag);
 }
@@ -200,17 +200,18 @@ DXResourceLoader::~DXResourceLoader()
 }
 
 
-void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer, 
-	RenderTarget* render_target, 
+
+void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
+	RenderTarget* render_target,
 	uint32_t mip_slice,
 	ID3D11RenderTargetView** d3d_render_target_view)
 {
 	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
 	rtv_desc.Format = render_target->m_desc.m_texture_desc.m_imageFormat;
-	
+
 	D3D11_RESOURCE_DIMENSION resource_dim_type = {};
 	render_target->m_texture->m_p_raw_resource->GetType(&resource_dim_type);
-	
+
 	switch (resource_dim_type)
 	{
 	case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
@@ -223,9 +224,23 @@ void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
 		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 		static_cast<ID3D11Texture2D*>(render_target->m_texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
 
-		//TODO: add support for multi sample texture2d render target
-		rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-		rtv_desc.Texture2D.MipSlice = mip_slice;
+		if (d3d_tex2d_desc.SampleDesc.Count > 1)
+		{
+			if (d3d_tex2d_desc.ArraySize > 1)
+			{
+				//TODO: add array MS support
+			}
+			else
+			{
+				rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+			}
+		}
+		else
+		{
+			//TODO: add support for multi sample texture2d render target
+			rtv_desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+			rtv_desc.Texture2D.MipSlice = mip_slice;
+		}
 		break;
 	}
 	case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
@@ -247,7 +262,7 @@ void DXResourceLoader::Add_RenderTarget_View(DXRenderer* renderer,
 }
 
 
-void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget* render_target, uint32_t mip_slice, 
+void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget* render_target, uint32_t mip_slice,
 	ID3D11DepthStencilView** d3d_depth_stencil_view)
 {
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
@@ -267,10 +282,23 @@ void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget*
 	{
 		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 		static_cast<ID3D11Texture2D*>(render_target->m_texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
-
-		//TODO: add support for multi sample texture2d render target
-		dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-		dsv_desc.Texture2D.MipSlice = mip_slice;
+		if (d3d_tex2d_desc.SampleDesc.Count > 1)
+		{
+			if (d3d_tex2d_desc.ArraySize > 1)
+			{
+				//TODO: add array MS support for depth stencil_view
+			}
+			else
+			{
+				dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+			}
+		}
+		else
+		{
+			//TODO: add support for multi sample texture2d render target
+			dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+			dsv_desc.Texture2D.MipSlice = mip_slice;
+		}
 		break;
 	}
 	default:
@@ -285,6 +313,8 @@ void DXResourceLoader::Add_DepthStencil_View(DXRenderer* renderer, RenderTarget*
 		assert(false == true);
 	}
 }
+
+
 
 
 Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& load_desc)
@@ -311,7 +341,7 @@ Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& lo
 		D3D11_SUBRESOURCE_DATA resource_data;
 		ZeroMemory(&resource_data, sizeof(D3D11_SUBRESOURCE_DATA));
 		resource_data.pSysMem = load_desc.m_rawData;
-		
+
 		HRESULT hr = renderer->get_device()->CreateBuffer(&d3d_buffer_desc,
 			&resource_data, &new_d3d_buffer);
 
@@ -350,7 +380,7 @@ Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& lo
 		srv_desc.Format = DXGI_FORMAT_UNKNOWN;
 		srv_desc.ViewDimension = D3D11_SRV_DIMENSION_BUFFER;
 		//srv_desc.Buffer.FirstElement = (UINT)load_desc.m_desc.m_firstElement;
-		
+
 		srv_desc.Buffer.NumElements = static_cast<UINT>(load_desc.m_desc.m_elementCount);
 		//srv_desc.Buffer.ElementWidth = static_cast<UINT>(load_desc.m_desc.m_structureStride);
 		srv_desc.Buffer.ElementOffset = 0;
@@ -387,9 +417,9 @@ RenderTarget* DXResourceLoader::Create_RenderTarget(DXRenderer* renderer, Render
 	load_tex_desc.m_file_name = "";
 	load_tex_desc.m_rawData = nullptr;
 	load_tex_desc.m_tex_desc = &render_target_desc.m_texture_desc;
-	
+
 	Texture* rt_texture = Create_Texture(renderer, load_tex_desc);
-	
+
 	RenderTarget* render_target = new RenderTarget(render_target_desc);
 	render_target->m_texture = rt_texture;
 
@@ -433,7 +463,7 @@ Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::a
 		{
 			stbi_set_flip_vertically_on_load(false);
 		}
-		image_data[i].pixels  = stbi_load(tex_file_names[i].c_str(), &width, &height, &channel, STBI_rgb_alpha);
+		image_data[i].pixels = stbi_load(tex_file_names[i].c_str(), &width, &height, &channel, STBI_rgb_alpha);
 		image_data[i].line_width = width * 4;
 		final_width = std::max(final_width, static_cast<uint32_t>(width));
 		final_height = std::max(final_height, static_cast<uint32_t>(height));
@@ -443,7 +473,7 @@ Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::a
 	//Using DXGI_FORMAT_R8G8B8A8_UNORM (28) as an example.
 	//DXGI_FORMAT format = DXGI_FORMAT_R32G32B32_TYPELESS;
 	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	
+
 	//DXGI_FORMAT format = DXGI_FORMAT_R32G32B32_UINT;
 	//D3DObjects to create
 	ID3D11Texture2D* d3d_cube_texture = NULL;
@@ -497,7 +527,7 @@ Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::a
 		return nullptr;
 	}
 
-	
+
 
 	//If we have created the texture resource for the six faces 
 	//we create the Shader Resource View to use in our shaders.
@@ -548,7 +578,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		if (load_desc.m_use_ex_flag)
 		{
 			HRESULT hr = DirectX::CreateWICTextureFromFileEx(renderer->get_device(), renderer->get_device_context(), load_file_name_w.c_str(), 0,
-				Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags), 
+				Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags),
 				CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType), 0, 0, &d3d_tex2d, &d3d_tex2d_srv);
 
 			if (FAILED_HR(hr))
@@ -585,7 +615,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		texture_desc.m_width = tex2d_desc.Width;
 		texture_desc.m_height = tex2d_desc.Height;
 
-		
+
 
 		Texture* texture = new Texture(texture_desc);
 		texture->m_p_raw_resource = d3d_tex2d;
@@ -624,7 +654,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		d3d_texture3d_desc.Height = load_desc.m_tex_desc->m_height;
 		d3d_texture3d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
 		d3d_texture3d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
-		
+
 		ID3D11Texture3D* new_d3d_texture3d = nullptr;
 		HRESULT hr = renderer->get_device()->CreateTexture3D(&d3d_texture3d_desc, nullptr, &new_d3d_texture3d);
 
@@ -648,7 +678,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		d3d_texture2d_desc.Width = load_desc.m_tex_desc->m_width;
 		d3d_texture2d_desc.Height = load_desc.m_tex_desc->m_height;
 		d3d_texture2d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
-		d3d_texture2d_desc.SampleDesc.Count = 1;
+		d3d_texture2d_desc.SampleDesc.Count = (UINT)load_desc.m_tex_desc->m_sampleCount;
 		d3d_texture2d_desc.SampleDesc.Quality = 0;
 		d3d_texture2d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
 
@@ -673,39 +703,46 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
 	D3D11_UNORDERED_ACCESS_VIEW_DESC uav_desc = {};
-	
+
 	switch (resource_dim_type)
 	{
-		case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
+	case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
+	{
+		//TODO:
+		break;
+	}
+	case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
+	{
+		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
+		static_cast<ID3D11Texture2D*>(texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
+		if (d3d_tex2d_desc.SampleDesc.Count > 1)
 		{
-			//TODO:
-			break;
+			//TODO: add Array support
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
 		}
-		case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
+		else
 		{
-			D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
-			static_cast<ID3D11Texture2D*>(texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
-
 			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 			srv_desc.Texture2D.MipLevels = d3d_tex2d_desc.MipLevels;
 			srv_desc.Texture2D.MostDetailedMip = 0;
 
 			uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
 			uav_desc.Texture2D.MipSlice = 0;
-			break;
 		}
-		case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
-		{
-			//TODO:
-			break;
-		}
-		default:
-			break;
+		break;
+	}
+	case D3D11_RESOURCE_DIMENSION_TEXTURE3D:
+	{
+		//TODO:
+		break;
+	}
+	default:
+		break;
 	}
 
 	if (load_desc.m_tex_desc->m_bindFlags & BIND_SHADER_RESOURCE)
 	{
-		
+
 		DXGI_FORMAT srv_tex_format = final_image_format;
 
 		if (is_depth_texture)
@@ -721,7 +758,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		}
 
 		srv_desc.Format = srv_tex_format;
-		
+
 		renderer->get_device()->CreateShaderResourceView(
 			texture->m_p_raw_resource, &srv_desc, &texture->m_p_srv);
 	}
@@ -747,7 +784,7 @@ void DXResourceLoader::Update_Buffer(DXRenderer* renderer, BufferUpdateDesc& buf
 Shader* DXResourceLoader::Create_Shader(DXRenderer* renderer, const ShaderLoadDesc& shader_load_desc)
 {
 	Shader* shader = new Shader(shader_load_desc.m_desc);
-	shader->Inner_Initialize(renderer->get_device());
+	shader->Inner_Initialize(renderer->get_device(), shader_load_desc);
 	return shader;
 }
 
@@ -808,7 +845,7 @@ Pipeline* DXResourceLoader::Create_Pipeline(DXRenderer* renderer,
 		ID3DBlob* input_blob = graphics_pipeline_desc.
 			m_shader->m_vertex_shader_blob;
 
-		
+
 
 		HRESULT hr = renderer->get_device()->CreateInputLayout(input_element_descs,
 			vertex_layout.m_atrrib_count,
@@ -840,15 +877,15 @@ Pipeline* DXResourceLoader::Create_Pipeline(DXRenderer* renderer,
 	D3D_PRIMITIVE_TOPOLOGY d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 	switch (pipeline_desc.m_graphics_desc.m_primitive_topo_type)
 	{
-		case Primitive_Topology::TOPOLOGY_LINE_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_LINELIST; break;
-		case Primitive_Topology::TOPOLOGY_LINE_STRIP: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_LINESTRIP; break;
-		case Primitive_Topology::TOPOLOGY_POINT_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; break;
-		case Primitive_Topology::TOPOLOGY_TRIANGLE_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST; break;
-		case Primitive_Topology::TOPOLOGY_TRIANGLE_STRIP: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; break;
-		default: break;
+	case Primitive_Topology::TOPOLOGY_LINE_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_LINELIST; break;
+	case Primitive_Topology::TOPOLOGY_LINE_STRIP: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_LINESTRIP; break;
+	case Primitive_Topology::TOPOLOGY_POINT_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_POINTLIST; break;
+	case Primitive_Topology::TOPOLOGY_TRIANGLE_LIST: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST; break;
+	case Primitive_Topology::TOPOLOGY_TRIANGLE_STRIP: d3d_primitive_topology_type = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP; break;
+	default: break;
 	}
 
-	new_graphics_pipeline->m_d3d_primitive_topo_type = d3d_primitive_topology_type;	   	  
+	new_graphics_pipeline->m_d3d_primitive_topo_type = d3d_primitive_topology_type;
 	return new_graphics_pipeline;
 }
 
@@ -882,7 +919,7 @@ RasterizerState* DXResourceLoader::Create_RasterizerState(DXRenderer* renderer,
 	d3d_rasterizer_desc.DepthClipEnable = TRUE;
 	d3d_rasterizer_desc.FillMode = fill_mode;
 	d3d_rasterizer_desc.FrontCounterClockwise = FALSE;
-	d3d_rasterizer_desc.MultisampleEnable = FALSE;
+	d3d_rasterizer_desc.MultisampleEnable = (BOOL)rasterizer_desc.m_multiSample;
 	d3d_rasterizer_desc.ScissorEnable = FALSE;
 	d3d_rasterizer_desc.SlopeScaledDepthBias = 0.f;
 
@@ -908,12 +945,12 @@ DepthState* DXResourceLoader::Create_DepthState(DXRenderer* renderer,
 	ZeroMemory(&depth_stencil_state_desc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 
 	depth_stencil_state_desc.DepthEnable = depth_state_desc.m_depth_enable;
-	depth_stencil_state_desc.DepthWriteMask = 
+	depth_stencil_state_desc.DepthWriteMask =
 		(depth_state_desc.m_depth_write_mask == DepthWriteMask::DONT_WRITE_DEPTH) ? D3D11_DEPTH_WRITE_MASK_ZERO : D3D11_DEPTH_WRITE_MASK_ALL;
 
 	depth_stencil_state_desc.DepthFunc = CompareFunc_To_D3D11_ComparisonFunc(depth_state_desc.m_depth_compare_func);
 	depth_stencil_state_desc.StencilEnable = depth_state_desc.m_stencil_enable;
-	
+
 	ID3D11DepthStencilState* new_depth_stencil_state = nullptr;
 
 	HRESULT hr = renderer->get_device()->CreateDepthStencilState(
@@ -936,7 +973,7 @@ BlendState* DXResourceLoader::Create_BlendState(DXRenderer* dxrenderer,
 	D3D11_BLEND_DESC d3d_blend_desc;
 	ZeroMemory(&d3d_blend_desc, sizeof(D3D11_BLEND_DESC));
 
-	
+
 	ID3D11BlendState* d3d_blend_state = nullptr;
 
 	uint32_t blend_index = 0;
@@ -950,15 +987,15 @@ BlendState* DXResourceLoader::Create_BlendState(DXRenderer* dxrenderer,
 	{
 		if (blend_state_desc.m_blendStateTarget & (1 << i))
 		{
-			D3D11_BLEND d3d_src_blend_factor = g_d3d11_blend_factor_converter[ blend_state_desc.m_srcFactors[blend_index]];
+			D3D11_BLEND d3d_src_blend_factor = g_d3d11_blend_factor_converter[blend_state_desc.m_srcFactors[blend_index]];
 			D3D11_BLEND d3d_dst_blend_factor = g_d3d11_blend_factor_converter[blend_state_desc.m_dstFactors[blend_index]];
 
 			D3D11_BLEND d3d_src_alpha_blend_factor = g_d3d11_blend_factor_converter[blend_state_desc.m_srcAlphaFactors[blend_index]];
 			D3D11_BLEND d3d_dst_alpha_blend_factor = g_d3d11_blend_factor_converter[blend_state_desc.m_dstAlphaFactors[blend_index]];
 
-			BOOL enable_blend = d3d_src_alpha_blend_factor != D3D11_BLEND_ONE || 
-				d3d_dst_alpha_blend_factor != D3D11_BLEND_ZERO || 
-				d3d_src_blend_factor != D3D11_BLEND_ONE || 
+			BOOL enable_blend = d3d_src_alpha_blend_factor != D3D11_BLEND_ONE ||
+				d3d_dst_alpha_blend_factor != D3D11_BLEND_ZERO ||
+				d3d_src_blend_factor != D3D11_BLEND_ONE ||
 				d3d_dst_blend_factor != D3D11_BLEND_ZERO;
 
 
@@ -1018,7 +1055,7 @@ Sampler* DXResourceLoader::Create_Sampler(DXRenderer* renderer,
 
 	ID3D11SamplerState* sampler_state = nullptr;
 	HRESULT hr = renderer->get_device()->CreateSamplerState(&d3d_sampler_desc, &sampler_state);
-	
+
 	if (FAILED_HR(hr))
 	{
 		return nullptr;

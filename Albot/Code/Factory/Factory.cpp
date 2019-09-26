@@ -124,7 +124,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		auto *T = go->AddComponent<TransformComponent>();
 		T->SetLocalPosition(0.f, 0.f, 0.f);////
 
-		go->AddComponent<TestComp>();
+		//go->AddComponent<TestComp>();
 
 		auto rendererComp = go->AddComponent<RendererComponent>();
 		rendererComp->SetMaterial(red_diffuse_purple_specular);

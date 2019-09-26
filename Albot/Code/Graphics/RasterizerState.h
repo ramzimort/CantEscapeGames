@@ -19,6 +19,7 @@ struct RasterizerStateDesc
 {
 	FillMode m_fill_mode;
 	CullMode m_cull_mode;
+	bool m_multiSample;
 };
 
 class RasterizerState

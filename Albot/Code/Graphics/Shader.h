@@ -6,6 +6,12 @@
 
 #include "Common_Renderer.h"
 
+struct ShaderMacro
+{
+	std::string m_name = "";
+	std::string m_definition = "";
+};
+
 struct ShaderDesc
 {
 	std::string m_vertex_shader_path = "";
@@ -16,6 +22,8 @@ struct ShaderDesc
 struct ShaderLoadDesc
 {
 	ShaderDesc m_desc;
+	uint32_t m_shader_macro_count = 0;
+	ShaderMacro* m_shader_macro;
 };
 
 
@@ -32,9 +40,8 @@ public:
 
 	void Release();
 private:
-	void Inner_Initialize(ID3D11Device* device);
-	void Initialize(ID3D11Device* device_context, 
-		const std::string& vertex_path, const std::string& fragment_path);
+	void Inner_Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_desc);
+	void Initialize(ID3D11Device* device_context, const ShaderLoadDesc& shader_load_desc);
 
 private:
 	ShaderDesc m_desc;
