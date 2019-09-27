@@ -339,10 +339,7 @@ void DeferredRendering::render_deferred_global_directional_light_shade()
 void DeferredRendering::render_deferred_point_light_shade()
 {
 	uint32_t point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
-	if (point_light_inst_count == 0)
-	{
-		return;
-	}
+	
 
 	Vector3 start_pos(-150.f, 10.f, -220.f);
 	Vector3 inc_pos(10.f, 0.f, 30.f);
@@ -360,6 +357,11 @@ void DeferredRendering::render_deferred_point_light_shade()
 	}
 	point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
 
+
+	if (point_light_inst_count == 0)
+	{
+		return;
+	}
 
 	for (uint32_t i = 0; i < point_light_inst_count; ++i)
 	{

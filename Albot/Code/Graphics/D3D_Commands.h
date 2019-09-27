@@ -56,7 +56,9 @@ struct DXCMD_Bind_RenderTargets
 {
 	RenderTarget** m_color_rts;
 	uint32_t m_color_rts_count;
+	uint32_t m_color_mips_levels[MAX_RENDER_TARGET_ATTACHMENTS];
 	RenderTarget* m_depth_stencil_rt;
+	uint32_t m_depth_mips_level;
 	LoadActionsDesc m_load_actions_desc;
 };
 

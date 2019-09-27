@@ -22,6 +22,8 @@ struct BufferDesc
 	uint32_t m_firstElement;
 	uint32_t m_elementCount;
 	uint32_t m_structureStride;
+	//applicatable for Buffer<T> in unordered access
+	DXGI_FORMAT m_bufferFormat;
 	std::string m_debugName;
 };
 

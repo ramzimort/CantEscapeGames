@@ -54,6 +54,7 @@ struct TextureLoadDesc
 	TextureDesc* m_tex_desc = nullptr;
 	std::string m_file_name = "";
 	bool m_use_ex_flag = false;
+	bool m_generateMipMap = false;
 	const void* m_rawData = nullptr;
 };
 
@@ -73,5 +74,5 @@ private:
 	TextureDesc m_texture_desc;
 	ID3D11Resource* m_p_raw_resource;
 	ID3D11ShaderResourceView* m_p_srv;
-	ID3D11UnorderedAccessView* m_p_uav;
+	ID3D11UnorderedAccessView** m_pp_uav;
 };

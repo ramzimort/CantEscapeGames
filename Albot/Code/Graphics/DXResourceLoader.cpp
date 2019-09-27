@@ -404,6 +404,28 @@ Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& lo
 		}
 	}
 
+	if (load_desc.m_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS)
+	{
+		D3D11_UNORDERED_ACCESS_VIEW_DESC uav_desc = {};
+		uav_desc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
+		uav_desc.Format = DXGI_FORMAT_UNKNOWN;
+		uav_desc.Buffer.FirstElement = static_cast<UINT>(load_desc.m_desc.m_firstElement);
+		uav_desc.Buffer.NumElements = static_cast<UINT>(load_desc.m_desc.m_elementCount);
+		uav_desc.Buffer.Flags = 0;
+
+		if (load_desc.m_desc.m_miscFlags & Misc_Flags::MISC_BUFFER_ALLOW_RAW_VIEWS)
+		{
+			uav_desc.Format = DXGI_FORMAT_R32_TYPELESS;
+			uav_desc.Buffer.Flags |= D3D11_BUFFER_UAV_FLAG_RAW;
+		}
+		else
+		{
+			uav_desc.Format = load_desc.m_desc.m_bufferFormat;
+		}
+
+		renderer->get_device()->CreateUnorderedAccessView(new_d3d_buffer, &uav_desc, &buffer->m_uav);
+	}
+
 
 
 	//TODO if RWBuffer<> add UAV pointer
@@ -425,15 +447,28 @@ RenderTarget* DXResourceLoader::Create_RenderTarget(DXRenderer* renderer, Render
 
 	bool is_depth = is_depth_format(load_tex_desc.m_tex_desc->m_imageFormat);
 
-
-	//TODO: add support for mipmap RTV & DSV
+	uint32_t mip_levels = std::max(render_target_desc.m_texture_desc.m_mipLevels, 1u);
 	if (is_depth)
 	{
-		Add_DepthStencil_View(renderer, render_target, 0, &render_target->m_p_depth_stencil_view);
+		render_target->m_pp_depth_stencil_view = (ID3D11DepthStencilView**)malloc(sizeof(ID3D11DepthStencilView*) * mip_levels);
 	}
 	else
 	{
-		Add_RenderTarget_View(renderer, render_target, 0, &render_target->m_p_render_target_view);
+		render_target->m_pp_rendertargetview = (ID3D11RenderTargetView**)malloc(sizeof(ID3D11RenderTargetView*) * mip_levels);
+	}
+
+
+	for (uint32_t i = 0; i < mip_levels; ++i)
+	{
+
+		if (is_depth)
+		{
+			Add_DepthStencil_View(renderer, render_target, i, &render_target->m_pp_depth_stencil_view[i]);
+		}
+		else
+		{
+			Add_RenderTarget_View(renderer, render_target, i, &render_target->m_pp_rendertargetview[i]);
+		}
 	}
 
 	return render_target;
@@ -761,14 +796,23 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 		renderer->get_device()->CreateShaderResourceView(
 			texture->m_p_raw_resource, &srv_desc, &texture->m_p_srv);
+	
+		if (load_desc.m_generateMipMap)
+		{
+			renderer->get_device_context()->GenerateMips(texture->m_p_srv);
+		}
 	}
 
 	//TODO
 	if (load_desc.m_tex_desc->m_bindFlags & BIND_UNORDERED_ACCESS)
 	{
 		uav_desc.Format = load_desc.m_tex_desc->m_imageFormat;
-		renderer->get_device()->CreateUnorderedAccessView(
-			texture->m_p_raw_resource, &uav_desc, &texture->m_p_uav);
+		texture->m_pp_uav = (ID3D11UnorderedAccessView**)(malloc(sizeof(ID3D11UnorderedAccessView*) * load_desc.m_tex_desc->m_mipLevels));
+		for (uint32_t mip_index = 0; mip_index < load_desc.m_tex_desc->m_mipLevels; ++mip_index)
+		{
+			renderer->get_device()->CreateUnorderedAccessView(
+				texture->m_p_raw_resource, &uav_desc, &texture->m_pp_uav[mip_index]);
+		}
 	}
 
 
@@ -788,12 +832,32 @@ Shader* DXResourceLoader::Create_Shader(DXRenderer* renderer, const ShaderLoadDe
 	return shader;
 }
 
-//TODO: add for compute pipeline
 Pipeline* DXResourceLoader::Create_Pipeline(DXRenderer* renderer,
 	const PipelineDesc& pipeline_desc)
 {
-	const GraphicsPipelineDesc& graphics_pipeline_desc = pipeline_desc.m_graphics_desc;
+	if (pipeline_desc.m_pipeline_type == PipelineType::GRAPHICS)
+	{
+		return Create_GraphicsPipeline(renderer, pipeline_desc, pipeline_desc.m_graphics_desc);
+	}
+	else if (pipeline_desc.m_pipeline_type == PipelineType::COMPUTE)
+	{
+		return Create_ComputePipeline(renderer, pipeline_desc, pipeline_desc.m_compute_desc);
+	}
+	return nullptr;
+}
 
+Pipeline* DXResourceLoader::Create_ComputePipeline(DXRenderer* renderer, const PipelineDesc& pipeline_desc,
+	const ComputePipelineDesc& compute_pipeline_desc)
+{
+	assert(compute_pipeline_desc.m_shader);
+	Pipeline* new_pipeline = new Pipeline(pipeline_desc);
+	return new_pipeline;
+}
+
+//TODO: add for compute pipeline
+Pipeline* DXResourceLoader::Create_GraphicsPipeline(DXRenderer* renderer, const PipelineDesc& pipeline_desc,
+	const GraphicsPipelineDesc& graphics_pipeline_desc)
+{
 	ID3D11InputLayout* new_input_layout = nullptr;
 	if (graphics_pipeline_desc.m_vertex_layout)
 	{
@@ -1043,13 +1107,13 @@ Sampler* DXResourceLoader::Create_Sampler(DXRenderer* renderer,
 	d3d_sampler_desc.AddressU = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_u);
 	d3d_sampler_desc.AddressV = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_v);
 	d3d_sampler_desc.AddressW = AddressMode_To_D3D11_AddressMode(sampler_desc.m_address_w);
-	d3d_sampler_desc.MaxAnisotropy = static_cast<unsigned int>(sampler_desc.m_max_aniso);
+	d3d_sampler_desc.MaxAnisotropy = std::max(static_cast<unsigned int>(sampler_desc.m_max_aniso), 1u);
 	d3d_sampler_desc.MipLODBias = sampler_desc.m_mip_los_bias;
 	d3d_sampler_desc.ComparisonFunc = CompareFunc_To_D3D11_ComparisonFunc(sampler_desc.m_compare_func);
 	d3d_sampler_desc.BorderColor[0] = 0.f;
 	d3d_sampler_desc.BorderColor[1] = 0.f;
 	d3d_sampler_desc.BorderColor[2] = 0.f;
-	d3d_sampler_desc.BorderColor[3] = 1.f;
+	d3d_sampler_desc.BorderColor[3] = 0.f;
 	d3d_sampler_desc.MinLOD = 0;
 	d3d_sampler_desc.MaxLOD = D3D11_FLOAT32_MAX;
 
