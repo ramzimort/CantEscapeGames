@@ -1,9 +1,6 @@
 #pragma once
 
 #define MAGIC_PRIME ((uint64_t)0x100000001b3ULL)
-#define CANTID(Any_Word) StringId(Any_Word)
-#define Concat(Any_Word) #Any_Word##_sid
-
 class StringId;
 
 inline constexpr uint64_t FNVHash(const char* str, uint64_t len)
@@ -20,7 +17,7 @@ inline constexpr uint64_t FNVHash(const char* str, uint64_t len)
 	return hash;
 }
 
-constexpr uint64_t operator "" _sid(const char* name, size_t len)
+inline constexpr uint64_t operator "" _sid(const char* name, size_t len)
 {
 	return FNVHash(name, len);
 }
@@ -36,16 +33,16 @@ public:
 #endif
 		m_id(rhs.m_id)
 	{	}
-	StringId(const char* _name) :
+	StringId(const char* _name, size_t len) :
 #ifndef DEVELOPER
 		m_name(_name),
 #endif
-		m_id(Concat(_name)) { }
+		m_id(FNVHash(_name, len)) { }
 	StringId(const std::string& _name) :
 #ifndef DEVELOPER
 		m_name(_name),
 #endif
-		m_id(Concat(_name)) { }
+		m_id(FNVHash(_name.c_str(), _name.size())) { }
 	const StringId& operator=(const StringId& rhs)
 	{
 		return StringId(rhs);

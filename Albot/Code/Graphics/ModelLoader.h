@@ -14,8 +14,7 @@ public:
 	~ModelLoader();
 	
 	static void InitCommonModel(DXRenderer* dxrenderer);
-
-	static Model* LoadModel(DXRenderer* dxrenderer, const std::string& path, bool textured_model);
+	static void LoadModel(Model* model, aiScene const *scene, DXRenderer* dxrenderer);
 	static void CalculateModelTangents(Model& model);
 
 private:

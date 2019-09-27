@@ -6,6 +6,8 @@
 #include "Helper/Hash.h"
 #include "../Managers/ResourceManager.h"
 
+static const StringId cubeId = StringId(Constant::ModelsDir + "Cube.fbx");
+
 DebugRendering::DebugRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)
 	:m_app_renderer(app_renderer),
 	m_resourceManager(resourceManager)
@@ -259,9 +261,8 @@ void DebugRendering::render_debug_aabb_scene()
 		m_debug_aabb_instance_uniform_data[i].ModelViewProjectionMat = model_matrix * m_app_renderer->m_camera_uniform_data.ViewProjectionMat;
 		m_debug_aabb_instance_uniform_data[i].Color = MathUtil::v3_to_v4(debug_instance.m_color);
 	}
-	m_resourceManager->LoadModel("Cube.fbx", false);
 
-	Model* cube_model = m_resourceManager->GetModel(CANTID("Cube.fbx"));
+	Model* cube_model = m_resourceManager->GetModel(cubeId);
 
 	BufferUpdateDesc update_debug_instance_buffer_desc = {};
 	update_debug_instance_buffer_desc.m_buffer = m_debug_aabb_instance_uniform_buffer;

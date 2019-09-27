@@ -105,7 +105,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 
 	gResourceManager->LoadModel("mitsuba-sphere.obj", false);
 
-	Model* mitsubaSphereModel = gResourceManager->GetModel(CANTID("mitsuba-sphere.obj"));
+	Model* mitsubaSphereModel = gResourceManager->GetModel(Constant::ModelsDir+"mitsuba-sphere.obj");
 
 	Material* red_diffuse_purple_specular = new Material();
 	red_diffuse_purple_specular->m_diffuseColor = Vector4(1.f, 0.f, 0.f, 1.f);

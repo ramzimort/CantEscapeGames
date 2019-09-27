@@ -34,6 +34,7 @@ int CALLBACK WinMain(
 	gWindowManager = new WindowManager();
 
 	SDL_Window* main_window = gWindowManager->SDLCreateWindow("Albot", 800, 600, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
+	DEBUG_INIT;
 	FrameManager frame_manager;
 	bool done = false;
 	float dt;
@@ -50,15 +51,10 @@ int CALLBACK WinMain(
 	Camera* camera = new Camera(windowWidth, windowHeight, 45.f,
 		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
 	gCameraManager->RegisterCamera("Main", camera);
-	//
 
 	// TODO - REMOVE LATER (jose)
 	stateMgr = new StateManager();
 	stateMgr->SwitchState(new State("level1.json"));
-
-	
-	DEBUG_INIT;
-	DEBUG_LOG("Frame Time: %f ms\n", 20.f);
 	while (!gInputManager->IsQuit())
 	{
 		frame_manager.StartFrame();

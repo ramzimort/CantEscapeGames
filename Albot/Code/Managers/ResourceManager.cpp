@@ -6,6 +6,7 @@
 #include "Graphics/ModelLoader.h"
 #include "Graphics/D3D11_Renderer.h"
 #include "Reflection/Serialization.h"
+#include "CantDebug/CantDebug.h"
 
 ResourceManager::ResourceManager() : 
 	m_dxrenderer(nullptr)
@@ -19,6 +20,9 @@ ResourceManager::~ResourceManager()
 void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
+#ifdef DEVELOPER
+	LoadModel("Cube.fbx", false);
+#endif // DEVELOPER
 }
 
 Model* ResourceManager::GetModel(StringId modelId)
@@ -38,15 +42,29 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 
 void ResourceManager::LoadModel(const std::string& filePath, bool texturedModel)
 {
-	StringId id = CANTID(filePath);
+	std::string path = Constant::ModelsDir + filePath;
+	StringId id = StringId(path);
 	Model* model = static_cast<Model*>(m_resources[id]);
 	if (model == nullptr)
-		m_resources[id] = ModelLoader::LoadModel(m_dxrenderer, filePath, texturedModel);
+	{
+		model = new Model();
+		Assimp::Importer importer;
+		aiScene const *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+		// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
+
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+		{
+			DEBUG_LOG("Couldn't load Model");
+			return;
+		}
+		m_resources[id] = model;
+		ModelLoader::LoadModel(model, scene, m_dxrenderer);
+	}
 }
 
 void ResourceManager::LoadMaterial(const std::string& filePath)
 {
-	StringId id = CANTID(filePath);
+	StringId id = StringId(filePath);
 	Material* material = static_cast<Material*>(m_resources[id]);
 	if (material != nullptr)
 		return;
@@ -59,10 +77,11 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 // Returns null if surface does not exist
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
-
+	//TextureLoader::CreateTexture(m_dxrenderer, TextureLoadDesc(filePath));
+	//m_resources[CANTID(filePath)] = 
 }
 
-void ResourceManager::ClearModel(Model * model)
+void ResourceManager::ClearModel(Model* model)
 {
 }
 

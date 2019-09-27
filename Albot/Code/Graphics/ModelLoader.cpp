@@ -67,35 +67,18 @@ void ModelLoader::InitCommonModel(DXRenderer* dxrenderer)
 	//World::Get()->get_resource_manager()->store_model(plane_model, "Plane");
 }
 
-Model* ModelLoader::LoadModel(DXRenderer* dxrenderer, const std::string& path, bool textured_model)
+void ModelLoader::LoadModel( Model* model, aiScene const *scene,DXRenderer* dxrenderer)
 {
-	const std::string finalPath = Constant::ModelsDir + path;
-	Model* model = new Model();
-
-	Assimp::Importer importer;
-	aiScene const *scene = importer.ReadFile(finalPath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
-	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
-
-	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-	{
-		std::cout << "ERROR LOADING MESH >> " << importer.GetErrorString() << std::endl;
-		return nullptr;
-	}
-
 	uint32_t totalVertexCount = 0;
 	uint32_t totalIndexCount = 0;
-	   
-	//model.m_dir_path = path.substr(0, path.find_last_of('/'));
-	model->m_dir_path = finalPath;
-	ProcessNode(scene->mRootNode, scene, *model, totalVertexCount, totalIndexCount, textured_model);
+
+	ModelLoader::ProcessNode(scene->mRootNode, scene, *model, totalVertexCount, totalIndexCount, false);
 
 	if (!model->m_has_tangent)
 	{
 		ModelLoader::CalculateModelTangents(*model);
 	}
 	model->InitBuffer(dxrenderer);
-
-	return model;
 }
 
 void ModelLoader::ProcessNode(aiNode *node, const aiScene *scene, Model& model, 
