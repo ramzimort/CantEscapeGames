@@ -35,7 +35,8 @@ public:
 	//Added by albert, there should not be a public function to set material
 	//TODO
 	void SetMaterial(Material* material);
-	
+	void SetXTileFactor(float x_factor);
+	void SetYTileFactor(float y_factor);
 public:
 	//Unique class identifier
 	static ComponentId const static_type;

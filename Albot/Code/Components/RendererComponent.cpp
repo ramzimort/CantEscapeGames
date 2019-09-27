@@ -22,7 +22,9 @@ RTTR_REGISTRATION
 }
 
 RendererComponent::RendererComponent(GameObject *owner) :
-	BaseComponent(owner, RendererComponent::static_type)
+	BaseComponent(owner, RendererComponent::static_type),
+	m_x_tile_factor(1.f),
+	m_y_tile_factor(1.f)
 {
 }
 
@@ -41,4 +43,13 @@ void RendererComponent::Begin()
 void RendererComponent::SetMaterial(Material* material)
 {
 	m_pMaterial = material;
+}
+
+void RendererComponent::SetXTileFactor(float x_factor)
+{
+	m_x_tile_factor = x_factor;
+}
+void RendererComponent::SetYTileFactor(float y_factor)
+{
+	m_y_tile_factor = y_factor;
 }

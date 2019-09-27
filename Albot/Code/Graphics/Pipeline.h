@@ -20,7 +20,7 @@ enum PipelineType
 
 struct ComputePipelineDesc
 {
-	//TODO: add compute shader pass
+	Shader* m_shader;
 };
 
 

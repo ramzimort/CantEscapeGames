@@ -43,7 +43,7 @@ public:
 
 	const RenderTargetDesc& get_desc() const;
 	const ClearValue& get_clear_value() const;
-	ID3D11RenderTargetView* get_rtv();
+	ID3D11RenderTargetView* get_rtv(uint32_t mip_slice);
 
 	void Release();
 
@@ -55,8 +55,8 @@ private:
 	union
 	{
 		//TODO: add support for more mip slice render target view
-		ID3D11RenderTargetView* m_p_render_target_view;
-		ID3D11DepthStencilView* m_p_depth_stencil_view;
+		ID3D11RenderTargetView** m_pp_rendertargetview;
+		ID3D11DepthStencilView** m_pp_depth_stencil_view;
 	};
 };
 

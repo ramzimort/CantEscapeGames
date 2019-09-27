@@ -127,7 +127,13 @@ void DXRenderer::cmd_bind_render_targets(RenderTarget** color_rts,
 
 	cmd.m_cmd_bind_rendertargets.m_color_rts = color_rts;
 	cmd.m_cmd_bind_rendertargets.m_color_rts_count = color_rts_count;
+	for (uint32_t i = 0; i < MAX_RENDER_TARGET_ATTACHMENTS; ++i)
+	{
+		cmd.m_cmd_bind_rendertargets.m_color_mips_levels[i] = 0;
+	}
+
 	cmd.m_cmd_bind_rendertargets.m_depth_stencil_rt = depth_stencil_rt;
+	cmd.m_cmd_bind_rendertargets.m_depth_mips_level = 0;
 
 	cmd.m_cmd_bind_rendertargets.m_load_actions_desc.
 		m_load_action_depth = load_actions_desc.m_load_action_depth;
@@ -521,14 +527,14 @@ void DXRenderer::execute_queued_cmd()
 
 			for (uint32_t i = 0; i < cmd_bind_rendertargets.m_color_rts_count; ++i)
 			{
-				rtvs[i] = cmd_bind_rendertargets.m_color_rts[i]->m_p_render_target_view;
+				rtvs[i] = cmd_bind_rendertargets.m_color_rts[i]->m_pp_rendertargetview[cmd_bind_rendertargets.m_color_mips_levels[i]];
 			}
 
 			ID3D11DepthStencilView* dsv = nullptr;
 
 			if (cmd_bind_rendertargets.m_depth_stencil_rt)
 			{
-				dsv = cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view;
+				dsv = cmd_bind_rendertargets.m_depth_stencil_rt->m_pp_depth_stencil_view[cmd_bind_rendertargets.m_depth_mips_level];
 			}
 
 			m_d3d_device_context->OMSetRenderTargets(cmd_bind_rendertargets.m_color_rts_count, rtvs, dsv);
@@ -563,7 +569,7 @@ void DXRenderer::execute_queued_cmd()
 				{
 					final_depth_stencil_clear_flags |= D3D11_CLEAR_STENCIL;
 				}
-				m_d3d_device_context->ClearDepthStencilView(cmd_bind_rendertargets.m_depth_stencil_rt->m_p_depth_stencil_view,
+				m_d3d_device_context->ClearDepthStencilView(dsv,
 					final_depth_stencil_clear_flags, load_actions_desc.m_clear_depth_stencil.m_depth, 0);
 			}
 			break;
@@ -763,8 +769,16 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 	swap_chain_desc.BufferDesc.Width = client_width;
 	swap_chain_desc.BufferDesc.Height = client_height;
 	swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	swap_chain_desc.BufferDesc.RefreshRate.Numerator = static_cast<UINT>(g_target_fps);
-	swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
+	if (m_enable_vysnc)
+	{
+		swap_chain_desc.BufferDesc.RefreshRate.Numerator = 60;
+		swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
+	}
+	else
+	{
+		swap_chain_desc.BufferDesc.RefreshRate.Numerator = 0;
+		swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
+	}
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.OutputWindow = m_window_handle;
 	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
@@ -886,6 +900,8 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_width = client_width;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_height = client_height;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
+	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_mipLevels = 1;
+	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_depth = 1;
 
 	D3D11_RENDER_TARGET_VIEW_DESC rtv_desc = {};
 
@@ -899,8 +915,11 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 		rtv_desc.Texture2D.MipSlice = 0;
 	}
 
+	m_swap_chain.m_p_swap_chain_render_target->m_pp_rendertargetview =
+		(ID3D11RenderTargetView**)malloc(sizeof(ID3D11RenderTargetView*) * 1);
+
 	hr = m_d3d_device->CreateRenderTargetView(back_buffer,
-		&rtv_desc, &m_swap_chain.m_p_swap_chain_render_target->m_p_render_target_view);
+		&rtv_desc, &m_swap_chain.m_p_swap_chain_render_target->m_pp_rendertargetview[0]);
 
 	if (FAILED_HR(hr))
 	{

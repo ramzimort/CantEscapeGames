@@ -55,6 +55,12 @@ private:
 
 	static D3D11_RESOURCE_MISC_FLAG misc_flags_to_d3d11_misc_flags(uint32_t misc_flags);
 
+	static Pipeline* Create_GraphicsPipeline(DXRenderer* renderer, const PipelineDesc& pipeline_desc,
+		const GraphicsPipelineDesc& graphics_pipeline_desc);
+
+	static Pipeline* Create_ComputePipeline(DXRenderer* renderer, const PipelineDesc& pipeline_desc,
+		const ComputePipelineDesc& graphics_pipeline_desc);
+
 	static void Add_RenderTarget_View(
 		DXRenderer* renderer, 
 		RenderTarget* render_target, uint32_t mip_slice, 

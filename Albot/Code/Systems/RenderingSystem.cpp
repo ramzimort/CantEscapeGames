@@ -81,7 +81,7 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	Aabb new_aabb = Aabb::BuildFromLocalAABBAndModelMatrix(modelMatrix, meshesComp->GetModel()->GetAABB());
 	DebugAABBInstance aabb_instance = {new_aabb.m_Min, new_aabb.m_Max, Vector3(1.f, 0.f, 0.f)};
 
-	gAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
+	//gAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
 
 	//DRAW CODE GOES HERE
 }

@@ -56,8 +56,8 @@ float2 CalculateParallaxUV(float2 UV, float3 view_tangent)
     
     float2 scale = float2(0.0, 0.0);
 
-    scale.x = (height / (2));
-    scale.y = (height / (2));
+    scale.x = (height / (4));
+    scale.y = (height / (4));
 
     //return view_tangent.xy * parallax_val;
 
@@ -111,10 +111,10 @@ PS_OUT main(PS_IN ps_in)
         material_diffuse_color = Diffuse_Texture.Sample(Texture_Sampler, UV).rgb;
     }
     
-    
     //ps_out.WorldPosition = float4(ps_in.WorldPosition, 1.0);
     ps_out.WorldNormal = float4(world_normal, 1.0);
     ps_out.Albedo = float4(material_diffuse_color.rgb, 1.0);
+    //ps_out.Albedo = float4(UV.rg, 0.0, 1.0);
     ps_out.Specular = float4(MaterialUniformData_Buffer.SpecularColor.xyz, 1.0);
 
     return ps_out;
