@@ -756,57 +756,6 @@ void DXRenderer::unmap_buffer(Buffer* buffer)
 
 bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 {
-	RECT client_rect;
-	GetClientRect(m_window_handle, &client_rect);
-
-	unsigned int client_width = client_rect.right - client_rect.left;
-	unsigned int client_height = client_rect.bottom - client_rect.top;
-
-	DXGI_SWAP_CHAIN_DESC swap_chain_desc;
-	ZeroMemory(&swap_chain_desc, sizeof(DXGI_SWAP_CHAIN_DESC));
-
-	swap_chain_desc.BufferCount = 1;
-	swap_chain_desc.BufferDesc.Width = client_width;
-	swap_chain_desc.BufferDesc.Height = client_height;
-	swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	if (m_enable_vysnc)
-	{
-		swap_chain_desc.BufferDesc.RefreshRate.Numerator = 60;
-		swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
-	}
-	else
-	{
-		swap_chain_desc.BufferDesc.RefreshRate.Numerator = 0;
-		swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
-	}
-	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swap_chain_desc.OutputWindow = m_window_handle;
-	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
-	swap_chain_desc.SampleDesc.Quality = 0;
-	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-	swap_chain_desc.Windowed = TRUE;
-
-	UINT create_device_flags = 0;
-#if _DEBUG
-	create_device_flags = D3D11_CREATE_DEVICE_DEBUG;
-#endif
-
-	D3D_FEATURE_LEVEL feature_levels[] =
-	{
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_10_1,
-		D3D_FEATURE_LEVEL_10_0,
-		D3D_FEATURE_LEVEL_9_3,
-		D3D_FEATURE_LEVEL_9_2,
-		D3D_FEATURE_LEVEL_9_1
-	};
-
-	D3D_FEATURE_LEVEL feature_level;
-
-
-
-
 	HRESULT dxgi_hr = CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&m_dxgi_factory));
 
 	if (FAILED_HR(dxgi_hr))
@@ -830,7 +779,6 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 		adapter->GetDesc1(&desc);
 
 		char raw_char[64];
-
 		wcstombs(raw_char, desc.Description, MAX_PATH);
 
 		std::string gpu_name(raw_char);
@@ -855,9 +803,117 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 		}
 	}
 
+
+	RECT client_rect;
+	GetClientRect(m_window_handle, &client_rect);
+
+	unsigned int client_width = client_rect.right - client_rect.left;
+	unsigned int client_height = client_rect.bottom - client_rect.top;
+
+
+
+
+	IDXGIOutput* p_adapter_output;
+	unsigned num_modes;
+
+	HRESULT result;
+	// Enumerate the primary adapter output (monitor).
+	result = m_cur_adapter->EnumOutputs(0, &p_adapter_output);
+	if (FAILED(result))
+	{
+		return false;
+	}
+	/// Get the number of modes that fit the DXGI_FORMAT_R8G8B8A8_UNORM display format for the adapter output(monitor).
+	result = p_adapter_output->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &num_modes, NULL);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Create a list to hold all the possible display modes for this monitor/video card combination.
+	DXGI_MODE_DESC* display_mode_list;
+	display_mode_list = (DXGI_MODE_DESC*)alloca(num_modes * sizeof(DXGI_MODE_DESC));
+	if (!display_mode_list)
+	{
+		return false;
+	}
+
+	// Now fill the display mode list structures.
+	result = p_adapter_output->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &num_modes, display_mode_list);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+
+	p_adapter_output->Release();
+
+	unsigned numerator = 0;
+	unsigned denominator = 0;
+	for (unsigned i = 0; i < num_modes; i++)
+	{
+		if (display_mode_list[i].Width == (unsigned int)client_width)
+		{
+			if (display_mode_list[i].Height == (unsigned int)client_height)
+			{
+				numerator = display_mode_list[i].RefreshRate.Numerator;
+				denominator = display_mode_list[i].RefreshRate.Denominator;
+			}
+		}
+	}
+
+
+
+	DXGI_SWAP_CHAIN_DESC swap_chain_desc;
+	ZeroMemory(&swap_chain_desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+
+	swap_chain_desc.BufferCount = 3;
+	swap_chain_desc.BufferDesc.Width = client_width;
+	swap_chain_desc.BufferDesc.Height = client_height;
+	swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	if (m_enable_vysnc)
+	{
+		swap_chain_desc.BufferDesc.RefreshRate.Numerator = numerator;
+		swap_chain_desc.BufferDesc.RefreshRate.Denominator = denominator;
+	}
+	else
+	{
+		swap_chain_desc.BufferDesc.RefreshRate.Numerator = 0;
+		swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
+	}
+	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swap_chain_desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	swap_chain_desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	swap_chain_desc.OutputWindow = m_window_handle;
+	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
+	swap_chain_desc.SampleDesc.Quality = 0;
+	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	swap_chain_desc.Windowed = TRUE;
+
+	UINT create_device_flags = 0;
+#if _DEBUG
+	create_device_flags = D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
+	D3D_FEATURE_LEVEL feature_levels[] =
+	{
+		D3D_FEATURE_LEVEL_11_1,
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_1,
+		D3D_FEATURE_LEVEL_10_0,
+		D3D_FEATURE_LEVEL_9_3,
+		D3D_FEATURE_LEVEL_9_2,
+		D3D_FEATURE_LEVEL_9_1
+	};
+
+	D3D_FEATURE_LEVEL feature_level;
+
+	
+
+
 	HRESULT hr = D3D11CreateDeviceAndSwapChain(
 		m_cur_adapter,
-		D3D_DRIVER_TYPE_UNKNOWN,
+		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
 		create_device_flags,
 		feature_levels,
