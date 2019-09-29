@@ -14,8 +14,8 @@ public:
 	QueryResult(void* clientData0, void* clientData1);
 	bool operator==(const QueryResult& rhs) const;
 
-	void* mClientData0;
-	void* mClientData1;
+	void* m_clientData0;
+	void* m_clientData1;
 };
 
 // A collection of query results. These are not sorted in any specific order.
@@ -26,5 +26,5 @@ public:
 	void DeleteDuplicates();
 
 	typedef std::vector<QueryResult> Results;
-	Results mResults;
+	Results m_results;
 };

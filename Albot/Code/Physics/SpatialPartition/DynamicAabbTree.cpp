@@ -11,53 +11,53 @@ Other Authors :
 
 /////////////////////////// DynamicAabbTreeNode /////////////////////////// 
 #pragma region DynamicAabbTreeNode
-DynamicAabbTreeNode::DynamicAabbTreeNode() : mClientData(nullptr), mLeft(nullptr), mRight(nullptr), mParent(nullptr), mHeight(0), mId(0), mLastAxis(0) {}
-DynamicAabbTreeNode::DynamicAabbTreeNode(unsigned int key, const SpatialPartitionData& data) : mAabb(data.mAabb), mClientData(data.mClientData), mLeft(nullptr), mRight(nullptr), mParent(nullptr), mHeight(0), mId(key), mLastAxis(0)
+DynamicAabbTreeNode::DynamicAabbTreeNode() : m_ClientData(nullptr), m_Left(nullptr), m_Right(nullptr), m_Parent(nullptr), m_Height(0), m_Id(0), m_LastAxis(0) {}
+DynamicAabbTreeNode::DynamicAabbTreeNode(unsigned int key, const SpatialPartitionData& data) : m_Aabb(data.m_Aabb), m_ClientData(data.m_ClientData), m_Left(nullptr), m_Right(nullptr), m_Parent(nullptr), m_Height(0), m_Id(key), m_LastAxis(0)
 {
-	mAabb = mAabb.BuildFromCenterAndHalfExtents(mAabb.GetCenter(), mAabb.GetHalfExtent() * PhysicsUtils::Consts::fatteningFactor);
+	m_Aabb = m_Aabb.BuildFromCenterAndHalfExtents(m_Aabb.GetCenter(), m_Aabb.GetHalfExtent() * PhysicsUtils::Consts::fatteningFactor);
 }
 
 DynamicAabbTreeNode* DynamicAabbTreeNode::GetParent() const
 {
-	return mParent;
+	return m_Parent;
 }
 
 DynamicAabbTreeNode* DynamicAabbTreeNode::GetLeftChild() const
 {
-	return mLeft;
+	return m_Left;
 }
 
 DynamicAabbTreeNode* DynamicAabbTreeNode::GetRightChild() const
 {
-	return mRight;
+	return m_Right;
 }
 
 Aabb DynamicAabbTreeNode::GetAabb() const
 {
-	return mAabb;
+	return m_Aabb;
 }
 
 void* DynamicAabbTreeNode::GetClientData() const
 {
-	return mClientData;
+	return m_ClientData;
 }
 
 int DynamicAabbTreeNode::GetHeight() const
 {
-	return mHeight;
+	return m_Height;
 }
 
 
 bool DynamicAabbTreeNode::IsLeaf() const
 {
-	return (mLeft == nullptr) && (mRight == nullptr) ? true : false;
+	return (m_Left == nullptr) && (m_Right == nullptr) ? true : false;
 }
 #pragma endregion
 
 
 ///////////////////////////// DynamicAabbTree ///////////////////////
 #pragma region DynamicAabbTree
-DynamicAabbTree::DynamicAabbTree() : mRoot(nullptr), mCurrentId(0)
+DynamicAabbTree::DynamicAabbTree() : m_Root(nullptr), m_CurrentId(0)
 {
 }
 
@@ -66,12 +66,11 @@ void DynamicAabbTree::ClearRec(DynamicAabbTreeNode* node)
 	if (node->IsLeaf())
 	{
 		delete node;
-		//node = nullptr;
 		return;
 	}
 
-	ClearRec(node->mLeft);
-	ClearRec(node->mRight);
+	ClearRec(node->m_Left);
+	ClearRec(node->m_Right);
 
 	delete node;
 }
@@ -83,21 +82,20 @@ DynamicAabbTree::~DynamicAabbTree()
 
 void DynamicAabbTree::Clear()
 {
-	if (mRoot)
+	if (m_Root)
 	{
-		ClearRec(mRoot);
+		ClearRec(m_Root);
 	}
-	mData.clear();
-	mRoot = nullptr;
-	// TODO: clear properly
+	m_Data.clear();
+	m_Root = nullptr;
 }
 
 DynamicAabbTreeNode* DynamicAabbTree::NewNode(unsigned int& key, const SpatialPartitionData& data)
 {
-	key = mCurrentId;
+	key = m_CurrentId;
 	DynamicAabbTreeNode* newNode = new DynamicAabbTreeNode(key, data);
-	mData[mCurrentId] = newNode;
-	++mCurrentId;
+	m_Data[m_CurrentId] = newNode;
+	++m_CurrentId;
 	return newNode;
 }
 
@@ -108,19 +106,19 @@ float DynamicAabbTree::SurfaceArea(const Aabb& aabb1, const Aabb& aabb2) const
 
 DynamicAabbTreeNode* DynamicAabbTree::SelectNode(DynamicAabbTreeNode* newNode, DynamicAabbTreeNode* leftNode, DynamicAabbTreeNode* rightNode, bool& isLeft) const
 {
-	if (SurfaceArea(newNode->mAabb, leftNode->mAabb) - leftNode->mAabb.GetSurfaceArea() <
-		SurfaceArea(newNode->mAabb, rightNode->mAabb) - rightNode->mAabb.GetSurfaceArea())
+	if (SurfaceArea(newNode->m_Aabb, leftNode->m_Aabb) - leftNode->m_Aabb.GetSurfaceArea() <
+		SurfaceArea(newNode->m_Aabb, rightNode->m_Aabb) - rightNode->m_Aabb.GetSurfaceArea())
 	{
 		isLeft = true;
 		return leftNode;
-	} // else
+	}
 	isLeft = false;
 	return rightNode;
 }
 
 void DynamicAabbTree::BalanceTree(DynamicAabbTreeNode* tree, bool isLeft)
 {
-	const int heightDiference = tree->mRight->GetHeight() - tree->mLeft->GetHeight();
+	const int heightDiference = tree->m_Right->GetHeight() - tree->m_Left->GetHeight();
 
 	// already balanced?
 	if (PhysicsUtils::Abs(heightDiference) < 2)
@@ -130,67 +128,67 @@ void DynamicAabbTree::BalanceTree(DynamicAabbTreeNode* tree, bool isLeft)
 	DynamicAabbTreeNode* pivotNode;
 	if (heightDiference < 0) // left side is higher
 	{
-		pivotNode = tree->mLeft;
-		tree->mLeft = nullptr;
+		pivotNode = tree->m_Left;
+		tree->m_Left = nullptr;
 	}
 	else                     // right side is higher
 	{
-		pivotNode = tree->mRight;
-		tree->mRight = nullptr;
+		pivotNode = tree->m_Right;
+		tree->m_Right = nullptr;
 	}
 
 	// ataching pivot to grandnode
-	DynamicAabbTreeNode* granny = tree->mParent;
+	DynamicAabbTreeNode* granny = tree->m_Parent;
 	if (granny == nullptr)
 	{
-		mRoot = pivotNode;
-		pivotNode->mParent = nullptr;
+		m_Root = pivotNode;
+		pivotNode->m_Parent = nullptr;
 	}
 	else
 	{
 		if (isLeft)
 		{
-			granny->mLeft = pivotNode;
+			granny->m_Left = pivotNode;
 		}
 		else // right
 		{
-			granny->mRight = pivotNode;
+			granny->m_Right = pivotNode;
 		}
-		pivotNode->mParent = granny;
+		pivotNode->m_Parent = granny;
 	}
 
 	// identifying small and large children of the pivot node and ataching old parent to the pivot
 	DynamicAabbTreeNode* smallChild;
-	if (pivotNode->mLeft->GetHeight() < pivotNode->mRight->GetHeight())
+	if (pivotNode->m_Left->GetHeight() < pivotNode->m_Right->GetHeight())
 	{
-		smallChild = pivotNode->mLeft;
-		pivotNode->mLeft = tree;
-		tree->mParent = pivotNode;
+		smallChild = pivotNode->m_Left;
+		pivotNode->m_Left = tree;
+		tree->m_Parent = pivotNode;
 	}
 	else
 	{
-		smallChild = pivotNode->mRight;
-		pivotNode->mRight = tree;
-		tree->mParent = pivotNode;
+		smallChild = pivotNode->m_Right;
+		pivotNode->m_Right = tree;
+		tree->m_Parent = pivotNode;
 	}
 
 	// attaching back small child of pivot to the old parent
-	if (tree->mLeft == nullptr)
+	if (tree->m_Left == nullptr)
 	{
-		tree->mLeft = smallChild;
-		smallChild->mParent = tree;
+		tree->m_Left = smallChild;
+		smallChild->m_Parent = tree;
 	}
 	else
 	{
-		tree->mRight = smallChild;
-		smallChild->mParent = tree;
+		tree->m_Right = smallChild;
+		smallChild->m_Parent = tree;
 	}
 
 	// update heights
-	tree->mHeight = PhysicsUtils::Max(tree->mLeft->mHeight, tree->mRight->mHeight) + 1;
-	tree->mAabb = Aabb::Combine(tree->mLeft->mAabb, tree->mRight->mAabb);
-	pivotNode->mHeight = PhysicsUtils::Max(pivotNode->mLeft->mHeight, pivotNode->mRight->mHeight) + 1;
-	pivotNode->mAabb = Aabb::Combine(pivotNode->mLeft->mAabb, pivotNode->mRight->mAabb);
+	tree->m_Height = PhysicsUtils::Max(tree->m_Left->m_Height, tree->m_Right->m_Height) + 1;
+	tree->m_Aabb = Aabb::Combine(tree->m_Left->m_Aabb, tree->m_Right->m_Aabb);
+	pivotNode->m_Height = PhysicsUtils::Max(pivotNode->m_Left->m_Height, pivotNode->m_Right->m_Height) + 1;
+	pivotNode->m_Aabb = Aabb::Combine(pivotNode->m_Left->m_Aabb, pivotNode->m_Right->m_Aabb);
 }
 
 int DynamicAabbTree::InsertDataRec(unsigned int& key, const SpatialPartitionData& data, DynamicAabbTreeNode* newNode, DynamicAabbTreeNode* currentNode, bool is_left)
@@ -202,68 +200,66 @@ int DynamicAabbTree::InsertDataRec(unsigned int& key, const SpatialPartitionData
 		DynamicAabbTreeNode* newParent = new DynamicAabbTreeNode(static_cast<unsigned int>(-1), SpatialPartitionData());
 
 		// updating links
-		newParent->mLeft = currentNode;
-		newParent->mRight = newNode;
-		newParent->mParent = currentNode->mParent;
+		newParent->m_Left = currentNode;
+		newParent->m_Right = newNode;
+		newParent->m_Parent = currentNode->m_Parent;
 
-		newNode->mParent = newParent;
-		currentNode->mParent = newParent;
+		newNode->m_Parent = newParent;
+		currentNode->m_Parent = newParent;
 
 		// updating data
-		newParent->mHeight = currentNode->mHeight + 1;
-		newParent->mAabb = Aabb::Combine(currentNode->mAabb, newNode->mAabb);
+		newParent->m_Height = currentNode->m_Height + 1;
+		newParent->m_Aabb = Aabb::Combine(currentNode->m_Aabb, newNode->m_Aabb);
 
-		if (newParent->mParent == nullptr)
+		if (newParent->m_Parent == nullptr)
 		{
-			mRoot = newParent;
+			m_Root = newParent;
 		}
 		else
 		{
 			if (is_left)
 			{
-				newParent->mParent->mLeft = newParent;
+				newParent->m_Parent->m_Left = newParent;
 			}
 			else
 			{
-				newParent->mParent->mRight = newParent;
+				newParent->m_Parent->m_Right = newParent;
 			}
 		}
-		return newParent->mHeight;
+		return newParent->m_Height;
 	}
 	// not the bottom yet, keep going deeper
 	bool isLeftChild;
-	DynamicAabbTreeNode* nextNode = SelectNode(newNode, currentNode->mLeft, currentNode->mRight, isLeftChild);
-	currentNode->mHeight = PhysicsUtils::Max(currentNode->mHeight, 1 + InsertDataRec(key, data, newNode, nextNode, isLeftChild));
-	currentNode->mAabb = Aabb::Combine(currentNode->mLeft->mAabb, currentNode->mRight->mAabb);
+	DynamicAabbTreeNode* nextNode = SelectNode(newNode, currentNode->m_Left, currentNode->m_Right, isLeftChild);
+	currentNode->m_Height = PhysicsUtils::Max(currentNode->m_Height, 1 + InsertDataRec(key, data, newNode, nextNode, isLeftChild));
+	currentNode->m_Aabb = Aabb::Combine(currentNode->m_Left->m_Aabb, currentNode->m_Right->m_Aabb);
 	BalanceTree(currentNode, is_left);
-	return currentNode->mHeight;
+	return currentNode->m_Height;
 
 }
 
 void DynamicAabbTree::InsertData(unsigned int& key, const SpatialPartitionData& data)
 {
 	DynamicAabbTreeNode* newNode = NewNode(key, data);
-	// first node?
-	if (mRoot == nullptr)
+	if (m_Root == nullptr)
 	{
-		mRoot = newNode;
+		m_Root = newNode;
 		return;
 	}
 
-	InsertDataRec(key, data, newNode, mRoot, true);
+	InsertDataRec(key, data, newNode, m_Root, true);
 }
 
 void DynamicAabbTree::UpdateData(unsigned int& key, const SpatialPartitionData& data)
 {
-	if (mData.count(key) == 0) // invalid key?
+	if (m_Data.count(key) == 0)
 		return;
 
-	DynamicAabbTreeNode* nodeToCheck = mData.at(key);
+	DynamicAabbTreeNode* nodeToCheck = m_Data.at(key);
 
-	if (nodeToCheck->mAabb.Contains(data.mAabb))
+	if (nodeToCheck->m_Aabb.Contains(data.m_Aabb))
 		return;
 
-	// TODO: do not delete/new, just pop 
 	RemoveData(key);
 	InsertData(key, data);
 }
@@ -271,77 +267,75 @@ void DynamicAabbTree::UpdateData(unsigned int& key, const SpatialPartitionData& 
 void DynamicAabbTree::RemoveData(unsigned int& key)
 {
 	// invalid key?
-	if (mData.count(key) == 0)
+	if (m_Data.count(key) == 0)
 		return;
 
-	DynamicAabbTreeNode* nodeToDel = mData.at(key);
+	DynamicAabbTreeNode* nodeToDel = m_Data.at(key);
 
-	DynamicAabbTreeNode* parent = nodeToDel->mParent;
+	DynamicAabbTreeNode* parent = nodeToDel->m_Parent;
 	if (parent == nullptr)
 	{
 		// TODO: check for existance of children
 		delete nodeToDel;
-		mRoot = nullptr;
-		mData.clear();
+		m_Root = nullptr;
+		m_Data.clear();
 		return;
 	}
 
 	DynamicAabbTreeNode* nodeToUpdate;
-	if (static_cast<void*>(parent->mRight) == static_cast<void*>(nodeToDel))
+	if (static_cast<void*>(parent->m_Right) == static_cast<void*>(nodeToDel))
 	{
-		nodeToUpdate = parent->mLeft;
+		nodeToUpdate = parent->m_Left;
 	}
 	else
 	{
-		nodeToUpdate = parent->mRight;
+		nodeToUpdate = parent->m_Right;
 	}
 
-	DynamicAabbTreeNode* granny = parent->mParent;
+	DynamicAabbTreeNode* granny = parent->m_Parent;
 	if (granny == nullptr)
 	{
-		mRoot = nodeToUpdate;
-		nodeToUpdate->mParent = nullptr;
+		m_Root = nodeToUpdate;
+		nodeToUpdate->m_Parent = nullptr;
 	}
 	else
 	{
-		if (static_cast<void*>(granny->mRight) == static_cast<void*>(parent))
+		if (static_cast<void*>(granny->m_Right) == static_cast<void*>(parent))
 		{
-			granny->mRight = nodeToUpdate;
+			granny->m_Right = nodeToUpdate;
 		}
 		else
 		{
-			granny->mLeft = nodeToUpdate;
+			granny->m_Left = nodeToUpdate;
 		}
-		nodeToUpdate->mParent = granny;
+		nodeToUpdate->m_Parent = granny;
 	}
-	// TODO nodeToDel had lost children, they needs to be relocated
-	mData.erase(nodeToDel->mId);
-	// mData.erase(parent->mId);
+	m_Data.erase(nodeToDel->m_Id);
 	delete nodeToDel;
 	delete parent;
 
-	nodeToUpdate = nodeToUpdate->mParent;
+	nodeToUpdate = nodeToUpdate->m_Parent;
 	while (nodeToUpdate)
 	{
-		nodeToUpdate->mHeight = PhysicsUtils::Max(nodeToUpdate->mLeft->mHeight, nodeToUpdate->mRight->mHeight) + 1;
-		parent = nodeToUpdate->mParent;
+		nodeToUpdate->m_Height = PhysicsUtils::Max(nodeToUpdate->m_Left->m_Height, nodeToUpdate->m_Right->m_Height) + 1;
+		parent = nodeToUpdate->m_Parent;
 
 		bool nodeOnTheLeft = true;
 		if (parent != nullptr)
 		{
-			if (static_cast<void*>(parent->mRight) == static_cast<void*>(nodeToUpdate))
+			if (static_cast<void*>(parent->m_Right) == static_cast<void*>(nodeToUpdate))
 			{
 				nodeOnTheLeft = false;
 			}
 		}
 		BalanceTree(nodeToUpdate, nodeOnTheLeft);
-		nodeToUpdate->mAabb = Aabb::Combine(nodeToUpdate->mLeft->mAabb, nodeToUpdate->mRight->mAabb);
-		nodeToUpdate = nodeToUpdate->mParent;
+		nodeToUpdate->m_Aabb = Aabb::Combine(nodeToUpdate->m_Left->m_Aabb, nodeToUpdate->m_Right->m_Aabb);
+		nodeToUpdate = nodeToUpdate->m_Parent;
 	}
 }
 
-#ifdef _DEBUG
-void DynamicAabbTree::DebugDrawRec(int level, const DirectX::SimpleMath::Vector4& color, DynamicAabbTreeNode* node, int currentLevel)
+#ifdef DEVELOPER
+void DynamicAabbTree::DebugDrawRec(int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel)
 {
 	if (node == nullptr)
 		return;
@@ -354,19 +348,19 @@ void DynamicAabbTree::DebugDrawRec(int level, const DirectX::SimpleMath::Vector4
 
 	if (currentLevel == level || level == -1)
 	{
-		node->mAabb.DebugDraw(color);
+		node->m_Aabb.DebugDraw(color);
 	}
 
 	if (currentLevel < level || level == -1)
 	{
-		DebugDrawRec(level, color, node->mLeft, currentLevel + 1);
-		DebugDrawRec(level, color, node->mRight, currentLevel + 1);
+		DebugDrawRec(level, color, node->m_Left, currentLevel + 1);
+		DebugDrawRec(level, color, node->m_Right, currentLevel + 1);
 	}
 }
 
-void DynamicAabbTree::DebugDraw(int level, const DirectX::SimpleMath::Vector4& color)
+void DynamicAabbTree::DebugDraw(int level, const Vector4& color)
 {
-	DebugDrawRec(level, color, mRoot, 0);
+	DebugDrawRec(level, color, m_Root, 0);
 }
 #endif
 
@@ -376,15 +370,15 @@ void DynamicAabbTree::DebugDraw(int level, const DirectX::SimpleMath::Vector4& c
 //		return;
 //
 //	float t;
-//	if (Intersection::RayAabb(ray.start, ray.direction, node->mAabb.GetMin(), node->mAabb.GetMax(), t))
+//	if (Intersection::RayAabb(ray.start, ray.direction, node->m_Aabb.GetMin(), node->m_Aabb.GetMax(), t))
 //	{
 //		RayCastResult result;
 //		result.mClientData = node->mClientData;
 //		result.mTime = t;
 //		if (node->mLeft == nullptr)
 //			results.AddResult(result);
-//		CastRayRec(ray, results, node->mLeft);
-//		CastRayRec(ray, results, node->mRight);
+//		CastRayRec(ray, results, node->m_Left);
+//		CastRayRec(ray, results, node->m_Right);
 //	}
 //}
 //
@@ -404,8 +398,8 @@ void DynamicAabbTree::DebugDraw(int level, const DirectX::SimpleMath::Vector4& c
 //        result.mClientData = node->mClientData;
 //        results.AddResult(result);
 //    }
-//    FrustumAddResultsRec(results, node->mLeft);
-//    FrustumAddResultsRec(results, node->mRight);
+//    FrustumAddResultsRec(results, node->m_Left);
+//    FrustumAddResultsRec(results, node->m_Right);
 //}
 //
 //void DynamicAabbTree::CastFrustumRec(const Frustum& frustum, CastResults& results, DynamicAabbTreeNode* node) const
@@ -413,7 +407,7 @@ void DynamicAabbTree::DebugDraw(int level, const DirectX::SimpleMath::Vector4& c
 //    if (node == nullptr)
 //        return;
 //
-//    const unsigned test = FrustumAabb(frustum.GetPlanes(), node->mAabb.GetMin(), node->mAabb.GetMax(), node->mLastAxis);
+//    const unsigned test = FrustumAabb(frustum.GetPlanes(), node->m_Aabb.GetMin(), node->m_Aabb.GetMax(), node->mLastAxis);
 //    if (Intersection::IntersectionType::Outside == test)
 //        return;
 //
@@ -440,49 +434,49 @@ void DynamicAabbTree::DebugDraw(int level, const DirectX::SimpleMath::Vector4& c
 
 void DynamicAabbTree::SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* node) const
 {
-	if (node == nullptr || node->mLeft == nullptr)
+	if (node == nullptr || node->m_Left == nullptr)
 	{
 		return;
 	}
 
-	SelfQueryRec(results, node->mLeft, node->mRight);
-	SelfQueryRec(results, node->mLeft);
-	SelfQueryRec(results, node->mRight);
+	SelfQueryRec(results, node->m_Left, node->m_Right);
+	SelfQueryRec(results, node->m_Left);
+	SelfQueryRec(results, node->m_Right);
 }
 
 void DynamicAabbTree::SplitNodes(QueryResults& results, DynamicAabbTreeNode* left, DynamicAabbTreeNode* right) const
 {
 	if (right->GetAabb().GetVolume() < left->GetAabb().GetVolume())
 	{
-		SelfQueryRec(results, left->mLeft, right);
-		SelfQueryRec(results, left->mRight, right);
+		SelfQueryRec(results, left->m_Left, right);
+		SelfQueryRec(results, left->m_Right, right);
 	}
 	else
 	{
-		SelfQueryRec(results, left, right->mLeft);
-		SelfQueryRec(results, left, right->mRight);
+		SelfQueryRec(results, left, right->m_Left);
+		SelfQueryRec(results, left, right->m_Right);
 	}
 }
 
 void DynamicAabbTree::SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* left, DynamicAabbTreeNode* right) const
 {
-	bool isColliding = Intersection::AabbAabb(left->mAabb.GetMin(), left->mAabb.GetMax(), right->mAabb.GetMin(), right->mAabb.GetMax());
+	bool isColliding = Intersection::AabbAabb(left->m_Aabb.GetMin(), left->m_Aabb.GetMax(), right->m_Aabb.GetMin(), right->m_Aabb.GetMax());
 	if (!isColliding)
 		return;
 	// both are leafs
 	if (left->IsLeaf() && right->IsLeaf())
 	{
-		results.AddResult(QueryResult(left->mClientData, right->mClientData));
+		results.AddResult(QueryResult(left->m_ClientData, right->m_ClientData));
 	}// one internal one leaf
 	else if (left->IsLeaf())
 	{
-		SelfQueryRec(results, left, right->mLeft);
-		SelfQueryRec(results, left, right->mRight);
+		SelfQueryRec(results, left, right->m_Left);
+		SelfQueryRec(results, left, right->m_Right);
 	}
 	else if (right->IsLeaf())
 	{
-		SelfQueryRec(results, left->mLeft, right);
-		SelfQueryRec(results, left->mRight, right);
+		SelfQueryRec(results, left->m_Left, right);
+		SelfQueryRec(results, left->m_Right, right);
 	}// Both are internal, split the nodes
 	else
 	{
@@ -492,12 +486,12 @@ void DynamicAabbTree::SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* l
 
 void DynamicAabbTree::SelfQuery(QueryResults& results)
 {
-	SelfQueryRec(results, mRoot);
+	SelfQueryRec(results, m_Root);
 }
 
 DynamicAabbTreeNode* DynamicAabbTree::GetRoot() const
 {
 	// Return the root of your tree so that unit tests can print out the contents
-	return mRoot;
+	return m_Root;
 }
 #pragma endregion

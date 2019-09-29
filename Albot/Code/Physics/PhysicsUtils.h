@@ -39,14 +39,14 @@ namespace PhysicsUtils
 		return lhs < rhs ? rhs : lhs;
 	}
 
-	inline DirectX::SimpleMath::Vector3 Max(const DirectX::SimpleMath::Vector3& lhs, const DirectX::SimpleMath::Vector3& rhs)
+	inline Vector3 Max(const Vector3& lhs, const Vector3& rhs)
 	{
-		return DirectX::SimpleMath::Vector3(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y), Max(lhs.z, rhs.z));
+		return Vector3(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y), Max(lhs.z, rhs.z));
 	}
 
-	inline DirectX::SimpleMath::Vector3 Min(const DirectX::SimpleMath::Vector3& lhs, const DirectX::SimpleMath::Vector3& rhs)
+	inline Vector3 Min(const Vector3& lhs, const Vector3& rhs)
 	{
-		return DirectX::SimpleMath::Vector3(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y), Min(lhs.z, rhs.z));
+		return Vector3(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y), Min(lhs.z, rhs.z));
 	}
 
 	template <typename  T>
@@ -62,26 +62,24 @@ namespace PhysicsUtils
 	}
 
 #ifdef DEVELOPER
-	class MathPrinter
+	namespace MathPrinter
 	{
-	public:
-		static void PrintVector3(const DirectX::SimpleMath::Vector3& vec)
+		inline void PrintVector3(const Vector3& vec)
 		{
 			std::cout << "[" << vec.x << ", " << vec.y << ", " << vec.z << "]" << std::endl;
 		}
-		static void PrintVector4(const DirectX::SimpleMath::Vector4& vec)
+		inline void PrintVector4(const Vector4& vec)
 		{
 			std::cout << "[" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << "]" << std::endl;
 		}
-		//#endif
 
-		static void PrintMatrix(const DirectX::SimpleMath::Matrix& m)
+		inline void PrintMatrix(const Matrix& m)
 		{
 			const DirectX::XMFLOAT4X4& mXMFloat(m);
 
 			for (int i = 0; i < 4; ++i)
 			{
-				PrintVector4(DirectX::SimpleMath::Vector4(mXMFloat.m[i]));
+				PrintVector4(Vector4(mXMFloat.m[i]));
 			}
 		}
 	};

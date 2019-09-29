@@ -11,13 +11,6 @@ Other Authors :
 #include "SpatialPartitionData.h"
 #include "QueryResults.h"
 
-/////////////////////////// SpatialPartitionData /////////////////////////
-
-
-///////////////////////////// QueryResult ////////////////////////////////////
-
-
-////////// DynamicAabbTreeNode ////////////
 class DynamicAabbTree;
 class DynamicAabbTreeNode
 {
@@ -37,16 +30,16 @@ public:
 	bool IsLeaf() const;
 
 private:
-	Aabb mAabb;
-	void* mClientData;
+	Aabb m_Aabb;
+	void* m_ClientData;
 
-	DynamicAabbTreeNode* mLeft;
-	DynamicAabbTreeNode* mRight;
-	DynamicAabbTreeNode* mParent;
-	int mHeight;
-	unsigned int mId;
+	DynamicAabbTreeNode* m_Left;
+	DynamicAabbTreeNode* m_Right;
+	DynamicAabbTreeNode* m_Parent;
+	int m_Height;
+	unsigned int m_Id;
 
-	size_t mLastAxis;
+	size_t m_LastAxis;
 };
 
 
@@ -71,9 +64,9 @@ public:
 	void RemoveData(unsigned int& key);
 	//void CastRay(const Ray& ray, RayCastResults& results);
 
-#ifdef _DEBUG
-	void DebugDrawRec(int level, const DirectX::SimpleMath::Vector4& color, DynamicAabbTreeNode* node, int currentLevel);
-	void DebugDraw(int level, const DirectX::SimpleMath::Vector4& color = DirectX::SimpleMath::Vector4(1));
+#ifdef DEVELOPER
+	void DebugDrawRec(int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel);
+	void DebugDraw(int level, const Vector4& color = Vector4(1));
 #endif
 
 	/*void CastRayRec(const Ray& ray, RayCastResults& results, DynamicAabbTreeNode* node) const;
@@ -94,8 +87,8 @@ public:
 	DynamicAabbTreeNode* GetRoot() const;
 
 private:
-	DynamicAabbTreeNode* mRoot;
-	unsigned int mCurrentId;
+	DynamicAabbTreeNode* m_Root;
+	unsigned int m_CurrentId;
 
-	std::unordered_map<unsigned int, DynamicAabbTreeNode*> mData;
+	std::unordered_map<unsigned int, DynamicAabbTreeNode*> m_Data;
 };

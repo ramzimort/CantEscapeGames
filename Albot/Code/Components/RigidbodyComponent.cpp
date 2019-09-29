@@ -7,28 +7,28 @@ Primary Author:
 
 
 #include "RigidbodyComponent.h"
-unsigned const Rigidbody::static_type = BaseComponent::numberOfTypes++;
+unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
-	rttr::registration::class_<Rigidbody>("Rigidbody")
-		.method("Init", &Rigidbody::Init)
-		.method("Begin", &Rigidbody::Begin);
+	rttr::registration::class_<RigidbodyComponent>("Rigidbody")
+		.method("Init", &RigidbodyComponent::Init)
+		.method("Begin", &RigidbodyComponent::Begin);
 }
 
-Rigidbody::Rigidbody(GameObject *owner) :
-	BaseComponent(owner, Rigidbody::static_type)
+RigidbodyComponent::RigidbodyComponent(GameObject *owner) :
+	BaseComponent(owner, RigidbodyComponent::static_type)
 {
 }
 
-Rigidbody::~Rigidbody()
+RigidbodyComponent::~RigidbodyComponent()
 {
 }
 
-void Rigidbody::Init()
+void RigidbodyComponent::Init()
 {
 }
 
-void Rigidbody::Begin()
+void RigidbodyComponent::Begin()
 {
 }

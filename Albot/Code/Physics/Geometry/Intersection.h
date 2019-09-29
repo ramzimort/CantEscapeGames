@@ -7,9 +7,8 @@ Other Authors :
 
 #pragma once
 
-class Intersection
+namespace Intersection
 {
-public:
 	enum IntersectionType
 	{
 		Coplanar = 0,
@@ -18,21 +17,13 @@ public:
 		Overlaps = 4
 	};
 
-	static IntersectionType PointPlane(const DirectX::SimpleMath::Vector3& point, const DirectX::SimpleMath::Vector4& plane, float epsilon);
+	IntersectionType PointPlane(const Vector3& point, const Vector4& plane, float epsilon);
+	bool PointSphere(const Vector3& point, const Vector3& sphereCenter, float sphereRadius);
+	bool PointAabb(const Vector3& point, const Vector3& aabbMin, const Vector3& aabbMax);
+	bool AabbAabb(const Vector3& aabbMinA, const Vector3& aabbMaxA, const Vector3& aabbMinB, const Vector3& aabbMaxB);
+	bool SphereSphere(const Vector3& sphereCenterA, float sphereRadiusA, const Vector3& sphereCenterB, float sphereRadiusB);
+	bool AabbSphere(const Vector3& aabbMin, const Vector3& aabbMax, const Vector3& sphereCenter, float sphereRadius);
 
-	static bool PointSphere(const DirectX::SimpleMath::Vector3& point, const DirectX::SimpleMath::Vector3& sphereCenter, float sphereRadius);
-
-	static bool PointAabb(const DirectX::SimpleMath::Vector3& point, const DirectX::SimpleMath::Vector3& aabbMin, const DirectX::SimpleMath::Vector3& aabbMax);
-
-	static bool AabbAabb(const DirectX::SimpleMath::Vector3& aabbMinA, const DirectX::SimpleMath::Vector3& aabbMaxA,
-						 const DirectX::SimpleMath::Vector3& aabbMinB, const DirectX::SimpleMath::Vector3& aabbMaxB);
-
-	static bool SphereSphere(const DirectX::SimpleMath::Vector3& sphereCenterA, float sphereRadiusA,
-							 const DirectX::SimpleMath::Vector3& sphereCenterB, float sphereRadiusB);
-	static bool AabbSphere(const DirectX::SimpleMath::Vector3& aabbMin, const DirectX::SimpleMath::Vector3& aabbMax,
-						   const DirectX::SimpleMath::Vector3& sphereCenter, float sphereRadius);
-
-	static float SqDistPointAabb(const DirectX::SimpleMath::Vector3& point,
-								 const DirectX::SimpleMath::Vector3& aabbMin, const DirectX::SimpleMath::Vector3& aabbMax);
+	float SqDistPointAabb(const Vector3& point, const Vector3& aabbMin, const Vector3& aabbMax);
 
 };

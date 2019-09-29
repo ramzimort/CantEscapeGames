@@ -2,7 +2,7 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author:
+Primary Author: Aleksey Perfilev
 - End Header --------------------------------------------------------*/
 
 ///HEADER STUFF
@@ -11,9 +11,10 @@ Primary Author:
 
 ///INCLUDES
 #include "BaseComponent.h"
+#include "Physics/Geometry/Aabb.h"
 
 
-class Rigidbody : public BaseComponent
+class RigidbodyComponent : public BaseComponent
 {
 
 //Friend classes
@@ -22,17 +23,16 @@ public:
 
 //Public interface
 public:
-	Rigidbody(GameObject *owner);
-	virtual ~Rigidbody();
+	RigidbodyComponent(GameObject *owner);
+	virtual ~RigidbodyComponent();
 
 	virtual void Init() override;
 	virtual void Begin() override;
-
 
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
 
-	RTTR_ENABLE(BaseComponent);
-	RTTR_REGISTRATION_FRIEND;
+	Aabb m_aabb;
+	unsigned int dynamicAabbTreeKey;
 };

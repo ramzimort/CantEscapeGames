@@ -8,34 +8,34 @@ Other Authors :
 #include "QueryResults.h"
 
 ///////////////////////////// QueryResult ////////////////////////////////////
-QueryResult::QueryResult() : mClientData0(nullptr), mClientData1(nullptr)
+QueryResult::QueryResult() : m_clientData0(nullptr), m_clientData1(nullptr)
 {
 }
 
-QueryResult::QueryResult(void* clientData0, void* clientData1) : mClientData0(clientData0), mClientData1(clientData1)
+QueryResult::QueryResult(void* clientData0, void* clientData1) : m_clientData0(clientData0), m_clientData1(clientData1)
 {
 }
 
 bool QueryResult::operator==(const QueryResult& rhs) const
 {
-	return ((mClientData0 == rhs.mClientData0 && mClientData1 == rhs.mClientData1) ||
-		(mClientData0 == rhs.mClientData1 && mClientData1 == rhs.mClientData0));
+	return ((m_clientData0 == rhs.m_clientData0 && m_clientData1 == rhs.m_clientData1) ||
+		(m_clientData0 == rhs.m_clientData1 && m_clientData1 == rhs.m_clientData0));
 }
 
 ///////////////////////////// QueryResults ////////////////////////////////////
 void QueryResults::AddResult(const QueryResult& result)
 {
-	mResults.push_back(result);
+	m_results.push_back(result);
 }
 
 void QueryResults::DeleteDuplicates()
 {
-	auto end = mResults.end();
+	auto end = m_results.end();
 
-	for (auto it = mResults.begin(); it != end; ++it)
+	for (auto it = m_results.begin(); it != end; ++it)
 	{
 		end = std::remove(it + 1, end, *it);
 	}
 
-	mResults.erase(end, mResults.end());
+	m_results.erase(end, m_results.end());
 }

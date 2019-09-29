@@ -9,22 +9,26 @@ Primary Author: Jose Rosenbluth
 
 ///Includes
 #include "BaseSystem.h"
+#include "Physics/SpatialPartition/DynamicAabbTree.h"
+#include "Physics/CollisionTable.h"
+#include "../Components/MeshComponent.h"
 
 class TransformComponent;
-class Rigidbody;
+class RigidbodyComponent;
+class MeshComponent;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
 
 struct RigidbodyCompNode : BaseSystemCompNode
 {
-	TransformComponent *n_transform;
-	Rigidbody *n_rigidbody;
+	TransformComponent* m_transform;
+	RigidbodyComponent* m_rigidbody;
+	MeshComponent* m_mesh;
 
 	//Ctor
-	RigidbodyCompNode(TransformComponent *transform,
-		Rigidbody *rigidbody) : n_transform(transform),
-		n_rigidbody(rigidbody)
+	RigidbodyCompNode(TransformComponent* transform, RigidbodyComponent* rigidbody, MeshComponent* mesh)
+	: m_transform(transform), m_rigidbody(rigidbody), m_mesh(mesh)
 	{}
 };
 
@@ -45,10 +49,21 @@ public:
 
 	virtual void LateUpdate(float dt) override;
 
+	//void UpdateBoundingBox(const TransformComponent& transform, const Model);
 protected:
 	//protected vars
 
 public:
 	//To compare when using templates
 	static unsigned int const static_type;
+
+	DynamicAabbTree& GetAabbTree();
+	
+private:
+	// this is used to make fixed update time
+	float  m_timeAccumulator;
+
+	DynamicAabbTree m_broadPhase;
+	
+	CollisionTable m_collisionTable;
 };

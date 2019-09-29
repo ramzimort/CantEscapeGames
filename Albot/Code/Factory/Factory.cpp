@@ -28,6 +28,7 @@ Primary Author:
 #include "Components/CameraComponent.h"
 #include "Systems/FPSCameraSystem.h"
 #include "Managers/ResourceManager.h"
+#include "Physics/SpatialPartition/SpatialPartitionData.h"
 extern CameraManager* gCameraManager;
 extern ResourceManager* gResourceManager;
 
@@ -70,7 +71,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		auto *T = go->AddComponent<TransformComponent>();	         ////
 		//Override code								         ////
 		                                                     ////
-		auto *R = go->AddComponent<Rigidbody>();	         ////
+		auto *R = go->AddComponent<RigidbodyComponent>();	         ////
 		//Override code								         ////
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc2);	         ////
@@ -156,6 +157,39 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc6);
 
+
+	
+	const int row = 3;
+	const int col = 3;
+	const int depth = 3;
+	const int step = 4;
+	GameObjectDesc descArr[row][col][depth] = {};
+	for (int i = 0; i < row; ++i)
+	{
+		for (int j = 0; j < col; ++j)
+		{
+			for (int k = 0; k < depth; ++k)
+			{
+				descArr[i][j][k].tag = "obj[" + std::to_string(i) + "][" + std::to_string(j) + "][" + std::to_string(k);						         ////
+				descArr[i][j][k].initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular, i, j, k, step](GameObject* go)	         ////
+				{	
+					auto* T = go->AddComponent<TransformComponent>();
+					T->SetLocalPosition(step * i, step * j, step * k);////
+
+					auto* rb = go->AddComponent<RigidbodyComponent>();
+
+					auto rendererComp = go->AddComponent<RendererComponent>();
+					rendererComp->SetMaterial(red_diffuse_purple_specular);
+
+					auto meshesComp = go->AddComponent<MeshComponent>();
+					meshesComp->SetModel(mitsubaSphereModel);
+					//Override code								         ////
+				};												         ////
+				goMgr->Queue_GameObject_Instantiation(&descArr[i][j][k]);
+			}
+		}
+	}
+	
 	/////////////////////////////////////////////////////////////
 }
 

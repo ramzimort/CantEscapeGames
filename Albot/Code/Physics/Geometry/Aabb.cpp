@@ -9,20 +9,20 @@ Other Authors :
 #include "Intersection.h"
 #include "../PhysicsUtils.h"
 
-Aabb::Aabb() : mMin(FLT_MAX), mMax(-FLT_MAX) //set the aabb to an initial bad value (where the min is smaller than the max)
+Aabb::Aabb() : m_Min(FLT_MAX), m_Max(-FLT_MAX)
 {
 }
 
-Aabb::Aabb(const DirectX::SimpleMath::Vector3& min, const DirectX::SimpleMath::Vector3& max) : mMin(min), mMax(max)
+Aabb::Aabb(const Vector3& min, const Vector3& max) : m_Min(min), m_Max(max)
 {
 }
 
-Aabb Aabb::BuildFromCenterAndHalfExtents(const DirectX::SimpleMath::Vector3& center, const DirectX::SimpleMath::Vector3& halfExtents)
+Aabb Aabb::BuildFromCenterAndHalfExtents(const Vector3& center, const Vector3& halfExtents)
 {
 	return Aabb(center - halfExtents, center + halfExtents); 
 }
 
-Aabb Aabb::BuildFromMinMax(const DirectX::SimpleMath::Vector3& min, const DirectX::SimpleMath::Vector3& max)
+Aabb Aabb::BuildFromMinMax(const Vector3& min, const Vector3& max)
 {
 	return Aabb(min, max);
 }
@@ -31,8 +31,8 @@ Aabb Aabb::BuildFromLocalAABBAndModelMatrix(const Matrix& modelMatrix, const Aab
 {
 	const Vector3 translationPortion(modelMatrix._41, modelMatrix._42, modelMatrix._43);
 
-	const Vector3& oriMin = localAABB.mMin;
-	const Vector3& oriMax = localAABB.mMax;
+	const Vector3& oriMin = localAABB.m_Min;
+	const Vector3& oriMax = localAABB.m_Max;
 
 	Vector3 worldMinPoint, worldMaxPoint;
 
@@ -165,67 +165,64 @@ Aabb Aabb::BuildFromLocalAABBAndModelMatrix(const Matrix& modelMatrix, const Aab
 
 float Aabb::GetVolume() const
 {
-	return abs((mMax.x - mMin.x) * (mMax.y - mMin.y) * (mMax.z - mMin.z));
+	return abs((m_Max.x - m_Min.x) * (m_Max.y - m_Min.y) * (m_Max.z - m_Min.z));
 }
 
 float Aabb::GetSurfaceArea() const
 {
-	// Return the aabb's surface area
-	return 2.0f * (abs((mMax.x - mMin.x) * (mMax.y - mMin.y)) +
-		abs((mMax.x - mMin.x) * (mMax.z - mMin.z)) +
-		abs((mMax.y - mMin.y) * (mMax.z - mMin.z)));
+	return 2.0f * (abs((m_Max.x - m_Min.x) * (m_Max.y - m_Min.y)) +
+		abs((m_Max.x - m_Min.x) * (m_Max.z - m_Min.z)) +
+		abs((m_Max.y - m_Min.y) * (m_Max.z - m_Min.z)));
 }
 
-void Aabb::Compute(const std::vector<DirectX::SimpleMath::Vector3>& points)
+void Aabb::Compute(const std::vector<Vector3>& points)
 {
-	mMin = DirectX::SimpleMath::Vector3(FLT_MAX);
-	mMax = DirectX::SimpleMath::Vector3(-FLT_MAX);
+	m_Min = Vector3(FLT_MAX);
+	m_Max = Vector3(-FLT_MAX);
 
-	for (const DirectX::SimpleMath::Vector3& point : points)
+	for (const Vector3& point : points)
 	{
-		mMin = PhysicsUtils::Min(mMin, point);
-		mMax = PhysicsUtils::Max(mMax, point);
+		m_Min = PhysicsUtils::Min(m_Min, point);
+		m_Max = PhysicsUtils::Max(m_Max, point);
 	}
 }
 
 bool Aabb::IsIntersect(const Aabb& aabb) const
 {
-	return Intersection::AabbAabb(mMin, mMax, aabb.mMin, aabb.mMax);
+	return Intersection::AabbAabb(m_Min, m_Max, aabb.m_Min, aabb.m_Max);
 }
 
 bool Aabb::IsIntersect(const Sphere& sphere) const
 {
-	return Intersection::AabbSphere(mMin, mMax, sphere.mCenter, sphere.mRadius);
+	return Intersection::AabbSphere(m_Min, m_Max, sphere.m_Center, sphere.m_Radius);
 }
 
 bool Aabb::Contains(const Aabb& aabb) const
 {
-	// Return if aabb is completely contained in this
-	return mMin.x < aabb.mMin.x && mMin.y < aabb.mMin.y && mMin.z < aabb.mMin.z &&
-		mMax.x > aabb.mMax.x && mMax.y > aabb.mMax.y && mMax.z > aabb.mMax.z;
+	return m_Min.x < aabb.m_Min.x && m_Min.y < aabb.m_Min.y && m_Min.z < aabb.m_Min.z &&
+		   m_Max.x > aabb.m_Max.x && m_Max.y > aabb.m_Max.y && m_Max.z > aabb.m_Max.z;
 }
 
-void Aabb::Expand(const DirectX::SimpleMath::Vector3& point)
+void Aabb::Expand(const Vector3& point)
 {
-	mMin = PhysicsUtils::Min(mMin, point);
-	mMax = PhysicsUtils::Max(mMax, point);
+	m_Min = PhysicsUtils::Min(m_Min, point);
+	m_Max = PhysicsUtils::Max(m_Max, point);
 }
 
 Aabb Aabb::Combine(const Aabb& lhs, const Aabb& rhs)
 {
 	Aabb result;
-	result.mMin = PhysicsUtils::Min(lhs.mMin, rhs.mMin);
-	result.mMax = PhysicsUtils::Max(lhs.mMax, rhs.mMax);
+	
+	result.m_Min = PhysicsUtils::Min(lhs.m_Min, rhs.m_Min);
+	result.m_Max = PhysicsUtils::Max(lhs.m_Max, rhs.m_Max);
+	
 	return result;
 }
 
-void Aabb::Transform(const DirectX::SimpleMath::Matrix& transform)
+void Aabb::Transform(const Matrix& transform)
 {
-	// Compute aabb of the this aabb after it is transformed.
-	using namespace DirectX::SimpleMath;
-	Matrix m(transform.Right(), transform.Up(), transform.Backward());
-
 	// getting |M|, where M is rotation portion of the transformation
+	Matrix m(transform.Right(), transform.Up(), transform.Backward());
 	DirectX::XMFLOAT4X4& mXMFLOAT = m;
 	for (int i = 0; i < 3; ++i)
 	{
@@ -236,54 +233,50 @@ void Aabb::Transform(const DirectX::SimpleMath::Matrix& transform)
 	}
 	const Matrix absM(mXMFLOAT);
 
-	// translation portion of the transformation
 	const Vector3 translate(transform.Translation());
 
-	// transforming half extent of the aabb (half of the diagonal)
 	const Vector3 halfExtents = GetHalfExtent();
 	const Vector3 halfExtentTransformed = Vector3::Transform(halfExtents, absM);
 
-	// transforming center of the aabb
-	const DirectX::SimpleMath::Vector3 center = translate + Vector3::Transform(GetCenter(), m);
+	const Vector3 center = translate + Vector3::Transform(GetCenter(), m);
 
-	// buuilding transformed aabb
 	const Aabb aabb = BuildFromCenterAndHalfExtents(center, halfExtentTransformed);
 
-	mMin = aabb.mMin;
-	mMax = aabb.mMax;
+	m_Min = aabb.m_Min;
+	m_Max = aabb.m_Max;
 }
 
-DirectX::SimpleMath::Vector3 Aabb::GetMin() const
+Vector3 Aabb::GetMin() const
 {
-	return mMin;
+	return m_Min;
 }
 
-DirectX::SimpleMath::Vector3 Aabb::GetMax() const
+Vector3 Aabb::GetMax() const
 {
-	return mMax;
+	return m_Max;
 }
 
-DirectX::SimpleMath::Vector3 Aabb::GetCenter() const
+Vector3 Aabb::GetCenter() const
 {
-	return (mMin + mMax) * 0.5f;
+	return (m_Min + m_Max) * 0.5f;
 }
 
-DirectX::SimpleMath::Vector3 Aabb::GetHalfExtent() const
+Vector3 Aabb::GetHalfExtent() const
 {
-	return (mMax - mMin) * 0.5f;
+	return (m_Max - m_Min) * 0.5f;
 }
 #ifdef DEVELOPER
 
-void Aabb::DebugDraw(const DirectX::SimpleMath::Vector4& /*color*/) const
+void Aabb::DebugDraw(const Vector4& /*color*/) const
 {
-	
+	// TODO
 }
 
 void Aabb::Print() const
 {
 	std::cout << "min = ";
-	std::cout << "[" << mMin.x << ", " << mMin.y << ", " << mMin.z << "]" << std::endl;
+	std::cout << "[" << m_Min.x << ", " << m_Min.y << ", " << m_Min.z << "]" << std::endl;
 	std::cout << "max = ";
-	std::cout << "[" << mMax.x << ", " << mMax.y << ", " << mMax.z << "]" << std::endl;
+	std::cout << "[" << m_Max.x << ", " << m_Max.y << ", " << m_Max.z << "]" << std::endl;
 }
 #endif

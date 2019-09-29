@@ -7,15 +7,15 @@ Other Authors :
 
 #include "SpatialPartitionData.h"
 
-SpatialPartitionData::SpatialPartitionData() : mClientData(nullptr)
+SpatialPartitionData::SpatialPartitionData() : m_ClientData(nullptr)
 {
 }
 
-SpatialPartitionData::SpatialPartitionData(void* clientData, const Aabb& aabb) : mClientData(clientData), mAabb(aabb)
+SpatialPartitionData::SpatialPartitionData(void* clientData, const Aabb& aabb) : m_ClientData(clientData), m_Aabb(aabb)
 {
 }
 
 bool SpatialPartitionData::operator<(const SpatialPartitionData& rhs) const
 {
-	return mClientData < rhs.mClientData;
+	return m_ClientData < rhs.m_ClientData;
 }

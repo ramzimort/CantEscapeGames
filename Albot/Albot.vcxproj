@@ -334,7 +334,6 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\PhysicsManager.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -356,6 +355,7 @@
     <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
+    <ClCompile Include="Code\Physics\CollisionTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -418,7 +418,6 @@
     <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
-    <ClInclude Include="Code\Physics\PhysicsManager.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
@@ -435,6 +434,7 @@
     <ClInclude Include="Code\Systems\RigidbodySystem.h" />
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
+    <ClInclude Include="Code\Physics\CollisionTable.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Code\Shaders\debug_frag.hlsl">
