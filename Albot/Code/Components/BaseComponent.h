@@ -20,7 +20,8 @@ class BaseComponent
 
 //Friend classes
 public:
-	friend class ComponentFactory;
+	friend class Factory;
+	friend class GameObject;
 	typedef unsigned int ComponentId;
 
 //Public interface
@@ -32,14 +33,18 @@ public:
 	}
 	virtual ~BaseComponent() { }
 
+	ComponentId GetType() const { return m_type; }
+
+	GameObject* GetGameObjectOwner() const { return m_owner; }
+
+private:
+	BaseComponent(BaseComponent& rhs);
+
 	//Init should be called when instantiating the component
 	virtual void Init() = 0;
 	//Begin should be called once all the gameobject components have been created
 	virtual void Begin() = 0;
 
-	ComponentId GetType() const { return m_type; }
-
-	GameObject* GetGameObjectOwner() const { return m_owner; }
 
 protected:
 	static ComponentId numberOfTypes;
@@ -48,9 +53,6 @@ protected:
 protected:
 	ComponentId m_type;
 	GameObject *m_owner;
-
-private:
-	BaseComponent(BaseComponent& rhs);
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

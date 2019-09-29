@@ -30,8 +30,16 @@ GameObject::~GameObject()
 {
 	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i) 
 	{
-		delete m_components[i];
+		BaseComponent *c = m_components[i];
+		if (c != nullptr)
+			delete m_components[i];
 	}
+
+	for (auto& node : m_customComponents) 
+	{
+		delete node.second;
+	}
+	m_customComponents.clear();
 }
 
 size_t GameObject::GetId() const
@@ -63,4 +71,46 @@ void GameObject::Destroy()
 bool GameObject::Is_marked_for_remove() const
 {
 	return m_markedForRemoval;
+}
+
+void GameObject::Begin()
+{
+	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i)
+	{
+		BaseComponent *c = m_components[i];
+		if (c)
+			c->Begin();
+	}
+
+	for (auto& node : m_customComponents) 
+	{
+		node.second->Begin();
+	}
+}
+
+
+CustomComponent *GameObject::AddCustomComponent(std::string scriptName)
+{
+	//Check first if the gameobj already has this custom component
+	CustomComponent *component = this->m_customComponents[scriptName];
+	if (component)
+		return component;
+
+	//If it does not exist, create it and add it
+	component = new CustomComponent(this);			
+
+	//If it was created correctly
+	if (component)
+	{
+		component->ScriptSetup(scriptName);
+		m_customComponents[scriptName] = component;
+		return component;
+	}
+	return nullptr;
+}
+
+
+CustomComponent *GameObject::GetCustomComponent(std::string scriptName)
+{
+	return this->m_customComponents[scriptName];
 }

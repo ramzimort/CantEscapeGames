@@ -14,6 +14,10 @@ Primary Author:
 
 #include "../Events/Multicast.h"
 
+//Testing it works
+#define SOL_ALL_SAFETIES_ON 1
+#include "sol/sol.hpp"
+
 
 class TestComp : public BaseComponent
 {
@@ -36,4 +40,9 @@ public:
 
 	//Multicast testing
 	Multicast<void(float)> onWhateverFires;
+
+	//For testing the scripts
+	sol::state *luaState;
+	std::string testName;
+
 };

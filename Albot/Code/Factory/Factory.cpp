@@ -45,63 +45,108 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	/////////////////////////////////////////////////////////////
 	//   LATER, THIS PART HAS TO BE DONE USING THE PATH      ////
 	/////////////////////////////////////////////////////////////
-	//   EXAMPLE OF HOW TO ADD GAMEOBJECTS                   ////
-                                                             ////
-													         ////
-	//Will register in rendering system				         ////
-	GameObjectDesc desc1;							         ////
-	desc1.tag = "monoRojo";							         ////
-	desc1.componentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();	         ////
-		//Override code								         ////
-													         ////
-		auto *R = go->AddComponent<RendererComponent>();     ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc1);	         ////
-													         ////
-													         ////
-													         ////
-	//Will register in rigidbody system				         ////
-	GameObjectDesc desc2;							         ////
-	desc2.tag = "monoAzul";							         ////
-	desc2.componentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();	         ////
-		//Override code								         ////
-		                                                     ////
-		auto *R = go->AddComponent<RigidbodyComponent>();	         ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc2);	         ////
-													         ////
-													         ////
-													         ////
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc3;							         ////
-	desc3.tag = "monoVerde";						         ////
-	desc3.componentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TestComp>();		         ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc3);	         ////
-													         ////
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc4;							         ////
-	desc4.tag = "FPSPlayer";						         ////
-	desc4.componentSetup = [](GameObject *go)		         ////
-	{												         ////
+	//   EXAMPLE OF HOW TO ADD GAMEOBJECTS              
+                                                        
+													    
+	//Will register in rendering system				    
+	GameObjectDesc desc_1;							    
+	desc_1.tag = "monoRojo";
+	desc_1.componentSetup = [](GameObject *go)
+	{												    
+		auto *T = go->AddComponent<TransformComponent>();	    
+		//Override code								    
+		T->Init();										
+													    
+		auto *R = go->AddComponent<RendererComponent>();
+		//Override code								    
+		R->Init();									    
+		                                                
+		//Begin code								    
+		go->Begin();									
+	};												    
+	goMgr->Queue_GameObject_Instantiation(&desc_1);
+													    
+													    
+													    
+	//Will register in rigidbody system				    
+	GameObjectDesc desc_2;							    
+	desc_2.tag = "monoAzul";
+	desc_2.componentSetup = [](GameObject *go)
+	{												    
 		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
+		//Override code								    
+		T->Init();
+		                                                
+		auto *R = go->AddComponent<RigidbodyComponent>();	    
+		//Override code								    
+		R->Init();									    
+														
+		//Begin code								    
+		go->Begin();									
+	};												    
+	goMgr->Queue_GameObject_Instantiation(&desc_2);
+													    
+													    
+													    
+	//Wont be registered in any system				    
+	GameObjectDesc desc_3_;							    
+	desc_3_.tag = "JoseScriptTest01";
+	desc_3_.componentSetup = [](GameObject *go)
+	{												    
+		auto *T = go->AddComponent<TestComp>();
+		T->Init();						
+
+		auto *AC = go->AddCustomComponent("test01Comp");
+		AC->Init();
+
+		auto *SC = go->AddCustomComponent("test02Comp");
+		SC->Init();
+														
+		//Begin code								    
+		go->Begin();									
+	};												    
+	goMgr->Queue_GameObject_Instantiation(&desc_3_);
+
+
+
+	//Wont be registered in any system				    
+	GameObjectDesc desc3_1;
+	desc3_1.tag = "JoseScriptTest_02";
+	desc3_1.componentSetup = [](GameObject *go)
+	{
+		auto *AC = go->AddCustomComponent("test01Comp");
+		AC->Init();
+
+		//Begin code								    
+		go->Begin();
+	};
+	goMgr->Queue_GameObject_Instantiation(&desc3_1);
+													      
+													      
+													   
+													      
+	//Wont be registered in any system				      
+	GameObjectDesc desc4;							      
+	desc4.tag = "FPSPlayer";						      
+	desc4.componentSetup = [](GameObject *go)		      
+	{												      
+		auto *T = go->AddComponent<TransformComponent>();
+		T->SetLocalPosition(0.f, 0.f, 0.f);
+		T->Init();
 
 		auto cameraComp = go->AddComponent<CameraComponent>();
 		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
 		cameraComp->SetCamera(cameraInfo->m_camera);
-		//Override code								         ////
-	};												         ////
+		//Override code															
+		cameraComp->Init();
+
+		//Begin code	
+		go->Begin();
+	};
 	goMgr->Queue_GameObject_Instantiation(&desc4);
+
+
+
 
 
 	gResourceManager->LoadModel("mitsuba-sphere.obj", false);
@@ -111,18 +156,19 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	Material* red_diffuse_purple_specular = new Material();
 	red_diffuse_purple_specular->m_diffuseColor = Vector4(1.f, 0.f, 0.f, 1.f);
 	red_diffuse_purple_specular->m_specularColor = Vector4(1.f, 0.f, 1.f, 1.f);
-
 	//gResourceManager->GetMaterial(red_diffuse_purple_specular_desc, "Red_Diffuse_Purple_Specular");
-
 	//Material* red_diffuse_purple_specular = gResourceManager->GetMaterial("Red_Diffuse_Purple_Specular");
 
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc5 = {};							         ////
-	desc5.tag = "mitsubaismybottom";						         ////
-	desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)	         ////
-	{												         ////
+
+
+
+	//Wont be registered in any system
+	GameObjectDesc desc5 = {};
+	desc5.tag = "mitsubaismybottom";
+	desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)
+	{
 		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
+		T->SetLocalPosition(0.f, 0.f, 0.f);
 
 		go->AddComponent<TestComp>();
 
@@ -131,9 +177,11 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		
 		auto meshesComp = go->AddComponent<MeshComponent>();
 		meshesComp->SetModel(mitsubaSphereModel);
-		//Override code								         ////
-	};												         ////
+		//Override code
+	};
 	goMgr->Queue_GameObject_Instantiation(&desc5);
+
+
 
 
 	Light directionalLight = {};
@@ -143,19 +191,21 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	directionalLight.m_radius = 5.f;
 	directionalLight.m_light_type = ELightType::DIRECTIONAL_LIGHT;
 
-	GameObjectDesc desc6 = {};							         ////
-	desc6.tag = "directionalLight";						         ////
-	desc6.initializeComponentSetup = [directionalLight](GameObject *go)	         ////
-	{												         ////
+	GameObjectDesc desc6 = {};		
+	desc6.tag = "directionalLight";	
+	desc6.initializeComponentSetup = [directionalLight](GameObject *go)
+	{
 		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
+		T->SetLocalPosition(0.f, 0.f, 0.f);
 		T->SetLocalRotation(60.0f, 30.0f, 0.0f);
 
 		auto lightComp = go->AddComponent<LightComponent>();
 		lightComp->SetLight(directionalLight);
-		//Override code								         ////
-	};												         ////
+		//Override code
+	};
 	goMgr->Queue_GameObject_Instantiation(&desc6);
+
+
 
 
 	
@@ -170,11 +220,11 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		{
 			for (int k = 0; k < depth; ++k)
 			{
-				descArr[i][j][k].tag = "obj[" + std::to_string(i) + "][" + std::to_string(j) + "][" + std::to_string(k);						         ////
-				descArr[i][j][k].initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular, i, j, k, step](GameObject* go)	         ////
+				descArr[i][j][k].tag = "obj[" + std::to_string(i) + "][" + std::to_string(j) + "][" + std::to_string(k);					
+				descArr[i][j][k].initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular, i, j, k, step](GameObject* go)
 				{	
 					auto* T = go->AddComponent<TransformComponent>();
-					T->SetLocalPosition(step * i, step * j, step * k);////
+					T->SetLocalPosition(step * i, step * j, step * k);
 
 					auto* rb = go->AddComponent<RigidbodyComponent>();
 
@@ -183,14 +233,12 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 
 					auto meshesComp = go->AddComponent<MeshComponent>();
 					meshesComp->SetModel(mitsubaSphereModel);
-					//Override code								         ////
-				};												         ////
+					//Override code
+				};
 				goMgr->Queue_GameObject_Instantiation(&descArr[i][j][k]);
 			}
 		}
 	}
-	
-	/////////////////////////////////////////////////////////////
 }
 
 

@@ -8,6 +8,8 @@
 // TODO - REMOVE LATER (jose)
 #include "Managers/StateManager.h"
 StateManager *stateMgr;
+#include "Managers/ScriptingManager.h"
+ScriptingManager *luaMgr;
 
 
 //TODO: remove later (ALBERTO ;_T)
@@ -39,6 +41,10 @@ int CALLBACK WinMain(
 	bool done = false;
 	float dt;
 
+	// TODO - REMOVE LATER (jose)
+	stateMgr = new StateManager();
+	stateMgr->SwitchState(new State("level1.json"));
+	luaMgr = new ScriptingManager();
 
 	//TODO - ALBERTO STUFF ;)
 	gCameraManager = new CameraManager();
@@ -55,6 +61,10 @@ int CALLBACK WinMain(
 	// TODO - REMOVE LATER (jose)
 	stateMgr = new StateManager();
 	stateMgr->SwitchState(new State("level1.json"));
+	//
+
+	DEBUG_INIT;
+	DEBUG_LOG("Frame Time: %f ms\n", 20.f);
 	while (!gInputManager->IsQuit())
 	{
 		frame_manager.StartFrame();
@@ -70,6 +80,7 @@ int CALLBACK WinMain(
 		stateMgr->ProcessInstantiationAndDestruction();
 		stateMgr->UpdateStack(dt);
 		stateMgr->DrawStack(dt);
+
 		// TODO - ALBERTOOOO
 		gAppRenderer->UpdateAppRenderer(dt);
 		gAppRenderer->RenderApp();
@@ -81,6 +92,7 @@ int CALLBACK WinMain(
 	gAppRenderer->Release();
 	// TODO - REMOVE LATER (jose)
 	delete stateMgr;
+	delete luaMgr;
 
 	return 0;
 }

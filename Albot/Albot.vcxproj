@@ -140,7 +140,9 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Lua.lib;SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>
+      </SubSystem>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d  "$(SolutionDir)ThirdParty\DLL\Win32\*.dll" "$(OutDir)"</Command>
@@ -161,6 +163,9 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc141-mtd.lib;SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;Lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>
+      </SubSystem>
       <AdditionalDependencies>assimp-vc141-mtd.lib;SDL2.lib;CantDebug_d.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK_d.lib;librttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
@@ -252,6 +257,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
       <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;Lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -279,6 +285,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;Lua.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies>assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>
@@ -294,6 +301,7 @@
     <ClCompile Include="Code\Components\CameraComponent.cpp" />
     <ClCompile Include="Code\Components\LightComponent.cpp" />
     <ClCompile Include="Code\Components\MeshComponent.cpp" />
+    <ClCompile Include="Code\Components\CustomComponent\CustomComponent.cpp" />
     <ClCompile Include="Code\Components\RendererComponent.cpp" />
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
@@ -327,6 +335,7 @@
     <ClCompile Include="Code\Managers\GameObjectManager.cpp" />
     <ClCompile Include="Code\Managers\InputManager.cpp" />
     <ClCompile Include="Code\Managers\ResourceManager.cpp" />
+    <ClCompile Include="Code\Managers\ScriptingManager.cpp" />
     <ClCompile Include="Code\Managers\StateManager.cpp" />
     <ClCompile Include="Code\Managers\SystemManager.cpp" />
     <ClCompile Include="Code\Managers\WindowManager.cpp" />
@@ -349,6 +358,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
+    <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
     <ClCompile Include="Code\Systems\FPSCameraSystem.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
@@ -362,6 +372,7 @@
     <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\CameraComponent.h" />
+    <ClInclude Include="Code\Components\CustomComponent\CustomComponent.h" />
     <ClInclude Include="Code\Components\LightComponent.h" />
     <ClInclude Include="Code\Components\MeshComponent.h" />
     <ClInclude Include="Code\Components\RendererComponent.h" />
@@ -407,6 +418,7 @@
     <ClInclude Include="Code\Managers\GameObjectManager.h" />
     <ClInclude Include="Code\Managers\InputManager.h" />
     <ClInclude Include="Code\Managers\ResourceManager.h" />
+    <ClInclude Include="Code\Managers\ScriptingManager.h" />
     <ClInclude Include="Code\Managers\StateManager.h" />
     <ClInclude Include="Code\Managers\SystemManager.h" />
     <ClInclude Include="Code\Managers\WindowManager.h" />
@@ -428,6 +440,7 @@
     <ClInclude Include="Code\States\State.h" />
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
+    <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
     <ClInclude Include="Code\Systems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
@@ -566,6 +579,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Code\Scripts\test01Comp.lua" />
+    <None Include="Code\Scripts\test02Comp.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

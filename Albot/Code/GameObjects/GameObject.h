@@ -8,7 +8,7 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 #include "Components/BaseComponent.h"
-
+#include "Components/CustomComponent/CustomComponent.h"
 
 class GameObjectManager;
 
@@ -31,7 +31,13 @@ public:
 	template<typename T>
 	T* GetComponent();
 	template<typename T>
+	std::vector<T*> GetAllComponents();
+	template<typename T>
 	T* AddComponent();
+
+	//Special add comp for custom script component
+	CustomComponent *AddCustomComponent(std::string scriptName);
+	CustomComponent *GetCustomComponent(std::string scriptName);
 
 	//Remove functions
 	void Destroy();
@@ -41,6 +47,12 @@ public:
 	ComponentMask GetComponentMask() const;
 	size_t GetId() const;
 	std::string GetTag() const;
+
+
+private:
+	//Begin methods, will call on all its components
+	void Begin();
+
 
 //Variables
 private:
@@ -57,7 +69,13 @@ private:
 	//Tag will be an optional identifier, set by us in the json file
 	std::string m_tag;
 
+	//Container for the ENGINE components - For now separated from custom
 	BaseComponent* m_components[MAX_NUM_COMPONENTS] = { 0 }; //128 bytes
+
+	//Container for CUSTOM components - For now separated from engine
+	std::unordered_map<std::string, CustomComponent*> m_customComponents;
+	
+	//Pointer to the manager that handles this gameobj
 	GameObjectManager *m_gameObjectMgr;
 };
 
@@ -80,6 +98,19 @@ T* GameObject::GetComponent()
 		return nullptr;
 
 	return static_cast<T*>(m_components[componentTypeId]);
+}
+
+
+template<typename T>
+std::vector<T*> GameObject::GetAllComponents()
+{
+	std::vector<T*> vec;
+
+	//GET ALL CUSTOM COMP AND ADD TO VEC
+	for (auto& node : m_customComponents)
+		vec.push_back(node.second);
+
+	return vec;
 }
 
 

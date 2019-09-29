@@ -16,17 +16,22 @@ Primary Author: Jose Rosenbluth
 #include "Systems/TestSystem.h"
 #include "Systems/FPSCameraSystem.h"
 #include "Systems/LightSystem.h"
+#include "Systems/CustomSystem/CustomSystem.h"
 
 SystemManager::SystemManager()
 {
-	//ADD HERE THE CUSTOM SYSTEMS
-		//Test (erase later)
-	this->AddSystem<TestSystem>();
+	//ADD HERE THE SYSTEMS
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<LightSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<FPSCameraSystem>();
+
+	//Test (erase later)
+	this->AddSystem<TestSystem>();
+
+	//LAST SYSTEM TO BE ADDED
+	this->AddSystem<CustomSystem>();
 }
 
 SystemManager::~SystemManager()
