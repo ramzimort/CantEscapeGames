@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CantDebug.h"
 #include "DataQueue.h"
+#include "SliderFloatQueue.h"
 #include "Logger.h"
 #include "MemoryProfiler.h"
 
@@ -17,6 +18,7 @@ static DataQueue*				g_traceQueue = NULL;
 static DataQueue*				g_logQueue = NULL;
 static DataQueue*				g_memoryQueue = NULL;
 static MemoryProfiler*			g_memoryProfiler = NULL;
+static SliderFloatQueue* g_sliderFloatQueue = NULL;
 
 // Our State
 bool _update = true;
@@ -28,6 +30,7 @@ ImVec4 clear_color = ImVec4(0.15f, 0.1f, 0.90f, 1.00f);
 void UpdateLog();
 void UpdateTrace();
 void UpdateMemoryProfile();
+void UpdateGraphicsSettings();
 void Render();
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
@@ -68,6 +71,7 @@ namespace CantDebugAPI
 		g_logQueue = new DataQueue();
 		g_traceQueue = new DataQueue();
 		g_memoryProfiler = new MemoryProfiler();
+		g_sliderFloatQueue = new SliderFloatQueue();
 	}
 
 	void UpdateDebugWindow()
@@ -83,6 +87,7 @@ namespace CantDebugAPI
 		if (_showDemoWindow)
 			ImGui::ShowDemoWindow();
 
+		UpdateGraphicsSettings();
 		UpdateLog();
 		UpdateTrace();
 		UpdateMemoryProfile();
@@ -127,6 +132,11 @@ namespace CantDebugAPI
 	{
 		g_memoryProfiler->FreeAllElements(pool, address);
 	}
+
+	void SliderFloat(const char* sliderName, float* pData, float min, float max)
+	{
+		g_sliderFloatQueue->m_queueData.push(SliderFloatQueue::SliderFloatData{ sliderName, pData, min, max });
+	}
 }
 
 // Helper functions
@@ -146,6 +156,20 @@ void UpdateTrace()
 	ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 	while (!g_traceQueue->Empty())
 		ImGui::Text(g_traceQueue->Pop().c_str());
+	ImGui::End();
+}
+
+void UpdateGraphicsSettings()
+{
+	ImGui::Begin("Graphics Settings");
+
+	while (!g_sliderFloatQueue->m_queueData.empty())
+	{
+		const SliderFloatQueue::SliderFloatData& data = g_sliderFloatQueue->m_queueData.front();
+		ImGui::SliderFloat(data.m_sliderFloatName.c_str(), data.m_pData, data.m_min, data.m_max);
+		g_sliderFloatQueue->m_queueData.pop();
+	}
+
 	ImGui::End();
 }
 

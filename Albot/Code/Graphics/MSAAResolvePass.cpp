@@ -4,6 +4,7 @@
 #include "Shaders/Shading.h"
 #include "Graphics/MSAAResolvePass.h"
 #include "Graphics/GraphicsSettings.h"
+#include "CantDebug/CantDebug.h"
 
 
 MSAAResolvePass::MSAAResolvePass(AppRenderer* app_renderer)
@@ -45,6 +46,10 @@ void MSAAResolvePass::ResolveMSAASwapChain()
 	m_dxrenderer->cmd_set_viewport(0, 0, m_app_renderer->m_intermediate_rt->get_desc().m_texture_desc.m_width,
 		m_app_renderer->m_intermediate_rt->get_desc().m_texture_desc.m_height);
 */
+
+
+
+	DEBUG_SLIDERFLOAT("MSAA Filter Size", &GraphicsSettings::MSAA_Filter_Size, 0.1f, 6.f);
 
 	m_msaa_resolve_uniform_data.FilterSize = GraphicsSettings::MSAA_Filter_Size;
 	m_msaa_resolve_uniform_data.SampleRadius = static_cast<int> ((m_msaa_resolve_uniform_data.FilterSize / 2.0f) + 0.499f);

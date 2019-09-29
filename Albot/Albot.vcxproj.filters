@@ -162,4 +162,7 @@
     <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
     <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Code\Shaders\blur_filter_comp.hlsl" />
+  </ItemGroup>
 </Project>

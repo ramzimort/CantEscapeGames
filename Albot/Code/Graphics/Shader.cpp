@@ -97,6 +97,48 @@ std::string Get_Latest_Profile_Local<ID3D11PixelShader>(ID3D11Device* device)
 
 
 template<>
+std::string Get_Latest_Profile_Local<ID3D11ComputeShader>(ID3D11Device* device)
+{
+	assert(device);
+
+	D3D_FEATURE_LEVEL feature_level = device->GetFeatureLevel();
+
+	switch (feature_level)
+	{
+	case D3D_FEATURE_LEVEL_11_1:
+	case D3D_FEATURE_LEVEL_11_0:
+	{
+		return "cs_5_0";
+	}
+	break;
+	case D3D_FEATURE_LEVEL_10_1:
+	{
+		return "cs_4_1";
+	}
+	break;
+	case D3D_FEATURE_LEVEL_10_0:
+	{
+		return "cs_4_0";
+	}
+	break;
+	case D3D_FEATURE_LEVEL_9_3:
+	{
+		return "cs_4_0_level_9_3";
+	}
+	break;
+	case D3D_FEATURE_LEVEL_9_2:
+	case D3D_FEATURE_LEVEL_9_1:
+	{
+		return "cs_4_0_level_9_1";
+	}
+	break;
+	}
+
+	return "";
+}
+
+
+template<>
 ID3D11VertexShader* Create_Shader_Local<ID3D11VertexShader>(ID3D11Device* device,
 	ID3DBlob* p_shader_blob, ID3D11ClassLinkage* p_class_linkage)
 {
@@ -140,6 +182,29 @@ ID3D11PixelShader* Create_Shader_Local<ID3D11PixelShader>(ID3D11Device* device,
 
 	return p_pixel_shader;
 }
+
+template<>
+ID3D11ComputeShader* Create_Shader_Local<ID3D11ComputeShader>(ID3D11Device* device,
+	ID3DBlob* p_shader_blob, ID3D11ClassLinkage* p_class_linkage)
+{
+	assert(device);
+	assert(p_shader_blob);
+
+	ID3D11ComputeShader* p_compute_shader = nullptr;
+
+	HRESULT hr = device->CreateComputeShader(
+		p_shader_blob->GetBufferPointer(),
+		p_shader_blob->GetBufferSize(),
+		p_class_linkage, &p_compute_shader);
+
+	if (FAILED_HR(hr))
+	{
+		return nullptr;
+	}
+
+	return p_compute_shader;
+}
+
 
 template<class ShaderClass>
 ShaderClass* Load_Shader(ID3D11Device* device,
@@ -236,6 +301,18 @@ void Shader::Inner_Initialize(ID3D11Device* device, const ShaderLoadDesc& shader
 
 void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_desc)
 {
+	if (shader_load_desc.m_desc.m_compute_shader_path != "")
+	{
+		m_compute_shader = Load_Shader<ID3D11ComputeShader>(device,
+			Constant::ShadersDir + shader_load_desc.m_desc.m_compute_shader_path, "main", "latest",
+			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
+			m_compute_shader_blob);
+
+		m_shader_stages |= Shader_Stages::COMPUTE_STAGE;
+		return;
+	}
+
+
 	if (shader_load_desc.m_desc.m_vertex_shader_path != "")
 	{
 		m_vertex_shader = Load_Shader<ID3D11VertexShader>(device,

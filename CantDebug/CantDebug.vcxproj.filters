@@ -57,6 +57,9 @@
     <ClInclude Include="MemoryProfiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SliderFloatQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MemoryProfiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SliderFloatQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

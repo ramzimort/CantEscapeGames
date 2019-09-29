@@ -191,7 +191,8 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 		}
 		//printf("size : %i ", back_desc.p_sizes.size();
 
-		if (cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_BUFFER)
+		if (cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_BUFFER ||
+			cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_RW_BUFFER)
 		{
 			for (uint32_t j = 0; j < final_var_count; ++j)
 			{
@@ -215,7 +216,8 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 
 
 		}
-		else if (cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_TEXTURE)
+		else if (cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_TEXTURE ||
+			cur_descriptor->m_descriptor_type == DescriptorType::DESCRIPTOR_RW_TEXTURE)
 		{
 
 			for (uint32_t j = 0; j < final_var_count; ++j)
@@ -308,6 +310,17 @@ void DXRenderer::cmd_draw_index_instanced(
 	cmd.m_cmd_draw_index_instanced.m_indices_count = indices_count;
 	cmd.m_cmd_draw_index_instanced.m_first_index = first_index;
 	cmd.m_cmd_draw_index_instanced.m_first_vertex = first_vertex;
+	m_cmd_list.push_back(cmd);
+}
+
+
+void DXRenderer::cmd_dispatch(uint32_t thread_group_x, uint32_t thread_group_y, uint32_t thread_group_z)
+{
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type::DXCMD_Type_Dispatch;
+	cmd.m_cmd_dispatch.m_thread_group_x = thread_group_x;
+	cmd.m_cmd_dispatch.m_thread_group_y = thread_group_y;
+	cmd.m_cmd_dispatch.m_thread_group_z = thread_group_z;
 	m_cmd_list.push_back(cmd);
 }
 
@@ -423,13 +436,22 @@ void DXRenderer::execute_queued_cmd()
 							}
 						}
 					}
-					else if (buffer_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS)
-					{
-						//TODO:
-
-					}
+					
 				}
+				else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_RW_BUFFER)
+				{
+					const BufferDesc& buffer_desc = p_cur_descriptor_data->m_buffers[0]->m_desc;
+					assert((buffer_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS) != 0);
 
+					ID3D11UnorderedAccessView* uavs[32] = { NULL };
+					for (uint32_t index = 0; index < var_count; ++index)
+					{
+						Buffer* uav_buffer = p_cur_descriptor_data->m_buffers[index];
+						uavs[index] = uav_buffer->m_uav;
+					}
+
+					set_uav_resources(p_cur_descriptor_data->m_binding_location, var_count, uavs);
+				}
 				else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_SAMPLER)
 				{
 					//TODO:
@@ -458,7 +480,19 @@ void DXRenderer::execute_queued_cmd()
 					set_shader_resources(p_cur_descriptor_data->m_binding_location,
 						descriptor_shader_stages, var_count, srvs);
 				}
+				else if (cur_descriptor_type == DescriptorType::DESCRIPTOR_RW_TEXTURE)
+				{
+					const TextureDesc& texture_desc = p_cur_descriptor_data->m_textures[0]->m_texture_desc;
+					assert((texture_desc.m_bindFlags & Bind_Flags::BIND_UNORDERED_ACCESS) != 0);
 
+					ID3D11UnorderedAccessView* uavs[32] = { NULL };
+					for (uint32_t index = 0; index < var_count; ++index)
+					{
+						Texture* uav_texture = p_cur_descriptor_data->m_textures[index];
+						uavs[index] = uav_texture->m_pp_uav[p_cur_descriptor_data->m_uav_mip_slice];
+					}
+					set_uav_resources(p_cur_descriptor_data->m_binding_location, var_count, uavs);
+				}
 			}
 			break;
 		}
@@ -477,6 +511,7 @@ void DXRenderer::execute_queued_cmd()
 			if (pipeline)
 			{
 				reset_shader_resources();
+				reset_shader_uavs();
 				PipelineType pipeline_type = cmd_bind_pipeline.m_pipeline->m_desc.m_pipeline_type;
 				if (pipeline_type == PipelineType::GRAPHICS)
 				{
@@ -498,8 +533,12 @@ void DXRenderer::execute_queued_cmd()
 				}
 				else if (pipeline_type == PipelineType::COMPUTE)
 				{
-					//TODO:
+					m_d3d_device_context->OMSetBlendState(nullptr, clear_color_black, (~0));
+					m_d3d_device_context->RSSetState(nullptr);
+					m_d3d_device_context->OMSetDepthStencilState(nullptr, 0);
 
+					ID3D11ComputeShader* cs_shader = pipeline->m_desc.m_compute_desc.m_shader->m_compute_shader;
+					m_d3d_device_context->CSSetShader(cs_shader, nullptr, 0);
 				}
 			}
 			else
@@ -632,6 +671,12 @@ void DXRenderer::execute_queued_cmd()
 				cmd_draw_index_instanced.m_first_instance);
 			break;
 		}
+		case DXCMD_Type::DXCMD_Type_Dispatch:
+		{
+			const DXCMD_Dispatch& dispatch = cmd.m_cmd_dispatch;
+			m_d3d_device_context->Dispatch(dispatch.m_thread_group_x, dispatch.m_thread_group_y, dispatch.m_thread_group_z);
+			break;
+		}
 		}
 	}
 	m_descriptor_data_list.clear();
@@ -678,6 +723,14 @@ void DXRenderer::set_shader_resources(uint32_t binding_loc, Shader_Stages shader
 			num_resources, pp_resource_views);
 	}
 }
+
+void DXRenderer::set_uav_resources(uint32_t binding_loc, uint32_t num_resources,
+	ID3D11UnorderedAccessView** pp_uav_views)
+{
+	m_d3d_device_context->CSSetUnorderedAccessViews(binding_loc,
+		num_resources, pp_uav_views, nullptr);
+}
+
 
 void  DXRenderer::set_constant_buffer(uint32_t binding_loc, Shader_Stages shader_stages,
 	uint32_t num_resources, ID3D11Buffer** pp_buffers)

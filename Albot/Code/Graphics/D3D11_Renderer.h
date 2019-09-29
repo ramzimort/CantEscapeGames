@@ -44,6 +44,7 @@ public:
 	void cmd_draw_index(uint32_t indices_count, uint32_t first_index, uint32_t first_vertex);
 	void cmd_draw_index_instanced(uint32_t instance_count, uint32_t first_instance, uint32_t indices_count,
 		uint32_t first_index, uint32_t first_vertex);
+	void cmd_dispatch(uint32_t thread_group_x, uint32_t thread_group_y, uint32_t thread_group_z);
 
 	//TODO: temmp function / cmd, should use staging buffer way to update gpu buffer
 	void cmd_update_buffer(const BufferUpdateDesc& buffer_update_desc);
@@ -72,6 +73,11 @@ private:
 
 	void reset_shader_resources();
 	void reset_shader_uavs();
+
+	void set_uav_resources(uint32_t binding_loc, uint32_t num_resources,
+		ID3D11UnorderedAccessView** pp_uav_views);
+
+
 	void set_shader_resources(uint32_t binding_loc, Shader_Stages shader_stages,
 		uint32_t num_resources, ID3D11ShaderResourceView** pp_resource_views);
 
