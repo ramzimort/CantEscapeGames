@@ -12,6 +12,7 @@ Primary Author: Aleksey Perfilev
 ///INCLUDES
 #include "BaseComponent.h"
 #include "Physics/Geometry/Aabb.h"
+#include "Physics/CollisionTable.h"
 
 
 class RigidbodyComponent : public BaseComponent
@@ -32,7 +33,11 @@ public:
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
-
+	
 	Aabb m_aabb;
-	unsigned int dynamicAabbTreeKey;
+	Vector3 m_position;
+	Vector3 m_velocity;
+	
+	unsigned int m_dynamicAabbTreeKey;
+	CollisionTable::CollisionMask m_collisionMask;
 };

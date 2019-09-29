@@ -20,6 +20,7 @@ namespace PhysicsUtils
 		const int maxPhysicsIterationsPerFrame = 5;
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
 		const float fatteningFactor = 1.1f;
+		const Vector3 gravity(0.0f, -9.8f, 0.0f);
 		
 		// path
 		const std::string Assets_Dir = "Assets\\";

@@ -43,7 +43,7 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 	SpatialPartitionData data1;
 	data1.m_Aabb = rigidbody->m_aabb;
 	data1.m_ClientData = rigidbody;
-	m_broadPhase.InsertData(rigidbody->dynamicAabbTreeKey, data1);
+	m_broadPhase.InsertData(rigidbody->m_dynamicAabbTreeKey, data1);
 	
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
@@ -82,7 +82,7 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			// updating aabb tree
 			SpatialPartitionData data(rigidbody, rigidbody->m_aabb);
-			m_broadPhase.UpdateData(rigidbody->dynamicAabbTreeKey, data);
+			m_broadPhase.UpdateData(rigidbody->m_dynamicAabbTreeKey, data);
 		}
 		// check for collisions
 		QueryResults results;
@@ -103,7 +103,30 @@ void RigidbodySystem::LateUpdate(float dt)
 			}
 		}
 #endif
-		
+
+		// movement update
+		for (auto& node : m_ObjComponentsMap)
+		{
+			RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
+			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
+			TransformComponent* transform = rigidbodyNode->m_transform;
+
+			Vector3 velocity = rigidbody->m_velocity;
+			Vector3 position = transform->GetPosition();
+
+			Vector3 acceleration = PhysicsUtils::Consts::gravity;
+
+			velocity += acceleration * PhysicsUtils::Consts::fixedTimeStep;
+			position += velocity * PhysicsUtils::Consts::fixedTimeStep;
+
+			rigidbody->m_velocity = velocity;
+			rigidbody->m_position = position;
+
+			transform->SetLocalPosition(position);
+			
+			DEBUG_TRACE("position: (%f, %f, %f)", position.x, position.y, position.z);
+		}
+			   		
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;
 	}
 }
