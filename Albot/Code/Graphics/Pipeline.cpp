@@ -2,7 +2,8 @@
 
 
 Pipeline::Pipeline(const PipelineDesc& desc)
-	:m_desc(desc)
+	:m_desc(desc),
+	m_input_layout(nullptr)
 {
 }
 

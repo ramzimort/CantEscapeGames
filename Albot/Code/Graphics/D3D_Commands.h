@@ -21,7 +21,8 @@ enum DXCMD_Type
 	Draw,
 	Draw_Index,
 	Draw_Index_Instanced,
-	COUNT
+	DXCMD_Type_Dispatch,
+	DXCMD_MAX_COUNT
 };
 
 struct DXCMD_Bind_Indices_Buffer
@@ -93,6 +94,13 @@ struct DXCMD_Draw_Index_Instanced
 	uint32_t m_first_vertex;
 };
 
+struct DXCMD_Dispatch
+{
+	uint32_t m_thread_group_x;
+	uint32_t m_thread_group_y;
+	uint32_t m_thread_group_z;
+};
+
 struct DXCMD
 {
 	DXCMD_Type m_type;
@@ -108,5 +116,6 @@ struct DXCMD
 		DXCMD_Set_Viewport m_cmd_set_viewport;
 		DXCMD_Update_Buffer m_cmd_update_buffer;
 		DXCMD_Bind_RenderTargets m_cmd_bind_rendertargets;
+		DXCMD_Dispatch m_cmd_dispatch;
 	};
 };

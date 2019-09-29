@@ -610,6 +610,11 @@
     <None Include="Code\Scripts\test01Comp.lua" />
     <None Include="Code\Scripts\test02Comp.lua" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Code\Shaders\blur_filter_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
