@@ -51,7 +51,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	//Will register in rendering system				         ////
 	GameObjectDesc desc1;							         ////
 	desc1.tag = "monoRojo";							         ////
-	desc1.componentSetup = [](GameObject *go)		         ////
+	desc1.initializeComponentSetup = [](GameObject *go)		         ////
 	{												         ////
 		auto *T = go->AddComponent<TransformComponent>();	         ////
 		//Override code								         ////
@@ -66,7 +66,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	//Will register in rigidbody system				         ////
 	GameObjectDesc desc2;							         ////
 	desc2.tag = "monoAzul";							         ////
-	desc2.componentSetup = [](GameObject *go)		         ////
+	desc2.initializeComponentSetup = [](GameObject *go)		         ////
 	{												         ////
 		auto *T = go->AddComponent<TransformComponent>();	         ////
 		//Override code								         ////
@@ -81,7 +81,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	//Wont be registered in any system				         ////
 	GameObjectDesc desc3;							         ////
 	desc3.tag = "monoVerde";						         ////
-	desc3.componentSetup = [](GameObject *go)		         ////
+	desc3.initializeComponentSetup = [](GameObject *go)		         ////
 	{												         ////
 		auto *T = go->AddComponent<TestComp>();		         ////
 		//Override code								         ////
@@ -91,7 +91,7 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 	//Wont be registered in any system				         ////
 	GameObjectDesc desc4;							         ////
 	desc4.tag = "FPSPlayer";						         ////
-	desc4.componentSetup = [](GameObject *go)		         ////
+	desc4.initializeComponentSetup = [](GameObject *go)		         ////
 	{												         ////
 		auto *T = go->AddComponent<TransformComponent>();
 		T->SetLocalPosition(0.f, 0.f, 0.f);////

@@ -324,6 +324,7 @@
     <ClCompile Include="Code\Graphics\Mesh.cpp" />
     <ClCompile Include="Code\Graphics\Model.cpp" />
     <ClCompile Include="Code\Graphics\ModelLoader.cpp" />
+    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
     <ClCompile Include="Code\Graphics\Pipeline.cpp" />
     <ClCompile Include="Code\Graphics\RasterizerState.cpp" />
     <ClCompile Include="Code\Graphics\RenderTarget.cpp" />
@@ -410,6 +411,7 @@
     <ClInclude Include="Code\Graphics\Mesh.h" />
     <ClInclude Include="Code\Graphics\Model.h" />
     <ClInclude Include="Code\Graphics\ModelLoader.h" />
+    <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
     <ClInclude Include="Code\Graphics\Pipeline.h" />
     <ClInclude Include="Code\Graphics\RasterizerState.h" />
     <ClInclude Include="Code\Graphics\Renderer_Includes.h" />
@@ -612,6 +614,14 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Code\Shaders\blur_filter_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Code\Shaders\msaa_resolve_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Code\Shaders\msaa_resolve_vert.hlsl">
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>

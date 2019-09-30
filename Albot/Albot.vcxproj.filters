@@ -207,6 +207,9 @@
     <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Memory\StackAllocator.h">
@@ -452,13 +455,9 @@
     <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Code\Shaders\debug_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\debug_instance_vert.hlsl" />
-    <FxCompile Include="Code\Shaders\debug_line_vert.hlsl" />
-    <FxCompile Include="Code\Shaders\skybox_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\skybox_vert.hlsl" />
+    <ClInclude Include="Code\Graphics\MSAAResolvePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
@@ -502,7 +501,6 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\PhysicsManager.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -518,20 +516,11 @@
     <ClCompile Include="Code\Managers\ScriptingManager.cpp" />
     <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
     <ClCompile Include="Code\Components\CustomComponent\CustomComponent.cpp" />
-    <FxCompile Include="Code\Shaders\deferred_pass_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\deferred_pass_vert.hlsl" />
-    <FxCompile Include="Code\Shaders\deferred_shade_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl" />
-    <FxCompile Include="Code\Shaders\depth_pass_vert.hlsl" />
-    <FxCompile Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
-    <ClCompile Include="Code\Components\MeshesComponent.cpp" />
     <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Components\LightComponent.cpp" />
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
     <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
-    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
     <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
     <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
   </ItemGroup>
@@ -589,7 +578,6 @@
     <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
-    <ClInclude Include="Code\Physics\PhysicsManager.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
@@ -611,7 +599,6 @@
     <None Include="Code\Scripts\test01Comp.lua" />
     <None Include="Code\Scripts\test02Comp.lua" />
     <None Include="cpp.hint" />
-    <ClInclude Include="Code\Components\MeshesComponent.h" />
     <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\Helper\Constant.h" />
     <ClInclude Include="Code\Helper\MathUtil.h" />
@@ -620,7 +607,6 @@
     <ClInclude Include="Code\Components\LightComponent.h" />
     <ClInclude Include="Code\Reflection\Helpers.h" />
     <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
-    <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
     <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
     <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
   </ItemGroup>
@@ -637,10 +623,10 @@
     <Text Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
     <Text Include="Code\Shaders\skybox_frag.hlsl" />
     <Text Include="Code\Shaders\skybox_vert.hlsl" />
-    <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
-    <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Code\Shaders\blur_filter_comp.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Code\Shaders\blur_filter_comp.hlsl" />
+    <FxCompile Include="Code\Shaders\msaa_resolve_frag.hlsl" />
+    <FxCompile Include="Code\Shaders\msaa_resolve_vert.hlsl" />
   </ItemGroup>
 </Project>
