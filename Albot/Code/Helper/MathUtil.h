@@ -11,4 +11,9 @@ namespace MathUtil
 	{
 		return Vector3(v4.x, v4.y, v4.z);
 	}
+	
+	inline float GetSign(float val)
+	{
+		return (val < 0.0f) ? -1.0f : 1.0f;
+	}
 }

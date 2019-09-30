@@ -34,8 +34,8 @@ void DXRenderer::Release()
 
 bool DXRenderer::init()
 {
-	m_descriptor_data_list.reserve(200);
-	m_dxdescriptor_data_reference_list.reserve(200);
+	m_descriptor_data_list.reserve(1000);
+	m_dxdescriptor_data_reference_list.reserve(1000);
 	
 	if (!init_d3d11())
 	{
@@ -619,9 +619,9 @@ void DXRenderer::execute_queued_cmd()
 		}
 	}
 	m_descriptor_data_list.clear();
-	m_descriptor_data_list.reserve(100);
+	//m_descriptor_data_list.reserve(100);
 	m_dxdescriptor_data_reference_list.clear();
-	m_dxdescriptor_data_reference_list.reserve(100);
+	//m_dxdescriptor_data_reference_list.reserve(100);
 	m_cmd_list.clear();
 }
 

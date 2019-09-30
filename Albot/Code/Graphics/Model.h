@@ -60,6 +60,7 @@ public:
 
 	const MeshesList& GetMeshesList() const;
 	const VerticesList& GetVerticesList() const;
+	const std::vector<Triangle>& GetTriangleList() const;
 	const Aabb& GetAABB() const;
 private:
 	void InitBuffer(DXRenderer* dxrenderer);

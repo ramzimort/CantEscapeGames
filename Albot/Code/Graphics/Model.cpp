@@ -76,6 +76,11 @@ const Model::VerticesList& Model::GetVerticesList() const
 	return m_vertices;
 }
 
+const std::vector<Model::Triangle>& Model::GetTriangleList() const
+{
+	return m_triangle_indices;
+}
+
 const Aabb& Model::GetAABB() const
 {
 	return m_aabb;

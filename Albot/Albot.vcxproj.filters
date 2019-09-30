@@ -195,6 +195,18 @@
     <ClCompile Include="Code\Systems\LightSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Physics\Sat\Sat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Physics\SuppportShape\SupportShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Physics\SuppportShape\ModelSupportShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Memory\StackAllocator.h">
@@ -426,6 +438,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Code\Systems\LightSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Physics\Sat\Sat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Physics\SuppportShape\SupportShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Physics\SuppportShape\ModelSupportShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

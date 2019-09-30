@@ -27,8 +27,30 @@ RigidbodyComponent::~RigidbodyComponent()
 
 void RigidbodyComponent::Init()
 {
+	m_inertiaTensor = m_inverseInertiaTensor = Matrix::Identity;
 }
 
 void RigidbodyComponent::Begin()
 {
+}
+
+const Aabb& RigidbodyComponent::GetAabb() const
+{
+	return m_aabb;
+}
+
+const Vector3& RigidbodyComponent::GetVelocity() const
+{
+	return m_velocity;
+}
+
+float RigidbodyComponent::GetMass() const
+{
+	return m_mass;
+}
+
+void RigidbodyComponent::SetMass(float mass)
+{
+	m_mass = mass;
+	m_inverseMass = 1.0f / mass;
 }

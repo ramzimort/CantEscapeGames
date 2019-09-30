@@ -156,13 +156,11 @@ Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysM
 		//Override code								         ////
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc6);
-
-
 	
 	const int row = 3;
 	const int col = 3;
 	const int depth = 3;
-	const float step = 4;
+	const float step = 3;
 	GameObjectDesc descArr[row][col][depth] = {};
 	for (int i = 0; i < row; ++i)
 	{

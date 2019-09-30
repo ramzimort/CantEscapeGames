@@ -25,6 +25,7 @@ InputManager* gInputManager;
 WindowManager* gWindowManager;
 
 
+
 int CALLBACK WinMain(
 	__in  HINSTANCE hInstance,
 	__in  HINSTANCE hPrevInstance,

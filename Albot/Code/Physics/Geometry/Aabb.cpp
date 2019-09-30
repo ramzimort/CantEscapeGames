@@ -9,6 +9,10 @@ Other Authors :
 #include "Intersection.h"
 #include "../PhysicsUtils.h"
 
+//TODO: temporary way to draw
+#include "Graphics/AppRenderer.h"
+extern AppRenderer* gAppRenderer;
+
 Aabb::Aabb() : m_Min(FLT_MAX), m_Max(-FLT_MAX)
 {
 }
@@ -267,9 +271,14 @@ Vector3 Aabb::GetHalfExtent() const
 }
 #ifdef DEVELOPER
 
-void Aabb::DebugDraw(const Vector4& /*color*/) const
+void Aabb::DebugDraw(const Vector4& color) const
 {
-	// TODO
+	DebugAABBInstance aabbInstance = {};
+	aabbInstance.m_min_bound = m_Min;
+	aabbInstance.m_max_bound = m_Max;
+	aabbInstance.m_color = MathUtil::v4_to_v3(color);
+	gAppRenderer->GetDebugRendering().RegisterDebugAABB(aabbInstance);
+	
 }
 
 void Aabb::Print() const

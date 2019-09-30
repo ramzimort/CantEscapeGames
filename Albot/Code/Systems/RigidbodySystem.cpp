@@ -90,6 +90,11 @@ void RigidbodySystem::LateUpdate(float dt)
 		results.DeleteDuplicates();
 
 #ifdef DEVELOPER
+		m_broadPhase.DebugDraw(-1, Vector4(1, 1, 1, 1));
+#endif
+
+		
+#ifdef DEVELOPER
 		for (size_t i = 0; i < results.m_results.size(); ++i)
 		{
 			for (size_t j = i + 1; j < results.m_results.size(); ++j)
@@ -104,6 +109,8 @@ void RigidbodySystem::LateUpdate(float dt)
 		}
 #endif
 
+		// TODO: narrow phase (SAT)
+		
 		// movement update
 		for (auto& node : m_ObjComponentsMap)
 		{
@@ -117,14 +124,15 @@ void RigidbodySystem::LateUpdate(float dt)
 			Vector3 acceleration = PhysicsUtils::Consts::gravity;
 
 			velocity += acceleration * PhysicsUtils::Consts::fixedTimeStep;
+
+			// TODO: constraints application
+
 			position += velocity * PhysicsUtils::Consts::fixedTimeStep;
 
 			rigidbody->m_velocity = velocity;
 			rigidbody->m_position = position;
 
 			transform->SetLocalPosition(position);
-			
-			DEBUG_TRACE("position: (%f, %f, %f)", position.x, position.y, position.z);
 		}
 			   		
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;

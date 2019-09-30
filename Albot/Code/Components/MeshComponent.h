@@ -4,6 +4,12 @@
 
 class Model;
 
+struct VertexWorldSpaceData
+{
+	Vector3 m_position;
+	Vector3 m_normal;
+};
+
 enum MeshType
 {
 	MESH_QUAD,
@@ -18,6 +24,7 @@ class MeshComponent :	public BaseComponent
 {
 public:
 	friend class Factory;
+	friend class TransformSystem;
 public:
 	MeshComponent(GameObject *owner);
 	virtual ~MeshComponent();
@@ -32,6 +39,7 @@ public:
 	static ComponentId const static_type;
 private:
 	Model* m_model;
+	std::vector<VertexWorldSpaceData> m_vertices_world_space_list;
 	MeshType m_mesh_type;
 	std::string m_model_name;
 	bool m_calculate_missing_tangents;

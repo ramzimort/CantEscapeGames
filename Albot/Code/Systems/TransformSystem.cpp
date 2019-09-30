@@ -12,6 +12,7 @@ unsigned const TransformSystem::static_type = BaseSystem::numberOfTypes++;
 
 // 2 - Include the components you want to add
 #include "../Components/TransformComponent.h"
+#include "Components/MeshComponent.h"
 
 
 TransformSystem::TransformSystem() :
@@ -67,9 +68,31 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 	//transformComp->SetModel(T*R*H);
 
 
+	Matrix modelMatrix = H * R * T;
 
+	Matrix invertScaleMatrix = Matrix::CreateScale(Vector3(1.f) / transformComp->GetScale());
+	Matrix normalMatrix = invertScaleMatrix * R;
+
+	
+	MeshComponent* meshComp = transformComp->GetGameObjectOwner()->GetComponent<MeshComponent>();
+
+	/*if (meshComp)
+	{
+		meshComp->m_vertices_world_space_list.clear();
+		const auto& verticesList = meshComp->m_model->GetVerticesList();
+		for (uint64_t i = 0; i < verticesList.size(); ++i)
+		{
+			VertexWorldSpaceData vWorldSpace = {};
+
+			vWorldSpace.m_position = MathUtil::v4_to_v3( Vector4::Transform(MathUtil::v3_to_v4( verticesList[i].m_position, 1.0f), modelMatrix));
+			vWorldSpace.m_normal = MathUtil::v4_to_v3(Vector4::Transform(MathUtil::v3_to_v4(verticesList[i].m_normal, 0.0f), normalMatrix));
+			
+			meshComp->m_vertices_world_space_list.push_back(vWorldSpace);
+		}
+	}*/
+	
 	//row major way
-	transformComp->SetModel(H * R * T);
+	transformComp->SetModel(modelMatrix);
 	transformComp->m_rotMatrix = R;
 	transformComp->m_scaleMatrix = H;
 

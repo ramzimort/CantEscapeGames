@@ -343,9 +343,13 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
+    <ClCompile Include="Code\Physics\Sat\Sat.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\ModelSupportShape.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\SupportShape.cpp" />
     <ClCompile Include="Code\Reflection\Helpers.cpp" />
     <ClCompile Include="Code\Reflection\Serialization.cpp" />
     <ClCompile Include="Code\States\State.cpp" />
@@ -431,9 +435,13 @@
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
+    <ClInclude Include="Code\Physics\Sat\Sat.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\ModelSupportShape.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\SupportShape.h" />
     <ClInclude Include="Code\Reflection\Helpers.h" />
     <ClInclude Include="Code\Reflection\Serialization.h" />
     <ClInclude Include="Code\Shaders\Shading.h" />
