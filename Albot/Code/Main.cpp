@@ -41,11 +41,6 @@ int CALLBACK WinMain(
 	bool done = false;
 	float dt;
 
-	// TODO - REMOVE LATER (jose)
-	stateMgr = new StateManager();
-	stateMgr->SwitchState(new State("level1.json"));
-	luaMgr = new ScriptingManager();
-
 	//TODO - ALBERTO STUFF ;)
 	gCameraManager = new CameraManager();
 	gResourceManager = new ResourceManager();
@@ -61,6 +56,7 @@ int CALLBACK WinMain(
 	// TODO - REMOVE LATER (jose)
 	stateMgr = new StateManager();
 	stateMgr->SwitchState(new State("level1.json"));
+	luaMgr = new ScriptingManager();
 	//
 
 	DEBUG_INIT;
