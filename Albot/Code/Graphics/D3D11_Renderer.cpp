@@ -657,7 +657,7 @@ void DXRenderer::execute_queued_cmd()
 		{
 			const DXCMD_Draw_Index& cmd_draw_index = cmd.m_cmd_draw_index;
 			m_d3d_device_context->DrawIndexed(cmd_draw_index.m_index_count,
-				cmd_draw_index.m_first_index, cmd_draw_index.m_first_index);
+				cmd_draw_index.m_first_index, cmd_draw_index.m_first_vertex);
 			break;
 		}
 		case DXCMD_Type::Draw_Index_Instanced:
