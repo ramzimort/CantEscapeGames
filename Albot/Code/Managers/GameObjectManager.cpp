@@ -61,12 +61,7 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 		GameObject *go = descriptor.tag == "" ? new GameObject(this) : new GameObject(this, descriptor.tag);
 		if (go) 
 		{
-			//Add components and override using lambda or delegate
-			if (descriptor.componentSetup)
-				descriptor.componentSetup(go);
-
 			descriptor.initializeComponentSetup(go);
-
 			//Register on the system
 			//TODO - REPLACE WITH MESSAGE TO SYSTEM MGR (for testing that)
 			m_systemMgr->RegisterGameObject(go);

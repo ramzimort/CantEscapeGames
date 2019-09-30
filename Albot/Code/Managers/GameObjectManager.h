@@ -22,13 +22,11 @@ struct GameObjectDesc
 	typedef std::function<void(GameObject*)> InitializeComponentSetup;
 
 	std::string tag;
-	FP componentSetup;
 
 	//added by Albert
 	InitializeComponentSetup initializeComponentSetup;
 
-	GameObjectDesc() : tag(""), 
-		componentSetup(0)
+	GameObjectDesc() : tag("")
 	{
 		initializeComponentSetup = [](GameObject*) {};
 	}
