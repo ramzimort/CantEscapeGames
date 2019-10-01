@@ -3,6 +3,8 @@
 
 #include "BaseEvent.h"
 
+class EventBus;
+
 template <class Derived>
 class Event : public BaseEvent 
 {
@@ -12,7 +14,8 @@ public:
 protected:
 	Event() = default;
 private:
-	static EventId GetId() 
+	friend EventBus;
+	static EventId GetId()
 	{
 		static EventId refId = m_eventId++;
 		return m_eventId;

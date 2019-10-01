@@ -7,6 +7,8 @@ Other Authors : <None>
 
 #include "InputManager.h"
 #include "CantDebug/CantDebug.h"
+#include "Events/Input/KeyDownEvent.h"
+#include "EventManager.h"
 
 InputManager::InputManager()
 {
@@ -78,6 +80,8 @@ void InputManager::Update()
 			break;
 		default:
 			break;
+		case SDL_KEYDOWN:
+			EventManager::Get()->EnqueueEvent<KeyDownEvent>(false, m_event.key.keysym.scancode);
 		}
 	}
 

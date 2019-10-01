@@ -15,8 +15,9 @@ public:
 
 	template <class T, typename ... Args>
 	void QueueEvent(bool direct_call = false, Args&& ... args);
+
 	template<class T> 
-	void AddSubscriber(void* subscriber, const EventCallBack<T>& ptr);
+	void AddSubscriber(void* objPtr, const EventCallBack<T>& ptr);
 	template<class T> 
 	void DeleteSubscriber(void* objPtr);
 
@@ -34,7 +35,7 @@ void EventBus::QueueEvent(bool direct_call, Args&& ... event_args)
 
 	if (!direct_call)
 	{
-		m_eventBuffer.push_back(std::make_pair(eventId, std::move(event_args)));
+		m_eventBuffer.push_back(std::make_pair(eventId, std::move(event)));
 		return;
 	}
 	auto it = m_subscriberMap.find(eventId);
@@ -49,11 +50,11 @@ void EventBus::QueueEvent(bool direct_call, Args&& ... event_args)
 }
 
 template<class T>
-void EventBus::AddSubscriber(void* subscriber, const EventCallBack<T>& ptr)
+void EventBus::AddSubscriber(void* objPtr, const EventCallBack<T>& ptr)
 {
 	std::unique_ptr<EventCallBack<T>> eventCallBack(
 		new EventCallBack<T>(
-			subscriber,
+			objPtr,
 			ptr));
 
 	BaseEvent::EventId eventId = Event<T>::GetId();
@@ -62,7 +63,7 @@ void EventBus::AddSubscriber(void* subscriber, const EventCallBack<T>& ptr)
 	if (it == m_subscriberMap.end())
 		m_subscriberMap.insert(std::make_pair(eventId, BaseCallbackList()));
 	
-	m_subscriberMap[eventId].insert(subscriber, ptr);
+	m_subscriberMap[eventId].insert(objPtr, ptr);
 }
 
 template<class T>

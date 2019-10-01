@@ -6,5 +6,9 @@
   },
 
   "RigidBody": {
+  },
+
+  "FPSController": {
+    "Inverted": true
   }
 }

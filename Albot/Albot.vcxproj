@@ -306,10 +306,12 @@
     <ClCompile Include="Code\Components\RendererComponent.cpp" />
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
+    <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Code\Components\TransformComponent.cpp" />
     <ClCompile Include="Code\Events\BaseEvent.cpp" />
     <ClCompile Include="Code\Events\Event.cpp" />
     <ClCompile Include="Code\Events\EventBus.cpp" />
+    <ClCompile Include="Code\Events\Input\KeyDownEvent.cpp" />
     <ClCompile Include="Code\Factory\Factory.cpp" />
     <ClCompile Include="Code\GameObjects\GameObject.cpp" />
     <ClCompile Include="Code\Graphics\AppRenderer.cpp" />
@@ -371,7 +373,7 @@
     </ClCompile>
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
     <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
-    <ClCompile Include="Code\Systems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
     <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
@@ -390,12 +392,14 @@
     <ClInclude Include="Code\Components\RendererComponent.h" />
     <ClInclude Include="Code\Components\RigidbodyComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
+    <ClInclude Include="Code\Components\TestComponents\FPSControllerComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
     <ClInclude Include="Code\Events\BaseEvent.h" />
     <ClInclude Include="Code\Events\Delegate.h" />
     <ClInclude Include="Code\Events\Event.h" />
     <ClInclude Include="Code\Events\EventBus.h" />
     <ClInclude Include="Code\Events\EventCallback.h" />
+    <ClInclude Include="Code\Events\Input\KeyDownEvent.h" />
     <ClInclude Include="Code\Events\Multicast.h" />
     <ClInclude Include="Code\Factory\Factory.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
@@ -464,7 +468,7 @@
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
     <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
-    <ClInclude Include="Code\Systems\FPSCameraSystem.h" />
+    <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
     <ClInclude Include="Code\Systems\RigidbodySystem.h" />

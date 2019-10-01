@@ -32,7 +32,7 @@ public:
 
 	~EventCallBack() = default;
 
-	void operator()(const T* event)
+	void operator()(const void* event)
 	{
 		m_callback(event);
 	}

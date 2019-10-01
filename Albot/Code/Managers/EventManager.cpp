@@ -58,6 +58,8 @@ void EventManager::Update(float dt)
 	m_pEventBus->Update(dt);
 }
 
+
+
 bool EventManager::IsQuit()
 {
 	return m_pInputManager->IsQuit();
