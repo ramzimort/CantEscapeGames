@@ -13,6 +13,7 @@ Primary Author: Jose Rosenbluth
 class TransformComponent;
 class RendererComponent;
 class MeshComponent;
+class AppRenderer;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
@@ -46,14 +47,16 @@ public:
 	virtual void Update(float dt, BaseSystemCompNode *compNode) override;
 
 	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
+	void RegisterAppRenderer(AppRenderer* appRenderer);
 
 private:
 	RenderingSystem(RenderingSystem const& rhs);
-
 protected:
 	//protected vars
 
 public:
 	//To compare when using templates
 	static unsigned int const static_type;
+private:
+	AppRenderer* m_pAppRenderer;
 };

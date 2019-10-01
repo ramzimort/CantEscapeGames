@@ -4,19 +4,23 @@
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<Material>("Material")
-		.property("Model", &Material::m_diffuseColor)
-		.property("Name", &Material::m_specularColor)
+		.property("Diffuse_Color", &Material::m_diffuseColor)
+		.property("Specular_Color", &Material::m_specularColor)
+		//.property("MaterialId", &Material::m_materialId)
+		//.property("Diffuse_Texture", &Material::m_pDiffuseTexture)
+		//.property("Normal_Texture", &Material::m_pNormalTexture)
+		//.property("Height_Texture", &Material::m_pHeightTexture)
 		.method("Init", &Material::Init);
 }
 
 Material::Material() :
-	m_materialName(""),
-	m_diffuseColor(),
-	m_diffuseTextureDirectory(""),
-	m_normalTextureDirectory(""),
 	m_pDiffuseTexture(nullptr),
 	m_pNormalTexture(nullptr),
-	m_pHeightTexture(nullptr)
+	m_pHeightTexture(nullptr),
+	m_materialId(""),
+	m_diffuseTextureId(""),
+	m_normalTextureId(""),
+	m_heightTextureId("")
 {
 }
 

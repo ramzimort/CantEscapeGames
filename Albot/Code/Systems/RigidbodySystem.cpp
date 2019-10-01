@@ -16,6 +16,8 @@ unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 #include "../Components/TransformComponent.h"
 #include "../Components/RigidbodyComponent.h"
 
+#include "Graphics/AppRenderer.h"
+
 
 RigidbodySystem::RigidbodySystem() : 
 	BaseSystem(), m_timeAccumulator(0.0f)
@@ -46,6 +48,11 @@ void RigidbodySystem::Register_GameObject(GameObject *go)
 	m_broadPhase.InsertData(rigidbody->m_dynamicAabbTreeKey, data1);
 	
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
+}
+
+void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
+{
+	m_pAppRenderer = renderer;
 }
 
 
@@ -90,7 +97,7 @@ void RigidbodySystem::LateUpdate(float dt)
 		results.DeleteDuplicates();
 
 #ifdef DEVELOPER
-		m_broadPhase.DebugDraw(-1, Vector4(1, 1, 1, 1));
+		m_broadPhase.DebugDraw(m_pAppRenderer,-1, Vector4(1, 1, 1, 1));
 #endif
 
 		

@@ -3,10 +3,10 @@
 #define MAGIC_PRIME ((uint64_t)0x100000001b3ULL)
 class StringId;
 
-inline constexpr uint64_t FNVHash(const char* str, uint64_t len)
+inline constexpr uint64_t FNVHash(const char* str, size_t len)
 {
-	uint64_t hash = 0;
-	uint64_t i = 0;
+	size_t hash = 0;
+	size_t i = 0;
 
 	for (i = 0; i < len; i++)
 	{
@@ -17,7 +17,7 @@ inline constexpr uint64_t FNVHash(const char* str, uint64_t len)
 	return hash;
 }
 
-inline constexpr uint64_t operator "" _sid(const char* name, size_t len)
+inline constexpr size_t operator "" _sid(const char* name, size_t len)
 {
 	return FNVHash(name, len);
 }
@@ -26,36 +26,44 @@ class StringId
 {
 	friend class StringIdHash;
 public:
-	StringId() = delete;
+	StringId() :
+#ifdef DEVELOPER
+		m_name(""),
+#endif
+		m_id(0)
+	{	};
 	StringId(const StringId& rhs) :
-#ifndef DEVELOPER
+#ifdef DEVELOPER
 		m_name(rhs.m_name),
 #endif
 		m_id(rhs.m_id)
 	{	}
-	StringId(const char* _name, size_t len) :
-#ifndef DEVELOPER
-		m_name(_name),
+	StringId(const char* _name) :
+#ifdef DEVELOPER
+		m_name(std::string(_name)),
 #endif
-		m_id(FNVHash(_name, len)) { }
+		m_id(FNVHash(std::string(_name).c_str(), std::string(_name).size())) { }
 	StringId(const std::string& _name) :
-#ifndef DEVELOPER
+#ifdef DEVELOPER
 		m_name(_name),
 #endif
 		m_id(FNVHash(_name.c_str(), _name.size())) { }
-	const StringId& operator=(const StringId& rhs)
-	{
-		return StringId(rhs);
-	}
 
+	StringId& operator=(const StringId& rhs)
+	{
+		m_id = rhs.m_id; m_name = rhs.m_name; return *this;
+	}
 	bool operator==(const StringId& rhs) const { return m_id == rhs.m_id; }
 	bool operator<(const StringId& rhs) const { return m_id < rhs.m_id; }
 
 private:
-#ifndef DEVELOPER
-const std::string& m_name;
+	size_t m_id;
+#ifdef DEVELOPER
+	std::string m_name;
 #endif
-	uint64_t m_id;
+
+	RTTR_ENABLE();
+	RTTR_REGISTRATION_FRIEND;
 };
 
 class StringIdHash {
@@ -63,5 +71,5 @@ public:
 	uint64_t operator()(const StringId& p) const
 	{
 		return p.m_id;
-}
+	}
 };

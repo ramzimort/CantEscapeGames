@@ -11,6 +11,7 @@ Primary Author:
 
 ///INCLUDES
 #include "BaseComponent.h"
+#include "Helper/Hash.h"
 
 class Material;
 class GameObject;
@@ -28,7 +29,7 @@ public:
 	RendererComponent(GameObject *owner);
 	virtual ~RendererComponent();
 
-	virtual void Init() override;
+	virtual void Init(ResourceManager* resMgr) override;
 	virtual void Begin() override;
 
 	//TEMP FUNCTION:
@@ -42,11 +43,10 @@ public:
 	static ComponentId const static_type;
 
 private:
-	std::string m_material_name;
+	StringId m_materialId;
 	Material* m_pMaterial;
-
-	float m_x_tile_factor;
-	float m_y_tile_factor;
+	float m_xTileFactor;
+	float m_yTileFactor;
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

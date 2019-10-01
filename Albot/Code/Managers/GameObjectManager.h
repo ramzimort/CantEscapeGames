@@ -10,26 +10,17 @@ Primary Author: Jose Rosenbluth
 class GameObject;
 class SystemManager;
 
-
-
-//Used for storing everything needed to 
-//later instantiate a gameobject
 struct GameObjectDesc 
 {
-	using FP = void(*)(GameObject *go);
-
-	//added by Albert
 	typedef std::function<void(GameObject*)> InitializeComponentSetup;
-
+	
 	std::string tag;
-
-	//added by Albert
 	InitializeComponentSetup initializeComponentSetup;
 
-	GameObjectDesc() : tag("")
-	{
-		initializeComponentSetup = [](GameObject*) {};
-	}
+	GameObjectDesc() :
+		tag(""),
+		initializeComponentSetup([](GameObject*) {})
+	{	}
 };
 
 

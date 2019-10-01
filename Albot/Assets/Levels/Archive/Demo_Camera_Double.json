@@ -1,0 +1,272 @@
+{
+    "Level_Info": {
+        "Next_Level": "",
+        "Enemy_Transition": false,
+        "Enemy_Tags": [],
+        "Trigger_Transition": false,
+        "Trigger_Tag": "",
+        "Checkpoint_Reached": false,
+        "Spawn_Point": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "Objects": [
+        {
+            "Name": "player01",
+            "Dir": "Player",
+            "Tag": "player",
+            "Transform": {
+                "Position": [-6.636665344238281, -20.241817474365236, 0.00499725341796875]
+            }
+        },
+        {
+            "Name": "Lever",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [0.16218158602714539, 12.699337005615235, 0.00499725341796875]
+            }
+        },
+        {
+            "Name": "Room_Camera_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room_1",
+            "Transform": {
+                "Position": [-3.4689178466796877, 6.889698028564453, 0.00499725341796875]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Width": 7.0,
+                    "Height": 8.5
+                }
+            }
+        },
+        {
+            "Name": "Placeable_Camera_View",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-2.659992218017578, 0.49000030755996706, 6.0],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room_1"
+            }
+        },
+        {
+            "Name": "Room_Camera_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room_2",
+            "Transform": {
+                "Position": [13.161293983459473, 6.6388397216796879, 0.005001068115234375]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Width": 10.5,
+                    "Height": 6.5
+                }
+            }
+        },
+        {
+            "Name": "Placeable_Camera_View",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [20.959993362426759, -5.679999351501465, 17.199989318847658],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room_2"
+            }
+        },
+        {
+            "Name": "Pillar_Destroyable",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [7.460816383361816, 7.572113037109375, 0.00499725341796875]
+            }
+        },
+        {
+            "Name": "Room_Camera_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room_0",
+            "Transform": {
+                "Position": [-7.725119590759277, -9.004051208496094, 0.004993438720703125]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Width": 7.0,
+                    "Height": 4.5
+                }
+            }
+        },
+        {
+            "Name": "Placeable_Camera_View",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [12.320000648498536, 2.0, 6.0],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room_0"
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-11.743313789367676, -7.867550373077393, 0.005001068115234375],
+                "Scale": [2.0, 15.944857597351075, 1.25]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-4.319338798522949, -8.092979431152344, 0.0050048828125],
+                "Scale": [2.0, 15.600000381469727, 1.25]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-13.20986270904541, 6.9774556159973148, 0.00499725341796875],
+                "Scale": [2.0, 15.952982902526856, 1.25]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [13.409536361694336, 19.102907180786134, 0.6850012540817261],
+                "Scale": [2.0, 16.399999618530275, 1.25],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [20.913463592529298, 7.245342254638672, 0.0050048828125]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [4.790816307067871, -2.943067789077759, 0.005001068115234375],
+                "Scale": [2.0, 5.0, 1.25]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-4.663118839263916, 15.438060760498047, 0.005001068115234375],
+                "Scale": [2.25100040435791, 2.0, 1.5]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [11.587069511413575, -5.211517333984375, 0.00499725341796875],
+                "Scale": [1.9529999494552613, 2.0, 1.5]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [0.13975143432617188, -1.4116897583007813, 0.0049896240234375],
+                "Scale": [1.2000000476837159, 2.0, 1.5]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-8.136665344238282, -14.872993469238282, 0.0050048828125]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [4.598667144775391, 17.79256248474121, 0.00499725341796875],
+                "Scale": [2.0, 6.153003692626953, 1.25]
+            }
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [11.964336395263672, 6.909679412841797, 0.005001068115234375],
+                "Scale": [18.49893569946289, 25.097949981689454, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-4.459432601928711, 6.977021217346191, 0.00499725341796875],
+                "Scale": [17.600000381469728, 17.600000381469728, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-8.260398864746094, -8.780169486999512, 0.00499725341796875],
+                "Scale": [8.0, 14.747981071472168, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Switch_Button",
+            "Dir": "Trigger",
+            "Tag": "Switch_test_01",
+            "Transform": {
+                "Position": [-9.66580581665039, 12.265703201293946, 0.00499725341796875]
+            }
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-2.8177528381347658, 99.67755889892578, 0.0049991607666015629],
+                "Scale": [25.0, 30.0, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "lava",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-14.056551933288575, 96.44518280029297, 0.005001068115234375]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Gate_Frame_Test01",
+            "Transform": {
+                "Position": [-3.3410091400146486, 96.545654296875, 0.005001068115234375],
+                "Scale": [5.0, 5.0, 5.0],
+                "Rotation": [0.0, 0.0, 180.0]
+            }
+        },
+        {
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [2.536513090133667, 5.780971527099609, 19.98499870300293]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    125,
+                    125
+                ]
+            }
+        }
+    ]
+}

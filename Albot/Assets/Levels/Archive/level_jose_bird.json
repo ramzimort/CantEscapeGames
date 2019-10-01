@@ -1,0 +1,449 @@
+{
+  "Audio": [
+    {
+      "Name": "Song_Explore.mp3",
+      "Category": "Song"
+    },
+    {
+      "Name": "Song_Fight.wav",
+      "Category": "Song"
+    }
+  ],
+
+  "Objects": [
+    {
+      "Name": "player01",
+      "Dir": "Player",
+      "Tag": "player",
+      "Transform": {
+        "Position": [ 0.0, -5.0, 0.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 100.0,
+        "Dynamic": true,
+        "Bounciness": 0.800000011920929,
+        "Collision_Mask": "Player",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ 0.0, -5.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 1.0
+        },
+        "Destroyable": false
+      },
+      "Player": {
+        "Script": "Player_Init_State.lua"
+      }
+    },
+    {
+      "Name": "Enemy_Melee_1",
+      "Dir": "Enemy",
+      "Tag": "enemy",
+      "Transform": {
+        "Position": [ -6.0, 12.0, 0.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 180.0 ]
+      },
+      "RigidBody": {
+        "Mass": 150.0,
+        "Dynamic": true,
+        "Bounciness": 0.800000011920929,
+        "Collision_Mask": "Enemy",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ -6.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 0.75,
+          "Width": 0.0,
+          "Height": 0.0
+        },
+        "Destroyable": false
+      },
+      "Trigger": {
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ -6.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 8.0,
+          "Width": 0.0,
+          "Height": 0.0
+        }
+      }
+    },
+    {
+      "Name": "Enemy_Melee_1",
+      "Dir": "Enemy",
+      "Tag": "enemy",
+      "Transform": {
+        "Position": [ 2.0, 12.0, 0.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 180.0 ]
+      },
+      "RigidBody": {
+        "Mass": 150.0,
+        "Dynamic": true,
+        "Bounciness": 0.800000011920929,
+        "Collision_Mask": "Enemy",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 2.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 0.75,
+          "Width": 0.0,
+          "Height": 0.0
+        },
+        "Destroyable": false
+      },
+      "Trigger": {
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 2.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 8.0,
+          "Width": 0.0,
+          "Height": 0.0
+        }
+      }
+    },
+    {
+      "Name": "Enemy_Melee_1",
+      "Dir": "Enemy",
+      "Tag": "enemy",
+      "Transform": {
+        "Position": [ 10.0, 12.0, 0.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 180.0 ]
+      },
+      "RigidBody": {
+        "Mass": 150.0,
+        "Dynamic": true,
+        "Bounciness": 0.800000011920929,
+        "Collision_Mask": "Enemy",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 10.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 0.75,
+          "Width": 0.0,
+          "Height": 0.0
+        },
+        "Destroyable": false
+      },
+      "Trigger": {
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 10.0, 12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 3.1415927410125734,
+          "Radius": 8.0,
+          "Width": 0.0,
+          "Height": 0.0
+        }
+      }
+    },
+    {
+      "Name": "TriggerTest",
+      "Dir": "Trigger",
+      "Tag": "Trigger_Pillar",
+      "Transform": {
+        "Position": [ -65.0, 0.0, 0.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 90.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 100.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ -65.0, 0.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 1.0
+        },
+        "Destroyable": false
+      },
+      "Trigger": {
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ -65.0, 0.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 1.0,
+          "Width": 0.0,
+          "Height": 0.0
+        }
+      }
+    },
+    {
+      "Name": "Pillar",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 3.0, 11.0, 0.0 ],
+        "Scale": [ 1.25, 1.25, 1.5 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": true,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Dynamic",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ 3.0, 10.25, 0.0 ],
+          "Offset": [ 0.0, -0.75, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 1.0
+        },
+        "Destroyable": true
+      }
+    },
+    {
+      "Name": "Dynamic_Sphere",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 8.0, -4.0, 1.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 10.0,
+        "Dynamic": true,
+        "Bounciness": 0.8999999761581421,
+        "Collision_Mask": "Dynamic",
+        "Friction_Coeff": 0.004999999888241291,
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 8.0, -4.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 1.0,
+          "Width": 0.0,
+          "Height": 0.0
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Dynamic_Sphere",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 12.0, 8.0, 1.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 10.0,
+        "Dynamic": true,
+        "Bounciness": 0.8999999761581421,
+        "Collision_Mask": "Dynamic",
+        "Friction_Coeff": 0.004999999888241291,
+        "Shape": {
+          "Type": "Circle",
+          "Center": [ 12.0, 8.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 1.0,
+          "Width": 0.0,
+          "Height": 0.0
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Skydome_Clouds",
+      "Dir": "Background",
+      "Transform": {
+        "Position": [ 0.0, 0.0, 0.0 ],
+        "Scale": [ 3.0, 3.0, 3.0 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      }
+    },
+    {
+      "Name": "Ground_1",
+      "Dir": "Background",
+      "Transform": {
+        "Position": [ 2.0, 2.0, 0.0 ],
+        "Scale": [ 25.0, 30.0, 0.009999999776482582 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      }
+    },
+    {
+      "Name": "Wall_2",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ -3.0999999046325685, -12.0, 0.0 ],
+        "Scale": [ 1.5, 2.0, 1.5 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ -3.0999999046325685, -12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 9.329999923706055
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Wall_2",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 9.100000381469727, -12.0, 0.0 ],
+        "Scale": [ 1.5, 2.0, 1.5 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ 9.100000381469727, -12.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 9.329999923706055
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Wall_2",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ -3.0999999046325685, 16.0, 0.5 ],
+        "Scale": [ 1.5, 2.0, 1.5 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ -3.0999999046325685, 16.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 9.329999923706055
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Wall_2",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 9.100000381469727, 16.0, 0.5 ],
+        "Scale": [ 1.5, 2.0, 1.5 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ 9.100000381469727, 16.0, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 9.329999923706055
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Wall_1",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ -10.0, 2.5, 1.0 ],
+        "Scale": [ 2.0, 30.0, 1.25 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ -10.0, 2.5, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 1.0
+        },
+        "Destroyable": false
+      }
+    },
+    {
+      "Name": "Wall_1",
+      "Dir": "Basic",
+      "Transform": {
+        "Position": [ 15.0, 2.5, 1.0 ],
+        "Scale": [ 2.0, 30.0, 1.25 ],
+        "Rotation": [ 0.0, 0.0, 0.0 ]
+      },
+      "RigidBody": {
+        "Mass": 1000.0,
+        "Dynamic": false,
+        "Bounciness": 0.6000000238418579,
+        "Collision_Mask": "Wall",
+        "Friction_Coeff": 0.05000000074505806,
+        "Shape": {
+          "Type": "Rectangle",
+          "Center": [ 15.0, 2.5, 0.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "Angle": 0.0,
+          "Radius": 0.0,
+          "Width": 1.0,
+          "Height": 1.0
+        },
+        "Destroyable": false
+      }
+    }
+  ]
+}

@@ -11,12 +11,12 @@ Primary Author: Jose Rosenbluth
 
 class BaseSystem;
 class GameObject;
-
+class AppRenderer;
 
 class SystemManager
 {
 public:
-	SystemManager();
+	SystemManager(AppRenderer* appRenderer = nullptr);
 	~SystemManager();
 
 	void UpdateSystems(float dt);

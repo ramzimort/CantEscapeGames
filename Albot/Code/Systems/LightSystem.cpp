@@ -4,9 +4,6 @@
 #include "Components/TransformComponent.h"
 #include "Graphics/AppRenderer.h"
 
-extern AppRenderer* gAppRenderer;
-
-
 unsigned const LightSystem::static_type = BaseSystem::numberOfTypes++;
 
 LightSystem::LightSystem()
@@ -65,6 +62,11 @@ void LightSystem::Draw(float dt, BaseSystemCompNode *compNode)
 		Vector3 light_dir = Vector3::Transform(Vector3(0.f, 0.f, -1.f), inverse_rot_mat);
 		light_dir.Normalize();
 		direction_light_inst_data.light_direction = light_dir;
-		gAppRenderer->RegisterDirectionalLightInstance(direction_light_inst_data);
+		m_pAppRenderer->RegisterDirectionalLightInstance(direction_light_inst_data);
 	}
+}
+
+void LightSystem::RegisterAppRenderer(AppRenderer* appRenderer)
+{
+	m_pAppRenderer = appRenderer;
 }

@@ -3,6 +3,7 @@
 
 class TransformComponent;
 class LightComponent;
+class AppRenderer;
 
 struct LightCompNode : BaseSystemCompNode
 {
@@ -26,8 +27,12 @@ public:
 	virtual void Update(float dt, BaseSystemCompNode *compNode) override;
 
 	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
+
+	void RegisterAppRenderer(AppRenderer* appRenderer);
 public:
 	//To compare when using templates
 	static unsigned int const static_type;
+private:
+	AppRenderer* m_pAppRenderer;
 };
 

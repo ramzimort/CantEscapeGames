@@ -7,21 +7,40 @@ Other Authors : <None>
 
 #include "InputManager.h"
 #include "CantDebug/CantDebug.h"
-#include "WindowManager.h"
-
-extern WindowManager* gWindowManager;
 
 InputManager::InputManager()
 {
+}
+
+InputManager::~InputManager()
+{
+}
+
+void InputManager::Initialize()
+{
+	int error = 0;
+	error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC);
+	assert(error >= 0);
+
+	m_pWindow = SDL_CreateWindow("CantEscapeGames",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		800,
+		600,
+		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
+	assert(m_pWindow != NULL);
+	DEBUG_INIT;
+
+
 	SDL_memset(m_keyboardStateCurrent, 0, 512 * sizeof(Uint8));
 	SDL_memset(m_keyboardStatePrevious, 0, 512 * sizeof(Uint8));
 	SDL_JoystickEventState(SDL_ENABLE);
 	m_mouseStateCurrent = 0;
 	m_mouseStatePrevious = 0;
-}
-
-InputManager::~InputManager()
-{
+	SDL_memset(m_mousePositionCurrent, 0, 2 * sizeof(Uint8));
+	SDL_memset(m_mousePositionCurrent, 0, 2 * sizeof(Uint8));
+	m_mouseWheelY = 0;
+	m_quit = false;
 }
 
 void InputManager::Update()
@@ -50,7 +69,7 @@ void InputManager::Update()
 				break;
 			case SDL_WINDOWEVENT_CLOSE:
 				DEBUG_QUIT(m_event);
-				if (m_event.window.windowID == SDL_GetWindowID(gWindowManager->GetWindow(0)))
+				if (m_event.window.windowID == SDL_GetWindowID(m_pWindow))
 					m_quit = true;
 				break;
 			default:
@@ -61,8 +80,9 @@ void InputManager::Update()
 			break;
 		}
 	}
-	int numberOffFetchedKeys = 0;
 
+
+	int numberOffFetchedKeys = 0;
 	const Uint8* pCurrentKeyStates = SDL_GetKeyboardState(&numberOffFetchedKeys);
 	if (numberOffFetchedKeys > 512)
 		numberOffFetchedKeys = 512;
@@ -146,6 +166,12 @@ Sint32 InputManager::GetMouseScroll()
 {
 	return m_mouseWheelY;
 }
+
+SDL_Window* InputManager::GetWindow()
+{
+	return m_pWindow;
+}
+
 
 bool InputManager::IsQuit()
 {

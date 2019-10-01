@@ -7,19 +7,17 @@ Primary Author: Jose Rosenbluth
 
 // 1 - Include the headers and add the line for the static type
 #include "RenderingSystem.h"
-#include "../GameObjects/GameObject.h"
+#include "GameObjects/GameObject.h"
 unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 
 // 2 - Include the components you want to add
-#include "../Components/TransformComponent.h"
-#include "../Components/RendererComponent.h"
+#include "Components/TransformComponent.h"
+#include "Components/RendererComponent.h"
 #include "Components/MeshComponent.h"
 
 //TODO: Alberto stuff
 #include "Graphics/AppRenderer.h"
 #include "Graphics/Model.h"
-extern AppRenderer* gAppRenderer;
-
 
 RenderingSystem::RenderingSystem() : 
 	BaseSystem()
@@ -74,14 +72,20 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
 	instanceRenderData.p_ref_model = meshesComp->GetModel();
 	instanceRenderData.p_ref_material = rendererComp->m_pMaterial;
-	instanceRenderData.uv_tiling = Vector2(rendererComp->m_x_tile_factor, rendererComp->m_y_tile_factor);
+	instanceRenderData.uv_tiling = Vector2(rendererComp->m_xTileFactor, rendererComp->m_yTileFactor);
 
-	gAppRenderer->RegisterBasicInstance(instanceRenderData);
-	
+	m_pAppRenderer->RegisterBasicInstance(instanceRenderData);
+
 	Aabb new_aabb = Aabb::BuildFromLocalAABBAndModelMatrix(modelMatrix, meshesComp->GetModel()->GetAABB());
-	DebugAABBInstance aabb_instance = {new_aabb.m_Min, new_aabb.m_Max, Vector3(1.f, 0.f, 0.f)};
+	DebugAABBInstance aabb_instance = { new_aabb.m_Min, new_aabb.m_Max, Vector3(1.f, 0.f, 0.f) };
 
-	//gAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
+	m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
 
-	//DRAW CODE GOES HERE
+	//DRAW CODE GOES HEREex}
+
+}
+
+void RenderingSystem::RegisterAppRenderer(AppRenderer* appRenderer)
+{
+	m_pAppRenderer = appRenderer;
 }

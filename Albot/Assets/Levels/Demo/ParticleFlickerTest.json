@@ -1,0 +1,319 @@
+{
+    "Level_Info": {
+        "Next_Level": "",
+        "Music": "",
+        "Enemy_Transition": false,
+        "Enemy_Tags": [],
+        "Trigger_Transition": false,
+        "Trigger_Tag": "",
+        "Checkpoint_Reached": false,
+        "Spawn_Point": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "Objects": [
+        {
+            "Name": "Ground_4",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [3.9430289268493654, 12.355388641357422, 0.0],
+                "Scale": [100.0, 100.0, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-20.404834747314454, 37.68994140625, 0.0]
+            }
+        },
+        {
+            "Name": "Player_Spawnpoint",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [-4.331355094909668, -12.553096771240235, 0.0]
+            }
+        },
+        {
+            "Name": "Main_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [13.917757987976075, 6.844001770019531, 100.0]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    125,
+                    125
+                ]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-0.4177008271217346, 37.636505126953128, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [19.65896224975586, 37.645103454589847, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-16.992664337158204, -22.89627456665039, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [3.3499574661254885, -22.896270751953126, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [23.692584991455079, -22.89626693725586, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-27.51900291442871, 7.562469005584717, 0.0],
+                "Scale": [7.559999465942383, 1.5750000476837159, 2.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [30.21551513671875, 6.937279224395752, 0.0],
+                "Scale": [7.909999370574951, 1.3300002813339234, 2.5],
+                "Rotation": [2.384185791015625e-7, 0.0, 96.47999572753906]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-17.610942840576173, -3.0741348266601564, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [9.30246353149414, -2.9048614501953127, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [8.49726676940918, 10.094703674316407, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-2.5179924964904787, 21.821556091308595, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-18.119060516357423, 9.907638549804688, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-17.224769592285158, 23.46356201171875, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-5.207611560821533, 11.600837707519532, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-4.463013172149658, -3.2431793212890627, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [10.233829498291016, 22.640151977539064, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [3.90053653717041, 30.230186462402345, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-9.964107513427735, 28.50804901123047, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-11.085536003112793, 6.767036437988281, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [1.5435638427734376, 4.414924621582031, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-12.984651565551758, 18.594650268554689, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [1.2440452575683594, 17.403785705566408, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 50.0
+                }
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-3.74691104888916, -10.623710632324219, -3.8200008869171144]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "cam",
+            "Transform": {
+                "Position": [-5.160024642944336, 4.804715156555176, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 30.0,
+                    "Width": 30.0
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-5.327035427093506, -26.427364349365236, 29.690000534057618],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "cam"
+            }
+        }
+    ]
+}

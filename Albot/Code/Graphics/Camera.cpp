@@ -19,10 +19,10 @@ RTTR_REGISTRATION
 	rttr::registration::class_<Camera>("Camera")
 		.property("Width", &Camera::m_width)
 		.property("Height", &Camera::m_height)
-		.property("Width", &Camera::m_near)
-		.property("Width", &Camera::m_far)
-		.property("Width", &Camera::m_fov)
-		.property("Width", &Camera::m_position);
+		.property("Near", &Camera::m_near)
+		.property("Far", &Camera::m_far)
+		.property("FOV", &Camera::m_fov)
+		.property("Position", &Camera::m_position);
 }
 
 Camera::Camera(int width, int height, float fov,

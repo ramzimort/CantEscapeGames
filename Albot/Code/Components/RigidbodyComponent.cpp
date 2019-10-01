@@ -7,13 +7,16 @@ Primary Author:
 
 
 #include "RigidbodyComponent.h"
+#include "GameObjects/GameObject.h"
+#include "Managers/ResourceManager.h"
+
 unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
-	rttr::registration::class_<RigidbodyComponent>("Rigidbody")
-		.method("Init", &RigidbodyComponent::Init)
-		.method("Begin", &RigidbodyComponent::Begin);
+	rttr::registration::class_<RigidbodyComponent>("RigidBody")
+		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
+		.method("Init", &RigidbodyComponent::Init);
 }
 
 RigidbodyComponent::RigidbodyComponent(GameObject *owner) :
@@ -25,7 +28,7 @@ RigidbodyComponent::~RigidbodyComponent()
 {
 }
 
-void RigidbodyComponent::Init()
+void RigidbodyComponent::Init(ResourceManager* resMgr)
 {
 	m_inertiaTensor = m_inverseInertiaTensor = Matrix::Identity;
 }

@@ -27,7 +27,7 @@ public:
 	virtual ~TransformComponent();
 
 	//Setup methods
-	virtual void Init() override;
+	virtual void Init(ResourceManager* resMgr) override;
 	virtual void Begin() override;
 
 

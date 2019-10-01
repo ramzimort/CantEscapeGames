@@ -6,6 +6,7 @@
 *.user
 *.sln.docstates
 *.ini
+Albot/Assets/IGNORE
 
 # Build results
 [Dd]eveloper

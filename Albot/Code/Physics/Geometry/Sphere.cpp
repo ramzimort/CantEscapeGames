@@ -351,7 +351,7 @@ bool Sphere::Compare(const Sphere& rhs, float epsilon) const
 }
 
 #ifdef DEVELOPER
-void Sphere::DebugDraw(const Vector4& /*color*/) const
+void Sphere::DebugDraw(AppRenderer* pAppRenderer, const Vector4& /*color*/) const
 {
 	// TODO
 }

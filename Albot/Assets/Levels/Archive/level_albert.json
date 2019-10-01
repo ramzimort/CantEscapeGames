@@ -1,0 +1,801 @@
+{
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-1.3691136837005616, -0.3949623107910156, -0.004999999888241291],
+                "Scale": [25.0, 31.998992919921876, 0.009999999776482582],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Ground_1_1",
+                "X_Tile_Factor": 2.0,
+                "Y_Tile_Factor": 2.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 2.0,
+                    "YTiling": 2.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [0.5, 0.5, 0.5],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            }
+        },
+        {
+            "Name": "Skydome_Clouds",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-1.5469169616699219, 13.183557510375977, 0.00499725341796875],
+                "Scale": [3.0, 3.0, 3.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "sky",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Sky",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": true,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-12.933891296386719, -2.2365474700927736, 0.00499725341796875],
+                "Scale": [2.0, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Wall",
+                "X_Tile_Factor": 2.0,
+                "Y_Tile_Factor": 9.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 2.0,
+                    "YTiling": 9.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-12.933891296386719, -2.2365474700927736, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [10.1151123046875, -2.9010467529296877, 0.005001068115234375],
+                "Scale": [2.0, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Wall",
+                "X_Tile_Factor": 2.0,
+                "Y_Tile_Factor": 9.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 2.0,
+                    "YTiling": 9.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [10.1151123046875, -2.9010467529296877, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [0.8849999904632568, -17.131999969482423, 0.4800000786781311],
+                "Scale": [2.2839996814727785, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 89.95000457763672]
+            },
+            "Renderer": {
+                "Material_Vars": "Wall",
+                "X_Tile_Factor": 2.0,
+                "Y_Tile_Factor": 9.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 2.0,
+                    "YTiling": 9.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [0.8849999904632568, -17.131999969482423, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.569923758506775,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "player01",
+            "Dir": "Player",
+            "Tag": "player",
+            "Transform": {
+                "Position": [-0.1950007677078247, -10.692696571350098, 0.005001068115234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": true,
+                "Bounciness": 0.800000011920929,
+                "Collision_Mask": "Player",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-0.1950007677078247, -10.692696571350098, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            },
+            "Player": {
+                "Script": "Player_Init_State.lua"
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-3.5202841758728029, 5.956942081451416, 0.0],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 111.11988830566406]
+            },
+            "Renderer": {
+                "Material_Vars": "",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "PBR",
+                    "Color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "Assets\\Textures\\Enemy_UV_01.png",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.20000000298023225,
+                    "Roughness": 0.10000000149011612,
+                    "KSCoeff": 0.5
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 150.0,
+                "Dynamic": true,
+                "Bounciness": 0.800000011920929,
+                "Collision_Mask": "Enemy",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-3.5202841758728029, 5.956942081451416, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.9394079446792603,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": true
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Circle",
+                    "Center": [-3.5202841758728029, 5.956942081451416, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.9394079446792603,
+                    "Radius": 4.0,
+                    "Width": 1.0,
+                    "Height": 0.0
+                }
+            }
+        },
+        {
+            "Name": "TriggerTest",
+            "Dir": "Trigger",
+            "Tag": "Trigger_Pillar",
+            "Transform": {
+                "Position": [-1.3030657768249512, -3.5537757873535158, 0.005001068115234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [90.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Pillar",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-1.3030657768249512, -3.5537757873535158, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Circle",
+                    "Center": [-1.3030657768249512, -3.5537757873535158, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 4.5,
+                    "Width": 0.0,
+                    "Height": 0.0
+                }
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-10.877945899963379, -9.576427459716797, 0.005001068115234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lambert_Blue",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Solid",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-10.877945899963379, -9.576427459716797, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 2.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Lever_01",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": true
+            }
+        },
+        {
+            "Name": "Lever",
+            "Dir": "Trigger",
+            "Tag": "Lever_01",
+            "Transform": {
+                "Position": [-8.921673774719239, -1.0254440307617188, 0.0],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 36.96000289916992]
+            },
+            "Renderer": {
+                "Material_Vars": "Lever_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-8.921673774719239, -1.0254440307617188, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.6450737118721008,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-8.921673774719239, -1.0254440307617188, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.6450737118721008,
+                    "Radius": 0.0,
+                    "Width": 5.0,
+                    "Height": 4.0
+                }
+            }
+        },
+        {
+            "Name": "Pillar_Destroyable",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-8.587929725646973, 6.541042327880859, 0.0050048828125],
+                "Scale": [2.0, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Pillar_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": true,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Dynamic",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-8.587929725646973, 5.791042327880859, 0.0],
+                    "Offset": [0.0, -0.75, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": true
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Tag": "door01",
+            "Transform": {
+                "Position": [3.727598190307617, 6.40130615234375, 0.0050048828125],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lambert_Blue",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Solid",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [3.727598190307617, 6.40130615234375, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 2.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Lever_02",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": true
+            }
+        },
+        {
+            "Name": "Lever",
+            "Dir": "Trigger",
+            "Tag": "Lever_02",
+            "Transform": {
+                "Position": [5.932376861572266, 2.1724700927734377, 0.005001068115234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lever_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [5.932376861572266, 2.1724700927734377, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [5.932376861572266, 2.1724700927734377, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 3.0,
+                    "Height": 4.0
+                }
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [0.03356483206152916, 12.010223388671875, 0.005001068115234375],
+                "Scale": [1.5, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Wall_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [0.03356483206152916, 12.010223388671875, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 9.329999923706055
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [2.6349477767944338, 3.2886390686035158, 0.00499725341796875],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 178.1700897216797]
+            },
+            "Renderer": {
+                "Material_Vars": "",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "PBR",
+                    "Color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "Assets\\Textures\\Enemy_UV_01.png",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.20000000298023225,
+                    "Roughness": 0.10000000149011612,
+                    "KSCoeff": 0.5
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 150.0,
+                "Dynamic": true,
+                "Bounciness": 0.800000011920929,
+                "Collision_Mask": "Enemy",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Circle",
+                    "Center": [2.6349477767944338, 3.2886390686035158, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 3.109654664993286,
+                    "Radius": 0.75,
+                    "Width": 0.0,
+                    "Height": 0.0
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Circle",
+                    "Center": [2.6349477767944338, 3.2886390686035158, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 3.109654664993286,
+                    "Radius": 8.0,
+                    "Width": 0.0,
+                    "Height": 0.0
+                }
+            }
+        }
+    ]
+}

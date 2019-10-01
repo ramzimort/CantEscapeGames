@@ -1,0 +1,42 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 2.0, 2.0, 2.0 ]
+  },
+
+  "RigidBody": {
+  },
+
+  "RendererComponent": {
+    "Name": "Material1.json"
+
+  },
+
+  "MeshComponent": {
+    "MeshType": "MESH_CUBE"
+  },
+
+  "LightComponent": {
+    "Light": {
+      "LightType": "Directional",
+      "Color": [ 1.0, 1.0, 1.0 ],
+      "Intensity": 1.0,
+      "CastShadow": true,
+      "Enabled": true,
+      "Radis": 1.0,
+      "ShadowIntensity": 1.0
+    }
+  },
+
+  "CameraComponent": {
+    "Camera": {
+      "Width": 16.0,
+      "Height": 9.0,
+      "Near": 0.1,
+      "Far": 100.0,
+      "FOV": 103,
+      "Position": [ 0.0, 0.0, 0.0 ]
+    }
+  }
+}

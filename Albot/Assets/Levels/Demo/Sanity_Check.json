@@ -1,0 +1,26 @@
+{
+  "Level_Info": {
+    "Next_Level": "",
+    "Music": "Techno_1",
+    "Enemy_Transition": false,
+    "Enemy_Tags": [],
+    "Trigger_Transition": false,
+    "Trigger_Tag": "",
+    "Checkpoint_Reached": false,
+    "Spawn_Point": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [1.0641067028045655, 14.892810821533204, 0.0],
+                "Scale": [100.0, 100.0, 0.009999999776482582]
+            }
+        }
+    ]
+}

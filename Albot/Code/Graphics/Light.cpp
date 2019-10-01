@@ -3,19 +3,18 @@
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<Light>("Light")
-		.property("Mass", &Light::m_light_type)
-		.property("Dynamic", &Light::m_color)
-		.property("Bounciness", &Light::m_intensity)
-		.property("Collision_Mask", &Light::m_cast_shadow)
-		.property("Friction_Coeff", &Light::m_enabled)
-		.property("Shape", &Light::m_radius)
-		.property("Destroyable", &Light::m_shadow_intensity);
+		.property("LightType", &Light::m_light_type)
+		.property("Color", &Light::m_color)
+		.property("Intensity", &Light::m_intensity)
+		.property("CastShadow", &Light::m_cast_shadow)
+		.property("Enabled", &Light::m_enabled)
+		.property("Radius", &Light::m_radius)
+		.property("ShadowIntensity", &Light::m_shadow_intensity);
 
 	rttr::registration::enumeration<ELightType>("LightType")(
-		rttr::value("Wall", ELightType::DIRECTIONAL_LIGHT),
-		rttr::value("Dynamic", ELightType::ELIGHT_TYPE_TOTAL_COUNT),
-		rttr::value("Static", ELightType::POINT_LIGHT),
-		rttr::value("Player", ELightType::SPOT_LIGHT));
+		rttr::value("Directional", ELightType::DIRECTIONAL_LIGHT),
+		rttr::value("Point", ELightType::POINT_LIGHT),
+		rttr::value("Spot", ELightType::SPOT_LIGHT));
 }
 
 

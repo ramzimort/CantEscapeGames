@@ -10,6 +10,7 @@ class DXRenderer;
 
 class ResourceManager
 {
+	friend class Factory;
 	typedef std::unordered_map<StringId, void*, StringIdHash> ResourceMap;
 public:
 	ResourceManager();
@@ -18,13 +19,14 @@ public:
 	Model* GetModel(StringId modelId);
 	Material* GetMaterial(StringId materialId);
 	Texture* GetTexture(StringId textureId);
+	std::string& GetPrefab(StringId prefabId);
 
-	void LoadModel(const std::string& filePath, bool texturedModel = false);
+private:
+	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);
-
-	void ClearModel(Model* model);
-	void ClearMaterial(Material* material);
+	void LoadAudio(const std::string& filePath);
+	void LoadPrefab(const std::string& filePath);
 
 private:
 	ResourceMap m_resources;

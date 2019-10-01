@@ -12,7 +12,7 @@ public:
 	LightComponent(GameObject *owner);
 	virtual ~LightComponent();
 
-	void Init() override;
+	void Init(ResourceManager* resMgr) override;
 	void Begin() override;
 
 	//TODO: temp function to set light from lambda

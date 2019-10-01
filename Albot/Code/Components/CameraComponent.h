@@ -13,7 +13,7 @@ public:
 	virtual ~CameraComponent();
 
 	
-	void Init();
+	void Init(ResourceManager* resMgr);
 	void Begin();
 	Camera* GetCamera() const;
 	void SetCamera(Camera* camera);
@@ -22,6 +22,7 @@ public:
 
 private:
 	Camera* m_camera;
+
 	//Unique class identifier
 
 	RTTR_ENABLE(BaseComponent);

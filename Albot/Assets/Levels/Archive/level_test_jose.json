@@ -1,0 +1,189 @@
+{
+    "Objects": [
+        {
+            "Name": "player01",
+            "Dir": "Player",
+            "Tag": "player",
+            "Transform": {
+                "Position": [0.0, -5.0, 0.0]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "enemy02",
+            "Transform": {
+                "Position": [-6.0, 12.0, 0.0],
+                "Rotation": [0.0, 0.0, 180.0]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "enemy00",
+            "Transform": {
+                "Position": [2.0, 12.0, 0.0],
+                "Rotation": [0.0, 0.0, 180.0]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Enemy_Melee_1",
+            "Transform": {
+                "Position": [10.0, 12.0, 0.0],
+                "Rotation": [0.0, 0.0, 180.0]
+            }
+        },
+        {
+            "Name": "TriggerTest",
+            "Dir": "Trigger",
+            "Tag": "Trigger_Pillar",
+            "Transform": {
+                "Position": [-500.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Pillar",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [3.0, 11.0, 0.0]
+            }
+        },
+        {
+            "Name": "Dynamic_Sphere",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [8.0, -4.0, 1.0]
+            }
+        },
+        {
+            "Name": "Dynamic_Sphere",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [12.0, 8.0, 1.0]
+            }
+        },
+        {
+            "Name": "Skydome_Clouds",
+            "Dir": "Background"
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [2.0, 2.0, 0.0],
+                "Scale": [25.0, 30.0, 0.009999999776482582]
+            },
+            "Renderer": {
+                "X_Tile_Factor": 16.0,
+                "Y_Tile_Factor": 16.0
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-3.0999999046325685, -12.0, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [9.100000381469727, -12.0, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-3.0999999046325685, 16.0, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [9.100000381469727, 16.0, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-10.0, 2.5, 1.0]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [15.0, 2.5, 1.0]
+            },
+            "Renderer": {
+                "X_Tile_Factor": 3.0,
+                "Y_Tile_Factor": 16.0
+            }
+        },
+        {
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [0.5597862601280212, 12.247865676879883, 4.995001792907715]
+            },
+            "Light": {
+                "Color": [
+                    255,
+                    0,
+                    0
+                ],
+                "Intensity": 3.0,
+                "Radius": 27.5
+            }
+        },
+        {
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [6.604285717010498, -1.0034255981445313, 1.8350011110305787]
+            },
+            "Light": {
+                "Color": [
+                    1,
+                    0,
+                    255
+                ],
+                "Intensity": 4.5,
+                "Radius": 48.0
+            }
+        },
+        {
+            "Name": "Ground_2",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-22.90043067932129, 2.0646255016326906, 0.0],
+                "Scale": [25.0, 30.0, 0.009999999776482582]
+            },
+            "Renderer": {
+                "X_Tile_Factor": 16.0,
+                "Y_Tile_Factor": 16.0
+            }
+        },
+        {
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-23.077133178710939, 3.2062745094299318, 5.1750006675720219]
+            },
+            "Light": {
+                "Color": [
+                    248,
+                    122,
+                    117
+                ],
+                "Radius": 17.5
+            }
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 60.0, 30.0, 0.0 ]
+  },
+
+  "LightComponent": {
+    "Light": {
+      "LightType": "Directional",
+      "Color": [ 1.0, 1.0, 1.0 ],
+      "Intensity": 2.0,
+      "CastShadow": true,
+      "Radius": 5.0
+    }
+  }
+}

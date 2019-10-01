@@ -5,193 +5,133 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 Primary Author:
 - End Header --------------------------------------------------------*/
 
-
 #include "Factory.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/SystemManager.h"
 #include "Managers/GameObjectManager.h"
-
-// ALL COMPONENTS
-#include "Components/TransformComponent.h"
-#include "Components/RendererComponent.h"
-#include "Components/RigidbodyComponent.h"
-#include "Components/TestComponent.h"
-#include "Components/MeshComponent.h"
-#include "Components/LightComponent.h"
-
-
+#include "Managers/ResourceManager.h"
+#include "Reflection/Serialization.h"
+#include "Reflection/Helpers.h"
 
 //TODO: albert stuff
-#include "Managers/CameraManager.h"
-#include "Graphics/Camera.h"
-#include "Graphics/Material.h"
-#include "Components/CameraComponent.h"
-#include "Systems/FPSCameraSystem.h"
-#include "Managers/ResourceManager.h"
-#include "Physics/SpatialPartition/SpatialPartitionData.h"
-extern CameraManager* gCameraManager;
-extern ResourceManager* gResourceManager;
 
 
-Factory::Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr)
+
+
+Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr)
+	: m_pResourceManager(resMgr)
 {
 	//If either of these is nullptr, we have to stop
-	if (!goMgr || !sysMgr) 
+	if (!goMgr || !sysMgr)
 	{
 		//TODO - Call debug stuff here for error
+		DEBUG_LOG("Factory couldn't load goMgr or sysMgr");
 		return;
 	}
 
-	/////////////////////////////////////////////////////////////
-	//   LATER, THIS PART HAS TO BE DONE USING THE PATH      ////
-	/////////////////////////////////////////////////////////////
-	//   EXAMPLE OF HOW TO ADD GAMEOBJECTS                   ////
-                                                             ////
-													         ////
-	//Will register in rendering system				         ////
-	GameObjectDesc desc1;							         ////
-	desc1.tag = "monoRojo";							         ////
-	desc1.initializeComponentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();	         ////
-		//Override code								         ////
-													         ////
-		auto *R = go->AddComponent<RendererComponent>();     ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc1);	         ////
-													         ////
-													         ////
-													         ////
-	//Will register in rigidbody system				         ////
-	GameObjectDesc desc2;							         ////
-	desc2.tag = "monoAzul";							         ////
-	desc2.initializeComponentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();	         ////
-		//Override code								         ////
-		                                                     ////
-		auto *R = go->AddComponent<RigidbodyComponent>();	         ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc2);	         ////
-													         ////
-													         ////
-													         ////
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc3;							         ////
-	desc3.tag = "monoVerde";						         ////
-	desc3.initializeComponentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TestComp>();		         ////
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc3);	         ////
-													         ////
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc4;							         ////
-	desc4.tag = "FPSPlayer";						         ////
-	desc4.initializeComponentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
+	const std::string path = (Constant::LevelDir + fileName);
+	const std::string levelJson = CantReflect::StringifyJson(path);
+	rapidjson::Document lvlDoc;
 
-		auto cameraComp = go->AddComponent<CameraComponent>();
-		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
-		cameraComp->SetCamera(cameraInfo->m_camera);
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc4);
+	assert(!lvlDoc.Parse(levelJson).HasParseError());
+	assert(lvlDoc.IsObject());
+	assert(lvlDoc["Resources"].IsObject());
 
+	const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
+	LoadResources(resourcesObj, resMgr);
 
-	gResourceManager->LoadModel("mitsuba-sphere.obj", false);
-
-	Model* mitsubaSphereModel = gResourceManager->GetModel(Constant::ModelsDir+"mitsuba-sphere.obj");
-
-	Material* red_diffuse_purple_specular = new Material();
-	red_diffuse_purple_specular->m_diffuseColor = Vector4(1.f, 0.f, 0.f, 1.f);
-	red_diffuse_purple_specular->m_specularColor = Vector4(1.f, 0.f, 1.f, 1.f);
-
-	//gResourceManager->GetMaterial(red_diffuse_purple_specular_desc, "Red_Diffuse_Purple_Specular");
-
-	//Material* red_diffuse_purple_specular = gResourceManager->GetMaterial("Red_Diffuse_Purple_Specular");
-
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc5 = {};							         ////
-	desc5.tag = "mitsubaismybottom";						         ////
-	desc5.initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular](GameObject *go)	         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
-
-		//go->AddComponent<TestComp>();
-
-		auto rendererComp = go->AddComponent<RendererComponent>();
-		rendererComp->SetMaterial(red_diffuse_purple_specular);
-		
-		auto meshesComp = go->AddComponent<MeshComponent>();
-		meshesComp->SetModel(mitsubaSphereModel);
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc5);
-
-
-	Light directionalLight = {};
-	directionalLight.m_cast_shadow = true;
-	directionalLight.m_color = Vector3(1.f, 1.f, 1.f);
-	directionalLight.m_intensity = 2.f;
-	directionalLight.m_radius = 5.f;
-	directionalLight.m_light_type = ELightType::DIRECTIONAL_LIGHT;
-
-	GameObjectDesc desc6 = {};							         ////
-	desc6.tag = "directionalLight";						         ////
-	desc6.initializeComponentSetup = [directionalLight](GameObject *go)	         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
-		T->SetLocalRotation(60.0f, 30.0f, 0.0f);
-
-		auto lightComp = go->AddComponent<LightComponent>();
-		lightComp->SetLight(directionalLight);
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc6);
-	
-	const int row = 3;
-	const int col = 3;
-	const int depth = 3;
-	const float step = 3;
-	GameObjectDesc descArr[row][col][depth] = {};
-	for (int i = 0; i < row; ++i)
+	assert(lvlDoc["Objects"].IsArray());
+	const auto& objsArray = lvlDoc["Objects"].GetArray();
+	for (auto it = objsArray.begin(); it != objsArray.end(); ++it)
 	{
-		for (int j = 0; j < col; ++j)
-		{
-			for (int k = 0; k < depth; ++k)
-			{
-				descArr[i][j][k].tag = "obj[" + std::to_string(i) + "][" + std::to_string(j) + "][" + std::to_string(k);						         ////
-				descArr[i][j][k].initializeComponentSetup = [mitsubaSphereModel, red_diffuse_purple_specular, i, j, k, step](GameObject* go)	         ////
-				{	
-					auto* T = go->AddComponent<TransformComponent>();
-					T->SetLocalPosition(step * i, step * j, step * k - 30.0f);////
-
-					auto* rb = go->AddComponent<RigidbodyComponent>();
-
-					auto rendererComp = go->AddComponent<RendererComponent>();
-					rendererComp->SetMaterial(red_diffuse_purple_specular);
-
-					auto meshesComp = go->AddComponent<MeshComponent>();
-					meshesComp->SetModel(mitsubaSphereModel);
-					//Override code								         ////
-				};												         ////
-				goMgr->Queue_GameObject_Instantiation(&descArr[i][j][k]);
-			}
-		}
+		const std::string& prefab = it->GetObjectA()["prefab"].GetString();
+		const std::string& tag = it->GetObjectA()["tag"].GetString();
+		LoadObject(prefab, tag, goMgr, resMgr);
 	}
-	
-	/////////////////////////////////////////////////////////////
 }
-
 
 Factory::~Factory()
 {
+}
+
+void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr)
+{
+	DEBUG_LOG("Loading Resources...\n");
+
+	// Load Textures
+	assert(resObj["Textures"].IsArray());
+	const auto& textureArr = resObj["Textures"].GetArray();
+	for (auto it = textureArr.begin(); it != textureArr.end(); ++it)
+		resMgr->LoadTexture(it->GetString());
+
+	// Load Models
+	assert(resObj["Models"].IsArray());
+	const auto& modelArr = resObj["Models"].GetArray();
+	for (auto it = modelArr.begin(); it != modelArr.end(); ++it) 
+		resMgr->LoadModel(it->GetString());
+
+	// Load Materials
+	assert(resObj["Materials"].IsArray());
+	const auto& matArr = resObj["Materials"].GetArray();
+	for (auto it = matArr.begin(); it != matArr.end(); ++it)
+		resMgr->LoadMaterial(it->GetString());
+
+	// Load Audio
+	assert(resObj["Audio"].IsArray());
+	const auto& audioArr = resObj["Audio"].GetArray();
+	for (auto it = audioArr.begin(); it != audioArr.end(); ++it)
+		resMgr->LoadAudio(it->GetString());
+
+	// Load Prefabs
+	assert(resObj["Prefabs"].IsArray());
+	const auto& prefabArr = resObj["Prefabs"].GetArray();
+	for (auto it = prefabArr.begin(); it != prefabArr.end(); ++it)
+		resMgr->LoadPrefab(it->GetString());
+}
+
+// Helpers
+rttr::variant ReadComponent(rapidjson::Value::MemberIterator& itr, const rttr::type &t, GameObject* go)
+{
+	std::vector<rttr::type> params;
+	params.push_back(rttr::type::get<GameObject*>());
+	rttr::constructor ctor = t.get_constructor(params);
+	auto inst_type = ctor.get_instantiated_type();
+	std::vector<rttr::argument> args;
+	args.push_back(go);
+	rttr::variant obj = ctor.invoke_variadic(args);
+	return obj;
+}
+
+
+void Factory::LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr)
+{
+	DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName, tag);
+	StringId prefabId = StringId(prefabName);
+	GameObjectDesc desc;
+	desc.tag = tag;
+	desc.initializeComponentSetup = [resMgr, prefabId](GameObject* go)
+	{
+		rapidjson::Document objDoc;
+		const std::string prefab = resMgr->GetPrefab(prefabId);
+		assert(!objDoc.Parse(prefab).HasParseError());
+
+		const std::vector<rttr::argument> args = { go };
+		auto componentIterator = objDoc.GetObjectA().begin();
+		for (componentIterator; componentIterator != objDoc.GetObjectA().end(); componentIterator++)
+		{
+			// Construct prefab containing default arguments
+			std::string compName = componentIterator->name.GetString();
+			rttr::variant comp = CantReflect::ReadVariant(componentIterator, rttr::type::get_by_name(compName), args);
+			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
+			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>() }).invoke(comp, resMgr);
+			go->LinkComponent(baseComp);
+
+			// TODO: Override parameters from the overrides 
+
+
+			// TODO: Need to call Init() may need to pass resMgr into Init() to connect any models
+		}
+
+	};
+	goMgr->Queue_GameObject_Instantiation(&desc);
 }

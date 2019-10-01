@@ -16,6 +16,7 @@ Primary Author: Jose Rosenbluth
 class TransformComponent;
 class RigidbodyComponent;
 class MeshComponent;
+class AppRenderer;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
@@ -46,6 +47,7 @@ public:
 	virtual ~RigidbodySystem() {}
 
 	virtual void Register_GameObject(GameObject *go) override;
+	void RegisterAppRenderer(AppRenderer* renderer);
 
 	virtual void LateUpdate(float dt) override;
 
@@ -66,4 +68,5 @@ private:
 	DynamicAabbTree m_broadPhase;
 	
 	CollisionTable m_collisionTable;
+	AppRenderer* m_pAppRenderer;
 };

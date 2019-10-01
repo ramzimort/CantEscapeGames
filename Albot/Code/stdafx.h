@@ -38,10 +38,13 @@
 #include <DirectXTK/WICTextureLoader.h>
 #include <DirectXTK/CommonStates.h>
 
+// Assimp Stuff
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 // SDL
 #define SDL_MAIN_HANDLED
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_events.h>
@@ -59,11 +62,11 @@
 #include <rttr/wrapper_mapper.h>
 #include <rttr/associative_mapper.h>
 #include <rttr/policy.h>
-#include "rttr/detail/policies/ctor_policies.h"
+#include <rttr/detail/policies/ctor_policies.h>
+#include <rttr/visitor.h>
 
 // Rapidjson
 #define RAPIDJSON_HAS_STDSTRING 1
-
 #include "rapidjson/document.h"
 #include "rapidjson/rapidjson.h"
 #include "rapidjson/istreamwrapper.h"
@@ -72,8 +75,10 @@
 
 using namespace DirectX::SimpleMath;
 
+// Our Libraries
 #include "Helper/MathUtil.h"
 #include "Helper/Constant.h"
+#include "CantDebug/CantDebug.h"
 
 //typedef is used here to have a matching
 //name with HLSL typedef so we can share same struct

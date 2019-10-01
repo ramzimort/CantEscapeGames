@@ -31,7 +31,7 @@ public:
 	TestComp(GameObject *owner);
 	virtual ~TestComp();
 
-	virtual void Init() override;
+	virtual void Init(ResourceManager* resMgr) override;
 	virtual void Begin() override;
 
 public:

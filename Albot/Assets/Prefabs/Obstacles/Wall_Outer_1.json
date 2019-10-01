@@ -1,0 +1,30 @@
+{
+  "Transform": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 12.5, 1.25, 8.333 ]
+  },
+
+  "RigidBody": {
+    "Mass": 1000,
+    "Dynamic": false,
+    "Bounciness": 0.6,
+    "Collision_Mask": "Wall",
+    "Shape": {
+      "Type": "Rectangle",
+      "Width": 8.25,
+      "Height": 1.0,
+      "Offset": [ 0, 0, 0 ]
+    }
+  },
+  "Mesh": {
+    "VAOType": "Loaded",
+    "Model_Name": "Wall.fbx"
+  },
+
+  "Renderer": {
+    "Material_Vars": "Basic_Wall_PBR_1",
+    "X_Tile_Factor": 1.0,
+    "Y_Tile_Factor": 1.0
+  }
+}

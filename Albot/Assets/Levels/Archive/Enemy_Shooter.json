@@ -1,0 +1,136 @@
+{
+    "Level_Info": {
+        "Next_Level": "",
+        "Enemy_Transition": false,
+        "Enemy_Tags": [],
+        "Trigger_Transition": false,
+        "Trigger_Tag": "",
+        "Checkpoint_Reached": false,
+        "Spawn_Point": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-0.3812808096408844, 7.454317092895508, 0.00499725341796875],
+                "Scale": [50.0, 50.0, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-5.04512882232666, 14.24825668334961, 14.195002555847168]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    125,
+                    125
+                ],
+                "Intensity": 3.0,
+                "Radius": 122.5
+            }
+        },
+        {
+            "Name": "Player_Spawnpoint",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [1.2541348934173585, -12.404644012451172, 0.005001068115234375]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-24.73343276977539, 7.791957855224609, 0.00499725341796875],
+                "Scale": [2.0, 55.0, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [1.8658695220947266, 31.04660415649414, 0.005001068115234375],
+                "Scale": [3.0, 55.0, 2.0],
+                "Rotation": [0.0, 0.0, 90.58000183105469]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [23.376672744750978, 7.702934265136719, 0.004993438720703125],
+                "Scale": [2.0, 55.0, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [2.5213546752929689, -16.63706398010254, 0.00499725341796875],
+                "Scale": [2.0, 55.0, 2.0],
+                "Rotation": [0.0, 0.0, 89.99999237060547]
+            }
+        },
+        {
+            "Name": "Room_Camera_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room_0",
+            "Transform": {
+                "Position": [0.9112012982368469, 7.235679626464844, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Width": 22.5,
+                    "Height": 23.5
+                }
+            }
+        },
+        {
+            "Name": "Fixed_Camera_View",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [4.648395538330078, -3.481809616088867, 13.974996566772461],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room_0"
+            }
+        },
+        {
+            "Name": "Hard_Enemy_Shooter",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [2.5193734169006349, 14.458330154418946, 0.0050048828125],
+                "Rotation": [0.0, 0.0, 185.93997192382813]
+            }
+        },
+        {
+            "Name": "Easy_Enemy_Shooter",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [16.45553970336914, 3.0129470825195314, 0.0049896240234375]
+            }
+        },
+        {
+            "Name": "Easy_Enemy_Shooter",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-17.010107040405275, -2.328601837158203, 0.00499725341796875]
+            }
+        },
+        {
+            "Name": "Medium_Enemy_Shooter",
+            "Dir": "Enemy",
+            "Transform": {
+                "Position": [-10.215604782104493, 11.356733322143555, 0.00499725341796875]
+            }
+        }
+    ]
+}

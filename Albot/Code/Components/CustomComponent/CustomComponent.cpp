@@ -29,7 +29,7 @@ CustomComponent::~CustomComponent()
 }
 
 
-void CustomComponent::Init()
+void CustomComponent::Init(ResourceManager* resMgr)
 {
 	try
 	{

@@ -1,0 +1,11 @@
+{
+  "Objects": [
+    {
+      "Name": "ui_pause_menu",
+      "Dir": "UI",
+      "Transform": {
+        "Position": [ 0.0, 0.0, 0.0 ]
+      }
+    }
+  ]
+}

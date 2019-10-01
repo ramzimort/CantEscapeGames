@@ -10,9 +10,9 @@ namespace CantReflect
 	bool WriteVariant(const rttr::variant& var, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 
 	// Read Helpers
-	rttr::variant ReadBaseType(rapidjson::Value& json_value);
+	rttr::variant ReadBaseType(rapidjson::Value& json_value, const rttr::type& t);
 	void ReadArray(rttr::variant_sequential_view& view, rapidjson::Value& json_array_value);
 	void ReadMap(rttr::variant_associative_view& view, rapidjson::Value& json_array_value);
-	rttr::variant ReadVariant(rapidjson::Value::MemberIterator& itr, const rttr::type& t);
+	rttr::variant ReadVariant(rapidjson::Value::MemberIterator& itr, const rttr::type& t, const std::vector<rttr::argument>& argType);
 	void ReadRecursive(rttr::instance obj2, rapidjson::Value& json_object);
 }

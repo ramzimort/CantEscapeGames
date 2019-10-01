@@ -7,24 +7,26 @@ Primary Author:
 
 #include "RendererComponent.h"
 #include "Graphics/Material.h"
+#include "GameObjects/GameObject.h"
+#include "Managers/ResourceManager.h"
 
 unsigned const RendererComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<RendererComponent>("RendererComponent")
-		.property("Name", &RendererComponent::m_material_name)
-		.property("Material", &RendererComponent::m_pMaterial)
-		.property("XTileFactor", &RendererComponent::m_x_tile_factor)
-		.property("YTileFactor", &RendererComponent::m_y_tile_factor)
-		.method("Init", &RendererComponent::Init)
-		.method("Begin", &RendererComponent::Begin);
+		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
+		.property("MaterialId", &RendererComponent::m_materialId)
+		.property("XTileFactor", &RendererComponent::m_xTileFactor)
+		.property("YTileFactor", &RendererComponent::m_yTileFactor)
+		.method("Init", &RendererComponent::Init);
+
 }
 
 RendererComponent::RendererComponent(GameObject *owner) :
 	BaseComponent(owner, RendererComponent::static_type),
-	m_x_tile_factor(1.f),
-	m_y_tile_factor(1.f)
+	m_xTileFactor(1.f),
+	m_yTileFactor(1.f)
 {
 }
 
@@ -32,8 +34,9 @@ RendererComponent::~RendererComponent()
 {
 }
 
-void RendererComponent::Init()
+void RendererComponent::Init(ResourceManager* resMgr)
 {
+	m_pMaterial = resMgr->GetMaterial(m_materialId);
 }
 
 void RendererComponent::Begin()
@@ -47,9 +50,9 @@ void RendererComponent::SetMaterial(Material* material)
 
 void RendererComponent::SetXTileFactor(float x_factor)
 {
-	m_x_tile_factor = x_factor;
+	m_xTileFactor = x_factor;
 }
 void RendererComponent::SetYTileFactor(float y_factor)
 {
-	m_y_tile_factor = y_factor;
+	m_yTileFactor = y_factor;
 }

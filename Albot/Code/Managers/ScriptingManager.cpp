@@ -12,12 +12,12 @@ Primary Author: Jose Rosenbluth
 
 
 // BINDING INCLUDES
-#include "../Managers/GameObjectManager.h"
-#include "../Managers/SystemManager.h"
+#include "Managers/GameObjectManager.h"
+#include "Managers/SystemManager.h"
 
-#include "../GameObjects/GameObject.h"
+#include "GameObjects/GameObject.h"
 
-#include "../Components/TestComponent.h"
+#include "Components/TestComponent.h"
 
 
 

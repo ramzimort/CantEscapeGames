@@ -1,0 +1,25 @@
+{
+    "Objects": [
+        {
+            "Name": "PREFAB_NAME",
+            "Tag": "TAG_NAME",
+            "Transform": {
+                "Position": [0.0, -3.0, 10.0],
+                "Scale": [1.0, 1.0, 1.25],
+                "Rotation": [0.0, 0.0, 0.0],
+                "Children": []
+            },
+            "LevelAuthor": {}
+        },
+        {
+            "Name": "PREFAB_NAME",
+            "Tag": "TAG_NAME",
+            "Transform": {
+                "Position": [0.0, 0.0, -2.0],
+                "Scale": [10.0, 10.0, 0.009999999776482582],
+                "Rotation": [0.0, 0.0, 0.0],
+                "Children": []
+            }
+        }
+    ]
+}

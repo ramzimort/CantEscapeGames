@@ -21,7 +21,7 @@ void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 #ifdef DEVELOPER
-	LoadModel("Cube.fbx", false);
+	LoadModel("Assets/Models/Cube.fbx");
 #endif // DEVELOPER
 }
 
@@ -40,51 +40,78 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 	return static_cast<Texture*>(m_resources[textureId]);
 }
 
-void ResourceManager::LoadModel(const std::string& filePath, bool texturedModel)
+std::string& ResourceManager::GetPrefab(StringId prefabId)
 {
-	std::string path = Constant::ModelsDir + filePath;
-	StringId id = StringId(path);
-	Model* model = static_cast<Model*>(m_resources[id]);
-	if (model == nullptr)
-	{
-		model = new Model();
-		Assimp::Importer importer;
-		aiScene const *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
-		// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
+	return *(static_cast<std::string*>(m_resources[prefabId]));
+}
 
-		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-		{
-			DEBUG_LOG("Couldn't load Model");
-			return;
-		}
-		m_resources[id] = model;
-		ModelLoader::LoadModel(model, scene, m_dxrenderer);
+void ResourceManager::LoadModel(const std::string& filePath)
+{
+	DEBUG_LOG("Loading Model: %s...\n", filePath);
+	StringId id = StringId(filePath);
+
+	Model* model = static_cast<Model*>(m_resources[id]);
+	if (model != nullptr)
+		return;
+
+	model = new Model();
+	Assimp::Importer importer;
+	aiScene const *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
+
+	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+	{
+		DEBUG_LOG("Couldn't load Model %s", filePath);
+		return;
 	}
+	m_resources[id] = model;
+	ModelLoader::LoadModel(model, scene, m_dxrenderer);
 }
 
 void ResourceManager::LoadMaterial(const std::string& filePath)
 {
+	DEBUG_LOG("Loading Material: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
+
 	Material* material = static_cast<Material*>(m_resources[id]);
 	if (material != nullptr)
 		return;
 
+	const std::string materialObj = CantReflect::StringifyJson(filePath);
 	material = new Material();
-	CantReflect::FromJson(filePath, material);
+	CantReflect::FromJson(materialObj, material);
 	m_resources[id] = material;
 }
 
 // Returns null if surface does not exist
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
+	DEBUG_LOG("Loading Texture: %s...\n", filePath);
+	StringId id = StringId(filePath);
+
+	Texture* texture = static_cast<Texture*>(m_resources[id]);
+	if (texture != nullptr)
+		return;
+
 	//TextureLoader::CreateTexture(m_dxrenderer, TextureLoadDesc(filePath));
 	//m_resources[CANTID(filePath)] = 
 }
 
-void ResourceManager::ClearModel(Model* model)
+void ResourceManager::LoadAudio(const std::string& filePath)
 {
+	DEBUG_LOG("Loading Audio: %s...\n", filePath);
+	StringId id = StringId(filePath);
 }
 
-void ResourceManager::ClearMaterial(Material * material)
+void ResourceManager::LoadPrefab(const std::string& filePath)
 {
+	DEBUG_LOG("Loading Prefab: %s...\n", filePath);
+	StringId id = StringId(filePath);
+
+	std::string* defaultGameObj = static_cast<std::string*>(m_resources[id]);
+	if (defaultGameObj != nullptr)
+		return;
+	
+	defaultGameObj = new std::string(CantReflect::StringifyJson(filePath));
+	m_resources[id] = defaultGameObj;
 }

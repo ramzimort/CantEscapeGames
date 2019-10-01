@@ -7,16 +7,17 @@ Primary Author:
 
 
 #include "TransformComponent.h"
+#include "GameObjects/GameObject.h"
+
 unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<TransformComponent>("TransformComponent")
+	.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 	.property("Position", &TransformComponent::m_position)
 	.property("Rotation", &TransformComponent::m_rotation)
-	.property("Scale", &TransformComponent::m_scale)
-	.method("Init", &TransformComponent::Init)
-	.method("Begin", &TransformComponent::Begin);
+	.property("Scale", &TransformComponent::m_scale);
 }
 
 
@@ -38,7 +39,7 @@ TransformComponent::~TransformComponent()
 ///////////////////////////////////////////////////////
 ////           INITIALIZATION METHODS              ////
 ///////////////////////////////////////////////////////
-void TransformComponent::Init()
+void TransformComponent::Init(ResourceManager* resMgr)
 {
 }
 

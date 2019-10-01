@@ -1,0 +1,38 @@
+{
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-1.050119400024414, 10.105646133422852, 0.00499725341796875],
+                "Scale": [25.0, 30.0, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Switch_Button",
+            "Dir": "Trigger",
+            "Tag": "Trigger_1",
+            "Transform": {
+                "Position": [1.1251182556152344, 11.263931274414063, 0.005001068115234375]
+            }
+        },
+        {
+            "Name": "player01",
+            "Dir": "Player",
+            "Transform": {
+                "Position": [-5.097846984863281, 10.295642852783204, 0.0049991607666015629]
+            }
+        },
+        {
+            "Name": "Press_A",
+            "Dir": "Popups",
+            "Transform": {
+                "Position": [0.0, -0.699999988079071, 0.0],
+                "Scale": [0.30000001192092898, 0.05000000074505806, 1.0]
+            },
+            "UI_Popup": {
+                "Popup_Once": false
+            }
+        }
+    ]
+}

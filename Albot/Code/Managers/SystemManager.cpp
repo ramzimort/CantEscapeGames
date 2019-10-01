@@ -16,22 +16,16 @@ Primary Author: Jose Rosenbluth
 #include "Systems/TestSystem.h"
 #include "Systems/FPSCameraSystem.h"
 #include "Systems/LightSystem.h"
-#include "Systems/CustomSystem/CustomSystem.h"
 
-SystemManager::SystemManager()
+SystemManager::SystemManager(AppRenderer* appRenderer)
 {
-	//ADD HERE THE SYSTEMS
 	this->AddSystem<TransformSystem>();
-	this->AddSystem<LightSystem>();
 	this->AddSystem<RigidbodySystem>();
+	this->AddSystem<LightSystem>();
 	this->AddSystem<RenderingSystem>();
-	this->AddSystem<FPSCameraSystem>();
-
-	//Test (erase later)
-	this->AddSystem<TestSystem>();
-
-	//LAST SYSTEM TO BE ADDED
-	this->AddSystem<CustomSystem>();
+	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<RigidbodySystem*>(m_systems[RigidbodySystem::static_type])->RegisterAppRenderer(appRenderer);
 }
 
 SystemManager::~SystemManager()

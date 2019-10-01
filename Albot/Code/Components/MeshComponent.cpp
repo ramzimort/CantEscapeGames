@@ -1,23 +1,27 @@
+
 #include "MeshComponent.h"
+#include "GameObjects/GameObject.h"
+#include "Managers/ResourceManager.h"
+
 
 unsigned const MeshComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<MeshComponent>("MeshComponent")
-		.property("Model", &MeshComponent::m_model)
-		.property("Name", &MeshComponent::m_model_name)
+		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
+		.property("ModelId", &MeshComponent::m_modelId)
 		.property("Type", &MeshComponent::m_mesh_type)
 		.property("MissingTangents", &MeshComponent::m_calculate_missing_tangents)
-		.method("Init", &MeshComponent::Init)
-		.method("Begin", &MeshComponent::Begin);
+		.method("Init", &MeshComponent::Init);
+
 
 	rttr::registration::enumeration<MeshType>("MeshType")(
-		rttr::value("MESH_QUAD", MeshType::MESH_QUAD),
-		rttr::value("MESH_CUBE", MeshType::MESH_CUBE),
-		rttr::value("MESH_MODEL", MeshType::MESH_MODEL),
-		rttr::value("MESH_TEXTURED_MODEL", MeshType::MESH_TEXTURED_MODEL),
-		rttr::value("MESH_PLANE", MeshType::MESH_PLANE));
+		rttr::value("Quad", MeshType::MESH_QUAD),
+		rttr::value("Cube", MeshType::MESH_CUBE),
+		rttr::value("Model", MeshType::MESH_MODEL),
+		rttr::value("TexturedModel", MeshType::MESH_TEXTURED_MODEL),
+		rttr::value("Plane", MeshType::MESH_PLANE));
 
 }
 
@@ -31,8 +35,9 @@ MeshComponent::~MeshComponent()
 }
 
 
-void MeshComponent::Init()
+void MeshComponent::Init(ResourceManager* resMgr)
 {
+	m_model = resMgr->GetModel(m_modelId);
 }
 
 

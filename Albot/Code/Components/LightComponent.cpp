@@ -1,13 +1,18 @@
+
 #include "LightComponent.h"
+#include "GameObjects/GameObject.h"
+#include "Managers/ResourceManager.h"
+
 
 unsigned const LightComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<LightComponent>("LightComponent")
+		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.property("Light", &LightComponent::m_light)
-		.method("Init", &LightComponent::Init)
-		.method("Begin", &LightComponent::Begin);
+		.method("Init", &LightComponent::Init);
+
 }
 
 LightComponent::LightComponent(GameObject *owner)
@@ -26,7 +31,7 @@ const Light* LightComponent::GetLight() const
 	return &m_light;
 }
 
-void LightComponent::Init()
+void LightComponent::Init(ResourceManager* resMgr)
 {
 
 }

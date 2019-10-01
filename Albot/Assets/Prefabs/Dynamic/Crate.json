@@ -1,0 +1,32 @@
+{
+  "Transform": {
+    "Position": [ 0.0, 0.0, 1.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 2.0, 2.0, 2.0 ]
+  },
+
+  "RigidBody": {
+    "Mass": 600,
+    "Dynamic": true,
+    "Bounciness": 0.6,
+    "Friction_Coeff": 0.1,
+    "Collision_Mask": "Dynamic",
+	"Shape": {
+      "Type": "Circle",
+      "Radius": 0.5,
+      "Offset": [ 0, 0, 0 ]
+    }
+  },
+
+  "Mesh": {
+    "VAOType": "Cube"
+  },
+
+  "Renderer": {
+    "Material_Vars": "Crate_PBR",
+    "Diffuse_Color": [ 1, 1, 1, 1 ]
+  },
+ 
+  "Hittable": {
+  }
+}

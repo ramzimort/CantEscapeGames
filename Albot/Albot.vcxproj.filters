@@ -1,471 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Code\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Memory\StackAllocator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\CameraManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\EventManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\FrameManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\GameObjects\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\BaseComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\TestComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\TransformComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\RendererComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\RigidbodyComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Factory\Factory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\GameObjectManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\SystemManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\BaseSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\RenderingSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\RigidbodySystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\TestSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\States\State.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\StateManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\Geometry\Aabb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\Geometry\Intersection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\Geometry\Sphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\TransformSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\FPSCameraSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\CameraComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\AppRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\BlendState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\D3D11_Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\DebugRendering.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\DepthState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\DXResourceLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Light.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Material.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\ModelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Pipeline.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\RasterizerState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\RenderTarget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Sampler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Managers\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\CollisionTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\CantDebug\CantDebug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\LightComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Components\MeshComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\DeferredRendering.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Reflection\Helpers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Reflection\Serialization.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Systems\LightSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\Sat\Sat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SuppportShape\SupportShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SuppportShape\ModelSupportShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Code\Memory\StackAllocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\CantDebug\CantDebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\CameraManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\EventManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\FrameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\WindowManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\GameObjects\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\TransformComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\BaseComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\TestComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\RendererComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\RigidbodyComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Factory\Factory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\GameObjectManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\SystemManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\BaseSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\RenderingSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\RigidbodySystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\Geometry\Aabb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\Geometry\Intersection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\Geometry\Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\Geometry\Sphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\PhysicsUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Memory\PoolAllocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Events\Delegate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Events\Multicast.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\TestSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\States\State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\StateManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\TransformSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\Include\stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\CameraComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\FPSCameraSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\AppRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\BlendState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Common_Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\D3D_Commands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\D3D11_Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\d3dUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\DebugRendering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\DepthState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\DescriptorData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\DXResourceLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\ModelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Pipeline.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\RasterizerState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Renderer_Includes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\RenderTarget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Sampler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\VertexLayout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Managers\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\CollisionTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\LightComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Components\MeshComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\DeferredRendering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Helper\Constant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Helper\Hash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Helper\MathUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Memory\AllocatorTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Memory\CantMemory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Reflection\Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Reflection\Serialization.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Shaders\Shading.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Systems\LightSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\Sat\Sat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SuppportShape\SupportShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SuppportShape\ModelSupportShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Graphics\MSAAResolvePass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
     <ClCompile Include="Code\Components\BaseComponent.cpp" />
     <ClCompile Include="Code\Components\CameraComponent.cpp" />
+    <ClCompile Include="Code\Components\LightComponent.cpp" />
+    <ClCompile Include="Code\Components\MeshComponent.cpp" />
     <ClCompile Include="Code\Components\RendererComponent.cpp" />
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
-    <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TransformComponent.cpp" />
+    <ClCompile Include="Code\Events\BaseEvent.cpp" />
+    <ClCompile Include="Code\Events\Event.cpp" />
+    <ClCompile Include="Code\Events\EventBus.cpp" />
     <ClCompile Include="Code\Factory\Factory.cpp" />
     <ClCompile Include="Code\GameObjects\GameObject.cpp" />
     <ClCompile Include="Code\Graphics\AppRenderer.cpp" />
@@ -474,18 +20,23 @@
     <ClCompile Include="Code\Graphics\Camera.cpp" />
     <ClCompile Include="Code\Graphics\D3D11_Renderer.cpp" />
     <ClCompile Include="Code\Graphics\DebugRendering.cpp" />
+    <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
+    <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
     <ClCompile Include="Code\Graphics\DepthState.cpp" />
     <ClCompile Include="Code\Graphics\DXResourceLoader.cpp" />
+    <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
     <ClCompile Include="Code\Graphics\Light.cpp" />
     <ClCompile Include="Code\Graphics\Material.cpp" />
     <ClCompile Include="Code\Graphics\Mesh.cpp" />
     <ClCompile Include="Code\Graphics\Model.cpp" />
     <ClCompile Include="Code\Graphics\ModelLoader.cpp" />
+    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
     <ClCompile Include="Code\Graphics\Pipeline.cpp" />
     <ClCompile Include="Code\Graphics\RasterizerState.cpp" />
     <ClCompile Include="Code\Graphics\RenderTarget.cpp" />
     <ClCompile Include="Code\Graphics\Sampler.cpp" />
     <ClCompile Include="Code\Graphics\Shader.cpp" />
+    <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
     <ClCompile Include="Code\Graphics\Texture.cpp" />
     <ClCompile Include="Code\Main.cpp" />
     <ClCompile Include="Code\Managers\CameraManager.cpp" />
@@ -494,46 +45,52 @@
     <ClCompile Include="Code\Managers\GameObjectManager.cpp" />
     <ClCompile Include="Code\Managers\InputManager.cpp" />
     <ClCompile Include="Code\Managers\ResourceManager.cpp" />
+    <ClCompile Include="Code\Managers\ScriptingManager.cpp" />
     <ClCompile Include="Code\Managers\StateManager.cpp" />
     <ClCompile Include="Code\Managers\SystemManager.cpp" />
-    <ClCompile Include="Code\Managers\WindowManager.cpp" />
+    <ClCompile Include="Code\Memory\CantMemory.cpp" />
     <ClCompile Include="Code\Memory\StackAllocator.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
+    <ClCompile Include="Code\Physics\Sat\Sat.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\ModelSupportShape.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp" />
+    <ClCompile Include="Code\Physics\SuppportShape\SupportShape.cpp" />
+    <ClCompile Include="Code\Reflection\Helpers.cpp" />
+    <ClCompile Include="Code\Reflection\Serialization.cpp" />
     <ClCompile Include="Code\States\State.cpp" />
     <ClCompile Include="Code\stdafx.cpp" />
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
     <ClCompile Include="Code\Systems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
     <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
-    <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
-    <ClCompile Include="Code\Managers\ScriptingManager.cpp" />
+    <ClCompile Include="Code\Physics\CollisionTable.cpp" />
     <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
     <ClCompile Include="Code\Components\CustomComponent\CustomComponent.cpp" />
-    <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
-    <ClCompile Include="Code\Systems\LightSystem.cpp" />
-    <ClCompile Include="Code\Components\LightComponent.cpp" />
-    <ClCompile Include="Code\Reflection\Helpers.cpp" />
-    <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
-    <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
-    <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
+    <ClCompile Include="Code\Components\TestComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
     <ClInclude Include="Code\CantDebug\CantDebug.h" />
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\CameraComponent.h" />
+    <ClInclude Include="Code\Components\LightComponent.h" />
+    <ClInclude Include="Code\Components\MeshComponent.h" />
     <ClInclude Include="Code\Components\RendererComponent.h" />
     <ClInclude Include="Code\Components\RigidbodyComponent.h" />
-    <ClInclude Include="Code\Components\TestComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
+    <ClInclude Include="Code\Events\BaseEvent.h" />
     <ClInclude Include="Code\Events\Delegate.h" />
+    <ClInclude Include="Code\Events\Event.h" />
+    <ClInclude Include="Code\Events\EventBus.h" />
+    <ClInclude Include="Code\Events\EventCallback.h" />
     <ClInclude Include="Code\Events\Multicast.h" />
     <ClInclude Include="Code\Factory\Factory.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
@@ -546,31 +103,40 @@
     <ClInclude Include="Code\Graphics\d3dUtils.h" />
     <ClInclude Include="Code\Graphics\D3D_Commands.h" />
     <ClInclude Include="Code\Graphics\DebugRendering.h" />
+    <ClInclude Include="Code\Graphics\DeferredRendering.h" />
+    <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
     <ClInclude Include="Code\Graphics\DepthState.h" />
     <ClInclude Include="Code\Graphics\DescriptorData.h" />
     <ClInclude Include="Code\Graphics\DXResourceLoader.h" />
+    <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
     <ClInclude Include="Code\Graphics\Light.h" />
     <ClInclude Include="Code\Graphics\Material.h" />
     <ClInclude Include="Code\Graphics\Mesh.h" />
     <ClInclude Include="Code\Graphics\Model.h" />
     <ClInclude Include="Code\Graphics\ModelLoader.h" />
+    <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
     <ClInclude Include="Code\Graphics\Pipeline.h" />
     <ClInclude Include="Code\Graphics\RasterizerState.h" />
     <ClInclude Include="Code\Graphics\Renderer_Includes.h" />
     <ClInclude Include="Code\Graphics\RenderTarget.h" />
     <ClInclude Include="Code\Graphics\Sampler.h" />
     <ClInclude Include="Code\Graphics\Shader.h" />
+    <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
     <ClInclude Include="Code\Graphics\Texture.h" />
     <ClInclude Include="Code\Graphics\VertexLayout.h" />
+    <ClInclude Include="Code\Helper\Constant.h" />
+    <ClInclude Include="Code\Helper\Hash.h" />
+    <ClInclude Include="Code\Helper\MathUtil.h" />
     <ClInclude Include="Code\Managers\CameraManager.h" />
     <ClInclude Include="Code\Managers\EventManager.h" />
     <ClInclude Include="Code\Managers\FrameManager.h" />
     <ClInclude Include="Code\Managers\GameObjectManager.h" />
     <ClInclude Include="Code\Managers\InputManager.h" />
     <ClInclude Include="Code\Managers\ResourceManager.h" />
+    <ClInclude Include="Code\Managers\ScriptingManager.h" />
     <ClInclude Include="Code\Managers\StateManager.h" />
     <ClInclude Include="Code\Managers\SystemManager.h" />
-    <ClInclude Include="Code\Managers\WindowManager.h" />
+    <ClInclude Include="Code\Memory\AllocatorTypes.h" />
     <ClInclude Include="Code\Memory\CantMemory.h" />
     <ClInclude Include="Code\Memory\PoolAllocator.h" />
     <ClInclude Include="Code\Memory\StackAllocator.h" />
@@ -579,36 +145,34 @@
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
+    <ClInclude Include="Code\Physics\Sat\Sat.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\ModelSupportShape.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h" />
+    <ClInclude Include="Code\Physics\SuppportShape\SupportShape.h" />
+    <ClInclude Include="Code\Reflection\Helpers.h" />
+    <ClInclude Include="Code\Reflection\Serialization.h" />
+    <ClInclude Include="Code\Shaders\Shading.h" />
     <ClInclude Include="Code\States\State.h" />
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
     <ClInclude Include="Code\Systems\FPSCameraSystem.h" />
+    <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
     <ClInclude Include="Code\Systems\RigidbodySystem.h" />
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
-    <ClInclude Include="Code\Memory\AllocatorTypes.h" />
-    <ClInclude Include="Code\Managers\ScriptingManager.h" />
+    <ClInclude Include="Code\Physics\CollisionTable.h" />
     <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
     <ClInclude Include="Code\Components\CustomComponent\CustomComponent.h" />
+    <ClInclude Include="Code\Components\TestComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="Code\Scripts\test01Comp.lua" />
     <None Include="Code\Scripts\test02Comp.lua" />
-    <None Include="cpp.hint" />
-    <ClInclude Include="Code\Shaders\Shading.h" />
-    <ClInclude Include="Code\Helper\Constant.h" />
-    <ClInclude Include="Code\Helper\MathUtil.h" />
-    <ClInclude Include="Code\Graphics\DeferredRendering.h" />
-    <ClInclude Include="Code\Systems\LightSystem.h" />
-    <ClInclude Include="Code\Components\LightComponent.h" />
-    <ClInclude Include="Code\Reflection\Helpers.h" />
-    <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
-    <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
-    <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Code\Shaders\debug_frag.hlsl" />
@@ -624,9 +188,7 @@
     <Text Include="Code\Shaders\skybox_frag.hlsl" />
     <Text Include="Code\Shaders\skybox_vert.hlsl" />
     <Text Include="Code\Shaders\blur_filter_comp.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Code\Shaders\msaa_resolve_frag.hlsl" />
-    <FxCompile Include="Code\Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
+    <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
   </ItemGroup>
 </Project>

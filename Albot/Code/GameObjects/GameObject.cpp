@@ -7,12 +7,16 @@ Primary Author: Jose Rosenbluth
 
 
 #include "GameObject.h"
-#include "../Managers/GameObjectManager.h"
+#include "Managers/GameObjectManager.h"
 
 
 // Initialize static member of class
 int GameObject::go_count = 0;
 
+RTTR_REGISTRATION
+{
+	rttr::registration::class_<GameObject>("GameObject");
+}
 
 GameObject::GameObject(GameObjectManager *goMgr) :
 	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0),
@@ -40,6 +44,16 @@ GameObject::~GameObject()
 		delete node.second;
 	}
 	m_customComponents.clear();
+}
+
+void GameObject::LinkComponent(BaseComponent* component)
+{
+	BaseComponent::ComponentId componentTypeId = component->GetType();
+	if (component)
+	{
+		this->m_compMask[componentTypeId] = 1;
+		this->m_components[componentTypeId] = component;
+	}
 }
 
 size_t GameObject::GetId() const

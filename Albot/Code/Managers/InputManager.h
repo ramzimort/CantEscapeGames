@@ -21,6 +21,8 @@ public:
 	InputManager();
 	~InputManager();
 
+	void Initialize();
+
 	/** Updates members containing current frame and previous frame values */
 	void Update();
 	/** \brief Check keybaord key press */
@@ -45,23 +47,22 @@ public:
 	/** Returns scrolling amount in y-direction*/
 	Sint32 GetMouseScroll();
 
+	SDL_Window* GetWindow();
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit();
 
 	bool AnyKeyPressed() const;
 
 private:
-	SDL_Event m_event;
-	Uint8 m_keyboardStateCurrent[512];
-	Uint8 m_keyboardStatePrevious[512];
-
+	SDL_Window* m_pWindow;
 	Uint32 m_mouseStateCurrent;
 	Uint32 m_mouseStatePrevious;
-
 	int m_mousePositionCurrent[2];
 	int m_mousePositionPrevious[2];
 	Sint32 m_mouseWheelY;
-
-	bool m_quit = { false };
+	SDL_Event m_event;
+	Uint8 m_keyboardStateCurrent[512];
+	Uint8 m_keyboardStatePrevious[512];
+	bool m_quit;
 };
 

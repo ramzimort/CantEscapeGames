@@ -8,6 +8,7 @@ Other Authors : <None>
 
 #include "Helpers.h"
 #include "CantDebug/CantDebug.h"
+#include "Helper/Hash.h"
 
 namespace CantReflect
 {
@@ -232,12 +233,21 @@ namespace CantReflect
 		return true;
 	}
 
-	variant ReadBaseType(Value& json_value)
+	variant ReadBaseType(Value& json_value, const type& var_t)
 	{
 		switch (json_value.GetType())
 		{
 		case kStringType:
 		{
+			// Automatically convert StringId	
+			if (var_t == type::get<StringId>())
+			{
+				const char* name = json_value.GetString();
+				StringId id = StringId(name);
+				variant id_var = variant(id);
+				return id_var;
+			}
+
 			return std::string(json_value.GetString());
 			break;
 		}
@@ -270,7 +280,7 @@ namespace CantReflect
 		return variant();
 	}
 
-	void ReadArray(rttr::variant_sequential_view& view, Value& json_array_value)
+	void ReadArray(variant_sequential_view& view, Value& json_array_value)
 	{
 		view.set_size(json_array_value.Size());
 		const type array_value_type = view.get_rank_type(1);
@@ -292,34 +302,59 @@ namespace CantReflect
 			}
 			else
 			{
-				variant extracted_value = ReadBaseType(json_index_value);
+				variant extracted_value = ReadBaseType(json_index_value, array_value_type);
 				if (extracted_value.convert(array_value_type))
 					view.set_value(i, extracted_value);
 			}
 		}
 	}
 
-	rttr::variant ReadVariant(Value::MemberIterator& itr, const type& t)
+	variant ReadVariant(Value::MemberIterator& itr, const type& t, const std::vector<argument>& args)
 	{
 		auto& json_value = itr->value;
-		variant extracted_value = ReadBaseType(json_value);
+		variant extracted_value = ReadBaseType(json_value, t);
 		const bool could_convert = extracted_value.convert(t);
 		if (!could_convert)
 		{
 			if (json_value.IsObject())
 			{
-				constructor ctor = t.get_constructor();
+				std::vector<rttr::type> argType;
+				for (auto arg : args)
+					argType.push_back(arg.get_type());
+				constructor ctor = t.get_constructor(argType);
 				for (auto& item : t.get_constructors())
 				{
-					if (item.get_instantiated_type() == t)
+					if (item.get_instantiated_type().is_pointer())
 						ctor = item;
 				}
-				extracted_value = ctor.invoke();
+				switch (args.size())
+				{
+				case 1:
+					extracted_value = ctor.invoke(args[0]);
+					break;
+				case 2:
+					extracted_value = ctor.invoke(args[0], args[1]);
+					break;
+				case 3:
+					extracted_value = ctor.invoke(args[0], args[1], args[2]);
+					break;
+				case 4:
+					extracted_value = ctor.invoke(args[0], args[1], args[2], args[3]);
+					break;
+				case 5:
+					extracted_value = ctor.invoke(args[0], args[1], args[2], args[3], args[4]);
+					break;
+				case 6:
+					extracted_value = ctor.invoke(args[0], args[1], args[2], args[3], args[4], args[5]);
+				default:
+					extracted_value = ctor.invoke();
+					break;
+				}
 				ReadRecursive(extracted_value, json_value);
 			}
 		}
 		return extracted_value;
-	}
+	};
 
 	void ReadMap(variant_associative_view& view, Value& json_array_value)
 	{
@@ -334,8 +369,8 @@ namespace CantReflect
 				if (key_itr != json_index_value.MemberEnd() &&
 					value_itr != json_index_value.MemberEnd())
 				{
-					auto key_var = ReadVariant(key_itr, view.get_key_type());
-					auto value_var = ReadVariant(value_itr, view.get_value_type());
+					auto key_var = ReadVariant(key_itr, view.get_key_type(), std::vector<rttr::argument>());
+					auto value_var = ReadVariant(value_itr, view.get_value_type(), std::vector<rttr::argument>());
 					if (key_var && value_var)
 					{
 						view.insert(key_var, value_var);
@@ -344,7 +379,7 @@ namespace CantReflect
 			}
 			else // a key-only associative view
 			{
-				variant extracted_value = ReadBaseType(json_index_value);
+				variant extracted_value = ReadBaseType(json_index_value, view.get_key_type());
 				if (extracted_value && extracted_value.convert(view.get_key_type()))
 					view.insert(extracted_value);
 			}
@@ -369,7 +404,31 @@ namespace CantReflect
 			case kArrayType:
 			{
 				variant var;
-				if (value_t.is_sequential_container())
+				if (value_t == type::get<Vector2>())
+				{
+					Vector2 vec2;
+					vec2.x = json_value.GetArray()[0].GetFloat();
+					vec2.y = json_value.GetArray()[1].GetFloat();
+					var = vec2;
+				}
+				else if (value_t == type::get<Vector3>())
+				{
+					Vector3 vec3;
+					vec3.x = json_value.GetArray()[0].GetFloat();
+					vec3.y = json_value.GetArray()[1].GetFloat();
+					vec3.z = json_value.GetArray()[2].GetFloat();
+					var = vec3;
+				}
+				else if (value_t == type::get<Vector4>())
+				{
+					Vector4 vec4;
+					vec4.x = json_value.GetArray()[0].GetFloat();
+					vec4.y = json_value.GetArray()[1].GetFloat();					
+					vec4.z = json_value.GetArray()[2].GetFloat();
+					vec4.w = json_value.GetArray()[3].GetFloat();
+					var = vec4;
+				}
+				else if (value_t.is_sequential_container())
 				{
 					var = prop.get_value(obj);
 					auto view = var.create_sequential_view();
@@ -394,8 +453,11 @@ namespace CantReflect
 			}
 			default:
 			{
-				variant extracted_value = ReadBaseType(json_value);
-				if (extracted_value.convert(value_t)) // REMARK: CONVERSION WORKS ONLY WITH "const type", check whether this is correct or not!
+				variant extracted_value = ReadBaseType(json_value, value_t);
+/*				if(extracted_value.get_type() == value_t)
+					prop.set_value(obj, extracted_value);
+
+				else*/ if (extracted_value.convert(value_t)) // REMARK: CONVERSION WORKS ONLY WITH "const type", check whether this is correct or not!
 					prop.set_value(obj, extracted_value);
 			}
 			}

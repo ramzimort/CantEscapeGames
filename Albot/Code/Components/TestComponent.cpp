@@ -29,7 +29,7 @@ TestComp::~TestComp()
 {
 }
 
-void TestComp::Init() 
+void TestComp::Init(ResourceManager* resMgr)
 {
 	//CPP STUFF
 

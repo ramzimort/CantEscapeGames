@@ -32,7 +32,7 @@ public:
 	CustomComponent(GameObject *owner);
 	virtual ~CustomComponent();
 
-	virtual void Init() override;
+	virtual void Init(ResourceManager* resMgr) override;
 	virtual void Begin() override;
 
 	//TODO - Check if leaving them or not

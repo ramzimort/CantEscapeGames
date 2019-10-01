@@ -8,7 +8,7 @@ namespace CantReflect
 	using namespace rapidjson;
 	using namespace rttr;
 
-	std::string ToJson(rttr::instance obj)
+	const std::string ToJson(rttr::instance obj)
 	{
 		if (!obj.is_valid())
 			return std::string();
@@ -34,4 +34,26 @@ namespace CantReflect
 		return true;
 	}
 
+	const std::string StringifyJson(const std::string& filePath)
+	{
+		std::string path = (filePath);
+		std::ifstream ifs(path);
+		assert(ifs.is_open());
+
+		rapidjson::Document lvlDoc;
+		rapidjson::IStreamWrapper isw(ifs);
+
+		assert(!lvlDoc.ParseStream(isw).HasParseError());
+		assert(lvlDoc.IsObject());
+		
+		ifs.close();
+		rapidjson::StringBuffer buffer;
+		buffer.Clear();
+		rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+		lvlDoc.Accept(writer);
+
+		const std::string jsonText = std::string(buffer.GetString());
+
+		return jsonText;
+	}
 }

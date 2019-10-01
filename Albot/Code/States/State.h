@@ -13,12 +13,13 @@ class Factory;
 //Check which managers the state has
 class GameObjectManager;
 class SystemManager;
-
+class AppRenderer;
+class ResourceManager;
 
 class State
 {
 public:
-	State(std::string const& path);
+	State(std::string const& path, AppRenderer* appRenderer, ResourceManager* resMgr);
 	virtual ~State();
 
 	//Call update on systemManager

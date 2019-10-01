@@ -1,15 +1,8 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
-
 #include "Mesh.h"
-#include "../Physics/Geometry/Aabb.h"
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "Physics/Geometry/Aabb.h"
+#include "Helper/Hash.h"
 
 
 
@@ -68,7 +61,7 @@ private:
 	void InitBuffer(DXRenderer* dxrenderer);
 private:
 	Aabb m_aabb;
-	std::string m_dir_path;
+	StringId m_modelId;
 	bool m_has_tangent;
 	std::vector<Mesh> m_meshes;
 	std::vector<const Texture*> m_textures;

@@ -1,0 +1,294 @@
+{
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-1.187760829925537, 6.141138076782227, 0.005001068115234375],
+                "Scale": [25.0, 30.0, 0.009999999776482582],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Destroyable_Pillar",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-6.544848442077637, 14.302207946777344, 0.0049896240234375],
+                "Scale": [2.0, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Pillar_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": true,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Dynamic",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-6.544848442077637, 13.552207946777344, 0.0],
+                    "Offset": [0.0, -0.75, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": true
+            }
+        },
+        {
+            "Name": "Destroyable_Pillar",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [3.0752642154693605, 13.12856674194336, 0.00499725341796875],
+                "Scale": [2.0, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Pillar_UV",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Textured",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": true,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Dynamic",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [3.0752642154693605, 12.37856674194336, 0.0],
+                    "Offset": [0.0, -0.75, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": true
+            }
+        },
+        {
+            "Name": "gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-0.2126915007829666, 3.5267791748046877, 0.0049896240234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lambert_Blue",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Solid",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-0.2126915007829666, 3.5267791748046877, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 2.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": false
+            }
+        },
+        {
+            "Name": "gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-5.280923843383789, 2.6027908325195314, 0.00499725341796875],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lambert_Blue",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Solid",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-5.280923843383789, 2.6027908325195314, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 2.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": false
+            }
+        },
+        {
+            "Name": "gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [4.770073890686035, 1.6091194152832032, 0.00499725341796875],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Renderer": {
+                "Material_Vars": "Lambert_Blue",
+                "X_Tile_Factor": 1.0,
+                "Y_Tile_Factor": 1.0,
+                "MaterialVars": {
+                    "MaterialType": "Solid",
+                    "Color": [
+                        0.0,
+                        0.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Texture": "",
+                    "XTiling": 1.0,
+                    "YTiling": 1.0,
+                    "Lit": true,
+                    "SpecularExp": 10.0,
+                    "SpecularCoeff": [1.0, 1.0, 1.0],
+                    "Permeability": 0.0,
+                    "Roughness": 0.0,
+                    "KSCoeff": 0.0
+                },
+                "Is_Sky": false,
+                "Is_UI": false,
+                "Is_Gizmo": false
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [4.770073890686035, 1.6091194152832032, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 2.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": false
+            }
+        }
+    ]
+}

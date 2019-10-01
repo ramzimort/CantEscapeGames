@@ -8,8 +8,7 @@ Primary Author:
 #pragma once
 
 //#include <vector>
-#include "../States/State.h"
-
+#include "States/State.h"
 
 class StateManager
 {

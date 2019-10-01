@@ -8,6 +8,7 @@ Primary Author: Jose Rosenbluth
 
 #include "GameObjectManager.h"
 #include "GameObjects/GameObject.h"
+#include "Memory/CantMemory.h"
 
 //TODO - delete when replacing for a message
 #include "SystemManager.h"

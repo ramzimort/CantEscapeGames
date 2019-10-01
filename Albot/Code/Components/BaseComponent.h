@@ -11,7 +11,7 @@ Primary Author: Jose Rosenbluth
 
 ///Forward dec
 class GameObject;
-
+class ResourceManager;
 #define MAX_NUM_COMPONENTS			32	//Max number of components (for bit string)
 
 
@@ -41,7 +41,7 @@ private:
 	BaseComponent(BaseComponent& rhs);
 
 	//Init should be called when instantiating the component
-	virtual void Init() = 0;
+	virtual void Init(ResourceManager* res) = 0;
 	//Begin should be called once all the gameobject components have been created
 	virtual void Begin() = 0;
 

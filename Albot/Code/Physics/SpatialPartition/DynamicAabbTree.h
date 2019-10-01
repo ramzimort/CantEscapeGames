@@ -11,6 +11,7 @@ Other Authors :
 #include "SpatialPartitionData.h"
 #include "QueryResults.h"
 
+class AppRenderer;
 class DynamicAabbTree;
 class DynamicAabbTreeNode
 {
@@ -65,8 +66,8 @@ public:
 	//void CastRay(const Ray& ray, RayCastResults& results);
 
 #ifdef DEVELOPER
-	void DebugDrawRec(int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel);
-	void DebugDraw(int level, const Vector4& color = Vector4(1));
+	void DebugDrawRec(AppRenderer* appRenderer, int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel);
+	void DebugDraw(AppRenderer* pAppRenderer, int level, const Vector4& color = Vector4(1));
 #endif
 
 	/*void CastRayRec(const Ray& ray, RayCastResults& results, DynamicAabbTreeNode* node) const;

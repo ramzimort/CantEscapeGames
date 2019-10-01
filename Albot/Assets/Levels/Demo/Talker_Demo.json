@@ -1,0 +1,48 @@
+{
+    "Objects": [
+        {
+            "Name": "Player_Spawnpoint",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [0, -5, 0.0]
+            }
+        },
+		{
+            "Name": "talking_npc",
+            "Dir": "NPCs",
+            "Tag": "talker",
+            "Transform": {
+                "Position": [0.0, 0.0, 0.0],
+                "Rotation": [0.0, 0.0, 180.0]
+            }
+        },
+        {
+            "Name": "Skydome_Clouds",
+            "Dir": "Background"
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [2.0, 2.0, 0.0],
+                "Scale": [25.0, 30.0, 0.009999999776482582]
+            }
+        },
+		{
+            "Name": "Placeable_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-4.770215034484863, 2.717866897583008, 4.995001792907715]
+            },
+            "Light": {
+                "Color": [
+                    255,
+                    1,
+                    255
+                ],
+                "Intensity": 1.0,
+                "Radius": 42.5
+            }
+        }
+    ]
+}

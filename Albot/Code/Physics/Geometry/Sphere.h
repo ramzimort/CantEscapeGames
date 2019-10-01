@@ -37,7 +37,7 @@ public:
 	bool Compare(const Sphere& rhs, float epsilon) const;
 
 #ifdef DEVELOPER
-	void DebugDraw(const Vector4& color) const override;
+	void DebugDraw(AppRenderer* pAppRenderer, const Vector4& color) const override;
 
 	void Print() const;
 #endif

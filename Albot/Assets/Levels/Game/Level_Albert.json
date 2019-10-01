@@ -1,0 +1,2606 @@
+{
+    "Level_Info": {
+        "Original_Level_Name": "Level_Albert",
+        "Next_Level": "END",
+        "Music": "Main_Menu_2",
+        "Enemy_Transition": false,
+        "Enemy_Tags": [],
+        "Trigger_Transition": true,
+        "Trigger_Tag": "Elevator_01",
+        "Checkpoint_Reached": false,
+        "Spawn_Point": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Tag": "Switch_01",
+            "Transform": {
+                "Position": [-5.775115489959717, -5.315087795257568, 0.0],
+                "Scale": [130.0, 110.0, 0.009999999776482582]
+            },
+            "Renderer": {
+                "X_Tile_Factor": 32.0,
+                "Y_Tile_Factor": 32.0
+            }
+        },
+        {
+            "Name": "Main_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-10.33340835571289, 0.4134521484375, 100.0]
+            },
+            "Light": {
+                "Color": [
+                    177,
+                    125,
+                    125
+                ],
+                "Intensity": 2.5
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-51.43268966674805, -28.435749053955079, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Outer_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-6.59343957901001, 49.71424865722656, 0.0],
+                "Scale": [130.0, 1.0, 10.0]
+            }
+        },
+        {
+            "Name": "Wall_Outer_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [58.28778076171875, -0.8515059351921082, 0.0],
+                "Scale": [100.0, 1.0, 10.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Outer_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-0.8405372500419617, -50.15126037597656, 0.0],
+                "Scale": [120.0, 1.0, 10.0]
+            }
+        },
+        {
+            "Name": "Wall_Outer_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-60.835914611816409, -15.686895370483399, 0.0],
+                "Scale": [70.0, 1.0, 10.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-43.18989562988281, -39.62866973876953, 0.0],
+                "Rotation": [0.0, 0.0, 89.99999237060547]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room01_Melee1",
+            "Transform": {
+                "Position": [-51.35750961303711, -12.845081329345704, 0.0],
+                "Rotation": [0.0, 0.0, 170.81996154785157]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 12.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room01_Easy_Shooter_2",
+            "Transform": {
+                "Position": [-47.59442138671875, -9.188641548156739, 0.0],
+                "Rotation": [0.0, 0.0, 194.93995666503907]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 17.5
+                }
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-57.6353759765625, -15.04256820678711, 8.0]
+            },
+            "Light": {
+                "Color": [
+                    255,
+                    125,
+                    208
+                ],
+                "Intensity": 2.5
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-39.329402923583987, -22.894529342651368, 0.0],
+                "Scale": [15.260030746459961, 1.0800000429153443, 6.0],
+                "Rotation": [0.0, 0.0, 60.000003814697269]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room01_Easy_Shooter_1",
+            "Transform": {
+                "Position": [-53.94841384887695, -9.33985710144043, 0.0],
+                "Rotation": [0.0, 0.0, 159.47994995117188]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-51.41978073120117, -28.80126953125, 0.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room01_Open_Switch"
+                ]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Room01_Open_Switch",
+            "Transform": {
+                "Position": [-51.24674606323242, -32.74542236328125, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-42.37873458862305, -2.456528902053833, 0.0],
+                "Scale": [16.560028076171876, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, -35.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-53.89995574951172, 1.6594123840332032, 0.0],
+                "Scale": [1.499999761581421, 2.0, 2.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room01_Easy_Shooter_3",
+            "Transform": {
+                "Position": [-43.32559585571289, -12.647272109985352, 0.0],
+                "Rotation": [0.0, 0.0, 140.93995666503907]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-53.87145233154297, 1.4105415344238282, 0.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room01_Close",
+                    "Room01_Easy_Shooter_2",
+                    "Room01_Easy_Shooter_1",
+                    "Room01_Easy_Shooter_3",
+                    "Room01_Melee1"
+                ],
+                "Close_Door_Speed": 20.0
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room01_Close",
+            "Transform": {
+                "Position": [-53.77875900268555, 6.033490180969238, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 2.5,
+                    "Width": 3.0
+                }
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room01_Camera",
+            "Transform": {
+                "Position": [-49.385799407958987, -13.979959487915039, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 10.0,
+                    "Width": 10.0
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-44.33151626586914, -16.3725643157959, 10.479998588562012],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room01_Camera"
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-35.40931701660156, -12.012360572814942, 0.0],
+                "Scale": [10.175028800964356, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-48.65692138671875, 16.786317825317384, 0.0],
+                "Scale": [29.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-57.160987854003909, -6.072500228881836, 1.0],
+                "Rotation": [0.0, 0.0, 41.76000213623047]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-56.049156188964847, -15.11128044128418, 1.0],
+                "Rotation": [0.0, 0.0, -51.480010986328128]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-45.174617767333987, -6.148872375488281, 1.0],
+                "Rotation": [0.0, 0.0, 30.05999755859375]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-42.90631103515625, -20.67852210998535, 1.0],
+                "Rotation": [0.0, 0.0, -38.70000457763672]
+            }
+        },
+        {
+            "Name": "Camera",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-59.51250076293945, -13.257119178771973, 10.5],
+                "Rotation": [38.8800048828125, 0.0, 87.1199951171875]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-61.25, 25.0, 0.0],
+                "Scale": [1.399999976158142, 2.0, 2.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-8.872828483581543, -30.914894104003908, 8.510000228881836]
+            },
+            "Light": {
+                "Color": [
+                    159,
+                    211,
+                    255
+                ],
+                "Intensity": 3.5,
+                "Radius": 47.5
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [41.16377258300781, -8.825479507446289, 10.34000015258789]
+            },
+            "Light": {
+                "Color": [
+                    196,
+                    51,
+                    199
+                ],
+                "Intensity": 6.5,
+                "Radius": 27.5
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Tag": "Room02_Enemy_Shooter_Hard01",
+            "Transform": {
+                "Position": [-54.82128143310547, 25.5897274017334, 0.0],
+                "Rotation": [0.0, 0.0, 180.17996215820313]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 10.75
+                }
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-57.79634475708008, 23.99571418762207, 5.0]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    125,
+                    125
+                ],
+                "Intensity": 15.0,
+                "Radius": 14.5
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-61.25, 25.0, 0.0],
+                "Scale": [1.399999976158142, 1.5, 1.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room02_Close",
+                    "Room02_Enemy_Shooter_Hard01"
+                ],
+                "Close_Door_Speed": 20.0
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room02_Close",
+            "Transform": {
+                "Position": [-65.10282135009766, 25.848896026611329, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 2.5,
+                    "Width": 2.5
+                }
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room02_Camera",
+            "Transform": {
+                "Position": [-55.07056427001953, 15.90921401977539, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 10.0,
+                    "Width": 6.5
+                }
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-45.77738571166992, -33.72397994995117, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-45.723777770996097, -33.873992919921878, 6.660000801086426],
+                "Rotation": [0.0, 0.0, 47.70000457763672]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-57.8213005065918, -31.98468780517578, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-57.906829833984378, 13.802752494812012, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-51.21129608154297, 17.32137680053711, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-58.32716751098633, 13.267400741577149, 6.000001430511475]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-38.1446533203125, 24.120838165283204, 0.0],
+                "Scale": [20.0, 1.0, 15.0]
+            },
+            "Renderer": {
+                "Y_Tile_Factor": 2.0
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-19.17241668701172, 24.137962341308595, 0.0],
+                "Scale": [18.0, 1.0, 15.0]
+            },
+            "Renderer": {
+                "Y_Tile_Factor": 2.0
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-9.79524040222168, 31.09308624267578, 0.0],
+                "Scale": [15.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-9.516321182250977, 44.09107971191406, 0.0],
+                "Scale": [1.2999999523162842, 2.0, 2.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room03_Camera01",
+            "Transform": {
+                "Position": [-36.149505615234378, 33.871368408203128, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-7.5, 4.0, 0.0],
+                    "Height": 10.5,
+                    "Width": 7.0
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-81.30908203125, 41.7396240234375, 33.83997344970703],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room03_Camera01",
+                "Use_Trigger_Size_For_Zoom": false
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-42.77156066894531, 8.784950256347657, 33.45998764038086],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room02_Camera"
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-46.222625732421878, 27.381778717041017, 2.0],
+                "Rotation": [0.0, 0.0, -18.18000030517578]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-41.203453063964847, 27.146591186523439, 2.0],
+                "Rotation": [0.0, 0.0, 23.76000213623047]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-28.560544967651368, 42.995094299316409, 0.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Medium",
+            "Dir": "Enemy",
+            "Tag": "Room03_Medium_Shooter_1",
+            "Transform": {
+                "Position": [-26.477754592895509, 42.99403381347656, 0.0],
+                "Rotation": [0.0, 0.0, 96.29998779296875]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-3.0, 0.0, 0.0],
+                    "Radius": 15.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room03_Melee2",
+            "Transform": {
+                "Position": [-36.27574920654297, 35.78647232055664, 0.0],
+                "Rotation": [0.0, 0.0, 74.8800048828125]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 13.5
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room03_Melee1",
+            "Transform": {
+                "Position": [-35.599151611328128, 41.32276153564453, 0.0],
+                "Rotation": [0.0, 0.0, 84.05999755859375]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 12.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room03_Easy_Shooter_1",
+            "Transform": {
+                "Position": [-18.384241104125978, 28.42192268371582, 0.0],
+                "Rotation": [0.0, 0.0, 56.70001220703125]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-1.0, 0.0, 0.0],
+                    "Radius": 19.5
+                }
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-20.798925399780275, 35.08849334716797, 7.190000534057617]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    255,
+                    125
+                ],
+                "Intensity": 2.5,
+                "Radius": 29.0
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-12.526275634765625, 26.765972137451173, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-12.812191009521485, 30.853994369506837, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-12.290262222290039, 26.8536376953125, 6.170001029968262]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-42.899436950683597, 32.838279724121097, 1.0],
+                "Rotation": [0.0, 0.0, 117.17996978759766]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-39.6474609375, 44.34001159667969, 1.0],
+                "Rotation": [0.0, 0.0, 71.10001373291016]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-14.88424301147461, 47.26603698730469, 1.0],
+                "Rotation": [0.0, 0.0, 45.00000762939453]
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-10.06605339050293, 44.2082633972168, 0.0],
+                "Rotation": [0.0, 0.0, 89.81999206542969]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room03_Close",
+                    "Room03_Easy_Shooter_1",
+                    "Room03_Medium_Shooter_1",
+                    "Room03_Melee1",
+                    "Room03_Melee2"
+                ],
+                "Close_Door_Speed": 20.0
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-2.236783266067505, 23.64908218383789, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [11.585448265075684, 21.429683685302736, 0.0],
+                "Scale": [12.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, -22.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [23.89999771118164, 19.14120101928711, 0.0],
+                "Scale": [14.0, 1.0, 6.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [29.91774559020996, 44.74471664428711, 0.0],
+                "Scale": [9.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [29.85243034362793, 34.06813430786133, 0.0],
+                "Scale": [1.5, 2.0, 2.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [39.6422119140625, 38.73850631713867, 0.0],
+                "Scale": [2.200000047683716, 2.5, 2.5]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [39.883323669433597, 19.039886474609376, 0.0],
+                "Scale": [2.0, 2.5, 2.5]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [30.871063232421876, 24.02591896057129, 0.0],
+                "Scale": [8.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room04_Easy_Shooter_1",
+            "Transform": {
+                "Position": [18.947160720825197, 46.39479064941406, 0.0],
+                "Rotation": [0.0, 0.0, 99.53998565673828]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-1.0, -3.0, 0.0],
+                    "Radius": 17.5
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Medium",
+            "Dir": "Enemy",
+            "Tag": "Room04_Medium_Shooter_1",
+            "Transform": {
+                "Position": [16.227956771850587, 23.45224952697754, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 18.5
+                }
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room03_Close",
+            "Transform": {
+                "Position": [-5.590724945068359, 44.50365447998047, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 3.0,
+                    "Width": 3.0
+                }
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-38.05256652832031, -15.63068962097168, 2.0],
+                "Rotation": [0.0, 0.0, -81.18000030517578]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-38.20998001098633, -9.037989616394043, 2.0],
+                "Rotation": [0.0, 0.0, 38.340003967285159]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room04_Camera",
+            "Transform": {
+                "Position": [12.817292213439942, 36.65645217895508, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-3.5, 0.0, 0.0],
+                    "Height": 12.0,
+                    "Width": 15.5
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-14.151180267333985, 43.03268814086914, 24.279996871948243],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room04_Camera"
+            }
+        },
+        {
+            "Name": "Player_Checkpoint_02",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [40.34722137451172, 45.469947814941409, 1.0]
+            },
+            "RigidBody": {
+                "Shape": {
+                    "Offset": [0.0, 1.5, 0.0]
+                }
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 10.5,
+                    "Width": 15.0
+                }
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [39.9676628112793, 19.73299217224121, 0.0],
+                "Scale": [2.5, 2.5, 2.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room05_Switch"
+                ],
+                "Door_Open_Length": 6.5
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [29.295923233032228, 34.17102813720703, 0.0],
+                "Rotation": [0.0, 0.0, 90.7199935913086]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room04_Close",
+                    "Room04_Medium_Shooter_1",
+                    "Room04_Easy_Shooter_1",
+                    "Room04_Easy_Shooter_3",
+                    "Room04_Easy_Shooter_2"
+                ]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room04_Close",
+            "Transform": {
+                "Position": [35.35868835449219, 34.472679138183597, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 4.0,
+                    "Width": 4.0
+                }
+            }
+        },
+        {
+            "Name": "Third_Person",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [44.387062072753909, 31.42308235168457, 14.660000801086426],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room04_Close"
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room04_Easy_Shooter_2",
+            "Transform": {
+                "Position": [24.848873138427736, 43.02024841308594, 0.0],
+                "Rotation": [0.0, 0.0, 86.93999481201172]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 18.5
+                }
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [24.53811264038086, 38.42546463012695, 0.0],
+                "Scale": [3.0699996948242189, 2.0250003337860109, 1.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [20.051654815673829, 27.757413864135743, 0.0],
+                "Scale": [3.7499990463256838, 2.854999542236328, 1.0],
+                "Rotation": [0.0, 0.0, 313.2400207519531]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [12.71201229095459, 28.042224884033204, 0.0],
+                "Scale": [3.969999313354492, 2.255000352859497, 1.0],
+                "Rotation": [0.0, 0.0, 208.08001708984376]
+            },
+            "Renderer": {
+                "Y_Tile_Factor": 3.0
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [10.470643997192383, 42.17736053466797, 0.0],
+                "Scale": [4.434999465942383, 2.809999942779541, 1.0],
+                "Rotation": [0.0, 0.0, 178.91998291015626]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [21.175931930541993, 46.13969421386719, 0.0],
+                "Scale": [2.809999465942383, 2.359999418258667, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [4.5, 44.029937744140628, 0.0],
+                "Scale": [1.399999976158142, 2.0, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [4.5, 30.216732025146486, 0.0],
+                "Scale": [1.399999976158142, 2.0, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [7.2562713623046879, 29.20661735534668, 2.0],
+                "Scale": [4.0, 4.0, 3.8949995040893556],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [24.934375762939454, 23.92146110534668, 2.0],
+                "Rotation": [0.0, 0.0, 58.50000762939453]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [21.29750633239746, 20.926347732543947, 2.390000343322754]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [27.45352554321289, 27.507736206054689, 2.0],
+                "Rotation": [0.0, 0.0, 30.240001678466798]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [6.654266834259033, 25.500337600708009, 2.0],
+                "Scale": [3.0, 3.0, 3.0]
+            }
+        },
+        {
+            "Name": "Blinking_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [17.107696533203126, 35.78533172607422, 12.5]
+            },
+            "Light": {
+                "Color": [
+                    165,
+                    80,
+                    49
+                ],
+                "Intensity": 2.0
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-22.41558837890625, 31.060791015625, 0.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Tag": "Room06_Hard_Shooter_1",
+            "Transform": {
+                "Position": [51.37323760986328, -10.323795318603516, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 17.25
+                }
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [48.749351501464847, 34.16461944580078, 0.0],
+                "Scale": [32.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [1.2081756591796876, 44.97683334350586, 1.0],
+                "Rotation": [0.0, 0.0, 32.7599983215332]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [1.8928890228271485, 39.29648208618164, 1.0],
+                "Rotation": [0.0, 0.0, 6.1200032234191898]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [1.0263519287109376, 31.31790542602539, 1.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [1.9314794540405274, 26.505878448486329, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-2.0136489868164064, 26.45374298095703, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-6.009012699127197, 26.439306259155275, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [2.0472044944763185, 26.273496627807618, 6.140000343322754]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-5.950750350952148, 26.187480926513673, 6.320000648498535]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [55.41180419921875, 15.739437103271485, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [51.24140167236328, 15.756690979003907, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [55.376365661621097, 11.653549194335938, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [51.35609436035156, 11.729969024658204, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [51.310001373291019, -8.970000267028809, 0.0],
+                "Scale": [0.30000001192092898, 0.5, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [56.026851654052737, -30.605981826782228, 0.0],
+                "Scale": [3.5, 1.0, 6.0]
+            },
+            "Renderer": {
+                "X_Tile_Factor": 1.0
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [26.428916931152345, 9.031457901000977, 0.0],
+                "Rotation": [0.0, 0.0, 89.45999145507813]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [49.83342361450195, -10.170000076293946, 0.0],
+                "Scale": [0.4000000059604645, 0.5, 0.5],
+                "Rotation": [0.0, 0.0, 89.99999237060547]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [51.31999969482422, -11.649999618530274, 0.0],
+                "Scale": [0.30000001192092898, 0.5, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [52.837982177734378, -10.329999923706055, 0.0],
+                "Scale": [0.4000000059604645, 0.5, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [35.476749420166019, -9.809999465942383, 0.0],
+                "Scale": [0.4000000059604645, 0.5, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [32.62132263183594, -10.0, 0.0],
+                "Scale": [0.4000000059604645, 0.5, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [33.98006057739258, -8.3100004196167, 0.0],
+                "Scale": [0.30000001192092898, 0.5, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [34.017555236816409, -11.510000228881836, 0.0],
+                "Scale": [0.30000001192092898, 0.5, 0.5]
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room06_Melee_1",
+            "Transform": {
+                "Position": [48.36760330200195, -6.204401016235352, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room06_Melee_2",
+            "Transform": {
+                "Position": [37.70829391479492, -6.497592926025391, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [26.268516540527345, -9.881185531616211, 0.0],
+                "Scale": [18.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [31.668455123901368, -24.36404800415039, 0.0],
+                "Scale": [17.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, -45.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [46.16604232788086, -30.81820297241211, 0.0]
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [46.22929000854492, -30.654041290283204, 0.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room06_Close",
+                    "Room06_Melee_2",
+                    "Room06_Melee_1",
+                    "Room06_Hard_Shooter_2",
+                    "Room06_Hard_Shooter_1",
+                    "Room06_Melee_3"
+                ],
+                "Close_Door_Speed": 20.0
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room04_Easy_Shooter_3",
+            "Transform": {
+                "Position": [20.511091232299806, 27.569904327392579, 0.0]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Room05_Switch",
+            "Transform": {
+                "Position": [39.81010055541992, 25.783649444580079, 0.0]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room06_Camera",
+            "Transform": {
+                "Position": [42.70475387573242, -7.305675506591797, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [0.0, 5.5, 0.0],
+                    "Height": 12.5,
+                    "Width": 12.5
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [42.2634391784668, 41.880340576171878, 41.499935150146487],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room06_Camera",
+                "Use_Trigger_Size_For_Zoom": false
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [29.19532012939453, 15.704381942749024, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [29.49541473388672, 11.62923812866211, 2.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [55.455299377441409, 2.313821792602539, 1.0],
+                "Rotation": [0.0, 0.0, 30.05999755859375]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [30.31521987915039, 3.2190325260162355, 1.0],
+                "Rotation": [0.0, 0.0, 107.9999771118164]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [33.670902252197269, 14.627678871154786, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [47.190635681152347, 14.48922061920166, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [43.27729797363281, 14.523896217346192, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [47.2364501953125, 0.8500000238418579, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [36.65541076660156, 0.8500000238418579, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [42.32035446166992, -9.61941146850586, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [10.585897445678711, 18.740768432617189, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [14.59791374206543, 16.73602294921875, 2.0]
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room06_Close",
+            "Transform": {
+                "Position": [46.26018524169922, -35.87866973876953, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 3.0,
+                    "Width": 3.5
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Tag": "Room06_Hard_Shooter_2",
+            "Transform": {
+                "Position": [34.03251647949219, -9.884054183959961, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 17.25
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room06_Melee_3",
+            "Transform": {
+                "Position": [42.579010009765628, -18.514230728149415, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [32.40259552001953, -37.80934143066406, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [23.661865234375, -32.995140075683597, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 25.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [17.91084861755371, -20.80216407775879, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 25.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [12.265765190124512, -8.907386779785157, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 25.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [6.6280951499938969, 2.971691846847534, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 25.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [-0.9969865679740906, 9.510626792907715, 0.0],
+                "Scale": [2.0, 2.0, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "ConveyorBelt",
+            "Dir": "Trigger",
+            "Transform": {
+                "Position": [-12.226404190063477, 9.514297485351563, 0.0],
+                "Scale": [2.0, 1.5, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [37.60954666137695, -44.73575210571289, 0.0],
+                "Scale": [10.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [36.52910614013672, -33.36275100708008, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [32.45999526977539, -33.17644119262695, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [28.65027618408203, -33.002952575683597, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [32.272422790527347, -29.186168670654298, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [9.486222267150879, -11.200712203979493, 0.0],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-20.574012756347658, 4.801718711853027, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [4.1080641746521, -0.2348596453666687, 0.0],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [14.880263328552246, -22.50323486328125, 0.0],
+                "Scale": [1.600000023841858, 2.0, 0.5],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-6.065530300140381, 4.62455940246582, 0.0],
+                "Scale": [13.0, 1.0, 6.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-28.1751651763916, -5.585287094116211, 0.0],
+                "Scale": [20.0, 1.0, 7.0],
+                "Rotation": [0.0, 0.0, 90.17999267578125]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-28.236204147338868, 14.693653106689454, 0.0],
+                "Scale": [19.0, 1.0, 10.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [20.25364875793457, -33.59324645996094, 0.0],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [34.590972900390628, -42.741798400878909, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [30.525794982910158, -42.83712387084961, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [26.274152755737306, -43.01512908935547, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [21.88565444946289, -42.4565315246582, 2.0],
+                "Rotation": [0.0, 0.0, 38.52000045776367]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [40.0751953125, -46.869754791259769, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [39.899505615234378, -42.97780990600586, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Wooden",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [24.919076919555665, -47.43875503540039, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [20.791540145874025, -47.29962158203125, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-28.059207916259767, -25.69580078125, 0.0],
+                "Scale": [20.0, 1.0, 7.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-28.05040740966797, -43.02600860595703, 0.0],
+                "Scale": [15.0, 1.0, 7.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_3",
+            "Transform": {
+                "Position": [16.04293441772461, -31.535415649414064, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 20.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_1",
+            "Transform": {
+                "Position": [9.023427963256836, -17.54591178894043, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 20.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_2",
+            "Transform": {
+                "Position": [1.6185829639434815, -6.382740497589111, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 20.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Hard",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_7",
+            "Transform": {
+                "Position": [-15.85767936706543, -33.32426452636719, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [2.5, 3.5, 0.0],
+                    "Radius": 19.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_6",
+            "Transform": {
+                "Position": [-13.698394775390625, -25.902114868164064, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_9",
+            "Transform": {
+                "Position": [-18.457902908325197, -23.424236297607423, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Melee_1",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_5",
+            "Transform": {
+                "Position": [-5.516765594482422, -22.727092742919923, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 16.0
+                }
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Medium",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_4",
+            "Transform": {
+                "Position": [0.4413895606994629, -32.87459182739258, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 17.0
+                }
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-25.843782424926759, 1.7203559875488282, 2.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [0.30034446716308596, -22.7396297454834, 1.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [4.667392730712891, -21.592071533203126, 1.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-4.078142166137695, -34.98583221435547, 1.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [10.529529571533204, -32.09611129760742, 1.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-3.1537694931030275, -8.975044250488282, 1.0]
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-11.0943603515625, -33.69782257080078, 1.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-10.679189682006836, -18.482276916503908, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-1.3068361282348633, 2.03166127204895, 1.9899996519088746]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-2.127899169921875, -41.37517166137695, 2.0]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Room08_Switch",
+            "Transform": {
+                "Position": [-22.09498405456543, 9.949240684509278, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 2.0,
+                    "Width": 2.0
+                }
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [15.505363464355469, -7.145986557006836, 0.0],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [9.371447563171387, 5.365455627441406, 0.0],
+                "Scale": [2.0, 2.0, 0.5],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [53.39595413208008, 37.20420837402344, 4.990001201629639],
+                "Scale": [8.0, 10.0, 8.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [20.743350982666017, -17.886606216430665, 0.0],
+                "Rotation": [0.0, 0.0, 116.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [26.033607482910158, -28.11111831665039, 2.0],
+                "Rotation": [0.0, 0.0, 27.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [24.863664627075197, -25.005613327026368, 2.0]
+            }
+        },
+        {
+            "Name": "Third_Person",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [50.733909606933597, -44.52996826171875, 7.330000877380371],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room06_Close"
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-20.52538299560547, 5.157047271728516, 0.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room08_Switch"
+                ],
+                "Close_Door_Speed": 5.0,
+                "Door_Open_Length": 6.5
+            }
+        },
+        {
+            "Name": "Invisible_Trigger",
+            "Dir": "Trigger",
+            "Tag": "Room08_Camera",
+            "Transform": {
+                "Position": [-4.9906535148620609, -23.69431495666504, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [-5.0, 7.0, 0.0],
+                    "Height": 13.0,
+                    "Width": 12.5
+                }
+            }
+        },
+        {
+            "Name": "Fixed",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-30.60985565185547, 32.62981414794922, 51.4719352722168],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room08_Camera",
+                "Use_Trigger_Size_For_Zoom": false
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-35.67899703979492, -40.46650695800781, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-33.382205963134769, -26.957218170166017, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-32.28125762939453, -10.218086242675782, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-35.083160400390628, 4.3167572021484379, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-43.60366439819336, 10.256256103515625, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-35.53093338012695, 17.93317413330078, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-20.75011444091797, -15.48089599609375, 0.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Medium",
+            "Dir": "Enemy",
+            "Tag": "Room8_Enemy_8",
+            "Transform": {
+                "Position": [-18.046743392944337, -30.306156158447267, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Radius": 19.5
+                }
+            }
+        },
+        {
+            "Name": "Crate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-14.519869804382325, -12.78173828125, 1.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-0.27366065979003909, 13.249334335327149, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-11.761855125427246, 13.240849494934082, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-22.720130920410158, 13.256619453430176, 0.0],
+                "Scale": [1.2000000476837159, 2.0, 0.5]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-18.10719108581543, -28.556156158447267, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-5.964846134185791, -28.503419876098634, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [6.226285934448242, -28.510452270507814, 0.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [15.49519157409668, 15.993404388427735, 6.160000801086426]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [10.713811874389649, 14.704093933105469, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [11.357416152954102, 14.626300811767579, 6.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [6.508213043212891, 18.951847076416017, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [6.229880332946777, 18.852920532226564, 6.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [2.3209228515625, 18.760704040527345, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [22.055456161499025, 14.441650390625, 2.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [21.496793746948243, -6.660398483276367, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [20.279212951660158, 1.8110935688018799, 0.0]
+            }
+        },
+        {
+            "Name": "Dome",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [14.712608337402344, 8.119503021240235, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-1.951830267906189, 18.31053352355957, 0.0],
+                "Scale": [1.2999999523162842, 2.0, 0.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Low_Projectile",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-7.8277177810668949, 5.768378257751465, 0.0],
+                "Scale": [2.4000000953674318, 2.0, 0.5]
+            }
+        },
+        {
+            "Name": "Background_Player",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-12.36108112335205, 19.358505249023439, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Background_Player",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-14.950263977050782, 19.45824432373047, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Background_Player",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-9.653186798095704, 19.334625244140626, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Background_Enemy2",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-17.487030029296876, 19.213035583496095, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Background_Enemy1",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-22.1732177734375, 19.80442237854004, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Background_Enemy3",
+            "Dir": "UI",
+            "Transform": {
+                "Position": [-19.85613441467285, 19.1490478515625, 0.0],
+                "Rotation": [-90.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-55.29082489013672, 31.453311920166017, 0.0],
+                "Scale": [14.0, 1.0, 6.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-51.2465705871582, 28.913719177246095, 2.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-66.24263763427735, 18.91973114013672, 0.0],
+                "Scale": [9.399999618530274, 1.0, 6.0]
+            }
+        },
+        {
+            "Name": "Player_Checkpoint_02",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [-67.27775573730469, 37.20515823364258, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "RigidBody": {
+                "Shape": {
+                    "Offset": [-1.0, 0.0, 0.0]
+                }
+            },
+            "Trigger": {
+                "Shape": {
+                    "Height": 12.5,
+                    "Width": 8.0
+                }
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-60.0, 41.0, 0.0],
+                "Scale": [2.200000047683716, 2.200000047683716, 2.200000047683716],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-70.49703216552735, 34.16746520996094, 0.0],
+                "Scale": [30.0, 1.0, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Room_2_5_Switch",
+            "Transform": {
+                "Position": [-65.97282409667969, 41.44837951660156, 0.0]
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [-60.0, 41.0, 0.0],
+                "Scale": [1.7000000476837159, 1.7000000476837159, 1.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room_2_5_Switch"
+                ],
+                "Close_Door_Speed": 5.5,
+                "Door_Open_Length": 6.5
+            }
+        },
+        {
+            "Name": "Third_Person",
+            "Dir": "Camera",
+            "Transform": {
+                "Position": [-72.95988464355469, 37.395484924316409, 10.0],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "PlaceableCamera": {
+                "Camera_Object_Trigger_Tag": "Room02_Close"
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-55.85615539550781, 33.8983154296875, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-55.7036247253418, 47.15641784667969, 2.0]
+            }
+        },
+        {
+            "Name": "Invisible_Enemy_Block",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-45.45591735839844, 63.86359405517578, 0.0]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [-67.2769775390625, -20.317886352539064, 15.579996109008789],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room01_Camera",
+                    "Fight_Techno_1",
+                    "Room01_Easy_Shooter_1",
+                    "Room01_Melee1",
+                    "Room01_Easy_Shooter_2",
+                    "Room01_Easy_Shooter_3"
+                ]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [-68.58384704589844, 1.1178622245788575, 13.229998588562012],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room02_Camera",
+                    "Fight_Techno_1",
+                    "Room02_Enemy_Shooter_Hard01"
+                ]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [-36.29123306274414, 55.89170455932617, 15.149998664855957],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room03_Camera01",
+                    "Fight_Techno_1",
+                    "Room03_Melee2",
+                    "Room03_Melee1",
+                    "Room03_Medium_Shooter_1",
+                    "Room03_Easy_Shooter_1"
+                ]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [15.290889739990235, 60.702880859375, 11.899998664855957],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room04_Camera",
+                    "Fight_Techno_2",
+                    "Room04_Easy_Shooter_2",
+                    "Room04_Easy_Shooter_1",
+                    "Room04_Easy_Shooter_3",
+                    "Room04_Medium_Shooter_1"
+                ]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [68.80967712402344, -16.28114128112793, 8.600000381469727],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room06_Camera",
+                    "Fight_Techno_1",
+                    "Room06_Melee_1",
+                    "Room06_Melee_2",
+                    "Room06_Melee_3",
+                    "Room06_Hard_Shooter_1",
+                    "Room06_Hard_Shooter_2"
+                ]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [-7.002799987792969, -11.066484451293946, 17.60999870300293],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Room08_Camera",
+                    "Fight_Techno_1",
+                    "Room8_Enemy_1",
+                    "Room8_Enemy_2",
+                    "Room8_Enemy_3",
+                    "Room8_Enemy_4",
+                    "Room8_Enemy_5",
+                    "Room8_Enemy_6",
+                    "Room8_Enemy_7",
+                    "Room8_Enemy_8",
+                    "Room8_Enemy_9"
+                ]
+            }
+        },
+        {
+            "Name": "Elevator",
+            "Dir": "Trigger",
+            "Tag": "Elevator_01",
+            "Transform": {
+                "Position": [15.034093856811524, -45.207515716552737, 0.5],
+                "Scale": [8.0, 8.0, 0.4000000059604645]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Offset": [1.5, -1.0, 0.0],
+                    "Height": 1.5,
+                    "Width": 1.5
+                }
+            }
+        },
+        {
+            "Name": "Gate_Enemies",
+            "Dir": "Dynamic",
+            "Transform": {
+                "Position": [15.33332347869873, -42.17286682128906, 1.0300002098083497],
+                "Scale": [2.0999999046325685, 1.899999976158142, 1.899999976158142]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Elevator_01",
+                    "Room8_Enemy_4",
+                    "Room8_Enemy_3",
+                    "Room8_Enemy_1",
+                    "Room8_Enemy_2",
+                    "Room8_Enemy_5",
+                    "Room8_Enemy_6",
+                    "Room8_Enemy_9",
+                    "Room8_Enemy_7",
+                    "Room8_Enemy_8"
+                ],
+                "Close_Door_Speed": 20.0,
+                "Door_Open_Length": 7.5,
+                "Open_Door_Speed": 5.5
+            }
+        },
+        {
+            "Name": "Wall_Inner_2",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [11.270692825317383, -45.40592956542969, 0.0],
+                "Scale": [8.5, 1.2300000190734864, 6.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-5.250025749206543, 2.0314884185791017, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-9.270915031433106, 2.7580394744873049, 2.0]
+            }
+        },
+        {
+            "Name": "Crate_Metallic",
+            "Dir": "Obstacles",
+            "Transform": {
+                "Position": [-13.163873672485352, 2.720226287841797, 2.0]
+            }
+        },
+        {
+            "Name": "Player_Spawnpoint",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [-51.42741394042969, -37.77012634277344, 0.0]
+            }
+        }
+    ]
+}

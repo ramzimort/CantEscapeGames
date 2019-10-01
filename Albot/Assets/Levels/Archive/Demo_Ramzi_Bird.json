@@ -1,0 +1,669 @@
+{
+    "Objects": [
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [2.0216808319091799, -4.722347259521484, -0.004999999888241291],
+                "Scale": [100.0, 100.0, 0.009999999776482582],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "player01",
+            "Dir": "Player",
+            "Tag": "player",
+            "Transform": {
+                "Position": [-36.43549728393555, -38.4222297668457, 0.0049896240234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": true,
+                "Bounciness": 0.800000011920929,
+                "Collision_Mask": "Player",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-36.43549728393555, -38.4222297668457, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            },
+            "Player": {
+                "Script": "Player_Init_State.lua"
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-24.101024627685548, -18.910991668701173, 0.0050048828125],
+                "Scale": [2.0, 59.847999572753909, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-24.101024627685548, -18.910991668701173, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [3.112855911254883, -50.0, 0.005001068115234375],
+                "Scale": [13.0, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [3.112855911254883, -50.0, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 9.329999923706055
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-36.2777214050293, -23.28064727783203, 0.0050048828125],
+                "Scale": [3.128004312515259, 1.0, 1.0],
+                "Rotation": [-2.880000114440918, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-36.2777214050293, -23.28064727783203, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 3.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Trigger_1",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 10.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": false
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-48.52724075317383, -4.558675765991211, 0.0049896240234375],
+                "Scale": [12.299992561340332, 1.999999761581421, 1.5],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-48.52724075317383, -4.558675765991211, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.5707963705062867,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 9.329999923706055
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-36.39684295654297, -23.856910705566408, 0.0],
+                "Scale": [2.8080036640167238, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [2.88254451751709, 42.98984909057617, 0.00499725341796875],
+                "Scale": [12.600000381469727, 1.7999999523162842, 1.5],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [2.88254451751709, 42.98984909057617, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 9.329999923706055
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Wall_2",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [50.02114486694336, -7.385166168212891, 0.0050048828125],
+                "Scale": [12.899999618530274, 2.0, 1.5],
+                "Rotation": [0.0, 0.0, -90.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [50.02114486694336, -7.385166168212891, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": -1.5707963705062867,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 9.329999923706055
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Switch_Button",
+            "Dir": "Trigger",
+            "Tag": "Trigger_1",
+            "Transform": {
+                "Position": [-36.141998291015628, -24.02899932861328, -0.5149890780448914],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-36.141998291015628, -24.02899932861328, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 5.0,
+                    "Height": 8.0
+                }
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-22.665000915527345, 13.668000221252442, 0.00499725341796875],
+                "Scale": [1.600000023841858, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-22.665000915527345, 13.668000221252442, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.5707963705062867,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 3.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Trigger_3",
+                "Close_Door_Speed": 10.0,
+                "Door_Open_Length": 5.0,
+                "Open_Door_Speed": 10.0,
+                "Player_Interaction_Flag": false
+            }
+        },
+        {
+            "Name": "Dynamic_Cube",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-29.343894958496095, -2.3700249195098879, 0.64000004529953],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 300.0,
+                "Dynamic": true,
+                "Bounciness": 0.800000011920929,
+                "Collision_Mask": "Dynamic",
+                "Friction_Coeff": 0.03999999910593033,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-29.343894958496095, -2.3700249195098879, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Switch_Button",
+            "Dir": "Trigger",
+            "Tag": "Trigger_2",
+            "Transform": {
+                "Position": [-41.85667419433594, -6.087278366088867, 0.0050048828125],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-41.85667419433594, -6.087278366088867, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                }
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-41.688995361328128, 3.2360005378723146, 0.0],
+                "Scale": [1.600000023841858, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-41.688995361328128, 3.2360005378723146, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 3.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Trigger_2",
+                "Close_Door_Speed": 8.0,
+                "Door_Open_Length": 6.0,
+                "Open_Door_Speed": 4.0,
+                "Player_Interaction_Flag": false
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-41.530765533447269, 1.7172088623046876, 0.00499725341796875],
+                "Scale": [1.600000023841858, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [15.733001708984375, -33.80400085449219, 0.00499725341796875],
+                "Scale": [2.0, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [15.733001708984375, -33.80400085449219, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [35.508277893066409, -19.380271911621095, 0.00499725341796875],
+                "Scale": [2.0, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [35.508277893066409, -19.380271911621095, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.5707963705062867,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-30.19984245300293, 3.0849509239196779, 0.00499725341796875],
+                "Scale": [1.399999976158142, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-30.19984245300293, 3.0849509239196779, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 3.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Lever_1",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 5.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": true
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-29.986988067626954, 1.6563206911087037, 0.005001068115234375],
+                "Scale": [1.2000000476837159, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Lever",
+            "Dir": "Trigger",
+            "Tag": "Lever_1",
+            "Transform": {
+                "Position": [-30.186756134033204, 7.417064666748047, 0.0050048828125],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-30.186756134033204, 7.417064666748047, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.5,
+                    "Height": 1.5
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-30.186756134033204, 7.417064666748047, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 5.0,
+                    "Height": 1.5
+                }
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-8.58899974822998, -20.010000228881837, 0.0],
+                "Scale": [2.0, 29.399999618530275, 1.25],
+                "Rotation": [0.0, 0.0, 90.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-8.58899974822998, -20.010000228881837, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 1.5707963705062867,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Gate_Frame",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [10.520735740661621, -19.840538024902345, 0.0050048828125],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            }
+        },
+        {
+            "Name": "Gate",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [10.470430374145508, -20.414880752563478, 0.0049896240234375],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [10.470430374145508, -20.414880752563478, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 3.5
+                },
+                "Destroyable": false
+            },
+            "Door": {
+                "Trigger_Tag_Name": "Lever_2",
+                "Close_Door_Speed": 1.5,
+                "Door_Open_Length": 3.0,
+                "Open_Door_Speed": 1.5,
+                "Player_Interaction_Flag": true
+            }
+        },
+        {
+            "Name": "Switch_Button",
+            "Dir": "Trigger",
+            "Tag": "Trigger_3",
+            "Transform": {
+                "Position": [-33.73899841308594, 13.986026763916016, 0.00499725341796875],
+                "Scale": [1.0, 1.0, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-33.73899841308594, 13.986026763916016, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 3.0,
+                    "Height": 3.5
+                }
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-24.345870971679689, 29.100706100463868, 0.0049896240234375],
+                "Scale": [2.0, 25.799999237060548, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-24.345870971679689, 29.100706100463868, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": false
+            }
+        },
+        {
+            "Name": "Lever",
+            "Dir": "Trigger",
+            "Tag": "Lever_2",
+            "Transform": {
+                "Position": [33.61865234375, -34.35367965698242, 0.0049896240234375],
+                "Scale": [2.5999999046325685, 3.200000047683716, 1.0],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 100.0,
+                "Dynamic": false,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [33.61865234375, -34.35367965698242, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.5
+                },
+                "Destroyable": false
+            },
+            "Trigger": {
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [33.61865234375, -34.35367965698242, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 2.0,
+                    "Height": 2.5
+                }
+            }
+        },
+        {
+            "Name": "Wall_1",
+            "Dir": "Basic",
+            "Transform": {
+                "Position": [-29.497610092163087, -37.46392822265625, 0.00499725341796875],
+                "Scale": [2.0, 30.0, 1.25],
+                "Rotation": [0.0, 0.0, 0.0]
+            },
+            "RigidBody": {
+                "Mass": 1000.0,
+                "Dynamic": true,
+                "Bounciness": 0.6000000238418579,
+                "Collision_Mask": "Wall",
+                "Friction_Coeff": 0.05000000074505806,
+                "Shape": {
+                    "Type": "Rectangle",
+                    "Center": [-29.497610092163087, -37.46392822265625, 0.0],
+                    "Offset": [0.0, 0.0, 0.0],
+                    "Angle": 0.0,
+                    "Radius": 0.0,
+                    "Width": 1.0,
+                    "Height": 1.0
+                },
+                "Destroyable": true
+            }
+        }
+    ]
+}

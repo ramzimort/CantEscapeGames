@@ -1,0 +1,108 @@
+{
+    "Level_Info": {
+        "Next_Level": "",
+        "Enemy_Transition": false,
+        "Enemy_Tags": [],
+        "Trigger_Transition": false,
+        "Trigger_Tag": "",
+        "Checkpoint_Reached": false,
+        "Spawn_Point": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    "Objects": [
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [16.45841407775879, 8.319164276123047, 0.0],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Music_2",
+                    "Techno_1"
+                ]
+            }
+        },
+        {
+            "Name": "Main_Light",
+            "Dir": "Light",
+            "Transform": {
+                "Position": [-6.753583908081055, 12.24002456665039, 100.0]
+            },
+            "Light": {
+                "Color": [
+                    125,
+                    125,
+                    125
+                ]
+            }
+        },
+        {
+            "Name": "Ground_1",
+            "Dir": "Background",
+            "Transform": {
+                "Position": [-4.212646961212158, 9.060087203979493, 0.0],
+                "Scale": [100.0, 100.0, 0.009999999776482582]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Music",
+            "Transform": {
+                "Position": [-6.032423496246338, 18.32809066772461, 0.0]
+            }
+        },
+        {
+            "Name": "Switch",
+            "Dir": "Trigger",
+            "Tag": "Music_2",
+            "Transform": {
+                "Position": [16.32357406616211, 17.715347290039064, 0.0]
+            }
+        },
+        {
+            "Name": "Player_Spawnpoint",
+            "Dir": "Checkpoint",
+            "Transform": {
+                "Position": [16.263275146484376, 10.251943588256836, 0.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Enemy_2",
+            "Transform": {
+                "Position": [-10.266409873962403, 21.47270965576172, 0.0]
+            }
+        },
+        {
+            "Name": "Enemy_Shooter_Easy",
+            "Dir": "Enemy",
+            "Tag": "Enemy_1",
+            "Transform": {
+                "Position": [-3.600848913192749, 21.37853240966797, 0.0]
+            }
+        },
+        {
+            "Name": "Music_Player",
+            "Dir": "Music",
+            "Transform": {
+                "Position": [-6.882228851318359, 9.945039749145508, 0.0],
+                "Scale": [1.600000023841858, 1.600000023841858, 1.600000023841858]
+            },
+            "Door": {
+                "Bound_Triggers": [
+                    "Music",
+                    "Fight_Techno_1",
+                    "Enemy_1",
+                    "Enemy_2"
+                ]
+            }
+        }
+    ]
+}

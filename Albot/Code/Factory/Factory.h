@@ -9,16 +9,21 @@ Primary Author: Jose Rosenbluth
 
 class GameObjectManager;
 class SystemManager;
+class ResourceManager;
 
 
 class Factory
 {
 
 public:
-	Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr);
+	Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr);
+	Factory() = delete;
+	Factory(Factory const& rhs) = delete;
 	~Factory();
 
 private:
-	Factory(Factory const& rhs);
+	void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
+	void LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr);
 
+	ResourceManager* m_pResourceManager;
 };

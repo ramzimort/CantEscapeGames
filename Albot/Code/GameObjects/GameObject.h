@@ -7,11 +7,11 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
+#include <rttr/visitor.h>
 #include "Components/BaseComponent.h"
 #include "Components/CustomComponent/CustomComponent.h"
 
 class GameObjectManager;
-
 
 class GameObject
 {
@@ -34,6 +34,8 @@ public:
 	std::vector<T*> GetAllComponents();
 	template<typename T>
 	T* AddComponent();
+
+	void LinkComponent(BaseComponent* comp);
 
 	//Special add comp for custom script component
 	CustomComponent *AddCustomComponent(std::string scriptName);
@@ -61,7 +63,6 @@ private:
 	ComponentMask m_compMask;
 	bool m_markedForRemoval;
 
-
 private:
 	//Id will be unique identifier, not optional, set by default.
 	size_t m_id;
@@ -77,6 +78,8 @@ private:
 	
 	//Pointer to the manager that handles this gameobj
 	GameObjectManager *m_gameObjectMgr;
+
+	RTTR_ENABLE();
 };
 
 
@@ -128,4 +131,3 @@ T* GameObject::AddComponent()
 	}
 	return nullptr;
 }
-

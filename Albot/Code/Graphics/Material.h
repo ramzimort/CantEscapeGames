@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 
+#include "Helper/Hash.h"
 
 class Texture;
 
@@ -30,10 +30,10 @@ private:
 	Texture* m_pDiffuseTexture;
 	Texture* m_pNormalTexture;
 	Texture* m_pHeightTexture;
-	std::string m_materialName;
-	std::string m_diffuseTextureDirectory;
-	std::string m_normalTextureDirectory;
-	std::string m_heightTextureDirectory;
+	StringId m_materialId;
+	StringId m_diffuseTextureId;
+	StringId m_normalTextureId;
+	StringId m_heightTextureId;
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

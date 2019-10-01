@@ -9,12 +9,13 @@ Other Authors :
 
 class Aabb;
 class Sphere;
+class AppRenderer;
 
 class Shape
 {
 public:
 #ifdef DEVELOPER
-	virtual void DebugDraw(const Vector4& color) const = 0;
+	virtual void DebugDraw(AppRenderer* pAppRenderer, const Vector4& color) const = 0;
 #endif
 	
 	virtual bool IsIntersect(const Aabb& aabb) const = 0;

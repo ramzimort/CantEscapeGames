@@ -5,29 +5,29 @@
 
 namespace CantMemory
 {
-	namespace Stack
+	class StackResource
 	{
 		typedef uint32_t Marker; 
-
-		StackAllocator g_stackAllocator(1048576U);
-
-		void* Allocate(uint32_t size_bytes)
+	public:
+		static void* Allocate(uint32_t size_bytes)
 		{
-			return g_stackAllocator.Allocate(size_bytes);
+			return m_stackAllocator.Allocate(size_bytes);
 		}
-		void Free(Marker marker)
+		static void Free(Marker marker)
 		{
-			g_stackAllocator.FreeToMarker(marker);
+			m_stackAllocator.FreeToMarker(marker);
 		}
-		Marker GetMarker()
+		static Marker GetMarker()
 		{
-			return g_stackAllocator.GetMarker();
+			return m_stackAllocator.GetMarker();
 		}
-		void Clear()
+		static void Clear()
 		{
-			g_stackAllocator.Clear();
+			m_stackAllocator.Clear();
 		}
-	}
+	private:
+		static StackAllocator m_stackAllocator;
+	};
 
 	namespace PoolAlloc
 	{

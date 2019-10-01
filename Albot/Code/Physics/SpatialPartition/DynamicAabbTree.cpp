@@ -335,7 +335,7 @@ void DynamicAabbTree::RemoveData(unsigned int& key)
 }
 
 #ifdef DEVELOPER
-void DynamicAabbTree::DebugDrawRec(int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel)
+void DynamicAabbTree::DebugDrawRec(AppRenderer* pAppRenderer, int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel)
 {
 	if (node == nullptr)
 		return;
@@ -348,19 +348,19 @@ void DynamicAabbTree::DebugDrawRec(int level, const Vector4& color, DynamicAabbT
 
 	if (currentLevel == level || level == -1)
 	{
-		node->m_Aabb.DebugDraw(color);
+		node->m_Aabb.DebugDraw(pAppRenderer, color);
 	}
 
 	if (currentLevel < level || level == -1)
 	{
-		DebugDrawRec(level, color, node->m_Left, currentLevel + 1);
-		DebugDrawRec(level, color, node->m_Right, currentLevel + 1);
+		DebugDrawRec(pAppRenderer, level, color, node->m_Left, currentLevel + 1);
+		DebugDrawRec(pAppRenderer, level, color, node->m_Right, currentLevel + 1);
 	}
 }
 
-void DynamicAabbTree::DebugDraw(int level, const Vector4& color)
+void DynamicAabbTree::DebugDraw(AppRenderer* pAppRenderer, int level, const Vector4& color)
 {
-	DebugDrawRec(level, color, m_Root, 0);
+	DebugDrawRec(pAppRenderer, level, color, m_Root, 0);
 }
 #endif
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Graphics/Model.h"
+#include "Helper/Hash.h"
 
 class Model;
 
@@ -29,7 +30,7 @@ public:
 	MeshComponent(GameObject *owner);
 	virtual ~MeshComponent();
 
-	void Init() override;
+	void Init(ResourceManager* resMgr) override;
 	void Begin() override;
 	Model* GetModel();
 
@@ -38,10 +39,10 @@ public:
 public:
 	static ComponentId const static_type;
 private:
+	StringId m_modelId;
 	Model* m_model;
-	std::vector<VertexWorldSpaceData> m_vertices_world_space_list;
 	MeshType m_mesh_type;
-	std::string m_model_name;
+	std::vector<VertexWorldSpaceData> m_vertices_world_space_list;
 	bool m_calculate_missing_tangents;
 
 	RTTR_ENABLE(BaseComponent);
