@@ -47,7 +47,7 @@ std::string& ResourceManager::GetPrefab(StringId prefabId)
 
 void ResourceManager::LoadModel(const std::string& filePath)
 {
-	DEBUG_LOG("Loading Model: %s...\n", filePath);
+	DEBUG_LOG("Loading Model: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 
 	Model* model = static_cast<Model*>(m_resources[id]);
@@ -61,7 +61,7 @@ void ResourceManager::LoadModel(const std::string& filePath)
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		DEBUG_LOG("Couldn't load Model %s", filePath);
+		DEBUG_LOG("Couldn't load Model %s", filePath.c_str());
 		return;
 	}
 	m_resources[id] = model;
@@ -86,7 +86,7 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 // Returns null if surface does not exist
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
-	DEBUG_LOG("Loading Texture: %s...\n", filePath);
+	DEBUG_LOG("Loading Texture: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 
 	Texture* texture = static_cast<Texture*>(m_resources[id]);
@@ -99,13 +99,13 @@ void ResourceManager::LoadTexture(const std::string& filePath)
 
 void ResourceManager::LoadAudio(const std::string& filePath)
 {
-	DEBUG_LOG("Loading Audio: %s...\n", filePath);
+	DEBUG_LOG("Loading Audio: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 }
 
 void ResourceManager::LoadPrefab(const std::string& filePath)
 {
-	DEBUG_LOG("Loading Prefab: %s...\n", filePath);
+	DEBUG_LOG("Loading Prefab: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 
 	std::string* defaultGameObj = static_cast<std::string*>(m_resources[id]);

@@ -13,10 +13,8 @@ Primary Author:
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 
-//TODO: albert stuff
-
-
-
+// Helper function
+void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
 
 Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr)
 	: m_pResourceManager(resMgr)
@@ -42,11 +40,39 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 
 	assert(lvlDoc["Objects"].IsArray());
 	const auto& objsArray = lvlDoc["Objects"].GetArray();
+	rapidjson::StringBuffer buffer;
 	for (auto it = objsArray.begin(); it != objsArray.end(); ++it)
 	{
-		const std::string& prefab = it->GetObjectA()["prefab"].GetString();
-		const std::string& tag = it->GetObjectA()["tag"].GetString();
-		LoadObject(prefab, tag, goMgr, resMgr);
+		auto gameObjJson = it->GetObjectA();
+		if (gameObjJson.HasMember("prefab"))
+		{
+			// Load the prefab string as document
+			const std::string& prefabName = gameObjJson["prefab"].GetString();
+
+			StringId prefabId = StringId(prefabName);
+			const std::string prefabJson = resMgr->GetPrefab(prefabId);
+			rapidjson::Document prefabDoc;
+			assert(!prefabDoc.Parse(prefabJson).HasParseError());
+			auto prefabList = prefabDoc.GetObjectA();
+
+			// Load the override string as object
+			auto overrideList = gameObjJson["overrides"].GetObjectA();
+
+			// TODO: Override parameters from the overrides 
+			RecursiveRead(prefabList, overrideList);
+
+			// Stringify and pass to lambda for later instantiation
+			rapidjson::StringBuffer buffer;
+			buffer.Clear();
+			rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+			prefabDoc.Accept(writer);
+			const std::string objSetup = std::string(buffer.GetString());
+			const std::string tag = gameObjJson["tag"].GetString();
+			
+			// Load the object
+			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
+			LoadObject(objSetup, tag, goMgr, resMgr);
+		}
 	}
 }
 
@@ -89,31 +115,16 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 		resMgr->LoadPrefab(it->GetString());
 }
 
-// Helpers
-rttr::variant ReadComponent(rapidjson::Value::MemberIterator& itr, const rttr::type &t, GameObject* go)
-{
-	std::vector<rttr::type> params;
-	params.push_back(rttr::type::get<GameObject*>());
-	rttr::constructor ctor = t.get_constructor(params);
-	auto inst_type = ctor.get_instantiated_type();
-	std::vector<rttr::argument> args;
-	args.push_back(go);
-	rttr::variant obj = ctor.invoke_variadic(args);
-	return obj;
-}
 
-
-void Factory::LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr)
+void Factory::LoadObject(const std::string& compSetup, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr)
 {
-	DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName, tag);
-	StringId prefabId = StringId(prefabName);
 	GameObjectDesc desc;
 	desc.tag = tag;
-	desc.initializeComponentSetup = [resMgr, prefabId](GameObject* go)
+	desc.initializeComponentSetup = [resMgr, compSetup](GameObject* go)
 	{
 		rapidjson::Document objDoc;
-		const std::string prefab = resMgr->GetPrefab(prefabId);
-		assert(!objDoc.Parse(prefab).HasParseError());
+
+		assert(!objDoc.Parse(compSetup).HasParseError());
 
 		const std::vector<rttr::argument> args = { go };
 		auto componentIterator = objDoc.GetObjectA().begin();
@@ -122,16 +133,109 @@ void Factory::LoadObject(const std::string& prefabName, const std::string& tag, 
 			// Construct prefab containing default arguments
 			std::string compName = componentIterator->name.GetString();
 			rttr::variant comp = CantReflect::ReadVariant(componentIterator, rttr::type::get_by_name(compName), args);
+
+			// TODO: Need to call Init() may need to pass resMgr into Init() to connect any models
 			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
 			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>() }).invoke(comp, resMgr);
 			go->LinkComponent(baseComp);
-
-			// TODO: Override parameters from the overrides 
-
-
-			// TODO: Need to call Init() may need to pass resMgr into Init() to connect any models
 		}
 
 	};
 	goMgr->Queue_GameObject_Instantiation(&desc);
+}
+
+// Helper
+void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList)
+{
+	for (auto compIt = _prefabList.begin(); compIt != _prefabList.end(); ++compIt)
+	{
+		const char* memberName = compIt->name.GetString();
+		if (_overrideList.HasMember(memberName))
+		{
+			auto& _member = _prefabList[memberName];
+			auto& _override = _overrideList[memberName];
+			switch (_member.GetType())
+			{
+			case rapidjson::kObjectType:
+			{
+				auto _prefabObjList = _member.GetObjectA();
+				auto _overrideObjList = _override.GetObjectA();
+				RecursiveRead(_prefabObjList, _overrideObjList);
+				break;
+			}
+			case rapidjson::kStringType:
+			{
+				std::string val = _override.GetString();
+				_member.SetString(val.c_str(), val.length());
+				break;
+			}
+			case rapidjson::kNullType:     break;
+			case rapidjson::kFalseType:
+			case rapidjson::kTrueType:
+			{
+				_member.SetBool(_overrideList[_override].GetBool());
+				break;
+			}
+			case rapidjson::kNumberType:
+			{
+				if (_member.IsInt())
+					_member.SetInt(_override.GetInt());
+				else if (_member.IsDouble())
+					_member.SetDouble(_override.GetDouble());
+				else if (_member.IsUint())
+					_member.SetUint(_override.GetUint());
+				else if (_member.IsInt64())
+					_member.SetInt64(_override.GetInt64());
+				else if (_member.IsUint64())
+					_member.SetUint64(_override.GetUint64());
+				break;
+			}
+			// No 2d Arrays!
+			case rapidjson::kArrayType:
+			{
+				auto it2 = _override.GetArray().begin();
+				for (auto it = _member.GetArray().begin(); it != _member.GetArray().end(); ++it, ++it2)
+				{
+					switch (it->GetType())
+					{
+					case rapidjson::kObjectType:
+					{
+						auto _prefabObjList = it->GetObjectA();
+						auto _overrideObjList = it2->GetObjectA();
+						RecursiveRead(_prefabObjList, _overrideObjList);
+						break;
+					}
+					case rapidjson::kStringType:
+					{
+						std::string val = it2->GetString();
+						it2->SetString(val.c_str(), val.length());
+						break;
+					}
+					case rapidjson::kNullType:     break;
+					case rapidjson::kFalseType:
+					case rapidjson::kTrueType:
+					{
+						it->SetBool(it2->GetBool());
+						break;
+					}
+					case rapidjson::kNumberType:
+					{
+						if (it->IsInt())
+							it->SetInt(it2->GetInt());
+						else if (it->IsDouble())
+							it->SetDouble(it2->GetDouble());
+						else if (it->IsUint())
+							it->SetUint(it2->GetUint());
+						else if (it->IsInt64())
+							it->SetInt64(it2->GetInt64());
+						else if (it->IsUint64())
+							it->SetUint64(it2->GetUint64());
+						break;
+					}
+					}
+				}
+			}
+			}
+		}
+	}
 }

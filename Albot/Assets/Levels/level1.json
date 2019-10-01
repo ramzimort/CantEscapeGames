@@ -24,14 +24,19 @@
       "tag": "obj1",
       "prefab": "Assets/Prefabs/mono_azul.json",
       "overrides": {
-
+        "TransformComponent": {
+          "Position": [ -1.0, -2.0, -3.0 ],
+          "Rotation": [ 50.0, 60.0, 70.0 ]
+        }
       }
     },
     {
       "tag": "obj2",
       "prefab": "Assets/Prefabs/mono_rojo.json",
       "overrides": {
-
+        "TransformComponent": {
+          "Position": [ -10.0, -20.0, -30.0 ]
+        }
       }
     },
     {
