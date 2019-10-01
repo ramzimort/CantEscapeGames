@@ -1,6 +1,7 @@
 #pragma once
 
-class BaseCallback {
+class BaseCallback 
+{
 public:
 	typedef std::unique_ptr<BaseCallback> Ptr;
 	
@@ -12,7 +13,8 @@ public:
 };
 
 template <class T>
-class EventCallback : BaseCallback {
+class EventCallback : BaseCallback 
+{
 public:
 	typedef typename std::function<void(const T*)> Callback;
 	typedef typename std::unique_ptr<EventCallback<T>> Ptr;
@@ -32,6 +34,7 @@ public:
 		const T* derived_event = static_cast<const T*>(event);
 		m_callback(derived_event);
 	}
+	void operator()(const void *event) {};
 private:
 	Callback m_callback;
 };

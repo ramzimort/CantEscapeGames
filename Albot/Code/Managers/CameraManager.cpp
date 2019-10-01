@@ -9,9 +9,12 @@ Primary Author: Jose Rosenbluth
 #include "CameraManager.h"
 #include "Graphics/Camera.h"
 
+CameraManager* gCameraManager;
+
 
 CameraManager::CameraManager()
 {
+	gCameraManager = this;
 }
 
 CameraManager::~CameraManager()

@@ -13,6 +13,13 @@ Primary Author:
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 
+#include "Components/TransformComponent.h"
+#include "Components/CameraComponent.h"
+#include "Managers/CameraManager.h"
+
+extern CameraManager* gCameraManager;
+
+
 // Helper function
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
 
@@ -74,6 +81,21 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			LoadObject(objSetup, tag, goMgr, resMgr);
 		}
 	}
+
+	//Wont be registered in any system				         ////
+	GameObjectDesc desc4;							         ////
+	desc4.tag = "FPSPlayer";						         ////
+	desc4.initializeComponentSetup = [](GameObject *go)		         ////
+	{												         ////
+		auto *T = go->AddComponent<TransformComponent>();
+		T->SetLocalPosition(0.f, 0.f, 0.f);////
+
+		auto cameraComp = go->AddComponent<CameraComponent>();
+		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
+		cameraComp->SetCamera(cameraInfo->m_camera);
+		//Override code								         ////
+	};												         ////
+	goMgr->Queue_GameObject_Instantiation(&desc4);
 }
 
 Factory::~Factory()

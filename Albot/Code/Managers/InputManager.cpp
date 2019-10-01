@@ -10,8 +10,11 @@ Other Authors : <None>
 #include "Events/Input/KeyDownEvent.h"
 #include "EventManager.h"
 
+InputManager* gpInputManager;
+
 InputManager::InputManager()
 {
+	gpInputManager = this;
 }
 
 InputManager::~InputManager()
@@ -81,7 +84,8 @@ void InputManager::Update()
 		default:
 			break;
 		case SDL_KEYDOWN:
-			EventManager::Get()->EnqueueEvent<KeyDownEvent>(false, m_event.key.keysym.scancode);
+			//EventManager::Get()->EnqueueEvent<KeyDownEvent>(false, m_event.key.keysym.scancode);
+			break;
 		}
 	}
 
