@@ -4,42 +4,32 @@ class BaseCallback {
 public:
 	typedef std::unique_ptr<BaseCallback> Ptr;
 	
-	BaseCallback(void* subscriber) : 
-		m_subscriber(subscriber) { }
-	virtual ~BaseCallback() = default;
+	BaseCallback(const void* _owner) : m_owner(_owner) { }
+	virtual ~BaseCallback() = 0;
 
-	const void* GetId() const { return m_subscriber; }
 	virtual void Call(const void *event) = 0;
-protected:
-
-private:
-	const void* m_subscriber;
+	const void* m_owner;
 };
 
 template <class T>
-class EventCallBack : BaseCallback {
+class EventCallback : BaseCallback {
 public:
 	typedef typename std::function<void(const T*)> Callback;
-	typedef typename std::unique_ptr<EventCallBack<T>> Ptr;
+	typedef typename std::unique_ptr<EventCallback<T>> Ptr;
 public:
-	EventCallBack<T>() : 
-		BaseCallback(nullptr),
-		m_callback([](const T* event_p) {}) { }
-
-	EventCallBack<T>(void* objPtr, const Callback& callback) : 
-		BaseCallback(objPtr),
+	EventCallback<T>(const void* owner, const Callback& callback) :
+		BaseCallback(owner),
 		m_callback(callback) { }
+	
+	EventCallback<T>(const EventCallback<T>& cb) :
+		BaseCallback(cb.m_owner),
+		m_callback(cb.m_callback) { }
 
-	~EventCallBack() = default;
-
-	void operator()(const void* event)
-	{
-		m_callback(event);
-	}
+	virtual ~EventCallback() = default;
 
 	virtual void Call(const void *event)
 	{
-		const T* derived_event = static_cast<T*>(event);
+		const T* derived_event = static_cast<const T*>(event);
 		m_callback(derived_event);
 	}
 private:

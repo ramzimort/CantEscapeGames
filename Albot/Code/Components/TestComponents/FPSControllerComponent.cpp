@@ -16,7 +16,7 @@ RTTR_REGISTRATION
 FPSControllerComponent::FPSControllerComponent(GameObject* go)
 	: BaseComponent(go, static_type)
 {
-	EventManager::Get()->SubscribeEvent<KeyDownEvent>(this, std::bind(
+	EventManager::Get()->SubscribeEvent<KeyDownEvent>(static_cast<void*>(this), std::bind(
 		&FPSControllerComponent::OnKeyDown, this, std::placeholders::_1));
 }
 

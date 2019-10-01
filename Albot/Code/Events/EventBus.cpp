@@ -32,7 +32,7 @@ void EventBus::Update(float dt)
 			auto& cbList = it2->second;
 			for (auto &cb : cbList)
 			{
-				cb.second->Call(pEvent.get());
+				cb->Call(pEvent.get());
 			}
 		}
 

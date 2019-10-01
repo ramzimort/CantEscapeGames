@@ -24,8 +24,8 @@ public:
 	bool IsQuit();
 
 	template<typename T, typename ...Args>
-	void SubscribeEvent(void* subscriber, Args... args);
-	template<class T>
+	void SubscribeEvent(Args... args);
+	template<typename T>
 	void UnsubscribeEvent(void* objPtr);
 	template<typename T,typename ...Args>
 	void EnqueueEvent(bool, Args&&...);
@@ -43,12 +43,12 @@ private:
 
 
 template<typename T, typename ...Args>
-void EventManager::SubscribeEvent(void* subscriber, Args... args)
+void EventManager::SubscribeEvent(Args... args)
 {
-	m_pEventBus->AddSubscriber(subscriber, (EventCallBack<T>(std::forward<Args>(args)...)));
+	m_pEventBus->AddSubscriber(EventCallback<T>(std::forward<Args>(args)...));
 }
 
-template<class T>
+template<typename T>
 void EventManager::UnsubscribeEvent(void* objPtr)
 {
 	m_pEventBus->DeleteSubscriber(objPtr);
@@ -58,7 +58,7 @@ void EventManager::UnsubscribeEvent(void* objPtr)
 template<typename T, typename ...Args>
 void EventManager::EnqueueEvent(bool directCall, Args&&... args)
 {
-	m_pEventBus->QueueEvent<T>(directCall, std::forward<Args>(args) ...);
+	m_pEventBus->QueueEvent<T>(directCall, std::forward<Args>(args)...);
 }
 
 
