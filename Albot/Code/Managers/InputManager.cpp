@@ -7,14 +7,12 @@ Other Authors : <None>
 
 #include "InputManager.h"
 #include "CantDebug/CantDebug.h"
-#include "Events/Input/KeyDownEvent.h"
+#include "Events/Input/KeyEvent.h"
+#include "Events/Input/MouseEvent.h"
 #include "EventManager.h"
-
-InputManager* gpInputManager;
 
 InputManager::InputManager()
 {
-	gpInputManager = this;
 }
 
 InputManager::~InputManager()
@@ -81,10 +79,17 @@ void InputManager::Update()
 				break;
 			}
 			break;
-		default:
+
+		case SDL_MOUSEMOTION:
+		case SDL_MOUSEBUTTONUP:
+		case SDL_MOUSEBUTTONDOWN:
 			break;
 		case SDL_KEYDOWN:
-			//EventManager::Get()->EnqueueEvent<KeyDownEvent>(false, m_event.key.keysym.scancode);
+		case SDL_KEYUP:
+			EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+			break;
+
+		default:
 			break;
 		}
 	}
@@ -100,6 +105,7 @@ void InputManager::Update()
 	m_mouseStatePrevious = m_mouseStateCurrent;
 	m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
 	m_mouseStateCurrent = SDL_GetMouseState(m_mousePositionCurrent, m_mousePositionCurrent + 1);
+	EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
 
 	// DEBUG
 	DEBUG_TRACE("Pointer: x = %f, y = %f", GetPointerLocVec2().x, GetPointerLocVec2().y);

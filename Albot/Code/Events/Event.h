@@ -4,6 +4,7 @@
 #include "BaseEvent.h"
 
 class EventBus;
+class InputManager;
 
 template <class Derived>
 class Event : public BaseEvent 
@@ -15,9 +16,10 @@ protected:
 	Event() = default;
 private:
 	friend EventBus;
+	friend InputManager;
 	static EventId GetId()
 	{
 		static EventId refId = m_eventId++;
-		return m_eventId;
+		return refId;
 	}
 };

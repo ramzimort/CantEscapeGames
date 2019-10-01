@@ -2,7 +2,8 @@
 
 #include "Components/BaseComponent.h"
 
-class KeyDownEvent;
+class KeyEvent;
+class MouseEvent;
 
 class FPSControllerComponent : public BaseComponent
 {
@@ -13,7 +14,8 @@ public:
 	virtual void Init(ResourceManager* resMgr);
 	virtual void Begin();
 
-	void OnKeyDown(const KeyDownEvent* event);
+	void OnKeyDown(const KeyEvent* event);
+	void OnMouse(const MouseEvent* event);
 
 public:
 	//Unique class identifier
@@ -23,8 +25,10 @@ public:
 	bool m_backward;
 	bool m_left;
 	bool m_right;
-	bool m_mouse_left_click;
-	bool m_mouse_right_click;
+
+	Vector2 m_mousePosition;
+	Vector2 m_mouseDeltaPosition;
+	uint8_t m_leftClick;
 
 private:
 

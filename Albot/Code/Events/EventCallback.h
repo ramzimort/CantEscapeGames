@@ -1,31 +1,39 @@
 #pragma once
 
+#include "Events/Input/MouseEvent.h"
+
 class BaseCallback 
 {
 public:
 	typedef std::unique_ptr<BaseCallback> Ptr;
 	
 	BaseCallback(const void* _owner) : m_owner(_owner) { }
-	virtual ~BaseCallback() = 0;
+	virtual ~BaseCallback() = default;
+
+	const void* GetOwner() const { return m_owner; }
 
 	virtual void Call(const void *event) = 0;
+
+protected:
 	const void* m_owner;
 };
 
 template <class T>
-class EventCallback : BaseCallback 
+class EventCallback : public BaseCallback 
 {
 public:
 	typedef typename std::function<void(const T*)> Callback;
 	typedef typename std::unique_ptr<EventCallback<T>> Ptr;
 public:
-	EventCallback<T>(const void* owner, const Callback& callback) :
+	EventCallback(const void* owner, const Callback& callback) :
 		BaseCallback(owner),
 		m_callback(callback) { }
 	
-	EventCallback<T>(const EventCallback<T>& cb) :
+	EventCallback(const EventCallback<T>& cb) :
 		BaseCallback(cb.m_owner),
 		m_callback(cb.m_callback) { }
+
+	const void* GetOwner() const { return m_owner; }
 
 	virtual ~EventCallback() = default;
 

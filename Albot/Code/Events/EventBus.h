@@ -21,7 +21,7 @@ public:
 	void DeleteSubscriber(void* objPtr);
 
 private:
-	typedef std::vector<BaseCallback::Ptr> BaseCallbackList;
+	typedef std::map<const void*, BaseCallback::Ptr> BaseCallbackList;
 	typedef std::vector<std::pair<BaseEvent::EventId, BaseEvent::Ptr>> EventQueue;
 	typedef std::unordered_map<BaseEvent::EventId, BaseCallbackList> CallbackMap;
 	EventQueue m_eventQueue;
@@ -48,7 +48,7 @@ void EventBus::QueueEvent(bool direct_call, Args&& ... event_args)
 		BaseCallbackList& cbList = it->second;
 		for (auto it = cbList.begin(); it != cbList.end(); ++it)
 		{
-			it->get()->Call(event.get());
+			it->second->Call(event.get());
 		}
 	}
 }
@@ -65,7 +65,7 @@ void EventBus::AddSubscriber(const EventCallback<T>& ptr)
 		m_subscriberMap.insert(std::make_pair(eventId, BaseCallbackList()));
 	BaseCallbackList& cbList = m_subscriberMap[eventId];
 	
-	cbList.push_back(std::move(eventCallback));
+	cbList.insert(std::make_pair(ptr.GetOwner(), std::move(eventCallback)));
 }
 
 template<typename T>
@@ -78,11 +78,11 @@ void EventBus::DeleteSubscriber(void* objPtr)
 		BaseCallbackList& cbList = iter->second;
 		for (auto it = cbList.begin(); it != cbList.end(); ++it)
 		{
-			//if (it->first == objPtr)
-			//{
-			//	cbList.erase(it);
-			//	break;
-			//}
+			if (it->first == objPtr)
+			{
+				cbList.erase(it);
+				break;
+			}
 		}
 	}
 }

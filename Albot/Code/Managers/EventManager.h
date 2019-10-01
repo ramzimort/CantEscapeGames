@@ -28,7 +28,7 @@ public:
 	template<typename T>
 	void UnsubscribeEvent(void* objPtr);
 	template<typename T,typename ...Args>
-	void EnqueueEvent(bool, Args&&...);
+	void EnqueueEvent(Args&&...);
 
 private:
 	WindowManager* m_pWindowManager;
@@ -51,14 +51,14 @@ void EventManager::SubscribeEvent(Args... args)
 template<typename T>
 void EventManager::UnsubscribeEvent(void* objPtr)
 {
-	m_pEventBus->DeleteSubscriber(objPtr);
+	m_pEventBus->DeleteSubscriber<T>(objPtr);
 }
 
 
 template<typename T, typename ...Args>
-void EventManager::EnqueueEvent(bool directCall, Args&&... args)
+void EventManager::EnqueueEvent(Args&&... args)
 {
-	m_pEventBus->QueueEvent<T>(directCall, std::forward<Args>(args)...);
+	m_pEventBus->QueueEvent<T>(std::forward<Args>(args)...);
 }
 
 

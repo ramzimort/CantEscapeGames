@@ -10,7 +10,6 @@
     <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Code\Components\TransformComponent.cpp" />
     <ClCompile Include="Code\Events\BaseEvent.cpp" />
-    <ClCompile Include="Code\Events\Event.cpp" />
     <ClCompile Include="Code\Events\EventBus.cpp" />
     <ClCompile Include="Code\Factory\Factory.cpp" />
     <ClCompile Include="Code\GameObjects\GameObject.cpp" />
@@ -75,8 +74,9 @@
     <ClCompile Include="Code\Components\CustomComponent\CustomComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
-    <ClCompile Include="Code\Events\Input\KeyDownEvent.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
+    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -170,8 +170,9 @@
     <ClInclude Include="Code\Components\CustomComponent\CustomComponent.h" />
     <ClInclude Include="Code\Components\TestComponent.h" />
     <ClInclude Include="Code\Components\TestComponents\FPSControllerComponent.h" />
-    <ClInclude Include="Code\Events\Input\KeyDownEvent.h" />
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
+    <ClInclude Include="Code\Events\Input\MouseEvent.h" />
+    <ClInclude Include="Code\Events\Input\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

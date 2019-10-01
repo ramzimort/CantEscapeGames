@@ -15,6 +15,7 @@ Primary Author:
 
 #include "Components/TransformComponent.h"
 #include "Components/CameraComponent.h"
+#include "Components/TestComponents/FPSControllerComponent.h"
 #include "Managers/CameraManager.h"
 
 extern CameraManager* gCameraManager;
@@ -93,6 +94,8 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 		auto cameraComp = go->AddComponent<CameraComponent>();
 		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
 		cameraComp->SetCamera(cameraInfo->m_camera);
+
+		auto FPSController = go->AddComponent<FPSControllerComponent>();
 		//Override code								         ////
 	};												         ////
 	goMgr->Queue_GameObject_Instantiation(&desc4);
