@@ -5,7 +5,7 @@
     "Scale": [ 2.0, 2.0, 2.0 ]
   },
 
-  "RigidBody": {
+  "RigidbodyComponent": {
   },
 
   "RendererComponent": {

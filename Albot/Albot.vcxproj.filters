@@ -173,6 +173,7 @@
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
+    <ClInclude Include="Code\Components\AllComponentHeaders.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

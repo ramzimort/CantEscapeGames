@@ -3,7 +3,7 @@
 #include "../../CantDebug/CantDebug.h"
 
 #ifndef DEVELOPER
-#define DEBUG_INIT
+#define DEBUG_INIT()
 #define DEBUG_TRACE(fmt, ...)
 #define DEBUG_LOG
 #define DEBUG_UPDATE
@@ -13,7 +13,7 @@
 #define DEBUG_SLIDERFLOAT(NAME, DATA, MIN, MAX)
 #define DEBUG_QUIT(SDL_EVENT)
 #else
-#define DEBUG_INIT CantDebugAPI::InitDebugWindow()
+#define DEBUG_INIT(SDLWND) CantDebugAPI::InitDebugWindow(SDLWND)
 #define DEBUG_TRACE(FMT, ...) CantDebugAPI::Trace(FMT, __VA_ARGS__)
 #define DEBUG_LOG(FMT, ...) CantDebugAPI::Log(FMT, __VA_ARGS__)
 #define DEBUG_UPDATE CantDebugAPI::UpdateDebugWindow();

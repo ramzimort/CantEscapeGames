@@ -39,7 +39,7 @@ void CleanupRenderTarget();
 
 namespace CantDebugAPI
 {
-	void InitDebugWindow()
+	void InitDebugWindow(SDL_Window* gameWindow)
 	{
 		g_mainWindow = SDL_CreateWindow("CantDebug",
 			SDL_WINDOWPOS_CENTERED,
@@ -147,7 +147,7 @@ void UpdateLog()
 	while (!g_logQueue->Empty())
 		log.AddLog(g_logQueue->Pop().c_str());
 	ImGui::End();
-	log.Draw("LogWindow");
+	log.Draw("Log");
 }
 
 void UpdateTrace()
@@ -169,7 +169,6 @@ void UpdateGraphicsSettings()
 		ImGui::SliderFloat(data.m_sliderFloatName.c_str(), data.m_pData, data.m_min, data.m_max);
 		g_sliderFloatQueue->m_queueData.pop();
 	}
-
 	ImGui::End();
 }
 

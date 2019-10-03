@@ -46,16 +46,6 @@ GameObject::~GameObject()
 	m_customComponents.clear();
 }
 
-void GameObject::LinkComponent(BaseComponent* component)
-{
-	BaseComponent::ComponentId componentTypeId = component->GetType();
-	if (component)
-	{
-		this->m_compMask[componentTypeId] = 1;
-		this->m_components[componentTypeId] = component;
-	}
-}
-
 size_t GameObject::GetId() const
 {
 	return this->m_id;

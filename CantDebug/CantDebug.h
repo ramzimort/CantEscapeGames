@@ -10,7 +10,7 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
-	CANTDEBUG_API void InitDebugWindow();
+	CANTDEBUG_API void InitDebugWindow(SDL_Window* pWindow);
 
 	CANTDEBUG_API void UpdateDebugWindow();
 

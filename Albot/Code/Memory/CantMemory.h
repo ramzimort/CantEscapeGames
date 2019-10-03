@@ -3,11 +3,13 @@
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
 
+#define PAGESIZE 16384
+
 namespace CantMemory
 {
 	class StackResource
 	{
-		typedef uint32_t Marker; 
+		typedef uint32_t Marker;
 	public:
 		static void* Allocate(uint32_t size_bytes)
 		{
@@ -29,50 +31,25 @@ namespace CantMemory
 		static StackAllocator m_stackAllocator;
 	};
 
-	namespace PoolAlloc
+	template<typename T>
+	class PoolAlloc
 	{
-		template<typename T>
-		class GlobalPool 
+	public:
+		PoolAlloc<T>() : m_pPool(new Pool<T>(PAGESIZE)) { };
+		~PoolAlloc<T>() { delete m_pPool; }
+
+		template <typename... Args>
+		static T* Allocate(Args &&... args)
 		{
-		public:
-			template <typename... Args>
-			static T* Allocate(Args &&... args)
-			{
-				static std::auto_ptr<Pool<T>>m_pPool(new Pool<T>(16384));
-				return m_pPool.get()->Allocate(std::forward<Args>(args)...);
-			}
-			static void Free(T* ptr)
-			{
-				static std::auto_ptr<Pool<T>>m_pPool(new Pool<T>(16384));
-				m_pPool.get()->Free(ptr);
-			}
-		private:
-			GlobalPool() { }
-			~GlobalPool() { }
-			GlobalPool(const GlobalPool& rhs) { }
-			GlobalPool& operator=(const GlobalPool& rhs) { }
-		};
-
-		template<typename T>
-		class GlobalPool_orig {
-		public:
-			static Pool<T>* const m_pPool;
-		private:
-			GlobalPool_orig() { }
-			GlobalPool_orig(const GlobalPool_orig& rhs) { }
-			GlobalPool_orig& operator=(const GlobalPool_orig& rhs) { }
-		};
-
-		template<typename T>
-		Pool<T>* const GlobalPool_orig<T>::m_pPool(new Pool<T>(16384));
-
-		template <typename T> T* Allocate()
-		{
-			return GlobalPool<T>::Allocate();
+			return m_pPool->Allocate(std::forward<Args>(args)...);
 		}
-		template <typename T> void Free(T* ptr)
+		static void Free(T* ptr)
 		{
-			GlobalPool<T>::Free(ptr);
+			m_pPool->Free(ptr);
 		}
-	}
+		static Pool<T>* const m_pPool;
+	};
+
+	template<typename T>
+	Pool<T>* const PoolAlloc<T>::m_pPool(new Pool<T>(PAGESIZE));
 }

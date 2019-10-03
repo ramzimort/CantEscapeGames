@@ -13,8 +13,8 @@ Primary Author:
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 
-#include "Components/TransformComponent.h"
-#include "Components/CameraComponent.h"
+#include "Components/AllComponentHeaders.h"
+
 #include "Components/TestComponents/FPSControllerComponent.h"
 #include "Managers/CameraManager.h"
 
@@ -23,6 +23,7 @@ extern CameraManager* gCameraManager;
 
 // Helper function
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
+rttr::variant GetComponent(GameObject* go, const std::string& name);
 
 Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr)
 	: m_pResourceManager(resMgr)
@@ -157,12 +158,12 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag, G
 		{
 			// Construct prefab containing default arguments
 			std::string compName = componentIterator->name.GetString();
-			rttr::variant comp = CantReflect::ReadVariant(componentIterator, rttr::type::get_by_name(compName), args);
+			rttr::variant comp = GetComponent(go, compName);
+			CantReflect::ReadRecursive(comp, componentIterator->value);
 
-			// TODO: Need to call Init() may need to pass resMgr into Init() to connect any models
+			//Need to call Init() may need to pass resMgr into Init() to connect any models
 			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
 			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>() }).invoke(comp, resMgr);
-			go->LinkComponent(baseComp);
 		}
 
 	};
@@ -191,7 +192,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 			case rapidjson::kStringType:
 			{
 				std::string val = _override.GetString();
-				_member.SetString(val.c_str(), val.length());
+				_member.SetString(val.c_str(), static_cast<rapidjson::SizeType>(val.length()));
 				break;
 			}
 			case rapidjson::kNullType:     break;
@@ -233,7 +234,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 					case rapidjson::kStringType:
 					{
 						std::string val = it2->GetString();
-						it2->SetString(val.c_str(), val.length());
+						it2->SetString(val.c_str(), static_cast<rapidjson::SizeType>(val.length()));
 						break;
 					}
 					case rapidjson::kNullType:     break;
@@ -263,4 +264,22 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 			}
 		}
 	}
+}
+
+rttr::variant GetComponent(GameObject* go, const std::string& name)
+{
+	if (name == "TransformComponent")
+		return go->AddComponent<TransformComponent>();
+	else if (name == "RigidbodyComponent")
+		return go->AddComponent<RigidbodyComponent>();
+	else if (name == "RendererComponent")
+		return go->AddComponent<RendererComponent>();
+	else if (name == "MeshComponent")
+		return go->AddComponent<MeshComponent>();
+	else if (name == "LightComponent")
+		return go->AddComponent<LightComponent>();
+	else if (name == "CameraComponent")
+		return go->AddComponent<CameraComponent>();
+	
+	return rttr::variant();
 }

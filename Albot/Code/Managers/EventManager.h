@@ -60,7 +60,3 @@ void EventManager::EnqueueEvent(Args&&... args)
 {
 	m_pEventBus->QueueEvent<T>(std::forward<Args>(args)...);
 }
-
-
-
-

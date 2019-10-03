@@ -32,7 +32,7 @@ void InputManager::Initialize()
 		600,
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
 	assert(m_pWindow != NULL);
-	DEBUG_INIT;
+	DEBUG_INIT(m_pWindow);
 
 
 	SDL_memset(m_keyboardStateCurrent, 0, 512 * sizeof(Uint8));

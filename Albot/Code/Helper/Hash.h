@@ -51,7 +51,11 @@ public:
 
 	StringId& operator=(const StringId& rhs)
 	{
-		m_id = rhs.m_id; m_name = rhs.m_name; return *this;
+		m_id = rhs.m_id; 
+#ifdef DEVELOPER
+		m_name = rhs.m_name;
+#endif
+		return *this;
 	}
 	bool operator==(const StringId& rhs) const { return m_id == rhs.m_id; }
 	bool operator<(const StringId& rhs) const { return m_id < rhs.m_id; }

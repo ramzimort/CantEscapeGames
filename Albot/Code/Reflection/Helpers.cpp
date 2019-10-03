@@ -324,7 +324,7 @@ namespace CantReflect
 				constructor ctor = t.get_constructor(argType);
 				for (auto& item : t.get_constructors())
 				{
-					if (item.get_instantiated_type().is_pointer())
+					if (item.get_instantiated_type() == t)
 						ctor = item;
 				}
 				switch (args.size())
@@ -454,10 +454,7 @@ namespace CantReflect
 			default:
 			{
 				variant extracted_value = ReadBaseType(json_value, value_t);
-/*				if(extracted_value.get_type() == value_t)
-					prop.set_value(obj, extracted_value);
-
-				else*/ if (extracted_value.convert(value_t)) // REMARK: CONVERSION WORKS ONLY WITH "const type", check whether this is correct or not!
+				if (extracted_value.convert(value_t)) // REMARK: CONVERSION WORKS ONLY WITH "const type", check whether this is correct or not!
 					prop.set_value(obj, extracted_value);
 			}
 			}

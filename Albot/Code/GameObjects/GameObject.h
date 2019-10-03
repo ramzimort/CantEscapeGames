@@ -10,6 +10,7 @@ Primary Author: Jose Rosenbluth
 #include <rttr/visitor.h>
 #include "Components/BaseComponent.h"
 #include "Components/CustomComponent/CustomComponent.h"
+#include "Memory/CantMemory.h"
 
 class GameObjectManager;
 
@@ -34,8 +35,6 @@ public:
 	std::vector<T*> GetAllComponents();
 	template<typename T>
 	T* AddComponent();
-
-	void LinkComponent(BaseComponent* comp);
 
 	//Special add comp for custom script component
 	CustomComponent *AddCustomComponent(std::string scriptName);
@@ -120,8 +119,10 @@ std::vector<T*> GameObject::GetAllComponents()
 template <typename T>
 T* GameObject::AddComponent()
 {
+	
 	BaseComponent::ComponentId componentTypeId = T::static_type;
-	T* component = new T(this);
+ 	T* component = CantMemory::PoolAlloc<T>::Allocate(this);
+	DEBUG_LOG("Type: %s, Size: %d, Alignment %d, Pointer: %p \n, ", typeid(T).name(), sizeof(T), alignof(T), component);
 
 	if (component)
 	{

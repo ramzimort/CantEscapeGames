@@ -384,6 +384,7 @@
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
     <ClInclude Include="Code\CantDebug\CantDebug.h" />
+    <ClInclude Include="Code\Components\AllComponentHeaders.h" />
     <ClInclude Include="Code\Components\BaseComponent.h" />
     <ClInclude Include="Code\Components\CameraComponent.h" />
     <ClInclude Include="Code\Components\CustomComponent\CustomComponent.h" />

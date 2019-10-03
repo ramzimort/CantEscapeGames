@@ -14,7 +14,7 @@ unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
-	rttr::registration::class_<RigidbodyComponent>("RigidBody")
+	rttr::registration::class_<RigidbodyComponent>("RigidbodyComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.method("Init", &RigidbodyComponent::Init);
 }
