@@ -7,6 +7,7 @@
 #include "Graphics/D3D11_Renderer.h"
 #include "Reflection/Serialization.h"
 #include "CantDebug/CantDebug.h"
+#include "Memory/CantMemory.h"
 
 ResourceManager::ResourceManager() : 
 	m_dxrenderer(nullptr)
@@ -54,7 +55,8 @@ void ResourceManager::LoadModel(const std::string& filePath)
 	if (model != nullptr)
 		return;
 
-	model = new Model();
+	model = CantMemory::PoolResource<Model>::Allocate();
+	//model = new Model();
 	Assimp::Importer importer;
 	aiScene const *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
 	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );

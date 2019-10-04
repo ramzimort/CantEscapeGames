@@ -310,8 +310,6 @@
     <ClCompile Include="Code\Components\TransformComponent.cpp" />
     <ClCompile Include="Code\Events\BaseEvent.cpp" />
     <ClCompile Include="Code\Events\EventBus.cpp" />
-    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
-    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
     <ClCompile Include="Code\Factory\Factory.cpp" />
     <ClCompile Include="Code\GameObjects\GameObject.cpp" />
     <ClCompile Include="Code\Graphics\AppRenderer.cpp" />
@@ -400,8 +398,11 @@
     <ClInclude Include="Code\Events\Event.h" />
     <ClInclude Include="Code\Events\EventBus.h" />
     <ClInclude Include="Code\Events\EventCallback.h" />
+    <ClInclude Include="Code\Events\Input\Input.h" />
+    <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
+    <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Code\Events\Multicast.h" />
     <ClInclude Include="Code\Factory\Factory.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />

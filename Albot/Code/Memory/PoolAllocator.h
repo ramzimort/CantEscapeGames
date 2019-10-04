@@ -16,9 +16,8 @@ struct Pool
 		}
 	private:
 		using StorageType = char[sizeof(T)];
-
-		PoolItem* mp_next;
 		alignas(T) StorageType m_data;
+		PoolItem* mp_next;
 	};
 
 	struct PoolPage 

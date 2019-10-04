@@ -121,7 +121,7 @@ T* GameObject::AddComponent()
 {
 	
 	BaseComponent::ComponentId componentTypeId = T::static_type;
- 	T* component = CantMemory::PoolAlloc<T>::Allocate(this);
+ 	T* component = CantMemory::PoolResource<T>::Allocate(this);
 	DEBUG_LOG("Type: %s, Size: %d, Alignment %d, Pointer: %p \n, ", typeid(T).name(), sizeof(T), alignof(T), component);
 
 	if (component)

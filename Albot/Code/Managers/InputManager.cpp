@@ -7,8 +7,7 @@ Other Authors : <None>
 
 #include "InputManager.h"
 #include "CantDebug/CantDebug.h"
-#include "Events/Input/KeyEvent.h"
-#include "Events/Input/MouseEvent.h"
+#include "Events/Input/Input.h"
 #include "EventManager.h"
 
 InputManager::InputManager()
@@ -57,43 +56,55 @@ void InputManager::Update()
 		//SDL_JoystickUpdate();
 		switch (m_event.type)
 		{
-		case SDL_JOYDEVICEADDED:
-		case SDL_JOYDEVICEREMOVED:
-			break;
-		case SDL_MOUSEWHEEL:
-			m_mouseWheelY = m_event.wheel.y;
-			break;
+		// ALL WINDOW EVENTS
 		case SDL_WINDOWEVENT:
+			if (m_event.window.windowID != SDL_GetWindowID(m_pWindow))
+				break;
 			switch (m_event.window.event)
 			{
+			case SDL_WINDOWEVENT_FOCUS_GAINED:
+			case SDL_WINDOWEVENT_SHOWN:
+			case SDL_WINDOWEVENT_RESTORED:
+				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, true);
+				m_update = true;
+				break;
 			case SDL_WINDOWEVENT_HIDDEN:
 			case SDL_WINDOWEVENT_FOCUS_LOST:
 			case SDL_WINDOWEVENT_MINIMIZED:
+				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, false);
+				m_update = false;
 				break;
 			case SDL_WINDOWEVENT_CLOSE:
 				DEBUG_QUIT(m_event);
-				if (m_event.window.windowID == SDL_GetWindowID(m_pWindow))
-					m_quit = true;
+				m_quit = true;
 				break;
 			default:
 				break;
 			}
 			break;
 
-		case SDL_MOUSEMOTION:
-		case SDL_MOUSEBUTTONUP:
-		case SDL_MOUSEBUTTONDOWN:
+
+		case SDL_JOYDEVICEADDED:
+			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
+			break;
+		case SDL_JOYDEVICEREMOVED:
+			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
+			break;
+		case SDL_MOUSEWHEEL:
+			m_mouseWheelY = m_event.wheel.y;
 			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
-			EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+			if(m_event.key.windowID == SDL_GetWindowID(m_pWindow)) 
+				EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
 			break;
 
 		default:
 			break;
 		}
 	}
-
+	if (!m_update)
+		return;
 
 	int numberOffFetchedKeys = 0;
 	const Uint8* pCurrentKeyStates = SDL_GetKeyboardState(&numberOffFetchedKeys);

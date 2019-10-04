@@ -63,6 +63,8 @@ private:
 	SDL_Event m_event;
 	Uint8 m_keyboardStateCurrent[512];
 	Uint8 m_keyboardStatePrevious[512];
+	
+	bool m_update;
 	bool m_quit;
 };
 

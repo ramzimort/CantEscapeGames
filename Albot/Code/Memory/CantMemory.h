@@ -3,17 +3,18 @@
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
 
-#define PAGESIZE 16384
+#define PAGESIZE 8192
 
 namespace CantMemory
 {
 	class StackResource
 	{
-		typedef uint32_t Marker;
+		typedef size_t Marker;
 	public:
-		static void* Allocate(uint32_t size_bytes)
+		template <typename T, typename ...Args>
+		static void* Allocate(uint32_t size_bytes, Args&&... args)
 		{
-			return m_stackAllocator.Allocate(size_bytes);
+			return m_stackAllocator.Allocate<T>(size_bytes, std::forward<Args>(args));
 		}
 		static void Free(Marker marker)
 		{
@@ -32,11 +33,11 @@ namespace CantMemory
 	};
 
 	template<typename T>
-	class PoolAlloc
+	class PoolResource
 	{
 	public:
-		PoolAlloc<T>() : m_pPool(new Pool<T>(PAGESIZE)) { };
-		~PoolAlloc<T>() { delete m_pPool; }
+		PoolResource<T>() : m_pPool(new Pool<T>(PAGESIZE)) { };
+		~PoolResource<T>() { delete m_pPool; }
 
 		template <typename... Args>
 		static T* Allocate(Args &&... args)
@@ -51,5 +52,5 @@ namespace CantMemory
 	};
 
 	template<typename T>
-	Pool<T>* const PoolAlloc<T>::m_pPool(new Pool<T>(PAGESIZE));
+	Pool<T>* const PoolResource<T>::m_pPool(new Pool<T>(PAGESIZE));
 }
