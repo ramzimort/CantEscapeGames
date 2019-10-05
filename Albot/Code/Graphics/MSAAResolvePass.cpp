@@ -65,7 +65,7 @@ void MSAAResolvePass::ResolveMSAASwapChain()
 
 	Texture* cur_main_rt_texture = m_app_renderer->m_cur_main_rt->get_texture();
 
-	DescriptorData params[2] = {};
+	DescriptorData params[3] = {};
 	params[0].m_binding_location = 0;
 	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
 	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
@@ -74,9 +74,14 @@ void MSAAResolvePass::ResolveMSAASwapChain()
 	params[1].m_binding_location = 0;
 	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
 	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[1].m_buffers = &m_msaa_resolve_uniform_buffer;
+	params[1].m_buffers = &m_app_renderer->m_camera_uniform_buffer;
 
-	m_dxrenderer->cmd_bind_descriptor(m_resolve_pipeline, 2, params);
+	params[2].m_binding_location = 1;
+	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[2].m_buffers = &m_msaa_resolve_uniform_buffer;
+
+	m_dxrenderer->cmd_bind_descriptor(m_resolve_pipeline, 3, params);
 	m_dxrenderer->cmd_draw(3, 0);
 }
 

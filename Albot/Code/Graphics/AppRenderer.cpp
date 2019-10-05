@@ -17,7 +17,9 @@ m_debugRendering(this, resourceManager),
 m_resourceManager(resourceManager),
 m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
-m_msaa_resolve_pass(this)
+m_msaa_resolve_pass(this),
+m_particleSystem(this),
+m_gameTime(0.f)
 {
 	//TODO: call initialize manually
 	Initialize();
@@ -35,6 +37,8 @@ void AppRenderer::LoadContent()
 	m_object_uniform_data_list.reserve(500);
 	m_material_uniform_data_list.reserve(500);
 
+
+	InitRandomTexture1D();
 
 	DepthStateDesc less_equal_depth_state_desc = {};
 	less_equal_depth_state_desc.m_depth_enable = true;
@@ -144,6 +148,18 @@ void AppRenderer::LoadContent()
 	m_clamp_linear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, clamp_linear_sampler_desc);
 
 
+	SamplerDesc repeat_linear_sampler_desc = {};
+	repeat_linear_sampler_desc.m_address_u = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	repeat_linear_sampler_desc.m_address_v = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	repeat_linear_sampler_desc.m_address_w = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	repeat_linear_sampler_desc.m_min_filter = SamplerFilterType::FILTER_LINEAR;
+	repeat_linear_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
+	repeat_linear_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
+	repeat_linear_sampler_desc.m_max_aniso = 0.f;
+
+	m_repeat_linear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, repeat_linear_sampler_desc);
+
+
 	SamplerDesc clamp_trillinear_sampler_desc = {};
 	clamp_trillinear_sampler_desc.m_address_u = SamplerAddressMode::ADDRESS_MODE_REPEAT;
 	clamp_trillinear_sampler_desc.m_address_v = SamplerAddressMode::ADDRESS_MODE_REPEAT;
@@ -155,16 +171,16 @@ void AppRenderer::LoadContent()
 
 	m_trillinear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, clamp_trillinear_sampler_desc);
 
-	SamplerDesc repeat_linear_sampler_desc = {};
-	repeat_linear_sampler_desc.m_address_u = SamplerAddressMode::ADDRESS_MODE_REPEAT;
-	repeat_linear_sampler_desc.m_address_v = SamplerAddressMode::ADDRESS_MODE_REPEAT;
-	repeat_linear_sampler_desc.m_address_w = SamplerAddressMode::ADDRESS_MODE_REPEAT;
-	repeat_linear_sampler_desc.m_min_filter = SamplerFilterType::FILTER_LINEAR;
-	repeat_linear_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
-	repeat_linear_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
-	repeat_linear_sampler_desc.m_max_aniso = 8.f;
+	SamplerDesc texture_sampler_desc = {};
+	texture_sampler_desc.m_address_u = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	texture_sampler_desc.m_address_v = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	texture_sampler_desc.m_address_w = SamplerAddressMode::ADDRESS_MODE_REPEAT;
+	texture_sampler_desc.m_min_filter = SamplerFilterType::FILTER_LINEAR;
+	texture_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
+	texture_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
+	texture_sampler_desc.m_max_aniso = 8.f;
 
-	m_texture_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, repeat_linear_sampler_desc);
+	m_texture_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, texture_sampler_desc);
 
 	VertexLayout pos_normal_tangent_bitangent_uv_layout = {};
 	pos_normal_tangent_bitangent_uv_layout.m_atrrib_count = 5;
@@ -276,6 +292,36 @@ void AppRenderer::LoadContent()
 	LoadSkyboxContent();
 	
 
+}
+
+
+void AppRenderer::InitRandomTexture1D()
+{
+	TextureDesc randomTex1DDesc = {};
+	randomTex1DDesc.m_bindFlags = Bind_Flags::BIND_SHADER_RESOURCE;
+	randomTex1DDesc.m_usageType = Usage_Type::USAGE_IMMUTABLE;
+	randomTex1DDesc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	randomTex1DDesc.m_width = 1024;
+	randomTex1DDesc.m_mipLevels = 1;
+	randomTex1DDesc.m_height = 1;
+	randomTex1DDesc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	randomTex1DDesc.m_is_srgb = false;
+
+	Vector4 finalData[1024] = { Vector4(0.0, 0.0, 0.0, 1.0) };
+	for (uint32_t i = 0; i < 1024; ++i)
+	{
+		finalData[i].x = MathUtil::RandF(-1.0f, 1.0f);
+		finalData[i].y = MathUtil::RandF(-1.0f, 1.0f);
+		finalData[i].z = MathUtil::RandF(-1.0f, 1.0f);
+		finalData[i].w = 1.f;
+	}
+	TextureLoadDesc loadRandomTex1DDesc = {};
+	loadRandomTex1DDesc.m_generateMipMap = false;
+	loadRandomTex1DDesc.m_rawData = &finalData;
+	loadRandomTex1DDesc.m_rawDataOnePixelSize = sizeof(Vector4);
+	loadRandomTex1DDesc.m_tex_desc = &randomTex1DDesc;
+
+	m_random1DTexture = DXResourceLoader::Create_Texture(m_dxrenderer, loadRandomTex1DDesc);
 }
 
 void AppRenderer::LoadSkyboxContent()
@@ -394,6 +440,7 @@ void AppRenderer::Initialize()
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
 	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
+	m_particleSystem.LoadContent(m_dxrenderer);
 }
 
 
@@ -427,6 +474,7 @@ void AppRenderer::Release()
 
 	SafeReleaseDelete(m_depth_rt);
 	SafeReleaseDelete(m_clamp_linear_sampler);
+	SafeReleaseDelete(m_repeat_linear_sampler);
 
 
 
@@ -449,6 +497,7 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_point_light_uniform_buffer);
 	SafeReleaseDelete(m_camera_uniform_buffer);
 	SafeReleaseDelete(m_skybox_uniform_buffer);
+	SafeReleaseDelete(m_random1DTexture);
 }
 
 DXRenderer* AppRenderer::GetDXRenderer()
@@ -469,6 +518,7 @@ DebugRendering& AppRenderer::GetDebugRendering()
 
 void AppRenderer::UpdateAppRenderer(float dt)
 {
+	m_gameTime += dt;
 	//TODO: update camera matrices
 	CameraManager* cameraManager = m_cameraManager;
 
@@ -495,6 +545,8 @@ void AppRenderer::UpdateAppRenderer(float dt)
 
 	m_skybox_uniform_data.ModelViewProjectionMat =
 		no_position_view_mat * m_camera_uniform_data.ProjectionMat;
+
+	m_particleSystem.Update(dt, m_gameTime);
 }
 void AppRenderer::RenderApp()
 {
@@ -543,6 +595,9 @@ void AppRenderer::RenderApp()
 
 
 	m_deferrredRendering.RenderDeferredScene();
+
+
+	m_particleSystem.Render();
 
 	LoadActionsDesc next_load_actions_desc = {};
 	next_load_actions_desc.m_clear_color_values[0] = m_cur_main_rt->get_clear_value();

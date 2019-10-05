@@ -96,4 +96,16 @@ struct MSAAResolveUniformData
 };
 
 
+#define PARTICLE_TYPE_EMITTER 0
+#define PARTICLE_TYPE_FIRE 1
+
+
+struct ParticleStreamOutUniformData
+{
+	float4 EmitterPosition;
+	float4 EmitterDirection;
+	float GameTime;
+	float DeltaTime;
+};
+
 #endif

@@ -83,6 +83,9 @@
     <ClCompile Include="Code\Physics\Constraint.cpp" />
     <ClCompile Include="Code\Physics\Geometry\RayCant.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\CastResults.cpp" />
+    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
+    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
+    <ClCompile Include="Code\Graphics\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -178,6 +181,11 @@
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
+    <ClInclude Include="Code\Components\AllComponentHeaders.h" />
+    <ClInclude Include="Code\Graphics\ParticleSystem.h" />
+    <ClInclude Include="Code\Events\Input\Input.h" />
+    <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
+    <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
     <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
     <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
     <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
@@ -206,5 +214,9 @@
     <Text Include="Code\Shaders\blur_filter_comp.hlsl" />
     <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
     <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Code\Shaders\streamout_particle_geom.hlsl" />
+    <FxCompile Include="Code\Shaders\streamout_particle_vert.hlsl" />
   </ItemGroup>
 </Project>

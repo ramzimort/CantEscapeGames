@@ -34,6 +34,9 @@ public:
 	void cmd_bind_render_targets(RenderTarget** color_rts,
 		uint32_t color_rts_count, RenderTarget* depth_stencil_rt, const LoadActionsDesc& load_actions_desc);
 
+	void cmd_bind_render_targets(RenderTarget** color_rts,
+		uint32_t color_rts_count, RenderTarget* depth_stencil_rt, const LoadActionsDesc* load_actions_desc);
+
 	void cmd_bind_pipeline(Pipeline* pipeline);
 	void cmd_bind_descriptor(Pipeline* pipeline,
 		uint32_t descriptor_count, DescriptorData* descriptor_data);
@@ -45,6 +48,9 @@ public:
 	void cmd_draw_index_instanced(uint32_t instance_count, uint32_t first_instance, uint32_t indices_count,
 		uint32_t first_index, uint32_t first_vertex);
 	void cmd_dispatch(uint32_t thread_group_x, uint32_t thread_group_y, uint32_t thread_group_z);
+
+	void cmd_bind_streamout_render_targets(Buffer* streamoutVertexBuffer, uint32_t offsets);
+	void cmd_draw_auto();
 
 	//TODO: temmp function / cmd, should use staging buffer way to update gpu buffer
 	void cmd_update_buffer(const BufferUpdateDesc& buffer_update_desc);

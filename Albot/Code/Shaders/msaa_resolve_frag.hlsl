@@ -11,10 +11,20 @@ struct PS_OUT
     float4 Color : SV_Target0;
 };
 
-cbuffer MSAAResolveUniform_CB :  register(b0)
+
+
+cbuffer CameraUniformData_CB : register(b0)
+{
+    CameraUniformData CameraUniformData_Buffer;
+};
+
+cbuffer MSAAResolveUniform_CB :  register(b1)
 {
     MSAAResolveUniformData MSAAResolveUniformData_Buffer;
 };
+
+
+
 
 Texture2DMS<float4, SAMPLE_COUNT> MSAA_Texture : register(t0);
 
@@ -59,8 +69,9 @@ PS_OUT main(PS_IN ps_in)
         {
             float2 offsets = float2(x, y);
             float2 cur_sample_pos = pixel_pos + offsets;
-            //TODO: don't hardcode window size
-            cur_sample_pos = clamp(cur_sample_pos, float2(0.f, 0.f), float2(1600.0 - 1, 900.0 - 1));
+
+            cur_sample_pos = clamp(cur_sample_pos, float2(0.f, 0.f), float2(CameraUniformData_Buffer.CameraViewportSize.x - 1,
+                CameraUniformData_Buffer.CameraViewportSize.y - 1));
             for (uint sample_index = 0; sample_index < SAMPLE_COUNT; ++sample_index)
             {
                 

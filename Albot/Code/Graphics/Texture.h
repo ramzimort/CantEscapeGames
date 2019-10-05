@@ -56,6 +56,7 @@ struct TextureLoadDesc
 	bool m_use_ex_flag = false;
 	bool m_generateMipMap = false;
 	const void* m_rawData = nullptr;
+	uint32_t m_rawDataOnePixelSize = 0;
 };
 
 

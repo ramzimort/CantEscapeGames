@@ -8,6 +8,7 @@
 #include "DeferredRendering.h"
 #include "Shaders/Shading.h"
 #include "Graphics/MSAAResolvePass.h"
+#include "Graphics/ParticleSystem.h"
 
 
 class Material;
@@ -66,12 +67,12 @@ class CameraManager;
 
 class AppRenderer{
 public:
-	friend class World;
 	friend class DeferredRendering;
 	friend class DebugRendering;
 	friend class DepthPassRendering;
 	friend class MSAAResolvePass;
 	friend class ShadowMapRendering;
+	friend class ParticleSystem;
 
 	typedef std::vector<Buffer*> BufferList;
 	typedef std::vector<InstanceRenderData> InstanceRenderList;
@@ -102,6 +103,7 @@ private:
 	void LoadContent();
 
 	void LoadSkyboxContent();
+	void InitRandomTexture1D();
 	void RenderSkybox();
 
 
@@ -132,8 +134,7 @@ private:
 	RenderTarget* m_cur_main_rt = nullptr;
 	RenderTarget* m_msaa_main_rt = nullptr;
 	RenderTarget* m_depth_rt = nullptr;
-	Sampler* m_clamp_linear_sampler = nullptr;
-
+	
 	Pipeline* m_basic_pipeline;
 	Shader* m_basic_shader;
 
@@ -142,12 +143,20 @@ private:
 	Buffer* m_skybox_vertices_buffer;
 	Texture* m_skybox_texture;
 
+
+	Texture* m_random1DTexture;
+
+	Sampler* m_clamp_linear_sampler = nullptr;
+	Sampler* m_repeat_linear_sampler = nullptr;
 	Sampler* m_trillinear_sampler;
 	Sampler* m_texture_sampler;
 
 	BlendState* m_blend_state_one_zero_add;
 	BlendState* m_skybox_blend_state;
 
+
+	ParticleSystem m_particleSystem;
+	float m_gameTime;
 
 	MSAAResolvePass m_msaa_resolve_pass;
 
@@ -170,8 +179,7 @@ private:
 
 	std::vector<ObjectUniformData> m_object_uniform_data_list;
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
-	//ObjectUniformData m_object_uniform_data;
-	//MaterialUniformData m_material_uniform_data;
+
 
 	Buffer* m_point_light_uniform_buffer;
 	Buffer* m_camera_uniform_buffer;

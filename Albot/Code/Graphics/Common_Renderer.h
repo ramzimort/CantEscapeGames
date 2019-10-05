@@ -40,7 +40,8 @@ enum Bind_Flags
 	BIND_SHADER_RESOURCE = 1 << 4,
 	BIND_UNORDERED_ACCESS = 1 << 5,
 	BIND_RENDER_TARGET = 1 << 6,
-	BIND_DEPTH_STENCIL = 1 << 7
+	BIND_DEPTH_STENCIL = 1 << 7,
+	BIND_STREAM_OUTPUT = 1 << 8
 };
 
 enum Misc_Flags
@@ -58,4 +59,5 @@ enum Shader_Stages
 	VERTEX_STAGE = 1 << 1,
 	PIXEL_STAGE = 1 << 2,
 	COMPUTE_STAGE = 1 << 3,
+	GEOMETRY_STAGE = 1 << 4
 };

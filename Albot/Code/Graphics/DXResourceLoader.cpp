@@ -37,6 +37,16 @@ D3D11_BLEND g_d3d11_blend_factor_converter[BlendFactor::BF_TOTAL_COUNTS] =
 };
 
 
+//float ImageFormatToBytesValue(DXGI_FORMAT imageFormat)
+//{
+//	if (imageFormat >= 1 && imageFormat <= 4)
+//	{
+//		return sizeof(float) * 4;
+//	}
+//	else if(imageFormat >= )
+//}
+
+
 bool DXResourceLoader::is_depth_format(DXGI_FORMAT image_format)
 {
 	return image_format >= DXGI_FORMAT_D32_FLOAT && image_format <= DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -103,7 +113,6 @@ D3D11_BIND_FLAG DXResourceLoader::Bind_Flags_To_D3D11_Bind_Flags(uint32_t bind_f
 	{
 		d3d11_final_bind_flag |= D3D11_BIND_DEPTH_STENCIL;
 	}
-
 	if (bind_flags & Bind_Flags::BIND_VERTEX_BUFFER)
 	{
 		d3d11_final_bind_flag |= D3D11_BIND_VERTEX_BUFFER;
@@ -127,6 +136,11 @@ D3D11_BIND_FLAG DXResourceLoader::Bind_Flags_To_D3D11_Bind_Flags(uint32_t bind_f
 	if (bind_flags & Bind_Flags::BIND_RENDER_TARGET)
 	{
 		d3d11_final_bind_flag |= D3D11_BIND_RENDER_TARGET;
+	}
+
+	if (bind_flags & Bind_Flags::BIND_STREAM_OUTPUT)
+	{
+		d3d11_final_bind_flag |= D3D11_BIND_STREAM_OUTPUT;
 	}
 
 
@@ -330,7 +344,14 @@ Buffer* DXResourceLoader::Create_Buffer(DXRenderer* renderer, BufferLoadDesc& lo
 	{
 		d3d_buffer_desc.BindFlags = Bind_Flags_To_D3D11_Bind_Flags(static_cast<Bind_Flags>(load_desc.m_desc.m_bindFlags));
 	}
-	d3d_buffer_desc.ByteWidth = (UINT)round_16_bytes_alignment(load_desc.m_size);
+
+	uint32_t finalSize = load_desc.m_size;
+	if (load_desc.m_desc.m_bindFlags & Bind_Flags::BIND_CONSTANT_BUFFER)
+	{
+		finalSize = round_16_bytes_alignment(finalSize);
+	}
+
+	d3d_buffer_desc.ByteWidth = (UINT)finalSize;
 	d3d_buffer_desc.StructureByteStride = (load_desc.m_desc.m_miscFlags & Misc_Flags::MISC_BUFFER_ALLOW_RAW_VIEWS) != 0 ? 0 : (UINT)load_desc.m_desc.m_structureStride;
 	d3d_buffer_desc.MiscFlags = misc_flags_to_d3d11_misc_flags(load_desc.m_desc.m_miscFlags);
 
@@ -660,6 +681,17 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 	}
 
+	D3D11_SUBRESOURCE_DATA raw_d3d_data = {};
+
+	bool hasRawData = load_desc.m_rawData != nullptr;
+	
+	if (hasRawData)
+	{
+		raw_d3d_data.pSysMem = load_desc.m_rawData;
+		raw_d3d_data.SysMemPitch = (UINT)load_desc.m_tex_desc->m_width  * load_desc.m_rawDataOnePixelSize;
+		raw_d3d_data.SysMemSlicePitch = 0;
+	}
+
 	Texture* texture = new Texture(*load_desc.m_tex_desc);
 
 	bool is_depth_texture = DXResourceLoader::is_depth_format(load_desc.m_tex_desc->m_imageFormat);
@@ -719,8 +751,18 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 		ID3D11Texture2D* d3d_texture2d = nullptr;
 
-		HRESULT hr = renderer->get_device()->CreateTexture2D(&d3d_texture2d_desc,
-			nullptr, &d3d_texture2d);
+		HRESULT hr;
+
+		if (hasRawData)
+		{
+			hr = renderer->get_device()->CreateTexture2D(&d3d_texture2d_desc,
+				&raw_d3d_data, &d3d_texture2d);
+		}
+		else
+		{
+			hr = renderer->get_device()->CreateTexture2D(&d3d_texture2d_desc,
+				nullptr, &d3d_texture2d);
+		}
 
 		if (FAILED_HR(hr))
 		{
@@ -730,7 +772,36 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	}
 	else
 	{
-		//TODO do texture 1d
+		D3D11_TEXTURE1D_DESC d3d_texture1d_desc;
+		ZeroMemory(&d3d_texture1d_desc, sizeof(D3D11_TEXTURE1D_DESC));
+
+		d3d_texture1d_desc.ArraySize = 1;
+		d3d_texture1d_desc.BindFlags = Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags);
+		d3d_texture1d_desc.CPUAccessFlags = CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType);
+		d3d_texture1d_desc.Format = final_image_format;
+		d3d_texture1d_desc.Width = load_desc.m_tex_desc->m_width;
+		d3d_texture1d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
+		d3d_texture1d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
+
+		ID3D11Texture1D* d3d_texture1d = nullptr;
+		HRESULT hr;
+
+		if (hasRawData)
+		{
+			hr = renderer->get_device()->CreateTexture1D(&d3d_texture1d_desc,
+				&raw_d3d_data, &d3d_texture1d);
+		}
+		else
+		{
+			hr = renderer->get_device()->CreateTexture1D(&d3d_texture1d_desc,
+				nullptr, &d3d_texture1d);
+		}
+
+		if (FAILED_HR(hr))
+		{
+			assert(false == true);
+		}
+		texture->m_p_raw_resource = static_cast<ID3D11Resource*>(d3d_texture1d);
 	}
 
 	D3D11_RESOURCE_DIMENSION resource_dim_type = {};
@@ -744,6 +815,24 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
 	{
 		//TODO:
+		D3D11_TEXTURE1D_DESC d3d_tex1d_desc = {};
+		static_cast<ID3D11Texture1D*>(texture->m_p_raw_resource)->GetDesc(&d3d_tex1d_desc);
+
+		if (d3d_tex1d_desc.ArraySize > 1)
+		{
+
+		}
+		else
+		{
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE1D;
+			srv_desc.Texture1D.MipLevels = d3d_tex1d_desc.MipLevels;
+			srv_desc.Texture1D.MostDetailedMip = 0;
+
+			uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE1D;
+			uav_desc.Texture1D.MipSlice = 0;
+		}
+
+
 		break;
 	}
 	case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
@@ -881,6 +970,8 @@ Pipeline* DXResourceLoader::Create_GraphicsPipeline(DXRenderer* renderer, const 
 			case Attrib_Semantic::BITANGENT: semantic_name[i] = "BITANGENT"; break;
 			case Attrib_Semantic::TEXCOORD_0: semantic_name[i] = "TEXCOORD"; break;
 			case Attrib_Semantic::TEXCOORD_1: semantic_name[i] = "TEXCOORD"; break;
+			case Attrib_Semantic::TEXCOORD_2: semantic_name[i] = "TEXCOORD"; break;
+			case Attrib_Semantic::TEXCOORD_3: semantic_name[i] = "TEXCOORD"; break;
 			default: break;
 			}
 
@@ -894,6 +985,8 @@ Pipeline* DXResourceLoader::Create_GraphicsPipeline(DXRenderer* renderer, const 
 			{
 			case Attrib_Semantic::TEXCOORD_0: semantic_index = 0; break;
 			case Attrib_Semantic::TEXCOORD_1: semantic_index = 1; break;
+			case Attrib_Semantic::TEXCOORD_2: semantic_index = 2; break;
+			case Attrib_Semantic::TEXCOORD_3: semantic_index = 3; break;
 			default: break;
 			}
 

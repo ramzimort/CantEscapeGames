@@ -10,6 +10,8 @@ enum Attrib_Semantic
 	BITANGENT,
 	TEXCOORD_0,
 	TEXCOORD_1,
+	TEXCOORD_2,
+	TEXCOORD_3,
 	MAX_COUNTS
 };
 

@@ -115,6 +115,24 @@ HWND DXRenderer::get_window_handle() const
 }
 
 void DXRenderer::cmd_bind_render_targets(RenderTarget** color_rts,
+	uint32_t color_rts_count, RenderTarget* depth_stencil_rt, const LoadActionsDesc* load_actions_desc)
+{
+	if (load_actions_desc)
+	{
+		cmd_bind_render_targets(color_rts, color_rts_count, depth_stencil_rt, *load_actions_desc);
+	}
+	else
+	{
+		LoadActionsDesc local_load_actions_desc = {};
+		local_load_actions_desc.m_clear_color_values[0] = ClearValue{ 0.0, 0.0, 0.0, 1.0 };
+		local_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+		local_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+		local_load_actions_desc.m_load_action_stencil = LoadActionType::DONT_CLEAR;
+		cmd_bind_render_targets(color_rts, color_rts_count, depth_stencil_rt, local_load_actions_desc);
+	}
+}
+
+void DXRenderer::cmd_bind_render_targets(RenderTarget** color_rts,
 	uint32_t color_rts_count, RenderTarget* depth_stencil_rt, const LoadActionsDesc& load_actions_desc)
 {
 	DXCMD pre_cmd = {};
@@ -151,6 +169,7 @@ void DXRenderer::cmd_bind_render_targets(RenderTarget** color_rts,
 	}
 
 }
+
 
 
 void DXRenderer::cmd_bind_pipeline(Pipeline* pipeline)
@@ -321,6 +340,23 @@ void DXRenderer::cmd_dispatch(uint32_t thread_group_x, uint32_t thread_group_y, 
 	cmd.m_cmd_dispatch.m_thread_group_x = thread_group_x;
 	cmd.m_cmd_dispatch.m_thread_group_y = thread_group_y;
 	cmd.m_cmd_dispatch.m_thread_group_z = thread_group_z;
+	m_cmd_list.push_back(cmd);
+}
+
+
+void DXRenderer::cmd_bind_streamout_render_targets(Buffer* streamoutVertexBuffer, uint32_t offsets)
+{
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type::Bind_StreamoutRenderTargets;
+	cmd.m_cmd_bind_streamout_render_targets.m_streamOutVB = streamoutVertexBuffer;
+	cmd.m_cmd_bind_streamout_render_targets.m_offset = offsets;
+	m_cmd_list.push_back(cmd);
+}
+
+void DXRenderer::cmd_draw_auto()
+{
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type::Draw_Auto;
 	m_cmd_list.push_back(cmd);
 }
 
@@ -527,8 +563,10 @@ void DXRenderer::execute_queued_cmd()
 
 					ID3D11VertexShader* vertex_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_vertex_shader;
 					ID3D11PixelShader* pixel_shader = pipeline->m_desc.m_graphics_desc.m_shader->m_pixel_shader;
+					ID3D11GeometryShader* geometryShader = pipeline->m_desc.m_graphics_desc.m_shader->m_geometry_shader;
 
 					m_d3d_device_context->VSSetShader(vertex_shader, nullptr, 0);
+					m_d3d_device_context->GSSetShader(geometryShader, nullptr, 0);
 					m_d3d_device_context->PSSetShader(pixel_shader, nullptr, 0);
 				}
 				else if (pipeline_type == PipelineType::COMPUTE)
@@ -633,6 +671,26 @@ void DXRenderer::execute_queued_cmd()
 				&p_vertex_buffer->m_desc.m_vertexStride, &offset);
 			break;
 		}
+		case DXCMD_Type::Bind_StreamoutRenderTargets:
+		{
+			const DXCMD_Bind_StreamoutRenderTargets& cmd_bind_streamout_rts = cmd.m_cmd_bind_streamout_render_targets;
+			uint32_t offset = cmd_bind_streamout_rts.m_offset;
+
+			ID3D11Buffer* d3dBuffer = nullptr;
+			if (cmd_bind_streamout_rts.m_streamOutVB)
+			{
+				d3dBuffer = cmd_bind_streamout_rts.m_streamOutVB->m_p_buffer;
+			}
+			m_d3d_device_context->SOSetTargets(1, &d3dBuffer, &offset);
+			break;
+		}
+
+		case DXCMD_Type::Draw_Auto:
+		{
+			m_d3d_device_context->DrawAuto();
+			break;
+		}
+
 		case DXCMD_Type::Set_Viewport:
 		{
 			const DXCMD_Set_Viewport& cmd_set_viewport = cmd.m_cmd_set_viewport;
@@ -692,6 +750,7 @@ void DXRenderer::reset_shader_resources()
 	m_d3d_device_context->VSSetShaderResources(0, D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT, empty_srvs);
 	m_d3d_device_context->PSSetShaderResources(0, D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT, empty_srvs);
 	m_d3d_device_context->CSSetShaderResources(0, D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT, empty_srvs);
+	m_d3d_device_context->GSSetShaderResources(0, D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT, empty_srvs);
 }
 
 void DXRenderer::reset_shader_uavs()
@@ -706,6 +765,12 @@ void DXRenderer::set_shader_resources(uint32_t binding_loc, Shader_Stages shader
 	if (shader_stages & Shader_Stages::VERTEX_STAGE)
 	{
 		m_d3d_device_context->VSSetShaderResources(binding_loc,
+			num_resources, pp_resource_views);
+	}
+
+	if (shader_stages & Shader_Stages::GEOMETRY_STAGE)
+	{
+		m_d3d_device_context->GSSetShaderResources(binding_loc, 
 			num_resources, pp_resource_views);
 	}
 
@@ -739,6 +804,12 @@ void  DXRenderer::set_constant_buffer(uint32_t binding_loc, Shader_Stages shader
 			num_resources, pp_buffers);
 	}
 
+	if (shader_stages & Shader_Stages::GEOMETRY_STAGE)
+	{
+		m_d3d_device_context->GSSetConstantBuffers(binding_loc,
+			num_resources, pp_buffers);
+	}
+
 	if (shader_stages & Shader_Stages::PIXEL_STAGE)
 	{
 		m_d3d_device_context->PSSetConstantBuffers(binding_loc,
@@ -759,6 +830,12 @@ void DXRenderer::set_samplers(uint32_t binding_loc, Shader_Stages shader_stages,
 	if (shader_stages & Shader_Stages::VERTEX_STAGE)
 	{
 		m_d3d_device_context->VSSetSamplers(binding_loc,
+			num_resources, sampler_states);
+	}
+
+	if (shader_stages & Shader_Stages::GEOMETRY_STAGE)
+	{
+		m_d3d_device_context->GSSetSamplers(binding_loc,
 			num_resources, sampler_states);
 	}
 

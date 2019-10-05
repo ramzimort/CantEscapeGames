@@ -15,12 +15,14 @@ enum DXCMD_Type
 	Bind_Vertex_Buffer,
 	Bind_RenderTargets,
 	Bind_Pipeline,
+	Bind_StreamoutRenderTargets,
 	Update_Buffer,
 	Bind_Descriptors,
 	Set_Viewport,
 	Draw,
 	Draw_Index,
 	Draw_Index_Instanced,
+	Draw_Auto,
 	DXCMD_Type_Dispatch,
 	DXCMD_MAX_COUNT
 };
@@ -63,6 +65,12 @@ struct DXCMD_Bind_RenderTargets
 	LoadActionsDesc m_load_actions_desc;
 };
 
+//For now only support one SO target
+struct DXCMD_Bind_StreamoutRenderTargets
+{
+	Buffer* m_streamOutVB;
+	uint32_t m_offset;
+};
 
 struct DXCMD_Set_Viewport
 {
@@ -94,6 +102,11 @@ struct DXCMD_Draw_Index_Instanced
 	uint32_t m_first_vertex;
 };
 
+struct DXCMD_Draw_Auto
+{
+
+};
+
 struct DXCMD_Dispatch
 {
 	uint32_t m_thread_group_x;
@@ -117,5 +130,7 @@ struct DXCMD
 		DXCMD_Update_Buffer m_cmd_update_buffer;
 		DXCMD_Bind_RenderTargets m_cmd_bind_rendertargets;
 		DXCMD_Dispatch m_cmd_dispatch;
+		DXCMD_Bind_StreamoutRenderTargets m_cmd_bind_streamout_render_targets;
+		DXCMD_Draw_Auto m_cmd_draw_auto;
 	};
 };

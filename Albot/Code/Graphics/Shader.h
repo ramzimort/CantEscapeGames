@@ -17,6 +17,7 @@ struct ShaderDesc
 	std::string m_vertex_shader_path = "";
 	std::string m_pixel_shader_path = "";
 	std::string m_compute_shader_path = "";
+	std::string m_geometry_shader_path = "";
 };
 
 struct ShaderLoadDesc
@@ -55,6 +56,9 @@ private:
 
 	ID3D11ComputeShader* m_compute_shader;
 	ID3DBlob* m_compute_shader_blob;
+
+	ID3D11GeometryShader* m_geometry_shader;
+	ID3DBlob* m_geometry_shader_blob;
 };
 
 #endif
