@@ -6,9 +6,5 @@
   },
 
   "RigidbodyComponent": {
-  },
-
-  "FPSControllerComponent": {
-    "Inverted": true
   }
 }
