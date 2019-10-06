@@ -20,12 +20,7 @@ class InputManager
 public:
 	InputManager();
 	~InputManager();
-
-	void Initialize();
-
-	/** Updates members containing current frame and previous frame values */
 	void Update();
-	/** \brief Check keybaord current state */
 	bool IsKeyPressed(unsigned int KeyScanCode);
 	
 	/** Get mouse position in screen space as int[2] array (depends on window width/height) */

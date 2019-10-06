@@ -15,15 +15,6 @@ const int numKeys = 512;
 InputManager::InputManager() : 
 	m_keyboardState({ false })
 {
-}
-
-InputManager::~InputManager()
-{
-	DEBUG_QUIT;
-}
-
-void InputManager::Initialize()
-{
 	int error = 0;
 	error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC);
 	assert(error >= 0);
@@ -42,6 +33,11 @@ void InputManager::Initialize()
 	m_mouseStatePrevious = 0;
 	m_mouseWheelY = 0;
 	m_quit = false;
+}
+
+InputManager::~InputManager()
+{
+	DEBUG_QUIT;
 }
 
 void InputManager::UpdateMouseState()
