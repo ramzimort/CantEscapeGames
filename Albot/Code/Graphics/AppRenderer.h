@@ -68,6 +68,7 @@ public:
 
 	SDL_Window& GetSDLWindow();
 	DebugRendering& GetDebugRendering();
+	ParticleRendering& GetParticleRendering();
 
 
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
@@ -136,7 +137,7 @@ private:
 	BlendState* m_additiveBlending;
 
 
-	ParticleRendering m_particleSystem;
+	ParticleRendering m_particleRendering;
 	float m_gameTime;
 
 	MSAAResolvePass m_msaa_resolve_pass;

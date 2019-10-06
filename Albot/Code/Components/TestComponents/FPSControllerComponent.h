@@ -12,7 +12,7 @@ public:
 	FPSControllerComponent(GameObject* go);
 	virtual ~FPSControllerComponent();
 
-	virtual void Init(ResourceManager* resMgr);
+	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer);
 	virtual void Begin(GameObjectManager *goMgr);
 
 	void OnKeyDown(const KeyEvent* event);

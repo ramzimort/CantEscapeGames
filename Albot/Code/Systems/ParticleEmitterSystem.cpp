@@ -2,6 +2,7 @@
 #include "Components/ParticleEmitterComponent.h"
 #include "Components/TransformComponent.h"
 #include "GameObjects/GameObject.h"
+#include "Graphics/AppRenderer.h"
 
 
 unsigned const ParticleEmitterSystem::static_type = BaseSystem::numberOfTypes++;
@@ -28,8 +29,29 @@ void ParticleEmitterSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	TransformComponent* transformComp = emit_comp_node->m_transform;
 	ParticleEmitterComponent* particleEmitterComp = emit_comp_node->m_particleEmitter;
 
+	Vector3 gameobjPos = transformComp->GetPosition();
 
+	if (!particleEmitterComp->m_firstTime)
+	{
+		std::swap(particleEmitterComp->m_pDrawStreamOutVB, particleEmitterComp->m_pStreamOutVB);
+	}
 
+	
+	ParticleEmitterInstanceData emitterInstanceData = {};
+	emitterInstanceData.m_firstTime = particleEmitterComp->m_firstTime;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterDirection = MathUtil::v3_to_v4(particleEmitterComp->m_emitterDirection, 0.f);
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterPosition = MathUtil::v3_to_v4(gameobjPos + particleEmitterComp->m_emitterPosition, 1.f);
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.w = particleEmitterComp->m_infiniteEmitter ? 1.f : 0.f;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.z = particleEmitterComp->m_emitterRate;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.y = particleEmitterComp->m_emitterSpreadAngle;
+	emitterInstanceData.m_pInitVB = particleEmitterComp->m_pInitVB;
+	emitterInstanceData.m_pDrawStreamOutVB = particleEmitterComp->m_pDrawStreamOutVB;
+	emitterInstanceData.m_pStreamOutVB = particleEmitterComp->m_pStreamOutVB;
+	emitterInstanceData.m_pParticleTexture = particleEmitterComp->m_pParticleTexture;
+
+	particleEmitterComp->m_firstTime = false;
+
+	m_appRenderer->GetParticleRendering().RegisterParticleEmitterInstance(emitterInstanceData);
 }
 
 

@@ -14,6 +14,7 @@ Primary Author:
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 
+#include "Graphics/D3D11_Renderer.h"
 #include "Components/AllComponentHeaders.h"
 
 #include "Components/TestComponents/FPSControllerComponent.h"
@@ -26,9 +27,10 @@ extern CameraManager* gCameraManager;
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
 
-Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, 
-	ResourceManager* resMgr, ScriptingManager *luaMgr)
-	: m_pResourceManager(resMgr)
+Factory::Factory(std::string fileName, GameObjectManager *goMgr, 
+	SystemManager *sysMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr)
+	: m_pResourceManager(resMgr),
+	m_pDXRenderer(dxrenderer)
 {
 	//If either of these is nullptr, we have to stop
 	if (!goMgr || !sysMgr)
@@ -86,7 +88,7 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			
 			// Load the object
 			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
-			LoadObject(objSetup, tag, goMgr, resMgr);
+			LoadObject(objSetup, tag, goMgr, resMgr, m_pDXRenderer);
 		}
 	}
 }
@@ -131,11 +133,12 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 }
 
 
-void Factory::LoadObject(const std::string& compSetup, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr)
+void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
+	GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	GameObjectDesc desc;
 	desc.tag = tag;
-	desc.initializeComponentSetup = [resMgr, compSetup](GameObject* go)
+	desc.initializeComponentSetup = [resMgr, compSetup, dxrenderer](GameObject* go)
 	{
 		rapidjson::Document objDoc;
 
@@ -152,7 +155,7 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag, G
 
 			//Need to call Init() may need to pass resMgr into Init() to connect any models
 			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
-			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>() }).invoke(comp, resMgr);
+			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
 		}
 
 	};
@@ -269,6 +272,8 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<LightComponent>();
 	else if (name == "CameraComponent")
 		return go->AddComponent<CameraComponent>();
+	else if (name == "ParticleEmitterComponent")
+		return go->AddComponent<ParticleEmitterComponent>();
 	else if (name == "FPSController")
 		return go->AddComponent<FPSControllerComponent>();
 	

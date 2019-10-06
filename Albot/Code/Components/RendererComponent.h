@@ -30,7 +30,7 @@ public:
 	RendererComponent(GameObject *owner);
 	virtual ~RendererComponent();
 
-	virtual void Init(ResourceManager* resMgr) override;
+	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	virtual void Begin(GameObjectManager *goMgr) override;
 
 	//TEMP FUNCTION:

@@ -7,6 +7,7 @@ Primary Author: Jose Rosenbluth
 
 
 #include "TestComponent.h"
+#include "Graphics/D3D11_Renderer.h"
 unsigned const TestComp::static_type = BaseComponent::numberOfTypes++;
 
 #include "Managers/GameObjectManager.h"
@@ -26,7 +27,7 @@ TestComp::~TestComp()
 {
 }
 
-void TestComp::Init(ResourceManager* resMgr)
+void TestComp::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 }
 

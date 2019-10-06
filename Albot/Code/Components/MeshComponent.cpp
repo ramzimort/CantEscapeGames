@@ -2,8 +2,8 @@
 #include "MeshComponent.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Graphics/D3D11_Renderer.h"
 #include "Managers/GameObjectManager.h"
-
 
 unsigned const MeshComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -36,7 +36,7 @@ MeshComponent::~MeshComponent()
 }
 
 
-void MeshComponent::Init(ResourceManager* resMgr)
+void MeshComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	m_model = resMgr->GetModel(m_modelId);
 }

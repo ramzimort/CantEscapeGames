@@ -4,9 +4,9 @@
 
 
 ParticleRendering::ParticleRendering(AppRenderer* appRenderer)
-	:m_appRenderer(appRenderer),
-	m_firstTime(true),
-	m_maxParticlesCount(10000)
+	:m_appRenderer(appRenderer)/*,
+	m_maxParticlesCount(1000),
+	m_firstTime(true)*/
 {
 }
 
@@ -75,8 +75,26 @@ void ParticleRendering::LoadContent(DXRenderer* dxrenderer)
 	initParticle.m_size = Vector2(1.f, 1.f);
 	initParticle.m_particleType = PARTICLE_TYPE_EMITTER;
 
+	ShaderLoadDesc renderParticleShaderDesc = {};
+	renderParticleShaderDesc.m_desc.m_vertex_shader_path = "fire_streamout_particle_vert.hlsl";
+	renderParticleShaderDesc.m_desc.m_geometry_shader_path = "fire_streamout_particle_geom.hlsl";
+	renderParticleShaderDesc.m_desc.m_pixel_shader_path = "fire_streamout_particle_frag.hlsl";
 
-	BufferLoadDesc streamout_vb_desc = {};
+	m_renderParticlesShader = DXResourceLoader::Create_Shader(m_dxrenderer, renderParticleShaderDesc);
+
+	pipeline_desc.m_graphics_desc = {};
+	GraphicsPipelineDesc& renderParticlePipeline = pipeline_desc.m_graphics_desc;
+	renderParticlePipeline.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_POINT_LIST;
+	renderParticlePipeline.m_render_target_count = 1;
+	renderParticlePipeline.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
+	renderParticlePipeline.m_depth_state = m_appRenderer->m_testonlyLessEqualDepthState;
+	renderParticlePipeline.m_shader = m_renderParticlesShader;
+	renderParticlePipeline.m_vertex_layout = &particleLifetimeVertexLayout;
+	renderParticlePipeline.m_blend_state = m_appRenderer->m_additiveBlending;
+	m_renderParticlesPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+
+	/*BufferLoadDesc streamout_vb_desc = {};
 	streamout_vb_desc.m_desc.m_bindFlags = Bind_Flags::BIND_VERTEX_BUFFER;
 	streamout_vb_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
 	streamout_vb_desc.m_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
@@ -123,7 +141,7 @@ void ParticleRendering::LoadContent(DXRenderer* dxrenderer)
 	m_renderParticlesPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 	m_flareTexture = m_appRenderer->m_resourceManager->GetTexture(
-		StringId(Constant::ParticlesTexturesDir + "flare0.png"));
+		StringId(Constant::ParticlesTexturesDir + "flare0.png"));*/
 }
 
 
@@ -131,11 +149,79 @@ void ParticleRendering::Render()
 {
 	RenderStreamoutProcess();
 	RenderParticles();
+	m_particleEmitterInstanceList.clear();
+	m_particleEmitterStreamOutUniformList.clear();
 }
 
 void ParticleRendering::RenderStreamoutProcess()
 {
+	if (m_particleEmitterInstanceList.empty())
+	{
+		return;
+	}
+
 	m_dxrenderer->cmd_bind_pipeline(m_geomParticleLifetimePipeline);
+	m_dxrenderer->cmd_bind_render_targets(nullptr, 0, nullptr, nullptr);
+
+	for (uint32_t i = 0; i < m_particleEmitterInstanceList.size(); ++i)
+	{
+		if (i >= m_particleEmitterStreamOutUniformBufferList.size())
+		{
+			AddParticleStreamOutUniformBuffer();
+		}
+		Buffer* curParticleStreamoutUniformBufferData = m_particleEmitterStreamOutUniformBufferList[i];
+
+		auto& particleEmitterInstData = m_particleEmitterInstanceList[i];
+		auto& particleEmitterStreamoutInstData = m_particleEmitterStreamOutUniformList[i];
+
+		if (particleEmitterInstData.m_firstTime)
+		{
+			m_dxrenderer->cmd_bind_vertex_buffer(particleEmitterInstData.m_pInitVB);
+		}
+		else
+		{
+			m_dxrenderer->cmd_bind_vertex_buffer(particleEmitterInstData.m_pDrawStreamOutVB);
+		}
+
+		m_dxrenderer->cmd_bind_streamout_render_targets(particleEmitterInstData.m_pStreamOutVB, 0);
+
+		BufferUpdateDesc updateParticleStreamoutUniformBuffer = {};
+		updateParticleStreamoutUniformBuffer.m_buffer = curParticleStreamoutUniformBufferData;
+		updateParticleStreamoutUniformBuffer.m_pSource = &particleEmitterStreamoutInstData;
+		updateParticleStreamoutUniformBuffer.m_size = sizeof(ParticleEmitterStreamOutUniformData);
+		m_dxrenderer->cmd_update_buffer(updateParticleStreamoutUniformBuffer);
+
+
+		DescriptorData streamoutParams[3] = {};
+		streamoutParams[0].m_binding_location = 0;
+		streamoutParams[0].m_textures = &m_appRenderer->m_random1DTexture;
+		streamoutParams[0].m_shader_stages = Shader_Stages::GEOMETRY_STAGE;
+		streamoutParams[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+
+		streamoutParams[1].m_binding_location = 0;
+		streamoutParams[1].m_samplers = &m_appRenderer->m_repeat_linear_sampler;
+		streamoutParams[1].m_shader_stages = Shader_Stages::GEOMETRY_STAGE;
+		streamoutParams[1].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+
+		streamoutParams[2].m_binding_location = 0;
+		streamoutParams[2].m_buffers = &curParticleStreamoutUniformBufferData;
+		streamoutParams[2].m_shader_stages = Shader_Stages::GEOMETRY_STAGE;
+		streamoutParams[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+
+		m_dxrenderer->cmd_bind_descriptor(m_geomParticleLifetimePipeline, 3, streamoutParams);
+
+		if (particleEmitterInstData.m_firstTime)
+		{
+			m_dxrenderer->cmd_draw(1, 0);
+		}
+		else
+		{
+			m_dxrenderer->cmd_draw_auto();
+		}
+		m_dxrenderer->cmd_bind_streamout_render_targets(nullptr, 0);
+	}
+
+	/*m_dxrenderer->cmd_bind_pipeline(m_geomParticleLifetimePipeline);
 	m_dxrenderer->cmd_bind_render_targets(nullptr, 0, nullptr, nullptr);
 	if (m_firstTime)
 	{
@@ -183,12 +269,66 @@ void ParticleRendering::RenderStreamoutProcess()
 		m_dxrenderer->cmd_draw_auto();
 	}
 	m_dxrenderer->cmd_bind_streamout_render_targets(nullptr, 0);
-	std::swap(m_drawStreamOutVB, m_streamOutVB);
+	std::swap(m_drawStreamOutVB, m_streamOutVB);*/
+}
+
+void ParticleRendering::AddParticleStreamOutUniformBuffer()
+{
+	BufferLoadDesc streamout_uniform_vb_desc = {};
+	streamout_uniform_vb_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	streamout_uniform_vb_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	streamout_uniform_vb_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	streamout_uniform_vb_desc.m_desc.m_debugName = "Stream out particle uniform";
+	streamout_uniform_vb_desc.m_size = sizeof(ParticleEmitterStreamOutUniformData);
+	streamout_uniform_vb_desc.m_rawData = nullptr;
+
+	Buffer* uniformBuffer = DXResourceLoader::Create_Buffer(m_dxrenderer, streamout_uniform_vb_desc);
+
+	m_particleEmitterStreamOutUniformBufferList.push_back(uniformBuffer);
 }
 
 void ParticleRendering::RenderParticles()
 {
+	if (m_particleEmitterInstanceList.empty())
+	{
+		return;
+	}
 	m_dxrenderer->cmd_bind_render_targets(&m_appRenderer->m_cur_main_rt, 1,
+		m_appRenderer->m_depth_rt, nullptr);
+	m_dxrenderer->cmd_bind_pipeline(m_renderParticlesPipeline);
+	
+
+	for (uint32_t i = 0; i < m_particleEmitterInstanceList.size(); ++i)
+	{
+		Buffer* curParticleStreamoutUniformBufferData = m_particleEmitterStreamOutUniformBufferList[i];
+
+		auto& particleEmitterInstData = m_particleEmitterInstanceList[i];
+
+
+		m_dxrenderer->cmd_bind_vertex_buffer(particleEmitterInstData.m_pDrawStreamOutVB);
+
+		DescriptorData params[5] = {};
+		params[0].m_binding_location = 0;
+		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		params[0].m_shader_stages = Shader_Stages::GEOMETRY_STAGE;
+		params[0].m_buffers = &m_appRenderer->m_camera_uniform_buffer;
+
+		params[1].m_binding_location = 0;
+		params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+		params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[1].m_textures = &particleEmitterInstData.m_pParticleTexture;
+
+		params[2].m_binding_location = 0;
+		params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+		params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[2].m_samplers = &m_appRenderer->m_texture_sampler;
+
+		m_dxrenderer->cmd_bind_descriptor(m_renderParticlesPipeline, 3, params);
+		m_dxrenderer->cmd_draw_auto();
+
+	}
+
+	/*m_dxrenderer->cmd_bind_render_targets(&m_appRenderer->m_cur_main_rt, 1,
 		m_appRenderer->m_depth_rt, nullptr);
 
 	m_dxrenderer->cmd_bind_pipeline(m_renderParticlesPipeline);
@@ -211,31 +351,50 @@ void ParticleRendering::RenderParticles()
 	params[2].m_samplers = &m_appRenderer->m_texture_sampler;
 
 	m_dxrenderer->cmd_bind_descriptor(m_renderParticlesPipeline, 3, params);
-	m_dxrenderer->cmd_draw_auto();
+	m_dxrenderer->cmd_draw_auto();*/
 }
 
 void ParticleRendering::Release()
 {
-	SafeReleaseDelete(m_particleStreamOutUniformBuffer);
+	/*SafeReleaseDelete(m_particleStreamOutUniformBuffer);
 	SafeReleaseDelete(m_initVB);
 	SafeReleaseDelete(m_drawStreamOutVB);
-	SafeReleaseDelete(m_streamOutVB);
+	SafeReleaseDelete(m_streamOutVB);*/
 	SafeReleaseDelete(m_geomParticleLifetimePipeline);
 	SafeReleaseDelete(m_geomParticleLifetimeShader);
 	SafeReleaseDelete(m_renderParticlesPipeline);
 	SafeReleaseDelete(m_renderParticlesShader);
+
+	for (Buffer* buffer : m_particleEmitterStreamOutUniformBufferList)
+	{
+		SafeReleaseDelete(buffer);
+	}
 }
 
 void ParticleRendering::Update(float dt, float gameTime)
 {
-	m_particleStreamOutUniformData.DeltaTime = dt;
+	for (uint32_t i = 0; i < m_particleEmitterInstanceList.size(); ++i)
+	{
+		ParticleEmitterStreamOutUniformData streamOutUniformData = {};
+		streamOutUniformData.EmitterData = m_particleEmitterInstanceList[i].m_pParticleEmitterUniformData;
+		streamOutUniformData.DeltaTime = dt;
+		streamOutUniformData.GameTime = gameTime;
+		m_particleEmitterStreamOutUniformList.push_back(streamOutUniformData);
+	}
+
+	/*m_particleStreamOutUniformData.DeltaTime = dt;
 	m_particleStreamOutUniformData.GameTime = gameTime;
 	m_particleStreamOutUniformData.EmitterData.EmitterDirection = Vector4(0.f, 1.0f, 0.0f, 1.f);
-	m_particleStreamOutUniformData.EmitterData.EmitterPosition = Vector4(0.f, 0.f, 0.f, 1.f);
+	m_particleStreamOutUniformData.EmitterData.EmitterPosition = Vector4(0.f, 0.f, 0.f, 1.f);*/
 }
 
 
-void ParticleRendering::RegisterParticleEmitterInstance(const ParticleEmitterInstanceData& particleEmmiterInstanceData)
+void ParticleRendering::RegisterParticleEmitterInstance(
+	const ParticleEmitterInstanceData& particleEmmiterInstanceData)
 {
-
+	m_particleEmitterInstanceList.push_back(particleEmmiterInstanceData);
+	/*ParticleEmitterStreamOutUniformData& ref = m_particleEmitterStreamOutUniformDataList.back();
+	ref.EmitterData = particleEmmiterInstanceData.m_pParticleEmitterUniformData;
+	ref.DeltaTime = 0.f;
+	ref.GameTime = 0.f;*/
 }

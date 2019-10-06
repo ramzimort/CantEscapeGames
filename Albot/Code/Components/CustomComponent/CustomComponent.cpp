@@ -26,7 +26,7 @@ CustomComponent::~CustomComponent()
 }
 
 
-void CustomComponent::Init(ResourceManager* resMgr)
+void CustomComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	try
 	{

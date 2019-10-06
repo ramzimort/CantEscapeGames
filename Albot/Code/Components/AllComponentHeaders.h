@@ -7,3 +7,4 @@
 #include "MeshComponent.h"
 #include "LightComponent.h"
 #include "CameraComponent.h"
+#include "ParticleEmitterComponent.h"

@@ -10,6 +10,7 @@ Primary Author:
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
 #include "Managers/GameObjectManager.h"
+#include "Graphics/D3D11_Renderer.h"
 
 
 unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
@@ -35,7 +36,7 @@ RigidbodyComponent::~RigidbodyComponent()
 {
 }
 
-void RigidbodyComponent::Init(ResourceManager* resMgr)
+void RigidbodyComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	m_inertiaTensor = m_inertiaTensorInverse = Matrix::Identity; // this works for cubes
 	m_inverseMass = 1.0f / m_mass;

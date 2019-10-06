@@ -106,7 +106,7 @@ struct ParticleEmitterUniformData
 	float4 EmitterDirection;
 	
 	//Y holds how spread out the particle will be emitted
-	//Z holds how many particle will this emitter emits
+	//Z holds the rate of emitted particle
 	//W holds bool flag, whether emitter will always emit or not
 	float4 EmitterMiscData;
 };

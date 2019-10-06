@@ -10,6 +10,7 @@ Primary Author:
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
 #include "Managers/GameObjectManager.h"
+#include "Graphics/D3D11_Renderer.h"
 
 unsigned const RendererComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -35,7 +36,7 @@ RendererComponent::~RendererComponent()
 {
 }
 
-void RendererComponent::Init(ResourceManager* resMgr)
+void RendererComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	m_pMaterial = resMgr->GetMaterial(m_materialId);
 }

@@ -15,13 +15,16 @@ public:
 	ParticleEmitterComponent(GameObject *owner);
 	virtual ~ParticleEmitterComponent();
 
-	void Init(ResourceManager* resourceManager);
+	void Init(ResourceManager* resourceManager, DXRenderer* dxrenderer);
 	void Begin() {}
 public:
 	static ComponentId const static_type;
 private:
 
-	ParticleEmitterInstanceData m_particleEmitterInstanceData;
+	Buffer* m_pInitVB;
+	Buffer* m_pStreamOutVB;
+	Buffer* m_pDrawStreamOutVB;
+	bool m_firstTime;
 
 	std::string m_particleTextureDir;
 	Texture* m_pParticleTexture;

@@ -32,8 +32,10 @@ public:
 private:
 	void RenderStreamoutProcess();
 	void RenderParticles();
+
+	void AddParticleStreamOutUniformBuffer();
 private:
-	ParticleEmitterInstanceList m_particleEmitterInstanceList;
+	//ParticleEmitterInstanceList m_particleEmitterInstanceList;
 
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
@@ -44,21 +46,25 @@ private:
 	Pipeline* m_renderParticlesPipeline;
 	Shader* m_renderParticlesShader;
 
-
-	Buffer* m_particleStreamOutUniformBuffer;
-	ParticleEmitterStreamOutUniformData m_particleStreamOutUniformData;
-
-	Buffer* m_initVB;
-	Buffer* m_streamOutVB;
-	Buffer* m_drawStreamOutVB;
-
-	uint64_t m_maxParticlesCount;
-
-	bool m_firstTime;
+	std::vector<ParticleEmitterStreamOutUniformData> m_particleEmitterStreamOutUniformList;
+	ParticleEmitterInstanceList m_particleEmitterInstanceList;
+	std::vector<Buffer*> m_particleEmitterStreamOutUniformBufferList;
 
 
-	//TODO: need to be removed, only for testing purpose
-	Texture* m_flareTexture;
+	//Buffer* m_particleStreamOutUniformBuffer;
+	//ParticleEmitterStreamOutUniformData m_particleStreamOutUniformData;
+
+	//Buffer* m_initVB;
+	//Buffer* m_streamOutVB;
+	//Buffer* m_drawStreamOutVB;
+
+	//uint32_t m_maxParticlesCount;
+
+	//bool m_firstTime;
+
+
+	////TODO: need to be removed, only for testing purpose
+	//Texture* m_flareTexture;
 
 	
 };

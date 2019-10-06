@@ -31,7 +31,7 @@ public:
 	MeshComponent(GameObject *owner);
 	virtual ~MeshComponent();
 
-	void Init(ResourceManager* resMgr) override;
+	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 	Model* GetModel();
 

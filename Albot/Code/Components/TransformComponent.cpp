@@ -11,6 +11,7 @@ unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
 
 #include "GameObjects/GameObject.h"
 #include "Managers/GameObjectManager.h"
+#include "Graphics/D3D11_Renderer.h"
 
 
 
@@ -42,7 +43,7 @@ TransformComponent::~TransformComponent()
 ///////////////////////////////////////////////////////
 ////           INITIALIZATION METHODS              ////
 ///////////////////////////////////////////////////////
-void TransformComponent::Init(ResourceManager* resMgr)
+void TransformComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 }
 

@@ -55,7 +55,7 @@ public:
 
 private:
 	//Setup methods
-	virtual void Init(ResourceManager* resMgr) override;
+	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	virtual void Begin(GameObjectManager *goMgr) override;
 	
 	//dirty flag

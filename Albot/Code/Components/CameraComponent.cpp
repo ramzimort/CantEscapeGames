@@ -3,6 +3,7 @@
 #include "Graphics/Camera.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Graphics/D3D11_Renderer.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/EventManager.h"
 #include "Events/Camera/CameraEvents.h"
@@ -32,7 +33,7 @@ CameraComponent::~CameraComponent()
 	EventManager::Get()->EnqueueEvent<CameraDestructionEvent>(true, m_camera.GetId());
 }
 
-void CameraComponent::Init(ResourceManager* resMgr)
+void CameraComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	EventManager::Get()->EnqueueEvent<CameraRegistrationEvent>(true, m_camera, m_xViewportPos, m_yViewportPos);
 }

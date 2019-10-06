@@ -14,7 +14,7 @@ public:
 	CameraComponent(GameObject *owner);
 	virtual ~CameraComponent();
 
-	void Init(ResourceManager* resMgr);
+	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer);
 	void Begin(GameObjectManager *goMgr);
 	Camera& GetCamera();
 	void SetCamera(const Camera& lhs);

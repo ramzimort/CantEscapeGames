@@ -2,8 +2,8 @@
 #include "LightComponent.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Graphics/D3D11_Renderer.h"
 #include "Managers/GameObjectManager.h"
-
 
 unsigned const LightComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -32,7 +32,7 @@ const Light* LightComponent::GetLight() const
 	return &m_light;
 }
 
-void LightComponent::Init(ResourceManager* resMgr)
+void LightComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 
 }

@@ -30,7 +30,7 @@ FPSControllerComponent::~FPSControllerComponent()
 	EventManager::Get()->UnsubscribeEvent<MouseEvent>(this);
 }
 
-void FPSControllerComponent::Init(ResourceManager* resMgr)
+void FPSControllerComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 
 }

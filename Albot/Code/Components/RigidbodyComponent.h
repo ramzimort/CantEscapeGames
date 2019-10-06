@@ -31,7 +31,7 @@ public:
 	RigidbodyComponent(GameObject *owner);
 	virtual ~RigidbodyComponent();
 
-	virtual void Init(ResourceManager* resMgr) override;
+	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	virtual void Begin(GameObjectManager *goMgr) override;
 
 	// getters/setters

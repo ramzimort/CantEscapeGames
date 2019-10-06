@@ -18,7 +18,7 @@ m_resourceManager(resourceManager),
 m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
-m_particleSystem(this),
+m_particleRendering(this),
 m_gameTime(0.f)
 {
 	//TODO: call initialize manually
@@ -467,7 +467,7 @@ void AppRenderer::LoadContent()
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
 	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
-	m_particleSystem.LoadContent(m_dxrenderer);
+	m_particleRendering.LoadContent(m_dxrenderer);
 }
 
 
@@ -545,6 +545,11 @@ DebugRendering& AppRenderer::GetDebugRendering()
 	return m_debugRendering;
 }
 
+ParticleRendering& AppRenderer::GetParticleRendering()
+{
+	return m_particleRendering;
+}
+
 void AppRenderer::UpdateAppRenderer(float dt)
 {
 	m_gameTime += dt;
@@ -575,7 +580,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_skybox_uniform_data.ModelViewProjectionMat =
 		no_position_view_mat * m_camera_uniform_data.ProjectionMat;
 
-	m_particleSystem.Update(dt, m_gameTime);
+	m_particleRendering.Update(dt, m_gameTime);
 }
 void AppRenderer::RenderApp()
 {
@@ -639,7 +644,7 @@ void AppRenderer::RenderApp()
 	
 
 
-	m_particleSystem.Render();
+	m_particleRendering.Render();
 
 	m_msaa_resolve_pass.ResolveMSAASwapChain();
 
