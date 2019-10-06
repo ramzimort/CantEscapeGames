@@ -16,7 +16,8 @@
       "Assets/Prefabs/mono_azul.json",
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",
-      "Assets/Prefabs/directional_light.json"
+      "Assets/Prefabs/directional_light.json",
+      "Assets/Prefabs/player.json"
     ]
   },
   "Objects": [
@@ -56,6 +57,13 @@
     {
       "tag": "obj5",
       "prefab": "Assets/Prefabs/directional_light.json",
+      "overrides": {
+
+      }
+    },
+    {
+      "tag": "obj6",
+      "prefab": "Assets/Prefabs/player.json",
       "overrides": {
 
       }

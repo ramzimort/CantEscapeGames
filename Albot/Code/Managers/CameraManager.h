@@ -9,7 +9,8 @@ Primary Author: Jose Rosenbluth
 
 class Camera;
 class CameraRegistrationEvent;
-
+class CameraDestructionEvent;
+class WindowSizeEvent;
 
 //This is what the map will store. 
 struct CameraInfo 
@@ -18,13 +19,13 @@ struct CameraInfo
 	Camera& m_camera;
 
 	//This is in viewport coords
-	int m_leftBottomX;
-	int m_leftBottomY;
+	size_t m_leftBottomX;
+	size_t m_leftBottomY;
 
 	//For now not used?
 	int m_zOrder;
 
-	CameraInfo(Camera& cam, int x, int y) : 
+	CameraInfo(Camera& cam, size_t x, size_t y) :
 		m_camera(cam), m_leftBottomX(x), 
 		m_leftBottomY(y), m_zOrder(0)
 	{}
@@ -33,22 +34,23 @@ struct CameraInfo
 
 class CameraManager
 {
+	typedef std::list<CameraInfo> Cameras;
 public:
 	CameraManager();
 	~CameraManager();
 
 	void Update(float dt);
-	void UnregisterCamera(const std::string& cameraTag);
-	void UnregisterCamera(unsigned cameraId);
 	const CameraInfo& GetMainCamera() const;
 
+private:
 	//Callbacks
-public:
 	void OnCameraRegistration(const CameraRegistrationEvent* event);
+	void OnCameraDestruction(const CameraDestructionEvent* event);
+	void OnWindowSize(const WindowSizeEvent* event);
 
 
 private:
-	int32_t m_scrWidth, m_scrHeight;
-	std::vector<CameraInfo> m_registeredCameras;
+	size_t m_scrWidth, m_scrHeight;
+	Cameras m_cameras;
 };
 

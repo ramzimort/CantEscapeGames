@@ -1,13 +1,19 @@
 {
   "TransformComponent": {
-    "Position": [ 1.0, 2.0, 3.0 ],
-    "Rotation": [ 2.0, 4.0, 6.0 ],
-    "Scale": [ 3.0, 6.0, 9.0 ]
-  }
+    "Position": [0.0, 0.0, 20.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
 
   "CameraComponent": {
     "Camera": {
-
+      "FOV": 45.0,
+      "Near": 0.1,
+      "Far": 1000.0,
+      "Position": [ 0.0, 0.0, 20.0 ]
     }
+  },
+  "FPSController": {
+
   }
 }

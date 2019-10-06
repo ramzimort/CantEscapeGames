@@ -36,11 +36,6 @@ struct RigidbodyCompNode : BaseSystemCompNode
 
 class RigidbodySystem : public BaseSystem
 {
-
-//Friend classes
-public:
-	friend class Factory;
-
 //Public interface
 public:
 	RigidbodySystem();

@@ -9,6 +9,5 @@ public:
 		m_gainedFocus(gainedFocus) { }
 	virtual ~WindowFocusEvent() { }
 
-private:
 	bool m_gainedFocus;
 };

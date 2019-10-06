@@ -75,6 +75,7 @@
     <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Systems\CameraSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -176,6 +177,10 @@
     <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
     <ClInclude Include="Code\Events\Camera\CameraRegistrationEvent.h" />
+    <ClInclude Include="Code\Systems\CameraSystem.h" />
+    <ClInclude Include="Code\Events\Camera\CameraDestructionEvent.h" />
+    <ClInclude Include="Code\Events\Camera\CameraEvents.h" />
+    <ClInclude Include="Code\Events\Input\WindowSizeEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

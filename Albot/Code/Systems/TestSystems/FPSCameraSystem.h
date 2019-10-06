@@ -28,8 +28,6 @@ public:
 
 	virtual void Register_GameObject(GameObject *go) override;
 	virtual void Update(float dt, BaseSystemCompNode *compNode) override;
-
-	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
 public:
 	//To compare when using templates
 	static unsigned int const static_type;

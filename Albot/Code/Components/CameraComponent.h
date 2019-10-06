@@ -8,24 +8,21 @@ class CameraComponent :
 	public BaseComponent
 {
 public:
-	friend class FPSCameraSystem;
+	friend class CameraSystem;
 public:
 	CameraComponent(GameObject *owner);
 	virtual ~CameraComponent();
-
-	
 	void Init(ResourceManager* resMgr);
 	void Begin();
-	const Camera& GetCamera() const;
+	Camera& GetCamera();
 	void SetCamera(const Camera& lhs);
-
 public:
 	static ComponentId const static_type;
 
 private:
+	size_t m_xViewportPos;
+	size_t m_yViewportPos;
 	Camera m_camera;
-
-	//Unique class identifier
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;	

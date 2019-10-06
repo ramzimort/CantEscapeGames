@@ -476,10 +476,6 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	Camera& main_camera = cameraInfo.m_camera;
 
 	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
-
-	main_camera.update_view_matrix();
-	main_camera.update_projection_matrix();
-	main_camera.update_view_projection_matrix();
 	
 	Vector3 camera_pos = main_camera.GetCameraPosition();
 	m_camera_uniform_data.CameraPosition = MathUtil::v3_to_v4(camera_pos, 1.f);

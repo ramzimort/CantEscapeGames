@@ -23,8 +23,21 @@ RTTR_REGISTRATION
 		.property("Position", &Camera::m_position);
 }
 
+Camera::Camera() :
+	m_id(ID()),
+	m_near(0.f),
+	m_far(0.f),
+	m_fov(0.f),
+	m_position(0.f, 0.f, 0.f),
+	m_lookDir(0.f, 0.f, -1.f),
+	m_upDir(0.f, 1.f, 0.f),
+	m_rightDir(1.f, 0.f, 0.f)
+{
+}
+
 Camera::Camera(float fov,
 	float nearVal, float farVal, const Vector3& position) : 
+	m_id(ID()),
 	m_near(nearVal), 
 	m_far(farVal), 
 	m_fov(fov), 
@@ -32,9 +45,11 @@ Camera::Camera(float fov,
 	m_lookDir(0.f, 0.f, -1.f),
 	m_upDir(0.f, 1.f, 0.f),
 	m_rightDir(1.f, 0.f, 0.f)
-{ }
+{ 
+}
 
 Camera::Camera(const Camera& lhs) : 
+	m_id(ID()),
 	m_near(lhs.m_near),
 	m_far(lhs.m_far),
 	m_fov(lhs.m_fov),
@@ -42,12 +57,19 @@ Camera::Camera(const Camera& lhs) :
 	m_lookDir(lhs.m_lookDir),
 	m_upDir(lhs.m_upDir),
 	m_rightDir(lhs.m_rightDir)
-{ }
+{ 
+}
 
 Camera::~Camera()
 { }
 
-void Camera::SetAspectRatio(uint32_t width, uint32_t height)
+size_t Camera::GetId()
+{
+	return m_id;
+}
+
+
+void Camera::SetAspectRatio(size_t width, size_t height)
 {
 	m_aspect = static_cast<float>(width) / static_cast<float>(height);
 }
@@ -86,21 +108,21 @@ void Camera::ApplyRotation(const Matrix& transformation_mat)
 	m_upDir = XMVector3Cross(m_rightDir, m_lookDir);
 }
 
-void Camera::update_view_matrix()
+void Camera::UpdateViewMatrix()
 {
 	Vector3 focus_point = m_position + m_lookDir;
 	m_viewMatrix = DirectX::XMMatrixLookAtRH(m_position, focus_point, m_upDir);
 	m_invViewMatrix = DirectX::XMMatrixInverse(nullptr, m_viewMatrix);
 }
 
-void Camera::update_projection_matrix()
+void Camera::UpdateProjectionMatrix()
 {
 	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovRH(
 		DirectX::XMConvertToRadians(m_fov), m_aspect, m_near, m_far);
 	m_invProjectionMatrix =	DirectX::XMMatrixInverse(nullptr, m_projectionMatrix);
 }
 
-void Camera::update_view_projection_matrix()
+void Camera::UpdateViewProjectionMatrix()
 {
 	m_viewProjectionMatrix = m_viewMatrix * m_projectionMatrix;
 	m_invViewProjectionMatrix = DirectX::XMMatrixInverse(nullptr, m_viewProjectionMatrix);

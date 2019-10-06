@@ -25,6 +25,8 @@ InputManager::InputManager() :
 		800,
 		600,
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, 800, 600);
+
 	assert(m_pWindow != NULL);
 	DEBUG_INIT(m_pWindow);
 

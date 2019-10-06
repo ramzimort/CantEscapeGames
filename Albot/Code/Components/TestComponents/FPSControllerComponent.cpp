@@ -10,8 +10,7 @@ unsigned const FPSControllerComponent::static_type = BaseComponent::numberOfType
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<FPSControllerComponent>("FPSController")
-	.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-	.property("Inverted", &FPSControllerComponent::m_mouseInverted);
+	.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr);
 }
 
 FPSControllerComponent::FPSControllerComponent(GameObject* go)
