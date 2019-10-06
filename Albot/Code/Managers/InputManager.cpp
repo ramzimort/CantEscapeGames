@@ -10,12 +10,16 @@ Other Authors : <None>
 #include "Events/Input/Input.h"
 #include "EventManager.h"
 
-InputManager::InputManager()
+const int numKeys = 512;
+
+InputManager::InputManager() : 
+	m_keyboardState({ false })
 {
 }
 
 InputManager::~InputManager()
 {
+	DEBUG_QUIT;
 }
 
 void InputManager::Initialize()
@@ -33,23 +37,25 @@ void InputManager::Initialize()
 	assert(m_pWindow != NULL);
 	DEBUG_INIT(m_pWindow);
 
-
-	SDL_memset(m_keyboardStateCurrent, 0, 512 * sizeof(Uint8));
-	SDL_memset(m_keyboardStatePrevious, 0, 512 * sizeof(Uint8));
 	SDL_JoystickEventState(SDL_ENABLE);
 	m_mouseStateCurrent = 0;
 	m_mouseStatePrevious = 0;
-	SDL_memset(m_mousePositionCurrent, 0, 2 * sizeof(Uint8));
-	SDL_memset(m_mousePositionCurrent, 0, 2 * sizeof(Uint8));
 	m_mouseWheelY = 0;
 	m_quit = false;
 }
 
+void InputManager::UpdateMouseState()
+{
+	m_mouseStatePrevious = m_mouseStateCurrent;
+	m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
+	m_mouseStateCurrent = SDL_GetMouseState(m_mousePositionCurrent, m_mousePositionCurrent + 1);
+}
+
+
 void InputManager::Update()
 {
-	//SDL_Event sdl_event;
-	//SDL_JoystickUpdate();
 	m_mouseWheelY = 0;
+
 	while (SDL_PollEvent(&m_event))
 	{
 		//Update_ImGui_Event(m_event);
@@ -58,6 +64,7 @@ void InputManager::Update()
 		{
 		// ALL WINDOW EVENTS
 		case SDL_WINDOWEVENT:
+		{
 			if (m_event.window.windowID != SDL_GetWindowID(m_pWindow))
 				break;
 			switch (m_event.window.event)
@@ -75,30 +82,41 @@ void InputManager::Update()
 				m_update = false;
 				break;
 			case SDL_WINDOWEVENT_CLOSE:
-				DEBUG_QUIT(m_event);
 				m_quit = true;
 				break;
 			default:
 				break;
 			}
 			break;
-
-
+		}
+		
 		case SDL_JOYDEVICEADDED:
 			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
 			break;
 		case SDL_JOYDEVICEREMOVED:
-			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
+			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
 			break;
 		case SDL_MOUSEWHEEL:
 			m_mouseWheelY = m_event.wheel.y;
 			break;
 		case SDL_KEYDOWN:
-		case SDL_KEYUP:
-			if(m_event.key.windowID == SDL_GetWindowID(m_pWindow)) 
+			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
+				m_event.key.keysym.scancode < 512 && 
+				m_keyboardState[m_event.key.keysym.scancode] == false)
+			{
+				m_keyboardState[m_event.key.keysym.scancode] = true;
 				EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+			}
 			break;
-
+		case SDL_KEYUP:
+			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
+				m_event.key.keysym.scancode < 512 &&
+				m_keyboardState[m_event.key.keysym.scancode] == true)
+			{
+				m_keyboardState[m_event.key.keysym.scancode] = false;
+				EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+			}
+			break;
 		default:
 			break;
 		}
@@ -106,16 +124,8 @@ void InputManager::Update()
 	if (!m_update)
 		return;
 
-	int numberOffFetchedKeys = 0;
-	const Uint8* pCurrentKeyStates = SDL_GetKeyboardState(&numberOffFetchedKeys);
-	if (numberOffFetchedKeys > 512)
-		numberOffFetchedKeys = 512;
-	SDL_memcpy(m_keyboardStatePrevious, m_keyboardStateCurrent, 512 * sizeof(Uint8));
-	SDL_memcpy(m_keyboardStateCurrent, pCurrentKeyStates, numberOffFetchedKeys * sizeof(Uint8));
+	UpdateMouseState();
 
-	m_mouseStatePrevious = m_mouseStateCurrent;
-	m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
-	m_mouseStateCurrent = SDL_GetMouseState(m_mousePositionCurrent, m_mousePositionCurrent + 1);
 	EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
 
 	// DEBUG
@@ -123,34 +133,12 @@ void InputManager::Update()
 
 }
 
-bool InputManager::IsKeyPressed(unsigned int KeyScanCode) {
+bool InputManager::IsKeyPressed(unsigned int KeyScanCode) 
+{
 	if (KeyScanCode >= 512)
 		return false;
 
-	if (m_keyboardStateCurrent[KeyScanCode])
-		return true;
-
-	return false;
-}
-
-bool InputManager::IsKeyTriggered(unsigned int KeyScanCode) {
-	if (KeyScanCode >= 512)
-		return false;
-
-	if (m_keyboardStateCurrent[KeyScanCode] && !m_keyboardStatePrevious[KeyScanCode])
-		return true;
-
-	return false;
-}
-
-bool InputManager::IsKeyReleased(unsigned int KeyScanCode) {
-	if (KeyScanCode >= 512)
-		return false;
-
-	if (!m_keyboardStateCurrent[KeyScanCode] && m_keyboardStatePrevious[KeyScanCode])
-		return true;
-
-	return false;
+	return m_keyboardState[KeyScanCode];
 }
 
 int* InputManager::GetPointerLocation()
@@ -203,16 +191,3 @@ bool InputManager::IsQuit()
 	return m_quit;
 }
 
-
-bool InputManager::AnyKeyPressed() const
-{
-	for (int i = 0; i < 512; ++i)
-	{
-		if (m_keyboardStateCurrent[i] && !m_keyboardStatePrevious[i])
-		{
-			return true;
-		}
-	}
-
-	return false;
-}

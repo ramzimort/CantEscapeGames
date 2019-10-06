@@ -192,7 +192,7 @@ CODE
      // TODO: Load TTF/OTF fonts if you don't want to use the default font.
 
      // Initialize helper Platform and Renderer bindings (here we are using imgui_impl_win32 and imgui_impl_dx11)
-     ImGui_ImplWin32_Init(hwnd);
+     ImGui_ImplWin32_Init(g_hwnd);
      ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
      // Application main loop

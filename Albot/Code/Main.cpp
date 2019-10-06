@@ -4,8 +4,6 @@
 #include "CantDebug/CantDebug.h"
 #include "Managers/ScriptingManager.h"
 
-#include "Helper/Hash.h"
-
 class ScriptingManager *luaMgr;
 
 int CALLBACK WinMain(

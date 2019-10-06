@@ -25,12 +25,9 @@ public:
 
 	/** Updates members containing current frame and previous frame values */
 	void Update();
-	/** \brief Check keybaord key press */
+	/** \brief Check keybaord current state */
 	bool IsKeyPressed(unsigned int KeyScanCode);
-	/** Check keybaord key trigger (rising edge). */
-	bool IsKeyTriggered(unsigned int KeyScanCode);
-	/** Check keybaord key release(falling edge) */
-	bool IsKeyReleased(unsigned int KeyScanCode);
+	
 	/** Get mouse position in screen space as int[2] array (depends on window width/height) */
 	int* GetPointerLocation();
 	/** Get mouse position in screen space as vec2 (depends on window width/height) */
@@ -51,18 +48,20 @@ public:
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit();
 
-	bool AnyKeyPressed() const;
+private:
+	void UpdateMouseState();
+
 
 private:
 	SDL_Window* m_pWindow;
+	std::array<bool, 512> m_keyboardState;
+
 	Uint32 m_mouseStateCurrent;
 	Uint32 m_mouseStatePrevious;
 	int m_mousePositionCurrent[2];
 	int m_mousePositionPrevious[2];
 	Sint32 m_mouseWheelY;
 	SDL_Event m_event;
-	Uint8 m_keyboardStateCurrent[512];
-	Uint8 m_keyboardStatePrevious[512];
 	
 	bool m_update;
 	bool m_quit;

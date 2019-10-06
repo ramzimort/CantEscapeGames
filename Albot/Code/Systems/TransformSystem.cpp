@@ -11,7 +11,7 @@ Primary Author: Jose Rosenbluth
 unsigned const TransformSystem::static_type = BaseSystem::numberOfTypes++;
 
 // 2 - Include the components you want to add
-#include "../Components/TransformComponent.h"
+#include "Components/TransformComponent.h"
 #include "Components/MeshComponent.h"
 
 
