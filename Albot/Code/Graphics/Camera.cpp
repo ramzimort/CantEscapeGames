@@ -17,29 +17,40 @@ Primary Author: Jose Rosenbluth
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<Camera>("Camera")
-		.property("Width", &Camera::m_width)
-		.property("Height", &Camera::m_height)
 		.property("Near", &Camera::m_near)
 		.property("Far", &Camera::m_far)
 		.property("FOV", &Camera::m_fov)
 		.property("Position", &Camera::m_position);
 }
 
-Camera::Camera(int width, int height, float fov,
-	float nearVal, float farVal, const Vector3& position) : m_width(width),
-	m_height(height), m_near(nearVal), m_far(farVal), m_fov(fov), 
+Camera::Camera(float fov,
+	float nearVal, float farVal, const Vector3& position) : 
+	m_near(nearVal), 
+	m_far(farVal), 
+	m_fov(fov), 
 	m_position(position), 
 	m_lookDir(0.f, 0.f, -1.f),
 	m_upDir(0.f, 1.f, 0.f),
 	m_rightDir(1.f, 0.f, 0.f)
-{
-	m_aspect = static_cast<float>(m_width) / static_cast<float>(m_height);
-}
+{ }
+
+Camera::Camera(const Camera& lhs) : 
+	m_near(lhs.m_near),
+	m_far(lhs.m_far),
+	m_fov(lhs.m_fov),
+	m_position(lhs.m_position),
+	m_lookDir(lhs.m_lookDir),
+	m_upDir(lhs.m_upDir),
+	m_rightDir(lhs.m_rightDir)
+{ }
 
 Camera::~Camera()
-{
-}
+{ }
 
+void Camera::SetAspectRatio(uint32_t width, uint32_t height)
+{
+	m_aspect = static_cast<float>(width) / static_cast<float>(height);
+}
 
 void Camera::SetCameraPosition(float x, float y, float z)
 {

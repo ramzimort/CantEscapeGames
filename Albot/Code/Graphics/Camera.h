@@ -15,10 +15,13 @@ public:
 	friend class FPSCameraSystem;
 public:
 	Camera() = default;
+	Camera(const Camera& lhs);
 
-	Camera(int width, int height, float fov,
+	Camera(float fov,
 		float nearVal, float farVAl, const Vector3& position);
 	~Camera();
+
+	void SetAspectRatio(uint32_t width, uint32_t height);
 
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
@@ -58,8 +61,6 @@ private:
 	float m_aspect;
 	float m_near;
 	float m_far;
-	int32_t m_width;
-	int32_t m_height;
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

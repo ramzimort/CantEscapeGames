@@ -8,6 +8,8 @@ Primary Author: Jose Rosenbluth
 
 #include "CameraManager.h"
 #include "Graphics/Camera.h"
+#include "EventManager.h"
+#include "Events/Camera/CameraRegistrationEvent.h"
 
 CameraManager* gCameraManager;
 
@@ -15,27 +17,18 @@ CameraManager* gCameraManager;
 CameraManager::CameraManager()
 {
 	gCameraManager = this;
+
+	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
+		std::bind(&CameraManager::OnCameraRegistration, this, std::placeholders::_1));
 }
 
 CameraManager::~CameraManager()
 {
-	for (auto& node : m_registeredCameras) 
-	{
-		CameraInfo& camInfo = node.second;
-		if (camInfo.m_camera != nullptr)
-			delete camInfo.m_camera;
-	}
 	m_registeredCameras.clear();
 }
 
 void CameraManager::Update(float dt)
 {
-}
-
-void CameraManager::RegisterCamera(const std::string& cameraTag, Camera* camera)
-{
-	CameraInfo cameraInfo(camera, 0, 0);
-	m_registeredCameras[cameraTag] = cameraInfo;
 }
 
 void CameraManager::UnregisterCamera(const std::string& cameraTag)
@@ -46,12 +39,21 @@ void CameraManager::UnregisterCamera(unsigned cameraId)
 {
 }
 
-const CameraInfo* CameraManager::GetCameraInfo(const std::string& nameTag) const
+const CameraInfo& CameraManager::GetMainCamera() const
 {
-	auto find = m_registeredCameras.find(nameTag);
-	if (find == m_registeredCameras.end())
+	return m_registeredCameras[0];
+}
+
+void CameraManager::OnCameraRegistration(const CameraRegistrationEvent* event)
+{
+	if (event->m_state)
 	{
-		return nullptr;
+		CameraInfo cameraInfo(event->m_camera, m_scrWidth, m_scrHeight);
+		cameraInfo.m_camera.SetAspectRatio(m_scrWidth, m_scrHeight);
 	}
-	return &find->second;
+	else
+	{
+
+	}
+
 }

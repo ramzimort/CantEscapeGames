@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Graphics/Camera.h"
 
 class Camera;
 
@@ -15,13 +16,14 @@ public:
 	
 	void Init(ResourceManager* resMgr);
 	void Begin();
-	Camera* GetCamera() const;
-	void SetCamera(Camera* camera);
+	const Camera& GetCamera() const;
+	void SetCamera(const Camera& lhs);
+
 public:
 	static ComponentId const static_type;
 
 private:
-	Camera* m_camera;
+	Camera m_camera;
 
 	//Unique class identifier
 

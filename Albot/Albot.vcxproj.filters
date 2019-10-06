@@ -175,6 +175,7 @@
     <ClInclude Include="Code\Events\Input\Input.h" />
     <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
+    <ClInclude Include="Code\Events\Camera\CameraRegistrationEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

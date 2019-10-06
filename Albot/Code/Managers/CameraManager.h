@@ -8,13 +8,14 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 class Camera;
+class CameraRegistrationEvent;
 
 
 //This is what the map will store. 
 struct CameraInfo 
 {
 	//Camera should have the width height info
-	Camera *m_camera;
+	Camera& m_camera;
 
 	//This is in viewport coords
 	int m_leftBottomX;
@@ -23,15 +24,7 @@ struct CameraInfo
 	//For now not used?
 	int m_zOrder;
 
-	CameraInfo()
-		:m_camera(nullptr),
-		m_leftBottomX(0),
-		m_leftBottomY(0),
-		m_zOrder(0)
-	{
-	}
-
-	CameraInfo(Camera* cam, int x, int y) : 
+	CameraInfo(Camera& cam, int x, int y) : 
 		m_camera(cam), m_leftBottomX(x), 
 		m_leftBottomY(y), m_zOrder(0)
 	{}
@@ -45,13 +38,17 @@ public:
 	~CameraManager();
 
 	void Update(float dt);
-	void RegisterCamera(const std::string& cameraTag, Camera* camera);
 	void UnregisterCamera(const std::string& cameraTag);
 	void UnregisterCamera(unsigned cameraId);
+	const CameraInfo& GetMainCamera() const;
 
-	const CameraInfo* GetCameraInfo(const std::string& nameTag) const;
+	//Callbacks
+public:
+	void OnCameraRegistration(const CameraRegistrationEvent* event);
+
 
 private:
-	std::unordered_map<std::string, CameraInfo> m_registeredCameras;
+	int32_t m_scrWidth, m_scrHeight;
+	std::vector<CameraInfo> m_registeredCameras;
 };
 

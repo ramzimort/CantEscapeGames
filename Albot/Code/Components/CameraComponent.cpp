@@ -3,6 +3,8 @@
 #include "Graphics/Camera.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/EventManager.h"
+#include "Events/Camera/CameraRegistrationEvent.h"
 
 
 unsigned const CameraComponent::static_type = BaseComponent::numberOfTypes++;
@@ -18,28 +20,28 @@ RTTR_REGISTRATION
 CameraComponent::CameraComponent(GameObject *owner)
 	: BaseComponent(owner, CameraComponent::static_type)
 {
+	EventManager::Get()->EnqueueEvent<CameraRegistrationEvent>(true, &m_camera, false);
 }
 
 CameraComponent::~CameraComponent()
-{
-}
+{ }
 
 void CameraComponent::Init(ResourceManager* resMgr)
 {
 	//TODO: Add a message to set this as the main camera if it has that property
-
+	EventManager::Get()->EnqueueEvent<CameraRegistrationEvent>(true, &m_camera, true);
 }
 
 void CameraComponent::Begin()
 {
 }
 
-Camera* CameraComponent::GetCamera() const
+const Camera& CameraComponent::GetCamera() const
 {
 	return m_camera;
 }
 
-void CameraComponent::SetCamera(Camera* camera)
+void CameraComponent::SetCamera(const Camera& lhs)
 {
-	m_camera = camera;
+	m_camera = lhs;
 }

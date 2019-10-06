@@ -472,23 +472,23 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	//TODO: update camera matrices
 	CameraManager* cameraManager = m_cameraManager;
 
-	const CameraInfo* cameraInfo = cameraManager->GetCameraInfo("Main");
-	Camera* main_camera = cameraInfo->m_camera;
+	const CameraInfo& cameraInfo = cameraManager->GetMainCamera();
+	Camera& main_camera = cameraInfo.m_camera;
 
 	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
-	main_camera->update_view_matrix();
-	main_camera->update_projection_matrix();
-	main_camera->update_view_projection_matrix();
+	main_camera.update_view_matrix();
+	main_camera.update_projection_matrix();
+	main_camera.update_view_projection_matrix();
 	
-	Vector3 camera_pos = main_camera->GetCameraPosition();
+	Vector3 camera_pos = main_camera.GetCameraPosition();
 	m_camera_uniform_data.CameraPosition = MathUtil::v3_to_v4(camera_pos, 1.f);
-	m_camera_uniform_data.ViewMat = main_camera->GetViewMatrix();
-	m_camera_uniform_data.ProjectionMat = main_camera->GetProjectionMatrix();
-	m_camera_uniform_data.InvProjectionMat = main_camera->GetInvProjectionMatrix();
-	m_camera_uniform_data.InvViewMat = main_camera->GetInvViewMatrix();
-	m_camera_uniform_data.ViewProjectionMat = main_camera->GetViewProjectionMatrix();
-	m_camera_uniform_data.InvViewProjectionMat = main_camera->GetInvViewProjectionMatrix();
+	m_camera_uniform_data.ViewMat = main_camera.GetViewMatrix();
+	m_camera_uniform_data.ProjectionMat = main_camera.GetProjectionMatrix();
+	m_camera_uniform_data.InvProjectionMat = main_camera.GetInvProjectionMatrix();
+	m_camera_uniform_data.InvViewMat = main_camera.GetInvViewMatrix();
+	m_camera_uniform_data.ViewProjectionMat = main_camera.GetViewProjectionMatrix();
+	m_camera_uniform_data.InvViewProjectionMat = main_camera.GetInvViewProjectionMatrix();
 	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
 		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);
 
