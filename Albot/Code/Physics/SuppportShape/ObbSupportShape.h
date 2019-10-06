@@ -12,11 +12,15 @@ Other Authors :
 class ObbSupportShape : public SupportShape
 {
 public:
-
+	ObbSupportShape();
+	ObbSupportShape(const Vector3& position, const Vector3& scale, const Matrix& rotation);
+	void BuildFromTransform(const Vector3& position, const Vector3& scale, const Matrix& rotation);
 	Vector3 GetCenter() const override;
 	Vector3 Support(const Vector3& worldDirection) const override;
 	
+	Vector3 m_translation;
 	Vector3 m_scale;
 	Matrix m_rotation;
-	Vector3 m_translation;
+
+	
 };

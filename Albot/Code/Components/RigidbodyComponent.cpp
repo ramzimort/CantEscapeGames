@@ -14,9 +14,12 @@ unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
-	rttr::registration::class_<RigidbodyComponent>("RigidbodyComponent")
+	rttr::registration::class_<RigidbodyComponent>("RigidBodyComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-		.method("Init", &RigidbodyComponent::Init);
+		.method("Init", &RigidbodyComponent::Init)
+		.property("IsEffectedByGravity", &RigidbodyComponent::m_isEffectedByGravity)
+		.property("Velocity", &RigidbodyComponent::m_velocity)
+	;
 }
 
 RigidbodyComponent::RigidbodyComponent(GameObject *owner) :
@@ -37,6 +40,11 @@ void RigidbodyComponent::Begin()
 {
 }
 
+const Vector3& RigidbodyComponent::GetPosition() const
+{
+	return m_position;
+}
+
 const Aabb& RigidbodyComponent::GetAabb() const
 {
 	return m_aabb;
@@ -45,6 +53,11 @@ const Aabb& RigidbodyComponent::GetAabb() const
 const Vector3& RigidbodyComponent::GetVelocity() const
 {
 	return m_velocity;
+}
+
+const Vector3& RigidbodyComponent::GetAngularVelocity() const
+{
+	return m_angularVelocity;
 }
 
 float RigidbodyComponent::GetMass() const

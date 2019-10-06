@@ -4,15 +4,16 @@ Reproduction or disclosure of this file or its contents without the prior writte
 Primary Author : Aleksey Perfilev
 Other Authors :
 -End Header--------------------------------------------------------*/
-
 #pragma once
 
-class Sat
+class Triangle
 {
-	struct MinkowskiPoint
-	{
-		Vector3 m_pointA;		  // point in object A space
-		Vector3 m_pointB;		  // point in object B space
-		Vector3 m_minkowskiPoint; // point in minkowski space 
-	};
+public:
+	Triangle();
+	Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2);
+
+	bool IsDegenerateTriangle() const;
+	Vector3 Normal() const;
+
+	Vector3 points[3];
 };

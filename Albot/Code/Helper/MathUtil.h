@@ -16,4 +16,23 @@ namespace MathUtil
 	{
 		return (val < 0.0f) ? -1.0f : 1.0f;
 	}
+
+	inline void  BuildTangentBitangent(const Vector3& vector, Vector3& tangent, Vector3& bitangent)
+	{
+		const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));
+		const Vector3 cross2 = vector.Cross(Vector3(0.0, 1.0, 0.0));
+
+		if (cross1.LengthSquared() > cross2.LengthSquared())
+		{
+			tangent = cross1;
+		}
+		else
+		{
+			tangent = cross2;
+		}
+		tangent.Normalize();
+
+		bitangent = vector.Cross(tangent);
+		bitangent.Normalize();
+	}
 }

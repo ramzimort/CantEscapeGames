@@ -12,6 +12,7 @@ Primary Author: Jose Rosenbluth
 #include "Physics/SpatialPartition/DynamicAabbTree.h"
 #include "Physics/CollisionTable.h"
 #include "../Components/MeshComponent.h"
+#include "Physics/Gjk/CollisionManifold.h"
 
 class TransformComponent;
 class RigidbodyComponent;
@@ -61,7 +62,7 @@ private:
 	float  m_timeAccumulator;
 
 	DynamicAabbTree m_broadPhase;
-	
+		
 	CollisionTable m_collisionTable;
 	AppRenderer* m_pAppRenderer;
 };

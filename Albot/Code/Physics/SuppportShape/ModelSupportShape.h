@@ -15,8 +15,11 @@ Other Authors :
 class ModelSupportShape : public SupportShape
 {
 public:
-	virtual Vector3 GetCenter() const override;
-	virtual Vector3 Support(const Vector3& worldDirection) const override;
+	Vector3 GetCenter() const override;
+	Vector3 Support(const Vector3& worldDirection) const override;
+
+	void GetFaceNormals(std::vector<Vector3>& faceNormals) const;
+	void GetEdgeDirections(std::vector<Vector3>& edge) const;
 
 	Model* m_model;
 	Matrix m_modelToWorld;

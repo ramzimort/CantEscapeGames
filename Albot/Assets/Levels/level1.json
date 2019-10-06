@@ -17,7 +17,7 @@
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",
       "Assets/Prefabs/directional_light.json",
-      "Assets/Prefabs/player.json"
+      "Assets/Prefabs/RBTestObj.json"
     ]
   },
   "Objects": [
@@ -44,7 +44,10 @@
       "tag": "obj3",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
-
+        "TransformComponent": {
+          "Position": [ 5.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
       }
     },
     {
@@ -63,11 +66,31 @@
     },
     {
       "tag": "obj6",
-      "prefab": "Assets/Prefabs/player.json",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
       "overrides": {
-
+        "TransformComponent": {
+          "Position": [ 5.0, 4.0, -10.0 ],
+          "Rotation": [ 90.0, 0.0, 0.0 ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 0,
+          "Velocity": [ -5.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "obj7",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -5.0, 5.0, -10.0 ],
+          "Rotation": [ 90.0, 0.0, 0.0 ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 0,
+          "Velocity": [ 5.0, 0.0, 0.0 ]
+        }
       }
     }
-
   ]
 }

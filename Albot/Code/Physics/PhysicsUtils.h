@@ -62,6 +62,14 @@ namespace PhysicsUtils
 		return rhs * rhs;
 	}
 
+	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b,
+		float& u, float& v, float expansionEpsilon = 0.0f);
+
+	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b, const Vector3& c,
+		float& u, float& v, float& w, float expansionEpsilon = 0.0f);
+
+
+	
 #ifdef DEVELOPER
 	namespace MathPrinter
 	{

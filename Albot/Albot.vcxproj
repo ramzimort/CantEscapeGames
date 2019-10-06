@@ -351,7 +351,8 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\Sat\Sat.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\Gjk.cpp" />
+    <ClCompile Include="Code\Physics\PhysicsUtils.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -379,6 +380,9 @@
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\Physics\CollisionTable.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Triangle.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
+    <ClCompile Include="Code\Physics\Constraint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -461,8 +465,8 @@
     <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
+    <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
-    <ClInclude Include="Code\Physics\Sat\Sat.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
@@ -484,6 +488,9 @@
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
     <ClInclude Include="Code\Physics\CollisionTable.h" />
+    <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
+    <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
+    <ClInclude Include="Code\Physics\Constraint.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Code\Shaders\debug_frag.hlsl">

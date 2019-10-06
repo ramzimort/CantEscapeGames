@@ -2,19 +2,21 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
+Primary Author: Aleksey Perfilev
 - End Header --------------------------------------------------------*/
 
 // 1 - Include the headers and add the line for the static type
+#include "Physics/SuppportShape/ObbSupportShape.h"
 #include "RigidbodySystem.h"
-#include "../GameObjects/GameObject.h"
+#include "GameObjects/GameObject.h"
 #include "Physics/PhysicsUtils.h"
+#include "Physics/Gjk/Gjk.h"
 #include "CantDebug/CantDebug.h"
 unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 
 // 2 - Include the components you want to add
-#include "../Components/TransformComponent.h"
-#include "../Components/RigidbodyComponent.h"
+#include "Components/TransformComponent.h"
+#include "Components/RigidbodyComponent.h"
 
 #include "Graphics/AppRenderer.h"
 
@@ -63,6 +65,7 @@ void RigidbodySystem::LateUpdate(float dt)
 	m_timeAccumulator += dt;
 	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
+#pragma region BroadPhaase
 		// update all the aabb of all objects and dynamic aabb tree
 		for (auto& node : m_ObjComponentsMap)
 		{
@@ -75,6 +78,7 @@ void RigidbodySystem::LateUpdate(float dt)
 #endif			
 			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
 			TransformComponent* transform = rigidbodyNode->m_transform;
+			
 			MeshComponent* mesh = rigidbodyNode->m_mesh;
 #ifdef DEVELOPER
 			if (rigidbody == nullptr || transform == nullptr || mesh == nullptr)
@@ -98,10 +102,7 @@ void RigidbodySystem::LateUpdate(float dt)
 
 #ifdef DEVELOPER
 		m_broadPhase.DebugDraw(m_pAppRenderer,-1, Vector4(1, 1, 1, 1));
-#endif
-
 		
-#ifdef DEVELOPER
 		for (size_t i = 0; i < results.m_results.size(); ++i)
 		{
 			for (size_t j = i + 1; j < results.m_results.size(); ++j)
@@ -115,8 +116,54 @@ void RigidbodySystem::LateUpdate(float dt)
 			}
 		}
 #endif
+		
+#pragma endregion BroadPhaase
 
-		// TODO: narrow phase (SAT)
+#pragma region NarrowPhase
+		
+		for (QueryResult& query : results.m_results)
+		{
+			RigidbodyComponent* rb1 = static_cast<RigidbodyComponent*>(query.m_clientData0);
+			RigidbodyComponent* rb2 = static_cast<RigidbodyComponent*>(query.m_clientData1);
+
+			TransformComponent* tr1 = rb1->GetGameObjectOwner()->GetComponent<TransformComponent>();
+			TransformComponent* tr2 = rb2->GetGameObjectOwner()->GetComponent<TransformComponent>();
+			
+			ObbSupportShape supportShape1(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
+			ObbSupportShape supportShape2(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
+
+			Gjk gjk;
+			Gjk::CsoPoint closestPoint;
+			float epsilon = 0.001f;
+			std::vector<Gjk::CsoPoint> simplex;
+			if (gjk.Intersect(simplex, &supportShape1, &supportShape2, closestPoint, epsilon/*, PhysicsUtils::Consts::GjkGlobals::debuggingIndex, PhysicsUtils::Consts::GjkGlobals::isDebugDraw*/))
+			{
+				CollisionManifold collision;
+				if (gjk.Epa(simplex, &supportShape1, &supportShape2, collision, epsilon))
+				{
+					collision.m_objectA->m_constraints.clear();
+					collision.m_objectB->m_constraints.clear();
+
+					// Normal constraint for both objects
+					Constraint constraintNormal(collision.m_objectA, collision.m_objectB, collision.m_depth);
+					constraintNormal.CalculateNormalJacobian(collision);
+					collision.m_objectA->m_constraints.push_back(constraintNormal);
+					collision.m_objectB->m_constraints.push_back(constraintNormal);
+
+					// Friction constraint for both objects
+					Constraint constraintFriction1(collision.m_objectA, collision.m_objectB);
+					Constraint constraintFriction2(collision.m_objectA, collision.m_objectB);
+					Constraint::CalculateFrictionJacobians(collision, constraintFriction1, constraintFriction2);
+					collision.m_objectA->m_constraints.push_back(constraintFriction1);
+					collision.m_objectB->m_constraints.push_back(constraintFriction1);
+					collision.m_objectA->m_constraints.push_back(constraintFriction2);
+					collision.m_objectB->m_constraints.push_back(constraintFriction2);					
+				}
+			}
+			// else no collision
+		}
+		
+#pragma endregion NarrowPhase
 		
 		// movement update
 		for (auto& node : m_ObjComponentsMap)
@@ -125,10 +172,13 @@ void RigidbodySystem::LateUpdate(float dt)
 			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
 			TransformComponent* transform = rigidbodyNode->m_transform;
 
-			Vector3 velocity = rigidbody->m_velocity;
 			Vector3 position = transform->GetPosition();
+			Quaternion quat = Quaternion::CreateFromRotationMatrix(transform->GetRotationMatrix());
+			Vector3 velocity = rigidbody->m_velocity;
 
-			Vector3 acceleration = PhysicsUtils::Consts::gravity;
+			Vector3 acceleration;
+			if (rigidbody->m_isEffectedByGravity)
+				acceleration += PhysicsUtils::Consts::gravity;
 
 			velocity += acceleration * PhysicsUtils::Consts::fixedTimeStep;
 

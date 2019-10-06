@@ -7,6 +7,14 @@ Other Authors :
 
 #include "ObbSupportShape.h"
 
+ObbSupportShape::ObbSupportShape()
+{
+}
+
+ObbSupportShape::ObbSupportShape(const Vector3& position, const Vector3& scale, const Matrix& rotation) : m_translation(position),  m_scale(scale), m_rotation(rotation)
+{
+}
+
 Vector3 ObbSupportShape::GetCenter() const 
 {
 	return m_translation;
@@ -14,7 +22,6 @@ Vector3 ObbSupportShape::GetCenter() const
 
 Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 {
-	// A unit obb spans from [-0.5, to 0.5]
 	Vector3 result = m_translation;
 	Vector3 localDir = Vector3::Transform(worldDirection, m_rotation.Invert());
 	
@@ -23,4 +30,11 @@ Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 	result += MathUtil::GetSign(localDir.z) * m_scale.z * 0.5f * m_rotation.Backward();
 	
 	return result;
+}
+
+void ObbSupportShape::BuildFromTransform(const Vector3& position, const Vector3& scale, const Matrix& rotation)
+{
+	m_translation = position;
+	m_scale = scale;
+	m_rotation = rotation;
 }
