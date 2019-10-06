@@ -329,7 +329,7 @@
     <ClCompile Include="Code\Graphics\Model.cpp" />
     <ClCompile Include="Code\Graphics\ModelLoader.cpp" />
     <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
-    <ClCompile Include="Code\Graphics\ParticleSystem.cpp" />
+    <ClCompile Include="Code\Graphics\ParticleRendering.cpp" />
     <ClCompile Include="Code\Graphics\Pipeline.cpp" />
     <ClCompile Include="Code\Graphics\RasterizerState.cpp" />
     <ClCompile Include="Code\Graphics\RenderTarget.cpp" />
@@ -375,6 +375,7 @@
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
     <ClCompile Include="Code\Systems\CameraSystem.cpp" />
     <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
+    <ClCompile Include="Code\Systems\ParticleEmitterSystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
     <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
@@ -382,6 +383,7 @@
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\Physics\CollisionTable.cpp" />
+    <ClCompile Include="Code\Components\ParticleEmitterComponent.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Triangle.cpp" />
     <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
     <ClCompile Include="Code\Physics\Constraint.cpp" />
@@ -433,13 +435,14 @@
     <ClInclude Include="Code\Graphics\DescriptorData.h" />
     <ClInclude Include="Code\Graphics\DXResourceLoader.h" />
     <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
+    <ClInclude Include="Code\Graphics\InstanceRenderData.h" />
     <ClInclude Include="Code\Graphics\Light.h" />
     <ClInclude Include="Code\Graphics\Material.h" />
     <ClInclude Include="Code\Graphics\Mesh.h" />
     <ClInclude Include="Code\Graphics\Model.h" />
     <ClInclude Include="Code\Graphics\ModelLoader.h" />
     <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
-    <ClInclude Include="Code\Graphics\ParticleSystem.h" />
+    <ClInclude Include="Code\Graphics\ParticleRendering.h" />
     <ClInclude Include="Code\Graphics\Pipeline.h" />
     <ClInclude Include="Code\Graphics\RasterizerState.h" />
     <ClInclude Include="Code\Graphics\Renderer_Includes.h" />
@@ -486,6 +489,7 @@
     <ClInclude Include="Code\Systems\BaseSystem.h" />
     <ClInclude Include="Code\Systems\CameraSystem.h" />
     <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
+    <ClInclude Include="Code\Systems\ParticleEmitterSystem.h" />
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Systems\LightSystem.h" />
     <ClInclude Include="Code\Systems\RenderingSystem.h" />
@@ -493,6 +497,7 @@
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
     <ClInclude Include="Code\Physics\CollisionTable.h" />
+    <ClInclude Include="Code\Components\ParticleEmitterComponent.h" />
     <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
     <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
     <ClInclude Include="Code\Physics\Constraint.h" />
@@ -673,6 +678,20 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">5.0</ShaderModel>
       <FileType>Document</FileType>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_frag.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_geom.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_vert.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,7 +28,7 @@ void DepthPassRendering::render_depth_pass(const DepthPassContext& depth_pass_co
 	m_dxrenderer->cmd_set_viewport(0, 0, depth_rt->get_texture()->get_desc().m_width, depth_rt->get_texture()->get_desc().m_height);
 
 	m_dxrenderer->cmd_bind_pipeline(m_depth_pass_pipeline);
-	const AppRenderer::InstanceRenderList& instance_render_list = *depth_pass_context.instance_render_list;
+	const InstanceRenderList& instance_render_list = *depth_pass_context.instance_render_list;
 
 	for (uint64_t i = 0; i < instance_render_list.size(); ++i)
 	{

@@ -1,8 +1,9 @@
-#include "ParticleSystem.h"
+#include "ParticleRendering.h"
 #include "Graphics/AppRenderer.h"
+#include "Managers/ResourceManager.h"
 
 
-ParticleSystem::ParticleSystem(AppRenderer* appRenderer)
+ParticleRendering::ParticleRendering(AppRenderer* appRenderer)
 	:m_appRenderer(appRenderer),
 	m_firstTime(true),
 	m_maxParticlesCount(10000)
@@ -10,12 +11,12 @@ ParticleSystem::ParticleSystem(AppRenderer* appRenderer)
 }
 
 
-ParticleSystem::~ParticleSystem()
+ParticleRendering::~ParticleRendering()
 {
 }
 
 
-void ParticleSystem::LoadContent(DXRenderer* dxrenderer)
+void ParticleRendering::LoadContent(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
@@ -42,9 +43,14 @@ void ParticleSystem::LoadContent(DXRenderer* dxrenderer)
 	particleLifetimeVertexLayout.m_attribs[4].m_format = DXGI_FORMAT_R32_UINT;
 	particleLifetimeVertexLayout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_3;
 
+
+	GeometryShaderStreamoutDesc geomShaderStreamoutDesc = {};
+	geomShaderStreamoutDesc.m_vertexLayout = &particleLifetimeVertexLayout;
+
 	ShaderLoadDesc streamoutParticleShaderDesc = {};
 	streamoutParticleShaderDesc.m_desc.m_vertex_shader_path = "streamout_particle_vert.hlsl";
 	streamoutParticleShaderDesc.m_desc.m_geometry_shader_path = "streamout_particle_geom.hlsl";
+	streamoutParticleShaderDesc.m_pGeomShaderStreamoutDesc = &geomShaderStreamoutDesc;
 
 	m_geomParticleLifetimeShader = DXResourceLoader::Create_Shader(m_dxrenderer, streamoutParticleShaderDesc);
 
@@ -93,14 +99,41 @@ void ParticleSystem::LoadContent(DXRenderer* dxrenderer)
 	streamout_uniform_vb_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
 	streamout_uniform_vb_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
 	streamout_uniform_vb_desc.m_desc.m_debugName = "Stream out particle uniform";
-	streamout_uniform_vb_desc.m_size = sizeof(ParticleStreamOutUniformData);
+	streamout_uniform_vb_desc.m_size = sizeof(ParticleEmitterStreamOutUniformData);
 	streamout_uniform_vb_desc.m_rawData = nullptr;
 
 	m_particleStreamOutUniformBuffer = DXResourceLoader::Create_Buffer(m_dxrenderer, streamout_uniform_vb_desc);
+
+	ShaderLoadDesc renderParticleShaderDesc = {};
+	renderParticleShaderDesc.m_desc.m_vertex_shader_path = "fire_streamout_particle_vert.hlsl";
+	renderParticleShaderDesc.m_desc.m_geometry_shader_path = "fire_streamout_particle_geom.hlsl";
+	renderParticleShaderDesc.m_desc.m_pixel_shader_path = "fire_streamout_particle_frag.hlsl";
+
+	m_renderParticlesShader = DXResourceLoader::Create_Shader(m_dxrenderer, renderParticleShaderDesc);
+
+	pipeline_desc.m_graphics_desc = {};
+	GraphicsPipelineDesc& renderParticlePipeline = pipeline_desc.m_graphics_desc;
+	renderParticlePipeline.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_POINT_LIST;
+	renderParticlePipeline.m_render_target_count = 1;
+	renderParticlePipeline.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
+	renderParticlePipeline.m_depth_state = m_appRenderer->m_testonlyLessEqualDepthState;
+	renderParticlePipeline.m_shader = m_renderParticlesShader;
+	renderParticlePipeline.m_vertex_layout = &particleLifetimeVertexLayout;
+	renderParticlePipeline.m_blend_state = m_appRenderer->m_additiveBlending;
+	m_renderParticlesPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+	m_flareTexture = m_appRenderer->m_resourceManager->GetTexture(
+		StringId(Constant::ParticlesTexturesDir + "flare0.png"));
 }
 
 
-void ParticleSystem::Render()
+void ParticleRendering::Render()
+{
+	RenderStreamoutProcess();
+	RenderParticles();
+}
+
+void ParticleRendering::RenderStreamoutProcess()
 {
 	m_dxrenderer->cmd_bind_pipeline(m_geomParticleLifetimePipeline);
 	m_dxrenderer->cmd_bind_render_targets(nullptr, 0, nullptr, nullptr);
@@ -118,7 +151,7 @@ void ParticleSystem::Render()
 	BufferUpdateDesc updateParticleStreamoutUniformBuffer = {};
 	updateParticleStreamoutUniformBuffer.m_buffer = m_particleStreamOutUniformBuffer;
 	updateParticleStreamoutUniformBuffer.m_pSource = &m_particleStreamOutUniformData;
-	updateParticleStreamoutUniformBuffer.m_size = sizeof(ParticleStreamOutUniformData);
+	updateParticleStreamoutUniformBuffer.m_size = sizeof(ParticleEmitterStreamOutUniformData);
 	m_dxrenderer->cmd_update_buffer(updateParticleStreamoutUniformBuffer);
 
 
@@ -153,8 +186,35 @@ void ParticleSystem::Render()
 	std::swap(m_drawStreamOutVB, m_streamOutVB);
 }
 
+void ParticleRendering::RenderParticles()
+{
+	m_dxrenderer->cmd_bind_render_targets(&m_appRenderer->m_cur_main_rt, 1,
+		m_appRenderer->m_depth_rt, nullptr);
 
-void ParticleSystem::Release()
+	m_dxrenderer->cmd_bind_pipeline(m_renderParticlesPipeline);
+	m_dxrenderer->cmd_bind_vertex_buffer(m_drawStreamOutVB);
+
+	DescriptorData params[5] = {};
+	params[0].m_binding_location = 0;
+	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[0].m_shader_stages = Shader_Stages::GEOMETRY_STAGE;
+	params[0].m_buffers = &m_appRenderer->m_camera_uniform_buffer;
+
+	params[1].m_binding_location = 0;
+	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[1].m_textures = &m_flareTexture;
+
+	params[2].m_binding_location = 0;
+	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[2].m_samplers = &m_appRenderer->m_texture_sampler;
+
+	m_dxrenderer->cmd_bind_descriptor(m_renderParticlesPipeline, 3, params);
+	m_dxrenderer->cmd_draw_auto();
+}
+
+void ParticleRendering::Release()
 {
 	SafeReleaseDelete(m_particleStreamOutUniformBuffer);
 	SafeReleaseDelete(m_initVB);
@@ -166,10 +226,16 @@ void ParticleSystem::Release()
 	SafeReleaseDelete(m_renderParticlesShader);
 }
 
-void ParticleSystem::Update(float dt, float gameTime)
+void ParticleRendering::Update(float dt, float gameTime)
 {
 	m_particleStreamOutUniformData.DeltaTime = dt;
 	m_particleStreamOutUniformData.GameTime = gameTime;
-	m_particleStreamOutUniformData.EmitterDirection = Vector4(0.f, 1.0f, 0.0f, 1.f);
-	m_particleStreamOutUniformData.EmitterPosition = Vector4(0.f, 20.f, -20.f, 1.f);
+	m_particleStreamOutUniformData.EmitterData.EmitterDirection = Vector4(0.f, 1.0f, 0.0f, 1.f);
+	m_particleStreamOutUniformData.EmitterData.EmitterPosition = Vector4(0.f, 0.f, 0.f, 1.f);
+}
+
+
+void ParticleRendering::RegisterParticleEmitterInstance(const ParticleEmitterInstanceData& particleEmmiterInstanceData)
+{
+
 }

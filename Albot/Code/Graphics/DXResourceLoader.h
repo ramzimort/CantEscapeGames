@@ -44,6 +44,7 @@ public:
 		const SamplerDesc& sampler_desc);
 
 	static bool is_depth_format(DXGI_FORMAT image_format);
+	static uint32_t ImageFormatToElementCount(DXGI_FORMAT imageFormat);
 private:
 	static D3D11_USAGE Usage_Type_To_D3D11_Usage(Usage_Type usage_type);
 	static UINT CPU_Access_To_D3D11_CPU_Access(CPU_Access_Type cpu_access_type);

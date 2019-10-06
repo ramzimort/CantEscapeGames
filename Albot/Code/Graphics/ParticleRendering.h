@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics/Renderer_Includes.h"
 #include "Shaders/Shading.h"
-
+#include "Graphics/InstanceRenderData.h"
 
 struct Particle
 {
@@ -14,19 +14,27 @@ struct Particle
 
 class AppRenderer;
 
-class ParticleSystem
+class ParticleRendering
 {
 public:
 	friend class AppRenderer;
 public:
-	ParticleSystem(AppRenderer* appRenderer);
-	~ParticleSystem();
+	ParticleRendering(AppRenderer* appRenderer);
+	~ParticleRendering();
 
 	void LoadContent(DXRenderer* dxrenderer);
 	void Render();
 	void Release();
 	void Update(float dt, float gameTime);
+
+
+	void RegisterParticleEmitterInstance(const ParticleEmitterInstanceData& particleEmmiterInstanceData);
 private:
+	void RenderStreamoutProcess();
+	void RenderParticles();
+private:
+	ParticleEmitterInstanceList m_particleEmitterInstanceList;
+
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
@@ -38,7 +46,7 @@ private:
 
 
 	Buffer* m_particleStreamOutUniformBuffer;
-	ParticleStreamOutUniformData m_particleStreamOutUniformData;
+	ParticleEmitterStreamOutUniformData m_particleStreamOutUniformData;
 
 	Buffer* m_initVB;
 	Buffer* m_streamOutVB;
@@ -47,6 +55,10 @@ private:
 	uint64_t m_maxParticlesCount;
 
 	bool m_firstTime;
+
+
+	//TODO: need to be removed, only for testing purpose
+	Texture* m_flareTexture;
 
 	
 };

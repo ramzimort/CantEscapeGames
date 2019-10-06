@@ -31,7 +31,7 @@ AppRenderer::~AppRenderer()
 }
 
 
-void AppRenderer::LoadContent()
+void AppRenderer::InnerLoadContent()
 {
 
 	m_object_uniform_data_list.reserve(500);
@@ -47,6 +47,14 @@ void AppRenderer::LoadContent()
 	less_equal_depth_state_desc.m_depth_compare_func = CompareFunc::CMP_LEQUAL;
 
 	m_less_equal_depth_state = DXResourceLoader::Create_DepthState(m_dxrenderer, less_equal_depth_state_desc);
+
+	DepthStateDesc testonlyLessEqualDepthStateDesc = {};
+	testonlyLessEqualDepthStateDesc.m_depth_enable = true;
+	testonlyLessEqualDepthStateDesc.m_depth_write_mask = DepthWriteMask::DONT_WRITE_DEPTH;
+	testonlyLessEqualDepthStateDesc.m_stencil_enable = false;
+	testonlyLessEqualDepthStateDesc.m_depth_compare_func = CompareFunc::CMP_LEQUAL;
+
+	m_testonlyLessEqualDepthState = DXResourceLoader::Create_DepthState(m_dxrenderer, testonlyLessEqualDepthStateDesc);
 
 
 	DepthStateDesc disabled_depth_state_desc = {};
@@ -134,6 +142,21 @@ void AppRenderer::LoadContent()
 	blend_state_skybox_desc.m_blendStateTarget = BLEND_STATE_RT_0;
 	blend_state_skybox_desc.m_individualBlend = false;
 	m_skybox_blend_state = DXResourceLoader::Create_BlendState(m_dxrenderer, blend_state_skybox_desc);
+
+
+	BlendStateDesc additiveBlendingDesc = {};
+	additiveBlendingDesc.m_blendOperator[0] = BO_ADD;
+	additiveBlendingDesc.m_blendAlphaOperator[0] = BO_ADD;
+	additiveBlendingDesc.m_srcFactors[0] = BF_SRC_ALPHA;
+	additiveBlendingDesc.m_dstFactors[0] = BF_ONE;
+	additiveBlendingDesc.m_srcAlphaFactors[0] = BF_ONE;
+	additiveBlendingDesc.m_dstAlphaFactors[0] = BF_ONE;
+	additiveBlendingDesc.m_blendStateTarget = BLEND_STATE_RT_0;
+	additiveBlendingDesc.m_individualBlend = false;
+	additiveBlendingDesc.m_enableAlphaCoverage = false;
+
+	m_additiveBlending = DXResourceLoader::Create_BlendState(m_dxrenderer, additiveBlendingDesc);
+
 
 
 	SamplerDesc clamp_linear_sampler_desc = {};
@@ -436,7 +459,11 @@ void AppRenderer::Initialize()
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
 	m_dxrenderer->init(1);
-	LoadContent();
+}
+
+void AppRenderer::LoadContent()
+{
+	InnerLoadContent();
 	m_debugRendering.LoadContent(m_dxrenderer);
 	m_deferrredRendering.LoadContent(m_dxrenderer);
 	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
@@ -471,6 +498,7 @@ void AppRenderer::Release()
 
 	SafeReleaseDelete(m_less_equal_depth_state);
 	SafeReleaseDelete(m_disabled_depth_state);
+	SafeReleaseDelete(m_testonlyLessEqualDepthState);
 
 	SafeReleaseDelete(m_depth_rt);
 	SafeReleaseDelete(m_clamp_linear_sampler);
@@ -491,6 +519,7 @@ void AppRenderer::Release()
 
 	SafeReleaseDelete(m_blend_state_one_zero_add);
 	SafeReleaseDelete(m_skybox_blend_state);
+	SafeReleaseDelete(m_additiveBlending);
 
 
 	SafeReleaseDelete(m_directional_light_uniform_buffer);
@@ -597,7 +626,6 @@ void AppRenderer::RenderApp()
 	m_deferrredRendering.RenderDeferredScene();
 
 
-	m_particleSystem.Render();
 
 	LoadActionsDesc next_load_actions_desc = {};
 	next_load_actions_desc.m_clear_color_values[0] = m_cur_main_rt->get_clear_value();
@@ -608,7 +636,10 @@ void AppRenderer::RenderApp()
 	m_dxrenderer->cmd_bind_render_targets(&m_cur_main_rt, 1, m_depth_rt, next_load_actions_desc);
 	m_dxrenderer->cmd_set_viewport(0, 0, m_cur_main_rt->get_desc().m_texture_desc.m_width,
 		m_cur_main_rt->get_desc().m_texture_desc.m_height);
+	
 
+
+	m_particleSystem.Render();
 
 	m_msaa_resolve_pass.ResolveMSAASwapChain();
 

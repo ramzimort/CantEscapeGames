@@ -74,6 +74,9 @@
     <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Components\ParticleEmitterComponent.cpp" />
+    <ClCompile Include="Code\Graphics\ParticleRendering.cpp" />
+    <ClCompile Include="Code\Systems\ParticleEmitterSystem.cpp" />
     <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
     <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
     <ClCompile Include="Code\Physics\Gjk\Gjk.cpp" />
@@ -182,10 +185,13 @@
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
     <ClInclude Include="Code\Components\AllComponentHeaders.h" />
-    <ClInclude Include="Code\Graphics\ParticleSystem.h" />
     <ClInclude Include="Code\Events\Input\Input.h" />
     <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
+    <ClInclude Include="Code\Components\ParticleEmitterComponent.h" />
+    <ClInclude Include="Code\Graphics\ParticleRendering.h" />
+    <ClInclude Include="Code\Graphics\InstanceRenderData.h" />
+    <ClInclude Include="Code\Systems\ParticleEmitterSystem.h" />
     <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
     <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
     <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
@@ -214,9 +220,12 @@
     <Text Include="Code\Shaders\blur_filter_comp.hlsl" />
     <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
     <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Code\Shaders\streamout_particle_geom.hlsl" />
+    <Text Include="Code\Shaders\streamout_particle_vert.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Code\Shaders\streamout_particle_geom.hlsl" />
-    <FxCompile Include="Code\Shaders\streamout_particle_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_geom.hlsl" />
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_vert.hlsl" />
+    <FxCompile Include="Code\Shaders\fire_streamout_particle_frag.hlsl" />
   </ItemGroup>
 </Project>

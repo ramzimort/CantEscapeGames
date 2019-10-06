@@ -3,7 +3,8 @@
 #include <sstream>
 #include <iostream>
 #include "d3dUtils.h"
-
+#include "Graphics/VertexLayout.h"
+#include "Graphics/DXResourceLoader.h"
 
 
 template<class ShaderClass >
@@ -248,6 +249,76 @@ ID3D11GeometryShader* Create_Shader_Local<ID3D11GeometryShader>(ID3D11Device* de
 	return p_geometry_shader;
 }
 
+
+ID3D11GeometryShader* CreateGeometryStreamoutShader(ID3D11Device* device,
+	GeometryShaderStreamoutDesc* streamoutDesc,
+	ID3DBlob* p_shader_blob, ID3D11ClassLinkage* p_class_linkage)
+{
+	assert(device);
+	assert(p_shader_blob);
+
+	streamoutDesc->m_vertexLayout;
+
+	D3D11_SO_DECLARATION_ENTRY soDeclar[MAX_VERTEX_LAYOUT_ATTRIB] = {};
+	std::string semantic_name[MAX_VERTEX_LAYOUT_ATTRIB] = { "" };
+	for (uint32_t i = 0; i < streamoutDesc->m_vertexLayout->m_atrrib_count; ++i)
+	{
+		const VertexAttrib* vertex_attrib = &streamoutDesc->m_vertexLayout->m_attribs[i];
+		switch (vertex_attrib->m_semantic)
+		{
+		case Attrib_Semantic::POSITION: semantic_name[i] = "POSITION"; break;
+		case Attrib_Semantic::NORMAL: semantic_name[i] = "NORMAL"; break;
+		case Attrib_Semantic::COLOR: semantic_name[i] = "COLOR"; break;
+		case Attrib_Semantic::TANGENT: semantic_name[i] = "TANGENT"; break;
+		case Attrib_Semantic::BITANGENT: semantic_name[i] = "BITANGENT"; break;
+		case Attrib_Semantic::TEXCOORD_0: semantic_name[i] = "TEXCOORD"; break;
+		case Attrib_Semantic::TEXCOORD_1: semantic_name[i] = "TEXCOORD"; break;
+		case Attrib_Semantic::TEXCOORD_2: semantic_name[i] = "TEXCOORD"; break;
+		case Attrib_Semantic::TEXCOORD_3: semantic_name[i] = "TEXCOORD"; break;
+		default: break;
+		}
+
+		assert(semantic_name[i] != "");
+
+		//semantic index is for semantic with similar names but different id
+		//eg texcoord0, texcoord1, etc
+		uint32_t semantic_index = 0;
+
+		switch (vertex_attrib->m_semantic)
+		{
+		case Attrib_Semantic::TEXCOORD_0: semantic_index = 0; break;
+		case Attrib_Semantic::TEXCOORD_1: semantic_index = 1; break;
+		case Attrib_Semantic::TEXCOORD_2: semantic_index = 2; break;
+		case Attrib_Semantic::TEXCOORD_3: semantic_index = 3; break;
+		default: break;
+		}
+
+
+		soDeclar[i].SemanticName = semantic_name[i].c_str();
+		soDeclar[i].SemanticIndex = semantic_index;
+		soDeclar[i].ComponentCount = DXResourceLoader::ImageFormatToElementCount(vertex_attrib->m_format);
+		soDeclar[i].OutputSlot = 0;
+		soDeclar[i].StartComponent = 0;
+		soDeclar[i].Stream = 0;
+	}
+
+	ID3D11GeometryShader* p_geometry_shader = nullptr;
+
+	HRESULT hr = device->CreateGeometryShaderWithStreamOutput(
+		p_shader_blob->GetBufferPointer(),
+		p_shader_blob->GetBufferSize(),
+		soDeclar, streamoutDesc->m_vertexLayout->m_atrrib_count, 
+		nullptr, 0, 0, 
+		p_class_linkage, &p_geometry_shader);
+
+	if (FAILED_HR(hr))
+	{
+		return nullptr;
+	}
+
+	return p_geometry_shader;
+}
+
 template<>
 ID3D11ComputeShader* Create_Shader_Local<ID3D11ComputeShader>(ID3D11Device* device,
 	ID3DBlob* p_shader_blob, ID3D11ClassLinkage* p_class_linkage)
@@ -272,7 +343,7 @@ ID3D11ComputeShader* Create_Shader_Local<ID3D11ComputeShader>(ID3D11Device* devi
 
 
 template<class ShaderClass>
-ShaderClass* Load_Shader(ID3D11Device* device,
+ShaderClass* Load_Shader(const ShaderLoadDesc& shaderLoadDesc, ID3D11Device* device,
 	const std::string& file_name,
 	const std::string& entry_point,
 	const std::string& profile_args,
@@ -329,8 +400,92 @@ ShaderClass* Load_Shader(ID3D11Device* device,
 		return nullptr;
 	}
 
+
+	
 	p_shader = Create_Shader_Local<ShaderClass>(device,
 		p_shader_blob, nullptr);
+	
+	out_shader_blob = p_shader_blob;
+
+	//SafeRelease(p_shader_blob);
+	SafeRelease(p_error_blob);
+
+	return p_shader;
+}
+
+template<>
+ID3D11GeometryShader* Load_Shader(const ShaderLoadDesc& shaderLoadDesc, ID3D11Device* device,
+	const std::string& file_name,
+	const std::string& entry_point,
+	const std::string& profile_args,
+	uint32_t shader_macro_count,
+	ShaderMacro* pp_shader_macro,
+	ID3DBlob*& out_shader_blob)
+{
+	ID3DBlob* p_shader_blob = nullptr;
+	ID3DBlob* p_error_blob = nullptr;
+	ID3D11GeometryShader* p_shader = nullptr;
+
+	std::string profile = profile_args;
+	if (profile == "latest")
+	{
+		profile = Get_Latest_Profile_Local<ID3D11GeometryShader>(device);
+	}
+
+	UINT flags = D3DCOMPILE_ENABLE_STRICTNESS;
+#if _DEBUG
+	flags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#else
+	flags |= D3DCOMPILE_OPTIMIZATION_LEVEL3;
+#endif
+
+	std::wstring file_name_w(file_name.begin(), file_name.end());
+
+	D3D_SHADER_MACRO* d3d_shader_macro = (D3D_SHADER_MACRO*)alloca((shader_macro_count + 1) * sizeof(D3D_SHADER_MACRO));
+
+	for (uint32_t i = 0; i < shader_macro_count; ++i)
+	{
+		d3d_shader_macro[i].Name = pp_shader_macro[i].m_name.c_str();
+		d3d_shader_macro[i].Definition = pp_shader_macro[i].m_definition.c_str();
+	}
+
+	d3d_shader_macro[shader_macro_count] = { NULL, NULL };
+
+	HRESULT hr = D3DCompileFromFile(
+		file_name_w.c_str(),
+		d3d_shader_macro,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		entry_point.c_str(), profile.c_str(),
+		flags, 0, &p_shader_blob, &p_error_blob);
+
+	if (FAILED_HR(hr))
+	{
+		if (p_error_blob)
+		{
+			std::string error_message =
+				(char*)p_error_blob->GetBufferPointer();
+			OutputDebugStringA(error_message.c_str());
+			SafeRelease(p_shader_blob);
+			SafeRelease(p_error_blob);
+		}
+		return nullptr;
+	}
+
+
+	if (shaderLoadDesc.m_pGeomShaderStreamoutDesc)
+	{
+		p_shader = CreateGeometryStreamoutShader(device,
+			shaderLoadDesc.m_pGeomShaderStreamoutDesc,
+			p_shader_blob, nullptr);
+	}
+	else
+	{
+		p_shader = Create_Shader_Local<ID3D11GeometryShader>(device,
+			p_shader_blob, nullptr);
+	}
+
+
+	
 
 	out_shader_blob = p_shader_blob;
 
@@ -339,6 +494,8 @@ ShaderClass* Load_Shader(ID3D11Device* device,
 
 	return p_shader;
 }
+
+
 
 
 Shader::Shader(const ShaderDesc& desc)
@@ -370,7 +527,7 @@ void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_
 {
 	if (shader_load_desc.m_desc.m_compute_shader_path != "")
 	{
-		m_compute_shader = Load_Shader<ID3D11ComputeShader>(device,
+		m_compute_shader = Load_Shader<ID3D11ComputeShader>(shader_load_desc, device,
 			Constant::ShadersDir + shader_load_desc.m_desc.m_compute_shader_path, "main", "latest",
 			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_compute_shader_blob);
@@ -382,7 +539,7 @@ void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_
 
 	if (shader_load_desc.m_desc.m_vertex_shader_path != "")
 	{
-		m_vertex_shader = Load_Shader<ID3D11VertexShader>(device,
+		m_vertex_shader = Load_Shader<ID3D11VertexShader>(shader_load_desc, device,
 			Constant::ShadersDir + shader_load_desc.m_desc.m_vertex_shader_path, "main", "latest",
 			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_vertex_shader_blob);
@@ -392,7 +549,7 @@ void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_
 
 	if (shader_load_desc.m_desc.m_geometry_shader_path != "")
 	{
-		m_geometry_shader = Load_Shader<ID3D11GeometryShader>(device,
+		m_geometry_shader = Load_Shader<ID3D11GeometryShader>(shader_load_desc, device,
 			Constant::ShadersDir + shader_load_desc.m_desc.m_geometry_shader_path, "main", "latest",
 			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_geometry_shader_blob);
@@ -402,7 +559,7 @@ void Shader::Initialize(ID3D11Device* device, const ShaderLoadDesc& shader_load_
 
 	if (shader_load_desc.m_desc.m_pixel_shader_path != "")
 	{
-		m_pixel_shader = Load_Shader<ID3D11PixelShader>(device,
+		m_pixel_shader = Load_Shader<ID3D11PixelShader>(shader_load_desc, device,
 			Constant::ShadersDir + shader_load_desc.m_desc.m_pixel_shader_path, "main", "latest",
 			shader_load_desc.m_shader_macro_count, shader_load_desc.m_shader_macro,
 			m_pixel_shader_blob);

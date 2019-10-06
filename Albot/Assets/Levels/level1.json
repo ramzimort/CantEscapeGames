@@ -1,7 +1,8 @@
 {
   "Resources": {
     "Textures": [
-      "Assets/Textures/floor.png"
+      "Assets/Textures/floor.png",
+      "Assets/Textures/Particles/flare0.png"
     ],
     "Models": [
       "Assets/Models/mitsuba-sphere.obj"

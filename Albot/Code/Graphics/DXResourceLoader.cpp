@@ -37,7 +37,7 @@ D3D11_BLEND g_d3d11_blend_factor_converter[BlendFactor::BF_TOTAL_COUNTS] =
 };
 
 
-//float ImageFormatToBytesValue(DXGI_FORMAT imageFormat)
+//uint32_t ImageFormatToBytesValue(DXGI_FORMAT imageFormat)
 //{
 //	if (imageFormat >= 1 && imageFormat <= 4)
 //	{
@@ -45,6 +45,44 @@ D3D11_BLEND g_d3d11_blend_factor_converter[BlendFactor::BF_TOTAL_COUNTS] =
 //	}
 //	else if(imageFormat >= )
 //}
+
+uint32_t DXResourceLoader::ImageFormatToElementCount(DXGI_FORMAT imageFormat)
+{
+	if (imageFormat >= 1 && imageFormat <= 4)
+	{
+		return 4;
+	}
+	else if (imageFormat >= 5 && imageFormat <= 8)
+	{
+		return 3;
+	}
+	else if (imageFormat >= 9 && imageFormat <= 14)
+	{
+		return 4;
+	}
+	else if (imageFormat >= 15 && imageFormat <= 18)
+	{
+		return 2;
+	}
+	else if (imageFormat >= 27 && imageFormat <= 32)
+	{
+		return 4;
+	}
+	else if (imageFormat >= 33 && imageFormat <= 38)
+	{
+		return 2;
+	}
+	else if (imageFormat >= 40 && imageFormat <= 43)
+	{
+		return 1;
+	}
+	else if (imageFormat >= 53 && imageFormat <= 59)
+	{
+		return 1;
+	}
+	return 0;
+}
+
 
 
 bool DXResourceLoader::is_depth_format(DXGI_FORMAT image_format)

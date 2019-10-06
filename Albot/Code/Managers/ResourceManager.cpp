@@ -5,6 +5,7 @@
 #include "Graphics/Material.h"
 #include "Graphics/ModelLoader.h"
 #include "Graphics/D3D11_Renderer.h"
+#include "Graphics/DXResourceLoader.h"
 #include "Reflection/Serialization.h"
 #include "CantDebug/CantDebug.h"
 #include "Memory/CantMemory.h"
@@ -95,8 +96,11 @@ void ResourceManager::LoadTexture(const std::string& filePath)
 	if (texture != nullptr)
 		return;
 
-	//TextureLoader::CreateTexture(m_dxrenderer, TextureLoadDesc(filePath));
-	//m_resources[CANTID(filePath)] = 
+	TextureLoadDesc loadTextureDesc = {};
+	loadTextureDesc.m_file_name = filePath;
+	loadTextureDesc.m_rawData = nullptr;
+
+	m_resources[id] = DXResourceLoader::Create_Texture(m_dxrenderer, loadTextureDesc);
 }
 
 void ResourceManager::LoadAudio(const std::string& filePath)

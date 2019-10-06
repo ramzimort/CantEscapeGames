@@ -38,6 +38,7 @@ void EventManager::Initialize()
 
 	m_pStateManager->SwitchState(new State("level1.json", m_pAppRenderer, 
 		m_pResourceManager, m_pScriptingManager));
+	m_pAppRenderer->LoadContent();
 }
 
 EventManager* EventManager::Get()

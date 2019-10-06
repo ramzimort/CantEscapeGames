@@ -15,6 +15,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/RigidbodySystem.h"
 #include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
+#include "Systems/ParticleEmitterSystem.h"
 #include "Systems/LightSystem.h"
 #include "Systems/CameraSystem.h"
 #ifdef DEVELOPER
@@ -30,9 +31,11 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<CameraSystem>();
 	this->AddSystem<LightSystem>();
 	this->AddSystem<RenderingSystem>();
+	this->AddSystem<ParticleEmitterSystem>();
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RigidbodySystem*>(m_systems[RigidbodySystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
 
 #ifdef DEVELOPER
 	this->AddSystem<FPSCameraSystem>();

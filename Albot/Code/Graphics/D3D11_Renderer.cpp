@@ -1041,7 +1041,7 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 
 	HRESULT hr = D3D11CreateDeviceAndSwapChain(
 		m_cur_adapter,
-		D3D_DRIVER_TYPE_HARDWARE,
+		D3D_DRIVER_TYPE_UNKNOWN,
 		nullptr,
 		create_device_flags,
 		feature_levels,

@@ -6,13 +6,13 @@
 struct DepthPassContext
 {
 	DepthPassContext(RenderTarget*& depth_rt, CameraUniformData* camera_uniform_data,
-		AppRenderer::InstanceRenderList* inst_render_list) :depth_render_target(depth_rt), 
+		InstanceRenderList* inst_render_list) :depth_render_target(depth_rt), 
 		depth_pass_camera_uniform_data(camera_uniform_data),
 		instance_render_list(inst_render_list)
 	{}
 	RenderTarget*& depth_render_target;
 	CameraUniformData* depth_pass_camera_uniform_data;
-	AppRenderer::InstanceRenderList* instance_render_list;
+	InstanceRenderList* instance_render_list;
 };
 
 class DepthPassRendering{

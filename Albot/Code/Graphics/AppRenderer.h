@@ -8,7 +8,8 @@
 #include "DeferredRendering.h"
 #include "Shaders/Shading.h"
 #include "Graphics/MSAAResolvePass.h"
-#include "Graphics/ParticleSystem.h"
+#include "Graphics/ParticleRendering.h"
+#include "Graphics/InstanceRenderData.h"
 
 
 class Material;
@@ -37,30 +38,6 @@ struct PointLightUniformData
 
 class Light;
 
-struct PointLightInstanceData
-{
-	const Light* light;
-	Vector3 light_position;
-};
-
-struct DirectionalLightInstanceData
-{
-	const Light* light;
-	Vector3 light_direction;
-};
-
-
-
-struct InstanceRenderData
-{
-	Matrix model_mat = Matrix::Identity;
-	Matrix normal_mat = Matrix::Identity;
-	Material* p_ref_material = nullptr;
-	Model* p_ref_model = nullptr;
-	Vector2 uv_tiling = Vector2(1.0f, 1.0f);
-};
-
-
 
 class ResourceManager;
 class CameraManager;
@@ -72,10 +49,9 @@ public:
 	friend class DepthPassRendering;
 	friend class MSAAResolvePass;
 	friend class ShadowMapRendering;
-	friend class ParticleSystem;
+	friend class ParticleRendering;
 
 	typedef std::vector<Buffer*> BufferList;
-	typedef std::vector<InstanceRenderData> InstanceRenderList;
 	typedef std::vector<PointLightInstanceData> PointLightInstanceDataList;
 	typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;
 public:
@@ -97,10 +73,13 @@ public:
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
 	
+	
 	void RenderBasicInstances(Pipeline* pipeline);
+
+	void LoadContent();
 private:
 	void Initialize();
-	void LoadContent();
+	void InnerLoadContent();
 
 	void LoadSkyboxContent();
 	void InitRandomTexture1D();
@@ -130,6 +109,7 @@ private:
 
 	DepthState* m_less_equal_depth_state = nullptr;
 	DepthState* m_disabled_depth_state = nullptr;
+	DepthState* m_testonlyLessEqualDepthState = nullptr;
 	
 	RenderTarget* m_cur_main_rt = nullptr;
 	RenderTarget* m_msaa_main_rt = nullptr;
@@ -153,9 +133,10 @@ private:
 
 	BlendState* m_blend_state_one_zero_add;
 	BlendState* m_skybox_blend_state;
+	BlendState* m_additiveBlending;
 
 
-	ParticleSystem m_particleSystem;
+	ParticleRendering m_particleSystem;
 	float m_gameTime;
 
 	MSAAResolvePass m_msaa_resolve_pass;

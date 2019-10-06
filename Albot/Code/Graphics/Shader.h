@@ -20,11 +20,19 @@ struct ShaderDesc
 	std::string m_geometry_shader_path = "";
 };
 
+struct VertexLayout;
+
+struct GeometryShaderStreamoutDesc
+{
+	VertexLayout* m_vertexLayout;
+};
+
 struct ShaderLoadDesc
 {
 	ShaderDesc m_desc;
 	uint32_t m_shader_macro_count = 0;
 	ShaderMacro* m_shader_macro;
+	GeometryShaderStreamoutDesc* m_pGeomShaderStreamoutDesc;
 };
 
 

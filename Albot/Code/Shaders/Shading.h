@@ -100,10 +100,21 @@ struct MSAAResolveUniformData
 #define PARTICLE_TYPE_FIRE 1
 
 
-struct ParticleStreamOutUniformData
+struct ParticleEmitterUniformData
 {
 	float4 EmitterPosition;
 	float4 EmitterDirection;
+	
+	//Y holds how spread out the particle will be emitted
+	//Z holds how many particle will this emitter emits
+	//W holds bool flag, whether emitter will always emit or not
+	float4 EmitterMiscData;
+};
+
+
+struct ParticleEmitterStreamOutUniformData
+{
+	ParticleEmitterUniformData EmitterData;
 	float GameTime;
 	float DeltaTime;
 };
