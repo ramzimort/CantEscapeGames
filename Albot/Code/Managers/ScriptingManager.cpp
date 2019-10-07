@@ -23,6 +23,9 @@ void printDebugAndLog(std::string msg)
 }
 
 
+///#define SOL_CHECK_ARGUMENTS
+
+
 ScriptingManager::ScriptingManager()
 {
 	//We enter here
@@ -306,27 +309,30 @@ void ScriptingManager::ManageBindings()
 	////  COMPONENTS  ////
 	//////////////////////
 
-	//luaState.new_usertype<TransformComponent>
-	//(
-	//	"TransformComponent",
-	//	"Translate", &TransformComponent::Translate,
-	//	"Translate", &TransformComponent::Translate,
-	//	"Rotate", &TransformComponent::Rotate,
-	//	"Rotate", &TransformComponent::Rotate,
-	//	"Scale", &TransformComponent::Scale,
-	//	"Scale", &TransformComponent::Scale,
-	//	"Scale", &TransformComponent::Scale,
-	//	"GetWorldPosition", &TransformComponent::GetWorldPosition,
-	//	"GetPosition", &TransformComponent::GetPosition,
-	//	"GetRotation", &TransformComponent::GetRotation,
-	//	"GetScale", &TransformComponent::GetScale,
-	//	"GetModel", &TransformComponent::GetModel,
-	//	"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
-	//	"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
-	//	"SetLocalPosition", &TransformComponent::SetLocalPosition,
-	//	"SetLocalPosition", &TransformComponent::SetLocalPosition,
-	//	"SetLocalRotation", &TransformComponent::SetLocalRotation
-	//);
+
+	//void Translate(float dx, float dy, float dz);
+	//void Translate(Vector3 const &translate);
+
+	luaState.new_usertype<TransformComponent>
+	(
+		"TransformComponent"
+		//"Translate", sol::overload
+		//(
+		//	&TransformComponent::Translate<float, float float>, 
+		//	&TransformComponent::Translate<Vector3>
+		//)
+		//"Rotate", sol::overload(&TransformComponent::Rotate, &TransformComponent::Rotate),
+		//"Scale", sol::overload(&TransformComponent::Scale, &TransformComponent::Scale, &TransformComponent::Scale),
+		//"GetWorldPosition", &TransformComponent::GetWorldPosition,
+		//"GetPosition", &TransformComponent::GetPosition,
+		//"GetRotation", &TransformComponent::GetRotation,
+		//"GetScale", &TransformComponent::GetScale,
+		//"GetModel", &TransformComponent::GetModel,
+		//"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
+		//"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
+		//"SetLocalPosition", sol::overload(&TransformComponent::SetLocalPosition, &TransformComponent::SetLocalPosition),
+		//"SetLocalRotation", &TransformComponent::SetLocalRotation
+	);
 
 	//Setting variables ( GET - SET )
 	//testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
