@@ -17,7 +17,8 @@
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",
       "Assets/Prefabs/directional_light.json",
-      "Assets/Prefabs/RBTestObj.json"
+      "Assets/Prefabs/RBTestObj.json",
+      "Assets/Prefabs/player.json"
     ]
   },
   "Objects": [
@@ -96,6 +97,12 @@
           "IsEffectedByGravity": 1,
           "Velocity": [ 0.0, 0.0, 0.0 ]
         }
+      }
+    },
+    {
+      "tag": "obj8",
+      "prefab": "Assets/Prefabs/player.json",
+      "overrides": {
       }
     }
   ]

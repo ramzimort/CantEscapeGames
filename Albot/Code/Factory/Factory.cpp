@@ -252,7 +252,7 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 {
 	if (name == "TransformComponent")
 		return go->AddComponent<TransformComponent>();
-	else if (name == "RigidbodyComponent")
+	else if (name == "RigidBodyComponent")
 		return go->AddComponent<RigidbodyComponent>();
 	else if (name == "RendererComponent")
 		return go->AddComponent<RendererComponent>();
