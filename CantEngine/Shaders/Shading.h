@@ -8,6 +8,8 @@
 #define MAX_LINE_DEBUG_DRAW 2000
 #define MAX_DIRECTIONAL_LIGHT_COUNT 8
 
+#define MAX_PARTICLE_EMIT_ONCE 50u
+
 
 #define BLUR_WORKGROUP_THREAD_ID_X 128
 #define BLUR_WORKGROUP_THREAD_ID_Y 1
@@ -24,6 +26,7 @@
 //#define MAT_ID_DIFFUSE_NORMAL_PARALLAX_TEXTURE 3
 
 static const float PI = 3.14159f;
+static const float PI_2 = PI * 2.f;
 
 
 struct CameraUniformData
@@ -95,5 +98,34 @@ struct MSAAResolveUniformData
 	int SampleRadius;
 };
 
+
+#define PARTICLE_TYPE_EMITTER 0
+#define PARTICLE_TYPE_FIRE 1
+
+
+struct ParticleEmitterUniformData
+{
+	float4 EmitterPosition;
+	float4 EmitterDirection;
+	
+	//X holds how spread out the pitch angle particle will be emitted
+	//Y holds how spread out the yaw angle particle will be emitted 
+	//Z holds the rate of emitted particle
+	//W holds particle emitter type
+	float4 EmitterMiscData;
+
+	//X Holds the life time of the emitter
+	//Y holds the current local time of the emitter
+	//Z particle emitted count
+	float4 EmitterMiscData2;
+};
+
+
+struct ParticleEmitterStreamOutUniformData
+{
+	ParticleEmitterUniformData EmitterData;
+	float GameTime;
+	float DeltaTime;
+};
 
 #endif

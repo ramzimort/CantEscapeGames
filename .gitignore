@@ -11,8 +11,8 @@ CantEngine.exp
 CantEngine.lib
 CantDebug.exp
 CantDebug.lib
-CantDebug_d.exp
 CantDebug_d.lib
+CantDebug_d.exp
 
 # Build results
 [Dd]eveloper

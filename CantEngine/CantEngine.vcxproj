@@ -34,6 +34,7 @@
     <ClCompile Include="Components\CustomComponent\CustomComponent.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Components\MeshComponent.cpp" />
+    <ClCompile Include="Components\ParticleEmitterComponent.cpp" />
     <ClCompile Include="Components\RendererComponent.cpp" />
     <ClCompile Include="Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Components\TestComponent.cpp" />
@@ -61,6 +62,7 @@
     <ClCompile Include="Graphics\Model.cpp" />
     <ClCompile Include="Graphics\ModelLoader.cpp" />
     <ClCompile Include="Graphics\MSAAResolvePass.cpp" />
+    <ClCompile Include="Graphics\ParticleRendering.cpp" />
     <ClCompile Include="Graphics\Pipeline.cpp" />
     <ClCompile Include="Graphics\RasterizerState.cpp" />
     <ClCompile Include="Graphics\RenderTarget.cpp" />
@@ -80,10 +82,16 @@
     <ClCompile Include="Memory\CantMemory.cpp" />
     <ClCompile Include="Memory\StackAllocator.cpp" />
     <ClCompile Include="Physics\CollisionTable.cpp" />
+    <ClCompile Include="Physics\Constraint.cpp" />
     <ClCompile Include="Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Physics\Geometry\Intersection.cpp" />
+    <ClCompile Include="Physics\Geometry\RayCant.cpp" />
     <ClCompile Include="Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Physics\Sat\Sat.cpp" />
+    <ClCompile Include="Physics\Geometry\Triangle.cpp" />
+    <ClCompile Include="Physics\Gjk\CollisionManifold.cpp" />
+    <ClCompile Include="Physics\Gjk\Gjk.cpp" />
+    <ClCompile Include="Physics\PhysicsUtils.cpp" />
+    <ClCompile Include="Physics\SpatialPartition\CastResults.cpp" />
     <ClCompile Include="Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -102,6 +110,7 @@
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CustomSystem\CustomSystem.cpp" />
     <ClCompile Include="Systems\LightSystem.cpp" />
+    <ClCompile Include="Systems\ParticleEmitterSystem.cpp" />
     <ClCompile Include="Systems\RenderingSystem.cpp" />
     <ClCompile Include="Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Systems\TestSystem.cpp" />
@@ -117,6 +126,7 @@
     <ClInclude Include="Components\CustomComponent\CustomComponent.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Components\MeshComponent.h" />
+    <ClInclude Include="Components\ParticleEmitterComponent.h" />
     <ClInclude Include="Components\RendererComponent.h" />
     <ClInclude Include="Components\RigidbodyComponent.h" />
     <ClInclude Include="Components\TestComponent.h" />
@@ -154,12 +164,14 @@
     <ClInclude Include="Graphics\DescriptorData.h" />
     <ClInclude Include="Graphics\DXResourceLoader.h" />
     <ClInclude Include="Graphics\GraphicsSettings.h" />
+    <ClInclude Include="Graphics\InstanceRenderData.h" />
     <ClInclude Include="Graphics\Light.h" />
     <ClInclude Include="Graphics\Material.h" />
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\ModelLoader.h" />
     <ClInclude Include="Graphics\MSAAResolvePass.h" />
+    <ClInclude Include="Graphics\ParticleRendering.h" />
     <ClInclude Include="Graphics\Pipeline.h" />
     <ClInclude Include="Graphics\RasterizerState.h" />
     <ClInclude Include="Graphics\Renderer_Includes.h" />
@@ -186,12 +198,17 @@
     <ClInclude Include="Memory\PoolAllocator.h" />
     <ClInclude Include="Memory\StackAllocator.h" />
     <ClInclude Include="Physics\CollisionTable.h" />
+    <ClInclude Include="Physics\Constraint.h" />
     <ClInclude Include="Physics\Geometry\Aabb.h" />
     <ClInclude Include="Physics\Geometry\Intersection.h" />
+    <ClInclude Include="Physics\Geometry\RayCant.h" />
     <ClInclude Include="Physics\Geometry\Shape.h" />
     <ClInclude Include="Physics\Geometry\Sphere.h" />
+    <ClInclude Include="Physics\Geometry\Triangle.h" />
+    <ClInclude Include="Physics\Gjk\CollisionManifold.h" />
+    <ClInclude Include="Physics\Gjk\Gjk.h" />
     <ClInclude Include="Physics\PhysicsUtils.h" />
-    <ClInclude Include="Physics\Sat\Sat.h" />
+    <ClInclude Include="Physics\SpatialPartition\CastResults.h" />
     <ClInclude Include="Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Physics\SpatialPartition\SpatialPartitionData.h" />
@@ -207,6 +224,7 @@
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CustomSystem\CustomSystem.h" />
     <ClInclude Include="Systems\LightSystem.h" />
+    <ClInclude Include="Systems\ParticleEmitterSystem.h" />
     <ClInclude Include="Systems\RenderingSystem.h" />
     <ClInclude Include="Systems\RigidbodySystem.h" />
     <ClInclude Include="Systems\TestSystem.h" />
@@ -260,6 +278,10 @@
     <Text Include="Shaders\skybox_vert.hlsl">
       <FileType>Document</FileType>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\test01Comp.lua" />
+    <None Include="Scripts\test02Comp.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

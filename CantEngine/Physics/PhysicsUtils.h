@@ -7,6 +7,8 @@ Other Authors :
 
 #pragma once
 
+#include "CantDebug/CantDebug.h"
+
 namespace PhysicsUtils
 {
 	namespace Consts

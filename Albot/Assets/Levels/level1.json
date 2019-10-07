@@ -1,7 +1,8 @@
 {
   "Resources": {
     "Textures": [
-      "Assets/Textures/floor.png"
+      "Assets/Textures/floor.png",
+      "Assets/Textures/Particles/flare0.png"
     ],
     "Models": [
       "Assets/Models/mitsuba-sphere.obj"
@@ -17,22 +18,37 @@
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",
       "Assets/Prefabs/directional_light.json",
+      "Assets/Prefabs/RBTestObj.json",
       "Assets/Prefabs/player.json"
     ]
   },
   "Objects": [
     {
-      "tag": "obj6",
-      "prefab": "Assets/Prefabs/player.json",
-      "overrides": {}
+      "tag": "obj1",
+      "prefab": "Assets/Prefabs/mono_azul.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -101.0, -2.0, -3.0 ],
+          "Rotation": [ 50.0, 60.0, 70.0 ]
+        }
+      }
+    },
+    {
+      "tag": "obj2",
+      "prefab": "Assets/Prefabs/mono_rojo.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -100.0, -20.0, -30.0 ]
+        }
+      }
     },
     {
       "tag": "obj3",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 5.0, 5.0, 0.0 ],
-          "Rotation": [ 50.0, 60.0, 70.0 ]
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
         }
       }
     },
@@ -41,8 +57,8 @@
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -5.0, -5.0, 0.0 ],
-          "Rotation": [ 50.0, 60.0, 70.0 ]
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
         }
       }
     },
@@ -50,9 +66,54 @@
       "tag": "obj5",
       "prefab": "Assets/Prefabs/directional_light.json",
       "overrides": {
-
+        "TransformComponent": {
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "obj6",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -2.0, 0.0, -14.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 0,
+          "Velocity": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "obj7",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -2.0, 3.0, -14.5 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 1,
+          "Velocity": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "obj8",
+      "prefab": "Assets/Prefabs/player.json",
+      "overrides": {
+      }
+    },
+    {
+      "tag": "obj7",
+      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, -20.0, 0.0 ]
+        }
       }
     }
-
   ]
 }

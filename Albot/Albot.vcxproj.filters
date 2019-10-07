@@ -18,6 +18,9 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shaders\Shading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -26,5 +29,27 @@
     <ClCompile Include="Albot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\streamout_particle_vert.hlsl" />
+    <Text Include="Shaders\blur_filter_comp.hlsl" />
+    <Text Include="Shaders\debug_frag.hlsl" />
+    <Text Include="Shaders\debug_instance_vert.hlsl" />
+    <Text Include="Shaders\debug_line_vert.hlsl" />
+    <Text Include="Shaders\deferred_pass_frag.hlsl" />
+    <Text Include="Shaders\deferred_pass_vert.hlsl" />
+    <Text Include="Shaders\deferred_shade_frag.hlsl" />
+    <Text Include="Shaders\deferred_shade_pointlight_frag.hlsl" />
+    <Text Include="Shaders\deferred_shade_pointlight_vert.hlsl" />
+    <Text Include="Shaders\depth_pass_vert.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_frag.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_geom.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_vert.hlsl" />
+    <Text Include="Shaders\fullscreen_quad_vert.hlsl" />
+    <Text Include="Shaders\msaa_resolve_frag.hlsl" />
+    <Text Include="Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Shaders\skybox_frag.hlsl" />
+    <Text Include="Shaders\skybox_vert.hlsl" />
+    <Text Include="Shaders\streamout_particle_geom.hlsl" />
   </ItemGroup>
 </Project>

@@ -68,19 +68,19 @@ namespace MathUtil
 		// roll (x-axis rotation)
 		double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
 		double cosr_cosp = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
-		angles.x = atan2(sinr_cosp, cosr_cosp);
+		angles.x = static_cast<float>(atan2(sinr_cosp, cosr_cosp));
 
 		// pitch (y-axis rotation)
 		double sinp = +2.0 * (q.w * q.y - q.z * q.x);
 		if (fabs(sinp) >= 1)
-			angles.y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+			angles.y = static_cast<float>(copysign(M_PI / 2, sinp)); // use 90 degrees if out of range
 		else
-			angles.y = asin(sinp);
+			angles.y = static_cast<float>(asin(sinp));
 
 		// yaw (z-axis rotation)
 		double siny_cosp = +2.0 * (q.w * q.z + q.x * q.y);
 		double cosy_cosp = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);
-		angles.z = atan2(siny_cosp, cosy_cosp);
+		angles.z = static_cast<float>(atan2(siny_cosp, cosy_cosp));
 
 		return angles;
 	}

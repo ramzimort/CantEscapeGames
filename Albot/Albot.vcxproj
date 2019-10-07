@@ -229,6 +229,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Shaders\Shading.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +242,68 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\blur_filter_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\debug_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\debug_instance_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\debug_line_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\deferred_pass_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\deferred_pass_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\deferred_shade_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\deferred_shade_pointlight_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\deferred_shade_pointlight_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\depth_pass_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\fire_streamout_particle_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\fire_streamout_particle_geom.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\fire_streamout_particle_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\fullscreen_quad_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\msaa_resolve_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\msaa_resolve_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\skybox_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\skybox_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\streamout_particle_geom.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\streamout_particle_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

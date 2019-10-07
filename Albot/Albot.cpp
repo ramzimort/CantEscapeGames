@@ -12,7 +12,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: Place code here.
-	CantEngineAPI::InitializeEngine();
+	// The screen size
+
+	// Initial state path (json file)
+    CantEngineAPI::InitializeEngine();
 
 }
