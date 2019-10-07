@@ -129,8 +129,8 @@ void RigidbodySystem::LateUpdate(float dt)
 			RigidbodyComponent* rb1 = static_cast<RigidbodyComponent*>(query.m_clientData0);
 			RigidbodyComponent* rb2 = static_cast<RigidbodyComponent*>(query.m_clientData1);
 
-			TransformComponent* tr1 = rb1->GetGameObjectOwner()->GetComponent<TransformComponent>();
-			TransformComponent* tr2 = rb2->GetGameObjectOwner()->GetComponent<TransformComponent>();
+			TransformComponent* tr1 = rb1->GetOwner()->GetComponent<TransformComponent>();
+			TransformComponent* tr2 = rb2->GetOwner()->GetComponent<TransformComponent>();
 			//m_pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(tr1->GetPosition(), tr2->GetPosition(), Vector3(0, 1, 0));
 			
 			ObbSupportShape supportShape1(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
