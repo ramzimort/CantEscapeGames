@@ -30,8 +30,6 @@ void EventManager::Initialize()
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager();
-	m_pInputManager->Initialize();
-
 	m_pScriptingManager = new ScriptingManager();
 	m_pCameraManager = new CameraManager();
 	m_pResourceManager = new ResourceManager();
