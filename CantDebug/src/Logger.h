@@ -1,4 +1,5 @@
 
+
 class Logger
 {
 public:

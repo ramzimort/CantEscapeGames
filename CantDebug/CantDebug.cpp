@@ -1,11 +1,9 @@
-// CantDebug.cpp : Defines the exported functions for the DLL application.
-
 #include "stdafx.h"
 #include "CantDebug.h"
-#include "DataQueue.h"
-#include "SliderFloatQueue.h"
-#include "Logger.h"
-#include "MemoryProfiler.h"
+#include "src/DataQueue.h"
+#include "src/SliderFloatQueue.h"
+#include "src/Logger.h"
+#include "src/MemoryProfiler.h"
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;

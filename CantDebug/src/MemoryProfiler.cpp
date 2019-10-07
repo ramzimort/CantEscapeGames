@@ -1,9 +1,5 @@
-#pragma once
 
-#include "stdafx.h"
 #include "MemoryProfiler.h"
-#include <list>
-
 
 void MemoryProfiler::AddElement(const char* poolName, const void* memData)
 {

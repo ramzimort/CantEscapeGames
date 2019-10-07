@@ -1,7 +1,5 @@
-#include "stdafx.h"
-#include "DataQueue.h"
-#include <string>
 
+#include "DataQueue.h"
 
 DataQueue::DataQueue()
 {

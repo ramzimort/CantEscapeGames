@@ -1,6 +1,6 @@
 #pragma once
-#include <queue>
 
+#include "..\stdafx.h"
 
 class SliderFloatQueue
 {
