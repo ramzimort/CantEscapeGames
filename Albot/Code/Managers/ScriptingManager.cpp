@@ -23,7 +23,7 @@ void printDebugAndLog(std::string msg)
 }
 
 
-///#define SOL_CHECK_ARGUMENTS
+#define SOL_CHECK_ARGUMENTS 1
 
 
 ScriptingManager::ScriptingManager()
@@ -280,10 +280,39 @@ sol::table ScriptingManager::LoadOrGetLuaScript(std::string scriptName)
 
 void ScriptingManager::ManageBindings()
 {
-	////////////////////
-	////   VECTORS  ////
-	////////////////////
-
+	//////////////////////////////
+	////  VECTORS & MATRICES  ////
+	//////////////////////////////
+	luaState.new_usertype<Vector3>
+	(
+		"Vector3",
+		sol::constructors<Vector3(), Vector3(float), Vector3(float x, float y, float z) >(),
+		"x", &Vector3::x,
+		"y", &Vector3::y,
+		"z", &Vector3::z,
+		"dot", &Vector3::Dot,
+		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+		sol::meta_function::addition, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator+),
+		sol::meta_function::subtraction, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator-),
+		sol::meta_function::multiplication, sol::resolve<Vector3(float, Vector3 const&)>(operator*),
+		sol::meta_function::multiplication, sol::resolve<Vector3(Vector3 const&, float)>(operator*)
+	);
+	
+	luaState.new_usertype<Matrix>
+	(
+		"Matrix",
+		sol::constructors< Matrix(), Matrix(Vector3 const&, Vector3 const&, Vector3 const&),
+			Matrix(Vector4 const&, Vector4 const&, Vector4 const&, Vector4 const&),
+			Matrix(float, float, float, float, float, float, float, float, 
+				float, float, float, float, float, float, float, float)>(),
+		"a00", &Matrix::_11, "a01", &Matrix::_12, "a02", &Matrix::_13, "a03", &Matrix::_14,
+		"a11", &Matrix::_21, "a12", &Matrix::_22, "a13", &Matrix::_23, "a14", &Matrix::_24,
+		"a21", &Matrix::_31, "a22", &Matrix::_32, "a23", &Matrix::_33, "a24", &Matrix::_34,
+		"a31", &Matrix::_41, "a32", &Matrix::_42, "a33", &Matrix::_43, "a34", &Matrix::_44,
+		sol::meta_function::addition, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator+),
+		sol::meta_function::subtraction, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator-),
+		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*)
+	);
 
 	////////////////////
 	////  SYSTEMS   ////
@@ -302,38 +331,30 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<GameObjectManager>
 	(
 		"GameObjectManager",
-		"FindGameObjectById", &GameObjectManager::FindGameObjectById
+		"FindGameObjectById", &GameObjectManager::FindGameObjectById,
+		"FindGameObject", &GameObjectManager::FindGameObject
 	);
 
 	//////////////////////
 	////  COMPONENTS  ////
 	//////////////////////
 
-
-	//void Translate(float dx, float dy, float dz);
-	//void Translate(Vector3 const &translate);
-
 	luaState.new_usertype<TransformComponent>
 	(
-		"TransformComponent"
-		//"Translate", sol::overload
-		//(
-		//	&TransformComponent::Translate<float, float float>, 
-		//	&TransformComponent::Translate<Vector3>
-		//)
+		"TransformComponent",
+		//"Translate", sol::overload(&TransformComponent::Translate,&TransformComponent::Translate),
 		//"Rotate", sol::overload(&TransformComponent::Rotate, &TransformComponent::Rotate),
 		//"Scale", sol::overload(&TransformComponent::Scale, &TransformComponent::Scale, &TransformComponent::Scale),
-		//"GetWorldPosition", &TransformComponent::GetWorldPosition,
-		//"GetPosition", &TransformComponent::GetPosition,
-		//"GetRotation", &TransformComponent::GetRotation,
-		//"GetScale", &TransformComponent::GetScale,
-		//"GetModel", &TransformComponent::GetModel,
-		//"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
-		//"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
+		"GetWorldPosition", &TransformComponent::GetWorldPosition,
+		"GetPosition", &TransformComponent::GetPosition,
+		"GetRotation", &TransformComponent::GetRotation,
+		"GetScale", &TransformComponent::GetScale,
+		"GetModel", &TransformComponent::GetModel,
+		"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
+		"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
 		//"SetLocalPosition", sol::overload(&TransformComponent::SetLocalPosition, &TransformComponent::SetLocalPosition),
-		//"SetLocalRotation", &TransformComponent::SetLocalRotation
+		"SetLocalRotation", &TransformComponent::SetLocalRotation
 	);
-
 	//Setting variables ( GET - SET )
 	//testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
 	// read-write vars (public)
@@ -343,7 +364,6 @@ void ScriptingManager::ManageBindings()
 
 
 	//GAMEOBJECT
-	///sol::state_view go_type = luaState.new_usertype<GameObject>
 	auto go_type = luaState.new_usertype<GameObject>
 	(
 		"GameObject",

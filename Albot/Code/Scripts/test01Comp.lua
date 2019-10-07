@@ -29,11 +29,21 @@ test01Comp.Begin = function(self, owner, goMgr)
 	end
 	
 	OutputPrint(">>> TAG: " .. owner:GetTag() .. "\n");
+	
+	local v1 = Vector3.new(-1);
+	local v2 = Vector3.new(1);
+	local v3 = v1 + v2;
+	local v4 = v2 * 12;
+	--local v5 = 12 * v2;
+	local dotted = v4:dot(v1);
 
-	local testComp = owner:GetTestComp();
-	if (testComp ~= nil) then
-		OutputPrint(">>> " .. testComp.testName .. "\n");
-	end
+	OutputPrint(">> v1     :  " .. v1.x .. ", " .. v1.y .. ", " .. v1.z .. " \n");
+	OutputPrint(">> v2     :  " .. v2.x .. ", " .. v2.y .. ", " .. v2.z .. " \n");
+	OutputPrint(">> v1 + v2:  " .. v3.x .. ", " .. v3.y .. ", " .. v3.z .. " \n");
+	OutputPrint(">> v2 * 12:  " .. v4.x .. ", " .. v4.y .. ", " .. v4.z .. " \n");
+	----OutputPrint(">> 12 * v2:  " .. v5.x .. ", " .. v5.y .. ", " .. v5.z .. " \n");
+	OutputPrint(">> v4 ° v1:  " .. dotted .. " \n");
+
 	
 	local Comp02 = owner:GetCustomComp("test02Comp");
 	if (Comp02 ~= nil) then
@@ -43,7 +53,7 @@ test01Comp.Begin = function(self, owner, goMgr)
 	end
 
 	--Try to get an external GO
-	local gameobj01 = goMgr:FindGameObjectById(0);
+	local gameobj01 = goMgr:FindGameObject("Marcos");
 	if (gameobj01 == nil) then
 		OutputPrint(">>> GO with id 0 not found\n");
 		return;

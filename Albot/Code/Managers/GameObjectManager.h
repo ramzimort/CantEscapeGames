@@ -37,6 +37,7 @@ public:
 	void Queue_GameObject_Destruction(size_t go_id);
 
 	GameObject *FindGameObjectById(size_t id);
+	GameObject *FindGameObject(std::string const& tag);
 
 private:
 	void Instantiate_Queued_GameObjects();
@@ -44,6 +45,7 @@ private:
 
 private:
 	std::unordered_map<size_t, GameObject*> m_gameObjects;
+	std::unordered_map<std::string, GameObject*> m_taggedGameObjs;
 	std::queue<GameObjectDesc> m_instantiationQueue;
 	std::queue<size_t> m_destructionQueue;
 

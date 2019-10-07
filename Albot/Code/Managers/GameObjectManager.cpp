@@ -59,12 +59,22 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 		m_instantiationQueue.pop();
 
 		//Create the new GameObject
-		GameObject *go = descriptor.tag == "" ? new GameObject(this) : new GameObject(this, descriptor.tag);
+		GameObject *go;
+		std::string const& tag = descriptor.tag;
+		if (tag == "")
+			go = new GameObject(this);
+		else 
+		{
+			go = new GameObject(this, tag);
+			if (m_taggedGameObjs.find(tag) == m_taggedGameObjs.end())
+				m_taggedGameObjs[tag] = go;
+		}
+		
 		if (go) 
 		{
 			descriptor.initializeComponentSetup(go);
+
 			//Register on the system
-			//TODO - REPLACE WITH MESSAGE TO SYSTEM MGR (for testing that)
 			m_systemMgr->RegisterGameObject(go);
 
 			//Finally, add to map of gameObjects
@@ -77,6 +87,15 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 GameObject *GameObjectManager::FindGameObjectById(size_t id)
 {
 	return m_gameObjects[id];
+}
+
+
+GameObject *GameObjectManager::FindGameObject(std::string const& tag)
+{
+	auto iter = m_taggedGameObjs.find(tag);
+	if (iter != m_taggedGameObjs.end()) 
+		return iter->second;
+	return nullptr;
 }
 
 

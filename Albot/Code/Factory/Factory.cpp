@@ -51,11 +51,6 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr,
 	const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
 	LoadResources(resourcesObj, resMgr);
 
-
-	// TODO - REMOVE LATER (jose)
-	///CreateTestScriptingGO(goMgr, luaMgr);
-
-
 	assert(lvlDoc["Objects"].IsArray());
 	const auto& objsArray = lvlDoc["Objects"].GetArray();
 	rapidjson::StringBuffer buffer;
@@ -91,6 +86,10 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr,
 			LoadObject(objSetup, tag, goMgr, resMgr, m_pDXRenderer);
 		}
 	}
+
+
+	// TODO - REMOVE LATER (jose)
+	///CreateTestScriptingGO(goMgr, luaMgr);
 }
 
 Factory::~Factory()
