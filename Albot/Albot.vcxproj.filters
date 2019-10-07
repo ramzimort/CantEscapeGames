@@ -1,231 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Code\CantDebug\CantDebug.cpp" />
-    <ClCompile Include="Code\Components\BaseComponent.cpp" />
-    <ClCompile Include="Code\Components\CameraComponent.cpp" />
-    <ClCompile Include="Code\Components\LightComponent.cpp" />
-    <ClCompile Include="Code\Components\MeshComponent.cpp" />
-    <ClCompile Include="Code\Components\RendererComponent.cpp" />
-    <ClCompile Include="Code\Components\RigidbodyComponent.cpp" />
-    <ClCompile Include="Code\Components\TransformComponent.cpp" />
-    <ClCompile Include="Code\Events\BaseEvent.cpp" />
-    <ClCompile Include="Code\Events\EventBus.cpp" />
-    <ClCompile Include="Code\Factory\Factory.cpp" />
-    <ClCompile Include="Code\GameObjects\GameObject.cpp" />
-    <ClCompile Include="Code\Graphics\AppRenderer.cpp" />
-    <ClCompile Include="Code\Graphics\BlendState.cpp" />
-    <ClCompile Include="Code\Graphics\Buffer.cpp" />
-    <ClCompile Include="Code\Graphics\Camera.cpp" />
-    <ClCompile Include="Code\Graphics\D3D11_Renderer.cpp" />
-    <ClCompile Include="Code\Graphics\DebugRendering.cpp" />
-    <ClCompile Include="Code\Graphics\DeferredRendering.cpp" />
-    <ClCompile Include="Code\Graphics\DepthPassRendering.cpp" />
-    <ClCompile Include="Code\Graphics\DepthState.cpp" />
-    <ClCompile Include="Code\Graphics\DXResourceLoader.cpp" />
-    <ClCompile Include="Code\Graphics\GraphicsSettings.cpp" />
-    <ClCompile Include="Code\Graphics\Light.cpp" />
-    <ClCompile Include="Code\Graphics\Material.cpp" />
-    <ClCompile Include="Code\Graphics\Mesh.cpp" />
-    <ClCompile Include="Code\Graphics\Model.cpp" />
-    <ClCompile Include="Code\Graphics\ModelLoader.cpp" />
-    <ClCompile Include="Code\Graphics\MSAAResolvePass.cpp" />
-    <ClCompile Include="Code\Graphics\Pipeline.cpp" />
-    <ClCompile Include="Code\Graphics\RasterizerState.cpp" />
-    <ClCompile Include="Code\Graphics\RenderTarget.cpp" />
-    <ClCompile Include="Code\Graphics\Sampler.cpp" />
-    <ClCompile Include="Code\Graphics\Shader.cpp" />
-    <ClCompile Include="Code\Graphics\ShadowMapRendering.cpp" />
-    <ClCompile Include="Code\Graphics\Texture.cpp" />
-    <ClCompile Include="Code\Main.cpp" />
-    <ClCompile Include="Code\Managers\CameraManager.cpp" />
-    <ClCompile Include="Code\Managers\EventManager.cpp" />
-    <ClCompile Include="Code\Managers\FrameManager.cpp" />
-    <ClCompile Include="Code\Managers\GameObjectManager.cpp" />
-    <ClCompile Include="Code\Managers\InputManager.cpp" />
-    <ClCompile Include="Code\Managers\ResourceManager.cpp" />
-    <ClCompile Include="Code\Managers\ScriptingManager.cpp" />
-    <ClCompile Include="Code\Managers\StateManager.cpp" />
-    <ClCompile Include="Code\Managers\SystemManager.cpp" />
-    <ClCompile Include="Code\Memory\CantMemory.cpp" />
-    <ClCompile Include="Code\Memory\StackAllocator.cpp" />
-    <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
-    <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
-    <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
-    <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
-    <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
-    <ClCompile Include="Code\Physics\SuppportShape\ModelSupportShape.cpp" />
-    <ClCompile Include="Code\Physics\SuppportShape\ObbSupportShape.cpp" />
-    <ClCompile Include="Code\Physics\SuppportShape\SupportShape.cpp" />
-    <ClCompile Include="Code\Reflection\Helpers.cpp" />
-    <ClCompile Include="Code\Reflection\Serialization.cpp" />
-    <ClCompile Include="Code\States\State.cpp" />
-    <ClCompile Include="Code\stdafx.cpp" />
-    <ClCompile Include="Code\Systems\BaseSystem.cpp" />
-    <ClCompile Include="Code\Systems\LightSystem.cpp" />
-    <ClCompile Include="Code\Systems\RenderingSystem.cpp" />
-    <ClCompile Include="Code\Systems\RigidbodySystem.cpp" />
-    <ClCompile Include="Code\Systems\TestSystem.cpp" />
-    <ClCompile Include="Code\Systems\TransformSystem.cpp" />
-    <ClCompile Include="Code\Physics\CollisionTable.cpp" />
-    <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
-    <ClCompile Include="Code\Components\CustomComponent\CustomComponent.cpp" />
-    <ClCompile Include="Code\Components\TestComponent.cpp" />
-    <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
-    <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
-    <ClCompile Include="Code\Components\ParticleEmitterComponent.cpp" />
-    <ClCompile Include="Code\Graphics\ParticleRendering.cpp" />
-    <ClCompile Include="Code\Systems\ParticleEmitterSystem.cpp" />
-    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
-    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
-    <ClCompile Include="Code\Physics\Gjk\Gjk.cpp" />
-    <ClCompile Include="Code\Physics\Geometry\Triangle.cpp" />
-    <ClCompile Include="Code\Physics\PhysicsUtils.cpp" />
-    <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
-    <ClCompile Include="Code\Physics\Constraint.cpp" />
-    <ClCompile Include="Code\Physics\Geometry\RayCant.cpp" />
-    <ClCompile Include="Code\Physics\SpatialPartition\CastResults.cpp" />
-    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
-    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
-    <ClCompile Include="Code\Graphics\ParticleSystem.cpp" />
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
-    <ClInclude Include="Code\CantDebug\CantDebug.h" />
-    <ClInclude Include="Code\Components\BaseComponent.h" />
-    <ClInclude Include="Code\Components\CameraComponent.h" />
-    <ClInclude Include="Code\Components\LightComponent.h" />
-    <ClInclude Include="Code\Components\MeshComponent.h" />
-    <ClInclude Include="Code\Components\RendererComponent.h" />
-    <ClInclude Include="Code\Components\RigidbodyComponent.h" />
-    <ClInclude Include="Code\Components\TransformComponent.h" />
-    <ClInclude Include="Code\Events\BaseEvent.h" />
-    <ClInclude Include="Code\Events\Delegate.h" />
-    <ClInclude Include="Code\Events\Event.h" />
-    <ClInclude Include="Code\Events\EventBus.h" />
-    <ClInclude Include="Code\Events\EventCallback.h" />
-    <ClInclude Include="Code\Events\Multicast.h" />
-    <ClInclude Include="Code\Factory\Factory.h" />
-    <ClInclude Include="Code\GameObjects\GameObject.h" />
-    <ClInclude Include="Code\Graphics\AppRenderer.h" />
-    <ClInclude Include="Code\Graphics\BlendState.h" />
-    <ClInclude Include="Code\Graphics\Buffer.h" />
-    <ClInclude Include="Code\Graphics\Camera.h" />
-    <ClInclude Include="Code\Graphics\Common_Renderer.h" />
-    <ClInclude Include="Code\Graphics\D3D11_Renderer.h" />
-    <ClInclude Include="Code\Graphics\d3dUtils.h" />
-    <ClInclude Include="Code\Graphics\D3D_Commands.h" />
-    <ClInclude Include="Code\Graphics\DebugRendering.h" />
-    <ClInclude Include="Code\Graphics\DeferredRendering.h" />
-    <ClInclude Include="Code\Graphics\DepthPassRendering.h" />
-    <ClInclude Include="Code\Graphics\DepthState.h" />
-    <ClInclude Include="Code\Graphics\DescriptorData.h" />
-    <ClInclude Include="Code\Graphics\DXResourceLoader.h" />
-    <ClInclude Include="Code\Graphics\GraphicsSettings.h" />
-    <ClInclude Include="Code\Graphics\Light.h" />
-    <ClInclude Include="Code\Graphics\Material.h" />
-    <ClInclude Include="Code\Graphics\Mesh.h" />
-    <ClInclude Include="Code\Graphics\Model.h" />
-    <ClInclude Include="Code\Graphics\ModelLoader.h" />
-    <ClInclude Include="Code\Graphics\MSAAResolvePass.h" />
-    <ClInclude Include="Code\Graphics\Pipeline.h" />
-    <ClInclude Include="Code\Graphics\RasterizerState.h" />
-    <ClInclude Include="Code\Graphics\Renderer_Includes.h" />
-    <ClInclude Include="Code\Graphics\RenderTarget.h" />
-    <ClInclude Include="Code\Graphics\Sampler.h" />
-    <ClInclude Include="Code\Graphics\Shader.h" />
-    <ClInclude Include="Code\Graphics\ShadowMapRendering.h" />
-    <ClInclude Include="Code\Graphics\Texture.h" />
-    <ClInclude Include="Code\Graphics\VertexLayout.h" />
-    <ClInclude Include="Code\Helper\Constant.h" />
-    <ClInclude Include="Code\Helper\Hash.h" />
-    <ClInclude Include="Code\Helper\MathUtil.h" />
-    <ClInclude Include="Code\Managers\CameraManager.h" />
-    <ClInclude Include="Code\Managers\EventManager.h" />
-    <ClInclude Include="Code\Managers\FrameManager.h" />
-    <ClInclude Include="Code\Managers\GameObjectManager.h" />
-    <ClInclude Include="Code\Managers\InputManager.h" />
-    <ClInclude Include="Code\Managers\ResourceManager.h" />
-    <ClInclude Include="Code\Managers\ScriptingManager.h" />
-    <ClInclude Include="Code\Managers\StateManager.h" />
-    <ClInclude Include="Code\Managers\SystemManager.h" />
-    <ClInclude Include="Code\Memory\AllocatorTypes.h" />
-    <ClInclude Include="Code\Memory\CantMemory.h" />
-    <ClInclude Include="Code\Memory\PoolAllocator.h" />
-    <ClInclude Include="Code\Memory\StackAllocator.h" />
-    <ClInclude Include="Code\Physics\Geometry\Aabb.h" />
-    <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
-    <ClInclude Include="Code\Physics\Geometry\Shape.h" />
-    <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
-    <ClInclude Include="Code\Physics\PhysicsUtils.h" />
-    <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
-    <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
-    <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
-    <ClInclude Include="Code\Physics\SuppportShape\ModelSupportShape.h" />
-    <ClInclude Include="Code\Physics\SuppportShape\ObbSupportShape.h" />
-    <ClInclude Include="Code\Physics\SuppportShape\SupportShape.h" />
-    <ClInclude Include="Code\Reflection\Helpers.h" />
-    <ClInclude Include="Code\Reflection\Serialization.h" />
-    <ClInclude Include="Code\Shaders\Shading.h" />
-    <ClInclude Include="Code\States\State.h" />
-    <ClInclude Include="Code\stdafx.h" />
-    <ClInclude Include="Code\Systems\BaseSystem.h" />
-    <ClInclude Include="Code\Systems\LightSystem.h" />
-    <ClInclude Include="Code\Systems\RenderingSystem.h" />
-    <ClInclude Include="Code\Systems\RigidbodySystem.h" />
-    <ClInclude Include="Code\Systems\TestSystem.h" />
-    <ClInclude Include="Code\Systems\TransformSystem.h" />
-    <ClInclude Include="Code\Physics\CollisionTable.h" />
-    <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
-    <ClInclude Include="Code\Components\CustomComponent\CustomComponent.h" />
-    <ClInclude Include="Code\Components\TestComponent.h" />
-    <ClInclude Include="Code\Components\TestComponents\FPSControllerComponent.h" />
-    <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
-    <ClInclude Include="Code\Events\Input\MouseEvent.h" />
-    <ClInclude Include="Code\Events\Input\KeyEvent.h" />
-    <ClInclude Include="Code\Components\AllComponentHeaders.h" />
-    <ClInclude Include="Code\Events\Input\Input.h" />
-    <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
-    <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
-    <ClInclude Include="Code\Components\ParticleEmitterComponent.h" />
-    <ClInclude Include="Code\Graphics\ParticleRendering.h" />
-    <ClInclude Include="Code\Graphics\InstanceRenderData.h" />
-    <ClInclude Include="Code\Systems\ParticleEmitterSystem.h" />
-    <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
-    <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
-    <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
-    <ClInclude Include="Code\Physics\Constraint.h" />
-    <ClInclude Include="Code\Physics\Geometry\RayCant.h" />
-    <ClInclude Include="Code\Physics\SpatialPartition\CastResults.h" />
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
-    <None Include="Code\Scripts\test01Comp.lua" />
-    <None Include="Code\Scripts\test02Comp.lua" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Code\Shaders\debug_frag.hlsl" />
-    <Text Include="Code\Shaders\debug_instance_vert.hlsl" />
-    <Text Include="Code\Shaders\debug_line_vert.hlsl" />
-    <Text Include="Code\Shaders\deferred_pass_frag.hlsl" />
-    <Text Include="Code\Shaders\deferred_pass_vert.hlsl" />
-    <Text Include="Code\Shaders\deferred_shade_frag.hlsl" />
-    <Text Include="Code\Shaders\deferred_shade_pointlight_frag.hlsl" />
-    <Text Include="Code\Shaders\deferred_shade_pointlight_vert.hlsl" />
-    <Text Include="Code\Shaders\depth_pass_vert.hlsl" />
-    <Text Include="Code\Shaders\fullscreen_quad_vert.hlsl" />
-    <Text Include="Code\Shaders\skybox_frag.hlsl" />
-    <Text Include="Code\Shaders\skybox_vert.hlsl" />
-    <Text Include="Code\Shaders\blur_filter_comp.hlsl" />
-    <Text Include="Code\Shaders\msaa_resolve_frag.hlsl" />
-    <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
-    <Text Include="Code\Shaders\streamout_particle_geom.hlsl" />
-    <Text Include="Code\Shaders\streamout_particle_vert.hlsl" />
-    <Text Include="Code\Shaders\fire_streamout_particle_vert.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Code\Shaders\fire_streamout_particle_geom.hlsl" />
-    <FxCompile Include="Code\Shaders\fire_streamout_particle_frag.hlsl" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Albot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
