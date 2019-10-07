@@ -29,7 +29,15 @@ void ParticleEmitterSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	TransformComponent* transformComp = emit_comp_node->m_transform;
 	ParticleEmitterComponent* particleEmitterComp = emit_comp_node->m_particleEmitter;
 
+	if(!particleEmitterComp->m_isEmitting)
+	{
+		return;
+	}
+
 	Vector3 gameobjPos = transformComp->GetPosition();
+
+
+
 
 	if (!particleEmitterComp->m_firstTime)
 	{
@@ -41,9 +49,16 @@ void ParticleEmitterSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	emitterInstanceData.m_firstTime = particleEmitterComp->m_firstTime;
 	emitterInstanceData.m_pParticleEmitterUniformData.EmitterDirection = MathUtil::v3_to_v4(particleEmitterComp->m_emitterDirection, 0.f);
 	emitterInstanceData.m_pParticleEmitterUniformData.EmitterPosition = MathUtil::v3_to_v4(gameobjPos + particleEmitterComp->m_emitterPosition, 1.f);
-	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.w = particleEmitterComp->m_infiniteEmitter ? 1.f : 0.f;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.w = (float) particleEmitterComp->m_particleEmitterType;
 	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.z = particleEmitterComp->m_emitterRate;
-	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.y = particleEmitterComp->m_emitterSpreadAngle;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.y = DirectX::XMConvertToRadians(particleEmitterComp->m_emitterSpreadAngleYaw);
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData.x = DirectX::XMConvertToRadians(particleEmitterComp->m_emitterSpreadAnglePitch);
+
+
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData2.x = particleEmitterComp->m_emitterLifetime;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData2.y = particleEmitterComp->m_localTime;
+	emitterInstanceData.m_pParticleEmitterUniformData.EmitterMiscData2.z = (float)std::min(1u, particleEmitterComp->m_emitParticleCount);
+
 	emitterInstanceData.m_pInitVB = particleEmitterComp->m_pInitVB;
 	emitterInstanceData.m_pDrawStreamOutVB = particleEmitterComp->m_pDrawStreamOutVB;
 	emitterInstanceData.m_pStreamOutVB = particleEmitterComp->m_pStreamOutVB;
@@ -52,6 +67,13 @@ void ParticleEmitterSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	particleEmitterComp->m_firstTime = false;
 
 	m_appRenderer->GetParticleRendering().RegisterParticleEmitterInstance(emitterInstanceData);
+
+	particleEmitterComp->m_localTime += dt;
+
+	if (particleEmitterComp->FinishedEmitting())
+	{
+		particleEmitterComp->m_isEmitting = false;
+	}
 }
 
 

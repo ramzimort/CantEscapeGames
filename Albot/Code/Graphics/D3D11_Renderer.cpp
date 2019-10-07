@@ -34,8 +34,8 @@ void DXRenderer::Release()
 
 bool DXRenderer::init(uint32_t swap_chain_sample_count)
 {
-	m_descriptor_data_list.reserve(1000);
-	m_dxdescriptor_data_reference_list.reserve(1000);
+	m_descriptor_data_list.reserve(5000);
+	m_dxdescriptor_data_reference_list.reserve(5000);
 
 	if (!init_d3d11(swap_chain_sample_count))
 	{

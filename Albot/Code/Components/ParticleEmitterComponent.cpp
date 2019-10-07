@@ -15,24 +15,36 @@ RTTR_REGISTRATION
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.property("Emitter_Position", &ParticleEmitterComponent::m_emitterPosition)
 		.property("Emitter_Direction", &ParticleEmitterComponent::m_emitterDirection)
-		.property("Emitter_Spread_Angle", &ParticleEmitterComponent::m_emitterSpreadAngle)
+		.property("Emitter_Spread_Angle_Yaw", &ParticleEmitterComponent::m_emitterSpreadAngleYaw)
+		.property("Emitter_Spread_Angle_Pitch", &ParticleEmitterComponent::m_emitterSpreadAnglePitch)
 		.property("Emitter_Rate", &ParticleEmitterComponent::m_emitterRate)
+		.property("Emitter_Lifetime", &ParticleEmitterComponent::m_emitterLifetime)
+		.property("Particle_Emit_Count", &ParticleEmitterComponent::m_emitParticleCount)
 		.property("Particle_Texture_Dir", &ParticleEmitterComponent::m_particleTextureDir)
-		.property("Infinite_Emitter_Flag", &ParticleEmitterComponent::m_infiniteEmitter)
+		.property("Particle_Emitter_Type", &ParticleEmitterComponent::m_particleEmitterType)
 		.method("Init", &ParticleEmitterComponent::Init);
 
+	rttr::registration::enumeration<ParticleEmitterType>("ParticleEmitterType")(
+		rttr::value("Infinite_Lifetime", ParticleEmitterType::INFINITE_LIFETIME),
+		rttr::value("Finite_Lifetime", ParticleEmitterType::FINITE_LIFETIME),
+		rttr::value("Emit_Once", ParticleEmitterType::EMIT_ONCE));
 }
 
 
 
 ParticleEmitterComponent::ParticleEmitterComponent(GameObject *owner)
 	:BaseComponent(owner, static_type),
-	m_emitterDirection(0.f),
+	m_emitterDirection(0.f, 1.f, 0.f),
 	m_emitterPosition(0.f),
 	m_emitterRate(0.005f),
-	m_emitterSpreadAngle(30.f),
-	m_infiniteEmitter(false),
-	m_firstTime(true)
+	m_emitterSpreadAngleYaw(90.f),
+	m_emitterSpreadAnglePitch(90.f),
+	m_firstTime(true),
+	m_emitterLifetime(5.f),
+	m_localTime(0.f),
+	m_emitParticleCount(50),
+	m_particleEmitterType(ParticleEmitterType::INFINITE_LIFETIME),
+	m_isEmitting(true)
 {
 }
 
@@ -72,5 +84,65 @@ void ParticleEmitterComponent::Init(ResourceManager* resourceManager, DXRenderer
 	m_pStreamOutVB = DXResourceLoader::Create_Buffer(dxrenderer, streamout_vb_desc);
 	m_pDrawStreamOutVB = DXResourceLoader::Create_Buffer(dxrenderer, streamout_vb_desc);
 
-	m_pParticleTexture = resourceManager->GetTexture(StringId(m_particleTextureDir));
+	m_pParticleTexture = resourceManager->GetTexture(m_particleTextureDir);
+}
+
+void ParticleEmitterComponent::Emit()
+{
+	m_localTime = 0.f;
+	m_firstTime = true;
+	m_isEmitting = true;
+}
+
+
+void ParticleEmitterComponent::SetEmitterDirection(const Vector3& dir)
+{
+	Vector3 localDir = dir;
+	localDir.Normalize();
+	m_emitterDirection = localDir;
+}
+
+void ParticleEmitterComponent::SetParticleEmitter(ParticleEmitterType particleEmitterType)
+{
+	m_particleEmitterType = particleEmitterType;
+}
+
+void ParticleEmitterComponent::SetEmitterSpreadAngleYaw(float degree)
+{
+	m_emitterSpreadAngleYaw = degree;
+}
+
+void ParticleEmitterComponent::SetEmitterSpreadAnglePitch(float degree)
+{
+	m_emitterSpreadAnglePitch = degree;
+}
+
+//in seconds
+void ParticleEmitterComponent::SetEmitterRate(float rate)
+{
+	m_emitterRate = rate;
+}
+
+void ParticleEmitterComponent::SetEmitterLifetime(float lifetime)
+{
+	m_emitterLifetime = lifetime;
+}
+
+void ParticleEmitterComponent::SetEmitParticlesCount(uint32_t emitCount)
+{
+	m_emitParticleCount = std::min(emitCount, MAX_PARTICLE_EMIT_ONCE);
+}
+
+
+bool ParticleEmitterComponent::FinishedEmitting() const
+{
+	if (m_particleEmitterType == ParticleEmitterType::EMIT_ONCE)
+	{
+		return !m_firstTime;
+	}
+	else if (m_particleEmitterType == ParticleEmitterType::FINITE_LIFETIME)
+	{
+		return m_localTime > m_emitterLifetime;
+	}
+	return false;
 }

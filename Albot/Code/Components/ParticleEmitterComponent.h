@@ -2,8 +2,17 @@
 #include "Shaders/Shading.h"
 #include "BaseComponent.h"
 #include "Graphics/InstanceRenderData.h"
+#include "Helper/Hash.h"
 
 class Buffer;
+
+
+enum ParticleEmitterType
+{
+	INFINITE_LIFETIME,
+	FINITE_LIFETIME,
+	EMIT_ONCE
+};
 
 
 class ParticleEmitterComponent :
@@ -17,25 +26,51 @@ public:
 
 	void Init(ResourceManager* resourceManager, DXRenderer* dxrenderer);
 	void Begin() {}
+
+	void Emit();
+
+	bool FinishedEmitting() const;
+
+	void SetParticleEmitter(ParticleEmitterType particleEmitterType);
+	
+	void SetEmitterDirection(const Vector3& dir);
+	void SetEmitterSpreadAngleYaw(float degree);
+	void SetEmitterSpreadAnglePitch(float degree);
+	//in seconds
+	void SetEmitterRate(float rate);
+	void SetEmitterLifetime(float lifetime);
+
+	void SetEmitParticlesCount(uint32_t emitCount);
 public:
 	static ComponentId const static_type;
 private:
+	float m_localTime;
 
 	Buffer* m_pInitVB;
 	Buffer* m_pStreamOutVB;
 	Buffer* m_pDrawStreamOutVB;
 	bool m_firstTime;
 
-	std::string m_particleTextureDir;
+	StringId m_particleTextureDir;
 	Texture* m_pParticleTexture;
 
 	//local to the game object current position
 	Vector3 m_emitterPosition;
 
 	Vector3 m_emitterDirection;
-	float m_emitterSpreadAngle;
+	float m_emitterSpreadAngleYaw;
+	float m_emitterSpreadAnglePitch;
 	float m_emitterRate;
-	bool m_infiniteEmitter;
+	float m_emitterLifetime;
+	
+	//How many particles being emitted when the emitter is emitted
+	uint32_t m_emitParticleCount;
+	
+
+	ParticleEmitterType m_particleEmitterType;
+
+	bool m_isEmitting;
+
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

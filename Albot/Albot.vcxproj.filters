@@ -222,10 +222,10 @@
     <Text Include="Code\Shaders\msaa_resolve_vert.hlsl" />
     <Text Include="Code\Shaders\streamout_particle_geom.hlsl" />
     <Text Include="Code\Shaders\streamout_particle_vert.hlsl" />
+    <Text Include="Code\Shaders\fire_streamout_particle_vert.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Code\Shaders\fire_streamout_particle_geom.hlsl" />
-    <FxCompile Include="Code\Shaders\fire_streamout_particle_vert.hlsl" />
     <FxCompile Include="Code\Shaders\fire_streamout_particle_frag.hlsl" />
   </ItemGroup>
 </Project>
