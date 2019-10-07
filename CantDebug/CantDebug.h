@@ -27,4 +27,7 @@ namespace CantDebugAPI
 	CANTDEBUG_API void MemoryFreeAll(const char* pool, const void* address);
 
 	CANTDEBUG_API void SliderFloat(const char* sliderName, float* pData, float min, float max);
+
+	CANTDEBUG_API void CheckboxUI(const char* checkboxName, bool* pFlag);
+
 }

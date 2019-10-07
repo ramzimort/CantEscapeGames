@@ -2,6 +2,7 @@
 #include "CantDebug.h"
 #include "src/DataQueue.h"
 #include "src/SliderFloatQueue.h"
+#include "src/CheckboxQueue.h"
 #include "src/Logger.h"
 #include "src/MemoryProfiler.h"
 
@@ -22,6 +23,7 @@ static DataQueue*				g_logQueue = NULL;
 static DataQueue*				g_memoryQueue = NULL;
 static MemoryProfiler*			g_memoryProfiler = NULL;
 static SliderFloatQueue*		g_sliderFloatQueue = NULL;
+static CheckboxQueue*			g_checkBoxQueue = NULL;
 
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
@@ -91,6 +93,7 @@ namespace CantDebugAPI
 		g_traceQueue = new DataQueue();
 		g_memoryProfiler = new MemoryProfiler();
 		g_sliderFloatQueue = new SliderFloatQueue();
+		g_checkBoxQueue = new CheckboxQueue();
 	}
 
 	void UpdateDebugWindow()
@@ -152,6 +155,11 @@ namespace CantDebugAPI
 	{
 		g_sliderFloatQueue->m_queueData.push(SliderFloatQueue::SliderFloatData{ sliderName, pData, min, max });
 	}
+
+	void CheckboxUI(const char* checkboxName, bool* pFlag)
+	{
+		g_checkBoxQueue->m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
+	}
 }
 
 // Helper functions
@@ -178,12 +186,25 @@ void UpdateGraphicsSettings()
 {
 	ImGui::Begin("Graphics Settings");
 
+	ImGui::Separator();
+	ImGui::Text("Checkbox settings");
+
+	while (!g_checkBoxQueue->m_queueData.empty())
+	{
+		const CheckboxQueue::CheckboxData& data = g_checkBoxQueue->m_queueData.front();
+		ImGui::Checkbox(data.m_checkBoxName.c_str(), data.m_pFlag);
+		g_checkBoxQueue->m_queueData.pop();
+	}
+
+	ImGui::Separator();
 	while (!g_sliderFloatQueue->m_queueData.empty())
 	{
 		const SliderFloatQueue::SliderFloatData& data = g_sliderFloatQueue->m_queueData.front();
 		ImGui::SliderFloat(data.m_sliderFloatName.c_str(), data.m_pData, data.m_min, data.m_max);
 		g_sliderFloatQueue->m_queueData.pop();
 	}
+
+
 	ImGui::End();
 }
 

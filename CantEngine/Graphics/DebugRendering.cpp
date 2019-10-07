@@ -5,6 +5,7 @@
 #include "AppRenderer.h"
 #include "Helper/Hash.h"
 #include "../Managers/ResourceManager.h"
+#include "Graphics/GraphicsSettings.h"
 
 static const StringId cubeId = StringId(Constant::ModelsDir + "Cube.fbx");
 
@@ -145,7 +146,10 @@ void DebugRendering::RegisterDebugLineInstance(const DebugLineInstance& line_ins
 void DebugRendering::RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance)
 {
 #ifdef DEVELOPER
-	m_debug_aabb_instance_list.push_back(debug_aabb_instance);
+	if (GraphicsSettings::Draw_Mesh_AABB_Flag)
+	{
+		m_debug_aabb_instance_list.push_back(debug_aabb_instance);
+	}
 #endif
 }
 

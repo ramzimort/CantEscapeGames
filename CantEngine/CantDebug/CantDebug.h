@@ -16,6 +16,7 @@
 #define DEBUG_FREE(POOL,ADDRESS)
 #define DEBUG_FREEALL(POOL,ADDRESS)
 #define DEBUG_SLIDERFLOAT(NAME, DATA, MIN, MAX)
+#define DEBUG_CHECKBOX(NAME, DATA)
 #define DEBUG_QUIT
 #else
 #define DEBUG_INIT(SDLWND) CantDebugAPI::InitDebugWindow(SDLWND);
@@ -32,6 +33,7 @@
 #define DEBUG_FREE(POOL,ADDR) CantDebugAPI::MemoryFree(POOL, ADDR);
 #define DEBUG_FREEALL(POOL,STARTADDR) CantDebugAPI::MemoryFreeAll(POOL,STARTADDR);
 #define DEBUG_SLIDERFLOAT(NAME, DATA, MIN, MAX) CantDebugAPI::SliderFloat(NAME, DATA, MIN, MAX);
+#define DEBUG_CHECKBOX(NAME, DATA) CantDebugAPI::CheckboxUI(NAME, DATA);
 #define DEBUG_QUIT CantDebugAPI::CloseDebugWindow();
 
 namespace CantDebug

@@ -553,7 +553,10 @@ ParticleRendering& AppRenderer::GetParticleRendering()
 void AppRenderer::UpdateAppRenderer(float dt)
 {
 	m_gameTime += dt;
-	//TODO: update camera matrices
+
+	DEBUG_CHECKBOX("Draw Mesh", &GraphicsSettings::Draw_Mesh_Flag);
+	DEBUG_CHECKBOX("Draw Debug AABB", &GraphicsSettings::Draw_Mesh_AABB_Flag);
+
 	CameraManager* cameraManager = m_cameraManager;
 
 	const CameraInfo& cameraInfo = cameraManager->GetMainCamera();
@@ -658,7 +661,10 @@ void AppRenderer::RenderApp()
 
 void AppRenderer::RegisterBasicInstance(const InstanceRenderData& instanceRenderData)
 {
-	m_basicInstances.push_back(instanceRenderData);
+	if (GraphicsSettings::Draw_Mesh_Flag)
+	{
+		m_basicInstances.push_back(instanceRenderData);
+	}
 }
 
 void AppRenderer::RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData)
