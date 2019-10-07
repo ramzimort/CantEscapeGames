@@ -309,12 +309,25 @@ void ScriptingManager::ManageBindings()
 	//luaState.new_usertype<TransformComponent>
 	//(
 	//	"TransformComponent",
-	//	"GetTag", &TransformComponent::GetPosition,
-	//	"GetTag", &TransformComponent::GetRotation,
-	//	"GetTag", &TransformComponent::GetScale,
-	//	"GetTag", &TransformComponent::,
-	//	"GetCustomComp", &TransformComponent::LuaGetCustomComponent
+	//	"Translate", &TransformComponent::Translate,
+	//	"Translate", &TransformComponent::Translate,
+	//	"Rotate", &TransformComponent::Rotate,
+	//	"Rotate", &TransformComponent::Rotate,
+	//	"Scale", &TransformComponent::Scale,
+	//	"Scale", &TransformComponent::Scale,
+	//	"Scale", &TransformComponent::Scale,
+	//	"GetWorldPosition", &TransformComponent::GetWorldPosition,
+	//	"GetPosition", &TransformComponent::GetPosition,
+	//	"GetRotation", &TransformComponent::GetRotation,
+	//	"GetScale", &TransformComponent::GetScale,
+	//	"GetModel", &TransformComponent::GetModel,
+	//	"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
+	//	"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
+	//	"SetLocalPosition", &TransformComponent::SetLocalPosition,
+	//	"SetLocalPosition", &TransformComponent::SetLocalPosition,
+	//	"SetLocalRotation", &TransformComponent::SetLocalRotation
 	//);
+
 	//Setting variables ( GET - SET )
 	//testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
 	// read-write vars (public)
