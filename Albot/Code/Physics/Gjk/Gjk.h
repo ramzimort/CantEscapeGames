@@ -1,12 +1,9 @@
-/******************************************************************************/
-/*!
-\file   Gjk.h
-\author Aleksey Perfilev
-\par    Copyright 2019, Digipen Institute of Technology
-\brief
-Narrow phase of the physics engine.
-*/
-/******************************************************************************/
+/* Start Header -------------------------------------------------------
+Copyright (C) 2019 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the
+prior written consent of DigiPen Institute of Technology is prohibited.
+Primary Author: Aleksey Perfilev
+- End Header --------------------------------------------------------*/
 
 #pragma once
 #include "Physics/SuppportShape/SupportShape.h"
@@ -98,7 +95,7 @@ public:
 	// Returns true if the shapes intersect. If the shapes don't intersect then closestPoint is filled out with the closest points
 	// on each object as well as the cso point. Epsilon should be used for checking if sufficient progress has been made at any step.
 	// The debugging values are for your own use (make sure they don't interfere with the unit tests).
-	bool Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon/*, int debuggingIndex, bool debugDraw = false*/);
+	bool Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw = false);
 
 	// Finds the point furthest in the given direction on the CSO (and the relevant points from each object)
 	CsoPoint ComputeSupport(const SupportShape* shapeA, const SupportShape* shapeB, const Vector3& direction);

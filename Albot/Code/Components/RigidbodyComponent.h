@@ -53,7 +53,7 @@ private:
 	Vector3 m_angularVelocity;
 
 	Matrix m_inertiaTensor;
-	Matrix m_inverseInertiaTensor;
+	Matrix m_inertiaTensorInverse;
 	Matrix m_inertiaTensorWorldInverse;
 	float m_mass;
 	float m_inverseMass;

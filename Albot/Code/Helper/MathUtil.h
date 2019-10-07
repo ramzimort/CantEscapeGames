@@ -1,4 +1,5 @@
 #pragma once
+#include "Physics/PhysicsUtils.h"
 
 namespace MathUtil
 {
@@ -34,5 +35,44 @@ namespace MathUtil
 
 		bitangent = vector.Cross(tangent);
 		bitangent.Normalize();
+	}
+
+	inline float Clamp(float input, float min, float max)
+	{
+		return PhysicsUtils::Min(PhysicsUtils::Max(input, min), max);
+	}
+
+	inline float PositiveMax()
+	{
+		return FLT_MAX;
+	}
+
+	inline float NegativeMin()
+	{
+		return -FLT_MAX;
+	}
+
+	inline Vector3 ToEulerAngles(Quaternion q)
+	{
+		Vector3 angles;
+
+		// roll (x-axis rotation)
+		double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
+		double cosr_cosp = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+		angles.x = atan2(sinr_cosp, cosr_cosp);
+
+		// pitch (y-axis rotation)
+		double sinp = +2.0 * (q.w * q.y - q.z * q.x);
+		if (fabs(sinp) >= 1)
+			angles.y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+		else
+			angles.y = asin(sinp);
+
+		// yaw (z-axis rotation)
+		double siny_cosp = +2.0 * (q.w * q.z + q.x * q.y);
+		double cosy_cosp = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);
+		angles.z = atan2(siny_cosp, cosy_cosp);
+
+		return angles;
 	}
 }

@@ -10,6 +10,7 @@ Narrow phase of the physics engine.
 #include "Gjk.h"
 #include "Physics/PhysicsUtils.h"
 #include "CollisionManifold.h"
+#include "Graphics/AppRenderer.h"
 
 //////////////// Voronoi Region Tests //////////////////
 VoronoiRegion::Type Gjk::IdentifyVoronoiRegion(const Vector3& q, const Vector3& p0,
@@ -341,7 +342,8 @@ bool Gjk::CsoPoint::operator==(const CsoPoint rhs)
 Gjk::CsoTriangle::CsoTriangle(const CsoPoint& a, const CsoPoint& b, const CsoPoint& c) : m_A(a), m_B(b), m_C(c)
 {
 	const Vector3 ab = b.m_CsoPoint - a.m_CsoPoint;
-	ab.Cross(c.m_CsoPoint - a.m_CsoPoint, m_normal);
+	const Vector3 ac = c.m_CsoPoint - a.m_CsoPoint;
+	ab.Cross(ac, m_normal);
 	m_normal.Normalize();
 }
 
@@ -355,7 +357,7 @@ Gjk::Gjk()
 {
 }
 
-bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon/*, int debuggingIndex, bool debugDraw*/)
+bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw)
 {
 	Vector3 q(0.0f, 0.0f, 0.0f);
 	// 1. Initialize the simplex(to one point for us) by searching 
@@ -464,11 +466,13 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 		closestPoint.m_PointB = u * simplex[0].m_PointB + v * simplex[1].m_PointB + w * simplex[2].m_PointB;
 		break;
 	}
-	//if (debugDraw)
-	//{
-	//	const Vector4 red(1.0f, 0.0f, 0.0f, 1.0f);
-	//	Graphics::Get().AddLine(closestPoint.mPointA, closestPoint.mPointB, red, red);
-	//}
+#ifdef DEVELOOPER
+	if (isDebugDraw)
+	{
+		const Vector3 color(0.0f, 0.0f, 1.0f);
+		pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(closestPoint.m_PointA, closestPoint.m_PointB, color);
+	}
+#endif
 	return false;
 }
 

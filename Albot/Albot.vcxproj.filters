@@ -81,6 +81,8 @@
     <ClCompile Include="Code\Physics\PhysicsUtils.cpp" />
     <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
     <ClCompile Include="Code\Physics\Constraint.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\RayCant.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\CastResults.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -180,6 +182,8 @@
     <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
     <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
     <ClInclude Include="Code\Physics\Constraint.h" />
+    <ClInclude Include="Code\Physics\Geometry\RayCant.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\CastResults.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

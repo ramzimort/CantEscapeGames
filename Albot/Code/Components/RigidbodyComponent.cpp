@@ -19,6 +19,7 @@ RTTR_REGISTRATION
 		.method("Init", &RigidbodyComponent::Init)
 		.property("IsEffectedByGravity", &RigidbodyComponent::m_isEffectedByGravity)
 		.property("Velocity", &RigidbodyComponent::m_velocity)
+		.property("Mass", &RigidbodyComponent::m_mass)
 	;
 }
 
@@ -33,7 +34,8 @@ RigidbodyComponent::~RigidbodyComponent()
 
 void RigidbodyComponent::Init(ResourceManager* resMgr)
 {
-	m_inertiaTensor = m_inverseInertiaTensor = Matrix::Identity;
+	m_inertiaTensor = m_inertiaTensorInverse = Matrix::Identity; // this works for cubes
+	m_inverseMass = 1.0f / m_mass;
 }
 
 void RigidbodyComponent::Begin()

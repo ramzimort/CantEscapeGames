@@ -209,7 +209,7 @@ void DebugRendering::render_debug_line_scene()
 	BufferUpdateDesc line_uniform_buffer_update_desc = {};
 	line_uniform_buffer_update_desc.m_buffer = m_line_uniform_structured_buffer;
 	line_uniform_buffer_update_desc.m_pSource = &m_line_vertex_uniform_data[0];
-	line_uniform_buffer_update_desc.m_size = static_cast<uint32_t>(sizeof(debug_line_count) * sizeof(LineVertexUniformData));
+	line_uniform_buffer_update_desc.m_size = static_cast<uint32_t>(debug_line_count * sizeof(LineVertexUniformData));
 	m_dxrenderer->cmd_update_buffer(line_uniform_buffer_update_desc);
 
 	BufferUpdateDesc line_vertex_buffer_update_desc = {};

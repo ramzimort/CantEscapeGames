@@ -9,12 +9,13 @@
   },
 
   "MeshComponent": {
-    "ModelId": "Assets/Models/mitsuba-sphere.obj"
+    "ModelId": "Assets/Models/Cube.fbx"
   },
 
   "RigidBodyComponent": {
     "IsEffectedByGravity": 1,
-    "Velocity": [ 0.0, 0.0, 0.0 ]
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1.0
   }
 
 }

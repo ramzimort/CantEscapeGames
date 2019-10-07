@@ -65,4 +65,6 @@ private:
 		
 	CollisionTable m_collisionTable;
 	AppRenderer* m_pAppRenderer;
+
+	Vector4 debugColor = { 0, 1, 0, 1 };
 };

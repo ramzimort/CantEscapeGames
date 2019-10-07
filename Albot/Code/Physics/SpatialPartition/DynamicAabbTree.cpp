@@ -364,28 +364,28 @@ void DynamicAabbTree::DebugDraw(AppRenderer* pAppRenderer, int level, const Vect
 }
 #endif
 
-//void DynamicAabbTree::CastRayRec(const Ray& ray, RayCastResults& results, DynamicAabbTreeNode* node) const
-//{
-//	if (node == nullptr)
-//		return;
-//
-//	float t;
-//	if (Intersection::RayAabb(ray.start, ray.direction, node->m_Aabb.GetMin(), node->m_Aabb.GetMax(), t))
-//	{
-//		RayCastResult result;
-//		result.mClientData = node->mClientData;
-//		result.mTime = t;
-//		if (node->mLeft == nullptr)
-//			results.AddResult(result);
-//		CastRayRec(ray, results, node->m_Left);
-//		CastRayRec(ray, results, node->m_Right);
-//	}
-//}
-//
-//void DynamicAabbTree::CastRay(const Ray& ray, RayCastResults& results)
-//{
-//	CastRayRec(ray, results, mRoot);
-//}
+void DynamicAabbTree::CastRayRec(const RayCant& ray, CastResults& results, DynamicAabbTreeNode* node) const
+{
+	if (node == nullptr)
+		return;
+
+	float t;
+	if (Intersection::RayAabb(ray.m_start, ray.m_direction, node->m_Aabb.GetMin(), node->m_Aabb.GetMax(), t))
+	{
+		CastResult result;
+		result.m_ClientData = node->m_ClientData;
+		result.m_Time = t;
+		if (node->m_Left == nullptr)
+			results.AddResult(result);
+		CastRayRec(ray, results, node->m_Left);
+		CastRayRec(ray, results, node->m_Right);
+	}
+}
+
+void DynamicAabbTree::CastRay(const RayCant& ray, CastResults& results)
+{
+	CastRayRec(ray, results, m_Root);
+}
 
 //void DynamicAabbTree::FrustumAddResultsRec(CastResults& results, DynamicAabbTreeNode* node) const
 //{
