@@ -1,6 +1,5 @@
 // CantDebug.cpp : Defines the exported functions for the DLL application.
 
-
 #include "stdafx.h"
 #include "CantDebug.h"
 #include "DataQueue.h"
@@ -13,12 +12,24 @@ static ID3D11Device*            g_pd3dDevice = NULL;
 static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
-static SDL_Window*				g_mainWindow = NULL;
+static HWND						g_hwnd = NULL;
+static HWINEVENTHOOK			g_hook;
+static WNDCLASSEX				g_wc;
+
+LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+// Custom Data
 static DataQueue*				g_traceQueue = NULL;
 static DataQueue*				g_logQueue = NULL;
 static DataQueue*				g_memoryQueue = NULL;
 static MemoryProfiler*			g_memoryProfiler = NULL;
-static SliderFloatQueue* g_sliderFloatQueue = NULL;
+static SliderFloatQueue*		g_sliderFloatQueue = NULL;
+
+// Forward declarations of helper functions
+bool CreateDeviceD3D(HWND hWnd);
+void CleanupDeviceD3D();
+void CreateRenderTarget();
+void CleanupRenderTarget();
 
 // Our State
 bool _update = true;
@@ -26,46 +37,56 @@ ImGuiTextBuffer	g_buf;
 bool _showDemoWindow = false;
 ImVec4 clear_color = ImVec4(0.15f, 0.1f, 0.90f, 1.00f);
 
-// Forward declarations of helper functions
-void UpdateLog();
-void UpdateTrace();
-void UpdateMemoryProfile();
-void UpdateGraphicsSettings();
+
+// Forward declarations of imgui helper functions
 void Render();
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
 
+// Forward declarations of custom helper functions
+void UpdateLog();
+void UpdateTrace();
+void UpdateMemoryProfile();
+void UpdateGraphicsSettings();
+
+
+
 namespace CantDebugAPI
 {
 	void InitDebugWindow(SDL_Window* gameWindow)
 	{
-		g_mainWindow = SDL_CreateWindow("CantDebug",
-			SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED,
-			1200,
-			900,
-			SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-
-		SDL_SysWMinfo wmInfo;
-		SDL_VERSION(&wmInfo.version);
-		SDL_GetWindowWMInfo(g_mainWindow, &wmInfo);
-		HWND hwnd = (HWND)wmInfo.info.win.window;
+		// Create application window
+		g_wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("Debug"), NULL };
+		::RegisterClassEx(&g_wc);
+		g_hwnd = ::CreateWindow(g_wc.lpszClassName, _T("Debug Window"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, g_wc.hInstance, NULL);
 
 		// Initialize Direct3D
-		CreateDeviceD3D(hwnd);
+		if (!CreateDeviceD3D(g_hwnd))
+		{
+			CleanupDeviceD3D();
+			::UnregisterClass(g_wc.lpszClassName, g_wc.hInstance);
+			return ;
+		}
+
+		// Show the window
+		::ShowWindow(g_hwnd, SW_SHOWDEFAULT);
+		::UpdateWindow(g_hwnd);
 
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
 
 		// Setup Platform/Renderer bindings
-		ImGui_ImplSDL2_InitForD3D(g_mainWindow);
+		ImGui_ImplWin32_Init(g_hwnd);
 		ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
 		g_logQueue = new DataQueue();
@@ -77,10 +98,11 @@ namespace CantDebugAPI
 	void UpdateDebugWindow()
 	{
 		if (!_update)
-			return;
+			return;		
 
+		// Start the Dear ImGui frame
 		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplSDL2_NewFrame(g_mainWindow);
+		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
 		ImGui::Checkbox("Demo Window", &_showDemoWindow);
@@ -95,17 +117,12 @@ namespace CantDebugAPI
 		Render();
 	}
 
-	void CloseDebugWindow(const SDL_Event& _event)
+	void CloseDebugWindow()
 	{
-		if (_event.type == SDL_WINDOWEVENT &&
-			_event.window.event == SDL_WINDOWEVENT_CLOSE &&
-			_event.window.windowID == SDL_GetWindowID(g_mainWindow))
-		{
-			_update = false;
-			// Cleanup
-
-			SDL_DestroyWindow(g_mainWindow);
-		}
+		// Cleanup
+		CleanupDeviceD3D();
+		::DestroyWindow(g_hwnd);
+		::UnregisterClass(g_wc.lpszClassName, g_wc.hInstance);
 	}
 
 	void Log(const char* data)
@@ -179,10 +196,12 @@ void UpdateMemoryProfile()
 
 void Render()
 {
+	// Rendering
 	ImGui::Render();
 	g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
 	g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (float*)&clear_color);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 	g_pSwapChain->Present(1, 0); // Present with vsync
 }
 
@@ -235,4 +254,32 @@ void CreateRenderTarget()
 void CleanupRenderTarget()
 {
 	if (g_mainRenderTargetView) { g_mainRenderTargetView->Release(); g_mainRenderTargetView = NULL; }
+}
+
+// Win32 message handler
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+		return true;
+
+	switch (msg)
+	{
+	case WM_SIZE:
+		if (g_pd3dDevice != NULL && wParam != SIZE_MINIMIZED)
+		{
+			CleanupRenderTarget();
+			g_pSwapChain->ResizeBuffers(0, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam), DXGI_FORMAT_UNKNOWN, 0);
+			CreateRenderTarget();
+		}
+		return 0;
+	case WM_SYSCOMMAND:
+		if ((wParam & 0xfff0) == SC_KEYMENU) // Disable ALT application menu
+			return 0;
+		break;
+	case WM_DESTROY:
+		::PostQuitMessage(0);
+		return 0;
+	}
+	return ::DefWindowProc(hWnd, msg, wParam, lParam);
 }

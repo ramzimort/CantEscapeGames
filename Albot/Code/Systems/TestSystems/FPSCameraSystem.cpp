@@ -8,6 +8,7 @@
 #include "Graphics/Camera.h"
 
 unsigned const FPSCameraSystem::static_type = BaseSystem::numberOfTypes++;
+static const float movement_rate = 20.f;
 
 FPSCameraSystem::FPSCameraSystem()
 {
@@ -45,7 +46,7 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 	auto camera_comp = sys_comp->m_camera_comp;
 
 
-	XMFLOAT2 movement_amount(0.f, 0.f);
+	Vector2 movement_amount(0.f, 0.f);
 	if (controller->m_forward)
 	{
 		movement_amount.y = 1.f;
@@ -65,46 +66,30 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 	{
 		movement_amount.x = 1.f;
 	}
-	XMVECTOR right = XMLoadFloat3(&camera_comp->m_camera->m_rightDir);
+	XMVECTOR right = XMLoadFloat3(&camera_comp->GetCamera().m_rightDir);
 
 	if (controller->m_leftClick)
 	{
 
 		Vector2 mouse_delta = controller->m_mouseDeltaPosition;
 		XMFLOAT2 rot_amount;
-
 		rot_amount.x = -mouse_delta.x * 100.f;
 		rot_amount.y = -mouse_delta.y * 100.f;
-
 		static const float rotation_rate = XMConvertToRadians(1.f);
-
 		XMVECTOR rotation_vector = XMLoadFloat2(&rot_amount) * rotation_rate * dt;
-
 		XMMATRIX pitch_mat = XMMatrixRotationAxis(right, XMVectorGetY(rotation_vector));
 		XMMATRIX yaw_mat = XMMatrixRotationY(XMVectorGetX(rotation_vector));
-
-		camera_comp->m_camera->ApplyRotation(XMMatrixMultiply(pitch_mat, yaw_mat));
+		camera_comp->GetCamera().ApplyRotation(XMMatrixMultiply(pitch_mat, yaw_mat));
 	}
 
-	
 	Vector3 position = transform_comp->GetPosition();
-
-	static const float movement_rate = 20.f;
-
 	XMVECTOR movement = XMLoadFloat2(&movement_amount) * movement_rate * dt;
-
 	XMVECTOR strafe = right * XMVectorGetX(movement);
-	XMVECTOR forward = XMLoadFloat3(&camera_comp->m_camera->m_lookDir) * XMVectorGetY(movement);
+	XMVECTOR forward = XMLoadFloat3(&camera_comp->GetCamera().m_lookDir) * XMVectorGetY(movement);
 	position += strafe;
 	position += forward;
 	XMFLOAT3 position3;
 	XMStoreFloat3(&position3, position);
-	camera_comp->m_camera->m_position = position3;
-	transform_comp->SetLocalPosition(position3.x, position3.y, position3.z);
-	camera_comp->m_camera->update_view_matrix();
-	camera_comp->m_camera->update_view_projection_matrix();
-}
 
-void FPSCameraSystem::Draw(float dt, BaseSystemCompNode *compNode)
-{
+	transform_comp->SetLocalPosition(position3.x, position3.y, position3.z);
 }

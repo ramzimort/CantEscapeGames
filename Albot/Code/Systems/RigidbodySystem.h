@@ -12,6 +12,7 @@ Primary Author: Jose Rosenbluth
 #include "Physics/SpatialPartition/DynamicAabbTree.h"
 #include "Physics/CollisionTable.h"
 #include "../Components/MeshComponent.h"
+#include "Physics/Gjk/CollisionManifold.h"
 
 class TransformComponent;
 class RigidbodyComponent;
@@ -36,11 +37,6 @@ struct RigidbodyCompNode : BaseSystemCompNode
 
 class RigidbodySystem : public BaseSystem
 {
-
-//Friend classes
-public:
-	friend class Factory;
-
 //Public interface
 public:
 	RigidbodySystem();
@@ -66,7 +62,9 @@ private:
 	float  m_timeAccumulator;
 
 	DynamicAabbTree m_broadPhase;
-	
+		
 	CollisionTable m_collisionTable;
 	AppRenderer* m_pAppRenderer;
+
+	Vector4 debugColor = { 0, 1, 0, 1 };
 };

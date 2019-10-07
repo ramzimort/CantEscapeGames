@@ -13,8 +13,9 @@ Primary Author: Aleksey Perfilev
 #include "BaseComponent.h"
 #include "Physics/Geometry/Aabb.h"
 #include "Physics/CollisionTable.h"
+#include "Physics/Constraint.h"
 
-
+class Constraint;
 class RigidbodyComponent : public BaseComponent
 {
 
@@ -31,8 +32,10 @@ public:
 	virtual void Begin() override;
 
 	// getters/setters
+	const Vector3& GetPosition() const;
 	const Aabb& GetAabb() const;
 	const Vector3& GetVelocity() const;
+	const Vector3& GetAngularVelocity() const;
 
 	float GetMass() const;
 	void SetMass(float mass);
@@ -46,17 +49,23 @@ private:
 
 	Vector3 m_position;
 	Vector3 m_velocity;
-	Vector4 m_orientation;
+	Quaternion m_quaternion;
 	Vector3 m_angularVelocity;
 
 	Matrix m_inertiaTensor;
-	Matrix m_inverseInertiaTensor;
+	Matrix m_inertiaTensorInverse;
 	Matrix m_inertiaTensorWorldInverse;
 	float m_mass;
 	float m_inverseMass;
+
+	bool m_isEffectedByGravity;
 	
+	std::vector<Constraint> m_constraints;
 	
 	CollisionTable::CollisionMask m_collisionMask;
 
 	unsigned int m_dynamicAabbTreeKey;
+	
+	RTTR_ENABLE(BaseComponent);
+	RTTR_REGISTRATION_FRIEND;
 };

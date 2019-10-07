@@ -14,11 +14,14 @@ class Camera
 public:
 	friend class FPSCameraSystem;
 public:
-	Camera() = default;
+	Camera();
+	Camera(const Camera& lhs);
 
-	Camera(int width, int height, float fov,
+	Camera(float fov,
 		float nearVal, float farVAl, const Vector3& position);
 	~Camera();
+
+	void SetAspectRatio(size_t width, size_t height);
 
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
@@ -36,13 +39,16 @@ public:
 	const Matrix& GetViewProjectionMatrix() const { return m_viewProjectionMatrix; }
 	const Matrix& GetInvViewProjectionMatrix() const { return m_invViewProjectionMatrix; }
 	
-	void update_view_matrix();
-	void update_projection_matrix();
-	void update_view_projection_matrix();
+	void UpdateViewMatrix();
+	void UpdateProjectionMatrix();
+	void UpdateViewProjectionMatrix();
+
+	size_t GetId();
 
 private:
 	
 private:
+	size_t m_id;
 	Vector3 m_position, m_lookDir, m_upDir, m_rightDir;
 
 	Matrix m_viewMatrix;
@@ -58,8 +64,12 @@ private:
 	float m_aspect;
 	float m_near;
 	float m_far;
-	int32_t m_width;
-	int32_t m_height;
+
+	static size_t ID()
+	{
+		static size_t ID = 0;
+		return ID++;
+	}
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

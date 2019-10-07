@@ -5,6 +5,10 @@
     "Scale": [ 7.0, 8.0, 9.0 ]
   },
 
-  "RigidbodyComponent": {
+  "RigidBodyComponent": {
+  },
+
+  "FPSController": {
+    "Inverted": true
   }
 }

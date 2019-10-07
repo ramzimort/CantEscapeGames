@@ -14,7 +14,7 @@ namespace CantDebugAPI
 
 	CANTDEBUG_API void UpdateDebugWindow();
 
-	CANTDEBUG_API void CloseDebugWindow(const SDL_Event& event);
+	CANTDEBUG_API void CloseDebugWindow();
 
 	CANTDEBUG_API void Log(const char* data);
 

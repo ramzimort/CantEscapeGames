@@ -16,28 +16,25 @@ EventManager::EventManager()
 
 EventManager::~EventManager()
 {
+	delete m_pStateManager;
+	delete m_pResourceManager;
+	delete m_pAppRenderer;
+	delete m_pInputManager;
+	delete m_pCameraManager;
+	delete m_pEventBus;
 }
 
 void EventManager::Initialize()
 {
-	m_pInputManager = new InputManager();
-	m_pInputManager->Initialize();
-
+	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
+	m_pInputManager = new InputManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
 	m_pResourceManager->SetDXRenderer(m_pAppRenderer->GetDXRenderer());
 	m_pStateManager = new StateManager();
-	m_pEventBus = new EventBus();
-
 
 	// REMOVE
-	SDL_Window* main_window = m_pInputManager->GetWindow();
-	int32_t windowWidth, windowHeight;
-	SDL_GetWindowSize(main_window, &windowWidth, &windowHeight);
-	Camera* camera = new Camera(windowWidth, windowHeight, 45.f,
-		0.1f, 1000.f, Vector3(0.0, 0.0, 20.f));
-	m_pCameraManager->RegisterCamera("Main", camera);
 	m_pStateManager->SwitchState(new State("level1.json", m_pAppRenderer, m_pResourceManager));
 }
 

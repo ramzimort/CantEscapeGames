@@ -5,53 +5,64 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 Primary Author: Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
-
 #include "CameraManager.h"
 #include "Graphics/Camera.h"
+#include "EventManager.h"
+#include "Events/Camera/CameraEvents.h"
+#include "Events/Input/WindowSizeEvent.h"
 
 CameraManager* gCameraManager;
-
 
 CameraManager::CameraManager()
 {
 	gCameraManager = this;
+
+	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
+		std::bind(&CameraManager::OnCameraRegistration, this, std::placeholders::_1));
+
+	EventManager::Get()->SubscribeEvent<CameraDestructionEvent>(this,
+		std::bind(&CameraManager::OnCameraDestruction, this, std::placeholders::_1));
+
+	EventManager::Get()->SubscribeEvent<WindowSizeEvent>(this,
+		std::bind(&CameraManager::OnWindowSize, this, std::placeholders::_1));
 }
 
 CameraManager::~CameraManager()
 {
-	for (auto& node : m_registeredCameras) 
-	{
-		CameraInfo& camInfo = node.second;
-		if (camInfo.m_camera != nullptr)
-			delete camInfo.m_camera;
-	}
-	m_registeredCameras.clear();
+	m_cameras.clear();
 }
 
 void CameraManager::Update(float dt)
 {
 }
 
-void CameraManager::RegisterCamera(const std::string& cameraTag, Camera* camera)
+const CameraInfo& CameraManager::GetMainCamera() const
 {
-	CameraInfo cameraInfo(camera, 0, 0);
-	m_registeredCameras[cameraTag] = cameraInfo;
+	return *m_cameras.begin();
 }
 
-void CameraManager::UnregisterCamera(const std::string& cameraTag)
+void CameraManager::OnCameraRegistration(const CameraRegistrationEvent* event)
 {
+		// Where does the camera info come from ?? 
+		CameraInfo cameraInfo(event->m_camera, event->m_xViewPortPos, event->m_yViewportPos);
+		cameraInfo.m_camera.SetAspectRatio(m_scrWidth, m_scrHeight);
+		m_cameras.push_back(cameraInfo);
 }
 
-void CameraManager::UnregisterCamera(unsigned cameraId)
+void CameraManager::OnCameraDestruction(const CameraDestructionEvent* event)
 {
-}
-
-const CameraInfo* CameraManager::GetCameraInfo(const std::string& nameTag) const
-{
-	auto find = m_registeredCameras.find(nameTag);
-	if (find == m_registeredCameras.end())
+	for(auto it = m_cameras.begin(); it != m_cameras.end(); ++it)
 	{
-		return nullptr;
+		if (it->m_camera.GetId() == event->m_id)
+		{
+			m_cameras.erase(it);
+			return;
+		}
 	}
-	return &find->second;
+}
+
+void CameraManager::OnWindowSize(const WindowSizeEvent* event)
+{
+	m_scrWidth = event->m_width;
+	m_scrHeight = event->m_height;
 }

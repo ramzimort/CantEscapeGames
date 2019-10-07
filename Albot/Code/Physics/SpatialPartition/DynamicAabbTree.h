@@ -8,9 +8,12 @@ Other Authors :
 #pragma once
 
 #include "../Geometry/Aabb.h"
+#include "../Geometry/RayCant.h"
 #include "SpatialPartitionData.h"
 #include "QueryResults.h"
+#include "CastResults.h"
 
+class RayCant;
 class AppRenderer;
 class DynamicAabbTree;
 class DynamicAabbTreeNode
@@ -63,16 +66,15 @@ public:
 	void InsertData(unsigned int& key, const SpatialPartitionData& data);
 	void UpdateData(unsigned int& key, const SpatialPartitionData& data);
 	void RemoveData(unsigned int& key);
-	//void CastRay(const Ray& ray, RayCastResults& results);
+	void CastRay(const RayCant& ray, CastResults& results);
 
 #ifdef DEVELOPER
 	void DebugDrawRec(AppRenderer* appRenderer, int level, const Vector4& color, DynamicAabbTreeNode* node, int currentLevel);
 	void DebugDraw(AppRenderer* pAppRenderer, int level, const Vector4& color = Vector4(1));
 #endif
 
-	/*void CastRayRec(const Ray& ray, RayCastResults& results, DynamicAabbTreeNode* node) const;
-	void CastRayRec(const Ray& ray, CastResults& results, DynamicAabbTreeNode* node) const;
-
+	void CastRayRec(const RayCant& ray, CastResults& results, DynamicAabbTreeNode* node) const;
+/*
 	void FrustumAddResultsRec(CastResults& results, DynamicAabbTreeNode* node) const;
 	void CastFrustumRec(const Frustum& frustum, CastResults& results, DynamicAabbTreeNode* node) const;
 	/*void CastFrustum(const Frustum& frustum, CastResults& results) override;

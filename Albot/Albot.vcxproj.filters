@@ -52,7 +52,6 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\Sat\Sat.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -75,6 +74,15 @@
     <ClCompile Include="Code\Components\TestComponent.cpp" />
     <ClCompile Include="Code\Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
+    <ClCompile Include="Code\Events\Input\MouseEvent.cpp" />
+    <ClCompile Include="Code\Events\Input\KeyEvent.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\Gjk.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Triangle.cpp" />
+    <ClCompile Include="Code\Physics\PhysicsUtils.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
+    <ClCompile Include="Code\Physics\Constraint.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\RayCant.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\CastResults.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -145,7 +153,6 @@
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
-    <ClInclude Include="Code\Physics\Sat\Sat.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
@@ -171,10 +178,12 @@
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
-    <ClInclude Include="Code\Components\AllComponentHeaders.h" />
-    <ClInclude Include="Code\Events\Input\Input.h" />
-    <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
-    <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
+    <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
+    <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
+    <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
+    <ClInclude Include="Code\Physics\Constraint.h" />
+    <ClInclude Include="Code\Physics\Geometry\RayCant.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\CastResults.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

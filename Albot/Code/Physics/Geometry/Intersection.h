@@ -23,6 +23,8 @@ namespace Intersection
 	bool AabbAabb(const Vector3& aabbMinA, const Vector3& aabbMaxA, const Vector3& aabbMinB, const Vector3& aabbMaxB);
 	bool SphereSphere(const Vector3& sphereCenterA, float sphereRadiusA, const Vector3& sphereCenterB, float sphereRadiusB);
 	bool AabbSphere(const Vector3& aabbMin, const Vector3& aabbMax, const Vector3& sphereCenter, float sphereRadius);
+	bool RaySphere(const Vector3& rayStart, const Vector3& rayDir, const Vector3& sphereCenter, float sphereRadius, float& t);
+	bool RayAabb(const Vector3& rayStart, const Vector3& rayDir, const Vector3& aabbMin, const Vector3& aabbMax, float& t, float parallelCheckEpsilon = 0.0001f);
 
 	float SqDistPointAabb(const Vector3& point, const Vector3& aabbMin, const Vector3& aabbMax);
 

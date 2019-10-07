@@ -351,7 +351,9 @@
     <ClCompile Include="Code\Physics\Geometry\Aabb.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Intersection.cpp" />
     <ClCompile Include="Code\Physics\Geometry\Sphere.cpp" />
-    <ClCompile Include="Code\Physics\Sat\Sat.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\Gjk.cpp" />
+    <ClCompile Include="Code\Physics\PhysicsUtils.cpp" />
+    <ClCompile Include="Code\Physics\SpatialPartition\CastResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\DynamicAabbTree.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\QueryResults.cpp" />
     <ClCompile Include="Code\Physics\SpatialPartition\SpatialPartitionData.cpp" />
@@ -370,6 +372,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Code\Systems\BaseSystem.cpp" />
+    <ClCompile Include="Code\Systems\CameraSystem.cpp" />
     <ClCompile Include="Code\Systems\CustomSystem\CustomSystem.cpp" />
     <ClCompile Include="Code\Systems\TestSystems\FPSCameraSystem.cpp" />
     <ClCompile Include="Code\Systems\LightSystem.cpp" />
@@ -378,6 +381,10 @@
     <ClCompile Include="Code\Systems\TestSystem.cpp" />
     <ClCompile Include="Code\Systems\TransformSystem.cpp" />
     <ClCompile Include="Code\Physics\CollisionTable.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\Triangle.cpp" />
+    <ClCompile Include="Code\Physics\Gjk\CollisionManifold.cpp" />
+    <ClCompile Include="Code\Physics\Constraint.cpp" />
+    <ClCompile Include="Code\Physics\Geometry\RayCant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\Include\stb_image.h" />
@@ -394,6 +401,8 @@
     <ClInclude Include="Code\Components\TestComponents\FPSControllerComponent.h" />
     <ClInclude Include="Code\Components\TransformComponent.h" />
     <ClInclude Include="Code\Events\BaseEvent.h" />
+    <ClInclude Include="Code\Events\Camera\CameraDestructionEvent.h" />
+    <ClInclude Include="Code\Events\Camera\CameraEvents.h" />
     <ClInclude Include="Code\Events\Delegate.h" />
     <ClInclude Include="Code\Events\Event.h" />
     <ClInclude Include="Code\Events\EventBus.h" />
@@ -402,8 +411,10 @@
     <ClInclude Include="Code\Events\Input\JoystickEvent.h" />
     <ClInclude Include="Code\Events\Input\KeyEvent.h" />
     <ClInclude Include="Code\Events\Input\MouseEvent.h" />
+    <ClInclude Include="Code\Events\Input\WindowSizeEvent.h" />
     <ClInclude Include="Code\Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Code\Events\Multicast.h" />
+    <ClInclude Include="Code\Events\Camera\CameraRegistrationEvent.h" />
     <ClInclude Include="Code\Factory\Factory.h" />
     <ClInclude Include="Code\GameObjects\GameObject.h" />
     <ClInclude Include="Code\Graphics\AppRenderer.h" />
@@ -456,8 +467,9 @@
     <ClInclude Include="Code\Physics\Geometry\Intersection.h" />
     <ClInclude Include="Code\Physics\Geometry\Shape.h" />
     <ClInclude Include="Code\Physics\Geometry\Sphere.h" />
+    <ClInclude Include="Code\Physics\Gjk\Gjk.h" />
     <ClInclude Include="Code\Physics\PhysicsUtils.h" />
-    <ClInclude Include="Code\Physics\Sat\Sat.h" />
+    <ClInclude Include="Code\Physics\SpatialPartition\CastResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\DynamicAabbTree.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\QueryResults.h" />
     <ClInclude Include="Code\Physics\SpatialPartition\SpatialPartitionData.h" />
@@ -470,6 +482,7 @@
     <ClInclude Include="Code\States\State.h" />
     <ClInclude Include="Code\stdafx.h" />
     <ClInclude Include="Code\Systems\BaseSystem.h" />
+    <ClInclude Include="Code\Systems\CameraSystem.h" />
     <ClInclude Include="Code\Systems\CustomSystem\CustomSystem.h" />
     <ClInclude Include="Code\Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Code\Systems\LightSystem.h" />
@@ -478,6 +491,10 @@
     <ClInclude Include="Code\Systems\TestSystem.h" />
     <ClInclude Include="Code\Systems\TransformSystem.h" />
     <ClInclude Include="Code\Physics\CollisionTable.h" />
+    <ClInclude Include="Code\Physics\Geometry\Triangle.h" />
+    <ClInclude Include="Code\Physics\Gjk\CollisionManifold.h" />
+    <ClInclude Include="Code\Physics\Constraint.h" />
+    <ClInclude Include="Code\Physics\Geometry\RayCant.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Code\Shaders\debug_frag.hlsl">

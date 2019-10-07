@@ -9,7 +9,7 @@ public:
 		m_scancode(key_scancode),
 		m_press(press)
 	{
-		DEBUG_LOG("Key: %s\n", SDL_GetKeyName(SDL_GetKeyFromScancode(m_scancode)));
+		DEBUG_LOG("Key: %s, State: %d\n", SDL_GetKeyName(SDL_GetKeyFromScancode(m_scancode)), press);
 	}
 	virtual ~KeyEvent() { }
 

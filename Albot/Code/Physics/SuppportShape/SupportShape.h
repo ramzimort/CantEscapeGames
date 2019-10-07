@@ -17,4 +17,6 @@ public:
 	
 	Vector3 GetCenter(const std::vector<VertexData>& localPoints, const Matrix& localToWorldTransform) const;
 	Vector3 Support(const Vector3& worldDirection, const std::vector<VertexData>& localPoints, const Matrix& localToWorldTransform) const;
+
+
 };

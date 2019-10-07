@@ -67,7 +67,6 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			// Load the override string as object
 			auto overrideList = gameObjJson["overrides"].GetObjectA();
 
-			// TODO: Override parameters from the overrides 
 			RecursiveRead(prefabList, overrideList);
 
 			// Stringify and pass to lambda for later instantiation
@@ -83,23 +82,6 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			LoadObject(objSetup, tag, goMgr, resMgr);
 		}
 	}
-
-	//Wont be registered in any system				         ////
-	GameObjectDesc desc4;							         ////
-	desc4.tag = "FPSPlayer";						         ////
-	desc4.initializeComponentSetup = [](GameObject *go)		         ////
-	{												         ////
-		auto *T = go->AddComponent<TransformComponent>();
-		T->SetLocalPosition(0.f, 0.f, 0.f);////
-
-		auto cameraComp = go->AddComponent<CameraComponent>();
-		const CameraInfo* cameraInfo = gCameraManager->GetCameraInfo("Main");
-		cameraComp->SetCamera(cameraInfo->m_camera);
-
-		auto FPSController = go->AddComponent<FPSControllerComponent>();
-		//Override code								         ////
-	};												         ////
-	goMgr->Queue_GameObject_Instantiation(&desc4);
 }
 
 Factory::~Factory()
@@ -270,7 +252,7 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 {
 	if (name == "TransformComponent")
 		return go->AddComponent<TransformComponent>();
-	else if (name == "RigidbodyComponent")
+	else if (name == "RigidBodyComponent")
 		return go->AddComponent<RigidbodyComponent>();
 	else if (name == "RendererComponent")
 		return go->AddComponent<RendererComponent>();
@@ -280,6 +262,8 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<LightComponent>();
 	else if (name == "CameraComponent")
 		return go->AddComponent<CameraComponent>();
+	else if (name == "FPSController")
+		return go->AddComponent<FPSControllerComponent>();
 	
 	return rttr::variant();
 }

@@ -15,7 +15,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
 #include "Systems/LightSystem.h"
-
+#include "Systems/CameraSystem.h"
 #ifdef DEVELOPER
 #include "Systems/TestSystems/FPSCameraSystem.h"
 #endif // DEVELOPER
@@ -25,6 +25,7 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 {
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
+	this->AddSystem<CameraSystem>();
 	this->AddSystem<LightSystem>();
 	this->AddSystem<RenderingSystem>();
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);

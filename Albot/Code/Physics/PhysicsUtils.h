@@ -19,8 +19,16 @@ namespace PhysicsUtils
 		//physics
 		const int maxPhysicsIterationsPerFrame = 5;
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
-		const float fatteningFactor = 1.1f;
-		const Vector3 gravity(0.0f, -9.8f, 0.0f);
+		const float fatteningFactor = 1.0f;
+		const float gravity = -9.8f;
+
+		namespace Constraints
+		{
+			const int numGaussSeidelIterations = 10;
+			const float bias = 0.2f;                   // damping term for position
+			const float restitution = 0.4f;            // damping term for velocity
+			const float friction = 0.2f;               // friction coefficient
+		}
 		
 		// path
 		const std::string Assets_Dir = "Assets\\";
@@ -62,6 +70,14 @@ namespace PhysicsUtils
 		return rhs * rhs;
 	}
 
+	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b,
+		float& u, float& v, float expansionEpsilon = 0.0f);
+
+	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b, const Vector3& c,
+		float& u, float& v, float& w, float expansionEpsilon = 0.0f);
+
+
+	
 #ifdef DEVELOPER
 	namespace MathPrinter
 	{
