@@ -34,8 +34,10 @@ AppRenderer::~AppRenderer()
 void AppRenderer::InnerLoadContent()
 {
 
-	m_object_uniform_data_list.reserve(500);
-	m_material_uniform_data_list.reserve(500);
+	m_object_uniform_data_list.reserve(1000);
+	m_material_uniform_data_list.reserve(1000);
+	m_object_uniform_buffer_list.reserve(1000);
+	m_material_uniform_buffer_list.reserve(1000);
 
 
 	InitRandomTexture1D();
@@ -720,8 +722,8 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 	m_dxrenderer->cmd_bind_pipeline(pipeline);
 
 	uint32_t material_index = 0;
-
-	for (uint32_t i = 0; i < m_basicInstances.size(); ++i)
+	uint32_t basicInstanceIndex = 0;
+	for (uint64_t i = 0; i < m_basicInstances.size(); ++i)
 	{
 		const InstanceRenderData& inst_data = m_basicInstances[i];
 		Model* p_ref_model = inst_data.p_ref_model;
@@ -732,22 +734,22 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			continue;
 		}
 
-		if (i >= m_object_uniform_buffer_list.size())
+		if (basicInstanceIndex >= m_object_uniform_buffer_list.size())
 		{
 			AddObjectUniformBuffer();
 		}
 
-		Buffer* obj_uniform_buffer = m_object_uniform_buffer_list[i];
+		Buffer* obj_uniform_buffer = m_object_uniform_buffer_list[basicInstanceIndex];
 
-		m_object_uniform_data_list[i] = {};
-		m_object_uniform_data_list[i].ModelMat = inst_data.model_mat;
-		m_object_uniform_data_list[i].InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
-		m_object_uniform_data_list[i].ModelViewProjectionMat = inst_data.model_mat * m_camera_uniform_data.ViewProjectionMat;
-		m_object_uniform_data_list[i].NormalMat = inst_data.normal_mat;
+		m_object_uniform_data_list[basicInstanceIndex] = {};
+		m_object_uniform_data_list[basicInstanceIndex].ModelMat = inst_data.model_mat;
+		m_object_uniform_data_list[basicInstanceIndex].InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
+		m_object_uniform_data_list[basicInstanceIndex].ModelViewProjectionMat = inst_data.model_mat * m_camera_uniform_data.ViewProjectionMat;
+		m_object_uniform_data_list[basicInstanceIndex].NormalMat = inst_data.normal_mat;
 
 		BufferUpdateDesc update_object_uniform_desc = {};
 		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
-		update_object_uniform_desc.m_pSource = &m_object_uniform_data_list[i];
+		update_object_uniform_desc.m_pSource = &m_object_uniform_data_list[basicInstanceIndex];
 		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
 		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
@@ -762,7 +764,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
 		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
-
+		++basicInstanceIndex;
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
 
@@ -791,12 +793,12 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 
 
 			BufferUpdateDesc update_material_uniform_desc = {};
-			update_material_uniform_desc.m_buffer = material_uniform_buffer;
+			update_material_uniform_desc.m_buffer = m_material_uniform_buffer_list[material_index];
 			update_material_uniform_desc.m_pSource = &m_material_uniform_data_list[material_index];
 			update_material_uniform_desc.m_size = sizeof(MaterialUniformData);
 			m_dxrenderer->cmd_update_buffer(update_material_uniform_desc);
 
-			++material_index;
+			
 			
 
 			DescriptorData params[8] = {};
@@ -813,7 +815,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			params[2].m_binding_location = 2;
 			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[2].m_buffers = &material_uniform_buffer;
+			params[2].m_buffers = &m_material_uniform_buffer_list[material_index];
 
 			params[3].m_binding_location = 0;
 			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
@@ -826,7 +828,7 @@ void AppRenderer::RenderBasicInstances(Pipeline* pipeline)
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
 			Texture* height_texture = cur_material_instance->GetHeightTexture();
 
-
+			++material_index;
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
 				++total_params_count;

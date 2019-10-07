@@ -18,6 +18,15 @@ namespace MathUtil
 		return (val < 0.0f) ? -1.0f : 1.0f;
 	}
 
+	inline float RandF()
+	{
+		return (float)(rand()) / (float)RAND_MAX;
+	}
+	inline float RandF(float a, float b)
+	{
+		return a + RandF() * (b - a);
+	}
+
 	inline void  BuildTangentBitangent(const Vector3& vector, Vector3& tangent, Vector3& bitangent)
 	{
 		const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));

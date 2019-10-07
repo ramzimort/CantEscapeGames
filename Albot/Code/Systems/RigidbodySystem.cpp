@@ -86,6 +86,11 @@ void RigidbodySystem::LateUpdate(float dt)
 				DEBUG_LOG("RigidbodySystem::LateUpdate(): while updating aabb one or more of the following is a nullptr: rigidbody, mesh, transform.");
 			}
 #endif			
+			
+			if (!mesh->GetModel())
+			{
+				continue;
+			}
 			// updating aabb
 			rigidbody->m_aabb = mesh->GetModel()->GetAABB(); // reset to object space
 			Matrix model = transform->GetModel();

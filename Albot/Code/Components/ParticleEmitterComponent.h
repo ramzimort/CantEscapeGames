@@ -25,7 +25,7 @@ public:
 	virtual ~ParticleEmitterComponent();
 
 	void Init(ResourceManager* resourceManager, DXRenderer* dxrenderer);
-	void Begin() {}
+	void Begin(GameObjectManager *goMgr) override{}
 
 	void Emit();
 

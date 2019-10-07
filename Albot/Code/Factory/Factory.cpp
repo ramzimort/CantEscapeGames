@@ -53,7 +53,7 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr,
 
 
 	// TODO - REMOVE LATER (jose)
-	CreateTestScriptingGO(goMgr, luaMgr);
+	///CreateTestScriptingGO(goMgr, luaMgr);
 
 
 	assert(lvlDoc["Objects"].IsArray());
@@ -293,12 +293,12 @@ void Factory::CreateTestScriptingGO(GameObjectManager *mgr,
 		CustomComponent *c1 = go->AddCustomComponent("test01Comp", luaMgr);
 		c1->Override("hashed", "Marcos comp1 HASHED!");
 		c1->Override("ranked", 256);
-		c1->Init(0);
+		c1->Init(0, nullptr);
 
 		CustomComponent *c2 = go->AddCustomComponent("test02Comp", luaMgr);
 		c2->Override("hashed", "Marcos comp2 HASHED!");
 		c2->Override("ranked", 1024);
-		c2->Init(0);
+		c2->Init(0, nullptr);
 
 		go->Begin();
 	};
@@ -312,7 +312,7 @@ void Factory::CreateTestScriptingGO(GameObjectManager *mgr,
 		CustomComponent *c1 = go2->AddCustomComponent("test01Comp", luaMgr);
 		c1->Override("hashed", "Andres SuperHashed!");
 		c1->Override("ranked", -256);
-		c1->Init(0);
+		c1->Init(0, nullptr);
 
 		go2->Begin();
 	};

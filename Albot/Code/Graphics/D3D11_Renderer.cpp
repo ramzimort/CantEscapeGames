@@ -36,6 +36,7 @@ bool DXRenderer::init(uint32_t swap_chain_sample_count)
 {
 	m_descriptor_data_list.reserve(5000);
 	m_dxdescriptor_data_reference_list.reserve(5000);
+	m_cmd_list.reserve(5000);
 
 	if (!init_d3d11(swap_chain_sample_count))
 	{
@@ -253,8 +254,6 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 			back_desc.m_textures = &m_dxdescriptor_data_reference_list[dx_descriptor_ref_original_size].p_texture;
 
 		}
-
-		//m_descriptor_data_list.push_back(*(descriptor_data + i));
 	}
 
 	DXCMD cmd = {};
@@ -397,9 +396,9 @@ void DXRenderer::instant_update_buffer(const BufferUpdateDesc& buffer_update_des
 
 void DXRenderer::execute_queued_cmd()
 {
-	for (uint32_t i = 0; i < m_cmd_list.size(); ++i)
+	for (uint64_t cmd_index = 0; cmd_index < m_cmd_list.size(); ++cmd_index)
 	{
-		const DXCMD& cmd = m_cmd_list[i];
+		const DXCMD& cmd = m_cmd_list[cmd_index];
 
 		switch (cmd.m_type)
 		{
@@ -407,9 +406,9 @@ void DXRenderer::execute_queued_cmd()
 		{
 			const DXCMD_Bind_Descriptors& cmd_bind_descriptors = cmd.m_cmd_bind_descriptors;
 
-			for (uint32_t i = 0; i < cmd_bind_descriptors.m_descriptor_count; ++i)
+			for (uint32_t descriptorIndex = 0; descriptorIndex < cmd_bind_descriptors.m_descriptor_count; ++descriptorIndex)
 			{
-				DescriptorData* p_cur_descriptor_data = cmd_bind_descriptors.m_p_descriptor_data + i;
+				DescriptorData* p_cur_descriptor_data = cmd_bind_descriptors.m_p_descriptor_data + descriptorIndex;
 
 				DescriptorType cur_descriptor_type = p_cur_descriptor_data->m_descriptor_type;
 

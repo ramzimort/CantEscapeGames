@@ -5,6 +5,8 @@
 #include "Pipeline.h"
 #include "D3D_Commands.h"
 #include "RenderTarget.h"
+#include <list>
+#include <string>
 
 struct SwapChain
 {
@@ -106,7 +108,7 @@ private:
 
 	Buffer* m_p_transient_constant_buffer;
 
-	std::vector<DescriptorData> m_descriptor_data_list;
+	std::vector <DescriptorData> m_descriptor_data_list;
 
 	std::vector<DXDescriptorDataReference> m_dxdescriptor_data_reference_list;
 
