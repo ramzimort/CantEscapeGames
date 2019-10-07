@@ -4,6 +4,7 @@
 #include "Helper/Hash.h"
 
 class Model;
+class GameObjectManager;
 
 struct VertexWorldSpaceData
 {
@@ -31,7 +32,7 @@ public:
 	virtual ~MeshComponent();
 
 	void Init(ResourceManager* resMgr) override;
-	void Begin() override;
+	void Begin(GameObjectManager *goMgr) override;
 	Model* GetModel();
 
 	//TODO: temp function, this public function is only for testing

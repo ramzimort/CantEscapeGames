@@ -4,6 +4,7 @@
 
 class KeyEvent;
 class MouseEvent;
+class GameObjectManager;
 
 class FPSControllerComponent : public BaseComponent
 {
@@ -12,7 +13,7 @@ public:
 	virtual ~FPSControllerComponent();
 
 	virtual void Init(ResourceManager* resMgr);
-	virtual void Begin();
+	virtual void Begin(GameObjectManager *goMgr);
 
 	void OnKeyDown(const KeyEvent* event);
 	void OnMouse(const MouseEvent* event);

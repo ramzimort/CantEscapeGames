@@ -10,13 +10,15 @@ Primary Author: Jose Rosenbluth
 class GameObjectManager;
 class SystemManager;
 class ResourceManager;
+class ScriptingManager;
 
 
 class Factory
 {
 
 public:
-	Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr);
+	Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr, 
+		ResourceManager* resMgr, ScriptingManager *luaMgr);
 	Factory() = delete;
 	Factory(Factory const& rhs) = delete;
 	~Factory();
@@ -24,6 +26,9 @@ public:
 private:
 	void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
 	void LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr, ResourceManager* resMgr);
+
+	// TODO - REMOVE LATER (jose)
+	void CreateTestScriptingGO(GameObjectManager *mgr, ScriptingManager *luaMgr);
 
 	ResourceManager* m_pResourceManager;
 };

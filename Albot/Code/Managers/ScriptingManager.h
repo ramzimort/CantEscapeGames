@@ -9,10 +9,6 @@ Primary Author: Jose Rosenbluth
 #pragma once
 
 
-#define SOL_ALL_SAFETIES_ON 1
-#include "sol/sol.hpp"
-
-
 class ScriptingManager
 {
 
@@ -22,10 +18,16 @@ public:
 
 	void Update();
 
+	sol::table GetScriptDeepCopy(std::string scriptName);
+
 private:
+	sol::table LoadOrGetLuaScript(std::string scriptName);
 	void ManageBindings();
 
 public:
 	sol::state luaState;
+
+private:
+	std::unordered_map<std::string, sol::table> m_scriptTableDic;
 };
 

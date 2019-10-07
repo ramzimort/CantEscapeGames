@@ -18,6 +18,8 @@ Primary Author:
 #define SOL_ALL_SAFETIES_ON 1
 #include "sol/sol.hpp"
 
+class GameObjectManager;
+
 
 class TestComp : public BaseComponent
 {
@@ -32,7 +34,7 @@ public:
 	virtual ~TestComp();
 
 	virtual void Init(ResourceManager* resMgr) override;
-	virtual void Begin() override;
+	virtual void Begin(GameObjectManager *goMgr) override;
 
 public:
 	//Unique class identifier
@@ -40,9 +42,4 @@ public:
 
 	//Multicast testing
 	Multicast<void(float)> onWhateverFires;
-
-	//For testing the scripts
-	sol::state *luaState;
-	std::string testName;
-
 };

@@ -2,6 +2,7 @@
 #include "LightComponent.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/GameObjectManager.h"
 
 
 unsigned const LightComponent::static_type = BaseComponent::numberOfTypes++;
@@ -36,7 +37,7 @@ void LightComponent::Init(ResourceManager* resMgr)
 
 }
 
-void LightComponent::Begin()
+void LightComponent::Begin(GameObjectManager *goMgr)
 {
 
 }

@@ -14,6 +14,8 @@ class GameObject;
 class ResourceManager;
 #define MAX_NUM_COMPONENTS			32	//Max number of components (for bit string)
 
+class GameObjectManager;
+
 
 class BaseComponent 
 {
@@ -35,7 +37,7 @@ public:
 
 	ComponentId GetType() const { return m_type; }
 
-	GameObject* GetGameObjectOwner() const { return m_owner; }
+	GameObject* GetOwner() const { return m_owner; }
 
 private:
 	BaseComponent(BaseComponent& rhs);
@@ -43,7 +45,7 @@ private:
 	//Init should be called when instantiating the component
 	virtual void Init(ResourceManager* res) = 0;
 	//Begin should be called once all the gameobject components have been created
-	virtual void Begin() = 0;
+	virtual void Begin(GameObjectManager *goMgr) = 0;
 
 
 protected:

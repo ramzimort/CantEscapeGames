@@ -43,7 +43,7 @@ void TestSystem::Update(float dt, BaseSystemCompNode *compNode)
 	TestCompCompNode *node = static_cast<TestCompCompNode*>(compNode);
 	TestComp *T = node->n_testComp;
 
-	TransformComponent* transform_comp = T->GetGameObjectOwner()->GetComponent<TransformComponent>();
+	TransformComponent* transform_comp = T->GetOwner()->GetComponent<TransformComponent>();
 
 	//TODO: added by albert just to test AABB world space
 	if (transform_comp)

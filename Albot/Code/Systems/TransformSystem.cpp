@@ -74,7 +74,7 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 	Matrix normalMatrix = invertScaleMatrix * R;
 
 	
-	MeshComponent* meshComp = transformComp->GetGameObjectOwner()->GetComponent<MeshComponent>();
+	MeshComponent* meshComp = transformComp->GetOwner()->GetComponent<MeshComponent>();
 
 	/*if (meshComp)
 	{

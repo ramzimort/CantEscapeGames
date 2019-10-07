@@ -10,7 +10,6 @@ Primary Author: Jose Rosenbluth
 ///Includes
 #include "../BaseSystem.h"
 
-
 class CustomComponent;
 
 

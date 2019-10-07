@@ -12,15 +12,17 @@ Primary Author:
 //Check which managers the state has
 #include "../Managers/SystemManager.h"
 #include "../Managers/GameObjectManager.h"
+#include "../Managers/ScriptingManager.h"
 
 
 
-State::State(std::string const& path, AppRenderer* appRenderer, ResourceManager* resMgr)
+State::State(std::string const& path, AppRenderer* appRenderer, 
+	ResourceManager* resMgr, ScriptingManager *luaMgr)
 {
 	//Allocates its managers
 	m_systemMgr = new SystemManager(appRenderer);
 	m_gameObjectMgr = new GameObjectManager(m_systemMgr);
-	m_factory = new Factory(path, m_gameObjectMgr, m_systemMgr, resMgr);
+	m_factory = new Factory(path, m_gameObjectMgr, m_systemMgr, resMgr, luaMgr);
 
 	//Loads a state based on the json file on path
 

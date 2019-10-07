@@ -3,6 +3,10 @@
 #include "BaseComponent.h"
 #include "Graphics/Light.h"
 
+
+class GameObjectManager;
+
+
 class LightComponent :
 	public BaseComponent
 {
@@ -13,7 +17,7 @@ public:
 	virtual ~LightComponent();
 
 	void Init(ResourceManager* resMgr) override;
-	void Begin() override;
+	void Begin(GameObjectManager *goMgr) override;
 
 	//TODO: temp function to set light from lambda
 	//light data should be serliaized

@@ -3,6 +3,7 @@
 #include "Graphics/Camera.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/GameObjectManager.h"
 #include "Managers/EventManager.h"
 #include "Events/Camera/CameraEvents.h"
 
@@ -36,7 +37,7 @@ void CameraComponent::Init(ResourceManager* resMgr)
 	EventManager::Get()->EnqueueEvent<CameraRegistrationEvent>(true, m_camera, m_xViewportPos, m_yViewportPos);
 }
 
-void CameraComponent::Begin()
+void CameraComponent::Begin(GameObjectManager *goMgr)
 {
 }
 

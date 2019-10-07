@@ -3,6 +3,7 @@
 #include "Graphics/Camera.h"
 
 class Camera;
+class GameObjectManager;
 
 class CameraComponent :
 	public BaseComponent
@@ -12,8 +13,9 @@ public:
 public:
 	CameraComponent(GameObject *owner);
 	virtual ~CameraComponent();
+
 	void Init(ResourceManager* resMgr);
-	void Begin();
+	void Begin(GameObjectManager *goMgr);
 	Camera& GetCamera();
 	void SetCamera(const Camera& lhs);
 public:

@@ -2,9 +2,9 @@
 #include "Managers/EventManager.h"
 #include "Managers/FrameManager.h"
 #include "CantDebug/CantDebug.h"
-#include "Managers/ScriptingManager.h"
 
-class ScriptingManager *luaMgr;
+#include "Helper/Hash.h"
+
 
 int CALLBACK WinMain(
 	__in  HINSTANCE hInstance,
@@ -13,7 +13,6 @@ int CALLBACK WinMain(
 	__in  int nCmdShow
 )
 {
-	luaMgr = new ScriptingManager();
 	EventManager* World = EventManager::Get();
 	World->Initialize();
 	FrameManager frame_manager;

@@ -15,6 +15,7 @@ Primary Author:
 
 class Material;
 class GameObject;
+class GameObjectManager;
 
 class RendererComponent : public BaseComponent
 {
@@ -30,7 +31,7 @@ public:
 	virtual ~RendererComponent();
 
 	virtual void Init(ResourceManager* resMgr) override;
-	virtual void Begin() override;
+	virtual void Begin(GameObjectManager *goMgr) override;
 
 	//TEMP FUNCTION:
 	//Added by albert, there should not be a public function to set material

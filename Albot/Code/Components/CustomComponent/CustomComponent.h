@@ -12,10 +12,8 @@ Primary Author:
 ///INCLUDES
 #include "../BaseComponent.h"
 
-
-//Testing it works
-#define SOL_ALL_SAFETIES_ON 1
-#include "sol/sol.hpp"
+class GameObjectManager;
+class ScriptingManager;
 
 
 class CustomComponent : public BaseComponent
@@ -33,13 +31,18 @@ public:
 	virtual ~CustomComponent();
 
 	virtual void Init(ResourceManager* resMgr) override;
-	virtual void Begin() override;
+	virtual void Begin(GameObjectManager *goMgr) override;
 
 	//TODO - Check if leaving them or not
-	GameObject *GetOwner() const;
 	std::string const& GetName() const;
 
-	void ScriptSetup(std::string scriptName);
+	//Scripts methods
+	sol::table& getCustomCompLuaRef();
+	void ScriptSetup(std::string scriptName, 
+		ScriptingManager *luaMgr);
+
+	template<typename T>
+	void Override(std::string member, T value);
 
 public:
 	//Unique class identifier
@@ -47,9 +50,28 @@ public:
 
 private:
 	//It will need a name identifier
-	std::string name;
+	std::string m_name;
 
 	//It needs a reference or pointer to the lua state
-	sol::state *luaState;
+	sol::table m_luaScriptTable;
 
 };
+
+
+template<typename T>
+void CustomComponent::Override(std::string member, T value) 
+{
+	//Overriding before the script has been set
+	if (m_luaScriptTable == sol::lua_nil) 
+		return;
+
+	try 
+	{
+		m_luaScriptTable[member] = value;
+	}
+	catch (const sol::error& e)
+	{
+		const char *errorName = e.what();
+		OutputDebugString(errorName); //TODO - erase this
+	}
+}

@@ -36,6 +36,8 @@ public:
 	void Queue_GameObject_Instantiation(GameObjectDesc *goDesc);
 	void Queue_GameObject_Destruction(size_t go_id);
 
+	GameObject *FindGameObjectById(size_t id);
+
 private:
 	void Instantiate_Queued_GameObjects();
 	void Destroy_Queued_GameObjects();

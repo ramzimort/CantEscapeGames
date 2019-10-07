@@ -10,6 +10,7 @@ Primary Author:
 #include "Managers/SystemManager.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/ScriptingManager.h"
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 
@@ -25,7 +26,8 @@ extern CameraManager* gCameraManager;
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
 
-Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr)
+Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, 
+	ResourceManager* resMgr, ScriptingManager *luaMgr)
 	: m_pResourceManager(resMgr)
 {
 	//If either of these is nullptr, we have to stop
@@ -46,6 +48,11 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 
 	const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
 	LoadResources(resourcesObj, resMgr);
+
+
+	// TODO - REMOVE LATER (jose)
+	CreateTestScriptingGO(goMgr, luaMgr);
+
 
 	assert(lvlDoc["Objects"].IsArray());
 	const auto& objsArray = lvlDoc["Objects"].GetArray();
@@ -266,4 +273,43 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<FPSControllerComponent>();
 	
 	return rttr::variant();
+}
+
+
+// TODO - REMOVE LATER (jose)
+void Factory::CreateTestScriptingGO(GameObjectManager *mgr, 
+	ScriptingManager *luaMgr)
+{
+	//First go test
+	GameObjectDesc desc;
+	desc.tag = "Marcos";
+	desc.initializeComponentSetup = [luaMgr](GameObject *go)
+	{
+		CustomComponent *c1 = go->AddCustomComponent("test01Comp", luaMgr);
+		c1->Override("hashed", "Marcos comp1 HASHED!");
+		c1->Override("ranked", 256);
+		c1->Init(0);
+
+		CustomComponent *c2 = go->AddCustomComponent("test02Comp", luaMgr);
+		c2->Override("hashed", "Marcos comp2 HASHED!");
+		c2->Override("ranked", 1024);
+		c2->Init(0);
+
+		go->Begin();
+	};
+	mgr->Queue_GameObject_Instantiation(&desc);
+
+	//2d gameobj test
+	GameObjectDesc desc2;
+	desc2.tag = "Andres";
+	desc2.initializeComponentSetup = [luaMgr](GameObject *go2)
+	{
+		CustomComponent *c1 = go2->AddCustomComponent("test01Comp", luaMgr);
+		c1->Override("hashed", "Andres SuperHashed!");
+		c1->Override("ranked", -256);
+		c1->Init(0);
+
+		go2->Begin();
+	};
+	mgr->Queue_GameObject_Instantiation(&desc2);
 }

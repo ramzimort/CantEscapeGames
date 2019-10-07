@@ -4,6 +4,7 @@
 #include "Events/Input/KeyEvent.h"
 #include "Events/Input/MouseEvent.h"
 #include "GameObjects/GameObject.h"
+#include "Managers/GameObjectManager.h"
 
 unsigned const FPSControllerComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -34,7 +35,7 @@ void FPSControllerComponent::Init(ResourceManager* resMgr)
 
 }
 
-void FPSControllerComponent::Begin()
+void FPSControllerComponent::Begin(GameObjectManager *goMgr)
 {
 
 }

@@ -9,6 +9,7 @@ Primary Author:
 #include "Graphics/Material.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/GameObjectManager.h"
 
 unsigned const RendererComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -39,7 +40,7 @@ void RendererComponent::Init(ResourceManager* resMgr)
 	m_pMaterial = resMgr->GetMaterial(m_materialId);
 }
 
-void RendererComponent::Begin()
+void RendererComponent::Begin(GameObjectManager *goMgr)
 {
 }
 

@@ -10,6 +10,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/BaseSystem.h"
 
 //For now, all custom system headers
+#include "Systems/CustomSystem/CustomSystem.h"
 #include "Systems/RenderingSystem.h"
 #include "Systems/RigidbodySystem.h"
 #include "Systems/TransformSystem.h"
@@ -23,6 +24,7 @@ Primary Author: Jose Rosenbluth
 
 SystemManager::SystemManager(AppRenderer* appRenderer)
 {
+	this->AddSystem<CustomSystem>();
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<CameraSystem>();

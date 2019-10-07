@@ -79,21 +79,25 @@ bool GameObject::Is_marked_for_remove() const
 
 void GameObject::Begin()
 {
+	//Engine components begin call
 	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i)
 	{
 		BaseComponent *c = m_components[i];
 		if (c)
-			c->Begin();
+			c->Begin(m_gameObjectMgr);
 	}
 
+	//Scripted begin call
 	for (auto& node : m_customComponents) 
 	{
-		node.second->Begin();
+		if (node.second) //TODO - figure out why this being filled even with null
+			node.second->Begin(m_gameObjectMgr);
 	}
 }
 
 
-CustomComponent *GameObject::AddCustomComponent(std::string scriptName)
+CustomComponent *GameObject::AddCustomComponent(std::string scriptName, 
+	ScriptingManager *luaMgr)
 {
 	//Check first if the gameobj already has this custom component
 	CustomComponent *component = this->m_customComponents[scriptName];
@@ -106,7 +110,7 @@ CustomComponent *GameObject::AddCustomComponent(std::string scriptName)
 	//If it was created correctly
 	if (component)
 	{
-		component->ScriptSetup(scriptName);
+		component->ScriptSetup(scriptName, luaMgr);
 		m_customComponents[scriptName] = component;
 		return component;
 	}
@@ -117,4 +121,15 @@ CustomComponent *GameObject::AddCustomComponent(std::string scriptName)
 CustomComponent *GameObject::GetCustomComponent(std::string scriptName)
 {
 	return this->m_customComponents[scriptName];
+}
+
+
+sol::table const& GameObject::LuaGetCustomComponent(std::string scriptName) 
+{
+	CustomComponent *comp = GetCustomComponent(scriptName);
+	if (comp)
+	{
+		return comp->getCustomCompLuaRef();
+	}
+	return  refHolder;
 }

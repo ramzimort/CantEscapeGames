@@ -65,6 +65,10 @@
 #include <rttr/detail/policies/ctor_policies.h>
 #include <rttr/visitor.h>
 
+// Scripting : Lua and Sol
+#define SOL_ALL_SAFETIES_ON 1
+#include "sol/sol.hpp"
+
 // Rapidjson
 #define RAPIDJSON_HAS_STDSTRING 1
 #include "rapidjson/document.h"

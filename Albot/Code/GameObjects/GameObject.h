@@ -13,6 +13,8 @@ Primary Author: Jose Rosenbluth
 #include "Memory/CantMemory.h"
 
 class GameObjectManager;
+class ScriptingManager;
+
 
 class GameObject
 {
@@ -37,8 +39,10 @@ public:
 	T* AddComponent();
 
 	//Special add comp for custom script component
-	CustomComponent *AddCustomComponent(std::string scriptName);
+	CustomComponent *AddCustomComponent(std::string scriptName, 
+		ScriptingManager *luaMgr);
 	CustomComponent *GetCustomComponent(std::string scriptName);
+	sol::table const& LuaGetCustomComponent(std::string scriptName);
 
 	//Remove functions
 	void Destroy();
@@ -77,6 +81,9 @@ private:
 	
 	//Pointer to the manager that handles this gameobj
 	GameObjectManager *m_gameObjectMgr;
+
+	//For scripting
+	sol::table refHolder;
 
 	RTTR_ENABLE();
 };

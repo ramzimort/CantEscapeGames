@@ -10,17 +10,14 @@ Primary Author: Jose Rosenbluth
 unsigned const CustomComponent::static_type = static_cast<unsigned>(-1);
 
 #include "GameObjects/GameObject.h"
-
+#include "Managers/GameObjectManager.h"
 #include "Managers/ScriptingManager.h"
-extern ScriptingManager *luaMgr;
 
 
 
 CustomComponent::CustomComponent(GameObject *owner) :
 	BaseComponent(owner, CustomComponent::static_type)
 {
-	//TODO - temporary
-	this->luaState = &(luaMgr->luaState);
 }
 
 
@@ -33,8 +30,7 @@ void CustomComponent::Init(ResourceManager* resMgr)
 {
 	try
 	{
-		sol::table self = (*luaState)[this->name];
-		self["Init"](self);
+		m_luaScriptTable["Init"](m_luaScriptTable);
 	}
 	catch (const sol::error& e)
 	{
@@ -43,12 +39,11 @@ void CustomComponent::Init(ResourceManager* resMgr)
 	}
 }
 
-void CustomComponent::Begin()
+void CustomComponent::Begin(GameObjectManager *goMgr)
 {
 	try
 	{
-		sol::table self = (*luaState)[this->name];
-		self["Begin"](self);// , this->GetOwner());
+		m_luaScriptTable["Begin"](m_luaScriptTable, GetOwner(), goMgr);
 	}
 	catch (const sol::error& e)
 	{
@@ -58,68 +53,38 @@ void CustomComponent::Begin()
 }
 
 
+sol::table& CustomComponent::getCustomCompLuaRef() 
+{
+	return m_luaScriptTable;
+}
+
 
 #include <Lua_53/lua.h>
-void CustomComponent::ScriptSetup(std::string scriptName)
+void CustomComponent::ScriptSetup(std::string scriptName, ScriptingManager *luaMgr)
 {
 	//Setup lua script
 	try
 	{
-		//Load the script (TODO - find out if there is a better call)
-		///state_call_result = 
-		luaState->script_file("Code/Scripts/" + scriptName + ".lua");
-		///
-		///if (state_call_result.valid()) 
-		///{
-		///	state_table = state_call_result;
-		///}
-
-		/// //--------------
-		/// // create a table to act as the environment
-		/// sol::table environment = luaState->create_table();
-		/// 
-		/// // load the script into a function
-		/// sol::load_result script = luaState->load_file("Code/Scripts/" + scriptName + ".lua");
-		/// 
-		/// // use the __index metamethod to give the env read access to 
-		/// // global environment (to give the env access to loaded Lua std libs)
-		/// environment[sol::metatable_key] = luaState->create_table_with
-		/// (
-		/// 	sol::meta_function::index, luaState->globals()
-		/// );
-		/// 
-		/// // push the environment table onto the stack to use it as the parameter for setfenv
-		/// environment.push();
-		/// 
-		/// // call setfenv with the stack index of the loaded function
-		/// lua_setfenv(*luaState, script.stack_index());
-		/// 
-		/// // call the loaded function now that its env is setup
-		/// script();
-		/// 
-		/// // get the value of the variable from the environment
-		/// std::string str1 = environment["var"]; // str1 will equal "script1"
-		/// //--------------
-
+		//Get a deep copy of the table so each table has their own state
+		m_luaScriptTable = luaMgr->GetScriptDeepCopy(scriptName);
 
 		//Set the name
-		this->name = scriptName;
+		this->m_name = scriptName;
+
+		// TODO - Bind some of the customComp methods to lua
+		// Maybe pass the comp to the script as a "thisComp" (different from self, which is the table)
+		///m_luaScriptTable["GetOwner"] = &CustomComponent::GetOwner;
+		///m_luaScriptTable["GetName"] = &CustomComponent::GetName;
 	}
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
 		OutputDebugString(errorName); //TODO - erase this
 	}
-}
-
-//TODO - dont push
-GameObject *CustomComponent::GetOwner() const
-{
-	return this->m_owner;
 }
 
 //TODO - dont push
 std::string const& CustomComponent::GetName() const
 {
-	return this->name;
+	return this->m_name;
 }

@@ -2,6 +2,7 @@
 #include "MeshComponent.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/GameObjectManager.h"
 
 
 unsigned const MeshComponent::static_type = BaseComponent::numberOfTypes++;
@@ -41,7 +42,7 @@ void MeshComponent::Init(ResourceManager* resMgr)
 }
 
 
-void MeshComponent::Begin()
+void MeshComponent::Begin(GameObjectManager *goMgr)
 {
 }
 

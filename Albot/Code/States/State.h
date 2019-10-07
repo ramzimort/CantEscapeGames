@@ -15,11 +15,13 @@ class GameObjectManager;
 class SystemManager;
 class AppRenderer;
 class ResourceManager;
+class ScriptingManager;
 
 class State
 {
 public:
-	State(std::string const& path, AppRenderer* appRenderer, ResourceManager* resMgr);
+	State(std::string const& path, AppRenderer* appRenderer, 
+		ResourceManager* resMgr, ScriptingManager *luaMgr);
 	virtual ~State();
 
 	//Call update on systemManager

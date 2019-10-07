@@ -9,8 +9,11 @@ Primary Author:
 #include "RigidbodyComponent.h"
 #include "GameObjects/GameObject.h"
 #include "Managers/ResourceManager.h"
+#include "Managers/GameObjectManager.h"
+
 
 unsigned const RigidbodyComponent::static_type = BaseComponent::numberOfTypes++;
+
 
 RTTR_REGISTRATION
 {
@@ -38,7 +41,7 @@ void RigidbodyComponent::Init(ResourceManager* resMgr)
 	m_inverseMass = 1.0f / m_mass;
 }
 
-void RigidbodyComponent::Begin()
+void RigidbodyComponent::Begin(GameObjectManager *goMgr)
 {
 }
 

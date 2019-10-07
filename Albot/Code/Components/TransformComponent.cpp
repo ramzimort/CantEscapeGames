@@ -7,9 +7,12 @@ Primary Author:
 
 
 #include "TransformComponent.h"
-#include "GameObjects/GameObject.h"
-
 unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
+
+#include "GameObjects/GameObject.h"
+#include "Managers/GameObjectManager.h"
+
+
 
 RTTR_REGISTRATION
 {
@@ -44,7 +47,7 @@ void TransformComponent::Init(ResourceManager* resMgr)
 }
 
 
-void TransformComponent::Begin()
+void TransformComponent::Begin(GameObjectManager *goMgr)
 {
 }
 
@@ -85,28 +88,6 @@ void TransformComponent::Rotate(float eulerDX, float eulerDY, float eulerDZ)
 	m_rotation.z += eulerDZ;
 }
 
-void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
-{
-	m_needToRecalculateModel = 1;
-
-	m_rotation.x = eulerX;
-	m_rotation.y = eulerY;
-	m_rotation.z = eulerZ;
-}
-
-
-void TransformComponent::SetLocalPosition(float x, float y, float z)
-{
-	m_needToRecalculateModel = 1;
-	m_position.x = x;
-	m_position.y = y;
-	m_position.z = z;
-}
-void  TransformComponent::SetLocalPosition(const Vector3& position)
-{
-	SetLocalPosition(position.x, position.y, position.z);
-}
-
 
 ///////////////////////////////////////////////////////
 ////           SCALE METHODS                       ////
@@ -130,6 +111,36 @@ void TransformComponent::Scale(float x, float y, float z)
 	m_scale.x = x;
 	m_scale.y = y;
 	m_scale.z = z;
+}
+
+
+///////////////////////////////////////////////////////
+////         SETTERS METHODS                       ////
+///////////////////////////////////////////////////////
+
+
+void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eulerZ)
+{
+	m_needToRecalculateModel = 1;
+
+	m_rotation.x = eulerX;
+	m_rotation.y = eulerY;
+	m_rotation.z = eulerZ;
+}
+
+
+void TransformComponent::SetLocalPosition(const Vector3& position)
+{
+	SetLocalPosition(position.x, position.y, position.z);
+}
+
+
+void TransformComponent::SetLocalPosition(float x, float y, float z)
+{
+	m_needToRecalculateModel = 1;
+	m_position.x = x;
+	m_position.y = y;
+	m_position.z = z;
 }
 
 

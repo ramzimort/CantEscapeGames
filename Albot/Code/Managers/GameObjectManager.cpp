@@ -73,6 +73,13 @@ void GameObjectManager::Instantiate_Queued_GameObjects()
 	}
 }
 
+
+GameObject *GameObjectManager::FindGameObjectById(size_t id)
+{
+	return m_gameObjects[id];
+}
+
+
 void GameObjectManager::Destroy_Queued_GameObjects() 
 {
 	while (!m_destructionQueue.empty())

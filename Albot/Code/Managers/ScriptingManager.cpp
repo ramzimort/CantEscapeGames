@@ -8,17 +8,12 @@ Primary Author: Jose Rosenbluth
 
 // Main includes
 #include "ScriptingManager.h"
-#include <sol/assert.hpp>
-
 
 // BINDING INCLUDES
 #include "Managers/GameObjectManager.h"
 #include "Managers/SystemManager.h"
-
 #include "GameObjects/GameObject.h"
-
-#include "Components/TestComponent.h"
-
+#include "Components/AllComponentHeaders.h"
 
 
 //We will use this to print from LUA to out stream
@@ -26,7 +21,6 @@ void printDebugAndLog(std::string msg)
 {
 	OutputDebugString(msg.c_str());
 }
-
 
 
 ScriptingManager::ScriptingManager()
@@ -40,13 +34,23 @@ ScriptingManager::ScriptingManager()
 		sol::lib::io
 	);
 
-
-	// BIND GLOBAL PRINT FUNCTION (REMOVE LATER)
-	luaState["OutputPrint"] = &printDebugAndLog;
+	//Class bindings
+	ManageBindings();
+	
+	//Global function definition
+	try
+	{
+		// BIND GLOBAL PRINT FUNCTION ( TODO - REMOVE LATER)
+		luaState["OutputPrint"] = &printDebugAndLog;
+		luaState.script_file("Code/Scripts/LuaGlobalSetups.lua");
+	}
+	catch (const sol::error& e)
+	{
+		const char *errorName = e.what();
+		OutputDebugString(errorName); // ( TODO - REMOVE LATER)
+	}
 
 	//-------------------------------------
-
-	/// luaState.script("function g (a, b) return a + b end");
 	/// 
 	/// // sol::function - takes a variable number/types of arguments
 	/// sol::protected_function fx = luaState["f"];
@@ -219,6 +223,7 @@ ScriptingManager::ScriptingManager()
 	int also_will_not_error = luaState["abc"]["def"]["ghi"]["jklm"].get_or(25);
 	c_assert(also_will_not_error == 25);
 	//*/
+	//-------------------------------------
 }
 
 
@@ -228,8 +233,55 @@ ScriptingManager::~ScriptingManager() { }
 void ScriptingManager::Update() { }
 
 
+sol::table ScriptingManager::GetScriptDeepCopy(std::string scriptName)
+{
+	try
+	{
+		sol::table orig = LoadOrGetLuaScript(scriptName);
+		sol::table copy = luaState["deepcopy"](orig);
+		return copy;
+	}
+	catch (const sol::error& e)
+	{
+		const char *errorName = e.what();
+		OutputDebugString(errorName); //TODO - erase this
+		return sol::lua_nil;
+	}
+}
+
+
+sol::table ScriptingManager::LoadOrGetLuaScript(std::string scriptName) 
+{
+	sol::table table = m_scriptTableDic[scriptName];
+
+	if (table == sol::lua_nil) 
+	{
+		try
+		{
+			//Load the script and retrieve the table
+			table = luaState.script_file("Code/Scripts/" +
+				scriptName + ".lua");
+
+			m_scriptTableDic[scriptName] = table;
+		}
+		catch (const sol::error& e)
+		{
+			const char *errorName = e.what();
+			OutputDebugString(errorName); //TODO - erase this
+		}
+	}
+
+	return table;
+}
+
+
 void ScriptingManager::ManageBindings()
 {
+	////////////////////
+	////   VECTORS  ////
+	////////////////////
+
+
 	////////////////////
 	////  SYSTEMS   ////
 	////////////////////
@@ -246,45 +298,38 @@ void ScriptingManager::ManageBindings()
 	//GAMEOBJECTMANAGER
 	luaState.new_usertype<GameObjectManager>
 	(
-		"GameObjectManager"
+		"GameObjectManager",
+		"FindGameObjectById", &GameObjectManager::FindGameObjectById
 	);
-
-	//GAMEOBJECT
-	sol::state_view go_type = luaState.new_usertype<GameObject>
-	(
-		"GameObject",
-		sol::constructors< GameObject(GameObjectManager *goMgr) >()
-	);
-	go_type["GetTag"] = &GameObject::GetTag;
-	go_type["GetTestComp"] = &GameObject::GetComponent<TestComp>;
-	go_type["GetCustomComp"] = &GameObject::GetCustomComponent;
-
 
 	//////////////////////
 	////  COMPONENTS  ////
 	//////////////////////
 
-	//CUSTOMCOMPONENT
-	sol::state_view customComp_type = luaState.new_usertype<CustomComponent>
-	(
-		"CustomComp",
-		sol::constructors<CustomComponent(GameObject *owner)>()
-	);
-	customComp_type["GetOwner"] = &CustomComponent::GetOwner;
-	customComp_type["GetName"] = &CustomComponent::GetName;
-
-
-	//TESTCOMPONENT
-	sol::state_view testComp_type = luaState.new_usertype<TestComp>
-	(
-		"TestComp",
-		sol::constructors<TestComp(GameObject *owner)>()
-	);
+	//luaState.new_usertype<TransformComponent>
+	//(
+	//	"TransformComponent",
+	//	"GetTag", &TransformComponent::GetPosition,
+	//	"GetTag", &TransformComponent::GetRotation,
+	//	"GetTag", &TransformComponent::GetScale,
+	//	"GetTag", &TransformComponent::,
+	//	"GetCustomComp", &TransformComponent::LuaGetCustomComponent
+	//);
 	//Setting variables ( GET - SET )
-	///testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
+	//testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
 	// read-write vars (public)
-	testComp_type["testName"] = &TestComp::testName;
+	//testComp_type["testName"] = &TestComp::testName;
 	// Other way to set shit (const?)
-	///testComp_type.set("hp2", sol::readonly(&TestComp::hp2));
+	//testComp_type.set("hp2", sol::readonly(&TestComp::hp2));
 
+
+	//GAMEOBJECT
+	///sol::state_view go_type = luaState.new_usertype<GameObject>
+	auto go_type = luaState.new_usertype<GameObject>
+	(
+		"GameObject",
+		sol::constructors< GameObject(GameObjectManager *goMgr) >(),
+		"GetTag", &GameObject::GetTag,
+		"GetCustomComp", &GameObject::LuaGetCustomComponent
+	);
 }

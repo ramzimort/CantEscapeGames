@@ -10,6 +10,7 @@ class AppRenderer;
 class InputManager;
 class ResourceManager;
 class StateManager;
+class ScriptingManager;
 class EventBus;
 
 class EventManager
@@ -31,6 +32,7 @@ public:
 	void EnqueueEvent(Args&&...);
 
 private:
+	ScriptingManager *m_pScriptingManager;
 	WindowManager* m_pWindowManager;
 	CameraManager* m_pCameraManager;
 	AppRenderer* m_pAppRenderer;

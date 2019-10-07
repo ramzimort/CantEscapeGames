@@ -15,7 +15,10 @@ Primary Author: Aleksey Perfilev
 #include "Physics/CollisionTable.h"
 #include "Physics/Constraint.h"
 
+class GameObjectManager;
+
 class Constraint;
+
 class RigidbodyComponent : public BaseComponent
 {
 
@@ -29,7 +32,7 @@ public:
 	virtual ~RigidbodyComponent();
 
 	virtual void Init(ResourceManager* resMgr) override;
-	virtual void Begin() override;
+	virtual void Begin(GameObjectManager *goMgr) override;
 
 	// getters/setters
 	const Vector3& GetPosition() const;
