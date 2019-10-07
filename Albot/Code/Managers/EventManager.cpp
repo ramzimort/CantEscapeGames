@@ -31,7 +31,6 @@ void EventManager::Initialize()
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager();
 	m_pScriptingManager = new ScriptingManager();
-	m_pCameraManager = new CameraManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
 	m_pResourceManager->SetDXRenderer(m_pAppRenderer->GetDXRenderer());
