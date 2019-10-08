@@ -22,7 +22,7 @@ Primary Author:
 
 
 // Helper function
-void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
+void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
 void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go, ScriptingManager* luaMgr);
 
@@ -62,7 +62,7 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 
 			StringId prefabId = StringId(prefabName);
 			const std::string prefabJson = resMgr->GetPrefab(prefabId);
-			rapidjson::Document prefabDoc;
+			rapidjson::Document prefabDoc; 
 			prefabDoc.Parse(prefabJson);
 			assert(!prefabDoc.HasParseError());
 			auto prefabList = prefabDoc.GetObjectA();
@@ -70,7 +70,7 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			// Load the override string as object
 			auto overrideList = gameObjJson["overrides"].GetObjectA();
 
-			RecursiveRead(prefabList, overrideList);
+			RecursiveRead(prefabList, overrideList, prefabDoc);
 
 			// Stringify and pass to lambda for later instantiation
 			rapidjson::StringBuffer buffer;
@@ -170,8 +170,8 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 	goMgr->Queue_GameObject_Instantiation(&desc);
 }
 
-// Helper
-void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList)
+// Helpers
+void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc)
 {
 	for (auto compIt = _prefabList.begin(); compIt != _prefabList.end(); ++compIt)
 	{
@@ -186,13 +186,13 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 			{
 				auto _prefabObjList = _member.GetObjectA();
 				auto _overrideObjList = _override.GetObjectA();
-				RecursiveRead(_prefabObjList, _overrideObjList);
+				RecursiveRead(_prefabObjList, _overrideObjList, doc);
 				break;
 			}
 			case rapidjson::kStringType:
 			{
 				std::string val = _override.GetString();
-				_member.SetString(val.c_str(), static_cast<rapidjson::SizeType>(val.length()));
+				_member.SetString(val.c_str(), doc.GetAllocator());
 				break;
 			}
 			case rapidjson::kNullType:     break;
@@ -220,7 +220,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 			case rapidjson::kArrayType:
 			{
 				auto it2 = _override.GetArray().begin();
-				for (auto it = _member.GetArray().begin(); it != _member.GetArray().end(); ++it, ++it2)
+				for (auto it = _member.GetArray().begin(); it != _member.GetArray().end() && it2 != _override.GetArray().end(); ++it, ++it2)
 				{
 					switch (it->GetType())
 					{
@@ -228,7 +228,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 					{
 						auto _prefabObjList = it->GetObjectA();
 						auto _overrideObjList = it2->GetObjectA();
-						RecursiveRead(_prefabObjList, _overrideObjList);
+						RecursiveRead(_prefabObjList, _overrideObjList, doc);
 						break;
 					}
 					case rapidjson::kStringType:
@@ -333,7 +333,6 @@ void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go,  Script
 				}
 			}
 		}
-
 		// Init call per script
 		c1->Init(0, nullptr);
 	}

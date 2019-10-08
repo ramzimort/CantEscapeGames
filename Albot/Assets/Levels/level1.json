@@ -89,6 +89,15 @@
       "tag": "obj8",
       "prefab": "Assets/Prefabs/player.json",
       "overrides": {
+        "Scripts": [
+          {
+            "Name": "Scripts/Test/Script1.lua",
+            "Overrides": {
+              "hashed": "Marcos comp1 OVERRIDE!",
+              "ranked": 512
+            }
+          }
+        ]
       }
     },
     {
