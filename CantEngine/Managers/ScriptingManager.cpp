@@ -14,19 +14,20 @@ Primary Author: Jose Rosenbluth
 #include "Managers/SystemManager.h"
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
+#include "ResourceManager.h"
 
 
 //We will use this to print from LUA to out stream
 void printDebugAndLog(std::string msg)
 {
-	OutputDebugString(msg.c_str());
+	DEBUG_LOG(msg.c_str());
 }
 
 
 #define SOL_CHECK_ARGUMENTS 1
 
-
-ScriptingManager::ScriptingManager()
+ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) : 
+	m_pResourceManager(pResourcemanager)
 {
 	//We enter here
 	luaState.open_libraries
@@ -45,12 +46,12 @@ ScriptingManager::ScriptingManager()
 	{
 		// BIND GLOBAL PRINT FUNCTION ( TODO - REMOVE LATER)
 		luaState["OutputPrint"] = &printDebugAndLog;
-		luaState.script_file("Code/Scripts/LuaGlobalSetups.lua");
+		luaState.script_file("Scripts/LuaGlobalSetups.lua");
 	}
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		OutputDebugString(errorName); // ( TODO - REMOVE LATER)
+		DEBUG_LOG(errorName); // ( TODO - REMOVE LATER)
 	}
 
 	//-------------------------------------
@@ -236,45 +237,20 @@ ScriptingManager::~ScriptingManager() { }
 void ScriptingManager::Update() { }
 
 
-sol::table ScriptingManager::GetScriptDeepCopy(std::string scriptName)
+sol::table ScriptingManager::GetScriptDeepCopy(StringId scriptId)
 {
 	try
 	{
-		sol::table orig = LoadOrGetLuaScript(scriptName);
+		sol::table orig = m_pResourceManager->GetScript(scriptId);
 		sol::table copy = luaState["deepcopy"](orig);
 		return copy;
 	}
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		OutputDebugString(errorName); //TODO - erase this
+		DEBUG_LOG(errorName); //TODO - erase this
 		return sol::lua_nil;
 	}
-}
-
-
-sol::table ScriptingManager::LoadOrGetLuaScript(std::string scriptName) 
-{
-	sol::table table = m_scriptTableDic[scriptName];
-
-	if (table == sol::lua_nil) 
-	{
-		try
-		{
-			//Load the script and retrieve the table
-			table = luaState.script_file("Code/Scripts/" +
-				scriptName + ".lua");
-
-			m_scriptTableDic[scriptName] = table;
-		}
-		catch (const sol::error& e)
-		{
-			const char *errorName = e.what();
-			OutputDebugString(errorName); //TODO - erase this
-		}
-	}
-
-	return table;
 }
 
 

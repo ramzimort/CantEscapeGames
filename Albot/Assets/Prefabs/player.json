@@ -15,5 +15,21 @@
   },
   "FPSController": {
 
-  }
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts/Test/Script1.lua",
+      "Overrides": {
+        "hashed": "Marcos comp1 HASHED!",
+        "ranked": 256
+      }
+    },
+    {
+      "Name": "Scripts/Test/Script2.lua",
+      "Overrides": {
+        "hashed": "Andres SuperHashed!",
+        "ranked": 256
+      }
+    }
+  ]
 }

@@ -20,28 +20,13 @@
       "Assets/Prefabs/directional_light.json",
       "Assets/Prefabs/RBTestObj.json",
       "Assets/Prefabs/player.json"
+    ],
+    "Scripts": [
+      "Scripts/Test/Script1.lua",
+      "Scripts/Test/Script2.lua"
     ]
   },
   "Objects": [
-    {
-      "tag": "obj1",
-      "prefab": "Assets/Prefabs/mono_azul.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -101.0, -2.0, -3.0 ],
-          "Rotation": [ 50.0, 60.0, 70.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj2",
-      "prefab": "Assets/Prefabs/mono_rojo.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -100.0, -20.0, -30.0 ]
-        }
-      }
-    },
     {
       "tag": "obj3",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",

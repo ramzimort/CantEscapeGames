@@ -30,10 +30,10 @@ void EventManager::Initialize()
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager();
-	m_pScriptingManager = new ScriptingManager();
 	m_pResourceManager = new ResourceManager();
+	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
-	m_pResourceManager->SetDXRenderer(m_pAppRenderer->GetDXRenderer());
+	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	m_pStateManager = new StateManager();
 
 	m_pStateManager->SwitchState(new State("level1.json", m_pAppRenderer, 

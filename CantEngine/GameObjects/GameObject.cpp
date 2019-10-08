@@ -96,16 +96,15 @@ void GameObject::Begin()
 }
 
 
-CustomComponent *GameObject::AddCustomComponent(std::string scriptName, 
-	ScriptingManager *luaMgr)
+CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	ScriptingManager *luaMgr)
 {
 	//Check first if the gameobj already has this custom component
-	CustomComponent *component = this->m_customComponents[scriptName];
+	CustomComponent *component = this->m_customComponents[scriptName]; // m_customComponents is per object
 	if (component)
 		return component;
 
 	//If it does not exist, create it and add it
-	component = new CustomComponent(this);			
+	component = CantMemory::PoolResource<CustomComponent>::Allocate(this);			
 
 	//If it was created correctly
 	if (component)

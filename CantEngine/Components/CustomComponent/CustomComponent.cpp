@@ -35,7 +35,7 @@ void CustomComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		OutputDebugString(errorName); //TODO - erase this
+		DEBUG_LOG(errorName); //TODO - erase this
 	}
 }
 
@@ -48,7 +48,7 @@ void CustomComponent::Begin(GameObjectManager *goMgr)
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		OutputDebugString(errorName); //TODO - erase this
+		DEBUG_LOG(errorName); //TODO - erase this
 	}
 }
 
@@ -60,7 +60,7 @@ sol::table& CustomComponent::getCustomCompLuaRef()
 
 
 #include <Lua_53/lua.h>
-void CustomComponent::ScriptSetup(std::string scriptName, ScriptingManager *luaMgr)
+void CustomComponent::ScriptSetup(StringId scriptName, ScriptingManager *luaMgr)
 {
 	//Setup lua script
 	try
@@ -79,12 +79,11 @@ void CustomComponent::ScriptSetup(std::string scriptName, ScriptingManager *luaM
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		OutputDebugString(errorName); //TODO - erase this
+		DEBUG_LOG(errorName); //TODO - erase this
 	}
 }
 
-//TODO - dont push
-std::string const& CustomComponent::GetName() const
+StringId const& CustomComponent::GetName() const
 {
 	return this->m_name;
 }

@@ -26,7 +26,7 @@ public:
 private:
 	void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
 	void LoadObject(const std::string& prefabName, const std::string& tag,
-		GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer);
+		GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr);
 
 	// TODO - REMOVE LATER (jose)
 	void CreateTestScriptingGO(GameObjectManager *mgr, ScriptingManager *luaMgr);

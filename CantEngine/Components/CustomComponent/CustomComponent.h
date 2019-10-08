@@ -10,7 +10,8 @@ Primary Author:
 #pragma once
 
 ///INCLUDES
-#include "../BaseComponent.h"
+#include "Components/BaseComponent.h"
+#include "Helper/Hash.h"
 
 class GameObjectManager;
 class ScriptingManager;
@@ -34,12 +35,11 @@ public:
 	virtual void Begin(GameObjectManager *goMgr) override;
 
 	//TODO - Check if leaving them or not
-	std::string const& GetName() const;
+	StringId const& GetName() const;
 
 	//Scripts methods
 	sol::table& getCustomCompLuaRef();
-	void ScriptSetup(std::string scriptName, 
-		ScriptingManager *luaMgr);
+	void ScriptSetup(StringId scriptName, ScriptingManager *luaMgr);
 
 	template<typename T>
 	void Override(std::string member, T value);
@@ -50,7 +50,7 @@ public:
 
 private:
 	//It will need a name identifier
-	std::string m_name;
+	StringId m_name;
 
 	//It needs a reference or pointer to the lua state
 	sol::table m_luaScriptTable;

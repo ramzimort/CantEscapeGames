@@ -10,8 +10,7 @@
 #include "CantDebug/CantDebug.h"
 #include "Memory/CantMemory.h"
 
-ResourceManager::ResourceManager() : 
-	m_dxrenderer(nullptr)
+ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 {
 }
 
@@ -19,9 +18,11 @@ ResourceManager::~ResourceManager()
 {
 }
 
-void ResourceManager::SetDXRenderer(DXRenderer* dxrenderer)
+void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState)
 {
 	m_dxrenderer = dxrenderer;
+	m_pSolState = pSolState;
+
 #ifdef DEVELOPER
 	LoadModel("Assets/Models/Cube.fbx");
 #endif // DEVELOPER
@@ -45,6 +46,11 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 std::string& ResourceManager::GetPrefab(StringId prefabId)
 {
 	return *(static_cast<std::string*>(m_resources[prefabId]));
+}
+
+sol::table& ResourceManager::GetScript(StringId scriptId)
+{
+	return *(static_cast<sol::table*>(m_resources[scriptId]));
 }
 
 void ResourceManager::LoadModel(const std::string& filePath)
@@ -118,6 +124,33 @@ void ResourceManager::LoadPrefab(const std::string& filePath)
 	if (defaultGameObj != nullptr)
 		return;
 	
-	defaultGameObj = new std::string(CantReflect::StringifyJson(filePath));
+	defaultGameObj = CantMemory::PoolResource<std::string>::Allocate(CantReflect::StringifyJson(filePath));
 	m_resources[id] = defaultGameObj;
+}
+
+void ResourceManager::LoadScript(const std::string& filePath)
+{
+	DEBUG_LOG("Loading Script: %s...\n", filePath.c_str());
+	StringId id = StringId(filePath);
+
+	sol::table* pLuaTable = static_cast<sol::table*>(m_resources[id]);
+	if (pLuaTable != nullptr)
+		return;
+
+	pLuaTable = CantMemory::PoolResource<sol::table>::Allocate();
+
+	if (*pLuaTable == sol::lua_nil)
+	{
+		try
+		{
+			//Load the script and retrieve the table
+			*pLuaTable = m_pSolState->script_file(filePath);
+			m_resources[id] = pLuaTable;
+		}
+		catch (const sol::error& e)
+		{
+			const char *errorName = e.what();
+			DEBUG_LOG(errorName);
+		}
+	}
 }

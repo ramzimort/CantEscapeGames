@@ -8,26 +8,29 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
+#include "Helper/Hash.h"
+
+class ResourceManager;
 
 class ScriptingManager
 {
 
 public:
-	ScriptingManager();
+	ScriptingManager(ResourceManager* pResourcemanager);
 	~ScriptingManager();
 
 	void Update();
 
-	sol::table GetScriptDeepCopy(std::string scriptName);
+	sol::table GetScriptDeepCopy(StringId scriptName);
 
 private:
-	sol::table LoadOrGetLuaScript(std::string scriptName);
 	void ManageBindings();
 
 public:
 	sol::state luaState;
 
 private:
+	ResourceManager* m_pResourceManager;
 	std::unordered_map<std::string, sol::table> m_scriptTableDic;
 };
 

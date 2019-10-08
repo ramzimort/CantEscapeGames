@@ -39,7 +39,7 @@ public:
 	T* AddComponent();
 
 	//Special add comp for custom script component
-	CustomComponent *AddCustomComponent(std::string scriptName, 
+	CustomComponent *AddCustomComponent(const std::string& scriptName, 
 		ScriptingManager *luaMgr);
 	CustomComponent *GetCustomComponent(std::string scriptName);
 	sol::table const& LuaGetCustomComponent(std::string scriptName);

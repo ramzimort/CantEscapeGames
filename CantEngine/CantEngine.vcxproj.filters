@@ -632,8 +632,4 @@
     <Text Include="Shaders\fullscreen_quad_vert.hlsl" />
     <Text Include="Shaders\msaa_resolve_frag.hlsl" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\test01Comp.lua" />
-    <None Include="Scripts\test02Comp.lua" />
-  </ItemGroup>
 </Project>

@@ -24,11 +24,10 @@ Primary Author:
 // Helper function
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
+void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go, ScriptingManager* luaMgr);
 
-Factory::Factory(std::string fileName, GameObjectManager *goMgr, 
-	SystemManager *sysMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr)
-	: m_pResourceManager(resMgr),
-	m_pDXRenderer(dxrenderer)
+Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr) : 
+	m_pResourceManager(resMgr),	m_pDXRenderer(dxrenderer)
 {
 	//If either of these is nullptr, we have to stop
 	if (!goMgr || !sysMgr)
@@ -83,13 +82,9 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr,
 			
 			// Load the object
 			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
-			LoadObject(objSetup, tag, goMgr, resMgr, m_pDXRenderer);
+			LoadObject(objSetup, tag, goMgr, resMgr, m_pDXRenderer, luaMgr);
 		}
 	}
-
-
-	// TODO - REMOVE LATER (jose)
-	///CreateTestScriptingGO(goMgr, luaMgr);
 }
 
 Factory::~Factory()
@@ -117,6 +112,13 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 	const auto& matArr = resObj["Materials"].GetArray();
 	for (auto it = matArr.begin(); it != matArr.end(); ++it)
 		resMgr->LoadMaterial(it->GetString());
+	
+	// Load Scripts
+	assert(resObj["Scripts"].IsArray());
+	const auto& scriptArr = resObj["Scripts"].GetArray();
+	for (auto it = scriptArr.begin(); it != scriptArr.end(); ++it)
+		resMgr->LoadScript(it->GetString());
+
 
 	// Load Audio
 	assert(resObj["Audio"].IsArray());
@@ -133,11 +135,11 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 
 
 void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
-	GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer)
+	GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr)
 {
 	GameObjectDesc desc;
 	desc.tag = tag;
-	desc.initializeComponentSetup = [resMgr, compSetup, dxrenderer](GameObject* go)
+	desc.initializeComponentSetup = [resMgr, compSetup, dxrenderer, luaMgr](GameObject* go)
 	{
 		rapidjson::Document objDoc;
 		objDoc.Parse(compSetup);
@@ -149,14 +151,21 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 		{
 			// Construct prefab containing default arguments
 			std::string compName = componentIterator->name.GetString();
-			rttr::variant comp = GetComponent(go, compName);
-			CantReflect::ReadRecursive(comp, componentIterator->value);
+			if (compName == "Scripts")
+			{
+				LoadScripts(componentIterator->value.GetArray(), go, luaMgr);
+			}
+			else
+			{
+				rttr::variant comp = GetComponent(go, compName);
+				CantReflect::ReadRecursive(comp, componentIterator->value);
+				BaseComponent* baseComp = comp.get_value<BaseComponent*>();
 
-			//Need to call Init() may need to pass resMgr into Init() to connect any models
-			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
-			comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
+				//Need to call Init() may need to pass resMgr into Init() to connect any models
+				comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
+			}
 		}
-
+		go->Begin();
 	};
 	goMgr->Queue_GameObject_Instantiation(&desc);
 }
@@ -279,41 +288,54 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 	return rttr::variant();
 }
 
-
-// TODO - REMOVE LATER (jose)
-void Factory::CreateTestScriptingGO(GameObjectManager *mgr, 
-	ScriptingManager *luaMgr)
+void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go,  ScriptingManager* luaMgr)
 {
-	//First go test
-	GameObjectDesc desc;
-	desc.tag = "Marcos";
-	desc.initializeComponentSetup = [luaMgr](GameObject *go)
+	// Read Name
+	auto it = scripts.begin();
+	for (auto it = scripts.begin(); it != scripts.end(); ++it)
 	{
-		CustomComponent *c1 = go->AddCustomComponent("test01Comp", luaMgr);
-		c1->Override("hashed", "Marcos comp1 HASHED!");
-		c1->Override("ranked", 256);
+		// Load script 
+		auto script = it->GetObjectA();
+		assert(script.HasMember("Name"));
+		const std::string& scriptName = script["Name"].GetString();
+		CustomComponent *c1 = go->AddCustomComponent(scriptName, luaMgr);
+		
+		// Overrides
+		if (script.HasMember("Overrides"))
+		{
+			for (auto it2 = script["Overrides"].GetObjectA().begin(); it2 != script["Overrides"].GetObjectA().end(); ++it2)
+			{
+				const std::string& _member = it2->name.GetString();
+				const auto& _value = it2->value;
+				switch (_value.GetType())
+				{
+				case rapidjson::kStringType:
+					c1->Override(_member, _value.GetString());
+					break;
+				case rapidjson::kFalseType:
+				case rapidjson::kTrueType:
+					c1->Override(_member, _value.GetBool());
+					break;
+				case rapidjson::kNumberType:
+					if (_value.IsInt())
+						c1->Override(_member, _value.GetInt());
+					else if (_value.IsDouble())
+						c1->Override(_member, _value.GetDouble());
+					else if (_value.IsUint())
+						c1->Override(_member, _value.GetUint());
+					else if (_value.IsInt64())
+						c1->Override(_member, _value.GetInt64());
+					else if (_value.IsUint64())
+						c1->Override(_member, _value.GetUint64());
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		// Init call per script
 		c1->Init(0, nullptr);
+	}
 
-		CustomComponent *c2 = go->AddCustomComponent("test02Comp", luaMgr);
-		c2->Override("hashed", "Marcos comp2 HASHED!");
-		c2->Override("ranked", 1024);
-		c2->Init(0, nullptr);
-
-		go->Begin();
-	};
-	mgr->Queue_GameObject_Instantiation(&desc);
-
-	//2d gameobj test
-	GameObjectDesc desc2;
-	desc2.tag = "Andres";
-	desc2.initializeComponentSetup = [luaMgr](GameObject *go2)
-	{
-		CustomComponent *c1 = go2->AddCustomComponent("test01Comp", luaMgr);
-		c1->Override("hashed", "Andres SuperHashed!");
-		c1->Override("ranked", -256);
-		c1->Init(0, nullptr);
-
-		go2->Begin();
-	};
-	mgr->Queue_GameObject_Instantiation(&desc2);
 }

@@ -279,10 +279,6 @@
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Scripts\test01Comp.lua" />
-    <None Include="Scripts\test02Comp.lua" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{428E3D55-F0E6-46C4-8B50-A3B53994B0B3}</ProjectGuid>
