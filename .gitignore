@@ -6,13 +6,12 @@
 *.user
 *.sln.docstates
 *.ini
-Albot/Assets/IGNORE
-CantEngine.exp
-CantEngine.lib
-CantDebug.exp
-CantDebug.lib
-CantDebug_d.lib
-CantDebug_d.exp
+ThirdParty/Lib/Win64/CantEngine.exp
+ThirdParty/Lib/Win64/CantEngine.lib
+*CantDebug.exp
+*CantDebug.lib
+*CantDebug_d.lib
+*CantDebug_d.exp
 
 # Build results
 [Dd]eveloper
