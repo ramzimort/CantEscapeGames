@@ -31,14 +31,24 @@ void EventManager::Initialize()
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager();
 	m_pResourceManager = new ResourceManager();
-	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
+
+	DEBUG_INIT(
+		m_pInputManager->GetWindow(), 
+		m_pAppRenderer->GetDXRenderer()->get_device(), 
+		m_pAppRenderer->GetDXRenderer()->get_device_context());
+
+	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	m_pStateManager = new StateManager();
 
+
+	// TODO: Pass Initial State to State Manager (Not hardcoded)
 	m_pStateManager->SwitchState(new State("level1.json", m_pAppRenderer, 
 		m_pResourceManager, m_pScriptingManager));
+
 	m_pAppRenderer->LoadContent();
+
 }
 
 EventManager* EventManager::Get()
@@ -52,8 +62,10 @@ void EventManager::Update(float dt)
 	m_pStateManager->ProcessInstantiationAndDestruction();
 	m_pStateManager->UpdateStack(dt);
 	m_pStateManager->DrawStack(dt);
+
 	m_pAppRenderer->UpdateAppRenderer(dt);
 	m_pAppRenderer->RenderApp();
+	DEBUG_UPDATE;
 	m_pAppRenderer->PresentApp();
 	m_pEventBus->Update(dt);
 }

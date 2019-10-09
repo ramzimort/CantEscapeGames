@@ -80,6 +80,9 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 		XMMATRIX pitch_mat = XMMatrixRotationAxis(right, XMVectorGetY(rotation_vector));
 		XMMATRIX yaw_mat = XMMatrixRotationY(XMVectorGetX(rotation_vector));
 		camera_comp->GetCamera().ApplyRotation(XMMatrixMultiply(pitch_mat, yaw_mat));
+
+		controller->m_mouseDeltaPosition.x = 0;
+		controller->m_mouseDeltaPosition.y = 0;
 	}
 
 	Vector3 position = transform_comp->GetPosition();

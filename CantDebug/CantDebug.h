@@ -10,15 +10,15 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
-	CANTDEBUG_API void InitDebugWindow(SDL_Window* pWindow);
+	CANTDEBUG_API void InitDebugWindow(SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
 
 	CANTDEBUG_API void UpdateDebugWindow();
-
-	CANTDEBUG_API void CloseDebugWindow();
 
 	CANTDEBUG_API void Log(const char* data);
 
 	CANTDEBUG_API void Trace(const char* data);
+
+	CANTDEBUG_API void ProcessIO(SDL_Event& e, bool& m_quit);
 
 	CANTDEBUG_API void MemoryLog(const char* pool, const void* address);
 

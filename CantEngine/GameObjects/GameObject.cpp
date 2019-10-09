@@ -100,7 +100,7 @@ CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	
 {
 	//Get the correct script name from the path
 	size_t index = scriptName.find_last_of("/\\");
-	int len = (scriptName.size() - 4) - (index + 1);
+	size_t len = (scriptName.size() - 4) - (index + 1);
 	std::string name = scriptName.substr(index + 1, len);
 
 	//Check first if the gameobj already has this custom component

@@ -358,7 +358,7 @@ void Sphere::DebugDraw(AppRenderer* pAppRenderer, const Vector4& /*color*/) cons
 
 void Sphere::Print() const
 {
-	DEBUG_LOG("Center = ")
+	DEBUG_LOG("Center = ");
 	DEBUG_LOGVec3(m_Center);
 	DEBUG_LOG("radius = %f", m_Radius);
 }

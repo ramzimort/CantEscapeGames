@@ -51,14 +51,12 @@ private:
 	SDL_Window* m_pWindow;
 	std::array<bool, 512> m_keyboardState;
 
-	Uint32 m_mouseStateCurrent;
-	Uint32 m_mouseStatePrevious;
+	Uint8 m_mouseStateCurrent;
+	Uint8 m_mouseStatePrevious;
 	int m_mousePositionCurrent[2];
 	int m_mousePositionPrevious[2];
 	Sint32 m_mouseWheelY;
 	SDL_Event m_event;
-	
-	bool m_update;
 	bool m_quit;
 };
 

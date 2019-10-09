@@ -20,7 +20,6 @@ namespace CantEngineAPI
 			dt = static_cast<float>(frame_manager.GetFloatFrameTime());
 			World->Update(dt);
 			frame_manager.EndFrame();
-			DEBUG_UPDATE
 		}
 	}
 }

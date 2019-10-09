@@ -280,10 +280,10 @@ void Aabb::DebugDraw(AppRenderer* pAppRenderer, const Vector4& color) const
 
 void Aabb::Print() const
 {
-	DEBUG_LOG("Min = ")
-	DEBUG_LOGVec3(m_Min)
+	DEBUG_LOG("Min = ");
+	DEBUG_LOGVec3(m_Min);
 
-	DEBUG_LOG("Max = ")
-	DEBUG_LOGVec3(m_Max)
+	DEBUG_LOG("Max = ");
+	DEBUG_LOGVec3(m_Max);
 }
 #endif

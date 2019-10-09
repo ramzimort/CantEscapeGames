@@ -3,7 +3,8 @@
 #include "../../CantDebug/CantDebug.h"
 
 #ifndef DEVELOPER
-#define DEBUG_INIT(SDLWND)
+#define DEBUG_INIT(SDLWND, PD3DDEVICE, PD3DCONTEXT)
+#define DEBUG_PROCESSIO(SDL_EVENT, QUIT)
 #define DEBUG_TRACE(fmt, ...)
 #define DEBUG_LOG
 #define DEBUG_LOGVec2(VEC2)
@@ -19,22 +20,22 @@
 #define DEBUG_CHECKBOX(NAME, DATA)
 #define DEBUG_QUIT
 #else
-#define DEBUG_INIT(SDLWND) CantDebugAPI::InitDebugWindow(SDLWND);
-#define DEBUG_TRACE(FMT, ...) CantDebug::Trace(FMT, __VA_ARGS__);
-#define DEBUG_LOG(FMT, ...) CantDebug::Log(FMT, __VA_ARGS__);
-#define DEBUG_LOGVec2(VEC2) CantDebug::LogVec2(VEC2);
-#define DEBUG_LOGVec3(VEC3) CantDebug::LogVec3(VEC3);
-#define DEBUG_LOGVec4(VEC4) CantDebug::LogVec4(VEC4);
-#define DEBUG_LOGMat3(MAT3) CantDebug::LogMat3(MAT3);
-#define DEBUG_LOGMat4(MAT4) CantDebug::LogMat4(MAT4);
-
-#define DEBUG_UPDATE CantDebugAPI::UpdateDebugWindow();
-#define DEBUG_ALLOC(POOL,ADDR) CantDebugAPI::MemoryLog(POOL, ADDR);
-#define DEBUG_FREE(POOL,ADDR) CantDebugAPI::MemoryFree(POOL, ADDR);
-#define DEBUG_FREEALL(POOL,STARTADDR) CantDebugAPI::MemoryFreeAll(POOL,STARTADDR);
-#define DEBUG_SLIDERFLOAT(NAME, DATA, MIN, MAX) CantDebugAPI::SliderFloat(NAME, DATA, MIN, MAX);
+#define DEBUG_INIT(SDLWND, PD3DDEVICE, PD3DCONTEXT) CantDebugAPI::InitDebugWindow(SDLWND, PD3DDEVICE, PD3DCONTEXT)
+#define DEBUG_PROCESSIO(SDL_EVENT, QUIT) CantDebugAPI::ProcessIO(SDL_EVENT, QUIT)
+#define DEBUG_TRACE(FMT, ...) CantDebug::Trace(FMT, __VA_ARGS__)
+#define DEBUG_LOG(FMT, ...) CantDebug::Log(FMT, __VA_ARGS__)
+#define DEBUG_LOGVec2(VEC2) CantDebug::LogVec2(VEC2)
+#define DEBUG_LOGVec3(VEC3) CantDebug::LogVec3(VEC3)
+#define DEBUG_LOGVec4(VEC4) CantDebug::LogVec4(VEC4)
+#define DEBUG_LOGMat3(MAT3) CantDebug::LogMat3(MAT3)
+#define DEBUG_LOGMat4(MAT4) CantDebug::LogMat4(MAT4)
+#define DEBUG_UPDATE CantDebugAPI::UpdateDebugWindow()
+#define DEBUG_ALLOC(POOL,ADDR) CantDebugAPI::MemoryLog(POOL, ADDR)
+#define DEBUG_FREE(POOL,ADDR) CantDebugAPI::MemoryFree(POOL, ADDR)
+#define DEBUG_FREEALL(POOL,STARTADDR) CantDebugAPI::MemoryFreeAll(POOL,STARTADDR)
+#define DEBUG_SLIDERFLOAT(NAME, DATA, MIN, MAX) CantDebugAPI::SliderFloat(NAME, DATA, MIN, MAX)
 #define DEBUG_CHECKBOX(NAME, DATA) CantDebugAPI::CheckboxUI(NAME, DATA);
-#define DEBUG_QUIT CantDebugAPI::CloseDebugWindow();
+#define DEBUG_QUIT CantDebugAPI::CloseDebugWindow()
 
 namespace CantDebug
 {
@@ -92,6 +93,12 @@ namespace CantDebug
 			DEBUG_LOG("\n");
 		}
 	}
+
+	class DebugManager
+	{
+		DebugManager() = default;
+		~DebugManager() = default;
+	};
 }
 
 #endif

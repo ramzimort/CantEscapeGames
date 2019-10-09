@@ -37,7 +37,6 @@ void AppRenderer::InnerLoadContent()
 	m_object_uniform_buffer_list.reserve(1000);
 	m_material_uniform_buffer_list.reserve(1000);
 
-
 	InitRandomTexture1D();
 
 	DepthStateDesc less_equal_depth_state_desc = {};

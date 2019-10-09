@@ -22,13 +22,12 @@ InputManager::InputManager() :
 	m_pWindow = SDL_CreateWindow("CantEscapeGames",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		800,
-		600,
+		1200,
+		900,
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
-	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, 800, 600);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, 1200, 900);
 
 	assert(m_pWindow != NULL);
-	DEBUG_INIT(m_pWindow);
 
 	SDL_JoystickEventState(SDL_ENABLE);
 	m_mouseStateCurrent = 0;
@@ -39,7 +38,6 @@ InputManager::InputManager() :
 
 InputManager::~InputManager()
 {
-	DEBUG_QUIT;
 }
 
 void InputManager::UpdateMouseState()
@@ -53,13 +51,12 @@ void InputManager::UpdateMouseState()
 void InputManager::Update()
 {
 	m_mouseWheelY = 0;
-
 	while (SDL_PollEvent(&m_event))
 	{
-		//Update_ImGui_Event(m_event);
-		//SDL_JoystickUpdate();
+		DEBUG_PROCESSIO(m_event, m_quit);
 		switch (m_event.type)
 		{
+
 		// ALL WINDOW EVENTS
 		case SDL_WINDOWEVENT:
 		{
@@ -67,17 +64,19 @@ void InputManager::Update()
 				break;
 			switch (m_event.window.event)
 			{
+			case SDL_WINDOWEVENT_RESIZED:
+				// TODO: CALL RESIZE EVENT HERE WITH WIDTH AND HEIGHT AND ANY OTHER PARAMS 
+				break;
+
 			case SDL_WINDOWEVENT_FOCUS_GAINED:
 			case SDL_WINDOWEVENT_SHOWN:
 			case SDL_WINDOWEVENT_RESTORED:
 				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, true);
-				m_update = true;
 				break;
 			case SDL_WINDOWEVENT_HIDDEN:
 			case SDL_WINDOWEVENT_FOCUS_LOST:
 			case SDL_WINDOWEVENT_MINIMIZED:
 				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, false);
-				m_update = false;
 				break;
 			case SDL_WINDOWEVENT_CLOSE:
 				m_quit = true;
@@ -95,7 +94,17 @@ void InputManager::Update()
 			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
 			break;
 		case SDL_MOUSEWHEEL:
-			m_mouseWheelY = m_event.wheel.y;
+			break;
+		case SDL_MOUSEMOTION:
+			EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
+				EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
+			break;
+		case SDL_MOUSEBUTTONUP:
+			if((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
+				EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
 			break;
 		case SDL_KEYDOWN:
 			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
@@ -119,13 +128,8 @@ void InputManager::Update()
 			break;
 		}
 	}
-	if (!m_update)
-		return;
 
 	UpdateMouseState();
-
-	EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
-
 	// DEBUG
 	DEBUG_TRACE("Pointer: x = %f, y = %f", GetPointerLocVec2().x, GetPointerLocVec2().y);
 
@@ -188,4 +192,3 @@ bool InputManager::IsQuit()
 {
 	return m_quit;
 }
-
