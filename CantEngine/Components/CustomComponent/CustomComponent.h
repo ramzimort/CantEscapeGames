@@ -39,7 +39,7 @@ public:
 
 	//Scripts methods
 	sol::table& getCustomCompLuaRef();
-	void ScriptSetup(StringId scriptName, ScriptingManager *luaMgr);
+	void ScriptSetup(StringId scriptPath, std::string const& name, ScriptingManager *luaMgr);
 
 	template<typename T>
 	void Override(std::string member, T value);

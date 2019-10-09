@@ -4,7 +4,7 @@ test01Comp =
 {
 	name = "test01Comp",
 
-	--Custom stuff
+	--Custom variables you can add
 	ranked = -1,
 	isDumb = false,
 	hashed = "_empty_"
@@ -53,9 +53,9 @@ test01Comp.Begin = function(self, owner, goMgr)
 	end
 
 	--Try to get an external GO
-	local gameobj01 = goMgr:FindGameObject("Marcos");
+	local gameobj01 = goMgr:FindGameObject("Andres");
 	if (gameobj01 == nil) then
-		OutputPrint(">>> GO with id 0 not found\n");
+		OutputPrint(">>> GO with tag Andres not found\n");
 		return;
 	end
 

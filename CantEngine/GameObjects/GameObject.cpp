@@ -98,8 +98,13 @@ void GameObject::Begin()
 
 CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	ScriptingManager *luaMgr)
 {
+	//Get the correct script name from the path
+	size_t index = scriptName.find_last_of("/\\");
+	int len = (scriptName.size() - 4) - (index + 1);
+	std::string name = scriptName.substr(index + 1, len);
+
 	//Check first if the gameobj already has this custom component
-	CustomComponent *component = this->m_customComponents[scriptName]; // m_customComponents is per object
+	CustomComponent *component = this->m_customComponents[name]; // m_customComponents is per object
 	if (component)
 		return component;
 
@@ -109,8 +114,8 @@ CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	
 	//If it was created correctly
 	if (component)
 	{
-		component->ScriptSetup(scriptName, luaMgr);
-		m_customComponents[scriptName] = component;
+		component->ScriptSetup(scriptName, name, luaMgr);
+		m_customComponents[name] = component;
 		return component;
 	}
 	return nullptr;

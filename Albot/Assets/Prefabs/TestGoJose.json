@@ -4,31 +4,19 @@
     "Rotation": [ 0.0, 0.0, 0.0 ],
     "Scale": [ 1.0, 1.0, 1.0 ]
   },
-
-  "CameraComponent": {
-    "Camera": {
-      "FOV": 45.0,
-      "Near": 0.1,
-      "Far": 1000.0,
-      "Position": [ 0.0, 0.0, 20.0 ]
-    }
-  },
-  "FPSController": {
-
-  },
   "Scripts": [
     {
       "Name": "Scripts/Test/test01Comp.lua",
       "Overrides": {
-        "hashed": "Marcos scriptcomp01 NOT HASHED!",
-        "ranked": 256
+        "hashed": "ANDRES NOT OVERRIDEN!",
+        "ranked": -777
       }
     },
     {
       "Name": "Scripts/Test/test02Comp.lua",
       "Overrides": {
-        "hashed": "Marcos scriptcomp02 IS HASHED!!!",
-        "ranked": 1024
+        "hashed": "ANDRES COMP 2 NOT OVERRIDEN!",
+        "ranked": -555
       }
     }
   ]

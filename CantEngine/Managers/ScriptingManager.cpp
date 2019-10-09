@@ -20,6 +20,7 @@ Primary Author: Jose Rosenbluth
 //We will use this to print from LUA to out stream
 void printDebugAndLog(std::string msg)
 {
+	//OutputDebugString(msg.c_str());
 	DEBUG_LOG(msg.c_str());
 }
 
@@ -51,7 +52,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 	catch (const sol::error& e)
 	{
 		const char *errorName = e.what();
-		DEBUG_LOG(errorName); // ( TODO - REMOVE LATER)
+		DEBUG_LOG(errorName);
 	}
 
 	//-------------------------------------

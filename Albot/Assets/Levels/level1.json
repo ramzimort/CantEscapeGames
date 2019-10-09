@@ -19,11 +19,12 @@
       "Assets/Prefabs/mitsuba_sphere.json",
       "Assets/Prefabs/directional_light.json",
       "Assets/Prefabs/RBTestObj.json",
-      "Assets/Prefabs/player.json"
+      "Assets/Prefabs/player.json",
+      "Assets/Prefabs/TestGoJose.json"
     ],
     "Scripts": [
-      "Scripts/Test/Script1.lua",
-      "Scripts/Test/Script2.lua"
+      "Scripts/Test/test01Comp.lua",
+      "Scripts/Test/test02Comp.lua"
     ]
   },
   "Objects": [
@@ -91,10 +92,25 @@
       "overrides": {
         "Scripts": [
           {
-            "Name": "Scripts/Test/Script1.lua",
+            "Name": "Scripts/Test/test01Comp.lua",
             "Overrides": {
               "hashed": "Marcos comp1 OVERRIDE!",
               "ranked": 512
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tag": "Andres",
+      "prefab": "Assets/Prefabs/TestGoJose.json",
+      "overrides": {
+        "Scripts": [
+          {
+            "Name": "Scripts/Test/test01Comp.lua",
+            "Overrides": {
+              "hashed": "ANDRES comp01 OVERRIDE!",
+              "ranked": -1024
             }
           }
         ]

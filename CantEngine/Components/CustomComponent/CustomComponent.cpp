@@ -60,16 +60,16 @@ sol::table& CustomComponent::getCustomCompLuaRef()
 
 
 #include <Lua_53/lua.h>
-void CustomComponent::ScriptSetup(StringId scriptName, ScriptingManager *luaMgr)
+void CustomComponent::ScriptSetup(StringId scriptPath, std::string const& name, ScriptingManager *luaMgr)
 {
 	//Setup lua script
 	try
 	{
 		//Get a deep copy of the table so each table has their own state
-		m_luaScriptTable = luaMgr->GetScriptDeepCopy(scriptName);
+		m_luaScriptTable = luaMgr->GetScriptDeepCopy(scriptPath);
 
 		//Set the name
-		this->m_name = scriptName;
+		this->m_name = name;
 
 		// TODO - Bind some of the customComp methods to lua
 		// Maybe pass the comp to the script as a "thisComp" (different from self, which is the table)
