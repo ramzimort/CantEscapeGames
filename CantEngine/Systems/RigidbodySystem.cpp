@@ -19,6 +19,7 @@ unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 #include "Components/RigidbodyComponent.h"
 
 #include "Graphics/AppRenderer.h"
+#include "Graphics/GraphicsSettings.h"
 
 
 RigidbodySystem::RigidbodySystem() : 
@@ -62,6 +63,8 @@ void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
 //Access all the components data and stuff through the unordered_map
 void RigidbodySystem::LateUpdate(float dt) 
 {
+	GraphicsSettings::Draw_Mesh_Flag = false;
+
 	m_timeAccumulator += dt;
 	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
@@ -126,7 +129,7 @@ void RigidbodySystem::LateUpdate(float dt)
 
 #pragma region NarrowPhase
 		
-				debugColor = Vector4(0, 1, 0, 1);
+		debugColor = Vector4(0, 1, 0, 1);
 		for (QueryResult& query : results.m_results)
 		{
 
@@ -332,7 +335,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			transform->SetLocalPosition(position);
 			transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
 		}
-			   		
+
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;
 	}
 #pragma endregion PositionUpdate

@@ -129,7 +129,6 @@ void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eule
 	m_rotation.z = eulerZ;
 }
 
-
 void TransformComponent::SetLocalPosition(const Vector3& position)
 {
 	SetLocalPosition(position.x, position.y, position.z);

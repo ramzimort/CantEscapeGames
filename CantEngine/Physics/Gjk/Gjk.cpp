@@ -413,12 +413,24 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 		simplex = newSimplex;
 
 		// 4. If P is equal to Q then terminate
-		if (q == closestPoint.m_CsoPoint)
+		float lengthSq = (q - closestPoint.m_CsoPoint).LengthSquared();
+		if (lengthSq < epsilon * epsilon)
 		{
+			/*FillSimplexInDirection(simplex, Vector3::Up      , shapeA, shapeB);
+			FillSimplexInDirection(simplex, Vector3::Down    , shapeA, shapeB);
+			FillSimplexInDirection(simplex, Vector3::Right   , shapeA, shapeB);
+			FillSimplexInDirection(simplex, Vector3::Left    , shapeA, shapeB);
+			FillSimplexInDirection(simplex, Vector3::Forward , shapeA, shapeB);
+			FillSimplexInDirection(simplex, Vector3::Backward, shapeA, shapeB);*/
+
 			if (simplex.size() < 4)
 			{
+				direction = q - simplex.back().m_CsoPoint;
 				direction.Normalize();
-				Vector3 perpendicular = direction.Cross(Vector3(0.0, 0.0, 1.0));
+				
+				Vector3 perpendicular = (direction == Vector3::Up) ? direction.Cross(Vector3::Backward) : direction.Cross(Vector3::Left);
+				//direction.Normalize();
+				//Vector3 perpendicular = direction.Cross(Vector3::Backward);
 				CsoPoint newPoint = ComputeSupport(shapeA, shapeB, perpendicular);
 				simplex.push_back(newPoint);
 
@@ -501,7 +513,7 @@ float Gjk::TriangleSideCheck(const Vector3& q, const Vector3& p0, const Vector3&
 bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CollisionManifold& collision, float epsilon)
 {
 	//Expanding Polytope Algorithm (EPA) as described here: http://hacktank.net/blog/?p=119
-	const unsigned MAX_ITERATIONS = 5;
+	const unsigned MAX_ITERATIONS = 50;
 	unsigned iteration = 0;
 
 	std::list<CsoTriangle> triangles;
@@ -586,9 +598,11 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 			break;
 		}
 
-		for (auto it = triangles.begin(); it != triangles.end();) {
+		for (auto it = triangles.begin(); it != triangles.end();) 
+		{
 			// can this face be 'seen' by currentSuport?
-			if (it->m_normal.Dot(currentSuport.m_CsoPoint - it->points[0].m_CsoPoint) > 0) {
+			if (it->m_normal.Dot(currentSuport.m_CsoPoint - it->points[0].m_CsoPoint) > 0)
+			{
 				AddEdge(edges, it->points[0], it->points[1]);
 				AddEdge(edges, it->points[1], it->points[2]);
 				AddEdge(edges, it->points[2], it->points[0]);
@@ -624,5 +638,16 @@ void Gjk::AddEdge(std::list<CsoEdge>& list, const CsoPoint& a, const CsoPoint& b
 		}
 	}
 	list.emplace_back(a, b);
+}
+
+void Gjk::FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vector3& direction, const SupportShape* shapeA, const SupportShape* shapeB)
+{
+	CsoPoint newPoint = ComputeSupport(shapeA, shapeB, direction);
+		
+	auto it = std::find(simplex.begin(), simplex.end(), newPoint);
+	if (it == simplex.end())
+	{
+		simplex.push_back(newPoint);
+	}	
 }
 

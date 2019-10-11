@@ -50,7 +50,7 @@ public:
 	//Setters
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(const Vector3& position);
-	void SetLocalRotation(float eulerX, float eulerY, float eulerZ);
+	void SetLocalRotation(float eulerX, float eulerY, float eulerZ); 
 
 
 private:

@@ -113,4 +113,6 @@ private:
 	void AddEdge(std::list<CsoEdge>& list, const CsoPoint& a, const CsoPoint& b);
 
 	const unsigned int m_maxIterations = 100;
+
+	void FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vector3& direction, const SupportShape* shapeA, const SupportShape* shapeB);
 };
