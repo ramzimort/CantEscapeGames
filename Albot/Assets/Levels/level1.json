@@ -63,7 +63,7 @@
       "prefab": "Assets/Prefabs/RBTestObj.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -2.0, 0.0, -14.0 ],
+          "Position": [ 0.0, 0.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
         },
         "RigidBodyComponent": {
@@ -77,7 +77,7 @@
       "prefab": "Assets/Prefabs/RBTestObj.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -2.0, 3.0, -14.5 ],
+          "Position": [ 0.0, 3.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
         },
         "RigidBodyComponent": {

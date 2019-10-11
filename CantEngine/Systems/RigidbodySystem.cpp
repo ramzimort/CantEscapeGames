@@ -63,7 +63,7 @@ void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
 //Access all the components data and stuff through the unordered_map
 void RigidbodySystem::LateUpdate(float dt) 
 {
-	GraphicsSettings::Draw_Mesh_Flag = false;
+	//GraphicsSettings::Draw_Mesh_Flag = false;
 
 	m_timeAccumulator += dt;
 	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
