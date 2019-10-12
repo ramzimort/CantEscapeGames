@@ -41,6 +41,10 @@ class Light;
 
 class ResourceManager;
 class CameraManager;
+class Camera;
+class CameraRegistrationEvent;
+class CameraDestructionEvent;
+class WindowSizeEvent;
 
 class AppRenderer{
 public:
@@ -91,6 +95,12 @@ private:
 	void AddMaterialUniformBuffer();
 
 private:
+	//Callbacks
+	void OnCameraRegistration(const CameraRegistrationEvent* event);
+	void OnCameraDestruction(const CameraDestructionEvent* event);
+	void OnWindowSize(const WindowSizeEvent* event);
+
+private:
 	SDL_Window& m_sdl_window;
 	DXRenderer* m_dxrenderer;
 	ResourceManager* m_resourceManager;
@@ -137,17 +147,18 @@ private:
 	BlendState* m_additiveBlending;
 
 
-	ParticleRendering m_particleRendering;
+	
 	float m_gameTime;
-
+	ParticleRendering m_particleRendering;
+	DebugRendering m_debugRendering;
+	DeferredRendering m_deferrredRendering;
 	MSAAResolvePass m_msaa_resolve_pass;
 
 	Buffer* m_directional_light_uniform_buffer;
 	DirectionalLightInstanceDataList m_directionLightInstanceList;
 	PointLightInstanceDataList m_point_light_instance_list;
 
-	DebugRendering m_debugRendering;
-	DeferredRendering m_deferrredRendering;
+	
 	
 	InstanceRenderList m_basicInstances;
 	InstanceRenderList m_ui_quad_instances;
@@ -162,8 +173,6 @@ private:
 	std::vector<ObjectUniformData> m_object_uniform_data_list;
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
 
-
-	Buffer* m_point_light_uniform_buffer;
 	Buffer* m_camera_uniform_buffer;
 	Buffer* m_skybox_uniform_buffer;
 

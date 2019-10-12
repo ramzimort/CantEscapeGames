@@ -49,6 +49,7 @@ private:
 	
 private:
 	size_t m_id;
+	std::string m_cameraName;
 	Vector3 m_position, m_lookDir, m_upDir, m_rightDir;
 
 	Matrix m_viewMatrix;

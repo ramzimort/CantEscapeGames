@@ -37,7 +37,7 @@ ParticleEmitterComponent::ParticleEmitterComponent(GameObject *owner)
 	m_emitterDirection(0.f, 1.f, 0.f),
 	m_emitterPosition(0.f),
 	m_emitterRate(0.005f),
-	m_emitterSpreadAngleYaw(90.f),
+	m_emitterSpreadAngleYaw(360.f),
 	m_emitterSpreadAnglePitch(90.f),
 	m_firstTime(true),
 	m_emitterLifetime(5.f),

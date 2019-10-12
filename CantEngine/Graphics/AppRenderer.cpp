@@ -6,6 +6,7 @@
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Graphics/GraphicsSettings.h"
+#include "Managers/EventManager.h"
 
 
 AppRenderer::AppRenderer(SDL_Window& sdl_window, ResourceManager* resourceManager,
@@ -247,15 +248,6 @@ void AppRenderer::InnerLoadContent()
 	m_camera_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, camera_uniform_buffer_desc);
 
 
-	BufferLoadDesc point_light_uniform_buffer_desc = {};
-	point_light_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	point_light_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
-	point_light_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
-	point_light_uniform_buffer_desc.m_desc.m_debugName = "Point Light Uniform Buffer";
-	point_light_uniform_buffer_desc.m_rawData = nullptr;
-	point_light_uniform_buffer_desc.m_size = sizeof(PointLightUniformData);
-
-	m_point_light_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, point_light_uniform_buffer_desc);
 
 
 	BufferLoadDesc directional_light_uniform_buffer_desc = {};
@@ -458,7 +450,17 @@ void AppRenderer::Initialize()
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
 	m_dxrenderer->init(1);
+
+	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
+		std::bind(&AppRenderer::OnCameraRegistration, this, std::placeholders::_1));
+
+	EventManager::Get()->SubscribeEvent<CameraDestructionEvent>(this,
+		std::bind(&AppRenderer::OnCameraDestruction, this, std::placeholders::_1));
+
+	EventManager::Get()->SubscribeEvent<WindowSizeEvent>(this,
+		std::bind(&AppRenderer::OnWindowSize, this, std::placeholders::_1));
 }
+
 
 void AppRenderer::LoadContent()
 {
@@ -470,8 +472,27 @@ void AppRenderer::LoadContent()
 }
 
 
+void AppRenderer::OnCameraRegistration(const CameraRegistrationEvent* event)
+{
+
+}
+
+void AppRenderer::OnCameraDestruction(const CameraDestructionEvent* event)
+{
+
+}
+void AppRenderer::OnWindowSize(const WindowSizeEvent* event)
+{
+
+}
+
+
 void AppRenderer::Release()
 {
+	EventManager::Get()->UnsubscribeEvent<CameraRegistrationEvent>(this);
+	EventManager::Get()->UnsubscribeEvent<CameraDestructionEvent>(this);
+	EventManager::Get()->UnsubscribeEvent<WindowSizeEvent>(this);
+
 	SafeReleaseDelete(m_dxrenderer);
 
 	for (Buffer* buffer : m_object_uniform_buffer_list)
@@ -522,7 +543,6 @@ void AppRenderer::Release()
 
 
 	SafeReleaseDelete(m_directional_light_uniform_buffer);
-	SafeReleaseDelete(m_point_light_uniform_buffer);
 	SafeReleaseDelete(m_camera_uniform_buffer);
 	SafeReleaseDelete(m_skybox_uniform_buffer);
 	SafeReleaseDelete(m_random1DTexture);

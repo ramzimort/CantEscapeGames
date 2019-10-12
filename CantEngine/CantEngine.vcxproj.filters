@@ -273,6 +273,9 @@
     <ClCompile Include="Physics\SpatialPartition\CastResults.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\AppRendererInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -612,6 +615,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\SpatialPartition\CastResults.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\AppRendererInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

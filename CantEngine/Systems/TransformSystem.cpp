@@ -69,11 +69,11 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 
 	Matrix modelMatrix = H * R * T;
-
+/*
 	Matrix invertScaleMatrix = Matrix::CreateScale(Vector3(1.f) / transformComp->GetScale());
 	Matrix normalMatrix = invertScaleMatrix * R;
 
-	
+	*/
 	MeshComponent* meshComp = transformComp->GetOwner()->GetComponent<MeshComponent>();
 
 	/*if (meshComp)

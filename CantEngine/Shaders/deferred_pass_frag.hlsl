@@ -56,8 +56,8 @@ float2 CalculateParallaxUV(float2 UV, float3 view_tangent)
     
     float2 scale = float2(0.0, 0.0);
 
-    scale.x = (height / (4));
-    scale.y = (height / (4));
+    scale.x = (height / (1));
+    scale.y = (height / (1));
 
     //return view_tangent.xy * parallax_val;
 

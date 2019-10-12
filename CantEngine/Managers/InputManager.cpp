@@ -22,10 +22,10 @@ InputManager::InputManager() :
 	m_pWindow = SDL_CreateWindow("CantEscapeGames",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1200,
-		900,
+		1280,
+		720,
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS);
-	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, 1200, 900);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, 1280, 720);
 
 	assert(m_pWindow != NULL);
 

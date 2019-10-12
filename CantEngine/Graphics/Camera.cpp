@@ -20,7 +20,8 @@ RTTR_REGISTRATION
 		.property("Near", &Camera::m_near)
 		.property("Far", &Camera::m_far)
 		.property("FOV", &Camera::m_fov)
-		.property("Position", &Camera::m_position);
+		.property("Position", &Camera::m_position)
+		.property("Camera_Name", &Camera::m_cameraName);
 }
 
 Camera::Camera() :

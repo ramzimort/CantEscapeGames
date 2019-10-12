@@ -62,7 +62,10 @@ PS_IN main(VS_IN vs_in)
     out_data.Tangent = vs_in.Tangent;
     out_data.Bitangent = vs_in.Bitangent;
     //TODO
-    out_data.UV = vs_in.UV * MaterialMiscData.xy;
+
+    float2 finalUV = vs_in.UV;
+
+    out_data.UV = (finalUV) * MaterialMiscData.xy;
     out_data.CameraViewTangent = view_tangent;
     return out_data;
 }

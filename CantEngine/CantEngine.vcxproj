@@ -46,6 +46,7 @@
     <ClCompile Include="Factory\Factory.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="Graphics\AppRenderer.cpp" />
+    <ClCompile Include="Graphics\AppRendererInstance.cpp" />
     <ClCompile Include="Graphics\BlendState.cpp" />
     <ClCompile Include="Graphics\Buffer.cpp" />
     <ClCompile Include="Graphics\Camera.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Factory\Factory.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
     <ClInclude Include="Graphics\AppRenderer.h" />
+    <ClInclude Include="Graphics\AppRendererInstance.h" />
     <ClInclude Include="Graphics\BlendState.h" />
     <ClInclude Include="Graphics\Buffer.h" />
     <ClInclude Include="Graphics\Camera.h" />

@@ -52,4 +52,8 @@
     <Text Include="Shaders\skybox_vert.hlsl" />
     <Text Include="Shaders\streamout_particle_geom.hlsl" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Prefabs\brick_wall.json" />
+    <None Include="Assets\Materials\Red_Brick_Material.json" />
+  </ItemGroup>
 </Project>

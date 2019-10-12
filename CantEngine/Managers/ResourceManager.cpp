@@ -89,6 +89,22 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 	const std::string materialObj = CantReflect::StringifyJson(filePath);
 	material = new Material();
 	CantReflect::FromJson(materialObj, material);
+
+	if (!(material->m_diffuseTextureId == ""))
+	{
+		material->m_pDiffuseTexture = GetTexture(material->m_diffuseTextureId);
+	}
+
+	if ( !(material->m_normalTextureId == "") )
+	{
+		material->m_pNormalTexture = GetTexture(material->m_normalTextureId);
+	}
+
+	if (!(material->m_heightTextureId == ""))
+	{
+		material->m_pHeightTexture = GetTexture(material->m_heightTextureId);
+	}
+
 	m_resources[id] = material;
 }
 
