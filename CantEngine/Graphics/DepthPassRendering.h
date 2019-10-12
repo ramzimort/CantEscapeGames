@@ -30,14 +30,14 @@ private:
 	void add_object_uniform_buffer();
 private:
 	uint32_t m_sample_count;
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
 	Pipeline* m_depth_pass_pipeline;
 	Shader* m_depth_pass_shader;
 
-	std::vector<Buffer*> m_object_uniform_buffer_list;
+	std::vector<Buffer*> m_objectUniformBufferList;
 	//ObjectUniformData m_object_uniform_data;
-	std::vector<ObjectUniformData> m_object_uniform_data_list;
+	std::vector<ObjectUniformData> m_objectUniformDataList;
 };
 

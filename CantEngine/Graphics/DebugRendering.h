@@ -32,6 +32,9 @@ struct DebugLineInstance
 class DebugRendering
 {
 public:
+
+	friend class DebugRenderingInstance;
+
 	typedef std::vector<DebugAABBInstance> DebugAABBInstanceList;
 	typedef std::vector<DebugSphereInstance> DebugSphereInstanceList;
 
@@ -41,6 +44,7 @@ public:
 	DebugRendering(AppRenderer* app_renderer, ResourceManager* resourceManager);
 	~DebugRendering();
 
+	void UpdateDebugUniformBuffer();
 	void RenderDebugScene();
 	void Release();
 
@@ -48,24 +52,22 @@ public:
 	void RegisterDebugLineInstance(const DebugLineInstance& line_instance);
 	void RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance);
 	
-
+	void Update(float dt);
 	void LoadContent(DXRenderer* dxrenderer);
+	void ClearInstances();
 private:
-	void render_debug_aabb_scene();
-	void render_debug_line_scene();
+	void RenderDebugAABBScene();
+	void RenderDebugLineScene();
 	
 	void RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance);
 private:
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 	ResourceManager* m_resourceManager;
 
 	DebugAABBInstanceList m_debug_aabb_instance_list;
 	Pipeline* m_debug_draw_pipeline;
 	Shader* m_debug_draw_shader;
-	Buffer* m_debug_aabb_instance_uniform_buffer;
-	DebugInstanceUniformData m_debug_aabb_instance_uniform_data[MAX_WIREFRAME_DEBUG_DRAW];
-
 
 	DebugLineInstanceList m_debug_line_instance_list;
 	Buffer* m_debug_line_vertex_buffer;

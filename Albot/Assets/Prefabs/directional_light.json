@@ -7,7 +7,7 @@
   "LightComponent": {
     "Light": {
       "LightType": "Directional",
-      "Color": [ 1.0, 1.0, 1.0 ],
+      "Color": [ 1.0, 0.8, 0.736 ],
       "Intensity": 2.0,
       "CastShadow": true,
       "Radius": 5.0

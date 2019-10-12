@@ -10,6 +10,7 @@
 #include "Graphics/MSAAResolvePass.h"
 #include "Graphics/ParticleRendering.h"
 #include "Graphics/InstanceRenderData.h"
+#include "Graphics/AppRendererInstance.h"
 
 
 class Material;
@@ -46,6 +47,8 @@ class CameraRegistrationEvent;
 class CameraDestructionEvent;
 class WindowSizeEvent;
 
+
+
 class AppRenderer{
 public:
 	friend class DeferredRendering;
@@ -54,8 +57,10 @@ public:
 	friend class MSAAResolvePass;
 	friend class ShadowMapRendering;
 	friend class ParticleRendering;
+	friend class DeferredRenderingInstance;
+	friend class DebugRenderingInstance;
+	friend class AppRendererInstance;
 
-	typedef std::vector<Buffer*> BufferList;
 	typedef std::vector<PointLightInstanceData> PointLightInstanceDataList;
 	typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;
 public:
@@ -79,7 +84,7 @@ public:
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
 	
 	
-	void RenderBasicInstances(Pipeline* pipeline);
+	//void RenderBasicInstances(Pipeline* pipeline);
 
 	void LoadContent();
 private:
@@ -91,8 +96,10 @@ private:
 	void RenderSkybox();
 
 
-	void AddObjectUniformBuffer();
+	void AddObjectUniformBuffer(BufferList& objectUniformBufferList,
+		std::vector<ObjectUniformData>& objectUniformDataList);
 	void AddMaterialUniformBuffer();
+	void UpdateMaterialUniformBuffer();
 
 private:
 	//Callbacks
@@ -122,12 +129,9 @@ private:
 	DepthState* m_disabled_depth_state = nullptr;
 	DepthState* m_testonlyLessEqualDepthState = nullptr;
 	
-	RenderTarget* m_cur_main_rt = nullptr;
+	/*RenderTarget* m_cur_main_rt = nullptr;
 	RenderTarget* m_msaa_main_rt = nullptr;
-	RenderTarget* m_depth_rt = nullptr;
-	
-	Pipeline* m_basic_pipeline;
-	Shader* m_basic_shader;
+	RenderTarget* m_depth_rt = nullptr;*/
 
 	Pipeline* m_skybox_pipeline;
 	Shader* m_skybox_shader;
@@ -161,22 +165,18 @@ private:
 	
 	
 	InstanceRenderList m_basicInstances;
-	InstanceRenderList m_ui_quad_instances;
 
-	CameraUniformData m_camera_uniform_data;
-	PointLightUniformData m_light_uniform_data;
+	std::map<int32_t, AppRendererInstance*> m_appRendererInstances;
+
 
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
 	SkyboxUniformData m_skybox_uniform_data;
 
-	std::vector<ObjectUniformData> m_object_uniform_data_list;
+	
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
 
-	Buffer* m_camera_uniform_buffer;
 	Buffer* m_skybox_uniform_buffer;
-
-	BufferList m_object_uniform_buffer_list;
 	BufferList m_material_uniform_buffer_list;
 	
 };

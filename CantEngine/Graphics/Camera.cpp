@@ -21,7 +21,8 @@ RTTR_REGISTRATION
 		.property("Far", &Camera::m_far)
 		.property("FOV", &Camera::m_fov)
 		.property("Position", &Camera::m_position)
-		.property("Camera_Name", &Camera::m_cameraName);
+		.property("CameraName", &Camera::m_cameraName)
+		.property("ZOrder", &Camera::m_zOrder);
 }
 
 Camera::Camera() :
@@ -32,7 +33,9 @@ Camera::Camera() :
 	m_position(0.f, 0.f, 0.f),
 	m_lookDir(0.f, 0.f, -1.f),
 	m_upDir(0.f, 1.f, 0.f),
-	m_rightDir(1.f, 0.f, 0.f)
+	m_rightDir(1.f, 0.f, 0.f),
+	m_cameraName(""),
+	m_zOrder(-1)
 {
 }
 
@@ -45,7 +48,9 @@ Camera::Camera(float fov,
 	m_position(position), 
 	m_lookDir(0.f, 0.f, -1.f),
 	m_upDir(0.f, 1.f, 0.f),
-	m_rightDir(1.f, 0.f, 0.f)
+	m_rightDir(1.f, 0.f, 0.f),
+	m_cameraName(""),
+	m_zOrder(-1)
 { 
 }
 
@@ -57,7 +62,9 @@ Camera::Camera(const Camera& lhs) :
 	m_position(lhs.m_position),
 	m_lookDir(lhs.m_lookDir),
 	m_upDir(lhs.m_upDir),
-	m_rightDir(lhs.m_rightDir)
+	m_rightDir(lhs.m_rightDir),
+	m_cameraName(lhs.m_cameraName),
+	m_zOrder(lhs.m_zOrder)
 { 
 }
 
@@ -127,4 +134,14 @@ void Camera::UpdateViewProjectionMatrix()
 {
 	m_viewProjectionMatrix = m_viewMatrix * m_projectionMatrix;
 	m_invViewProjectionMatrix = DirectX::XMMatrixInverse(nullptr, m_viewProjectionMatrix);
+}
+
+std::string Camera::GetCameraName() const
+{
+	return m_cameraName;
+}
+
+int32_t Camera::GetZOrder() const
+{
+	return m_zOrder;
 }

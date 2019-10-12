@@ -44,12 +44,16 @@ public:
 	void UpdateViewProjectionMatrix();
 
 	size_t GetId();
-
-private:
+	std::string GetCameraName() const;
+	int32_t GetZOrder() const;
 	
 private:
-	size_t m_id;
+
 	std::string m_cameraName;
+	int32_t m_zOrder;
+
+	
+	size_t m_id;	
 	Vector3 m_position, m_lookDir, m_upDir, m_rightDir;
 
 	Matrix m_viewMatrix;

@@ -11,7 +11,8 @@
       "Near": 0.1,
       "Far": 1000.0,
       "Position": [ 0.0, 0.0, 20.0 ],
-      "Camera_Name" :  "Main"
+      "CameraName": "Main",
+      "ZOrder" : 0
     }
   },
   "FPSController": {

@@ -10,6 +10,7 @@ class DXRenderer;
 class AppRenderer;
 class ResourceManager;
 
+
 enum DEFERRED_RT_TYPE
 {
 	DEFERRED_WORLD_NORMAL,
@@ -21,24 +22,29 @@ enum DEFERRED_RT_TYPE
 class DeferredRendering
 {
 public:
+	friend class DeferredRenderingInstance;
+public:
 	DeferredRendering(AppRenderer* app_renderer, ResourceManager* resourceManager);
 	~DeferredRendering();
 
+
+	void Update(float dt);
 	void Release();
+	void UpdateUniformBuffer();
 	void RenderDeferredScene();
 	void LoadContent(DXRenderer* dxrenderer);
 private:
-	void render_deferred_pass();
-	void render_deferred_global_directional_light_shade();
-	void render_deferred_point_light_shade();
+	void RenderDeferredPass();
+	void RenderDeferredGlobalDirectionalLightShade();
+	void RenderDeferredPointLightShade();
 	void init_deferred_scene_light();
 private:
 	DXRenderer* m_dxrenderer;
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 
 	Pipeline* m_deferred_pass_pipeline;
 	Shader* m_deferred_pass_shader;
-	RenderTarget* m_deferred_rts[DEFERRED_TOTAL_COUNT];
+	//RenderTarget* m_deferred_rts[DEFERRED_TOTAL_COUNT];
 
 	Pipeline* m_deferred_shade_pipeline;
 	Shader* m_deferred_shade_shader;

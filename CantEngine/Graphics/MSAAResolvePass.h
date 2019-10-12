@@ -15,7 +15,7 @@ public:
 
 	void LoadContent(DXRenderer* dxrenderer);
 private:
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
 	Buffer* m_msaa_resolve_uniform_buffer;

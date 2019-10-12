@@ -10,7 +10,7 @@
 
 
 DeferredRendering::DeferredRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)
-	:m_app_renderer(app_renderer),
+	:m_appRenderer(app_renderer),
 	m_resourceManager(resourceManager)
 
 {
@@ -26,11 +26,6 @@ void DeferredRendering::Release()
 {
 	SafeReleaseDelete(m_deferred_pass_pipeline);
 	SafeReleaseDelete(m_deferred_pass_shader);
-	
-	for (uint32_t i = 0; i < DEFERRED_TOTAL_COUNT; ++i)
-	{
-		SafeReleaseDelete(m_deferred_rts[i]);
-	}
 
 	SafeReleaseDelete(m_deferred_shade_pipeline);
 	SafeReleaseDelete(m_deferred_shade_shader);
@@ -92,54 +87,6 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	rt_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
 
 
-	RenderTargetDesc rt_desc[DEFERRED_RT_TYPE::DEFERRED_TOTAL_COUNT] = {};
-
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_width = rt_width;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_height = rt_height;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_depth = 1;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_mipLevels = 1;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_is_srgb = false;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
-
-	m_deferred_rts[DEFERRED_WORLD_NORMAL] = DXResourceLoader::Create_RenderTarget(
-		m_dxrenderer, rt_desc[DEFERRED_WORLD_NORMAL]);
-
-
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_width = rt_width;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_height = rt_height;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_depth = 1;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_mipLevels = 1;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_is_srgb = false;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
-
-	m_deferred_rts[DEFERRED_ALBEDO] = DXResourceLoader::Create_RenderTarget(
-		m_dxrenderer, rt_desc[DEFERRED_ALBEDO]);
-
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_width = rt_width;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_height = rt_height;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_depth = 1;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_mipLevels = 1;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_is_srgb = false;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
-
-	m_deferred_rts[DEFERRED_SPECULAR] = DXResourceLoader::Create_RenderTarget(
-		m_dxrenderer, rt_desc[DEFERRED_SPECULAR]);
-
 	ShaderLoadDesc deferred_pass_shader_load_desc = {};
 	deferred_pass_shader_load_desc.m_desc.m_vertex_shader_path = "deferred_pass_vert.hlsl";
 	deferred_pass_shader_load_desc.m_desc.m_pixel_shader_path = "deferred_pass_frag.hlsl";
@@ -164,13 +111,13 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_render_target_count = DEFERRED_TOTAL_COUNT;
 	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
 	{
-		graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_front_rasterizer_ms_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_ms_state;
 	}
 	else
 	{
-		graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_front_rasterizer_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_state;
 	}
-	graphic_pipeline_desc.m_depth_state = m_app_renderer->m_less_equal_depth_state;
+	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_less_equal_depth_state;
 	graphic_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;
 	graphic_pipeline_desc.m_shader = m_deferred_pass_shader;
 
@@ -180,8 +127,8 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 
 	graphic_pipeline_desc.m_render_target_count = 1;
 	graphic_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
-	graphic_pipeline_desc.m_depth_state = m_app_renderer->m_disabled_depth_state;
-	graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_none_rasterizer_state;
+	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_disabled_depth_state;
+	graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
 	graphic_pipeline_desc.m_shader = m_deferred_shade_shader;
 	graphic_pipeline_desc.m_vertex_layout = nullptr;
 
@@ -202,9 +149,9 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_shader = m_deferred_shade_pointlight_shader;
 	graphic_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	graphic_pipeline_desc.m_vertex_layout = &pos_layout;
-	graphic_pipeline_desc.m_depth_state = m_app_renderer->m_disabled_depth_state;
-	graphic_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_back_rasterizer_state;
-	graphic_pipeline_desc.m_blend_state = m_app_renderer->m_blend_state_one_zero_add;
+	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_disabled_depth_state;
+	graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_state;
+	graphic_pipeline_desc.m_blend_state = m_appRenderer->m_blend_state_one_zero_add;
 
 	m_deferred_shade_pointlight_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
@@ -246,126 +193,12 @@ void DeferredRendering::init_deferred_scene_light()
 }
 
 
-void DeferredRendering::RenderDeferredScene()
+void DeferredRendering::Update(float dt)
 {
-	render_deferred_pass();
-	render_deferred_global_directional_light_shade();
-	//render_deferred_point_light_shade();
-}
-
-void DeferredRendering::render_deferred_pass()
-{
-	LoadActionsDesc load_actions_desc = {};
-	for (uint32_t i = 0; i < DEFERRED_TOTAL_COUNT; ++i)
-	{
-		load_actions_desc.m_clear_color_values[i] = m_deferred_rts[i]->get_clear_value();
-		load_actions_desc.m_load_actions_color[i] = LoadActionType::CLEAR;
-	}
-	load_actions_desc.m_clear_depth_stencil = m_app_renderer->m_depth_rt->get_clear_value();
-	load_actions_desc.m_load_action_depth = LoadActionType::CLEAR;
-
-	m_dxrenderer->cmd_bind_render_targets(m_deferred_rts, DEFERRED_TOTAL_COUNT,
-		m_app_renderer->m_depth_rt, load_actions_desc);
-
-	m_dxrenderer->cmd_set_viewport(0, 0, m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_desc().m_texture_desc.m_width,
-		m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_desc().m_texture_desc.m_height);
-
-	m_app_renderer->RenderBasicInstances(m_deferred_pass_pipeline);
-}
-
-void DeferredRendering::render_deferred_global_directional_light_shade()
-{
-	//RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
-
-	LoadActionsDesc load_actions_desc = {};
-	load_actions_desc.m_clear_color_values[0] = m_app_renderer->m_cur_main_rt->get_clear_value();
-	load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
-	load_actions_desc.m_clear_depth_stencil = m_app_renderer->m_depth_rt->get_clear_value();
-	load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
-
-	m_dxrenderer->cmd_bind_render_targets(&m_app_renderer->m_cur_main_rt, 1, nullptr, load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, m_app_renderer->m_cur_main_rt->get_desc().m_texture_desc.m_width,
-		m_app_renderer->m_cur_main_rt->get_desc().m_texture_desc.m_height);
-
-	m_dxrenderer->cmd_bind_pipeline(m_deferred_shade_pipeline);
-
-	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
-	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
-	Texture* specular_texture = m_deferred_rts[DEFERRED_SPECULAR]->get_texture();
-	Texture* depth_texture = m_app_renderer->m_depth_rt->get_texture();
-
-
-	DescriptorData params[10] = {};
-
-	params[0].m_binding_location = 0;
-	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[0].m_samplers = &m_app_renderer->m_clamp_linear_sampler;
-
-	params[1].m_binding_location = 0;
-	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[1].m_textures = &world_normal_texture;
-
-	params[2].m_binding_location = 1;
-	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[2].m_textures = &albedo_texture;
-
-	params[3].m_binding_location = 2;
-	params[3].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[3].m_textures = &specular_texture;
-
-	params[4].m_binding_location = 3;
-	params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[4].m_textures = &depth_texture;
-
-	params[5].m_binding_location = 0;
-	params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[5].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[5].m_buffers = &m_app_renderer->m_camera_uniform_buffer;
-
-	params[6].m_binding_location = 1;
-	params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[6].m_buffers = &m_app_renderer->m_directional_light_uniform_buffer;
-
-	m_dxrenderer->cmd_bind_descriptor(m_deferred_shade_pipeline, 7, params);
-	m_dxrenderer->cmd_draw(6, 0);
-}
-
-void DeferredRendering::render_deferred_point_light_shade()
-{
-	uint32_t point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
-	
-
-	Vector3 start_pos(-150.f, 10.f, -220.f);
-	Vector3 inc_pos(10.f, 0.f, 30.f);
-	for (int i = 0; i < 30; ++i)
-	{
-		for (int k = 0; k < 30; ++k)
-		{
-			Light& light = m_point_light_deferred_scene[(i * 30) + k];
-
-			PointLightInstanceData inst_data;
-			inst_data.light = &light;
-			inst_data.light_position = start_pos + Vector3(inc_pos.x * k, 0.f, inc_pos.z * i);
-			m_app_renderer->m_point_light_instance_list.push_back(inst_data);
-		}
-	}
-	point_light_inst_count = static_cast<uint32_t>(m_app_renderer->m_point_light_instance_list.size());
-
-
-	if (point_light_inst_count == 0)
-	{
-		return;
-	}
-
+	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_point_light_instance_list.size());
 	for (uint32_t i = 0; i < point_light_inst_count; ++i)
 	{
-		const PointLightInstanceData& light_inst = m_app_renderer->m_point_light_instance_list[i];
+		const PointLightInstanceData& light_inst = m_appRenderer->m_point_light_instance_list[i];
 		const Light* cur_light = light_inst.light;
 
 		Vector4 light_color(cur_light->GetColor().x, cur_light->GetColor().y, cur_light->GetColor().z, 1.f);
@@ -380,58 +213,20 @@ void DeferredRendering::render_deferred_point_light_shade()
 		m_constant_point_light_data[i].LightMiscData.z = attenuation_constant.x;
 		m_constant_point_light_data[i].LightMiscData.w = attenuation_constant.y;
 	}
+}
 
+void DeferredRendering::UpdateUniformBuffer()
+{
 	BufferUpdateDesc update_constant_point_light_buffer_desc = {};
 	update_constant_point_light_buffer_desc.m_buffer = m_point_light_buffer;
 	update_constant_point_light_buffer_desc.m_pSource = &m_constant_point_light_data;
-	update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) * point_light_inst_count);
+	update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) *
+		m_appRenderer->m_point_light_instance_list.size());
 
 	m_dxrenderer->cmd_update_buffer(update_constant_point_light_buffer_desc);
+}
 
-	m_dxrenderer->cmd_bind_pipeline(m_deferred_shade_pointlight_pipeline);
-
-	Model* sphere_model = m_resourceManager->GetModel(StringId("Sphere.fbx"));
-
-	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
-	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
-
-	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
-	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
-	Texture* specular_texture = m_deferred_rts[DEFERRED_SPECULAR]->get_texture();
-	Texture* depth_texture = m_app_renderer->m_depth_rt->get_texture();
-
-	DescriptorData params[7] = {};
-
-	params[0].m_binding_location = 1;
-	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[0].m_textures = &world_normal_texture;
-
-	params[1].m_binding_location = 2;
-	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[1].m_textures = &albedo_texture;
-
-	params[2].m_binding_location = 3;
-	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[2].m_textures = &specular_texture;
-
-	params[3].m_binding_location = 4;
-	params[3].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[3].m_textures = &depth_texture;
-
-	params[4].m_binding_location = 0;
-	params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[4].m_buffers = &m_app_renderer->m_camera_uniform_buffer;
-
-	params[5].m_binding_location = 0;
-	params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[5].m_shader_stages = Shader_Stages::VERTEX_STAGE;
-	params[5].m_buffers = &m_point_light_buffer;
-
-	m_dxrenderer->cmd_bind_descriptor(m_deferred_shade_pointlight_pipeline, 6, params);
-	m_dxrenderer->cmd_draw_index_instanced(point_light_inst_count, 0, sphere_model->get_index_total_count(), 0, 0);
+void DeferredRendering::RenderDeferredScene()
+{
+	
 }

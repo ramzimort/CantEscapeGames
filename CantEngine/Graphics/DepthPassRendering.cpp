@@ -5,7 +5,7 @@
 
 
 DepthPassRendering::DepthPassRendering(AppRenderer* app_renderer, uint32_t sample_count)
-	:m_app_renderer(app_renderer),
+	:m_appRenderer(app_renderer),
 	m_sample_count(sample_count)
 {
 }
@@ -40,26 +40,26 @@ void DepthPassRendering::render_depth_pass(const DepthPassContext& depth_pass_co
 			continue;
 		}
 
-		if (i >= m_object_uniform_buffer_list.size())
+		if (i >= m_objectUniformBufferList.size())
 		{
 			add_object_uniform_buffer();
 		}
 
-		Buffer* obj_uniform_buffer = m_object_uniform_buffer_list[i];
+		Buffer* obj_uniform_buffer = m_objectUniformBufferList[i];
 
-		m_object_uniform_data_list[i] = {};
+		m_objectUniformDataList[i] = {};
 		//m_object_uniform_data = {};
 		/*
 		Commented for now since this variable won't be used, probably in the parallel universe ?
 		m_object_uniform_data.ModelMat = inst_data.model_mat;
 		m_object_uniform_data.InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
 		m_object_uniform_data.NormalMat = inst_data.normal_mat;*/
-		m_object_uniform_data_list[i].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
+		m_objectUniformDataList[i].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
 		
 
 		BufferUpdateDesc update_object_uniform_desc = {};
 		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
-		update_object_uniform_desc.m_pSource = &m_object_uniform_data_list[i];
+		update_object_uniform_desc.m_pSource = &m_objectUniformDataList[i];
 		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
 		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
@@ -105,7 +105,7 @@ void DepthPassRendering::Release()
 	SafeReleaseDelete(m_depth_pass_shader);
 	SafeReleaseDelete(m_depth_pass_pipeline);
 
-	for (Buffer* buffer : m_object_uniform_buffer_list)
+	for (Buffer* buffer : m_objectUniformBufferList)
 	{
 		SafeReleaseDelete(buffer);
 	}
@@ -123,16 +123,16 @@ void DepthPassRendering::add_object_uniform_buffer()
 	object_uniform_buffer_desc.m_size = sizeof(ObjectUniformData);
 
 	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
-	m_object_uniform_buffer_list.push_back(object_uniform_buffer);
+	m_objectUniformBufferList.push_back(object_uniform_buffer);
 
-	m_object_uniform_data_list.push_back(ObjectUniformData{});
+	m_objectUniformDataList.push_back(ObjectUniformData{});
 }
 
 void DepthPassRendering::load_content(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
-	m_object_uniform_data_list.reserve(100);
+	m_objectUniformDataList.reserve(100);
 
 	ShaderLoadDesc depth_pass_shader_desc = {};
 	depth_pass_shader_desc.m_desc.m_vertex_shader_path = "depth_pass_vert.hlsl";
@@ -157,17 +157,17 @@ void DepthPassRendering::load_content(DXRenderer* dxrenderer)
 	depth_pass_pipeline_desc.m_render_target_count = 1;
 	depth_pass_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	depth_pass_pipeline_desc.m_blend_state = nullptr;
-	depth_pass_pipeline_desc.m_depth_state = m_app_renderer->m_less_equal_depth_state;
+	depth_pass_pipeline_desc.m_depth_state = m_appRenderer->m_less_equal_depth_state;
 	depth_pass_pipeline_desc.m_shader = m_depth_pass_shader;
 	depth_pass_pipeline_desc.m_vertex_layout = &pos3_layout;
 
 	if (m_sample_count > 1)
 	{
-		depth_pass_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_back_rasterizer_ms_state;
+		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_ms_state;
 	}
 	else
 	{
-		depth_pass_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_back_rasterizer_state;
+		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_state;
 	}
 
 	m_depth_pass_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);

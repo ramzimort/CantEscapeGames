@@ -40,6 +40,8 @@
     <ClCompile Include="Components\TestComponent.cpp" />
     <ClCompile Include="Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
+    <ClCompile Include="Graphics\DebugRenderingInstance.cpp" />
+    <ClCompile Include="Graphics\DeferredRenderingInstance.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
     <ClCompile Include="Events\EventBus.cpp" />
@@ -82,6 +84,7 @@
     <ClCompile Include="Managers\SystemManager.cpp" />
     <ClCompile Include="Memory\CantMemory.cpp" />
     <ClCompile Include="Memory\StackAllocator.cpp" />
+    <ClCompile Include="Graphics\MSAAResolvePassInstance.cpp" />
     <ClCompile Include="Physics\CollisionTable.cpp" />
     <ClCompile Include="Physics\Constraint.cpp" />
     <ClCompile Include="Physics\Geometry\Aabb.cpp" />
@@ -133,6 +136,8 @@
     <ClInclude Include="Components\TestComponent.h" />
     <ClInclude Include="Components\TestComponents\FPSControllerComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Graphics\DebugRenderingInstance.h" />
+    <ClInclude Include="Graphics\DeferredRenderingInstance.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Events\Camera\CameraDestructionEvent.h" />
     <ClInclude Include="Events\Camera\CameraEvents.h" />
@@ -199,6 +204,7 @@
     <ClInclude Include="Memory\CantMemory.h" />
     <ClInclude Include="Memory\PoolAllocator.h" />
     <ClInclude Include="Memory\StackAllocator.h" />
+    <ClInclude Include="Graphics\MSAAResolvePassInstance.h" />
     <ClInclude Include="Physics\CollisionTable.h" />
     <ClInclude Include="Physics\Constraint.h" />
     <ClInclude Include="Physics\Geometry\Aabb.h" />

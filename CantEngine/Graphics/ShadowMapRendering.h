@@ -27,7 +27,7 @@ public:
 
 private:
 	DepthPassRendering* m_depth_pass_rendering;
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 	RenderTarget* m_shadow_map_rt;
 

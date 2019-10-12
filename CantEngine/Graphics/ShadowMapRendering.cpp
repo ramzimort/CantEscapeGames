@@ -3,7 +3,7 @@
 #include "DepthPassRendering.h"
 
 ShadowMapRendering::ShadowMapRendering(AppRenderer* app_renderer, const ShadowMapData& shadow_map_data)
-	:m_app_renderer(app_renderer),
+	:m_appRenderer(app_renderer),
 	m_depth_pass_rendering(nullptr),
 	m_shadow_map_data(shadow_map_data)
 {
@@ -32,7 +32,7 @@ void ShadowMapRendering::load_content(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 	//TODO: probably shadow MSAA is possible we will see
-	m_depth_pass_rendering = new DepthPassRendering(m_app_renderer, 1);
+	m_depth_pass_rendering = new DepthPassRendering(m_appRenderer, 1);
 	m_depth_pass_rendering->load_content(dxrenderer);
 
 
@@ -67,12 +67,12 @@ void ShadowMapRendering::load_content(DXRenderer* dxrenderer)
 
 void ShadowMapRendering::render_shadow_map()
 {
-	if (m_app_renderer->m_directionLightInstanceList.empty())
+	if (m_appRenderer->m_directionLightInstanceList.empty())
 	{
 		return;
 	}
 
-	DirectionalLightInstanceData& directional_light_inst_data = m_app_renderer->m_directionLightInstanceList[0];
+	DirectionalLightInstanceData& directional_light_inst_data = m_appRenderer->m_directionLightInstanceList[0];
 
 	Vector3 light_view_pos = (directional_light_inst_data.light_direction * -300.f);
 	Vector3 right_dir = directional_light_inst_data.light_direction.Cross(Vector3(0.f, 1.f, 0.f));
@@ -100,7 +100,7 @@ void ShadowMapRendering::render_shadow_map()
 	m_dxrenderer->cmd_update_buffer(light_camera_buffer_update_desc);
 
 	DepthPassContext depth_pass_context(m_shadow_map_rt, 
-		&m_shadow_camera_uniform_data, &m_app_renderer->m_basicInstances);
+		&m_shadow_camera_uniform_data, &m_appRenderer->m_basicInstances);
 
 	m_depth_pass_rendering->render_depth_pass(depth_pass_context);
 

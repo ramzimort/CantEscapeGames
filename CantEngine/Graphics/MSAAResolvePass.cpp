@@ -8,7 +8,7 @@
 
 
 MSAAResolvePass::MSAAResolvePass(AppRenderer* app_renderer)
-	:m_app_renderer(app_renderer)
+	:m_appRenderer(app_renderer)
 {
 }
 
@@ -19,70 +19,70 @@ MSAAResolvePass::~MSAAResolvePass()
 
 void MSAAResolvePass::ResolveMSAASwapChain()
 {
-	RenderTarget* swap_chain_rt = m_app_renderer->GetDXRenderer()->GetSwapChain()->m_p_swap_chain_render_target;
-
-	LoadActionsDesc load_action_desc = {};
-	load_action_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
-	load_action_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
-	//load_action_desc.m_clear_depth_stencil = m_app_renderer->m_non_msaa_depth_rt->get_clear_value();
-	load_action_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
-	load_action_desc.m_load_action_stencil = LoadActionType::DONT_CLEAR;
-
-
-	m_dxrenderer->cmd_bind_render_targets(&m_app_renderer->GetDXRenderer()->
-		GetRefSwapChain().m_p_swap_chain_render_target, 1, nullptr, load_action_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
-		swap_chain_rt->get_desc().m_texture_desc.m_height);
-
-	
-
-	/*LoadActionsDesc load_action_desc = {};
-	load_action_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
-	load_action_desc.m_clear_color_values[0] = m_app_renderer->m_intermediate_rt->get_clear_value();
-	load_action_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
-	load_action_desc.m_load_action_stencil = LoadActionType::DONT_CLEAR;
-
-	m_dxrenderer->cmd_bind_render_targets(&m_app_renderer->m_intermediate_rt, 1, nullptr, load_action_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, m_app_renderer->m_intermediate_rt->get_desc().m_texture_desc.m_width,
-		m_app_renderer->m_intermediate_rt->get_desc().m_texture_desc.m_height);
-*/
-
-
-
-	DEBUG_SLIDERFLOAT("MSAA Filter Size", &GraphicsSettings::MSAA_Filter_Size, 0.1f, 6.f);
-
-	m_msaa_resolve_uniform_data.FilterSize = GraphicsSettings::MSAA_Filter_Size;
-	m_msaa_resolve_uniform_data.SampleRadius = static_cast<int> ((m_msaa_resolve_uniform_data.FilterSize / 2.0f) + 0.499f);
-
-	BufferUpdateDesc update_msaa_uniform_buffer_desc = {};
-	update_msaa_uniform_buffer_desc.m_buffer = m_msaa_resolve_uniform_buffer;
-	update_msaa_uniform_buffer_desc.m_pSource = &m_msaa_resolve_uniform_data;
-	update_msaa_uniform_buffer_desc.m_size = sizeof(MSAAResolveUniformData);
-	m_dxrenderer->cmd_update_buffer(update_msaa_uniform_buffer_desc);
-
-
-	m_dxrenderer->cmd_bind_pipeline(m_resolve_pipeline);
-
-	Texture* cur_main_rt_texture = m_app_renderer->m_cur_main_rt->get_texture();
-
-	DescriptorData params[3] = {};
-	params[0].m_binding_location = 0;
-	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[0].m_textures = &cur_main_rt_texture;
-
-	params[1].m_binding_location = 0;
-	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[1].m_buffers = &m_app_renderer->m_camera_uniform_buffer;
-
-	params[2].m_binding_location = 1;
-	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[2].m_buffers = &m_msaa_resolve_uniform_buffer;
-
-	m_dxrenderer->cmd_bind_descriptor(m_resolve_pipeline, 3, params);
-	m_dxrenderer->cmd_draw(3, 0);
+//	RenderTarget* swap_chain_rt = m_appRenderer->GetDXRenderer()->GetSwapChain()->m_p_swap_chain_render_target;
+//
+//	LoadActionsDesc load_action_desc = {};
+//	load_action_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
+//	load_action_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+//	//load_action_desc.m_clear_depth_stencil = m_appRenderer->m_non_msaa_depth_rt->get_clear_value();
+//	load_action_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+//	load_action_desc.m_load_action_stencil = LoadActionType::DONT_CLEAR;
+//
+//
+//	m_dxrenderer->cmd_bind_render_targets(&m_appRenderer->GetDXRenderer()->
+//		GetRefSwapChain().m_p_swap_chain_render_target, 1, nullptr, load_action_desc);
+//	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
+//		swap_chain_rt->get_desc().m_texture_desc.m_height);
+//
+//	
+//
+//	/*LoadActionsDesc load_action_desc = {};
+//	load_action_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
+//	load_action_desc.m_clear_color_values[0] = m_appRenderer->m_intermediate_rt->get_clear_value();
+//	load_action_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+//	load_action_desc.m_load_action_stencil = LoadActionType::DONT_CLEAR;
+//
+//	m_dxrenderer->cmd_bind_render_targets(&m_appRenderer->m_intermediate_rt, 1, nullptr, load_action_desc);
+//	m_dxrenderer->cmd_set_viewport(0, 0, m_appRenderer->m_intermediate_rt->get_desc().m_texture_desc.m_width,
+//		m_appRenderer->m_intermediate_rt->get_desc().m_texture_desc.m_height);
+//*/
+//
+//
+//
+//	DEBUG_SLIDERFLOAT("MSAA Filter Size", &GraphicsSettings::MSAA_Filter_Size, 0.1f, 6.f);
+//
+//	m_msaa_resolve_uniform_data.FilterSize = GraphicsSettings::MSAA_Filter_Size;
+//	m_msaa_resolve_uniform_data.SampleRadius = static_cast<int> ((m_msaa_resolve_uniform_data.FilterSize / 2.0f) + 0.499f);
+//
+//	BufferUpdateDesc update_msaa_uniform_buffer_desc = {};
+//	update_msaa_uniform_buffer_desc.m_buffer = m_msaa_resolve_uniform_buffer;
+//	update_msaa_uniform_buffer_desc.m_pSource = &m_msaa_resolve_uniform_data;
+//	update_msaa_uniform_buffer_desc.m_size = sizeof(MSAAResolveUniformData);
+//	m_dxrenderer->cmd_update_buffer(update_msaa_uniform_buffer_desc);
+//
+//
+//	m_dxrenderer->cmd_bind_pipeline(m_resolve_pipeline);
+//
+//	Texture* cur_main_rt_texture = m_appRenderer->m_cur_main_rt->get_texture();
+//
+//	DescriptorData params[3] = {};
+//	params[0].m_binding_location = 0;
+//	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+//	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+//	params[0].m_textures = &cur_main_rt_texture;
+//
+//	params[1].m_binding_location = 0;
+//	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+//	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+//	params[1].m_buffers = &m_appRenderer->m_camera_uniform_buffer;
+//
+//	params[2].m_binding_location = 1;
+//	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+//	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+//	params[2].m_buffers = &m_msaa_resolve_uniform_buffer;
+//
+//	m_dxrenderer->cmd_bind_descriptor(m_resolve_pipeline, 3, params);
+//	m_dxrenderer->cmd_draw(3, 0);
 }
 
 void MSAAResolvePass::LoadContent(DXRenderer* dxrenderer)
@@ -109,9 +109,9 @@ void MSAAResolvePass::LoadContent(DXRenderer* dxrenderer)
 
 	GraphicsPipelineDesc& msaa_resolve_pipeline_desc = pipeline_desc.m_graphics_desc;
 	msaa_resolve_pipeline_desc.m_render_target_count = 1;
-	msaa_resolve_pipeline_desc.m_depth_state = m_app_renderer->m_less_equal_depth_state;
+	msaa_resolve_pipeline_desc.m_depth_state = m_appRenderer->m_less_equal_depth_state;
 	msaa_resolve_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
-	msaa_resolve_pipeline_desc.m_rasterizer_state = m_app_renderer->m_cull_none_rasterizer_state;
+	msaa_resolve_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
 	msaa_resolve_pipeline_desc.m_shader = m_resolve_shader;
 
 	m_resolve_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);

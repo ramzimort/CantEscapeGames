@@ -181,7 +181,7 @@ void ParticleRendering::AddParticleStreamOutUniformBuffer()
 
 void ParticleRendering::RenderParticles()
 {
-	if (m_particleEmitterInstanceList.empty())
+	/*if (m_particleEmitterInstanceList.empty())
 	{
 		return;
 	}
@@ -216,7 +216,7 @@ void ParticleRendering::RenderParticles()
 		m_dxrenderer->cmd_bind_descriptor(m_renderParticlesPipeline, 3, params);
 		m_dxrenderer->cmd_draw_auto();
 
-	}
+	}*/
 }
 
 void ParticleRendering::Release()

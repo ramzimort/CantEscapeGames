@@ -4,6 +4,8 @@
 
 class Buffer;
 
+typedef std::vector<Buffer*> BufferList;
+
 enum IndexType
 {
 	INDEX_UINT16,
