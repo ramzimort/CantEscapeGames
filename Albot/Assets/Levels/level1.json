@@ -29,26 +29,6 @@
   },
   "Objects": [
     {
-      "tag": "obj3",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj4",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
       "tag": "obj5",
       "prefab": "Assets/Prefabs/directional_light.json",
       "overrides": {
@@ -77,7 +57,7 @@
       "prefab": "Assets/Prefabs/RBTestObj.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, 3.0, 0.0 ],
+          "Position": [ 0.5, 3.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
         },
         "RigidBodyComponent": {
@@ -99,30 +79,6 @@
             }
           }
         ]
-      }
-    },
-    {
-      "tag": "Andres",
-      "prefab": "Assets/Prefabs/TestGoJose.json",
-      "overrides": {
-        "Scripts": [
-          {
-            "Name": "Scripts/Test/test01Comp.lua",
-            "Overrides": {
-              "hashed": "ANDRES comp01 OVERRIDE!",
-              "ranked": -1024
-            }
-          }
-        ]
-      }
-    },
-    {
-      "tag": "obj7",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, -20.0, 0.0 ]
-        }
       }
     }
   ]

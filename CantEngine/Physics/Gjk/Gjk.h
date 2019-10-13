@@ -57,7 +57,7 @@ public:
 		Vector3 m_PointB;
 		Vector3 m_CsoPoint;
 
-		bool operator==(const CsoPoint rhs);
+		bool operator==(const CsoPoint& rhs) const;
 	};
 
 	struct CsoTriangle
@@ -115,4 +115,6 @@ private:
 	const unsigned int m_maxIterations = 100;
 
 	void FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vector3& direction, const SupportShape* shapeA, const SupportShape* shapeB);
+
+	void FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB);
 };

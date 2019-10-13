@@ -66,12 +66,12 @@ Constraint::~Constraint()
 
 void Constraint::CalculateNormalJacobian(const CollisionManifold& collision)
 {
-	normal = collision.m_normal;
-	normal.Normalize();
+	m_normal = collision.m_normal;
+	m_normal.Normalize();
 	Vector3 r1 = collision.m_pA - m_object1->GetPosition();
 	Vector3 r2 = collision.m_pB - m_object2->GetPosition();
 
-	CalculateJacobian(normal, r1, r2);
+	CalculateJacobian(m_normal, r1, r2);
 
 	/*Math::Matrix4 result;
 	ToMatrix4(result, jacobian);
@@ -84,6 +84,8 @@ void Constraint::CalculateFrictionJacobians(const CollisionManifold& collision, 
 	// calculate the tangent vectors to normal to simulate both frictions
 	Vector3 normal = collision.m_normal;
 	normal.Normalize();
+	constraintFriction1.m_normal = normal;
+	constraintFriction2.m_normal = normal;
 
 	Vector3 u1; // tangent to normal, direction unit vector for friction in 1 of the directions
 	Vector3 u2; // bitangent to normal, direction unit vector for friction in 2 of the directions

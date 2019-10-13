@@ -334,7 +334,7 @@ VoronoiRegion::Type Gjk::IdentifyVoronoiRegion(const Vector3& q, const Vector3& 
 	}
 }
 
-bool Gjk::CsoPoint::operator==(const CsoPoint rhs)
+bool Gjk::CsoPoint::operator==(const CsoPoint& rhs) const
 {
 	return m_CsoPoint == rhs.m_CsoPoint;
 }
@@ -422,25 +422,30 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 			FillSimplexInDirection(simplex, Vector3::Left    , shapeA, shapeB);
 			FillSimplexInDirection(simplex, Vector3::Forward , shapeA, shapeB);
 			FillSimplexInDirection(simplex, Vector3::Backward, shapeA, shapeB);*/
+			FillSimplex(simplex, shapeA, shapeB);
+			//if (simplex.size() < 4)
+			//{
 
-			if (simplex.size() < 4)
-			{
-				direction = q - simplex.back().m_CsoPoint;
-				direction.Normalize();
-				
-				Vector3 perpendicular = (direction == Vector3::Up) ? direction.Cross(Vector3::Backward) : direction.Cross(Vector3::Left);
-				//direction.Normalize();
-				//Vector3 perpendicular = direction.Cross(Vector3::Backward);
-				CsoPoint newPoint = ComputeSupport(shapeA, shapeB, perpendicular);
-				simplex.push_back(newPoint);
+			//	direction = simplex.back().m_CsoPoint - q;
+			//	direction.Normalize();
+			//	Vector3 tangent, bitangent;
+			//	tangent = direction.Cross(Vector3::Up);
+			//	//MathUtil::BuildTangentBitangent(direction, tangent, bitangent);
 
-				if (simplex.size() < 4)
-				{
-					perpendicular *= -1.0f;
-					CsoPoint newPoint = ComputeSupport(shapeA, shapeB, perpendicular);
-					simplex.push_back(newPoint);
-				}
-			}
+			//	CsoPoint newPoint = ComputeSupport(shapeA, shapeB, tangent);
+			//	simplex.push_back(newPoint);
+
+			//	if (simplex.size() < 4)
+			//	{
+			//		CsoPoint newPoint = ComputeSupport(shapeA, shapeB, -tangent);
+			//		simplex.push_back(newPoint);
+			//		if (simplex.size() < 4)
+			//		{
+			//			CsoPoint newPoint = ComputeSupport(shapeA, shapeB, bitangent);
+			//			simplex.push_back(newPoint);
+			//		}
+			//	}
+			//}
 			return true;
 		}
 
@@ -649,5 +654,56 @@ void Gjk::FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vect
 	{
 		simplex.push_back(newPoint);
 	}	
+}
+
+void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB)
+{
+	std::vector<Vector3> uniformVectors; // uniformly distributed vectors from O to a surface of a unit sphere
+
+	const float angleStep = PI / 4.0f;
+	uniformVectors.emplace_back(0.0f, 1.0f, 0.0f);
+	for (float theta = 0; theta < 2 * PI; theta += angleStep)
+	{
+		for (float phi = angleStep; phi < PI; phi += angleStep)
+		{
+			float x = sin(phi) * cos(theta);
+			float y = cos(phi);
+			float z = sin(phi) * sin(theta);
+			Vector3 dir(x, y, z);
+			dir.Normalize();
+			uniformVectors.push_back(dir);
+		}
+	}
+	uniformVectors.emplace_back(0.0f, -1.0f, 0.0f);
+
+	for (const Vector3& dir : uniformVectors)
+	{
+		if (simplex.size() >= 4)
+			break;
+		
+		CsoPoint newPoint = ComputeSupport(shapeA, shapeB, dir);
+
+		bool isSkip = false;
+		for (const CsoPoint& point : simplex)
+		{
+			if (newPoint.m_CsoPoint == point.m_CsoPoint)
+			{
+				isSkip = true;
+				break;
+			}
+		}
+		if (simplex.size() == 3 && !isSkip)
+		{
+			CsoTriangle triangle(simplex[0], simplex[1], simplex[2]);
+			if (newPoint.m_CsoPoint.Dot(triangle.m_normal) == 0.0f)
+			{
+				isSkip = true;
+			}
+		}
+		if (!isSkip)
+		{
+			simplex.push_back(newPoint);
+		}
+	}
 }
 

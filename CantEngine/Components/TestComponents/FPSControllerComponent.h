@@ -21,11 +21,11 @@ public:
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
-	bool m_mouseInverted;
-	bool m_forward;
-	bool m_backward;
-	bool m_left;
-	bool m_right;
+	bool m_mouseInverted = false;
+	bool m_forward = false;
+	bool m_backward = false;
+	bool m_left = false;
+	bool m_right = false;
 
 	Vector2 m_mousePosition;
 	Vector2 m_mouseDeltaPosition;

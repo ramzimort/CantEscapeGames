@@ -21,7 +21,7 @@ namespace PhysicsUtils
 		//physics
 		const int maxPhysicsIterationsPerFrame = 5;
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
-		const float fatteningFactor = 1.0f;
+		const float fatteningFactor = 1.1f;
 		const float gravity = -9.8f;
 
 		namespace Constraints
@@ -36,6 +36,7 @@ namespace PhysicsUtils
 		const std::string Assets_Dir = "Assets\\";
 		const std::string Physics_Dir = Assets_Dir + "Physics\\";
 		const std::string Collision_Matrix_Dir = Physics_Dir + "Collision_Matrix\\";
+
 	}
 
 	template <typename T>
@@ -77,8 +78,6 @@ namespace PhysicsUtils
 
 	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b, const Vector3& c,
 		float& u, float& v, float& w, float expansionEpsilon = 0.0f);
-
-
 	
 #ifdef DEVELOPER
 	namespace MathPrinter

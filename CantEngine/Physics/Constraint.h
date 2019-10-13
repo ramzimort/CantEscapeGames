@@ -70,7 +70,7 @@ public:
 	Jacobian m_jacobian;                  // coefficients for linear and angular velocity of both objects
 	RigidbodyComponent* m_object1; // first object
 	RigidbodyComponent* m_object2; // second object
-	Vector3 normal;                     // collision normal
+	Vector3 m_normal;                     // collision normal
 	float m_bias;                         // constraint bias
 	float m_lambda;                       // undetermained multiplier
 	float m_minLambda;                    // minimum allowed lambda, used to clamp lambda

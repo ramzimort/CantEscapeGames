@@ -64,9 +64,16 @@ void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
 void RigidbodySystem::LateUpdate(float dt) 
 {
 	//GraphicsSettings::Draw_Mesh_Flag = false;
-
+	GraphicsSettings::Draw_Mesh_AABB_Flag = false;
+	for (auto& node : m_ObjComponentsMap)
+	{
+		RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
+		RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
+		Vector3& vel = rigidbody->m_velocity;
+		//DEBUG_TRACE("%f, %f, %f\n", vel.x, vel.y, vel.z);
+	}
 	m_timeAccumulator += dt;
-	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
+//	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
 #pragma region BroadPhaase
 		// update all the aabb of all objects and dynamic aabb tree
@@ -257,7 +264,12 @@ void RigidbodySystem::LateUpdate(float dt)
 						Jacobian massMatrixInverseJTranspose;
 						massInverseMatrix.MultiplyByJacobian(massMatrixInverseJTranspose, constraints[j].m_jacobian);
 
-						float effectiveMass = 1.0f / (constraints[j].m_jacobian * massMatrixInverseJTranspose);
+						float jacobianMatrixDotMassMatrixInverseJTranspose = constraints[j].m_jacobian * massMatrixInverseJTranspose;
+						if (jacobianMatrixDotMassMatrixInverseJTranspose == 0.0f)
+						{
+							__debugbreak;
+						}
+						float effectiveMass = 1.0f / jacobianMatrixDotMassMatrixInverseJTranspose;//  (constraints[j].m_jacobian* massMatrixInverseJTranspose);
 
 						// calculate lambda
 						float zeta = 0.0f;
@@ -283,7 +295,7 @@ void RigidbodySystem::LateUpdate(float dt)
 							float contactMass = (constraints[j].m_object1->m_mass + constraints[j].m_object2->m_mass) / 2.0f;
 
 							// dot product should give us the cos of angle between normal and gravity (both should be normalized at this point)
-							float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
+							float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].m_normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
 
 							MathUtil::Clamp(sumLambda[j], -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
 								PhysicsUtils::Consts::Constraints::friction * collisionWeight);
@@ -325,15 +337,19 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			position += velocity * PhysicsUtils::Consts::fixedTimeStep;
 			Quaternion wq = angularVelocity * orientationQuat;
-			rigidbody->m_quaternion += PhysicsUtils::Consts::fixedTimeStep * 0.5f * wq;
+			orientationQuat += PhysicsUtils::Consts::fixedTimeStep * 0.5f * wq;
 
-			Vector3 eularRotation = MathUtil::ToEulerAngles(rigidbody->m_quaternion);
+			Vector3 eularRotation = MathUtil::ToEulerAngles(orientationQuat);
 			
 			rigidbody->m_velocity = velocity;
 			rigidbody->m_position = position;
 
 			transform->SetLocalPosition(position);
-			transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
+			float x = eularRotation.x * 180 / PI;
+			float y = eularRotation.y * 180 / PI;
+			float z = eularRotation.z * 180 / PI;
+
+			transform->SetLocalRotation(eularRotation.x * 180 / PI, eularRotation.y * 180 / PI, eularRotation.z * 180 / PI);
 		}
 
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;
