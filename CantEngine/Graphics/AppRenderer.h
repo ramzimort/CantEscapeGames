@@ -59,6 +59,7 @@ public:
 	friend class ParticleRendering;
 	friend class DeferredRenderingInstance;
 	friend class DebugRenderingInstance;
+	friend class ParticleRenderingInstance;
 	friend class AppRendererInstance;
 
 	typedef std::vector<PointLightInstanceData> PointLightInstanceDataList;

@@ -285,6 +285,9 @@
     <ClCompile Include="Graphics\MSAAResolvePassInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\ParticleRenderingInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -636,6 +639,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\MSAAResolvePassInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ParticleRenderingInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

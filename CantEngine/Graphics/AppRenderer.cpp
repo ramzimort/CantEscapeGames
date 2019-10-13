@@ -32,6 +32,7 @@ m_gameTime(0.f)
 
 AppRenderer::~AppRenderer()
 {
+	Release();
 }
 
 
@@ -572,7 +573,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 
 	m_deferrredRendering.Update(dt);
 	m_debugRendering.Update(dt);
-	//m_particleRendering.Update(dt, m_gameTime);
+	m_particleRendering.Update(dt, m_gameTime);
 }
 void AppRenderer::RenderApp()
 {
@@ -599,7 +600,8 @@ void AppRenderer::RenderApp()
 	m_deferrredRendering.UpdateUniformBuffer();
 	m_debugRendering.UpdateDebugUniformBuffer();
 
-	
+	m_particleRendering.Render();
+
 	for (const auto& pair : m_appRendererInstances)
 	{
 		pair.second->Render();
@@ -619,6 +621,7 @@ void AppRenderer::RenderApp()
 	m_directionLightInstanceList.clear();
 	m_basicInstances.clear();
 	m_debugRendering.ClearInstances();
+	m_particleRendering.ClearInstances();
 
 	m_dxrenderer->execute_queued_cmd();	
 }

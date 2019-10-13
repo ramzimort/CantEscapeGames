@@ -90,7 +90,10 @@ void ParticleRendering::LoadContent(DXRenderer* dxrenderer)
 void ParticleRendering::Render()
 {
 	RenderStreamoutProcess();
-	RenderParticles();
+}
+
+void ParticleRendering::ClearInstances()
+{
 	m_particleEmitterInstanceList.clear();
 	m_particleEmitterStreamOutUniformList.clear();
 }

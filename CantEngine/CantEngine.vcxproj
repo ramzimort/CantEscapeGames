@@ -66,6 +66,7 @@
     <ClCompile Include="Graphics\ModelLoader.cpp" />
     <ClCompile Include="Graphics\MSAAResolvePass.cpp" />
     <ClCompile Include="Graphics\ParticleRendering.cpp" />
+    <ClCompile Include="Graphics\ParticleRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Pipeline.cpp" />
     <ClCompile Include="Graphics\RasterizerState.cpp" />
     <ClCompile Include="Graphics\RenderTarget.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Graphics\ModelLoader.h" />
     <ClInclude Include="Graphics\MSAAResolvePass.h" />
     <ClInclude Include="Graphics\ParticleRendering.h" />
+    <ClInclude Include="Graphics\ParticleRenderingInstance.h" />
     <ClInclude Include="Graphics\Pipeline.h" />
     <ClInclude Include="Graphics\RasterizerState.h" />
     <ClInclude Include="Graphics\Renderer_Includes.h" />

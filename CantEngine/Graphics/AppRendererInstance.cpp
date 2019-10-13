@@ -4,6 +4,7 @@
 #include "Graphics/DeferredRenderingInstance.h"
 #include "Graphics/DebugRenderingInstance.h"
 #include "Graphics/MSAAResolvePassInstance.h"
+#include "Graphics/ParticleRenderingInstance.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Graphics/AppRenderer.h"
@@ -22,6 +23,7 @@ AppRendererInstance::AppRendererInstance(AppRenderer* appRenderer,
 	m_deferredRenderingInstance = new DeferredRenderingInstance(appRenderer->m_deferrredRendering);
 	m_debugRenderingInstance = new DebugRenderingInstance(appRenderer->m_debugRendering);
 	m_msaaResolvePassInstance = new MSAAResolvePassInstance(appRenderer->m_msaa_resolve_pass);
+	m_particleRenderingInstance = new ParticleRenderingInstance(appRenderer->m_particleRendering);
 }
 
 
@@ -38,6 +40,7 @@ void AppRendererInstance::Release()
 	SafeReleaseDelete(m_debugRenderingInstance);
 	SafeReleaseDelete(m_deferredRenderingInstance);
 	SafeReleaseDelete(m_msaaResolvePassInstance);
+	SafeReleaseDelete(m_particleRenderingInstance);
 
 	SafeReleaseDelete(m_camera_uniform_buffer);
 	SafeReleaseDelete(m_resolveUniformBuffer);
@@ -87,7 +90,7 @@ void AppRendererInstance::Initialize()
 	m_deferredRenderingInstance->Initialize(m_context);
 	m_msaaResolvePassInstance->Initialize(m_context);
 	m_debugRenderingInstance->Initialize();
-
+	m_particleRenderingInstance->Initialize(m_context);
 
 
 }
@@ -145,6 +148,7 @@ void AppRendererInstance::LoadContent()
 
 	m_deferredRenderingInstance->LoadContent(m_context);
 	m_msaaResolvePassInstance->LoadContent(m_context);
+	m_particleRenderingInstance->LoadContent(m_context);
 	m_debugRenderingInstance->LoadContent();
 }
 
@@ -191,6 +195,7 @@ void AppRendererInstance::Render()
 	
 	m_deferredRenderingInstance->Render(m_context);
 
+	m_particleRenderingInstance->Render(m_context);
 
 	LoadActionsDesc next_load_actions_desc = {};
 	next_load_actions_desc.m_clear_color_values[0] = m_curMainRT->get_clear_value();

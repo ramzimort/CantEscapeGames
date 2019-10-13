@@ -11,7 +11,7 @@ class DeferredRenderingInstance;
 class DebugRenderingInstance;
 class AppRendererInstance;
 class MSAAResolvePassInstance;
-
+class ParticleRenderingInstance;
 
 
 
@@ -30,6 +30,7 @@ public:
 	friend class DeferredRenderingInstance;
 	friend class DebugRenderingInstance;
 	friend class MSAAResolvePassInstance;
+	friend class ParticleRenderingInstance;
 	friend class AppRenderer;
 public:
 	AppRendererInstance(AppRenderer* appRenderer,
@@ -60,6 +61,7 @@ private:
 	DeferredRenderingInstance* m_deferredRenderingInstance;
 	DebugRenderingInstance* m_debugRenderingInstance;
 	MSAAResolvePassInstance* m_msaaResolvePassInstance;
+	ParticleRenderingInstance* m_particleRenderingInstance;
 
 	std::vector<ObjectUniformData> m_objectUniformDataList;
 	BufferList m_objectUniformBufferList;

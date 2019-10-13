@@ -18,6 +18,7 @@ class ParticleRendering
 {
 public:
 	friend class AppRenderer;
+	friend class ParticleRenderingInstance;
 public:
 	ParticleRendering(AppRenderer* appRenderer);
 	~ParticleRendering();
@@ -29,6 +30,8 @@ public:
 
 
 	void RegisterParticleEmitterInstance(const ParticleEmitterInstanceData& particleEmmiterInstanceData);
+
+	void ClearInstances();
 private:
 	void RenderStreamoutProcess();
 	void RenderParticles();
