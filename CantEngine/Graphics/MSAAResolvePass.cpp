@@ -89,11 +89,7 @@ void MSAAResolvePass::LoadContent(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
-	char buff[100];
-	snprintf(buff, sizeof(buff), "%d", GraphicsSettings::MSAA_SAMPLE_COUNT);
-	std::string sample_count_definition = buff;
-
-	ShaderMacro msaa_sample_macro = { "SAMPLE_COUNT", sample_count_definition };
+	ShaderMacro msaa_sample_macro = { "SAMPLE_COUNT", std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT) };
 
 	ShaderLoadDesc msaa_resolve_shader_desc = {};
 	msaa_resolve_shader_desc.m_desc.m_vertex_shader_path = "msaa_resolve_vert.hlsl";

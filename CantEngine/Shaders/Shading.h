@@ -128,4 +128,12 @@ struct ParticleEmitterStreamOutUniformData
 	float DeltaTime;
 };
 
+
+struct ResolveRendererInstancesUniformData
+{
+	float4 Translation;
+	float4 Scale;
+	//float4x4 ModelMatrix;
+};
+
 #endif

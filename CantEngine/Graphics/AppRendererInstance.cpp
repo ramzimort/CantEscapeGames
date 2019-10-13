@@ -3,6 +3,7 @@
 #include "GraphicsSettings.h"
 #include "Graphics/DeferredRenderingInstance.h"
 #include "Graphics/DebugRenderingInstance.h"
+#include "Graphics/MSAAResolvePassInstance.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Graphics/AppRenderer.h"
@@ -11,12 +12,16 @@
 #include "Graphics/Light.h"
 
 AppRendererInstance::AppRendererInstance(AppRenderer* appRenderer,
-	DXRenderer* dxrenderer, const AppRendererContext& context)
+	DXRenderer* dxrenderer, const CameraInfo& cameraInfo)
 	:m_appRenderer(appRenderer),
 	m_dxrenderer(dxrenderer),
-	m_context(context)
+	m_context(cameraInfo)
 {
 	m_context.m_appRendererInstance = this;
+
+	m_deferredRenderingInstance = new DeferredRenderingInstance(appRenderer->m_deferrredRendering);
+	m_debugRenderingInstance = new DebugRenderingInstance(appRenderer->m_debugRendering);
+	m_msaaResolvePassInstance = new MSAAResolvePassInstance(appRenderer->m_msaa_resolve_pass);
 }
 
 
@@ -30,9 +35,12 @@ void AppRendererInstance::Release()
 	{
 		SafeReleaseDelete(buffer);
 	}
-	SafeReleaseDelete(m_context.m_debugRenderingInstance);
-	SafeReleaseDelete(m_context.m_deferredRenderingInstance);
+	SafeReleaseDelete(m_debugRenderingInstance);
+	SafeReleaseDelete(m_deferredRenderingInstance);
+	SafeReleaseDelete(m_msaaResolvePassInstance);
+
 	SafeReleaseDelete(m_camera_uniform_buffer);
+	SafeReleaseDelete(m_resolveUniformBuffer);
 
 	SafeReleaseDelete(m_finalOutputRT);
 	SafeReleaseDelete(m_curMainRT);
@@ -52,8 +60,36 @@ void AppRendererInstance::Initialize()
 
 	m_camera_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, camera_uniform_buffer_desc);
 
-	m_context.m_deferredRenderingInstance->Initialize(m_context);
-	m_context.m_debugRenderingInstance->Initialize();
+
+	const Vector4& viewportRenderInformation = m_context.m_cameraInfo.m_camera.GetViewportRenderInformation();
+
+	const Vector2 ndcLocation(viewportRenderInformation.x, viewportRenderInformation.y);
+
+	ResolveRendererInstancesUniformData resolveRendererInstancesUniformData = {};
+	resolveRendererInstancesUniformData.Translation = Vector4(ndcLocation.x * 2.f, ndcLocation.y * 2.f, 0.f, 0.f);
+
+	Vector2 ndcScaleLoc = Vector2((viewportRenderInformation.z - 0.5f) * 2.f, (viewportRenderInformation.w - 0.5f) * -2.f);
+
+	resolveRendererInstancesUniformData.Scale = Vector4(ndcScaleLoc.x, ndcScaleLoc.y, 0.f, 0.f);
+
+
+	BufferLoadDesc resolveAppRendererUniformDesc = {};
+	resolveAppRendererUniformDesc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	resolveAppRendererUniformDesc.m_desc.m_debugName = "Resolve Renderer Instances Uniform Buffer";
+	resolveAppRendererUniformDesc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	resolveAppRendererUniformDesc.m_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
+	resolveAppRendererUniformDesc.m_rawData = &resolveRendererInstancesUniformData;
+	resolveAppRendererUniformDesc.m_size = sizeof(ResolveRendererInstancesUniformData);
+
+	m_resolveUniformBuffer = DXResourceLoader::Create_Buffer(
+		m_dxrenderer, resolveAppRendererUniformDesc);
+
+	m_deferredRenderingInstance->Initialize(m_context);
+	m_msaaResolvePassInstance->Initialize(m_context);
+	m_debugRenderingInstance->Initialize();
+
+
+
 }
 
 void AppRendererInstance::LoadContent()
@@ -94,10 +130,22 @@ void AppRendererInstance::LoadContent()
 
 	m_msaaMainRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
-	m_curMainRT = m_msaaMainRT;
+	msaa_rt_desc.m_texture_desc.m_sampleCount = SAMPLE_COUNT_1;
+	
+	m_finalOutputRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
-	m_context.m_deferredRenderingInstance->LoadContent(m_context);
-	m_context.m_debugRenderingInstance->LoadContent();
+	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+	{
+		m_curMainRT = m_msaaMainRT;
+	}
+	else
+	{
+		m_curMainRT = m_finalOutputRT;
+	}
+
+	m_deferredRenderingInstance->LoadContent(m_context);
+	m_msaaResolvePassInstance->LoadContent(m_context);
+	m_debugRenderingInstance->LoadContent();
 }
 
 
@@ -117,7 +165,7 @@ void AppRendererInstance::Update(float dt)
 	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
 		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);
 
-	m_context.m_debugRenderingInstance->Update(m_context, dt);
+	m_debugRenderingInstance->Update(m_context, dt);
 }
 
 
@@ -141,7 +189,7 @@ void AppRendererInstance::Render()
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 	
-	m_context.m_deferredRenderingInstance->Render(m_context);
+	m_deferredRenderingInstance->Render(m_context);
 
 
 	LoadActionsDesc next_load_actions_desc = {};
@@ -154,9 +202,14 @@ void AppRendererInstance::Render()
 	m_dxrenderer->cmd_set_viewport(0, 0, m_curMainRT->get_desc().m_texture_desc.m_width,
 		m_curMainRT->get_desc().m_texture_desc.m_height);
 
-	//m_msaa_resolve_pass.ResolveMSAASwapChain();
 
-	m_context.m_debugRenderingInstance->Render(m_context);
+	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+	{
+		m_msaaResolvePassInstance->Render(m_context);
+	}
+
+
+	m_debugRenderingInstance->Render(m_context);
 }
 
 

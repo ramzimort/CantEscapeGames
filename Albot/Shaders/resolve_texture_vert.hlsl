@@ -1,7 +1,9 @@
+#include "Shading.h"
+
 
 cbuffer ResolveTextureUniform_CB : register(b0)
 {
-    float4x4 ModelMatrix;
+    ResolveRendererInstancesUniformData ResolveRendererInstancesUniformData_Buffer;
 };
 
 
@@ -23,33 +25,29 @@ PS_IN main(VS_IN vs_in)
     float2 pos = float2(-1.f, 1.f);
     float2 UV = float2(0.f, 0.f);
     
+    
+   
     if (vs_in.VertexID == 1)
     {
-        pos = float2(-1.0, -1.0);
+        pos = float2(-1.0, ResolveRendererInstancesUniformData_Buffer.Scale.y);
         UV = float2(0.f, 1.f);
     }
-    else if (vs_in.VertexID == 2)
+    else if (vs_in.VertexID == 2 || 
+        vs_in.VertexID == 3)
     {
-        pos = float2(1.0, -1.0);
+        pos = float2(ResolveRendererInstancesUniformData_Buffer.Scale.xy);
         UV = float2(1.f, 1.f);
     }
-    else if (vs_in.VertexID == 3)
-    {
-        pos = float2(1.0, -1.0);
-        UV = float2(1.f, 1.f);
-    }
+    
     else if (vs_in.VertexID == 4)
     {
-        pos = float2(1.0, 1.0);
+        pos = float2(ResolveRendererInstancesUniformData_Buffer.Scale.x, 1.0);
         UV = float2(1.f, 0.f);
     }
-    else if (vs_in.VertexID == 5)
-    {
-        pos = float2(-1.0, 1.0);
-        UV = float2(0.f, 0.f);
-    }
 
-    ps_in.Position = float4(pos.xy, 0.f, 1.f);
+    float2 final_pos = (pos.xy) + ResolveRendererInstancesUniformData_Buffer.Translation.xy;
+
+    ps_in.Position = float4(final_pos.xy, 0.f, 1.f);
     ps_in.UV = UV;
 
     return ps_in;

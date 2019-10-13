@@ -133,8 +133,6 @@ private:
 	Pipeline* m_resolveAppRendererInstancesPipeline = nullptr;
 	Shader* m_resolveAppRendererInstancesShader = nullptr;
 
-	std::vector<Matrix> m_resolveAppRendererInstancesUniformDataList;
-	BufferList m_resolveAppRendererInstancesUniformBufferList;
 
 	Pipeline* m_skybox_pipeline;
 	Shader* m_skybox_shader;

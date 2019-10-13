@@ -6,6 +6,8 @@
 class AppRenderer;
 class MSAAResolvePass{
 public:
+	friend class MSAAResolvePassInstance;
+public:
 	MSAAResolvePass(AppRenderer* app_renderer);
 	~MSAAResolvePass();
 

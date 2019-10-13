@@ -39,8 +39,6 @@ void AppRenderer::InnerLoadContent()
 {
 	m_material_uniform_data_list.reserve(1000);
 	m_material_uniform_buffer_list.reserve(1000);
-	m_resolveAppRendererInstancesUniformDataList.reserve(20);
-	m_resolveAppRendererInstancesUniformBufferList.reserve(20);
 
 	InitRandomTexture1D();
 
@@ -250,7 +248,7 @@ void AppRenderer::InnerLoadContent()
 	pipeline_desc.m_graphics_desc = {};
 
 	GraphicsPipelineDesc& resolveAppRendererPipelineDesc = pipeline_desc.m_graphics_desc;
-	resolveAppRendererPipelineDesc.m_blend_state = m_blend_state_one_zero_add;
+	//resolveAppRendererPipelineDesc.m_blend_state = m_blend_state_one_zero_add;
 	resolveAppRendererPipelineDesc.m_depth_state = m_disabled_depth_state;
 	resolveAppRendererPipelineDesc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	resolveAppRendererPipelineDesc.m_rasterizer_state = m_cull_none_rasterizer_state;
@@ -446,12 +444,9 @@ void AppRenderer::OnCameraRegistration(const CameraRegistrationEvent* event)
 {
 	CameraInfo cameraInfo(event->m_camera, event->m_xViewPortPos, event->m_yViewportPos);
 
-	DeferredRenderingInstance* deferredRenderingInstance = new DeferredRenderingInstance(m_deferrredRendering);
-	DebugRenderingInstance* debugRenderingInstance = new DebugRenderingInstance(m_debugRendering);
 
-	AppRendererContext newContext = { nullptr, cameraInfo, deferredRenderingInstance, debugRenderingInstance };
 	//TODO: use mmeory pool
-	AppRendererInstance* appRendererInstance = new AppRendererInstance(this, m_dxrenderer, newContext);
+	AppRendererInstance* appRendererInstance = new AppRendererInstance(this, m_dxrenderer, cameraInfo);
 	appRendererInstance->Initialize();
 	appRendererInstance->LoadContent();
 	m_appRendererInstances[event->m_camera.GetZOrder()] = appRendererInstance;
@@ -637,14 +632,19 @@ void AppRenderer::ResolveAppRendererInstances()
 	DescriptorData params[2] = {};
 	for (auto& pair : m_appRendererInstances)
 	{
-		Texture* rendererTexture = pair.second->m_curMainRT->get_texture();
+		Texture* rendererTexture = pair.second->m_finalOutputRT->get_texture();
 
 		params[0].m_binding_location = 0;
 		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
 		params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
 		params[0].m_textures = &rendererTexture;
 
-		m_dxrenderer->cmd_bind_descriptor(m_resolveAppRendererInstancesPipeline, 1, params);
+		params[1].m_binding_location = 0;
+		params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		params[1].m_buffers = &pair.second->m_resolveUniformBuffer;
+		params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+
+		m_dxrenderer->cmd_bind_descriptor(m_resolveAppRendererInstancesPipeline, 2, params);
 		m_dxrenderer->cmd_draw(6, 0);
 	}
 }

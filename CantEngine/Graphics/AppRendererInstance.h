@@ -10,17 +10,16 @@
 class DeferredRenderingInstance;
 class DebugRenderingInstance;
 class AppRendererInstance;
-
+class MSAAResolvePassInstance;
 
 
 
 
 struct AppRendererContext
 {
+	AppRendererContext(const CameraInfo& cameraInfo) :m_cameraInfo(cameraInfo) {}
 	AppRendererInstance* m_appRendererInstance;
 	CameraInfo m_cameraInfo;
-	DeferredRenderingInstance* m_deferredRenderingInstance;
-	DebugRenderingInstance* m_debugRenderingInstance;
 };
 
 class AppRenderer;
@@ -34,7 +33,7 @@ public:
 	friend class AppRenderer;
 public:
 	AppRendererInstance(AppRenderer* appRenderer,
-		DXRenderer* dxrenderer, const AppRendererContext& context);
+		DXRenderer* dxrenderer, const CameraInfo& cameraInfo);
 	~AppRendererInstance();
 
 	
@@ -58,9 +57,16 @@ private:
 	RenderTarget* m_msaaMainRT = nullptr;
 	RenderTarget* m_depthRT = nullptr;
 
+	DeferredRenderingInstance* m_deferredRenderingInstance;
+	DebugRenderingInstance* m_debugRenderingInstance;
+	MSAAResolvePassInstance* m_msaaResolvePassInstance;
+
 	std::vector<ObjectUniformData> m_objectUniformDataList;
 	BufferList m_objectUniformBufferList;
 
 	CameraUniformData m_camera_uniform_data;
 	Buffer* m_camera_uniform_buffer;
+
+	Buffer* m_resolveUniformBuffer;
 };
+
