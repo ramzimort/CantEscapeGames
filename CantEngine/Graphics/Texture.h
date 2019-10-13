@@ -71,6 +71,8 @@ public:
 
 	void Release();
 	const TextureDesc& get_desc() const { return m_texture_desc; };
+	int32_t GetWidth() const { return m_texture_desc.m_width; };
+	int32_t GetHeight() const { return m_texture_desc.m_height; };
 private:
 	TextureDesc m_texture_desc;
 	ID3D11Resource* m_p_raw_resource;

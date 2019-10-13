@@ -666,8 +666,18 @@ void DXRenderer::execute_queued_cmd()
 			const DXCMD_Bind_Vertex_Buffer& cmd_bind_vertex_buffer = cmd.m_cmd_bind_vertex_buffer;
 			Buffer* p_vertex_buffer = cmd_bind_vertex_buffer.m_vertex_buffer;
 			uint32_t offset = 0;
-			m_d3d_device_context->IASetVertexBuffers(0, 1, &p_vertex_buffer->m_p_buffer,
-				&p_vertex_buffer->m_desc.m_vertexStride, &offset);
+
+			ID3D11Buffer* d3dVertexBuffer = nullptr;
+			uint32_t vertexStride = 0;
+
+			if (p_vertex_buffer)
+			{
+				d3dVertexBuffer = p_vertex_buffer->m_p_buffer;
+				vertexStride = p_vertex_buffer->m_desc.m_vertexStride;
+			}
+
+			m_d3d_device_context->IASetVertexBuffers(0, 1, &d3dVertexBuffer,
+				&vertexStride, &offset);
 			break;
 		}
 		case DXCMD_Type::Bind_StreamoutRenderTargets:
@@ -1082,7 +1092,7 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 	m_swap_chain.m_p_swap_chain_render_target = new RenderTarget(RenderTargetDesc());
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_width = client_width;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_height = client_height;
-	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 1.f };
+	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_clearVal = ClearValue{ 0.2f, 0.2f, 0.2f, 0.f };
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_mipLevels = 1;
 	m_swap_chain.m_p_swap_chain_render_target->m_desc.m_texture_desc.m_depth = 1;
 

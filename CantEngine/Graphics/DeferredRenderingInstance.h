@@ -9,8 +9,8 @@ public:
 	~DeferredRenderingInstance();
 
 	void Render(const AppRendererContext& appRendererContext);
-	void Initialize();
-	void LoadContent();
+	void Initialize(const AppRendererContext& appRendererContext);
+	void LoadContent(const AppRendererContext& appRendererContext);
 	void Release();
 private:
 	void RenderDeferredPass(const AppRendererContext& appRendererContext);

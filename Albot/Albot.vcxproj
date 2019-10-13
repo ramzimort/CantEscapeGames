@@ -308,6 +308,15 @@
   <ItemGroup>
     <None Include="Assets\Materials\Red_Brick_Material.json" />
     <None Include="Assets\Prefabs\brick_wall.json" />
+    <None Include="Assets\Prefabs\mini_map.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\resolve_texture_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\resolve_texture_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

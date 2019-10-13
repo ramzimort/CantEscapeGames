@@ -70,7 +70,6 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 	if (controller->m_leftClick)
 	{
-
 		Vector2 mouse_delta = controller->m_mouseDeltaPosition;
 		XMFLOAT2 rot_amount;
 		rot_amount.x = -mouse_delta.x * 100.f;
@@ -95,4 +94,5 @@ void FPSCameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 	XMStoreFloat3(&position3, position);
 
 	transform_comp->SetLocalPosition(position3.x, position3.y, position3.z);
+	camera_comp->GetCamera().SetCameraPosition(position3);
 }

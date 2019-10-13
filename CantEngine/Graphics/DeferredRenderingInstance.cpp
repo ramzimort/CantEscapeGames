@@ -25,7 +25,9 @@ DeferredRenderingInstance::~DeferredRenderingInstance()
 
 void DeferredRenderingInstance::Render(const AppRendererContext& appRendererContext)
 {
-
+	RenderDeferredPass(appRendererContext);
+	RenderDeferredGlobalDirectionalLightShade(appRendererContext);
+	RenderDeferredPointLightShade(appRendererContext);
 }
 
 void DeferredRenderingInstance::Release()
@@ -37,24 +39,23 @@ void DeferredRenderingInstance::Release()
 
 }
 
-void DeferredRenderingInstance::Initialize()
+void DeferredRenderingInstance::Initialize(const AppRendererContext& appRendererContext)
 {
 
 }
 
-void DeferredRenderingInstance::LoadContent()
+void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendererContext)
 {
 	RenderTargetDesc rt_desc[DEFERRED_RT_TYPE::DEFERRED_TOTAL_COUNT] = {};
 
 	DXRenderer* dxrenderer = m_deferredRendering.m_appRenderer->GetDXRenderer();
 
-	RenderTarget* swap_chain_rt = dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
+	RenderTarget* curMainRT = appRendererContext.m_appRendererInstance->m_curMainRT;
 
 	int32_t rt_width, rt_height;
 
-	rt_width = swap_chain_rt->get_desc().m_texture_desc.m_width;
-	rt_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
-
+	rt_width = curMainRT->get_texture()->GetWidth();
+	rt_height = curMainRT->get_texture()->GetHeight();
 
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };

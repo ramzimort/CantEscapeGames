@@ -13,6 +13,7 @@ class Camera
 {
 public:
 	friend class FPSCameraSystem;
+	friend class CameraComponent;
 public:
 	Camera();
 	Camera(const Camera& lhs);
@@ -46,11 +47,18 @@ public:
 	size_t GetId();
 	std::string GetCameraName() const;
 	int32_t GetZOrder() const;
-	
+
+	const Vector4& GetViewportRenderInformation() const;
+
+private:
+	void InitFromComponent();
 private:
 
 	std::string m_cameraName;
 	int32_t m_zOrder;
+	//XY is  the viewport location in the window , ZW is the view port width & height 
+	Vector4 m_viewportRenderInformation;
+
 
 	
 	size_t m_id;	

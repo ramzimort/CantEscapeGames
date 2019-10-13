@@ -31,6 +31,7 @@ public:
 	friend class DeferredRenderingInstance;
 	friend class DebugRenderingInstance;
 	friend class MSAAResolvePassInstance;
+	friend class AppRenderer;
 public:
 	AppRendererInstance(AppRenderer* appRenderer,
 		DXRenderer* dxrenderer, const AppRendererContext& context);

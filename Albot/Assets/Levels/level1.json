@@ -27,7 +27,8 @@
       "Assets/Prefabs/RBTestObj.json",
       "Assets/Prefabs/player.json",
       "Assets/Prefabs/TestGoJose.json",
-      "Assets/Prefabs/brick_wall.json"
+      "Assets/Prefabs/brick_wall.json",
+      "Assets/Prefabs/mini_map.json"
     ],
     "Scripts": [
       "Scripts/Test/test01Comp.lua",
@@ -56,6 +57,16 @@
       }
     },
 
+    {
+      "tag": "albertobj",
+      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 1.0, -10.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
     {
       "tag": "red_brick_floor",
       "prefab": "Assets/Prefabs/brick_wall.json",
@@ -89,6 +100,33 @@
             "Overrides": {
               "hashed": "Marcos comp1 OVERRIDE!",
               "ranked": 512
+            }
+          }
+        ]
+      }
+    },
+    {
+      "tag": "mini_map1",
+      "prefab": "Assets/Prefabs/mini_map.json",
+      "overrides": {
+        "CameraComponent": {
+          "Camera": {
+            "Position": [ 0.0, 100.0, 0.0 ],
+            "LookDir": [ 0.0, -1.0, 0.1 ]
+          }
+        }
+      }
+    },
+    {
+      "tag": "Andres",
+      "prefab": "Assets/Prefabs/TestGoJose.json",
+      "overrides": {
+        "Scripts": [
+          {
+            "Name": "Scripts/Test/test01Comp.lua",
+            "Overrides": {
+              "hashed": "ANDRES comp01 OVERRIDE!",
+              "ranked": -1024
             }
           }
         ]

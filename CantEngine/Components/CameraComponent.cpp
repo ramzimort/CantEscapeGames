@@ -35,6 +35,7 @@ CameraComponent::~CameraComponent()
 
 void CameraComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
+	m_camera.InitFromComponent();
 	EventManager::Get()->EnqueueEvent<CameraRegistrationEvent>(true, m_camera, m_xViewportPos, m_yViewportPos);
 }
 

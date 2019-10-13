@@ -10,8 +10,6 @@
 #include "Graphics/Material.h"
 #include "Graphics/Light.h"
 
-
-
 AppRendererInstance::AppRendererInstance(AppRenderer* appRenderer,
 	DXRenderer* dxrenderer, const AppRendererContext& context)
 	:m_appRenderer(appRenderer),
@@ -44,7 +42,17 @@ void AppRendererInstance::Release()
 
 void AppRendererInstance::Initialize()
 {
-	m_context.m_deferredRenderingInstance->Initialize();
+	BufferLoadDesc camera_uniform_buffer_desc = {};
+	camera_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	camera_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	camera_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	camera_uniform_buffer_desc.m_desc.m_debugName = "Camera Uniform Buffer";
+	camera_uniform_buffer_desc.m_rawData = nullptr;
+	camera_uniform_buffer_desc.m_size = sizeof(CameraUniformData);
+
+	m_camera_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, camera_uniform_buffer_desc);
+
+	m_context.m_deferredRenderingInstance->Initialize(m_context);
 	m_context.m_debugRenderingInstance->Initialize();
 }
 
@@ -52,11 +60,16 @@ void AppRendererInstance::LoadContent()
 {
 	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
+	const Vector4& viewPortRenderInformation = m_context.m_cameraInfo.m_camera.GetViewportRenderInformation();
+
+	int32_t finalRTWidth = (int32_t) (viewPortRenderInformation.z * (float)swap_chain_rt->get_desc().m_texture_desc.m_width);
+	int32_t finalRTHeight = (int32_t)(viewPortRenderInformation.w * (float)swap_chain_rt->get_desc().m_texture_desc.m_height);
+
 	RenderTargetDesc depth_rt_desc = {};
 	depth_rt_desc.m_texture_desc.m_bindFlags = Bind_Flags::BIND_DEPTH_STENCIL | BIND_SHADER_RESOURCE;
 	depth_rt_desc.m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
-	depth_rt_desc.m_texture_desc.m_width = swap_chain_rt->get_desc().m_texture_desc.m_width;
-	depth_rt_desc.m_texture_desc.m_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
+	depth_rt_desc.m_texture_desc.m_width = finalRTWidth;
+	depth_rt_desc.m_texture_desc.m_height = finalRTHeight;
 	depth_rt_desc.m_texture_desc.m_clearVal = ClearValue{ 1.0f, 0.0 };
 	depth_rt_desc.m_texture_desc.m_mipLevels = 1;
 	depth_rt_desc.m_texture_desc.m_imageFormat = DXGI_FORMAT_D32_FLOAT;
@@ -70,8 +83,8 @@ void AppRendererInstance::LoadContent()
 	RenderTargetDesc msaa_rt_desc = {};
 	msaa_rt_desc.m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
 	msaa_rt_desc.m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
-	msaa_rt_desc.m_texture_desc.m_width = swap_chain_rt->get_desc().m_texture_desc.m_width;
-	msaa_rt_desc.m_texture_desc.m_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
+	msaa_rt_desc.m_texture_desc.m_width = finalRTWidth;
+	msaa_rt_desc.m_texture_desc.m_height = finalRTHeight;
 	msaa_rt_desc.m_texture_desc.m_clearVal = ClearValue{ 0.f, 0.0, 0.f, 0.f };
 	msaa_rt_desc.m_texture_desc.m_mipLevels = 1;
 	msaa_rt_desc.m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
@@ -81,16 +94,9 @@ void AppRendererInstance::LoadContent()
 
 	m_msaaMainRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
-	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
-	{
-		m_curMainRT = m_msaaMainRT;
-	}
-	else
-	{
-		m_curMainRT = swap_chain_rt;
-	}
+	m_curMainRT = m_msaaMainRT;
 
-	m_context.m_deferredRenderingInstance->LoadContent();
+	m_context.m_deferredRenderingInstance->LoadContent(m_context);
 	m_context.m_debugRenderingInstance->LoadContent();
 }
 
@@ -110,6 +116,8 @@ void AppRendererInstance::Update(float dt)
 	m_camera_uniform_data.InvViewProjectionMat = mainCamera.GetInvViewProjectionMatrix();
 	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
 		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);
+
+	m_context.m_debugRenderingInstance->Update(m_context, dt);
 }
 
 

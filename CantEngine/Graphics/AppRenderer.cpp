@@ -39,6 +39,8 @@ void AppRenderer::InnerLoadContent()
 {
 	m_material_uniform_data_list.reserve(1000);
 	m_material_uniform_buffer_list.reserve(1000);
+	m_resolveAppRendererInstancesUniformDataList.reserve(20);
+	m_resolveAppRendererInstancesUniformBufferList.reserve(20);
 
 	InitRandomTexture1D();
 
@@ -229,14 +231,33 @@ void AppRenderer::InnerLoadContent()
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_format = DXGI_FORMAT_R32G32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_0;
 
+	VertexLayout pos3_layout = {};
+
+	pos3_layout.m_atrrib_count = 1;
+	pos3_layout.m_attribs[0].m_binding = 0;
+	pos3_layout.m_attribs[0].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos3_layout.m_attribs[0].m_semantic = Attrib_Semantic::POSITION;
+
+
+	ShaderLoadDesc resolveAppRendererInstancesShaderDesc = {};
+	resolveAppRendererInstancesShaderDesc.m_desc.m_vertex_shader_path = "resolve_texture_vert.hlsl";
+	resolveAppRendererInstancesShaderDesc.m_desc.m_pixel_shader_path = "resolve_texture_frag.hlsl";
+	m_resolveAppRendererInstancesShader = DXResourceLoader::Create_Shader(m_dxrenderer, resolveAppRendererInstancesShaderDesc);
+
 	PipelineDesc pipeline_desc = {};
 	pipeline_desc.m_pipeline_type = PipelineType::GRAPHICS;
 
 	pipeline_desc.m_graphics_desc = {};
 
+	GraphicsPipelineDesc& resolveAppRendererPipelineDesc = pipeline_desc.m_graphics_desc;
+	resolveAppRendererPipelineDesc.m_blend_state = m_blend_state_one_zero_add;
+	resolveAppRendererPipelineDesc.m_depth_state = m_disabled_depth_state;
+	resolveAppRendererPipelineDesc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
+	resolveAppRendererPipelineDesc.m_rasterizer_state = m_cull_none_rasterizer_state;
+	resolveAppRendererPipelineDesc.m_shader = m_resolveAppRendererInstancesShader;
+	resolveAppRendererPipelineDesc.m_vertex_layout = &pos3_layout;
 
-	pipeline_desc.m_graphics_desc = {};
-
+	m_resolveAppRendererInstancesPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 
 	BufferLoadDesc directional_light_uniform_buffer_desc = {};
@@ -499,6 +520,9 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_directional_light_uniform_buffer);
 	SafeReleaseDelete(m_skybox_uniform_buffer);
 	SafeReleaseDelete(m_random1DTexture);
+
+	SafeReleaseDelete(m_resolveAppRendererInstancesPipeline);
+	SafeReleaseDelete(m_resolveAppRendererInstancesShader);
 }
 
 DXRenderer* AppRenderer::GetDXRenderer()
@@ -529,32 +553,6 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	DEBUG_CHECKBOX("Draw Mesh", &GraphicsSettings::Draw_Mesh_Flag);
 	DEBUG_CHECKBOX("Draw Debug AABB", &GraphicsSettings::Draw_Mesh_AABB_Flag);
 
-	CameraManager* cameraManager = m_cameraManager;
-
-	const CameraInfo& cameraInfo = cameraManager->GetMainCamera();
-	Camera& main_camera = cameraInfo.m_camera;
-
-	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
-	
-	/*Vector3 camera_pos = main_camera.GetCameraPosition();
-	m_camera_uniform_data.CameraPosition = MathUtil::v3_to_v4(camera_pos, 1.f);
-	m_camera_uniform_data.ViewMat = main_camera.GetViewMatrix();
-	m_camera_uniform_data.ProjectionMat = main_camera.GetProjectionMatrix();
-	m_camera_uniform_data.InvProjectionMat = main_camera.GetInvProjectionMatrix();
-	m_camera_uniform_data.InvViewMat = main_camera.GetInvViewMatrix();
-	m_camera_uniform_data.ViewProjectionMat = main_camera.GetViewProjectionMatrix();
-	m_camera_uniform_data.InvViewProjectionMat = main_camera.GetInvViewProjectionMatrix();
-	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
-		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);*/
-
-	/*Matrix no_position_view_mat = m_camera_uniform_data.ViewMat;
-	no_position_view_mat._41 = 0.f;
-	no_position_view_mat._42 = 0.f;
-	no_position_view_mat._43 = 0.f;
-
-	m_skybox_uniform_data.ModelViewProjectionMat =
-		no_position_view_mat * m_camera_uniform_data.ProjectionMat;*/
-
 	for (const auto& pair : m_appRendererInstances)
 	{
 		pair.second->Update(dt);
@@ -579,7 +577,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 
 	m_deferrredRendering.Update(dt);
 	m_debugRendering.Update(dt);
-	m_particleRendering.Update(dt, m_gameTime);
+	//m_particleRendering.Update(dt, m_gameTime);
 }
 void AppRenderer::RenderApp()
 {
@@ -612,15 +610,43 @@ void AppRenderer::RenderApp()
 		pair.second->Render();
 	}
 
-	//RenderSkybox();
-	
+	LoadActionsDesc next_load_actions_desc = {};
+	next_load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
+	next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
 
+	m_dxrenderer->cmd_bind_render_targets(&swap_chain_rt, 1, nullptr, next_load_actions_desc);
+	m_dxrenderer->cmd_set_viewport(0, 0, swap_chain_rt->get_desc().m_texture_desc.m_width,
+		swap_chain_rt->get_desc().m_texture_desc.m_height);
+
+
+	ResolveAppRendererInstances();
 
 	m_directionLightInstanceList.clear();
 	m_basicInstances.clear();
 	m_debugRendering.ClearInstances();
 
 	m_dxrenderer->execute_queued_cmd();	
+}
+
+void AppRenderer::ResolveAppRendererInstances()
+{
+	m_dxrenderer->cmd_bind_pipeline(m_resolveAppRendererInstancesPipeline);
+	m_dxrenderer->cmd_bind_vertex_buffer(nullptr);
+
+
+	DescriptorData params[2] = {};
+	for (auto& pair : m_appRendererInstances)
+	{
+		Texture* rendererTexture = pair.second->m_curMainRT->get_texture();
+
+		params[0].m_binding_location = 0;
+		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+		params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[0].m_textures = &rendererTexture;
+
+		m_dxrenderer->cmd_bind_descriptor(m_resolveAppRendererInstancesPipeline, 1, params);
+		m_dxrenderer->cmd_draw(6, 0);
+	}
 }
 
 void AppRenderer::UpdateMaterialUniformBuffer()
@@ -711,8 +737,6 @@ void AppRenderer::AddMaterialUniformBuffer()
 {
 	BufferLoadDesc material_uniform_buffer_desc = {};
 	material_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	//material_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE_READ;
-	//material_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_STAGING;
 	material_uniform_buffer_desc.m_desc.m_debugName = "Material Uniform Buffer";
 	material_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
 	material_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;

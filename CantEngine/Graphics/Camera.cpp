@@ -22,7 +22,10 @@ RTTR_REGISTRATION
 		.property("FOV", &Camera::m_fov)
 		.property("Position", &Camera::m_position)
 		.property("CameraName", &Camera::m_cameraName)
-		.property("ZOrder", &Camera::m_zOrder);
+		.property("LookDir", &Camera::m_lookDir)
+		.property("ZOrder", &Camera::m_zOrder)
+		.property("ViewportRenderInfo", &Camera::m_viewportRenderInformation)
+	;
 }
 
 Camera::Camera() :
@@ -35,7 +38,8 @@ Camera::Camera() :
 	m_upDir(0.f, 1.f, 0.f),
 	m_rightDir(1.f, 0.f, 0.f),
 	m_cameraName(""),
-	m_zOrder(-1)
+	m_zOrder(-1),
+	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
 {
 }
 
@@ -50,7 +54,8 @@ Camera::Camera(float fov,
 	m_upDir(0.f, 1.f, 0.f),
 	m_rightDir(1.f, 0.f, 0.f),
 	m_cameraName(""),
-	m_zOrder(-1)
+	m_zOrder(-1),
+	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
 { 
 }
 
@@ -64,7 +69,8 @@ Camera::Camera(const Camera& lhs) :
 	m_upDir(lhs.m_upDir),
 	m_rightDir(lhs.m_rightDir),
 	m_cameraName(lhs.m_cameraName),
-	m_zOrder(lhs.m_zOrder)
+	m_zOrder(lhs.m_zOrder),
+	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
 { 
 }
 
@@ -102,6 +108,16 @@ Vector3 Camera::GetCameraPosition() const
 void Camera::Reset()
 {
 	//TODO:
+}
+
+void Camera::InitFromComponent()
+{
+	assert(m_lookDir != Vector3(0.f, 0.f, 0.f));
+	m_lookDir.Normalize();
+	m_rightDir = m_lookDir.Cross(Vector3(0.f, 1.f, 0.f));
+	m_rightDir.Normalize();
+	m_upDir = m_rightDir.Cross(m_lookDir);
+	m_upDir.Normalize();
 }
 
 void Camera::ApplyRotation(const Matrix& transformation_mat)
@@ -144,4 +160,9 @@ std::string Camera::GetCameraName() const
 int32_t Camera::GetZOrder() const
 {
 	return m_zOrder;
+}
+
+const Vector4& Camera::GetViewportRenderInformation() const
+{
+	return m_viewportRenderInformation;
 }

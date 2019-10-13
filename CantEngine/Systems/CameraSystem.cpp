@@ -37,9 +37,6 @@ void CameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 	TransformComponent *transformComp = node->m_pTransformComponent;
 	CameraComponent* cameraComp = node->m_pCameraComponent;
 
-	Vector3 position = transformComp->GetPosition();
-	cameraComp->GetCamera().SetCameraPosition(position);
-
 	cameraComp->GetCamera().UpdateViewMatrix();
 	cameraComp->GetCamera().UpdateProjectionMatrix();
 	cameraComp->GetCamera().UpdateViewProjectionMatrix();

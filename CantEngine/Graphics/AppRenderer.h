@@ -82,10 +82,6 @@ public:
 
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
-	
-	
-	//void RenderBasicInstances(Pipeline* pipeline);
-
 	void LoadContent();
 private:
 	void Initialize();
@@ -106,6 +102,10 @@ private:
 	void OnCameraRegistration(const CameraRegistrationEvent* event);
 	void OnCameraDestruction(const CameraDestructionEvent* event);
 	void OnWindowSize(const WindowSizeEvent* event);
+
+
+	void ResolveAppRendererInstances();
+
 
 private:
 	SDL_Window& m_sdl_window;
@@ -129,9 +129,12 @@ private:
 	DepthState* m_disabled_depth_state = nullptr;
 	DepthState* m_testonlyLessEqualDepthState = nullptr;
 	
-	/*RenderTarget* m_cur_main_rt = nullptr;
-	RenderTarget* m_msaa_main_rt = nullptr;
-	RenderTarget* m_depth_rt = nullptr;*/
+
+	Pipeline* m_resolveAppRendererInstancesPipeline = nullptr;
+	Shader* m_resolveAppRendererInstancesShader = nullptr;
+
+	std::vector<Matrix> m_resolveAppRendererInstancesUniformDataList;
+	BufferList m_resolveAppRendererInstancesUniformBufferList;
 
 	Pipeline* m_skybox_pipeline;
 	Shader* m_skybox_shader;
@@ -169,6 +172,8 @@ private:
 	std::map<int32_t, AppRendererInstance*> m_appRendererInstances;
 
 
+
+
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
 	SkyboxUniformData m_skybox_uniform_data;
@@ -178,6 +183,9 @@ private:
 
 	Buffer* m_skybox_uniform_buffer;
 	BufferList m_material_uniform_buffer_list;
+
+
+
 	
 };
 
