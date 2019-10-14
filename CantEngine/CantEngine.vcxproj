@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -40,6 +40,7 @@
     <ClCompile Include="Components\TestComponent.cpp" />
     <ClCompile Include="Components\TestComponents\FPSControllerComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
+    <ClCompile Include="Graphics\BlurImagePass.cpp" />
     <ClCompile Include="Graphics\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\DeferredRenderingInstance.cpp" />
     <ClCompile Include="dllmain.cpp" />
@@ -64,6 +65,7 @@
     <ClCompile Include="Graphics\Mesh.cpp" />
     <ClCompile Include="Graphics\Model.cpp" />
     <ClCompile Include="Graphics\ModelLoader.cpp" />
+    <ClCompile Include="Graphics\MomentShadowMapRendering.cpp" />
     <ClCompile Include="Graphics\MSAAResolvePass.cpp" />
     <ClCompile Include="Graphics\ParticleRendering.cpp" />
     <ClCompile Include="Graphics\ParticleRenderingInstance.cpp" />
@@ -72,7 +74,6 @@
     <ClCompile Include="Graphics\RenderTarget.cpp" />
     <ClCompile Include="Graphics\Sampler.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
-    <ClCompile Include="Graphics\ShadowMapRendering.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Managers\CameraManager.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Components\TestComponent.h" />
     <ClInclude Include="Components\TestComponents\FPSControllerComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Graphics\BlurImagePass.h" />
     <ClInclude Include="Graphics\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\DeferredRenderingInstance.h" />
     <ClInclude Include="Events\BaseEvent.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Graphics\Mesh.h" />
     <ClInclude Include="Graphics\Model.h" />
     <ClInclude Include="Graphics\ModelLoader.h" />
+    <ClInclude Include="Graphics\MomentShadowMapRendering.h" />
     <ClInclude Include="Graphics\MSAAResolvePass.h" />
     <ClInclude Include="Graphics\ParticleRendering.h" />
     <ClInclude Include="Graphics\ParticleRenderingInstance.h" />
@@ -187,7 +190,6 @@
     <ClInclude Include="Graphics\RenderTarget.h" />
     <ClInclude Include="Graphics\Sampler.h" />
     <ClInclude Include="Graphics\Shader.h" />
-    <ClInclude Include="Graphics\ShadowMapRendering.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\VertexLayout.h" />
     <ClInclude Include="Helper\Constant.h" />

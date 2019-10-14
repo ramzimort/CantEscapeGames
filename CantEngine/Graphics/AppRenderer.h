@@ -7,6 +7,7 @@
 #include "DebugRendering.h"
 #include "DeferredRendering.h"
 #include "Shaders/Shading.h"
+#include "Graphics/MomentShadowMapRendering.h"
 #include "Graphics/MSAAResolvePass.h"
 #include "Graphics/ParticleRendering.h"
 #include "Graphics/InstanceRenderData.h"
@@ -54,8 +55,8 @@ public:
 	friend class DeferredRendering;
 	friend class DebugRendering;
 	friend class DepthPassRendering;
+	friend class MomentShadowMapRendering;
 	friend class MSAAResolvePass;
-	friend class ShadowMapRendering;
 	friend class ParticleRendering;
 	friend class DeferredRenderingInstance;
 	friend class DebugRenderingInstance;
@@ -158,7 +159,9 @@ private:
 	ParticleRendering m_particleRendering;
 	DebugRendering m_debugRendering;
 	DeferredRendering m_deferrredRendering;
+	MomentShadowMapRendering m_momentShadowMapRendering;
 	MSAAResolvePass m_msaa_resolve_pass;
+
 
 	Buffer* m_directional_light_uniform_buffer;
 	DirectionalLightInstanceDataList m_directionLightInstanceList;

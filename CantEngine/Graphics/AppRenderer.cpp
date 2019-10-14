@@ -23,6 +23,7 @@ m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
 m_particleRendering(this),
+m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
 m_gameTime(0.f)
 {
 	//TODO: call initialize manually
@@ -438,6 +439,7 @@ void AppRenderer::LoadContent()
 	m_deferrredRendering.LoadContent(m_dxrenderer);
 	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
 	m_particleRendering.LoadContent(m_dxrenderer);
+	m_momentShadowMapRendering.LoadContent(m_dxrenderer);
 }
 
 
@@ -484,6 +486,7 @@ void AppRenderer::Release()
 	
 	m_deferrredRendering.Release();
 	m_debugRendering.Release();
+	m_momentShadowMapRendering.Release();
 
 	SafeReleaseDelete(m_cull_none_rasterizer_state);
 	SafeReleaseDelete(m_cull_front_rasterizer_state);
@@ -596,9 +599,13 @@ void AppRenderer::RenderApp()
 	m_dxrenderer->cmd_update_buffer(direction_light_update_desc);
 
 	UpdateMaterialUniformBuffer();
-
 	m_deferrredRendering.UpdateUniformBuffer();
+
+
+
 	m_debugRendering.UpdateDebugUniformBuffer();
+
+	m_momentShadowMapRendering.RenderShadowMap();
 
 	m_particleRendering.Render();
 

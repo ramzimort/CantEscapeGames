@@ -95,6 +95,7 @@ typedef Vector4 float4;
 typedef Vector3 float3;
 typedef Vector2 float2;
 typedef Matrix float4x4;
+typedef uint32_t uint;
 
 template<typename T>
 inline void SafeRelease(T& ptr)

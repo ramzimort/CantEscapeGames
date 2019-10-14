@@ -136,4 +136,13 @@ struct ResolveRendererInstancesUniformData
 	//float4x4 ModelMatrix;
 };
 
+struct BlurUniformData
+{
+	float4 BlurWeight[101];
+	float BlurWidth;
+	float BlurWidth2;
+	uint DirectionX;
+	uint DirectionY;
+};
+
 #endif

@@ -5,27 +5,44 @@
 
 struct DepthPassContext
 {
-	DepthPassContext(RenderTarget*& depth_rt, CameraUniformData* camera_uniform_data,
-		InstanceRenderList* inst_render_list) :depth_render_target(depth_rt), 
+	DepthPassContext(RenderTarget*& color_depth_rt,
+		RenderTarget*& depth_rt, CameraUniformData* camera_uniform_data,
+		InstanceRenderList* inst_render_list) :
+		color_depth_render_target(color_depth_rt),
+		depth_render_target(depth_rt),
 		depth_pass_camera_uniform_data(camera_uniform_data),
 		instance_render_list(inst_render_list)
 	{}
+
+	RenderTarget*& color_depth_render_target;
 	RenderTarget*& depth_render_target;
 	CameraUniformData* depth_pass_camera_uniform_data;
 	InstanceRenderList* instance_render_list;
 };
 
+
+enum DepthPassContextType
+{
+	ONE_Z_BUFFER,
+	//for moment shadow map
+	FOUR_MOMENT_Z_BUFFER
+};
+
+
+
 class DepthPassRendering{
 public:
-	DepthPassRendering(AppRenderer* app_renderer, uint32_t sample_count = SAMPLE_COUNT_1);
+	DepthPassRendering(AppRenderer* app_renderer, uint32_t sample_count = SAMPLE_COUNT_1, 
+		DepthPassContextType context_type = DepthPassContextType::ONE_Z_BUFFER);
 	~DepthPassRendering();
 
 	void Release();
 
-	void render_depth_pass(const DepthPassContext& depth_pass_context);
+	void RenderDepthPass(const DepthPassContext& depth_pass_context);
 
-	void load_content(DXRenderer* dxrenderer);
-
+	void LoadContent(DXRenderer* dxrenderer);
+private:
+	void RenderBasicMeshDepthPass(const DepthPassContext& depth_pass_context);
 private:
 	void add_object_uniform_buffer();
 private:
@@ -39,5 +56,7 @@ private:
 	std::vector<Buffer*> m_objectUniformBufferList;
 	//ObjectUniformData m_object_uniform_data;
 	std::vector<ObjectUniformData> m_objectUniformDataList;
+
+	DepthPassContextType m_depth_pass_context_type;
 };
 

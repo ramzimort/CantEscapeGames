@@ -4,9 +4,11 @@
 #include "Graphics/Material.h"
 
 
-DepthPassRendering::DepthPassRendering(AppRenderer* app_renderer, uint32_t sample_count)
+DepthPassRendering::DepthPassRendering(AppRenderer* app_renderer, uint32_t sample_count,
+	DepthPassContextType context_type)
 	:m_appRenderer(app_renderer),
-	m_sample_count(sample_count)
+	m_sample_count(sample_count),
+	m_depth_pass_context_type(context_type)
 {
 }
 
@@ -15,18 +17,34 @@ DepthPassRendering::~DepthPassRendering()
 {
 }
 
-void DepthPassRendering::render_depth_pass(const DepthPassContext& depth_pass_context)
+void DepthPassRendering::RenderDepthPass(const DepthPassContext& depth_pass_context)
 {
 	RenderTarget*& depth_rt = depth_pass_context.depth_render_target;
 	LoadActionsDesc load_actions_desc = {};
 	load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+
+	uint32_t color_rt_count = 0;
+
+	if (depth_pass_context.color_depth_render_target != nullptr)
+	{
+		load_actions_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
+		load_actions_desc.m_clear_color_values[0] = depth_pass_context.color_depth_render_target->get_clear_value();
+		color_rt_count = 1;
+	}
+
 	load_actions_desc.m_load_action_depth = LoadActionType::CLEAR;
 	load_actions_desc.m_clear_depth_stencil.m_depth = depth_rt->get_clear_value().m_depth;
 	load_actions_desc.m_clear_depth_stencil.m_stencil = depth_rt->get_clear_value().m_stencil;
 
-	m_dxrenderer->cmd_bind_render_targets(nullptr, 0, &(*depth_rt), load_actions_desc);
+	m_dxrenderer->cmd_bind_render_targets(&depth_pass_context.color_depth_render_target, color_rt_count, &(*depth_rt), load_actions_desc);
 	m_dxrenderer->cmd_set_viewport(0, 0, depth_rt->get_texture()->get_desc().m_width, depth_rt->get_texture()->get_desc().m_height);
 
+	RenderBasicMeshDepthPass(depth_pass_context);
+}
+
+
+void DepthPassRendering::RenderBasicMeshDepthPass(const DepthPassContext& depth_pass_context)
+{
 	m_dxrenderer->cmd_bind_pipeline(m_depth_pass_pipeline);
 	const InstanceRenderList& instance_render_list = *depth_pass_context.instance_render_list;
 
@@ -35,10 +53,7 @@ void DepthPassRendering::render_depth_pass(const DepthPassContext& depth_pass_co
 		const InstanceRenderData& inst_data = instance_render_list[i];
 		Model* p_ref_model = inst_data.p_ref_model;
 
-		if (!p_ref_model)
-		{
-			continue;
-		}
+		assert(p_ref_model);
 
 		if (i >= m_objectUniformBufferList.size())
 		{
@@ -55,7 +70,7 @@ void DepthPassRendering::render_depth_pass(const DepthPassContext& depth_pass_co
 		m_object_uniform_data.InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
 		m_object_uniform_data.NormalMat = inst_data.normal_mat;*/
 		m_objectUniformDataList[i].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
-		
+
 
 		BufferUpdateDesc update_object_uniform_desc = {};
 		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
@@ -128,7 +143,7 @@ void DepthPassRendering::add_object_uniform_buffer()
 	m_objectUniformDataList.push_back(ObjectUniformData{});
 }
 
-void DepthPassRendering::load_content(DXRenderer* dxrenderer)
+void DepthPassRendering::LoadContent(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
@@ -136,7 +151,13 @@ void DepthPassRendering::load_content(DXRenderer* dxrenderer)
 
 	ShaderLoadDesc depth_pass_shader_desc = {};
 	depth_pass_shader_desc.m_desc.m_vertex_shader_path = "depth_pass_vert.hlsl";
-	
+
+	if (m_depth_pass_context_type == DepthPassContextType::FOUR_MOMENT_Z_BUFFER)
+	{
+		depth_pass_shader_desc.m_desc.m_pixel_shader_path = "moment_depth_pass_frag.hlsl";
+	}
+
+
 	m_depth_pass_shader = DXResourceLoader::Create_Shader(m_dxrenderer, depth_pass_shader_desc);
 
 
@@ -163,11 +184,11 @@ void DepthPassRendering::load_content(DXRenderer* dxrenderer)
 
 	if (m_sample_count > 1)
 	{
-		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_ms_state;
+		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
 	}
 	else
 	{
-		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_state;
+		depth_pass_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
 	}
 
 	m_depth_pass_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);

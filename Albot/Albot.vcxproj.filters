@@ -51,6 +51,8 @@
     <Text Include="Shaders\skybox_frag.hlsl" />
     <Text Include="Shaders\skybox_vert.hlsl" />
     <Text Include="Shaders\streamout_particle_geom.hlsl" />
+    <Text Include="Shaders\resolve_texture_frag.hlsl" />
+    <Text Include="Shaders\resolve_texture_vert.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prefabs\brick_wall.json" />
@@ -58,7 +60,7 @@
     <None Include="Assets\Prefabs\mini_map.json" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\resolve_texture_vert.hlsl" />
-    <FxCompile Include="Shaders\resolve_texture_frag.hlsl" />
+    <FxCompile Include="Shaders\moment_depth_pass_frag.hlsl" />
+    <FxCompile Include="Shaders\moment_shadow.hlsl" />
   </ItemGroup>
 </Project>

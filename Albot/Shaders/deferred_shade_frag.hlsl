@@ -1,4 +1,5 @@
 #include "Shading.h"
+#include "moment_shadow.hlsl"
 
 //Texture2D<float4> WorldPosition_Texture : register(t0);
 #if SAMPLE_COUNT > 1
@@ -13,7 +14,7 @@ Texture2D<float4> Specular_Texture : register(t2);
 Texture2D<float> Depth_Texture : register(t3);
 #endif
 
-
+Texture2D<float4> ShadowMap_Texture : register(t4);
 
 SamplerState Clamp_Billinear_Sampler : register(s0);
 
@@ -30,6 +31,11 @@ cbuffer DirectionalLightUniformBuffer : register(b1)
 };
 
 
+cbuffer LightCameraUniformData_CB : register(b2)
+{
+    CameraUniformData LightCameraUniformData_Buffer;
+};
+
 
 
 struct PS_IN
@@ -44,75 +50,33 @@ struct PS_OUT
     float4 Color : SV_Target0;
 };
 
-//float PCF(float3 shadow_coord, float2 kernelSize)
-//{
-//    float depth_bias = 0.0f;
-//    float2 tap_offset[9] =
-//    {
-//        float2(0.00, 0.00),
-//        float2(1.20, 0.00),
-//        float2(-1.20, 0.00),
-//        float2(0.00, 1.20),
-//        float2(0.00, -1.20),
-//        float2(0.84, 0.84),
-//        float2(-0.84, 0.84),
-//        float2(-0.84, -0.84),
-//        float2(0.84, -0.84),
-//    };
-
-//    float tap_weight[9] =
-//    {
-//        0.120892,
-//        0.110858,
-//        0.110858,
-//        0.110858,
-//        0.110858,
-//        0.111050,
-//        0.111050,
-//        0.111050,
-//        0.111050,
-//    };
-
-//    float shadow_factor = 0;
-//    for (int i = 0; i < 9; ++i)
-//    {
-//        float2 sample_coord = shadow_coord.xy + kernelSize * tap_offset[i];
-//        shadow_factor += tap_weight[i] * ShadowMap_Texture.SampleCmpLevelZero(Shadow_Sampler, sample_coord, shadow_coord.z - depth_bias);
-//    }
-//    return shadow_factor;
-//}
 
 
-//float CalculateOrthographicShadowFactor(float3 world_position)
-//{
-//    uint total_light_count = (uint) (DirectionLightUniform.DirectionalLightUniformMiscData.w);
+float CalculateShadowFactor(float3 world_position)
+{
+    uint total_light_count = (uint) (DirectionLightUniform.DirectionalLightUniformMiscData.w);
+    if (total_light_count <= 0)
+    {
+        return 0.0f;
+    }
 
-//    if(total_light_count <= 0)
-//    {
-//        return 0.0f;
-//    }
+    float4 shadow_world_pos = mul(LightCameraUniformData_Buffer.ViewProjectionMat, float4(world_position, 1.0)).xyzw;
+    float3 projected_world_pos = shadow_world_pos.xyz / shadow_world_pos.w;
 
-//    float4 shadow_world_pos = mul(LightCameraUniformData_Buffer.ViewProjectionMat, float4(world_position, 1.0)).xyzw;
-//    float3 projected_world_pos = shadow_world_pos.xyz / shadow_world_pos.w; 
+    if (projected_world_pos.x <= -0.99f || projected_world_pos.x >= 0.99f ||
+		projected_world_pos.y <= -0.99f || projected_world_pos.y >= 0.99f ||
+		projected_world_pos.z <= 0.0f || projected_world_pos.z >= 1.0f
+		)
+    {
+        return 0.0f;
+    }
 
-//    if (projected_world_pos.x <= -1.0f || projected_world_pos.x >= 1.0f ||
-//		projected_world_pos.y <= -1.0f || projected_world_pos.y >= 1.0f ||
-//		projected_world_pos.z <= 0.0f || projected_world_pos.z >= 1.0f
-//		)
-//    {
-//        return 0.0f;
-//    }
+    float2 projected_UV = float2(0.5f, 0.5f) + (float2(0.5f, -0.5f) * projected_world_pos.xy);
+    
+    float4 moments_value = ShadowMap_Texture.Sample(Clamp_Billinear_Sampler, float2(projected_UV.xy)).rgba;
 
-//    float2 projected_UV = float2(0.5f, 0.5f) + (float2(0.5f, -0.5f) * projected_world_pos.xy);
-
-//    float3 shadow_map_coord = float3(projected_UV.xy, projected_world_pos.z);
-//    float2 kernel_size = float2(1.f / LightCameraUniformData_Buffer.CameraViewportSize.x, 1.f / LightCameraUniformData_Buffer.CameraViewportSize.y);
-
-
-//    float shadow_intensity = DirectionLightUniform.DirectionalLightMiscData[0].z;
-
-//    return PCF(shadow_map_coord, kernel_size) * shadow_intensity;
-//}
+    return CalculateMSM(moments_value, projected_world_pos.z);
+}
 
 
 void PhongCalculateTotalLightFactor(float3 world_normal, float3 world_position, out float3 args_total_diffuse_power)
@@ -173,7 +137,8 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
     float3 world_position = position.xyz / position.w;
 
   
-
+    float shadow_factor = 0.f;
+    shadow_factor = CalculateShadowFactor(world_position);
   
 #if SAMPLE_COUNT > 1
     float3 albedo = Albedo_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
@@ -191,6 +156,8 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 
 
     PhongCalculateTotalLightFactor(world_normal, world_position, total_diffuse_power);
+
+    total_diffuse_power *= (1.0 - shadow_factor);
 
 
     //float3 final_color = total_diffuse_power * albedo;

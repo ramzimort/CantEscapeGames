@@ -149,6 +149,9 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	Texture* specular_texture = m_deferred_rts[DEFERRED_SPECULAR]->get_texture();
 	Texture* depth_texture = appRendererContext.m_appRendererInstance->m_depthRT->get_texture();
 
+	Buffer* lightUniformBuffer = m_appRenderer->m_momentShadowMapRendering.get_light_camera_uniform_buffer();
+	Texture* shadowmapTexture = m_appRenderer->m_momentShadowMapRendering.get_blurred_shadow_map_texture();
+
 	DescriptorData params[10] = {};
 
 	params[0].m_binding_location = 0;
@@ -186,7 +189,17 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
 	params[6].m_buffers = &m_appRenderer->m_directional_light_uniform_buffer;
 
-	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pipeline, 7, params);
+	params[7].m_binding_location = 2;
+	params[7].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[7].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[7].m_buffers = &lightUniformBuffer;
+
+	params[8].m_binding_location = 4;
+	params[8].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[8].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[8].m_textures = &shadowmapTexture;
+
+	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pipeline, 9, params);
 	m_dxrenderer->cmd_draw(6, 0);
 }
 
