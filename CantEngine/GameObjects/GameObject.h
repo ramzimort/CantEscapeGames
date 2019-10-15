@@ -13,7 +13,12 @@ Primary Author: Jose Rosenbluth
 #include "Memory/CantMemory.h"
 
 class GameObjectManager;
+struct GameObjectDesc;
 class ScriptingManager;
+
+//To call init on each go's components, we need to pass these two
+class AppRenderer;
+class ResourceManager;
 
 
 class GameObject
@@ -21,6 +26,8 @@ class GameObject
 
 public:
 	friend class Factory;
+	friend class GameObjectManager;
+	friend class ScriptingManager;
 	typedef std::bitset< MAX_NUM_COMPONENTS > ComponentMask;
 
 public:
@@ -39,10 +46,12 @@ public:
 	T* AddComponent();
 
 	//Special add comp for custom script component
-	CustomComponent *AddCustomComponent(const std::string& scriptName, 
-		ScriptingManager *luaMgr);
+	CustomComponent *AddCustomComponent(const std::string& scriptName);//, ScriptingManager *luaMgr);
 	CustomComponent *GetCustomComponent(std::string scriptName);
+	
+	//These will be called from LUA only
 	sol::table const& LuaGetCustomComponent(std::string scriptName);
+	sol::table LuaAddCustomComponent(std::string scriptName);
 
 	//Remove functions
 	void Destroy();
@@ -52,11 +61,18 @@ public:
 	ComponentMask GetComponentMask() const;
 	size_t GetId() const;
 	std::string GetTag() const;
+	GameObjectManager *GetGOManager();
 
 
 private:
 	//Begin methods, will call on all its components
 	void Begin();
+	void Init(AppRenderer *pRenderer, ResourceManager *pResMgr);
+
+	//Instantiate methods, for creation of go's from script
+	static GameObject *Instantiate(GameObjectManager *goMgr);
+	static GameObject *Instantiate(GameObjectManager *goMgr, 
+		std::string const& prefabName);
 
 
 //Variables
@@ -126,7 +142,6 @@ std::vector<T*> GameObject::GetAllComponents()
 template <typename T>
 T* GameObject::AddComponent()
 {
-	
 	BaseComponent::ComponentId componentTypeId = T::static_type;
  	T* component = CantMemory::PoolResource<T>::Allocate(this);
 	DEBUG_LOG("Type: %s, Size: %d, Alignment %d, Pointer: %p \n, ", typeid(T).name(), sizeof(T), alignof(T), component);

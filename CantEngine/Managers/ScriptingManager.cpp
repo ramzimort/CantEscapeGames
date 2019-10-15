@@ -10,6 +10,7 @@ Primary Author: Jose Rosenbluth
 #include "ScriptingManager.h"
 
 // BINDING INCLUDES
+#include "Events/Multicast.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/SystemManager.h"
 #include "GameObjects/GameObject.h"
@@ -20,7 +21,7 @@ Primary Author: Jose Rosenbluth
 //We will use this to print from LUA to out stream
 void printDebugAndLog(std::string msg)
 {
-	//OutputDebugString(msg.c_str());
+	OutputDebugString(msg.c_str());
 	DEBUG_LOG(msg.c_str());
 }
 
@@ -258,6 +259,17 @@ sol::table ScriptingManager::GetScriptDeepCopy(StringId scriptId)
 void ScriptingManager::ManageBindings()
 {
 	//////////////////////////////
+	////  MULTICAST           ////
+	//////////////////////////////
+	luaState.new_usertype<Multicast<void(void)>>
+	(
+		"Multicast",
+		sol::constructors< Multicast<void(void)>() >(),
+		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+		sol::meta_function::call, (&Multicast<void(void)>::operator())
+	);
+
+	//////////////////////////////
 	////  VECTORS & MATRICES  ////
 	//////////////////////////////
 	luaState.new_usertype<Vector3>
@@ -294,7 +306,8 @@ void ScriptingManager::ManageBindings()
 	////////////////////
 	////  SYSTEMS   ////
 	////////////////////
-	//GAMEOBJECTMANAGER
+
+	//SYSTEM MANAGER
 	luaState.new_usertype<SystemManager>
 	(
 		"SystemManager"
@@ -303,6 +316,37 @@ void ScriptingManager::ManageBindings()
 	///////////////////////
 	////  GAMEOBJECTS  ////
 	///////////////////////
+	//GAMEOBJECT
+	auto go_type = luaState.new_usertype<GameObject>
+	(
+		"GameObject",
+		//sol::constructors< GameObject(GameObjectManager *goMgr) >(),
+		"GetTag", &GameObject::GetTag,
+		"GetId", &GameObject::GetId,
+		"Manager", &GameObject::GetGOManager,
+		//Static Instantiation Methods
+		"Instantiate", sol::overload(
+			sol::resolve<GameObject*(GameObjectManager *)>(&GameObject::Instantiate),
+			sol::resolve<GameObject*(GameObjectManager*, std::string const&)>(&GameObject::Instantiate)),
+		//Get scripted and engine components
+		"GetCustomComp",          &GameObject::LuaGetCustomComponent,
+		"GetRigidbodyComp",       &GameObject::GetComponent<RigidbodyComponent>,
+		"GetRendererComp",        &GameObject::GetComponent<RendererComponent>,
+		"GetMeshComp",            &GameObject::GetComponent<MeshComponent>,
+		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
+		"GetCameraComp",          &GameObject::GetComponent<CameraComponent>,
+		"GetParticleEmitterComp", &GameObject::GetComponent<ParticleEmitterComponent>,
+		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
+		//Add scripted and engine components
+		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
+		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
+		"AddRendererComp",        &GameObject::AddComponent<RendererComponent>,
+		"AddMeshComp",            &GameObject::AddComponent<MeshComponent>,
+		"AddLightComp",           &GameObject::AddComponent<LightComponent>,
+		"AddCameraComp",          &GameObject::AddComponent<CameraComponent>,
+		"AddParticleEmitterComp", &GameObject::AddComponent<ParticleEmitterComponent>,
+		"AddTransformComp",       &GameObject::AddComponent<TransformComponent>
+	);
 
 	//GAMEOBJECTMANAGER
 	luaState.new_usertype<GameObjectManager>
@@ -316,12 +360,20 @@ void ScriptingManager::ManageBindings()
 	////  COMPONENTS  ////
 	//////////////////////
 
+	//TRANSFORM
 	luaState.new_usertype<TransformComponent>
 	(
 		"TransformComponent",
-		//"Translate", sol::overload(&TransformComponent::Translate,&TransformComponent::Translate),
-		//"Rotate", sol::overload(&TransformComponent::Rotate, &TransformComponent::Rotate),
-		//"Scale", sol::overload(&TransformComponent::Scale, &TransformComponent::Scale, &TransformComponent::Scale),
+		"Translate", sol::overload(
+			sol::resolve<void(Vector3 const&)>(&TransformComponent::Translate),
+			sol::resolve<void(float, float, float)>(&TransformComponent::Translate)),
+		"Rotate", sol::overload(
+			sol::resolve<void(Vector3 const&)>(&TransformComponent::Rotate), 
+			sol::resolve<void(float, float, float)>(&TransformComponent::Rotate)),
+		"Scale", sol::overload(
+			sol::resolve<void(Vector3 const&)>(&TransformComponent::Scale), 
+			sol::resolve<void(float, float, float)>(&TransformComponent::Scale),
+			sol::resolve<void(float)>(&TransformComponent::Scale)),
 		"GetWorldPosition", &TransformComponent::GetWorldPosition,
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,
@@ -329,23 +381,45 @@ void ScriptingManager::ManageBindings()
 		"GetModel", &TransformComponent::GetModel,
 		"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
 		"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
-		//"SetLocalPosition", sol::overload(&TransformComponent::SetLocalPosition, &TransformComponent::SetLocalPosition),
+		"SetLocalPosition", sol::overload(
+			sol::resolve<void(Vector3 const&)>(&TransformComponent::SetLocalPosition),
+			sol::resolve<void(float, float, float)>(&TransformComponent::SetLocalPosition)),
 		"SetLocalRotation", &TransformComponent::SetLocalRotation
 	);
-	//Setting variables ( GET - SET )
-	//testComp_type["hp"] = sol::property(&TestComp::hp, &TestComp::hp);
-	// read-write vars (public)
-	//testComp_type["testName"] = &TestComp::testName;
-	// Other way to set shit (const?)
-	//testComp_type.set("hp2", sol::readonly(&TestComp::hp2));
 
-
-	//GAMEOBJECT
-	auto go_type = luaState.new_usertype<GameObject>
+	//RIGIDBODY
+	luaState.new_usertype<RigidbodyComponent>
 	(
-		"GameObject",
-		sol::constructors< GameObject(GameObjectManager *goMgr) >(),
-		"GetTag", &GameObject::GetTag,
-		"GetCustomComp", &GameObject::LuaGetCustomComponent
+		"RigidbodyComponent"	
+	);
+
+	//RENDERER
+	luaState.new_usertype<RendererComponent>
+	(
+		"RendererComponent"
+	);
+
+	//MESH
+	luaState.new_usertype<MeshComponent>
+	(
+		"MeshComponent"
+	);
+
+	//LIGHT
+	luaState.new_usertype<LightComponent>
+	(
+		"LightComponent"
+	);
+
+	//RIGIDBODY
+	luaState.new_usertype<CameraComponent>
+	(
+		"CameraComponent"
+	);
+
+	//PARTICLE_EMITTER
+	luaState.new_usertype<ParticleEmitterComponent>
+	(
+		"ParticleEmitterComponent"
 	);
 }

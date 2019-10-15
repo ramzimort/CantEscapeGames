@@ -25,7 +25,7 @@ Primary Author:
 // Helper function
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
-void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go, ScriptingManager* luaMgr);
+void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go);//, ScriptingManager* luaMgr);
 
 Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr) : 
 	m_pResourceManager(resMgr),	m_pDXRenderer(dxrenderer)
@@ -154,7 +154,7 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 			std::string compName = componentIterator->name.GetString();
 			if (compName == "Scripts")
 			{
-				LoadScripts(componentIterator->value.GetArray(), go, luaMgr);
+				LoadScripts(componentIterator->value.GetArray(), go);//, luaMgr);
 			}
 			else
 			{
@@ -162,11 +162,15 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 				CantReflect::ReadRecursive(comp, componentIterator->value);
 				BaseComponent* baseComp = comp.get_value<BaseComponent*>();
 
+				// INIT NOW IS CALLED IN THE GAMEOBJ MGR INSTANTIATE METHOD <****>
 				//Need to call Init() may need to pass resMgr into Init() to connect any models
-				comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
+				///comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
 			}
 		}
-		go->Begin();
+
+		// BEGIN IS NOT GOING TO BE CALLED ON GAMEOBJ MGR INSTANTIATE METHOD <****>
+		///go->Begin();
+
 	};
 	goMgr->Queue_GameObject_Instantiation(&desc);
 }
@@ -291,7 +295,7 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 	return rttr::variant();
 }
 
-void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go,  ScriptingManager* luaMgr)
+void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go)//, ScriptingManager* luaMgr)
 {
 	// Read Name
 	auto it = scripts.begin();
@@ -301,7 +305,7 @@ void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go,  Script
 		auto script = it->GetObjectA();
 		assert(script.HasMember("Name"));
 		const std::string& scriptName = script["Name"].GetString();
-		CustomComponent *c1 = go->AddCustomComponent(scriptName, luaMgr);
+		CustomComponent *c1 = go->AddCustomComponent(scriptName);// , luaMgr);
 		
 		// Overrides
 		if (script.HasMember("Overrides"))
@@ -336,8 +340,10 @@ void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go,  Script
 				}
 			}
 		}
+
+		// INIT NOW IS CALLED IN THE GAMEOBJ MGR INSTANTIATE METHOD <****>
 		// Init call per script
-		c1->Init(0, nullptr);
+		///c1->Init(0, nullptr);
 	}
 
 }

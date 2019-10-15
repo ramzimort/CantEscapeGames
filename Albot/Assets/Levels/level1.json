@@ -33,8 +33,9 @@
       "Assets/Prefabs/mini_map.json"
     ],
     "Scripts": [
-      "Scripts/Test/test01Comp.lua",
-      "Scripts/Test/test02Comp.lua"
+      "Scripts/States/level1.lua",
+      "Scripts/Components/test01Comp.lua",
+      "Scripts/Components/test02Comp.lua"
     ]
   },
   "Objects": [
@@ -149,7 +150,7 @@
       "overrides": {
         "Scripts": [
           {
-            "Name": "Scripts/Test/test01Comp.lua",
+            "Name": "Scripts/Components/test01Comp.lua",
             "Overrides": {
               "hashed": "Marcos comp1 OVERRIDE!",
               "ranked": 512
@@ -176,7 +177,7 @@
       "overrides": {
         "Scripts": [
           {
-            "Name": "Scripts/Test/test01Comp.lua",
+            "Name": "Scripts/Components/test01Comp.lua",
             "Overrides": {
               "hashed": "ANDRES comp01 OVERRIDE!",
               "ranked": -1024

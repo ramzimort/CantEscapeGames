@@ -47,4 +47,7 @@ protected:
 public:
 	//To compare when using templates
 	static unsigned int const static_type;
+
+private:
+	float totalTime;
 };

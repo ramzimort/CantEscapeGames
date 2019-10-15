@@ -47,6 +47,8 @@ public:
 
 	void operator() (PARAMS ... params)
 	{
+		OutputDebugString("CALLED MULTICAST FROM LUA"); //TODO - REMOVE ****
+
 		for (auto *suscriber : suscribers)
 		{
  			(*suscriber)(params ...);
@@ -63,6 +65,16 @@ public:
 		suscribers.push_back(d);
 
 		return *this;
+	}
+
+
+	void BindLuaFunction(sol::state const& state, std::string name)
+	{	
+	}
+
+
+	void UnbindLuaFunction(std::string name)
+	{
 	}
 
 
@@ -84,4 +96,5 @@ public:
 private:
 	//Cpp suscribers
 	Delegates_List_Type suscribers;
+	std::list<sol::table> lua_suscribers;
 };

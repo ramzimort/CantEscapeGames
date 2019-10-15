@@ -15,6 +15,7 @@ Primary Author:
 
 class GameObjectManager;
 class ScriptingManager;
+class KeyEvent;
 
 
 class CustomComponent : public BaseComponent
@@ -44,6 +45,9 @@ public:
 	template<typename T>
 	void Override(std::string member, T value);
 
+	//Even on key down
+	//void AnyFunction(const KeyEvent *keyEvent);
+
 public:
 	//Unique class identifier
 	static ComponentId const static_type; //TODO
@@ -54,7 +58,6 @@ private:
 
 	//It needs a reference or pointer to the lua state
 	sol::table m_luaScriptTable;
-
 };
 
 

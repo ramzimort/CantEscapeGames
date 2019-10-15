@@ -12,12 +12,14 @@ unsigned const CustomComponent::static_type = static_cast<unsigned>(-1);
 #include "GameObjects/GameObject.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/ScriptingManager.h"
-
+#include "Events/Input/KeyEvent.h"
+#include "Managers/EventManager.h"
 
 
 CustomComponent::CustomComponent(GameObject *owner) :
 	BaseComponent(owner, CustomComponent::static_type)
 {
+	//EventManager::Get()->SubscribeEvent<KeyEvent>(this, std::bind(&CustomComponent::AnyFunction, this, std::placeholders::_1));
 }
 
 

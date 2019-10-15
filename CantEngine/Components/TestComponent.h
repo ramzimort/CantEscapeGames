@@ -41,5 +41,6 @@ public:
 	static ComponentId const static_type;
 
 	//Multicast testing
-	Multicast<void(float)> onWhateverFires;
+	Multicast<void(std::string, float)> onWhateverFires;
+
 };

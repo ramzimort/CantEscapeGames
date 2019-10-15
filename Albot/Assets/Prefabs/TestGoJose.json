@@ -1,19 +1,19 @@
 {
   "TransformComponent": {
-    "Position": [0.0, 0.0, 20.0 ],
-    "Rotation": [ 0.0, 0.0, 0.0 ],
-    "Scale": [ 1.0, 1.0, 1.0 ]
+    "Position": [ 10.0, 20.0, 30.0 ],
+    "Rotation": [ 90.0, 180.0, 270.0 ],
+    "Scale": [ 3.0, 1.0, 2.0 ]
   },
   "Scripts": [
     {
-      "Name": "Scripts/Test/test01Comp.lua",
+      "Name": "Scripts/Components/test01Comp.lua",
       "Overrides": {
         "hashed": "ANDRES NOT OVERRIDEN!",
         "ranked": -777
       }
     },
     {
-      "Name": "Scripts/Test/test02Comp.lua",
+      "Name": "Scripts/Components/test02Comp.lua",
       "Overrides": {
         "hashed": "ANDRES COMP 2 NOT OVERRIDEN!",
         "ranked": -555

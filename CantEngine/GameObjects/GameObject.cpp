@@ -9,6 +9,10 @@ Primary Author: Jose Rosenbluth
 #include "GameObject.h"
 #include "Managers/GameObjectManager.h"
 
+//To call init on each go's components, we need to pass these two
+#include "Graphics/AppRenderer.h"
+#include "Managers/ResourceManager.h"
+
 
 // Initialize static member of class
 int GameObject::go_count = 0;
@@ -96,7 +100,26 @@ void GameObject::Begin()
 }
 
 
-CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	ScriptingManager *luaMgr)
+void GameObject::Init(AppRenderer *pRenderer, ResourceManager *pResMgr)
+{
+	//Engine components init call
+	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i)
+	{
+		BaseComponent *c = m_components[i];
+		if (c)
+			c->Init(pResMgr, pRenderer->GetDXRenderer());
+	}
+
+	//Scripted begin call
+	for (auto& node : m_customComponents)
+	{
+		if (node.second) //TODO - figure out why this being filled even with null
+			node.second->Init(pResMgr, pRenderer->GetDXRenderer());
+	}
+}
+
+
+CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName)//, ScriptingManager *luaMgr)
 {
 	//Get the correct script name from the path
 	size_t index = scriptName.find_last_of("/\\");
@@ -114,7 +137,7 @@ CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName, 	
 	//If it was created correctly
 	if (component)
 	{
-		component->ScriptSetup(scriptName, name, luaMgr);
+		component->ScriptSetup(scriptName, name, this->m_gameObjectMgr->GetScriptingManager());
 		m_customComponents[name] = component;
 		return component;
 	}
@@ -136,4 +159,58 @@ sol::table const& GameObject::LuaGetCustomComponent(std::string scriptName)
 		return comp->getCustomCompLuaRef();
 	}
 	return  refHolder;
+}
+
+
+sol::table GameObject::LuaAddCustomComponent(std::string scriptName)
+{
+	//First see if it already exist on the gameobj customComponents
+	CustomComponent *comp = GetCustomComponent(scriptName);
+	if (comp)
+		return comp->getCustomCompLuaRef();
+
+	//If it does not exist, create it and add it
+	comp = CantMemory::PoolResource<CustomComponent>::Allocate(this);
+
+	//If it was created correctly
+	if (comp)
+	{
+		std::string wholePath = "Scripts/Components/" + scriptName + ".lua";
+		comp->ScriptSetup(wholePath, scriptName, this->m_gameObjectMgr->GetScriptingManager());
+		m_customComponents[scriptName] = comp;
+		return comp->getCustomCompLuaRef();
+	}
+
+	//If creation failed, return this empty table ref
+	return  refHolder;
+}
+
+
+GameObjectManager *GameObject::GetGOManager() 
+{
+	return this->m_gameObjectMgr;
+}
+
+
+//////////////////////////////////////////////////////////////
+////             INSTANTIATION                            ////
+//////////////////////////////////////////////////////////////
+
+GameObject *GameObject::Instantiate(GameObjectManager *goMgr)
+{
+	GameObject *go = new GameObject(goMgr);
+	if (go == nullptr)
+		return go;
+
+	//Add to the goMgr's list of scripted Intantiations
+	goMgr->AddToScriptInstantiateQueue(go);
+	
+	//Return the pointer
+	return go;
+}
+
+GameObject *GameObject::Instantiate(GameObjectManager *goMgr, std::string const& prefabName)
+{
+	//TODO - Not yet implemented
+	return nullptr;
 }

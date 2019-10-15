@@ -54,8 +54,12 @@ void TestSystem::Update(float dt, BaseSystemCompNode *compNode)
 	}
 
 	//UPDATE CODE GOES HERE
-	T->onWhateverFires += delegate<void(float)>::Create < TestSystem, &TestSystem::printFloat > (this);
-	T->onWhateverFires(dt);
+	totalTime += dt;
+	if (dt >= 5.0f) 
+	{
+		T->onWhateverFires("Delegate fired from test system!", totalTime);
+		totalTime = 0.0f;
+	}
 }
 
 void TestSystem::printFloat(float a) 

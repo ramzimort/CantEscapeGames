@@ -34,8 +34,20 @@ public:
 	void ProcessInstantiationAndDestruction();
 
 private:
+	//Scripted calls
+	///void CallOnEnterState();
+	void CallOnExitState();
+
+private:
 	Factory *m_factory;
 	GameObjectManager *m_gameObjectMgr;
 	SystemManager *m_systemMgr;
+
+	// For the init call, I need the state to hold 
+	// a ptr to the resMgr and the renderer
+	AppRenderer *m_pRenderer;
+	ResourceManager *m_pResMgr;
+
+	sol::table m_stateScript;
 };
 

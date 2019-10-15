@@ -9,14 +9,18 @@ Primary Author: Jose Rosenbluth
 #include "GameObjectManager.h"
 #include "GameObjects/GameObject.h"
 #include "Memory/CantMemory.h"
-
-//TODO - delete when replacing for a message
 #include "SystemManager.h"
+#include "ScriptingManager.h"
+
+//To call init on each go's components, we need to pass these two
+#include "Graphics/AppRenderer.h"
+#include "Managers/ResourceManager.h"
 
 
-GameObjectManager::GameObjectManager(SystemManager *sysMgr)
+GameObjectManager::GameObjectManager(SystemManager *sysMgr, ScriptingManager *luaMgr)
 {
 	this->m_systemMgr = sysMgr;
+	this->m_luaMgr = luaMgr;
 }
 
 GameObjectManager::~GameObjectManager()
@@ -42,46 +46,85 @@ void GameObjectManager::Queue_GameObject_Destruction(size_t go_id)
 }
 
 //Once a frame, this method will empty the instantiaion and destroy queues
-void GameObjectManager::ProcessQueues() 
+void GameObjectManager::ProcessQueues(AppRenderer *pRenderer, ResourceManager *pResMgr)
 {
 	//Destroy all objs
 	Destroy_Queued_GameObjects();
 
 	//Instantiate all objs
-	Instantiate_Queued_GameObjects();
+	Instantiate_Queued_GameObjects(pRenderer, pResMgr);
 }
 
 //TODO - When replacing for message, we can remove the sysMgr param
-void GameObjectManager::Instantiate_Queued_GameObjects() 
+void GameObjectManager::Instantiate_Queued_GameObjects(AppRenderer *pRenderer, ResourceManager *pResMgr)
 {
+	//This will hold the new instances, so we 
+	//can later call begin on all the new ones
+	std::vector<GameObject*> newGameObjects;
+
+	//First, go through the queue and create new instances
 	while (!m_instantiationQueue.empty())
 	{
 		//Dequeue the elements of the queue
-		GameObjectDesc descriptor = m_instantiationQueue.front();
-		m_instantiationQueue.pop();
+		GameObjectDesc& descriptor = m_instantiationQueue.front();
 
-		//Create the new GameObject
-		GameObject *go;
-		std::string const& tag = descriptor.tag;
-		if (tag == "")
-			go = new GameObject(this);
-		else 
-		{
-			go = new GameObject(this, tag);
-			if (m_taggedGameObjs.find(tag) == m_taggedGameObjs.end())
-				m_taggedGameObjs[tag] = go;
-		}
-		
+		//Create the new GameObject and handle tag
+		GameObject *go = (descriptor.tag == "") ? new GameObject(this) : new GameObject(this, descriptor.tag);
 		if (go) 
 		{
+			//Lambda call
 			descriptor.initializeComponentSetup(go);
 
-			//Register on the system
-			m_systemMgr->RegisterGameObject(go);
-
-			//Finally, add to map of gameObjects
-			this->m_gameObjects[go->GetId()] = go;
+			//Registering for the new GO
+			CompleteGORegistration(go, pRenderer, pResMgr,
+				newGameObjects);
 		}
+
+		m_instantiationQueue.pop();
+	}
+
+	// Second, go through scriptedInstances
+	for (GameObject *go : m_scriptedInstances)
+		CompleteGORegistration(go, pRenderer, pResMgr, 
+			newGameObjects);
+	m_scriptedInstances.clear();
+
+
+	//Finally, need to call begin on all new gameObjects
+	//Only on those created this frame
+	this->CallBeginOnNewInstances(newGameObjects);
+}
+
+
+
+void GameObjectManager::CompleteGORegistration(GameObject *go, AppRenderer *pRenderer, 
+	ResourceManager *pResMgr, std::vector<GameObject*>& newGameObjects)
+{
+	//Call Init
+	go->Init(pRenderer, pResMgr);
+
+	//Check if the GO is tagged, and add it to the 
+	std::string const& tag = go->GetTag();
+	if (tag != "" && m_taggedGameObjs.find(tag) == m_taggedGameObjs.end())
+		m_taggedGameObjs[tag] = go;
+
+	//Suscribe to systems
+	m_systemMgr->RegisterGameObject(go);
+
+	//Add to the main list
+	this->m_gameObjects[go->GetId()] = go;
+
+	//Add to newgo list
+	newGameObjects.push_back(go);
+}
+
+
+
+void GameObjectManager::CallBeginOnNewInstances(std::vector<GameObject*> const& newGameObjects) 
+{
+	for (GameObject *go : newGameObjects) 
+	{
+		go->Begin();
 	}
 }
 
@@ -100,6 +143,10 @@ GameObject *GameObjectManager::FindGameObject(std::string const& tag)
 	return nullptr;
 }
 
+void GameObjectManager::AddToScriptInstantiateQueue(GameObject *scriptedGO)
+{
+	this->m_scriptedInstances.push_back(scriptedGO);
+}
 
 void GameObjectManager::Destroy_Queued_GameObjects() 
 {
@@ -123,4 +170,11 @@ void GameObjectManager::Destroy_Queued_GameObjects()
 			delete go;
 		}
 	}
+}
+
+
+//Get LuaMgr (So gameobj can get them when trying to instantiate objs)
+ScriptingManager *GameObjectManager::GetScriptingManager() const
+{
+	return this->m_luaMgr;
 }

@@ -50,7 +50,13 @@ std::string& ResourceManager::GetPrefab(StringId prefabId)
 
 sol::table& ResourceManager::GetScript(StringId scriptId)
 {
-	return *(static_cast<sol::table*>(m_resources[scriptId]));
+	//return *(static_cast<sol::table*>(m_resources[scriptId]));
+
+	auto node = m_resources.find(scriptId);
+	if (node == m_resources.end())
+		return refHolder;
+	else
+		return *static_cast<sol::table*>(node->second);
 }
 
 void ResourceManager::LoadModel(const std::string& filePath)

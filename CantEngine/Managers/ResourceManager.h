@@ -34,5 +34,8 @@ private:
 	ResourceMap m_resources;
 	DXRenderer* m_dxrenderer;
 	sol::state* m_pSolState;
+
+	//For scripting
+	sol::table refHolder;
 };
 

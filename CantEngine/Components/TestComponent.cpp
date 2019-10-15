@@ -16,14 +16,12 @@ RTTR_REGISTRATION
 {
 }
 
-
-
 TestComp::TestComp(GameObject *owner) : 
 	BaseComponent(owner, TestComp::static_type) 
 {
 }
 
-TestComp::~TestComp() 
+TestComp::~TestComp()
 {
 }
 

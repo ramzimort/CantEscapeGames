@@ -73,7 +73,7 @@ void TransformComponent::Translate(float dx, float dy, float dz)
 
 
 ///////////////////////////////////////////////////////
-////           ROTATE METHODS                      ////
+////           ROTATE METHODS (DEGREES)            ////
 ///////////////////////////////////////////////////////
 void TransformComponent::Rotate(Vector3 const& rotation)
 {
@@ -116,7 +116,7 @@ void TransformComponent::Scale(float x, float y, float z)
 
 
 ///////////////////////////////////////////////////////
-////         SETTERS METHODS                       ////
+////    SETTERS METHODS    (Rotation in degrees)   ////
 ///////////////////////////////////////////////////////
 
 

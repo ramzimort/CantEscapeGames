@@ -20,10 +20,10 @@ StateManager::~StateManager()
 
 void StateManager::UpdateStack(float dt)
 {
-	//Update only happens on top state
 	size_t index = m_stateStack.size() - 1;
-
 	State *topState = m_stateStack[index];
+
+	//Update only STATE on top of stack
 	topState->Update(dt);
 }
 
@@ -34,6 +34,7 @@ void StateManager::DrawStack(float dt)
 
 	for (int i = 0; i < m_stateStack.size(); ++i)
 	{
+		//Draw call is the one that will pass the relevant info to the graphics manager
 		State *state = m_stateStack[i];
 		state->Draw(dt);
 	}
