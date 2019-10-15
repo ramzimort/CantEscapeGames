@@ -51,6 +51,7 @@ public:
 	void RegisterDebugLineInstance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color);
 	void RegisterDebugLineInstance(const DebugLineInstance& line_instance);
 	void RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance);
+	void RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance);
 	
 	void Update(float dt);
 	void LoadContent(DXRenderer* dxrenderer);
@@ -59,7 +60,7 @@ private:
 	void RenderDebugAABBScene();
 	void RenderDebugLineScene();
 	
-	void RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance);
+	
 private:
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
@@ -78,7 +79,6 @@ private:
 
 	std::vector<Vector3> m_raw_line_vertices;
 
-	//TODO:
 	DebugSphereInstanceList m_debug_sphere_list;
 };
 

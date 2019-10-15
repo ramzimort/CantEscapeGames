@@ -32,15 +32,15 @@ void BlurImagePass::BlurImage(Texture* input_texture, Texture* intermediate_text
 	m_dxrenderer->cmd_bind_pipeline(m_blur_pipeline);
 
 	
-	m_vertical_blur_uniform_data.BlurWidth = m_horizontal_blur_uniform_data.BlurWidth = m_blur_width;
-	m_vertical_blur_uniform_data.BlurWidth2 = m_horizontal_blur_uniform_data.BlurWidth2 =  m_blur_width * 2;
+	m_vertical_blur_uniform_data.BlurWidth = m_horizontal_blur_uniform_data.BlurWidth = (float)m_blur_width;
+	m_vertical_blur_uniform_data.BlurWidth2 = m_horizontal_blur_uniform_data.BlurWidth2 =  (float)m_blur_width * 2;
 
 
 	uint32_t s_val = m_blur_width / 2;
 
 	float weight_result = 0;
 	uint32_t cur_index = 0;
-	for (int32_t i = -m_horizontal_blur_uniform_data.BlurWidth; i <= m_horizontal_blur_uniform_data.BlurWidth; ++i)
+	for (int32_t i = (int32_t)(-m_horizontal_blur_uniform_data.BlurWidth); i <= (int32_t)(m_horizontal_blur_uniform_data.BlurWidth); ++i)
 	{
 		float i_over_s = (static_cast<float>(i) / static_cast<float>(s_val));
 		float i_over_s_power2 = std::pow(i_over_s, 2.f);
@@ -155,15 +155,15 @@ void BlurImagePass::LoadContent(DXRenderer* dxrenderer)
 	
 
 	BlurUniformData blur_uniform_data = {};
-	blur_uniform_data.BlurWidth = m_blur_width;
-	blur_uniform_data.BlurWidth2 = m_blur_width * 2;
+	blur_uniform_data.BlurWidth = (float)m_blur_width;
+	blur_uniform_data.BlurWidth2 = (float)m_blur_width * 2;
 	
 
 	uint32_t s_val = m_blur_width / 2;
 
 	float weight_result = 0;
 	uint32_t cur_index = 0;
-	for (int32_t i = -blur_uniform_data.BlurWidth; i <= blur_uniform_data.BlurWidth; ++i)
+	for (int32_t i = (int32_t)(-blur_uniform_data.BlurWidth); i <= (int32_t)(blur_uniform_data.BlurWidth); ++i)
 	{
 		float i_over_s = (static_cast<float>(i) / static_cast<float>(s_val));
 		float i_over_s_power2 = std::pow(i_over_s, 2.f);

@@ -550,12 +550,8 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_gameTime += dt;
 
 	DEBUG_CHECKBOX("Draw Mesh", &GraphicsSettings::Draw_Mesh_Flag);
-	DEBUG_CHECKBOX("Draw Debug AABB", &GraphicsSettings::Draw_Mesh_AABB_Flag);
-
-	for (const auto& pair : m_appRendererInstances)
-	{
-		pair.second->Update(dt);
-	}
+	DEBUG_CHECKBOX("Draw Debug AABB", &GraphicsSettings::Draw_Debug_Mesh_AABB_Flag);
+	DEBUG_CHECKBOX("Draw Debug Sphere", &GraphicsSettings::Draw_Debug_Mesh_Sphere_Flag);
 
 	size_t direction_light_num = m_directionLightInstanceList.size();
 	if (direction_light_num > 0)
@@ -577,6 +573,11 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_deferrredRendering.Update(dt);
 	m_debugRendering.Update(dt);
 	m_particleRendering.Update(dt, m_gameTime);
+
+	for (const auto& pair : m_appRendererInstances)
+	{
+		pair.second->Update(dt);
+	}
 }
 void AppRenderer::RenderApp()
 {
@@ -623,6 +624,7 @@ void AppRenderer::RenderApp()
 	ResolveAppRendererInstances();
 
 	m_directionLightInstanceList.clear();
+	m_pointLightInstanceList.clear();
 	m_basicInstances.clear();
 	m_haloEffectInstanceList.clear();
 	m_debugRendering.ClearInstances();
@@ -728,6 +730,11 @@ void AppRenderer::RegisterDirectionalLightInstance(const DirectionalLightInstanc
 void AppRenderer::RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData)
 {
 	m_haloEffectInstanceList.push_back(haloEffectData);
+}
+
+void AppRenderer::RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData)
+{
+	m_pointLightInstanceList.push_back(pointLightInstanceData);
 }
 
 void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,

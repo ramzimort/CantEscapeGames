@@ -62,9 +62,6 @@ public:
 	friend class DebugRenderingInstance;
 	friend class ParticleRenderingInstance;
 	friend class AppRendererInstance;
-
-	typedef std::vector<PointLightInstanceData> PointLightInstanceDataList;
-	typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;
 public:
 	AppRenderer(SDL_Window& sdlWindow, ResourceManager* resourceManager, 
 		CameraManager* cameraManager);
@@ -85,6 +82,7 @@ public:
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
 	void RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData);
+	void RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData);
 
 	void LoadContent();
 private:
@@ -167,7 +165,7 @@ private:
 
 	Buffer* m_directional_light_uniform_buffer;
 	DirectionalLightInstanceDataList m_directionLightInstanceList;
-	PointLightInstanceDataList m_point_light_instance_list;
+	PointLightInstanceDataList m_pointLightInstanceList;
 
 	HaloEffectInstanceList m_haloEffectInstanceList;
 	

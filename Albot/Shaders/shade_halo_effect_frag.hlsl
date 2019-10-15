@@ -24,7 +24,7 @@ cbuffer CameraUniformData_CB : register(b0)
 };
 
 
-float CalculateHaloFactor(PS_IN ps_in)
+float CalculateHaloFactor(PS_IN ps_in, uint sample_index)
 {
     float r_pow2 = ps_in.HaloMiscData.x;
     float3 view_direction = ps_in.CameraPosObjectSpace.xyz - ps_in.ObjectSpacePos.xyz;
@@ -33,7 +33,7 @@ float CalculateHaloFactor(PS_IN ps_in)
     float pv = -dot(ps_in.ObjectSpacePos, view_direction);
     float m = sqrt(max(pv * pv - view_pow2 * (position_pow2 - r_pow2), 0.0));
 
-    float2 depth = StructureBuffer_Texture.Load(float2(ps_in.Position.xy), 0).zw;
+    float2 depth = StructureBuffer_Texture.Load(float2(ps_in.Position.xy), sample_index).zw;
 
     float t1 = 0.f;
     float t2 = 0.f;
@@ -67,13 +67,13 @@ float CalculateHaloFactor(PS_IN ps_in)
 
 
 
-PS_OUT main(PS_IN ps_in)
+PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 {
     PS_OUT ps_out;
    
 
     float4 final_color = float4(0.0, 0.0, 0.0, 0.0);
-    float halo_brightness = CalculateHaloFactor(ps_in);
+    float halo_brightness = CalculateHaloFactor(ps_in, sample_index);
 
     final_color += float4(ps_in.HaloColor, 1.0) * (halo_brightness);
     ps_out.Color = final_color;

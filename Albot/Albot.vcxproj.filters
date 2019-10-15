@@ -60,6 +60,7 @@
     <None Include="Assets\Prefabs\brick_wall.json" />
     <None Include="Assets\Materials\Red_Brick_Material.json" />
     <None Include="Assets\Prefabs\mini_map.json" />
+    <None Include="Assets\Prefabs\Lights\point_light.json" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\shade_halo_effect_frag.hlsl" />

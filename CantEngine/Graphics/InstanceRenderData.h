@@ -52,3 +52,5 @@ struct ParticleEmitterInstanceData
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
 typedef std::vector<InstanceRenderData> InstanceRenderList;
 typedef std::vector< HaloEffectInstanceData> HaloEffectInstanceList;
+typedef std::vector< PointLightInstanceData > PointLightInstanceDataList;
+typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;

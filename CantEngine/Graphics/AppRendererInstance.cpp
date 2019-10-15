@@ -155,9 +155,9 @@ void AppRendererInstance::LoadContent()
 
 void AppRendererInstance::Update(float dt)
 {
-	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 	Camera& mainCamera =  m_context.m_cameraInfo.m_camera;
 
+	const TextureDesc& finalTextureDesc = m_finalOutputRT->get_desc().m_texture_desc;
 	Vector3 camera_pos = mainCamera.GetCameraPosition();
 	m_camera_uniform_data.CameraPosition = MathUtil::v3_to_v4(camera_pos, 1.f);
 	m_camera_uniform_data.ViewMat = mainCamera.GetViewMatrix();
@@ -166,8 +166,8 @@ void AppRendererInstance::Update(float dt)
 	m_camera_uniform_data.InvViewMat = mainCamera.GetInvViewMatrix();
 	m_camera_uniform_data.ViewProjectionMat = mainCamera.GetViewProjectionMatrix();
 	m_camera_uniform_data.InvViewProjectionMat = mainCamera.GetInvViewProjectionMatrix();
-	m_camera_uniform_data.CameraViewportSize = Vector2((float)swap_chain_rt->get_desc().m_texture_desc.m_width,
-		(float)swap_chain_rt->get_desc().m_texture_desc.m_height);
+	m_camera_uniform_data.CameraViewportSize = Vector2((float)finalTextureDesc.m_width,
+		(float)finalTextureDesc.m_height);
 
 	m_debugRenderingInstance->Update(m_context, dt);
 }
@@ -194,7 +194,6 @@ void AppRendererInstance::Render()
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
 	m_deferredRenderingInstance->Render(m_context);
-
 	m_particleRenderingInstance->Render(m_context);
 
 	LoadActionsDesc next_load_actions_desc = {};
@@ -213,7 +212,7 @@ void AppRendererInstance::Render()
 		m_msaaResolvePassInstance->Render(m_context);
 	}
 
-	m_deferredRenderingInstance->RenderPostMSAAHaloEffect(m_context);
+	
 
 	m_debugRenderingInstance->Render(m_context);
 }

@@ -9,7 +9,7 @@ public:
 	~DeferredRenderingInstance();
 
 	void Render(const AppRendererContext& appRendererContext);
-	void RenderPostMSAAHaloEffect(const AppRendererContext& appRenderereContext);
+	void RenderHaloEffect(const AppRendererContext& appRenderereContext);
 	void Initialize(const AppRendererContext& appRendererContext);
 	void LoadContent(const AppRendererContext& appRendererContext);
 	void Release();

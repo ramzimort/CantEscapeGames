@@ -24,7 +24,8 @@
       "Assets/Prefabs/mono_azul.json",
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",
-      "Assets/Prefabs/directional_light.json",
+      "Assets/Prefabs/Lights/directional_light.json",
+      "Assets/Prefabs/Lights/point_light.json",
       "Assets/Prefabs/RBTestObj.json",
       "Assets/Prefabs/player.json",
       "Assets/Prefabs/TestGoJose.json",
@@ -69,6 +70,26 @@
       }
     },
     {
+      "tag": "albertobj2",
+      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -10.0, 1.0, -10.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "albertobj3",
+      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 10.0, 1.0, -10.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    {
       "tag": "red_brick_floor",
       "prefab": "Assets/Prefabs/brick_wall.json",
       "overrides": {
@@ -88,6 +109,28 @@
         "RigidBodyComponent": {
           "IsEffectedByGravity": 1,
           "Velocity": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+
+    {
+      "tag": "point_light1",
+      "prefab": "Assets/Prefabs/Lights/point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 5.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        }
+      }
+    },
+
+    {
+      "tag": "point_light2",
+      "prefab": "Assets/Prefabs/Lights/point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 15.0, 5.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
         }
       }
     },
@@ -112,7 +155,7 @@
       "overrides": {
         "CameraComponent": {
           "Camera": {
-            "Position": [ 0.0, 100.0, 0.0 ],
+            "Position": [ 0.0, 30.0, 0.0 ],
             "LookDir": [ 0.0, -1.0, 0.1 ]
           }
         }

@@ -237,13 +237,13 @@ void DeferredRendering::Update(float dt)
 
 void DeferredRendering::UpdateUniformBuffer()
 {
-	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_point_light_instance_list.size());
+	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_pointLightInstanceList.size());
 
 	if (point_light_inst_count > 0)
 	{
 		for (uint32_t i = 0; i < point_light_inst_count; ++i)
 		{
-			const PointLightInstanceData& light_inst = m_appRenderer->m_point_light_instance_list[i];
+			const PointLightInstanceData& light_inst = m_appRenderer->m_pointLightInstanceList[i];
 			const Light* cur_light = light_inst.light;
 
 			Vector4 light_color(cur_light->GetColor().x, cur_light->GetColor().y, cur_light->GetColor().z, 1.f);
@@ -262,7 +262,7 @@ void DeferredRendering::UpdateUniformBuffer()
 		update_constant_point_light_buffer_desc.m_buffer = m_point_light_buffer;
 		update_constant_point_light_buffer_desc.m_pSource = &m_constant_point_light_data;
 		update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) *
-			m_appRenderer->m_point_light_instance_list.size());
+			m_appRenderer->m_pointLightInstanceList.size());
 
 		m_dxrenderer->cmd_update_buffer(update_constant_point_light_buffer_desc);
 	}

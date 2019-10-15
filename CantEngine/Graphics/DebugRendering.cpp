@@ -117,7 +117,6 @@ void DebugRendering::LoadContent(DXRenderer* dxrenderer)
 
 void DebugRendering::Update(float dt)
 {
-
 }
 
 void DebugRendering::RegisterDebugLineInstance(const Vector3& start_pos, const Vector3& end_pos, const Vector3& color)
@@ -137,7 +136,7 @@ void DebugRendering::RegisterDebugLineInstance(const DebugLineInstance& line_ins
 void DebugRendering::RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance)
 {
 #ifdef DEVELOPER
-	if (GraphicsSettings::Draw_Mesh_AABB_Flag)
+	if (GraphicsSettings::Draw_Debug_Mesh_AABB_Flag)
 	{
 		m_debug_aabb_instance_list.push_back(debug_aabb_instance);
 	}
@@ -146,6 +145,12 @@ void DebugRendering::RegisterDebugAABB(const DebugAABBInstance& debug_aabb_insta
 
 void DebugRendering::RegisterDebugSphere(const DebugSphereInstance& debug_sphere_instance)
 {
+#ifdef DEVELOPER
+	if (GraphicsSettings::Draw_Debug_Mesh_Sphere_Flag)
+	{
+		m_debug_sphere_list.push_back(debug_sphere_instance);
+	}
+#endif
 }
 
 void DebugRendering::UpdateDebugUniformBuffer()

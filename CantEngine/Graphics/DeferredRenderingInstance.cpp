@@ -28,6 +28,7 @@ void DeferredRenderingInstance::Render(const AppRendererContext& appRendererCont
 	RenderDeferredPass(appRendererContext);
 	RenderDeferredGlobalDirectionalLightShade(appRendererContext);
 	RenderDeferredPointLightShade(appRendererContext);
+	RenderHaloEffect(appRendererContext);
 }
 
 void DeferredRenderingInstance::Release()
@@ -41,7 +42,6 @@ void DeferredRenderingInstance::Release()
 
 void DeferredRenderingInstance::Initialize(const AppRendererContext& appRendererContext)
 {
-
 }
 
 void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendererContext)
@@ -118,9 +118,6 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	m_deferred_rts[DEFERRED_STRUCTURED_BUFFER] = DXResourceLoader::Create_RenderTarget(
 		m_dxrenderer, rt_desc[DEFERRED_STRUCTURED_BUFFER]);
 }
-
-
-
 
 void DeferredRenderingInstance::RenderDeferredPass(const AppRendererContext& appRendererContext)
 {
@@ -220,7 +217,7 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 
 void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererContext& appRendererContext)
 {
-	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_point_light_instance_list.size());
+	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_pointLightInstanceList.size());
 
 	if (point_light_inst_count == 0)
 	{
@@ -229,7 +226,7 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 
 	m_dxrenderer->cmd_bind_pipeline(m_deferredRendering.m_deferred_shade_pointlight_pipeline);
 
-	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Sphere.fbx"));
+	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
 
 	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
 	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
@@ -276,7 +273,7 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 }
 
 
-void DeferredRenderingInstance::RenderPostMSAAHaloEffect(const AppRendererContext& appRenderereContext)
+void DeferredRenderingInstance::RenderHaloEffect(const AppRendererContext& appRenderereContext)
 {
 	uint32_t haloEffectInstCount = static_cast<uint32_t>(m_appRenderer->m_haloEffectInstanceList.size());
 
