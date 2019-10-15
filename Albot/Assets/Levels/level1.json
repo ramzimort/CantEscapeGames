@@ -112,7 +112,16 @@
         }
       }
     },
-
+    {
+      "tag": "directional_light01",
+      "prefab": "Assets/Prefabs/Lights/directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 45.0, 0.0, 0.0 ]
+        }
+      }
+    },
     {
       "tag": "point_light1",
       "prefab": "Assets/Prefabs/Lights/point_light.json",
