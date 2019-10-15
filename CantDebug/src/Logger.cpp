@@ -29,22 +29,9 @@ void Logger::AddLog(const char* fmt, ...) IM_FMTARGS(2)
 
 void Logger::Draw(const char* title, bool* p_open)
 {
-	if (!ImGui::Begin(title, p_open))
-	{
-		ImGui::End();
-		return;
-	}
-
-	// Options menu
-	if (ImGui::BeginPopup("Options"))
-	{
-		ImGui::Checkbox("Auto-scroll", &AutoScroll);
-		ImGui::EndPopup();
-	}
+	ImGui::Checkbox("Auto-scroll", &AutoScroll);
 
 	// Main window
-	if (ImGui::Button("Options"))
-		ImGui::OpenPopup("Options");
 	ImGui::SameLine();
 	bool clear = ImGui::Button("Clear");
 	ImGui::SameLine();
@@ -107,5 +94,4 @@ void Logger::Draw(const char* title, bool* p_open)
 		ImGui::SetScrollHereY(1.0f);
 
 	ImGui::EndChild();
-	ImGui::End();
 }

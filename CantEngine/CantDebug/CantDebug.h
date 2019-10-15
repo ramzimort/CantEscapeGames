@@ -3,6 +3,7 @@
 #include "../../CantDebug/CantDebug.h"
 
 #ifndef DEVELOPER
+#define DEBUGGER(RESMGR)
 #define DEBUG_INIT(SDLWND, PD3DDEVICE, PD3DCONTEXT)
 #define DEBUG_PROCESSIO(SDL_EVENT, QUIT)
 #define DEBUG_TRACE(fmt, ...)
@@ -20,6 +21,7 @@
 #define DEBUG_CHECKBOX(NAME, DATA)
 #define DEBUG_QUIT
 #else
+#define DEBUGGER(RESMGR) CantDebug::DebugManager(RESMGR)
 #define DEBUG_INIT(SDLWND, PD3DDEVICE, PD3DCONTEXT) CantDebugAPI::InitDebugWindow(SDLWND, PD3DDEVICE, PD3DCONTEXT)
 #define DEBUG_PROCESSIO(SDL_EVENT, QUIT) CantDebugAPI::ProcessIO(SDL_EVENT, QUIT)
 #define DEBUG_TRACE(FMT, ...) CantDebug::Trace(FMT, __VA_ARGS__)
@@ -94,10 +96,19 @@ namespace CantDebug
 		}
 	}
 
+	struct DebugConfig
+	{
+		bool SelectionTool;
+	};
+
 	class DebugManager
 	{
-		DebugManager() = default;
-		~DebugManager() = default;
+	public:
+		DebugManager();
+		~DebugManager();
+
+	private:
+		DebugConfig config;
 	};
 }
 

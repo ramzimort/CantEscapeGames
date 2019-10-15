@@ -32,8 +32,10 @@ ImGuiTextBuffer	g_buf;
 bool _showDemoWindow = false;
 
 // Forward declarations of custom helper functions
-void UpdateLog();
+void UpdateWindow();
+void UpdateLog(const std::string& windowName);
 void UpdateTrace();
+void UpdateEditor();
 void UpdateMemoryProfile();
 void UpdateGraphicsSettings();
 
@@ -84,14 +86,11 @@ namespace CantDebugAPI
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
 		
-		ImGui::Checkbox("Demo Window", &_showDemoWindow);
-		if (_showDemoWindow)
-			ImGui::ShowDemoWindow();
+		//ImGui::Checkbox("Demo Window", &_showDemoWindow);
+		//if (_showDemoWindow)
+		//	ImGui::ShowDemoWindow();
 
-		UpdateGraphicsSettings();
-		UpdateLog();
-		UpdateTrace();
-		UpdateMemoryProfile();
+		UpdateWindow();
 		
 		// Rendering
 		ImGui::EndFrame();
@@ -103,37 +102,30 @@ namespace CantDebugAPI
 	{
 		g_logQueue->Push(data);
 	}
-
 	void Trace(const char* data)
 	{
 		g_traceQueue->Push(data);
 	}
-
 	void MemoryLog(const char* pool, const void* address)
 	{
 		g_memoryProfiler->AddElement(pool, address);
 	}
-
 	void MemoryFree(const char* pool, const void* address)
 	{
 		g_memoryProfiler->FreeElement(pool, address);
 	}
-
 	void MemoryFreeAll(const char* pool, const void* address)
 	{
 		g_memoryProfiler->FreeAllElements(pool, address);
 	}
-
 	void SliderFloat(const char* sliderName, float* pData, float min, float max)
 	{
 		g_sliderFloatQueue->m_queueData.push(SliderFloatQueue::SliderFloatData{ sliderName, pData, min, max });
 	}
-
 	void CheckboxUI(const char* checkboxName, bool* pFlag)
 	{
 		g_checkBoxQueue->m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
 	}
-	
 	void ProcessIO(SDL_Event& e, bool& quit)
 	{
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -157,40 +149,70 @@ namespace CantDebugAPI
 			}
 		}
 	}
-
-	void HideAll()
-	{
-
-	}
 }
 
+void UpdateWindow()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	const float MARGIN = 2.0f;
+	const float MAXWIDTH = io.DisplaySize.x/2.f;
+	ImVec2 window_pos = ImVec2(MARGIN, MARGIN);
+	ImVec2 window_pos_pivot = ImVec2(0.0f, 0.0f);
+	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+	ImGui::SetNextWindowSizeConstraints(ImVec2(0, io.DisplaySize.y),ImVec2(MAXWIDTH, io.DisplaySize.y));
+	if (ImGui::Begin("CantDebug", 0, ImGuiWindowFlags_NoCollapse))
+	{
+		ImGui::SetWindowSize(ImVec2(ImGui::GetWindowWidth(),io.DisplaySize.y));
+		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+		if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
+		{
+			if (ImGui::BeginTabItem("Graphics"))
+			{
+				UpdateGraphicsSettings();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Memory"))
+			{
+				UpdateMemoryProfile();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Edit"))
+			{
+				UpdateEditor();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Console"))
+			{
+				UpdateTrace();
+				ImGui::Separator();
+				UpdateLog("Console");
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+	}
+
+	ImGui::End();
+
+}
 // Helper functions
-void UpdateLog()
+void UpdateLog(const std::string& windowName)
 {
 	static Logger log;
-	if (!ImGui::Begin("Log"))
-		return;
 	while (!g_logQueue->Empty())
 		log.AddLog(g_logQueue->Pop().c_str());
-	ImGui::End();
-	log.Draw("Log");
+	log.Draw(windowName.c_str());
 }
 
 void UpdateTrace()
 {
-	if (!ImGui::Begin("Trace"))
-		return;
 	ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 	while (!g_traceQueue->Empty())
 		ImGui::Text(g_traceQueue->Pop().c_str());
-	ImGui::End();
 }
 
 void UpdateGraphicsSettings()
 {
-	if (!ImGui::Begin("Graphics Settings"))
-		return;
-		
 	ImGui::Separator();
 	ImGui::Text("Checkbox settings");
 
@@ -208,15 +230,15 @@ void UpdateGraphicsSettings()
 		ImGui::SliderFloat(data.m_sliderFloatName.c_str(), data.m_pData, data.m_min, data.m_max);
 		g_sliderFloatQueue->m_queueData.pop();
 	}
-
-
-	ImGui::End();
 }
 
 void UpdateMemoryProfile()
 {
-	if (!ImGui::Begin("Memory"))
-		return;
 	g_memoryProfiler->Update();
-	ImGui::End();
+}
+
+void UpdateEditor()
+{
+	static bool Selector;
+	ImGui::Checkbox("Selector", &Selector);
 }
