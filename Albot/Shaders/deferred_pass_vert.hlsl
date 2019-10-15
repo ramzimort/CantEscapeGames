@@ -20,6 +20,7 @@ struct PS_IN
     float2 UV : TEXCOORD0;
     //not normalized
     float3 CameraViewTangent : TEXCOORD1;
+    float3 CameraSpacePosition : CAMERASPACEPOSITION;
 };
 
 
@@ -63,9 +64,12 @@ PS_IN main(VS_IN vs_in)
     out_data.Bitangent = vs_in.Bitangent;
     //TODO
 
-    float2 finalUV = vs_in.UV;
+    float4 camera_space_pos = mul(CameraUniformData_Buffer.ViewMat, float4(out_data.WorldPosition, 1.0)).xyzw;
+    camera_space_pos.z /= camera_space_pos.w;
+    out_data.CameraSpacePosition = camera_space_pos.xyz;
 
-    out_data.UV = (finalUV) * MaterialMiscData.xy;
+
+    out_data.UV = vs_in.UV * MaterialMiscData.xy;
     out_data.CameraViewTangent = view_tangent;
     return out_data;
 }

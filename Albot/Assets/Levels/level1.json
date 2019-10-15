@@ -10,7 +10,8 @@
     "Models": [
       "Assets/Models/mitsuba-sphere.obj",
       "Assets/Models/plane.fbx",
-      "Assets/Models/Cube.fbx"
+      "Assets/Models/Cube.fbx",
+      "Assets/Models/Sphere.fbx"
     ],
     "Materials": [
       "Assets/Materials/Material1.json",

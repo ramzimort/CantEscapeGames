@@ -5,6 +5,7 @@ class Light;
 class Material;
 class Model;
 class Texture;
+class HaloEffect;
 struct ParticleEmitterUniformData;
 class Buffer;
 
@@ -20,6 +21,12 @@ struct DirectionalLightInstanceData
 	Vector3 light_direction;
 };
 
+
+struct HaloEffectInstanceData
+{
+	const HaloEffect* haloEffect;
+	Vector3 m_haloPosition;
+};
 
 
 struct InstanceRenderData
@@ -44,3 +51,4 @@ struct ParticleEmitterInstanceData
 
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
 typedef std::vector<InstanceRenderData> InstanceRenderList;
+typedef std::vector< HaloEffectInstanceData> HaloEffectInstanceList;

@@ -7,6 +7,7 @@
 #include "Managers/ResourceManager.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/GraphicsSettings.h"
+#include "Graphics/HaloEffect.h"
 
 
 DeferredRendering::DeferredRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)
@@ -29,6 +30,10 @@ void DeferredRendering::Release()
 
 	SafeReleaseDelete(m_deferred_shade_pipeline);
 	SafeReleaseDelete(m_deferred_shade_shader);
+	SafeReleaseDelete(m_shadeHaloEffectShader);
+	SafeReleaseDelete(m_shadeHaloEffectPipeline);
+	SafeReleaseDelete(m_haloEffectUniformBuffer);
+
 
 	SafeReleaseDelete(m_deferred_shade_pointlight_pipeline);
 	SafeReleaseDelete(m_deferred_shade_pointlight_shader);
@@ -156,6 +161,38 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	m_deferred_shade_pointlight_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 
+	ShaderLoadDesc shadeHaloEffectShaderDesc = {};
+	shadeHaloEffectShaderDesc.m_desc.m_vertex_shader_path = "shade_halo_effect_vert.hlsl";
+	shadeHaloEffectShaderDesc.m_desc.m_pixel_shader_path = "shade_halo_effect_frag.hlsl";
+
+	m_shadeHaloEffectShader = DXResourceLoader::Create_Shader(m_dxrenderer, shadeHaloEffectShaderDesc);
+
+	graphic_pipeline_desc = {};
+	graphic_pipeline_desc.m_render_target_count = 1;
+	graphic_pipeline_desc.m_shader = m_shadeHaloEffectShader;
+	graphic_pipeline_desc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
+	graphic_pipeline_desc.m_vertex_layout = &pos_layout;
+	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_disabled_depth_state;
+	graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_back_rasterizer_state;
+	graphic_pipeline_desc.m_blend_state = m_appRenderer->m_additiveBlending;
+
+	m_shadeHaloEffectPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+
+	BufferLoadDesc haloEffectUniformBufferDesc = {};
+	haloEffectUniformBufferDesc.m_desc.m_bindFlags = Bind_Flags::BIND_SHADER_RESOURCE;
+	haloEffectUniformBufferDesc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	haloEffectUniformBufferDesc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	haloEffectUniformBufferDesc.m_desc.m_miscFlags = Misc_Flags::MISC_BUFFER_STRUCTURED;
+	haloEffectUniformBufferDesc.m_desc.m_elementCount = MAX_DEFERRED_HALO_EFFECT;
+	haloEffectUniformBufferDesc.m_desc.m_structureStride = sizeof(ConstantHaloEffectData);
+	haloEffectUniformBufferDesc.m_size = haloEffectUniformBufferDesc.m_desc.m_elementCount *
+		haloEffectUniformBufferDesc.m_desc.m_structureStride;
+	haloEffectUniformBufferDesc.m_rawData = nullptr;
+
+	m_haloEffectUniformBuffer = DXResourceLoader::Create_Buffer(m_dxrenderer, haloEffectUniformBufferDesc);
+
+
 	BufferLoadDesc point_light_load_buffer_desc = {};
 	point_light_load_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_SHADER_RESOURCE;
 	point_light_load_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
@@ -195,35 +232,72 @@ void DeferredRendering::init_deferred_scene_light()
 
 void DeferredRendering::Update(float dt)
 {
-	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_point_light_instance_list.size());
-	for (uint32_t i = 0; i < point_light_inst_count; ++i)
-	{
-		const PointLightInstanceData& light_inst = m_appRenderer->m_point_light_instance_list[i];
-		const Light* cur_light = light_inst.light;
-
-		Vector4 light_color(cur_light->GetColor().x, cur_light->GetColor().y, cur_light->GetColor().z, 1.f);
-
-		m_constant_point_light_data[i].LightColor = light_color;
-		m_constant_point_light_data[i].LightPosition = Vector4(light_inst.light_position.x,
-			light_inst.light_position.y, light_inst.light_position.z, 1.0);
-		m_constant_point_light_data[i].LightMiscData.x = cur_light->get_radius();
-		m_constant_point_light_data[i].LightMiscData.y = cur_light->GetIntensity();
-
-		Vector2 attenuation_constant = cur_light->get_attenuation_constant();
-		m_constant_point_light_data[i].LightMiscData.z = attenuation_constant.x;
-		m_constant_point_light_data[i].LightMiscData.w = attenuation_constant.y;
-	}
+	
 }
 
 void DeferredRendering::UpdateUniformBuffer()
 {
-	BufferUpdateDesc update_constant_point_light_buffer_desc = {};
-	update_constant_point_light_buffer_desc.m_buffer = m_point_light_buffer;
-	update_constant_point_light_buffer_desc.m_pSource = &m_constant_point_light_data;
-	update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) *
-		m_appRenderer->m_point_light_instance_list.size());
+	uint32_t point_light_inst_count = static_cast<uint32_t>(m_appRenderer->m_point_light_instance_list.size());
 
-	m_dxrenderer->cmd_update_buffer(update_constant_point_light_buffer_desc);
+	if (point_light_inst_count > 0)
+	{
+		for (uint32_t i = 0; i < point_light_inst_count; ++i)
+		{
+			const PointLightInstanceData& light_inst = m_appRenderer->m_point_light_instance_list[i];
+			const Light* cur_light = light_inst.light;
+
+			Vector4 light_color(cur_light->GetColor().x, cur_light->GetColor().y, cur_light->GetColor().z, 1.f);
+
+			m_constant_point_light_data[i].LightColor = light_color;
+			m_constant_point_light_data[i].LightPosition = Vector4(light_inst.light_position.x,
+				light_inst.light_position.y, light_inst.light_position.z, 1.0);
+			m_constant_point_light_data[i].LightMiscData.x = cur_light->GetRadius();
+			m_constant_point_light_data[i].LightMiscData.y = cur_light->GetIntensity();
+
+			Vector2 attenuation_constant = cur_light->GetAttenuationConstant();
+			m_constant_point_light_data[i].LightMiscData.z = attenuation_constant.x;
+			m_constant_point_light_data[i].LightMiscData.w = attenuation_constant.y;
+		}
+		BufferUpdateDesc update_constant_point_light_buffer_desc = {};
+		update_constant_point_light_buffer_desc.m_buffer = m_point_light_buffer;
+		update_constant_point_light_buffer_desc.m_pSource = &m_constant_point_light_data;
+		update_constant_point_light_buffer_desc.m_size = static_cast<uint32_t>(sizeof(ConstantPointLightData) *
+			m_appRenderer->m_point_light_instance_list.size());
+
+		m_dxrenderer->cmd_update_buffer(update_constant_point_light_buffer_desc);
+	}
+
+
+	uint32_t haloEffectInstCount = static_cast<uint32_t>(m_appRenderer->m_haloEffectInstanceList.size());
+	if (haloEffectInstCount > 0)
+	{
+		for (uint32_t i = 0; i < haloEffectInstCount; ++i)
+		{
+			const HaloEffectInstanceData& haloEffectInst = m_appRenderer->m_haloEffectInstanceList[i];
+			const HaloEffect* curHaloEffect = haloEffectInst.haloEffect;
+
+			m_constantHaloEffectLightData[i].HaloColor = MathUtil::v3_to_v4( curHaloEffect->GetColor() * curHaloEffect->GetIntensity(), 1.f);
+			m_constantHaloEffectLightData[i].HaloPosition = MathUtil::v3_to_v4(haloEffectInst.m_haloPosition, 1.f);
+
+			float haloEffectRadius = curHaloEffect->GetRadius();
+			float radiusPow2 = haloEffectRadius * haloEffectRadius;
+
+			m_constantHaloEffectLightData[i].HaloMiscData.x = radiusPow2;
+			m_constantHaloEffectLightData[i].HaloMiscData.y = 1.f / radiusPow2;
+			m_constantHaloEffectLightData[i].HaloMiscData.z = 1.f / (3.f * radiusPow2);
+			m_constantHaloEffectLightData[i].HaloMiscData.w = 3.f / (4.f * haloEffectRadius);
+
+			m_constantHaloEffectLightData[i].HaloMiscData2.x = haloEffectRadius;
+		}
+
+		BufferUpdateDesc updateConstantHaloEffectBufferDesc = {};
+		updateConstantHaloEffectBufferDesc.m_buffer = m_haloEffectUniformBuffer;
+		updateConstantHaloEffectBufferDesc.m_pSource = &m_constantHaloEffectLightData;
+		updateConstantHaloEffectBufferDesc.m_size = static_cast<uint32_t>( sizeof(ConstantHaloEffectData) * haloEffectInstCount);
+
+		m_dxrenderer->cmd_update_buffer(updateConstantHaloEffectBufferDesc);
+	}
+	
 }
 
 void DeferredRendering::RenderDeferredScene()

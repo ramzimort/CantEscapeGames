@@ -16,6 +16,7 @@ enum DEFERRED_RT_TYPE
 	DEFERRED_WORLD_NORMAL,
 	DEFERRED_ALBEDO,
 	DEFERRED_SPECULAR,
+	DEFERRED_STRUCTURED_BUFFER,
 	DEFERRED_TOTAL_COUNT
 };
 
@@ -34,9 +35,6 @@ public:
 	void RenderDeferredScene();
 	void LoadContent(DXRenderer* dxrenderer);
 private:
-	void RenderDeferredPass();
-	void RenderDeferredGlobalDirectionalLightShade();
-	void RenderDeferredPointLightShade();
 	void init_deferred_scene_light();
 private:
 	DXRenderer* m_dxrenderer;
@@ -54,6 +52,13 @@ private:
 	Shader* m_deferred_shade_pointlight_shader;
 	Buffer* m_point_light_buffer;
 	ConstantPointLightData m_constant_point_light_data[MAX_DEFERRED_POINT_LIGHT];
+
+
+	Pipeline* m_shadeHaloEffectPipeline;
+	Shader* m_shadeHaloEffectShader;
+	Buffer* m_haloEffectUniformBuffer;
+	ConstantHaloEffectData m_constantHaloEffectLightData[MAX_DEFERRED_HALO_EFFECT];
+
 
 	Light m_point_light_deferred_scene[900];
 

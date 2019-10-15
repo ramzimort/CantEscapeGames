@@ -4,6 +4,7 @@
 
 #define MAX_LIGHT_COUNT 256
 #define MAX_DEFERRED_POINT_LIGHT 1000
+#define MAX_DEFERRED_HALO_EFFECT 1000
 #define MAX_WIREFRAME_DEBUG_DRAW 1000
 #define MAX_LINE_DEBUG_DRAW 2000
 #define MAX_DIRECTIONAL_LIGHT_COUNT 8
@@ -76,6 +77,21 @@ struct ConstantPointLightData
 	//for now X is the radius/scale of the light
 	float4 LightMiscData;
 };
+
+struct ConstantHaloEffectData
+{
+	float4 HaloPosition;
+	float4 HaloColor;
+	//stores radius power 2 in X, 
+	//stores recriprocal  of R 2 in Y
+	//stores 3 * recriprocal of R2 in Z,
+	//stores normalizer ( 3 / 4 R) in W
+	float4 HaloMiscData;
+	//X stores the radius of halo
+	float4 HaloMiscData2;
+};
+
+
 
 
 //for drawing AABB debug drawing & bounding sphere debug drawing

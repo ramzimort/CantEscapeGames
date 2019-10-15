@@ -102,6 +102,21 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 
 	m_deferred_rts[DEFERRED_SPECULAR] = DXResourceLoader::Create_RenderTarget(
 		dxrenderer, rt_desc[DEFERRED_SPECULAR]);
+
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_width = rt_width;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_height = rt_height;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_depth = 1;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_mipLevels = 1;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_imageFormat = DXGI_FORMAT_R16G16B16A16_FLOAT;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
+
+	m_deferred_rts[DEFERRED_STRUCTURED_BUFFER] = DXResourceLoader::Create_RenderTarget(
+		m_dxrenderer, rt_desc[DEFERRED_STRUCTURED_BUFFER]);
 }
 
 
@@ -258,4 +273,43 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 
 	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pointlight_pipeline, 6, params);
 	m_dxrenderer->cmd_draw_index_instanced(point_light_inst_count, 0, sphere_model->get_index_total_count(), 0, 0);
+}
+
+
+void DeferredRenderingInstance::RenderPostMSAAHaloEffect(const AppRendererContext& appRenderereContext)
+{
+	uint32_t haloEffectInstCount = static_cast<uint32_t>(m_appRenderer->m_haloEffectInstanceList.size());
+
+	if (haloEffectInstCount == 0)
+	{
+		return;
+	}
+
+	m_dxrenderer->cmd_bind_pipeline(m_deferredRendering.m_shadeHaloEffectPipeline);
+
+	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
+
+	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
+	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
+
+	Texture* structureBufferTexture = m_deferred_rts[DEFERRED_STRUCTURED_BUFFER]->get_texture();
+	DescriptorData params[4] = {};
+
+	params[0].m_binding_location = 0;
+	params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[0].m_buffers = &m_deferredRendering.m_haloEffectUniformBuffer;
+
+	params[1].m_binding_location = 0;
+	params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[1].m_buffers = &appRenderereContext.m_appRendererInstance->m_camera_uniform_buffer;
+
+	params[2].m_binding_location = 1;
+	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[2].m_textures = &structureBufferTexture;
+
+	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_shadeHaloEffectPipeline, 3, params);
+	m_dxrenderer->cmd_draw_index_instanced(haloEffectInstCount, 0, sphere_model->get_index_total_count(), 0, 0);
 }

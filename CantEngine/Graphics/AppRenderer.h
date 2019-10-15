@@ -84,6 +84,8 @@ public:
 
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
+	void RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData);
+
 	void LoadContent();
 private:
 	void Initialize();
@@ -167,7 +169,7 @@ private:
 	DirectionalLightInstanceDataList m_directionLightInstanceList;
 	PointLightInstanceDataList m_point_light_instance_list;
 
-	
+	HaloEffectInstanceList m_haloEffectInstanceList;
 	
 	InstanceRenderList m_basicInstances;
 

@@ -23,8 +23,8 @@ public:
 	const Vector3& GetColor() const;
 	float GetIntensity() const;
 	ELightType get_light_type() const;
-	float get_radius() const;
-	Vector2 get_attenuation_constant() const;
+	float GetRadius() const;
+	Vector2 GetAttenuationConstant() const;
 	float GetShadowIntensity() const { return m_shadow_intensity; };
 private:
 	ELightType m_light_type;

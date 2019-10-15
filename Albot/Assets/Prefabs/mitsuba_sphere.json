@@ -14,5 +14,12 @@
   "ParticleEmitterComponent": {
     "Emitter_Position": [ 0.0, 0.0, 0.0 ],
     "Particle_Texture_Dir": "Assets/Textures/Particles/flare0.png"
+  },
+  "HaloEffectComponent": {
+    "HaloEffect": {
+      "Radius": 2.0,
+      "Intensity": 1.0,
+      "Color": [1.0, 0.9, 0.786]
+    }
   }
 }

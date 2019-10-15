@@ -192,7 +192,7 @@ void AppRendererInstance::Render()
 	update_camera_desc.m_size = sizeof(CameraUniformData);
 
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
-	
+
 	m_deferredRenderingInstance->Render(m_context);
 
 	m_particleRenderingInstance->Render(m_context);
@@ -213,6 +213,7 @@ void AppRendererInstance::Render()
 		m_msaaResolvePassInstance->Render(m_context);
 	}
 
+	m_deferredRenderingInstance->RenderPostMSAAHaloEffect(m_context);
 
 	m_debugRenderingInstance->Render(m_context);
 }

@@ -600,9 +600,6 @@ void AppRenderer::RenderApp()
 
 	UpdateMaterialUniformBuffer();
 	m_deferrredRendering.UpdateUniformBuffer();
-
-
-
 	m_debugRendering.UpdateDebugUniformBuffer();
 
 	m_momentShadowMapRendering.RenderShadowMap();
@@ -627,6 +624,7 @@ void AppRenderer::RenderApp()
 
 	m_directionLightInstanceList.clear();
 	m_basicInstances.clear();
+	m_haloEffectInstanceList.clear();
 	m_debugRendering.ClearInstances();
 	m_particleRendering.ClearInstances();
 
@@ -725,6 +723,11 @@ void AppRenderer::RegisterBasicInstance(const InstanceRenderData& instanceRender
 void AppRenderer::RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData)
 {
 	m_directionLightInstanceList.push_back(directionalLightInstanceData);
+}
+
+void AppRenderer::RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData)
+{
+	m_haloEffectInstanceList.push_back(haloEffectData);
 }
 
 void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,

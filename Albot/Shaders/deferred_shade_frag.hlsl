@@ -79,6 +79,9 @@ float CalculateShadowFactor(float3 world_position)
 }
 
 
+
+
+
 void PhongCalculateTotalLightFactor(float3 world_normal, float3 world_position, out float3 args_total_diffuse_power)
 {
     uint total_light_count = (uint) (DirectionLightUniform.DirectionalLightUniformMiscData.w);

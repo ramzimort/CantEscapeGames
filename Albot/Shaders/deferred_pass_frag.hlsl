@@ -16,6 +16,7 @@ struct PS_IN
     float3 Bitangent : BITANGENT;
     float2 UV : TEXCOORD0;
     float3 CameraViewTangent : TEXCOORD1;
+    float3 CameraSpacePosition : CAMERASPACEPOSITION;
 };
 
 struct PS_OUT
@@ -23,6 +24,7 @@ struct PS_OUT
     float4 WorldNormal : SV_TARGET0;
     float4 Albedo : SV_TARGET1;
     float4 Specular : SV_TARGET2;
+    float4 StructureBuffer : SV_TARGET3;
 };
 
 cbuffer ObjectUniformBlock : register(b1)
@@ -70,6 +72,16 @@ float2 CalculateParallaxUV(float2 UV, float3 view_tangent)
     return UV.xy;
 }
 
+float4 CalculateStructureBuffer(float object_space_z)
+{
+    object_space_z = abs(object_space_z);
+    float exponent_remainder = asfloat(asuint(object_space_z) & 0xFFFFE000U);
+
+    return float4(ddx(object_space_z), ddy(object_space_z),
+        exponent_remainder, object_space_z - exponent_remainder);
+}
+
+
 
 PS_OUT main(PS_IN ps_in)
 {
@@ -107,6 +119,7 @@ PS_OUT main(PS_IN ps_in)
     ps_out.Albedo = float4(material_diffuse_color.rgb, 1.0);
     //ps_out.Albedo = float4(UV.rg, 0.0, 1.0);
     ps_out.Specular = float4(MaterialUniformData_Buffer.SpecularColor.xyz, 1.0);
+    ps_out.StructureBuffer = CalculateStructureBuffer(ps_in.CameraSpacePosition.z);
 
     return ps_out;
 }

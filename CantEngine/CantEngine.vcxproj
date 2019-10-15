@@ -32,6 +32,7 @@
     <ClCompile Include="Components\BaseComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\CustomComponent\CustomComponent.cpp" />
+    <ClCompile Include="Components\HaloEffectComponent.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Components\MeshComponent.cpp" />
     <ClCompile Include="Components\ParticleEmitterComponent.cpp" />
@@ -60,6 +61,7 @@
     <ClCompile Include="Graphics\DepthState.cpp" />
     <ClCompile Include="Graphics\DXResourceLoader.cpp" />
     <ClCompile Include="Graphics\GraphicsSettings.cpp" />
+    <ClCompile Include="Graphics\HaloEffect.cpp" />
     <ClCompile Include="Graphics\Light.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
     <ClCompile Include="Graphics\Mesh.cpp" />
@@ -115,6 +117,7 @@
     <ClCompile Include="Systems\BaseSystem.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CustomSystem\CustomSystem.cpp" />
+    <ClCompile Include="Systems\HaloEffectSystem.cpp" />
     <ClCompile Include="Systems\LightSystem.cpp" />
     <ClCompile Include="Systems\ParticleEmitterSystem.cpp" />
     <ClCompile Include="Systems\RenderingSystem.cpp" />
@@ -130,6 +133,7 @@
     <ClInclude Include="Components\BaseComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CustomComponent\CustomComponent.h" />
+    <ClInclude Include="Components\HaloEffectComponent.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="Components\ParticleEmitterComponent.h" />
@@ -174,6 +178,7 @@
     <ClInclude Include="Graphics\DescriptorData.h" />
     <ClInclude Include="Graphics\DXResourceLoader.h" />
     <ClInclude Include="Graphics\GraphicsSettings.h" />
+    <ClInclude Include="Graphics\HaloEffect.h" />
     <ClInclude Include="Graphics\InstanceRenderData.h" />
     <ClInclude Include="Graphics\Light.h" />
     <ClInclude Include="Graphics\Material.h" />
@@ -235,6 +240,7 @@
     <ClInclude Include="Systems\BaseSystem.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CustomSystem\CustomSystem.h" />
+    <ClInclude Include="Systems\HaloEffectSystem.h" />
     <ClInclude Include="Systems\LightSystem.h" />
     <ClInclude Include="Systems\ParticleEmitterSystem.h" />
     <ClInclude Include="Systems\RenderingSystem.h" />
@@ -243,53 +249,6 @@
     <ClInclude Include="Systems\TestSystems\FPSCameraSystem.h" />
     <ClInclude Include="Systems\TransformSystem.h" />
     <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Shaders\blur_filter_comp.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\debug_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\debug_instance_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\debug_line_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\deferred_pass_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\deferred_pass_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\deferred_shade_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\deferred_shade_pointlight_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\deferred_shade_pointlight_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\depth_pass_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\fullscreen_quad_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\msaa_resolve_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\msaa_resolve_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\skybox_frag.hlsl">
-      <FileType>Document</FileType>
-    </Text>
-    <Text Include="Shaders\skybox_vert.hlsl">
-      <FileType>Document</FileType>
-    </Text>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

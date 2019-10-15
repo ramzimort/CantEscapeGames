@@ -6,5 +6,6 @@
 #include "RendererComponent.h"
 #include "MeshComponent.h"
 #include "LightComponent.h"
+#include "HaloEffectComponent.h"
 #include "CameraComponent.h"
 #include "ParticleEmitterComponent.h"

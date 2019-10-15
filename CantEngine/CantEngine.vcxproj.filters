@@ -291,6 +291,15 @@
     <ClCompile Include="Graphics\MomentShadowMapRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\HaloEffectComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\HaloEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\HaloEffectSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -650,22 +659,14 @@
     <ClInclude Include="Graphics\MomentShadowMapRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Shaders\skybox_vert.hlsl" />
-    <Text Include="Shaders\skybox_frag.hlsl" />
-    <Text Include="Shaders\msaa_resolve_vert.hlsl" />
-    <Text Include="Shaders\blur_filter_comp.hlsl" />
-    <Text Include="Shaders\debug_frag.hlsl" />
-    <Text Include="Shaders\debug_instance_vert.hlsl" />
-    <Text Include="Shaders\debug_line_vert.hlsl" />
-    <Text Include="Shaders\deferred_pass_frag.hlsl" />
-    <Text Include="Shaders\deferred_pass_vert.hlsl" />
-    <Text Include="Shaders\deferred_shade_frag.hlsl" />
-    <Text Include="Shaders\deferred_shade_pointlight_frag.hlsl" />
-    <Text Include="Shaders\deferred_shade_pointlight_vert.hlsl" />
-    <Text Include="Shaders\depth_pass_vert.hlsl" />
-    <Text Include="Shaders\fullscreen_quad_vert.hlsl" />
-    <Text Include="Shaders\msaa_resolve_frag.hlsl" />
+    <ClInclude Include="Components\HaloEffectComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\HaloEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\HaloEffectSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

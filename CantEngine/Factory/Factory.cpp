@@ -283,6 +283,8 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<CameraComponent>();
 	else if (name == "ParticleEmitterComponent")
 		return go->AddComponent<ParticleEmitterComponent>();
+	else if (name == "HaloEffectComponent")
+		return go->AddComponent<HaloEffectComponent>();
 	else if (name == "FPSController")
 		return go->AddComponent<FPSControllerComponent>();
 	

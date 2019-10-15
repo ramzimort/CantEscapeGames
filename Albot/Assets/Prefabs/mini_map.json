@@ -10,7 +10,7 @@
       "FOV": 75.0,
       "Near": 0.1,
       "Far": 1000.0,
-      "Position": [ 0.0, 100.0, 0.0 ],
+      "Position": [ 0.0, 50.0, 0.0 ],
       "LookDir": [ 0.0, -1.0, 0.1 ],
       "CameraName": "MiniMap",
       "ZOrder": 1,

@@ -49,12 +49,12 @@ ELightType Light::get_light_type() const
 	return m_light_type;
 }
 
-float Light::get_radius() const
+float Light::GetRadius() const
 {
 	return m_radius;
 }
 
-Vector2 Light::get_attenuation_constant() const
+Vector2 Light::GetAttenuationConstant() const
 {
 	Vector2 atten_cost (1.0f / (m_radius * m_radius), 2.0f / m_radius);
 	return atten_cost;
