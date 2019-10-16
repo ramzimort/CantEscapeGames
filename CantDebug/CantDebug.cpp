@@ -74,7 +74,16 @@ namespace CantDebugAPI
 		g_sliderFloatQueue = new SliderFloatQueue();
 		g_checkBoxQueue = new CheckboxQueue();
 		g_InputQueue = new InputQueue();
-		g_Editor = new Editor();
+	}
+
+	void InitializeAssetDirectories(const std::string& texturesDir,
+		const std::string& modelDir,
+		const std::string& materialDir,
+		const std::string& scriptDir,
+		const std::string& prefabDir,
+		const std::string& audioDir) 
+	{
+		g_Editor = new Editor(texturesDir, modelDir, materialDir, scriptDir, prefabDir, audioDir);
 	}
 
 	void UpdateDebugWindow()

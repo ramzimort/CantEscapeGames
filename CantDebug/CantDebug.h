@@ -12,6 +12,13 @@ namespace CantDebugAPI
 {
 	CANTDEBUG_API void InitDebugWindow(const std::string& name, SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
 
+	CANTDEBUG_API void InitializeAssetDirectories(const std::string& texturesDir,
+		const std::string& modelDir,
+		const std::string& materialDir,
+		const std::string& scriptDir,
+		const std::string& prefabDir,
+		const std::string& audioDir);
+
 	CANTDEBUG_API void UpdateDebugWindow();
 
 	CANTDEBUG_API void Log(const char* data);

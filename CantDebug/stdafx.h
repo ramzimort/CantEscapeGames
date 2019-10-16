@@ -24,6 +24,8 @@
 #include <queue>
 #include <set>
 #include <map>
+#include <unordered_map>
+#include <filesystem>
 #include <list>
 #include <d3d11.h>
 #include <D3Dcompiler.h>

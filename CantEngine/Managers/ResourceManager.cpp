@@ -24,7 +24,10 @@ void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState)
 	m_dxrenderer = dxrenderer;
 	m_pSolState = pSolState;
 
+
 #ifdef DEVELOPER
+	DEBUG_LOADRESDIR("Assets\\Textures", "Assets\\Models", "Assets\\Materials", "Scripts", "Assets\\Prefabs", "Assets\\Audio");
+
 	LoadModel("Assets/Models/Cube.fbx");
 #endif // DEVELOPER
 }
