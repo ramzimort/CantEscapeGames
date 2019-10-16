@@ -9,5 +9,8 @@
 
 namespace CantEngineAPI
 {
+	CANTENGINE_API 	void InitializeUserSettings(const std::string& gameName);
 	CANTENGINE_API void InitializeEngine();
+
+	//CANTENGINE_API void InitializeUserSystem();
 }

@@ -13,7 +13,7 @@ static ID3D11Device*            g_pd3dDevice = NULL;
 static ID3D11DeviceContext*     g_pd3dDeviceContext = NULL;
 static IDXGISwapChain*          g_pSwapChain = NULL;
 static ID3D11RenderTargetView*  g_mainRenderTargetView = NULL;
-
+static std::string				g_iniFileName = "imgui.ini";
 
 
 // Custom Data
@@ -24,7 +24,6 @@ static MemoryProfiler*			g_memoryProfiler = NULL;
 static SliderFloatQueue*		g_sliderFloatQueue = NULL;
 static CheckboxQueue*			g_checkBoxQueue = NULL;
 static InputQueue*				g_InputQueue = NULL;
-
 
 // Our State
 bool _update = true;
@@ -43,7 +42,7 @@ void UpdateGraphicsSettings();
 
 namespace CantDebugAPI
 {
-	void InitDebugWindow(SDL_Window* gameWindow, ID3D11Device* device, ID3D11DeviceContext* context)
+	void InitDebugWindow(const std::string& userDir, SDL_Window* gameWindow, ID3D11Device* device, ID3D11DeviceContext* context)
 	{
 		g_pd3dDevice = device;
 		g_pd3dDeviceContext = context;
@@ -57,6 +56,8 @@ namespace CantDebugAPI
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		g_iniFileName = userDir +"imgui.ini";
+		io.IniFilename = g_iniFileName.c_str();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -74,6 +75,8 @@ namespace CantDebugAPI
 		g_sliderFloatQueue = new SliderFloatQueue();
 		g_checkBoxQueue = new CheckboxQueue();
 		g_InputQueue = new InputQueue();
+
+		Log(io.IniFilename);
 	}
 
 	void UpdateDebugWindow()
@@ -85,7 +88,6 @@ namespace CantDebugAPI
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
-		
 		//ImGui::Checkbox("Demo Window", &_showDemoWindow);
 		//if (_showDemoWindow)
 		//	ImGui::ShowDemoWindow();
@@ -128,7 +130,7 @@ namespace CantDebugAPI
 	}
 	void ProcessIO(SDL_Event& e, bool& quit)
 	{
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImGuiIO& io = ImGui::GetIO();
 		{
 			switch (e.type)
 			{

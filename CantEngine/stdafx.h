@@ -10,7 +10,10 @@
 #define NOMINMAX
 // Windows Header Files
 #include <windows.h>
-
+#include <shlobj.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <direct.h>
 
 //std libraries
 #include <assert.h>
@@ -29,6 +32,8 @@
 #include <unordered_map>
 #include <algorithm>
 #include <functional>
+#include <filesystem>
+
 
 //DirectX and DirectXTK
 #include <d3d11.h>

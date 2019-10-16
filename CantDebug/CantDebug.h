@@ -10,7 +10,7 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
-	CANTDEBUG_API void InitDebugWindow(SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
+	CANTDEBUG_API void InitDebugWindow(const std::string& name, SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
 
 	CANTDEBUG_API void UpdateDebugWindow();
 

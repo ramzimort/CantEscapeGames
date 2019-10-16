@@ -8,6 +8,7 @@
 #include "Memory/CantMemory.h"
 #include "Events/EventBus.h"
 #include "ScriptingManager.h"
+#include "Directory/User.h"
 
 EventManager* EventManager::m_EventManager = new EventManager();
 
@@ -34,6 +35,7 @@ void EventManager::Initialize()
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
 
 	DEBUG_INIT(
+		CantDirectory::Path(),
 		m_pInputManager->GetWindow(), 
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
 		m_pAppRenderer->GetDXRenderer()->get_device_context());

@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "..\CantEngine\CantEngine.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -12,9 +11,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-	// The screen size
+	CantEngineAPI::InitializeUserSettings("Albot");
+	CantEngineAPI::InitializeEngine();
 
-	// Initial state path (json file)
-    CantEngineAPI::InitializeEngine();
 
 }

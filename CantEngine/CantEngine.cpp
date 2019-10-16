@@ -2,7 +2,7 @@
 #include "CantEngine.h"
 #include "Managers/EventManager.h"
 #include "Managers/FrameManager.h"
-#include "CantDebug/CantDebug.h"
+#include "Directory/User.h"
 
 
 namespace CantEngineAPI
@@ -22,4 +22,9 @@ namespace CantEngineAPI
 			frame_manager.EndFrame();
 		}
 	}
+	void InitializeUserSettings(const std::string& gameName)
+	{
+		CantDirectory::FindOrCreateUserDataFolder("Albot");
+	}
+
 }
