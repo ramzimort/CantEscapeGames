@@ -271,6 +271,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="src\CheckboxQueue.h" />
     <ClInclude Include="src\DataQueue.h" />
+    <ClInclude Include="src\Editor.h" />
     <ClInclude Include="src\InputQueue.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\MemoryProfiler.h" />
@@ -292,6 +293,7 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\CheckboxQueue.cpp" />
+    <ClCompile Include="src\Editor.cpp" />
     <ClCompile Include="src\InputQueue.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\DataQueue.cpp" />

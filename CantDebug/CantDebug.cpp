@@ -6,6 +6,7 @@
 #include "src/Logger.h"
 #include "src/MemoryProfiler.h"
 #include "src/InputQueue.h"
+#include "src/Editor.h"
 
 // Data
 static SDL_Window*				g_mainWindow = NULL;
@@ -24,6 +25,7 @@ static MemoryProfiler*			g_memoryProfiler = NULL;
 static SliderFloatQueue*		g_sliderFloatQueue = NULL;
 static CheckboxQueue*			g_checkBoxQueue = NULL;
 static InputQueue*				g_InputQueue = NULL;
+static Editor*					g_Editor = NULL;
 
 // Our State
 bool _update = true;
@@ -34,11 +36,8 @@ bool _showDemoWindow = false;
 void UpdateWindow();
 void UpdateLog(const std::string& windowName);
 void UpdateTrace();
-void UpdateEditor();
 void UpdateMemoryProfile();
 void UpdateGraphicsSettings();
-
-
 
 namespace CantDebugAPI
 {
@@ -75,8 +74,7 @@ namespace CantDebugAPI
 		g_sliderFloatQueue = new SliderFloatQueue();
 		g_checkBoxQueue = new CheckboxQueue();
 		g_InputQueue = new InputQueue();
-
-		Log(io.IniFilename);
+		g_Editor = new Editor();
 	}
 
 	void UpdateDebugWindow()
@@ -180,7 +178,7 @@ void UpdateWindow()
 			}
 			if (ImGui::BeginTabItem("Edit"))
 			{
-				UpdateEditor();
+				g_Editor->Update();
 				ImGui::EndTabItem();
 			}
 			if (ImGui::BeginTabItem("Console"))
@@ -237,10 +235,4 @@ void UpdateGraphicsSettings()
 void UpdateMemoryProfile()
 {
 	g_memoryProfiler->Update();
-}
-
-void UpdateEditor()
-{
-	static bool Selector;
-	ImGui::Checkbox("Selector", &Selector);
 }

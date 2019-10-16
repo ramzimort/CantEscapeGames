@@ -30,14 +30,15 @@ namespace CantDirectory
 		return false;
 	}
 
-	std::map<std::string, std::vector<std::string>> GetAllObjects(const std::string& dir_path, const std::string& file_extension)
+	std::map<std::string, std::vector<std::string>> GetAllObjectsRecursive(const std::string& dir_path, const std::vector<std::string>& file_extensions)
 	{
 		std::map<std::string, std::vector<std::string>> Objects;
 		fs::path FilePath;
 		for (auto& dir_iterator : std::experimental::filesystem::recursive_directory_iterator(dir_path))
 		{
 			FilePath = dir_iterator;
-			if (FilePath.extension() == file_extension)
+
+			if (file_extensions.empty() || std::find(file_extensions.begin(), file_extensions.end(), FilePath.extension()) != file_extensions.end())
 			{
 				std::string path = FilePath.parent_path().string();
 				std::string type = path.substr(fs::path(dir_path).string().size());

@@ -6,6 +6,7 @@
 #include "RenderTarget.h"
 #include "d3dUtils.h"
 #include "D3D11_Renderer.h"
+#include "Memory/CantMemory.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -644,7 +645,7 @@ Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::a
 	texture_desc.m_width = final_width;
 	texture_desc.m_height = final_height;
 
-	Texture* cube_texture = new Texture(texture_desc);
+	Texture* cube_texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
 
 	cube_texture->m_p_raw_resource = d3d_cube_texture;
 	cube_texture->m_p_srv = shaderResourceView;
@@ -711,12 +712,11 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 
 
 
-		Texture* texture = new Texture(texture_desc);
+		Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
 		texture->m_p_raw_resource = d3d_tex2d;
 		texture->m_p_srv = d3d_tex2d_srv;
 
 		return texture;
-
 	}
 
 	D3D11_SUBRESOURCE_DATA raw_d3d_data = {};
@@ -730,7 +730,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		raw_d3d_data.SysMemSlicePitch = 0;
 	}
 
-	Texture* texture = new Texture(*load_desc.m_tex_desc);
+	Texture* texture = CantMemory::PoolResource<Texture>::Allocate(*load_desc.m_tex_desc);
 
 	bool is_depth_texture = DXResourceLoader::is_depth_format(load_desc.m_tex_desc->m_imageFormat);
 	DXGI_FORMAT final_image_format = load_desc.m_tex_desc->m_imageFormat;

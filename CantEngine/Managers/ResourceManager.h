@@ -8,10 +8,41 @@ class Texture;
 class Material;
 class DXRenderer;
 
+enum ResType
+{
+	TEXTURE,
+	MODEL,
+	MATERIAL,
+	PREFAB,
+	SCRIPT,
+};
+
+union ResPtr
+{
+	Model* p_model;
+	Texture* p_texture;
+	Material* p_material;
+	std::string* p_prefab;
+	sol::table* p_solTable;
+};
+
+struct Resource
+{
+	Resource() = default;
+	~Resource() = default;
+	Resource(ResType t, ResPtr p) :
+		type(t), res(p) { }
+	ResType type;
+	ResPtr res;
+};
+
+
 class ResourceManager
 {
 	friend class Factory;
-	typedef std::unordered_map<StringId, void*, StringIdHash> ResourceMap;
+	friend class DebugManager;
+	typedef std::unordered_map<StringId, Resource, StringIdHash> ResourceMap;
+
 public:
 	ResourceManager();
 	~ResourceManager();
@@ -21,6 +52,9 @@ public:
 	Texture* GetTexture(StringId textureId);
 	std::string& GetPrefab(StringId prefabId);
 	sol::table& GetScript(StringId scriptId);
+
+	void FreeResource(StringId id);
+	void Free();
 
 private:
 	void LoadModel(const std::string& filePath);
