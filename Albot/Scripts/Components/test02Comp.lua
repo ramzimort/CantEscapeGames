@@ -13,7 +13,7 @@ test02Comp =
 --Init called when comp is created
 test02Comp.Init = function(self)
 
-	OutputPrint("COMP INIT -" .. self.name .. "\n");
+	OutputPrint("\nCOMP INIT -" .. self.name .. "\n");
 
 end
 
@@ -21,9 +21,9 @@ end
 --Begin called when obj has all comps
 test02Comp.Begin = function(self, owner)
 
-	OutputPrint("\nCOMP BEGIN IN LUA - " .. self.name .. "\n");
-
-	OutputPrint("Amount of binded funcs: " .. #self.OnTimePassed.suscribers);
+	OutputPrint("\n<<-- " .. self.name .. " BEGIN IN LUA -->>\n");
+	OutputPrint("Amount of binded funcs: " .. #self.OnTimePassed.suscribers .. " -\n");
+	OutputPrint("<<-- COMP " .. self.name .. " BEGIN END -->>\n");
 
 end
 

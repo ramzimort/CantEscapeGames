@@ -21,7 +21,7 @@ Primary Author: Jose Rosenbluth
 //We will use this to print from LUA to out stream
 void printDebugAndLog(std::string msg)
 {
-	OutputDebugString(msg.c_str());
+	///OutputDebugString(msg.c_str());
 	DEBUG_LOG(msg.c_str());
 }
 
@@ -261,13 +261,28 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  MULTICAST           ////
 	//////////////////////////////
-	luaState.new_usertype<Multicast<void(void)>>
+	luaState.new_usertype<Multicast<void(GameObject*, float)>>
 	(
-		"Multicast",
-		sol::constructors< Multicast<void(void)>() >(),
-		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
-		sol::meta_function::call, (&Multicast<void(void)>::operator())
+		"MulticastTransform",
+		///sol::constructors< Multicast<void(GameObject*, float)>() >(),
+		//Binding to the multicast
+		"Bind", &Multicast<void(GameObject*, float)>::BindLuaFunction
 	);
+
+	/// // Rigidbody Multicast
+	/// luabridge::getGlobalNamespace(lua_state)
+	/// 	.beginClass<Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>>("Multicast_Rigidbody")
+	/// 	.addFunction("Fire_Multicast", &Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>::operator())
+	/// 	.addFunction("Bind_Lua_Function", &Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>::Bind_Lua_Function)
+	/// 	.endClass();
+	/// 
+	/// // Particle Multicast
+	/// luabridge::getGlobalNamespace(lua_state)
+	/// 	.beginClass<Multicast<luabridge::LuaRef(void)>>("Multicast_Particles")
+	/// 	.addFunction("Fire_Multicast", &Multicast<luabridge::LuaRef(void)>::operator())
+	/// 	.addFunction("Bind_Lua_Function", &Multicast<luabridge::LuaRef(void)>::Bind_Lua_Function)
+	/// 	.endClass();
+
 
 	//////////////////////////////
 	////  VECTORS & MATRICES  ////
@@ -364,6 +379,7 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<TransformComponent>
 	(
 		"TransformComponent",
+		//Interface
 		"Translate", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::Translate),
 			sol::resolve<void(float, float, float)>(&TransformComponent::Translate)),
@@ -374,6 +390,9 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::Scale), 
 			sol::resolve<void(float, float, float)>(&TransformComponent::Scale),
 			sol::resolve<void(float)>(&TransformComponent::Scale)),
+		//Multicast test
+		"OnTimeUp", &TransformComponent::OnTimeUp,
+		//Getters
 		"GetWorldPosition", &TransformComponent::GetWorldPosition,
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,
@@ -381,6 +400,7 @@ void ScriptingManager::ManageBindings()
 		"GetModel", &TransformComponent::GetModel,
 		"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
 		"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
+		//Setters
 		"SetLocalPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::SetLocalPosition),
 			sol::resolve<void(float, float, float)>(&TransformComponent::SetLocalPosition)),

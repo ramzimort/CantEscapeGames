@@ -32,6 +32,9 @@ TransformComponent::TransformComponent(GameObject *owner) :
 	m_rotation(0.f),
 	m_scale(1.f)
 {
+	//TODO remove------------------------------
+	elapsedTime = 0.0f;
+	//TODO remove------------------------------
 }
 
 

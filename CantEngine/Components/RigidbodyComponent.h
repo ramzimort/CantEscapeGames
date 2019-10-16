@@ -14,6 +14,7 @@ Primary Author: Aleksey Perfilev
 #include "Physics/Geometry/Aabb.h"
 #include "Physics/CollisionTable.h"
 #include "Physics/Constraint.h"
+#include "Events/Multicast.h"
 
 class GameObjectManager;
 
@@ -46,6 +47,9 @@ public:
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
+
+	//TODO - Remove before push
+	Multicast<void(GameObject*, GameObject*)> m_onCollision;
 	
 private:
 	Aabb m_aabb;

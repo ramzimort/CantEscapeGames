@@ -27,11 +27,7 @@ public:
 
 
 public:
-	Multicast() 
-	{
-	}
-
-
+	Multicast() { }
 	//Multicast(Multicast const& rhs) = delete;
 	//Multicast& operator= (Multicast const& rhs) = delete;
 
@@ -42,16 +38,46 @@ public:
 		for (auto *suscriber : suscribers)
 			delete suscriber;
 		suscribers.clear();
+
+		//Clear the lua subscribers
+		lua_suscribers.clear();
 	}
 
 
 	void operator() (PARAMS ... params)
 	{
-		OutputDebugString("CALLED MULTICAST FROM LUA"); //TODO - REMOVE ****
+		OutputDebugString("CALLED MULTICAST FROM LUA");
 
 		for (auto *suscriber : suscribers)
 		{
  			(*suscriber)(params ...);
+		}
+
+		for (auto& suscriber : lua_suscribers)
+		{
+			try 
+			{
+				if (suscriber[1] != sol::nil && suscriber[2] != sol::nil)
+				{
+					sol::table self = suscriber[1];
+					sol::function func = suscriber[2];
+					func(self, params ...);
+				}
+				else if (suscriber[2] != sol::nil)
+				{
+					sol::function func = suscriber[2];
+					func(params ...);
+				}
+				else
+				{
+					OutputDebugString("\nERROR RUNNING LUA CODE BOUND TO MULTICAST!\n");
+				}
+			}
+			catch (const sol::error& e)
+			{
+				const char *errorName = e.what();
+				DEBUG_LOG(errorName); //TODO - erase this
+			}
 		}
 	}
 
@@ -67,14 +93,20 @@ public:
 		return *this;
 	}
 
-
-	void BindLuaFunction(sol::state const& state, std::string name)
-	{	
+	//First attempt, a table which has a self and a function
+	void BindLuaFunction(sol::table entry)
+	{
+		this->lua_suscribers.push_back(entry);
 	}
 
-
-	void UnbindLuaFunction(std::string name)
+	//Removing the entry
+	void UnbindLuaFunction(sol::table entry)
 	{
+		for (auto& table : this->lua_suscribers) 
+		{
+			if (entry == table)
+				this->lua_suscribers.remove(table);
+		}
 	}
 
 

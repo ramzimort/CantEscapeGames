@@ -43,6 +43,15 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 	TransformComponent *transformComp = node->n_transform;
 
 	//UPDATE CODE GOES HERE
+
+	//TODO remove------------------------------
+	transformComp->elapsedTime += dt;
+	if (transformComp->elapsedTime >= 2.0f)
+	{
+		transformComp->OnTimeUp(transformComp->GetOwner(), transformComp->elapsedTime);
+		transformComp->elapsedTime = 0.0f;
+	}
+	//TODO remove------------------------------
 	
 	//Skip calculations if no need to recalculate
 	if (!transformComp->NeedToRecalculate())
