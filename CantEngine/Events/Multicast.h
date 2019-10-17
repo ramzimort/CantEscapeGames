@@ -46,7 +46,7 @@ public:
 
 	void operator() (PARAMS ... params)
 	{
-		OutputDebugString("CALLED MULTICAST FROM LUA");
+		//OutputDebugString("CALLED MULTICAST FROM LUA");
 
 		for (auto *suscriber : suscribers)
 		{

@@ -13,7 +13,7 @@ public:
 		m_xViewPortPos(xPos),
 		m_yViewportPos(yPos)
 	{
-		DEBUG_LOG("Registering Camera: %p", &rCamera);
+		DEBUG_LOG("Registering Camera: %p\n", &rCamera);
 	}
 	virtual ~CameraRegistrationEvent() { }
 

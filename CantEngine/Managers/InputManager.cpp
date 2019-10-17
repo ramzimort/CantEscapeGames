@@ -96,15 +96,15 @@ void InputManager::Update()
 		case SDL_MOUSEWHEEL:
 			break;
 		case SDL_MOUSEMOTION:
-			EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
+			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2());
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
-				EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
+			if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) == 0)
+				EventManager::Get()->EnqueueEvent<MouseClickEvent>(true, m_event.button.button, true);
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
-				EventManager::Get()->EnqueueEvent<MouseEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2(), m_mouseStateCurrent);
+				EventManager::Get()->EnqueueEvent<MouseClickEvent>(true, m_event.button.button, false);
 			break;
 		case SDL_KEYDOWN:
 			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&

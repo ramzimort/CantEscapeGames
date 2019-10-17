@@ -10,7 +10,7 @@ public:
 	CameraDestructionEvent(size_t id) :
 		m_id(id)
 	{
-		DEBUG_LOG("Removing Camera: %d", id);
+		DEBUG_LOG("Removing Camera: %d\n", id);
 	}
 	virtual ~CameraDestructionEvent() { }
 

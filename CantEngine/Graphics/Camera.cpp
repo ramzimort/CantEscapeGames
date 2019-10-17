@@ -105,6 +105,18 @@ Vector3 Camera::GetCameraPosition() const
 	return m_position;
 }
 
+const Vector3& Camera::GetForward() const
+{
+	return m_lookDir;
+}
+
+
+const Vector3& Camera::GetRight() const
+{
+	return m_rightDir;
+}
+
+
 void Camera::Reset()
 {
 	//TODO:
@@ -125,7 +137,6 @@ void Camera::ApplyRotation(const Matrix& transformation_mat)
 	using namespace DirectX;
 
 	m_lookDir = XMVector3Normalize(XMVector3TransformNormal(m_lookDir, transformation_mat));
-
 	m_upDir = XMVector3Normalize(XMVector3TransformNormal(m_upDir, transformation_mat));
 
 	m_rightDir = XMVector3Cross(m_lookDir, m_upDir);

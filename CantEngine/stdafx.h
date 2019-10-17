@@ -87,11 +87,6 @@
 
 using namespace DirectX::SimpleMath;
 
-// Our Libraries
-#include "Helper/MathUtil.h"
-#include "Helper/Constant.h"
-#include "CantDebug/CantDebug.h"
-
 //typedef is used here to have a matching
 //name with HLSL typedef so we can share same struct
 //accross HLSL shading language and C++ source files
@@ -121,3 +116,9 @@ inline void SafeReleaseDelete(T& ptr)
 		ptr = NULL;
 	}
 }
+
+// Our Libraries
+#include "Helper/MathUtil.h"
+#include "Helper/Constant.h"
+#include "CantDebug/CantDebug.h"
+

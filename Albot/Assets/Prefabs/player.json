@@ -15,22 +15,10 @@
       "ZOrder" : 0
     }
   },
-  "FPSController": {
-
-  },
   "Scripts": [
     {
-      "Name": "Scripts/Components/test01Comp.lua",
+      "Name": "Scripts/Components/fpscontroller.lua",
       "Overrides": {
-        "hashed": "Marcos scriptcomp01 NOT HASHED!",
-        "ranked": 256
-      }
-    },
-    {
-      "Name": "Scripts/Components/test02Comp.lua",
-      "Overrides": {
-        "hashed": "Marcos scriptcomp02 IS HASHED!!!",
-        "ranked": 1024
       }
     }
   ]

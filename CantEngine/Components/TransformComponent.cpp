@@ -14,7 +14,6 @@ unsigned const TransformComponent::static_type = BaseComponent::numberOfTypes++;
 #include "Graphics/D3D11_Renderer.h"
 
 
-
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<TransformComponent>("TransformComponent")

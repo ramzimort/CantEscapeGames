@@ -19,9 +19,6 @@ Primary Author: Jose Rosenbluth
 #include "Systems/LightSystem.h"
 #include "Systems/CameraSystem.h"
 #include "Systems/HaloEffectSystem.h"
-#ifdef DEVELOPER
-#include "Systems/TestSystems/FPSCameraSystem.h"
-#endif // DEVELOPER
 
 
 SystemManager::SystemManager(AppRenderer* appRenderer)
@@ -39,10 +36,6 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RigidbodySystem*>(m_systems[RigidbodySystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
-
-#ifdef DEVELOPER
-	this->AddSystem<FPSCameraSystem>();
-#endif
 }
 
 SystemManager::~SystemManager()

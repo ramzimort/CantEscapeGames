@@ -84,4 +84,12 @@ namespace MathUtil
 
 		return angles;
 	}
+
+	inline Matrix GetRotationMatrix(const Vector3& right, const Vector2& rotation)
+	{
+		DirectX::XMVECTOR rotation_vector = XMLoadFloat2(&rotation);
+		DirectX::XMMATRIX pitch_mat = XMMatrixRotationAxis(right, DirectX::XMVectorGetY(rotation_vector));
+		DirectX::XMMATRIX yaw_mat = DirectX::XMMatrixRotationY(DirectX::XMVectorGetX(rotation_vector));
+		return DirectX::XMMatrixMultiply(pitch_mat, yaw_mat);
+	}
 }

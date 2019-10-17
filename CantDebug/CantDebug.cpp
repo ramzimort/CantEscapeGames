@@ -164,7 +164,7 @@ void UpdateWindow()
 {
 	ImGuiIO& io = ImGui::GetIO();
 	const float MARGIN = 2.0f;
-	const float MAXWIDTH = io.DisplaySize.x/2.f;
+	const float MAXWIDTH = io.DisplaySize.x;
 	ImVec2 window_pos = ImVec2(MARGIN, MARGIN);
 	ImVec2 window_pos_pivot = ImVec2(0.0f, 0.0f);
 	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);

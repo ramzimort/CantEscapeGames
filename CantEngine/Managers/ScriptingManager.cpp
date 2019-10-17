@@ -10,12 +10,14 @@ Primary Author: Jose Rosenbluth
 #include "ScriptingManager.h"
 
 // BINDING INCLUDES
+#include "Graphics/Camera.h"
 #include "Events/Multicast.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/SystemManager.h"
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
 #include "ResourceManager.h"
+#include "Events/Input/Input.h"
 
 
 //We will use this to print from LUA to out stream
@@ -54,6 +56,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 	{
 		const char *errorName = e.what();
 		DEBUG_LOG(errorName);
+		DEBUG_LOG("\n");
 	}
 
 	//-------------------------------------
@@ -87,7 +90,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 			R"(
 			-- need class instance if you don't bind it with the function
 			print( method01(Obj01, 21, 3) )		-- 24.0
-			-- does not need class instance: was bound to lua with one 
+			-- does not need class instance: was bound to lua with one Y
 			print( method02(3, 21) )			-- 24.0
 	
 			-- need class instance if you don't bind it with the function
@@ -266,6 +269,95 @@ void ScriptingManager::ManageBindings()
 		"MulticastTransform",
 		"Bind", &Multicast<void(GameObject*, float)>::BindLuaFunction
 	);
+	luaState.new_usertype<Multicast<void(int, bool)>>
+	(
+		"KeyEventMulticast",
+		"Bind", &Multicast<void(int, bool)>::BindLuaFunction
+	);
+	luaState.new_usertype< Multicast<void(Vector2, Vector2)>>
+	(
+		"MouseMotionMulticast",
+		"Bind", &Multicast<void(Vector2, Vector2)>::BindLuaFunction
+	);
+	luaState.new_usertype< Multicast<void(uint8_t, bool)>>
+	(
+		"MouseClickMulticast",
+		"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction
+	);
+
+
+#pragma region SCANCODE
+	
+	luaState["SCANCODE"] = luaState.create_table_with(
+		"A", SDL_SCANCODE_A,
+		"B", SDL_SCANCODE_B,
+		"C", SDL_SCANCODE_C,
+		"D", SDL_SCANCODE_D,
+		"E", SDL_SCANCODE_E,
+		"F", SDL_SCANCODE_F,
+		"G", SDL_SCANCODE_G,
+		"H", SDL_SCANCODE_H,
+		"I", SDL_SCANCODE_I,
+		"J", SDL_SCANCODE_J,
+		"K", SDL_SCANCODE_K,
+		"L", SDL_SCANCODE_L,
+		"M", SDL_SCANCODE_M,
+		"N", SDL_SCANCODE_N,
+		"O", SDL_SCANCODE_O,
+		"P", SDL_SCANCODE_P,
+		"Q", SDL_SCANCODE_Q,
+		"R", SDL_SCANCODE_R,
+		"S", SDL_SCANCODE_S,
+		"T", SDL_SCANCODE_T,
+		"U", SDL_SCANCODE_U,
+		"V", SDL_SCANCODE_V,
+		"W", SDL_SCANCODE_W,
+		"X", SDL_SCANCODE_X,
+		"Y", SDL_SCANCODE_Y,
+		"Z", SDL_SCANCODE_Z,
+		"1", SDL_SCANCODE_1,
+		"2", SDL_SCANCODE_2,
+		"3", SDL_SCANCODE_3,
+		"4", SDL_SCANCODE_4,
+		"5", SDL_SCANCODE_5,
+		"6", SDL_SCANCODE_6,
+		"7", SDL_SCANCODE_7,
+		"8", SDL_SCANCODE_8,
+		"9", SDL_SCANCODE_9,
+		"0", SDL_SCANCODE_0,
+		"UP", SDL_SCANCODE_UP,
+		"DOWN", SDL_SCANCODE_DOWN,
+		"RIGHT", SDL_SCANCODE_RIGHT,
+		"LEFT", SDL_SCANCODE_LEFT,
+		"RETURN", SDL_SCANCODE_RETURN,
+		"ESCAPE", SDL_SCANCODE_ESCAPE,
+		"BACKSPACE", SDL_SCANCODE_BACKSPACE,
+		"TAB", SDL_SCANCODE_TAB,
+		"SPACE", SDL_SCANCODE_SPACE,
+		"MINUS", SDL_SCANCODE_MINUS,
+		"EQUALS", SDL_SCANCODE_EQUALS,
+		"LEFTBRACKET", SDL_SCANCODE_LEFTBRACKET,
+		"RIGHTBRACKET", SDL_SCANCODE_RIGHTBRACKET,
+		"BLACKSLASH", SDL_SCANCODE_BACKSLASH
+		);
+#pragma endregion
+	
+#pragma region EVENTS
+	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
+	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
+	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
+#pragma endregion
+
+#pragma region HELPERS
+	luaState.set_function("GetRotationMatrix", &MathUtil::GetRotationMatrix);
+
+#pragma endregion
+
+	//luaState.new_usertype<KeyEvent>
+	//(
+	//	"KeyEvent",
+	//	"OnKeyEvent", std::ref(KeyEvent::OnKeyEvent())
+	//);
 
 	/// // Rigidbody Multicast
 	/// luabridge::getGlobalNamespace(lua_state)
@@ -285,6 +377,19 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  VECTORS & MATRICES  ////
 	//////////////////////////////
+	luaState.new_usertype<Vector2>
+		(
+			"Vector2",
+			sol::constructors<Vector2(), Vector2(float), Vector2(float x, float y), Vector2(const Vector2& rhs) >(),
+			"x", &Vector2::x,
+			"y", &Vector2::y,
+			"dot", &Vector2::Dot,
+			// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+			sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
+			sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
+			sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
+			sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
+	);
 	luaState.new_usertype<Vector3>
 	(
 		"Vector3",
@@ -429,10 +534,22 @@ void ScriptingManager::ManageBindings()
 		"LightComponent"
 	);
 
-	//RIGIDBODY
+	//CAMERA
 	luaState.new_usertype<CameraComponent>
 	(
-		"CameraComponent"
+		"CameraComponent",
+		"GetCamera", &CameraComponent::GetCamera
+	);
+
+	luaState.new_usertype<Camera>
+	(
+		"Camera",
+		"GetForward", &Camera::GetForward,
+		"GetRight", &Camera::GetRight,
+		"SetCameraPosition", sol::overload(
+			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
+			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition)),
+		"ApplyRotation", &Camera::ApplyRotation
 	);
 
 	//PARTICLE_EMITTER

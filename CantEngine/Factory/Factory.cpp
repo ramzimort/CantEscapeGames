@@ -12,12 +12,7 @@ Primary Author:
 #include "Managers/ScriptingManager.h"
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
-
-#include "Graphics/D3D11_Renderer.h"
 #include "Components/AllComponentHeaders.h"
-
-#include "Components/TestComponents/FPSControllerComponent.h"
-#include "Managers/CameraManager.h"
 
 ResourceManager* Factory::m_pResourceManager;
 DXRenderer* Factory::m_pDXRenderer;
@@ -300,8 +295,6 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<ParticleEmitterComponent>();
 	else if (name == "HaloEffectComponent")
 		return go->AddComponent<HaloEffectComponent>();
-	else if (name == "FPSController")
-		return go->AddComponent<FPSControllerComponent>();
 	
 	return rttr::variant();
 }

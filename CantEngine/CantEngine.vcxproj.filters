@@ -24,9 +24,6 @@
     <ClCompile Include="Components\CustomComponent\CustomComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\TestComponents\FPSControllerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Components\BaseComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -207,9 +204,6 @@
     <ClCompile Include="Systems\CustomSystem\CustomSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\TestSystems\FPSCameraSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Systems\BaseSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -314,9 +308,6 @@
     <ClInclude Include="Components\CustomComponent\CustomComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Components\TestComponents\FPSControllerComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Components\AllComponentHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -360,9 +351,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Input\KeyEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\Input\MouseEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Input\WindowFocusEvent.h">
@@ -578,9 +566,6 @@
     <ClInclude Include="Systems\CustomSystem\CustomSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\TestSystems\FPSCameraSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Systems\BaseSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -678,6 +663,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Directory\User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseMotionEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\Input\MouseClickEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

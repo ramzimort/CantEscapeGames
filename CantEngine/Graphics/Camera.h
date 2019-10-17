@@ -28,6 +28,9 @@ public:
 	void SetCameraPosition(const Vector3& new_position);
 
 	Vector3 GetCameraPosition() const;
+	const Vector3& GetForward() const;
+	const Vector3& GetRight() const;
+
 	void Reset();
 
 	void ApplyRotation(const Matrix& transformation_mat);
