@@ -67,6 +67,8 @@ fpscontroller.Update = function(self, dt, owner)
 	local strafe = camera:GetRight() * movement.x;
 	local forward = camera:GetForward() * movement.y;
 	position = position + strafe + forward;
+
+	--TRACE("a" .. position.x .. "\n");
 	
 	-- Left Click Case
 	if (self.LEFTCLICK) then

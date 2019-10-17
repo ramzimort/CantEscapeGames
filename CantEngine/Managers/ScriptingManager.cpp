@@ -21,10 +21,20 @@ Primary Author: Jose Rosenbluth
 
 
 //We will use this to print from LUA to out stream
-void printDebugAndLog(std::string msg)
+void ScriptOutput(const std::string& msg)
 {
-	///OutputDebugString(msg.c_str());
+	OutputDebugString(msg.c_str());
+	//DEBUG_LOG(msg.c_str());
+}
+
+void ScriptLog(const std::string& msg)
+{
 	DEBUG_LOG(msg.c_str());
+}
+
+void ScriptTrace(const std::string& msg)
+{
+	DEBUG_TRACE(msg.c_str());
 }
 
 
@@ -49,7 +59,9 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 	try
 	{
 		// BIND GLOBAL PRINT FUNCTION ( TODO - REMOVE LATER)
-		luaState["OutputPrint"] = &printDebugAndLog;
+		luaState["OutputPrint"] = &ScriptOutput;
+		luaState["LOG"] = &ScriptLog;
+		luaState["TRACE"] = &ScriptTrace;
 		luaState.script_file("Scripts/LuaGlobalSetups.lua");
 	}
 	catch (const sol::error& e)
