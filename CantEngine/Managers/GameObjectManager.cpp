@@ -28,9 +28,11 @@ GameObjectManager::~GameObjectManager()
 	//If the goMgr is getting destroyed, it forcefully destroys all gameObjs too
 	for (auto &node : m_gameObjects) 
 	{
-		//TODO remove from the tagged map
+		const auto& it = m_taggedGameObjs.find(node.second->GetTag());
+		if (it != m_taggedGameObjs.end())
+			m_taggedGameObjs.erase(it);
 
-		delete node.second;
+		CantMemory::PoolResource<GameObject>::Free(node.second);
 	}
 	m_gameObjects.clear();
 }

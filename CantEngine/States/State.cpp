@@ -23,7 +23,7 @@ State::State(std::string const& path, AppRenderer* appRenderer,
 	//Allocates its managers
 	m_systemMgr = new SystemManager(appRenderer);
 	m_gameObjectMgr = new GameObjectManager(m_systemMgr, luaMgr);
-	m_factory = new Factory(path, m_gameObjectMgr, m_systemMgr, resMgr, appRenderer->GetDXRenderer(), luaMgr);
+	Factory::LoadLevel(path, m_gameObjectMgr);
 
 	//For calling init from the instantiate, need to save these two
 	this->m_pRenderer = appRenderer;
@@ -41,7 +41,7 @@ State::State(std::string const& path, AppRenderer* appRenderer,
 	{
 		//Get the correct script name from the path
 		size_t index = path.find_last_of("/\\");
-		int len = (path.size() - 5) - (index + 1);
+		size_t len = (path.size() - 5) - (index + 1);
 		std::string name = "Scripts/States/" + path.substr(index + 1, len) + ".lua";
 
 		//Get a deep copy of the table so each table has their own state
@@ -67,9 +67,6 @@ State::~State()
 	//Deallocates its managers
 	delete m_gameObjectMgr;
 	delete m_systemMgr;
-
-	//Deletes the factory obj
-	delete m_factory;
 }
 
 

@@ -264,8 +264,6 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Multicast<void(GameObject*, float)>>
 	(
 		"MulticastTransform",
-		///sol::constructors< Multicast<void(GameObject*, float)>() >(),
-		//Binding to the multicast
 		"Bind", &Multicast<void(GameObject*, float)>::BindLuaFunction
 	);
 

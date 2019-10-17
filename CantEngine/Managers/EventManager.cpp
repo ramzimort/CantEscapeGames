@@ -9,6 +9,7 @@
 #include "Events/EventBus.h"
 #include "ScriptingManager.h"
 #include "Directory/User.h"
+#include "Factory/Factory.h"
 
 EventManager* EventManager::m_EventManager = new EventManager();
 
@@ -26,7 +27,7 @@ EventManager::~EventManager()
 	delete m_pEventBus;
 }
 
-void EventManager::Initialize()
+void EventManager::Initialize(const std::string& levelPath)
 {
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
@@ -42,11 +43,12 @@ void EventManager::Initialize()
 
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
+	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
 	m_pStateManager = new StateManager();
 
 
 	// TODO: Pass Initial State to State Manager (Not hardcoded)
-	m_pStateManager->SwitchState(new State("level1.json", m_pAppRenderer, 
+	m_pStateManager->SwitchState(new State(levelPath, m_pAppRenderer,
 		m_pResourceManager, m_pScriptingManager));
 
 	m_pAppRenderer->LoadContent();

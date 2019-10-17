@@ -7,10 +7,10 @@
 
 namespace CantEngineAPI
 {
-	void InitializeEngine()
+	void InitializeEngine(const std::string& levelPath)
 	{
 		EventManager* World = EventManager::Get();
-		World->Initialize();
+		World->Initialize(levelPath);
 		FrameManager frame_manager;
 		bool done = false;
 		float dt;

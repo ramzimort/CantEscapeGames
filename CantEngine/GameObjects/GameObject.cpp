@@ -8,6 +8,7 @@ Primary Author: Jose Rosenbluth
 
 #include "GameObject.h"
 #include "Managers/GameObjectManager.h"
+#include "Factory/Factory.h"
 
 //To call init on each go's components, we need to pass these two
 #include "Graphics/AppRenderer.h"
@@ -198,7 +199,7 @@ GameObjectManager *GameObject::GetGOManager()
 
 GameObject *GameObject::Instantiate(GameObjectManager *goMgr)
 {
-	GameObject *go = new GameObject(goMgr);
+	GameObject *go = CantMemory::PoolResource<GameObject>::Allocate(goMgr);
 	if (go == nullptr)
 		return go;
 
@@ -209,8 +210,12 @@ GameObject *GameObject::Instantiate(GameObjectManager *goMgr)
 	return go;
 }
 
-GameObject *GameObject::Instantiate(GameObjectManager *goMgr, std::string const& prefabName)
+GameObject *GameObject::Instantiate(GameObjectManager *goMgr, std::string const& prefabPath)
 {
-	//TODO - Not yet implemented
+	GameObject* go = CantMemory::PoolResource<GameObject>::Allocate(goMgr);
+	Factory::LoadObject(go, prefabPath);
+	//Add to the goMgr's list of scripted Intantiations
+	goMgr->AddToScriptInstantiateQueue(go);
+	//TODO: RAMZI - Not yet implemented
 	return nullptr;
 }

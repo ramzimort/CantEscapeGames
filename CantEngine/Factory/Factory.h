@@ -7,6 +7,7 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
+class GameObject;
 class GameObjectManager;
 class SystemManager;
 class ResourceManager;
@@ -17,20 +18,20 @@ class Factory
 {
 
 public:
-	Factory(std::string path, GameObjectManager *goMgr, SystemManager *sysMgr, 
-		ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr);
-	Factory() = delete;
-	Factory(Factory const& rhs) = delete;
-	~Factory();
+	Factory() = default;
+	~Factory() = default;
 
+	static void Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr);
+	static void LoadLevel(const std::string& path, GameObjectManager* goMgr);
+	static void LoadObject(GameObject* gameObject, const std::string& path);
+
+	Factory(Factory const& rhs) = delete;
 private:
-	void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
-	void LoadObject(const std::string& prefabName, const std::string& tag,
+	static void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
+	static void LoadObject(const std::string& prefabName, const std::string& tag,
 		GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr);
 
-	// TODO - REMOVE LATER (jose)
-	void CreateTestScriptingGO(GameObjectManager *mgr, ScriptingManager *luaMgr);
-
-	ResourceManager* m_pResourceManager;
-	DXRenderer* m_pDXRenderer;
+	static ResourceManager* m_pResourceManager;
+	static DXRenderer* m_pDXRenderer;
+	static ScriptingManager* m_pScriptingManager;
 };

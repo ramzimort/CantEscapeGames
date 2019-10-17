@@ -20,7 +20,7 @@ public:
 	~EventManager();
 	static EventManager* Get();
 	
-	void Initialize();
+	void Initialize(const std::string& levelName);
 	void Update(float dt);
 	bool IsQuit();
 

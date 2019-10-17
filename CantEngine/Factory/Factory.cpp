@@ -7,7 +7,6 @@ Primary Author:
 
 #include "Factory.h"
 #include "GameObjects/GameObject.h"
-#include "Managers/SystemManager.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/ResourceManager.h"
 #include "Managers/ScriptingManager.h"
@@ -20,35 +19,27 @@ Primary Author:
 #include "Components/TestComponents/FPSControllerComponent.h"
 #include "Managers/CameraManager.h"
 
-
+ResourceManager* Factory::m_pResourceManager;
+DXRenderer* Factory::m_pDXRenderer;
+ScriptingManager* Factory::m_pScriptingManager;
 
 // Helper function
 void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc);
 rttr::variant GetComponent(GameObject* go, const std::string& name);
 void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go);//, ScriptingManager* luaMgr);
 
-Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *sysMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr) : 
-	m_pResourceManager(resMgr),	m_pDXRenderer(dxrenderer)
+void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
 {
-	//If either of these is nullptr, we have to stop
-	if (!goMgr || !sysMgr)
-	{
-		//TODO - Call debug stuff here for error
-		DEBUG_LOG("Factory couldn't load goMgr or sysMgr");
-		return;
-	}
-
-	const std::string path = (Constant::LevelDir + fileName);
 	const std::string levelJson = CantReflect::StringifyJson(path);
 	rapidjson::Document lvlDoc;
-	lvlDoc.Parse(levelJson);
 
+	lvlDoc.Parse(levelJson);
 	assert(!lvlDoc.HasParseError());
 	assert(lvlDoc.IsObject());
 	assert(lvlDoc["Resources"].IsObject());
 
 	const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
-	LoadResources(resourcesObj, resMgr);
+	LoadResources(resourcesObj, m_pResourceManager);
 
 	assert(lvlDoc["Objects"].IsArray());
 	const auto& objsArray = lvlDoc["Objects"].GetArray();
@@ -62,8 +53,8 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			const std::string& prefabName = gameObjJson["prefab"].GetString();
 
 			StringId prefabId = StringId(prefabName);
-			const std::string prefabJson = resMgr->GetPrefab(prefabId);
-			rapidjson::Document prefabDoc; 
+			const std::string prefabJson = m_pResourceManager->GetPrefab(prefabId);
+			rapidjson::Document prefabDoc;
 			prefabDoc.Parse(prefabJson);
 			assert(!prefabDoc.HasParseError());
 			auto prefabList = prefabDoc.GetObjectA();
@@ -80,16 +71,45 @@ Factory::Factory(std::string fileName, GameObjectManager *goMgr, SystemManager *
 			prefabDoc.Accept(writer);
 			const std::string objSetup = std::string(buffer.GetString());
 			const std::string tag = gameObjJson["tag"].GetString();
-			
+
 			// Load the object
 			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
-			LoadObject(objSetup, tag, goMgr, resMgr, m_pDXRenderer, luaMgr);
+			LoadObject(objSetup, tag, goMgr, m_pResourceManager, m_pDXRenderer, m_pScriptingManager);
 		}
 	}
 }
 
-Factory::~Factory()
+void Factory::LoadObject(GameObject* gameObject, const std::string& path)
 {
+	const std::string& compSetup = m_pResourceManager->GetPrefab(path);
+	rapidjson::Document objDoc;
+	objDoc.Parse(compSetup);
+	assert(!objDoc.HasParseError());
+
+	const std::vector<rttr::argument> args = { gameObject };
+	auto componentIterator = objDoc.GetObjectA().begin();
+	for (componentIterator; componentIterator != objDoc.GetObjectA().end(); componentIterator++)
+	{
+		// Construct prefab containing default arguments
+		std::string compName = componentIterator->name.GetString();
+		if (compName == "Scripts")
+		{
+			LoadScripts(componentIterator->value.GetArray(), gameObject);//, luaMgr);
+		}
+		else
+		{
+			rttr::variant comp = GetComponent(gameObject, compName);
+			CantReflect::ReadRecursive(comp, componentIterator->value);
+			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
+		}
+	}
+}
+
+void Factory::Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr)
+{
+	m_pResourceManager = resMgr;
+	m_pDXRenderer = dxRenderer;
+	m_pScriptingManager = luaMgr;
 }
 
 void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr)
@@ -134,7 +154,6 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 		resMgr->LoadPrefab(it->GetString());
 }
 
-
 void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 	GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr)
 {
@@ -161,16 +180,8 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& tag,
 				rttr::variant comp = GetComponent(go, compName);
 				CantReflect::ReadRecursive(comp, componentIterator->value);
 				BaseComponent* baseComp = comp.get_value<BaseComponent*>();
-
-				// INIT NOW IS CALLED IN THE GAMEOBJ MGR INSTANTIATE METHOD <****>
-				//Need to call Init() may need to pass resMgr into Init() to connect any models
-				///comp.get_type().get_method("Init", { rttr::type::get<ResourceManager*>(), rttr::type::get<DXRenderer*>() }).invoke(comp, resMgr, dxrenderer);
 			}
 		}
-
-		// BEGIN IS NOT GOING TO BE CALLED ON GAMEOBJ MGR INSTANTIATE METHOD <****>
-		///go->Begin();
-
 	};
 	goMgr->Queue_GameObject_Instantiation(&desc);
 }
@@ -340,10 +351,6 @@ void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go)//, Scri
 				}
 			}
 		}
-
-		// INIT NOW IS CALLED IN THE GAMEOBJ MGR INSTANTIATE METHOD <****>
-		// Init call per script
-		///c1->Init(0, nullptr);
 	}
 
 }
