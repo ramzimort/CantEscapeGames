@@ -92,4 +92,20 @@ namespace MathUtil
 		DirectX::XMMATRIX yaw_mat = DirectX::XMMatrixRotationY(DirectX::XMVectorGetX(rotation_vector));
 		return DirectX::XMMatrixMultiply(pitch_mat, yaw_mat);
 	}
+
+	//roll - around Z vector
+	//yaw - around Y vector
+	//pitch - around X vector
+	inline Vector3 RotateVector(const Vector3& v, float roll, float yaw, float pitch)
+	{
+		float xRad = DirectX::XMConvertToRadians(pitch);
+		float yRad = DirectX::XMConvertToRadians(yaw);
+		float zRad = DirectX::XMConvertToRadians(roll);
+		Matrix R = Matrix::CreateRotationX(xRad) *
+			Matrix::CreateRotationY(yRad) *
+			Matrix::CreateRotationZ(zRad);
+
+		return Vector3::Transform(v, R);
+	}
+
 }
