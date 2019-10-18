@@ -85,9 +85,9 @@ test01Comp.Begin = function(self, owner, goMgr)
 
 	--FIND ANOTHER GAMEOBJ USING TAG-----------------------------------
 
-	local gameobj01 = goMgr:FindGameObject("Andres");
+	local gameobj01 = self.owner_temp;--goMgr:FindGameObject("albertobj3");
 	if (gameobj01 == nil) then
-		OutputPrint(">>> GO with tag Andres not found\n");
+		OutputPrint(">>> GO with tag albertobj3 not found\n");
 		return;
 	end
 	OutputPrint(">>>>>>>>>> Go retrieved - TAG: " .. gameobj01:GetTag() .. " -\n");
@@ -161,7 +161,7 @@ end
 --Method
 test01Comp.MulticastExample = function(self, gameobj, time, position)
 	OutputPrint("\n>>>> CPP multicast fired from script of GO owner: " .. self.owner_temp:GetTag() .. 
-		". \nRecved param go with tag: -< " .. gameobj:GetTag() .. " >- at time -< " .. time .. " >-\n");
+		". \nRecved param go with tag: -< " .. gameobj:GetId() .. " >- at time -< " .. time .. " >-\n");
 	OutputPrint("\n>>>>>>>> Vector param: -< " .. position.x .. ", " .. position.y .. ", " .. position.z .. " >-\n");
 	
 	self.shitPos = Vector3.new(position);
