@@ -59,7 +59,7 @@ public:
 
 	//TODO remove------------------------------
 	float elapsedTime;
-	Multicast<void(GameObject*, float)> OnTimeUp;
+	Multicast<void(GameObject*, float, Vector3)> OnTimeUp;
 	//TODO remove------------------------------
 
 private:

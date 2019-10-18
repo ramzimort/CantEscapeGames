@@ -2,13 +2,17 @@
 
 test01Comp = 
 {
-	name = "test01Comp",
+	name = "test01Comp";
 
 	--Custom variables you can add
-	ranked = -1,
-	isDumb = false,
-	hashed = "_empty_",
-	owner_temp = nil
+	ranked = -1;
+	isDumb = false;
+	hashed = "_empty_";
+
+	owner_temp = nil;
+
+	shitPos = Vector3.new(0);
+	shouldPrint = false;
 }
 
 --Init called when comp is created
@@ -27,8 +31,9 @@ local BindingFunction = function(msg, time)
 end
 
 --LOCAL Function (not a method, no self param)
-local BindingFunction02 = function(obj, time)
+local BindingFunction02 = function(obj, time, position)
 	OutputPrint("\n>>>>>>>> called from elsewhere -< " .. obj:GetTag() .. " >- at time " .. time .. ".\n");
+	OutputPrint("\n>>>>>>>> Vector param: -< " .. position.x .. ", " .. position.y .. ", " .. position.z .. " >-\n");
 end
 
 
@@ -52,6 +57,8 @@ test01Comp.Begin = function(self, owner, goMgr)
 	transform:SetLocalPosition(Vector3.new(1, 2, 3));
 	local testco02 = albert:AddCustomComp("test02Comp");
 	OutputPrint(">>> Comp2 call from instantiated GO: " .. testco02:ReturnWeirdString02() .. "\n");
+
+	--local albertucks = GameObject.Instantiate(owner:Manager(), "Asset/Prefabs/AlbertSucks.json");
 
 	--VECTOR OPERATION-------------------------------------------------
 
@@ -136,6 +143,13 @@ test01Comp.Update = function(self, dt, owner)
 	--self.name .. " - DT: " .. dt .. " - RANK: " .. self.ranked .. ", Hash: " .. 
 	--self.hashed .. "\n");
 
+	if (self.shouldPrint == true) then
+	
+		OutputPrint("\n(UPDATE) >>>>>>>> Vector shitPos: -< " .. self.shitPos.x .. ", " .. self.shitPos.y .. ", " .. self.shitPos.z .. " >-\n");
+		self.shouldPrint = false;
+
+	end
+
 end
 
 --Method
@@ -145,8 +159,15 @@ test01Comp.BindingExample = function(self, msg, time)
 end
 
 --Method
-test01Comp.MulticastExample = function(self, gameobj, time)
-	OutputPrint("\n>>>> CPP multicast fired from script of GO owner: " .. self.owner_temp:GetTag() .. ". \nRecved param go with tag: -< " .. gameobj:GetTag() .. " >- at time -< " .. time .. " >-\n");
+test01Comp.MulticastExample = function(self, gameobj, time, position)
+	OutputPrint("\n>>>> CPP multicast fired from script of GO owner: " .. self.owner_temp:GetTag() .. 
+		". \nRecved param go with tag: -< " .. gameobj:GetTag() .. " >- at time -< " .. time .. " >-\n");
+	OutputPrint("\n>>>>>>>> Vector param: -< " .. position.x .. ", " .. position.y .. ", " .. position.z .. " >-\n");
+	
+	self.shitPos = Vector3.new(position);
+
+	self.shouldPrint = true;
+	
 	return 7;
 end
 

@@ -46,9 +46,9 @@ void TransformSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 	//TODO remove------------------------------
 	transformComp->elapsedTime += dt;
-	if (transformComp->elapsedTime >= 2.0f)
+	if (transformComp->elapsedTime >= 3.0f)
 	{
-		transformComp->OnTimeUp(transformComp->GetOwner(), transformComp->elapsedTime);
+		transformComp->OnTimeUp(transformComp->GetOwner(), transformComp->elapsedTime, transformComp->GetPosition());
 		transformComp->elapsedTime = 0.0f;
 	}
 	//TODO remove------------------------------

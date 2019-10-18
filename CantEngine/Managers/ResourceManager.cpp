@@ -225,6 +225,7 @@ void ResourceManager::LoadScript(const std::string& filePath)
 		{
 			const char *errorName = e.what();
 			DEBUG_LOG(errorName);
+			assert(0);
 		}
 	}
 }

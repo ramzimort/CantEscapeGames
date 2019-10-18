@@ -276,10 +276,12 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  MULTICAST           ////
 	//////////////////////////////
-	luaState.new_usertype<Multicast<void(GameObject*, float)>>
+	luaState.new_usertype<Multicast<void(GameObject*, float, Vector3)>>
 	(
 		"MulticastTransform",
-		"Bind", &Multicast<void(GameObject*, float)>::BindLuaFunction
+		///sol::constructors< Multicast<void(GameObject*, float, Vector3)>() >(),
+		//Binding to the multicast
+		"Bind", &Multicast<void(GameObject*, float, Vector3)>::BindLuaFunction
 	);
 	luaState.new_usertype<Multicast<void(int, bool)>>
 	(
@@ -405,7 +407,7 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Vector3>
 	(
 		"Vector3",
-		sol::constructors<Vector3(), Vector3(float), Vector3(float x, float y, float z) >(),
+		sol::constructors<Vector3(), Vector3(float), Vector3(float x, float y, float z), Vector3(Vector3 const&) >(),
 		"x", &Vector3::x,
 		"y", &Vector3::y,
 		"z", &Vector3::z,
