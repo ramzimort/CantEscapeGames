@@ -11,10 +11,14 @@ Primary Author: Jose Rosenbluth
 #include "Memory/CantMemory.h"
 #include "SystemManager.h"
 #include "ScriptingManager.h"
+#include "EventManager.h"
 
 //To call init on each go's components, we need to pass these two
 #include "Graphics/AppRenderer.h"
 #include "Managers/ResourceManager.h"
+
+#include "Events/GameObject/GameObjectCreated.h"
+#include "Events/GameObject/GameObjectDestroyed.h"
 
 
 GameObjectManager::GameObjectManager(SystemManager *sysMgr, ScriptingManager *luaMgr)
@@ -82,15 +86,18 @@ void GameObjectManager::Instantiate_Queued_GameObjects(AppRenderer *pRenderer, R
 				newGameObjects);
 		}
 
+		EventManager::Get()->EnqueueEvent<GameObjectCreated>(true, go->GetId(), go);
+
 		m_instantiationQueue.pop();
 	}
 
 	// Second, go through scriptedInstances
-	for (GameObject *go : m_scriptedInstances)
-		CompleteGORegistration(go, pRenderer, pResMgr, 
-			newGameObjects);
+	for (GameObject* go : m_scriptedInstances)
+	{
+		CompleteGORegistration(go, pRenderer, pResMgr, newGameObjects);
+		EventManager::Get()->EnqueueEvent<GameObjectCreated>(true, go->GetId(), go);
+	}
 	m_scriptedInstances.clear();
-
 
 	//Finally, need to call begin on all new gameObjects
 	//Only on those created this frame
@@ -169,7 +176,8 @@ void GameObjectManager::Destroy_Queued_GameObjects()
 			m_systemMgr->Unregister_GameObject(go_id);
 
 			//Delete
-			delete go;
+			CantMemory::PoolResource<GameObject>::Free(go);
+			EventManager::Get()->EnqueueEvent<GameObjectDestroyed>(true, go_id, go);
 		}
 	}
 }

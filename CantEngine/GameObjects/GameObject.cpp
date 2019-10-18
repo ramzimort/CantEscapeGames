@@ -61,7 +61,7 @@ GameObject::ComponentMask GameObject::GetComponentMask() const
 	return m_compMask;
 }
 
-std::string GameObject::GetTag() const
+const std::string& GameObject::GetTag() const
 {
 	return this->m_tag;
 }

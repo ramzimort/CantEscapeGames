@@ -64,7 +64,7 @@ void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
 void RigidbodySystem::LateUpdate(float dt) 
 {
 	//GraphicsSettings::Draw_Mesh_Flag = false;
-	GraphicsSettings::Draw_Debug_Mesh_AABB_Flag = false;
+	//GraphicsSettings::Draw_Debug_Mesh_AABB_Flag = false;
 	for (auto& node : m_ObjComponentsMap)
 	{
 		RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
@@ -267,7 +267,7 @@ void RigidbodySystem::LateUpdate(float dt)
 						float jacobianMatrixDotMassMatrixInverseJTranspose = constraints[j].m_jacobian * massMatrixInverseJTranspose;
 						if (jacobianMatrixDotMassMatrixInverseJTranspose == 0.0f)
 						{
-							__debugbreak;
+							__debugbreak();
 						}
 						float effectiveMass = 1.0f / jacobianMatrixDotMassMatrixInverseJTranspose;//  (constraints[j].m_jacobian* massMatrixInverseJTranspose);
 

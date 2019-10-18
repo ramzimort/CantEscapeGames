@@ -602,6 +602,7 @@ void AppRenderer::RenderApp()
 	UpdateMaterialUniformBuffer();
 	m_deferrredRendering.UpdateUniformBuffer();
 	m_debugRendering.UpdateDebugUniformBuffer();
+	m_debugRendering.RenderDebugScene();
 
 	m_momentShadowMapRendering.RenderShadowMap();
 

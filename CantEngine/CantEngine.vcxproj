@@ -28,8 +28,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
+    <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Models\BoneModel.cpp" />
     <ClCompile Include="CantDebug\CantDebug.cpp" />
+    <ClCompile Include="CantDebug\DebugManager.cpp" />
     <ClCompile Include="CantEngine.cpp" />
     <ClCompile Include="Components\BaseComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
@@ -44,8 +46,7 @@
     <ClCompile Include="Components\TransformComponent.cpp" />
     <ClCompile Include="Directory\Directory.cpp" />
     <ClCompile Include="Directory\User.cpp" />
-    <ClCompile Include="Graphics\PostEffects\BlurImagePass.cpp" />
-    <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
+    <ClCompile Include="Events\GameObject\GameObjectDestroyed.h" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
     <ClCompile Include="Events\EventBus.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Graphics\DepthState.cpp" />
     <ClCompile Include="Graphics\DXResourceLoader.cpp" />
     <ClCompile Include="Graphics\GraphicsSettings.cpp" />
+    <ClCompile Include="Graphics\PostEffects\BlurImagePass.cpp" />
     <ClCompile Include="Graphics\PostEffects\HaloEffect.cpp" />
     <ClCompile Include="Graphics\Light.cpp" />
     <ClCompile Include="Graphics\Material.cpp" />
@@ -131,6 +133,7 @@
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />
+    <ClInclude Include="CantDebug\DebugManager.h" />
     <ClInclude Include="CantEngine.h" />
     <ClInclude Include="Components\AllComponentHeaders.h" />
     <ClInclude Include="Components\BaseComponent.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="Components\TransformComponent.h" />
     <ClInclude Include="Directory\Directory.h" />
     <ClInclude Include="Directory\User.h" />
+    <ClInclude Include="Events\GameObject\GameObjectCreated.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
     <ClInclude Include="Graphics\PostEffects\BlurImagePass.h" />
     <ClInclude Include="Graphics\Deferred\DeferredRenderingInstance.h" />

@@ -34,9 +34,6 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 	Model* GetModel();
-
-	//TODO: temp function, this public function is only for testing
-	void SetModel(Model* model);
 public:
 	static ComponentId const static_type;
 private:

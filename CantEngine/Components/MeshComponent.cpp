@@ -50,8 +50,3 @@ Model* MeshComponent::GetModel()
 {
 	return m_model;
 }
-
-void MeshComponent::SetModel(Model* model)
-{
-	m_model = model;
-}

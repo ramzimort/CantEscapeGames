@@ -25,9 +25,13 @@ EventManager::~EventManager()
 	delete m_pInputManager;
 	delete m_pCameraManager;
 	delete m_pEventBus;
+
+#ifdef DEVELOPER
+	delete m_pDebugManager;
+#endif // DEVELOPER
 }
 
-void EventManager::Initialize(const std::string& levelPath)
+void EventManager::Initialize(const std::string& levelPath, size_t width, size_t height)
 {
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
@@ -41,6 +45,10 @@ void EventManager::Initialize(const std::string& levelPath)
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
 		m_pAppRenderer->GetDXRenderer()->get_device_context());
 
+#ifdef DEVELOPER
+	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer);
+#endif
+
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
@@ -53,6 +61,7 @@ void EventManager::Initialize(const std::string& levelPath)
 
 	m_pAppRenderer->LoadContent();
 
+	m_pInputManager->SetWindowSize(width, height);
 }
 
 EventManager* EventManager::Get()
@@ -67,11 +76,19 @@ void EventManager::Update(float dt)
 	m_pStateManager->UpdateStack(dt);
 	m_pStateManager->DrawStack(dt);
 
+#ifdef DEVELOPER
+	m_pDebugManager->Update();
+#endif // DEVELOPER
+
 	m_pAppRenderer->UpdateAppRenderer(dt);
+
 	m_pAppRenderer->RenderApp();
+
+
 	DEBUG_UPDATE;
 	m_pAppRenderer->PresentApp();
 	m_pEventBus->Update(dt);
+
 }
 
 

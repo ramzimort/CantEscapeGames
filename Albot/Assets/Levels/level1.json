@@ -41,82 +41,39 @@
   },
   "Objects": [
     {
-      "tag": "obj8",
-      "prefab": "Assets/Prefabs/player.json",
+      "tag": "lvleditor",
+      "prefab": "Assets/Prefabs/lvleditor.json",
       "overrides": {
       }
     },
     {
-      "tag": "obj3",
+      "tag": "Right",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 150.0, 30.0, 0.0 ],
+          "Position": [ 10.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj4",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 45.0, 0.0 ]
         }
       }
     },
 
     {
-      "tag": "albertobj",
+      "tag": "Middle",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, 1.0, -10.0 ],
+          "Position": [ 0.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
         }
       }
     },
     {
-      "tag": "albertobj2",
+      "tag": "Left",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -10.0, 1.0, -10.0 ],
+          "Position": [ -10.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "albertobj3",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 1.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "red_brick_floor",
-      "prefab": "Assets/Prefabs/brick_wall.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, -0.5, -0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj7",
-      "prefab": "Assets/Prefabs/RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.5, 3.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": 1,
-          "Velocity": [ 0.0, 0.0, 0.0 ]
         }
       }
     },

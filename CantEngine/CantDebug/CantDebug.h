@@ -98,20 +98,6 @@ namespace CantDebug
 		}
 	}
 
-	struct DebugConfig
-	{
-		bool SelectionTool;
-	};
-
-	class DebugManager
-	{
-	public:
-		DebugManager();
-		~DebugManager();
-
-	private:
-		DebugConfig config;
-	};
 }
 
 #endif

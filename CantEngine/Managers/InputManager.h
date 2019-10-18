@@ -39,6 +39,8 @@ public:
 	/** Returns scrolling amount in y-direction*/
 	Sint32 GetMouseScroll();
 
+	void SetWindowSize(size_t width, size_t height);
+
 	SDL_Window* GetWindow();
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit();

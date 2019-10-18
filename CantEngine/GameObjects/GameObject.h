@@ -60,7 +60,7 @@ public:
 	//Getters
 	ComponentMask GetComponentMask() const;
 	size_t GetId() const;
-	std::string GetTag() const;
+	const std::string& GetTag() const;
 	GameObjectManager *GetGOManager();
 
 

@@ -182,6 +182,12 @@ Sint32 InputManager::GetMouseScroll()
 	return m_mouseWheelY;
 }
 
+void InputManager::SetWindowSize(size_t w, size_t h)
+{
+	SDL_SetWindowSize(m_pWindow, static_cast<int>(w), static_cast<int>(h));
+}
+
+
 SDL_Window* InputManager::GetWindow()
 {
 	return m_pWindow;

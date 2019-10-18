@@ -2,6 +2,7 @@
 
 #include "Events/EventCallback.h"
 #include "Events/EventBus.h"
+#include "CantDebug/DebugManager.h"
 
 class BaseEvent;
 class WindowManager;
@@ -12,6 +13,7 @@ class ResourceManager;
 class StateManager;
 class ScriptingManager;
 class EventBus;
+class DebugManager;
 
 class EventManager
 {
@@ -20,7 +22,7 @@ public:
 	~EventManager();
 	static EventManager* Get();
 	
-	void Initialize(const std::string& levelName);
+	void Initialize(const std::string& levelName, size_t scr_width, size_t scr_height);
 	void Update(float dt);
 	bool IsQuit();
 
@@ -41,6 +43,11 @@ private:
 	StateManager* m_pStateManager;
 	EventBus* m_pEventBus;
 	static EventManager* m_EventManager;
+
+#ifdef DEVELOPER
+	CantDebug::DebugManager* m_pDebugManager;
+#endif // !DEVELOPER
+
 };
 
 
