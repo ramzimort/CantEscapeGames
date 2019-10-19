@@ -2,7 +2,7 @@
 #include "AppRendererInstance.h"
 #include "GraphicsSettings.h"
 #include "Graphics/Deferred/DeferredRenderingInstance.h"
-#include "Graphics/Debug/DebugRenderingInstance.h"
+#include "Graphics/DebugRendering/DebugRenderingInstance.h"
 #include "Graphics/PostEffects/MSAAResolvePassInstance.h"
 #include "Graphics/Particles/ParticleRenderingInstance.h"
 #include "Managers/CameraManager.h"

@@ -9,7 +9,7 @@
 #include "Graphics/Camera.h"
 #include "Managers/EventManager.h"
 #include "Graphics/Deferred/DeferredRenderingInstance.h"
-#include "Graphics/Debug/DebugRenderingInstance.h"
+#include "Graphics/DebugRendering/DebugRendering.h"
 #include "Events/Camera/CameraRegistrationEvent.h"
 #include "Events/Camera/CameraDestructionEvent.h"
 

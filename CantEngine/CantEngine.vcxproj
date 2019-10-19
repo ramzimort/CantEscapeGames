@@ -27,6 +27,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Models\BoneModel.cpp" />
     <ClCompile Include="CantDebug\CantDebug.cpp" />
     <ClCompile Include="CantEngine.cpp" />
@@ -44,7 +45,6 @@
     <ClCompile Include="Directory\Directory.cpp" />
     <ClCompile Include="Directory\User.cpp" />
     <ClCompile Include="Graphics\PostEffects\BlurImagePass.cpp" />
-    <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
@@ -128,6 +128,7 @@
     <ClCompile Include="Systems\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />
     <ClInclude Include="CantEngine.h" />
@@ -147,7 +148,6 @@
     <ClInclude Include="Directory\User.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
     <ClInclude Include="Graphics\PostEffects\BlurImagePass.h" />
-    <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Deferred\DeferredRenderingInstance.h" />
     <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Events\Camera\CameraDestructionEvent.h" />

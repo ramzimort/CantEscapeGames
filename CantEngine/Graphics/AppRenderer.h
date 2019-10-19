@@ -4,7 +4,7 @@
 #include "D3D11_Renderer.h"
 #include "Renderer_Includes.h"
 #include "Light.h"
-#include "Graphics/Debug/DebugRendering.h"
+#include "Graphics/DebugRendering/DebugRendering.h"
 #include "Graphics/Deferred/DeferredRendering.h"
 #include "Shaders/Shading.h"
 #include "Graphics/Shadows/MomentShadowMapRendering.h"

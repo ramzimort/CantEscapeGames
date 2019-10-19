@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/Debug/DebugRendering.h"
+#include "Graphics/DebugRendering/DebugRendering.h"
 #include "Graphics/AppRendererInstance.h"
 
 class DebugRenderingInstance
