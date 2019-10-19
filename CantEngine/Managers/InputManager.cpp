@@ -96,15 +96,15 @@ void InputManager::Update()
 		case SDL_MOUSEWHEEL:
 			break;
 		case SDL_MOUSEMOTION:
-			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(true, GetPointerLocVec2(), GetPointerDeltaVec2());
+			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(false, GetPointerLocVec2(), GetPointerDeltaVec2());
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) == 0)
-				EventManager::Get()->EnqueueEvent<MouseClickEvent>(true, m_event.button.button, true);
+				EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, true);
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
-				EventManager::Get()->EnqueueEvent<MouseClickEvent>(true, m_event.button.button, false);
+				EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, false);
 			break;
 		case SDL_KEYDOWN:
 			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
@@ -112,7 +112,7 @@ void InputManager::Update()
 				m_keyboardState[m_event.key.keysym.scancode] == false)
 			{
 				m_keyboardState[m_event.key.keysym.scancode] = true;
-				EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+				EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
 			}
 			break;
 		case SDL_KEYUP:
@@ -121,7 +121,7 @@ void InputManager::Update()
 				m_keyboardState[m_event.key.keysym.scancode] == true)
 			{
 				m_keyboardState[m_event.key.keysym.scancode] = false;
-				EventManager::Get()->EnqueueEvent<KeyEvent>(true, m_event.key.keysym.scancode, m_event.key.state);
+				EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
 			}
 			break;
 		default:

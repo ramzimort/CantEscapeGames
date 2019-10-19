@@ -59,13 +59,12 @@ bool BaseSystem::Can_Register_GameObject(GameObject *go)
 
 void BaseSystem::Unregister_GameObject(size_t go_id)
 {
-	BaseSystemCompNode *node = m_ObjComponentsMap[go_id];
-	if (node)
-	{
+	auto node = m_ObjComponentsMap.find(go_id);
+	if (node == m_ObjComponentsMap.end())
+		return;
 		//Delete node and delete entry from map
-		m_ObjComponentsMap.erase(go_id);
-		delete node;
-	}
+	delete node->second;
+	m_ObjComponentsMap.erase(go_id);
 }
 
 

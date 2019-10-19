@@ -20,6 +20,7 @@ namespace CantDebug
 		EventManager::Get()->SubscribeEvent<MouseClickEvent>(this, std::bind(&DebugManager::OnClick, this, std::placeholders::_1));
 		EventManager::Get()->SubscribeEvent<MouseMotionEvent>(this, std::bind(&DebugManager::OnMotion, this, std::placeholders::_1));
 		EventManager::Get()->SubscribeEvent<WindowSizeEvent>(this, std::bind(&DebugManager::OnScreenResize, this, std::placeholders::_1));
+		EventManager::Get()->SubscribeEvent<KeyEvent>(this, std::bind(&DebugManager::OnKey, this, std::placeholders::_1));
 
 		m_pAppRenderer = pAppRenderer;
 	}
@@ -129,8 +130,6 @@ namespace CantDebug
 		data.m_selected = false;
 		data.m_highlighted = false;
 		m_objects.insert(std::make_pair(e->m_pGameObject, data));
-
-
 	}
 
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* event)
@@ -140,14 +139,21 @@ namespace CantDebug
 
 	void DebugManager::OnClick(const MouseClickEvent* e)
 	{
-		for (auto& go : m_objects)
-			go.second.m_selected = false;
 		if (e->m_button == SDL_BUTTON_LEFT && e->m_state)
 		{
+			if (!m_config.Is_Ctrl)
+			{
+				for (auto& go : m_objects)
+					go.second.m_selected = false;
+			}
+
 			std::vector<GameObject*> raycast = RayCast();
 			if (raycast.size() > 0)
 			{
-				m_objects.at(*raycast.begin()).m_selected = true;
+				auto it = m_objects.find(*raycast.begin());
+				if (it == m_objects.end())
+					return;
+				it->second.m_selected = true;
 			}
 		}
 	}
@@ -161,7 +167,10 @@ namespace CantDebug
 		std::vector<GameObject*> raycast = RayCast();
 		if (raycast.size() > 0)
 		{
-			m_objects.at(*raycast.begin()).m_highlighted = true;
+			auto it = m_objects.find(*raycast.begin());
+			if (it == m_objects.end())
+				return;
+			it->second.m_highlighted = true;
 		}
 	}
 
@@ -170,6 +179,39 @@ namespace CantDebug
 		m_scrDimensions.x = static_cast<float>(e->m_width);
 		m_scrDimensions.y = static_cast<float>(e->m_height);
 	}
+
+	void DebugManager::OnKey(const KeyEvent* e)
+	{
+		// On Release
+		if (e->m_press)
+		{
+			switch (e->m_scancode)
+			{
+			case SDL_SCANCODE_LCTRL:
+				m_config.Is_Ctrl = e->m_press;
+				break;
+
+			case SDL_SCANCODE_DELETE:
+			{
+				auto it = m_objects.begin();
+				GameObject* go;
+				while (it != m_objects.end())
+				{
+					if (it->second.m_selected)
+					{
+						go = it->first;
+						it = m_objects.erase(it);
+						go->Destroy();
+					}
+					else
+						++it;
+				}
+				break;
+			}
+			}
+		}
+	}
+
 }
 
 #endif

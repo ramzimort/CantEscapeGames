@@ -689,5 +689,11 @@
     <ClInclude Include="Events\GameObject\GameObjectCreated.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Events\GameObject\DestroyGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\GameObject\GameObjectEvents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

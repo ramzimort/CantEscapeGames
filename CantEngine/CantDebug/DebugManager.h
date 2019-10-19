@@ -5,14 +5,14 @@
 #include "Physics/Geometry/Aabb.h"
 #include "GameObjects/GameObject.h"
 
-#include "Events/GameObject/GameObjectCreated.h"
-#include "Events/GameObject/GameObjectDestroyed.h"
+#include "Events/GameObject/GameObjectEvents.h"
 #include "Events/Input/Input.h"
 namespace CantDebug
 {
 	struct DebugConfig
 	{
 		bool SelectionTool;
+		bool Is_Ctrl;
 	};
 
 	struct GameObjectData
@@ -46,6 +46,7 @@ namespace CantDebug
 		void OnClick(const MouseClickEvent* e);
 		void OnMotion(const MouseMotionEvent* e);
 		void OnScreenResize(const WindowSizeEvent* e);
+		void OnKey(const KeyEvent* e);
 
 	private:
 		Vector2 m_scrDimensions = { 1280,720 };

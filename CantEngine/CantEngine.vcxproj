@@ -130,6 +130,8 @@
     <ClCompile Include="Systems\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\GameObject\DestroyGameObject.h" />
+    <ClInclude Include="Events\GameObject\GameObjectEvents.h" />
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />

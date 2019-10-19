@@ -41,12 +41,12 @@ GameObject::~GameObject()
 	{
 		BaseComponent *c = m_components[i];
 		if (c != nullptr)
-			delete m_components[i];
+			CantMemory::PoolResource<BaseComponent>::Free(m_components[i]);
 	}
 
 	for (auto& node : m_customComponents) 
 	{
-		delete node.second;
+		CantMemory::PoolResource<CustomComponent>::Free(node.second);
 	}
 	m_customComponents.clear();
 }

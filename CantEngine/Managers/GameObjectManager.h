@@ -12,6 +12,7 @@ class SystemManager;
 class ScriptingManager;
 class AppRenderer;
 class ResourceManager;
+class DestroyGameObject;
 
 struct GameObjectDesc 
 {
@@ -41,7 +42,8 @@ public:
 	void ProcessQueues(AppRenderer *pRenderer, ResourceManager *pResMgr);
 
 	void Queue_GameObject_Instantiation(GameObjectDesc *goDesc);
-	void Queue_GameObject_Destruction(size_t go_id);
+	void Queue_GameObject_Destruction(size_t go_id); 
+	void Queue_GameObject_DestructionE(const DestroyGameObject* e);
 	void AddToScriptInstantiateQueue(GameObject *scriptedGO);
 
 	GameObject *FindGameObjectById(size_t id);

@@ -17,18 +17,20 @@ Primary Author: Jose Rosenbluth
 #include "Graphics/AppRenderer.h"
 #include "Managers/ResourceManager.h"
 
-#include "Events/GameObject/GameObjectCreated.h"
-#include "Events/GameObject/GameObjectDestroyed.h"
+#include "Events/GameObject/GameObjectEvents.h"
 
 
 GameObjectManager::GameObjectManager(SystemManager *sysMgr, ScriptingManager *luaMgr)
 {
 	this->m_systemMgr = sysMgr;
 	this->m_luaMgr = luaMgr;
+	EventManager::Get()->SubscribeEvent<DestroyGameObject>(this, std::bind(&GameObjectManager::Queue_GameObject_DestructionE, this, std::placeholders::_1));
 }
 
 GameObjectManager::~GameObjectManager()
 {
+	EventManager::Get()->UnsubscribeEvent<DestroyGameObject>(this);
+
 	//If the goMgr is getting destroyed, it forcefully destroys all gameObjs too
 	for (auto &node : m_gameObjects) 
 	{
@@ -44,6 +46,11 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::Queue_GameObject_Instantiation(GameObjectDesc *goDesc)
 {
 	m_instantiationQueue.push(*goDesc);
+}
+
+void GameObjectManager::Queue_GameObject_DestructionE(const DestroyGameObject* e)
+{
+	Queue_GameObject_Destruction(e->m_ID);
 }
 
 void GameObjectManager::Queue_GameObject_Destruction(size_t go_id)
