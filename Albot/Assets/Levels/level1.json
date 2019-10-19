@@ -21,6 +21,7 @@
 
     ],
     "Prefabs": [
+      "Assets/Prefabs/lvleditor.json",
       "Assets/Prefabs/mono_azul.json",
       "Assets/Prefabs/mono_rojo.json",
       "Assets/Prefabs/mitsuba_sphere.json",

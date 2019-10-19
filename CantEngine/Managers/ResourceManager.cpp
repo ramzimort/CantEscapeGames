@@ -27,7 +27,6 @@ void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState)
 
 #ifdef DEVELOPER
 	DEBUG_LOADRESDIR("Assets\\Textures", "Assets\\Models", "Assets\\Materials", "Scripts", "Assets\\Prefabs", "Assets\\Audio");
-	LoadPrefab("Assets/Prefabs/lvleditor.json");
 	LoadModel("Assets/Models/Cube.fbx");
 #endif // DEVELOPER
 }
