@@ -6,7 +6,7 @@ Other Authors :
 -End Header--------------------------------------------------------*/
 
 #pragma once
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 
 class SupportShape
 {

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "DepthPassRendering.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Graphics/Material.h"
 
 

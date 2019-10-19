@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics/DeferredRendering.h"
-#include "AppRendererInstance.h"
+#include "Graphics/Deferred/DeferredRendering.h"
+#include "Graphics/AppRendererInstance.h"
 
 class DeferredRenderingInstance
 {

@@ -1,5 +1,5 @@
 #include "Mesh.h"
-#include "DXResourceLoader.h"
+#include "Graphics/DXResourceLoader.h"
 
 
 Mesh::Mesh()

@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics/ParticleRendering.h"
-#include "AppRendererInstance.h"
+#include "Graphics/Particles/ParticleRendering.h"
+#include "Graphics/AppRendererInstance.h"
 
 
 class ParticleRenderingInstance

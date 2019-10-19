@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-#include "Graphics/HaloEffect.h"
+#include "Graphics/PostEffects/HaloEffect.h"
 
 class HaloEffectComponent :
 	public BaseComponent

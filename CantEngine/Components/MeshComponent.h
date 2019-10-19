@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Helper/Hash.h"
 
 class Model;

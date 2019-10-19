@@ -1,9 +1,9 @@
 
 #include "ResourceManager.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Material.h"
-#include "Graphics/ModelLoader.h"
+#include "Graphics/Models/ModelLoader.h"
 #include "Graphics/D3D11_Renderer.h"
 #include "Graphics/DXResourceLoader.h"
 #include "Reflection/Serialization.h"

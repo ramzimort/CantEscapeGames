@@ -1,6 +1,6 @@
 #include "AppRenderer.h"
 #include "D3D11_Renderer.h"
-#include "Model.h"
+#include "Graphics/Models/Model.h"
 #include "Material.h"
 #include "Light.h"
 #include "Managers/CameraManager.h"
@@ -8,8 +8,8 @@
 #include "Graphics/GraphicsSettings.h"
 #include "Graphics/Camera.h"
 #include "Managers/EventManager.h"
-#include "Graphics/DeferredRenderingInstance.h"
-#include "Graphics/DebugRenderingInstance.h"
+#include "Graphics/Deferred/DeferredRenderingInstance.h"
+#include "Graphics/Debug/DebugRenderingInstance.h"
 #include "Events/Camera/CameraRegistrationEvent.h"
 #include "Events/Camera/CameraDestructionEvent.h"
 

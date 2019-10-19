@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "DeferredRendering.h"
 #include "Graphics/D3D11_Renderer.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Graphics/Material.h"
 #include "Graphics/Light.h"
 #include "Managers/ResourceManager.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/GraphicsSettings.h"
-#include "Graphics/HaloEffect.h"
+#include "Graphics/PostEffects/HaloEffect.h"
 
 
 DeferredRendering::DeferredRendering(AppRenderer* app_renderer, ResourceManager* resourceManager)

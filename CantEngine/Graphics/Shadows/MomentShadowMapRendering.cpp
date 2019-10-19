@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MomentShadowMapRendering.h"
-#include "DepthPassRendering.h"
+#include "Graphics/DepthPassRendering.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/GraphicsSettings.h"
 

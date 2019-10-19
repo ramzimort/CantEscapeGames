@@ -3,7 +3,7 @@
 #include "Graphics/GraphicsSettings.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/D3D11_Renderer.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Graphics/Material.h"
 #include "Graphics/Light.h"
 #include "Managers/ResourceManager.h"

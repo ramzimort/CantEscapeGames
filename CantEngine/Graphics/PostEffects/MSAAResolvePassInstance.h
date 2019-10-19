@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics/MSAAResolvePass.h"
-#include "AppRendererInstance.h"
+#include "Graphics/PostEffects/MSAAResolvePass.h"
+#include "Graphics/AppRendererInstance.h"
 
 class MSAAResolvePassInstance
 {

@@ -1,7 +1,7 @@
 #include "Model.h"
 #include <iostream>
 #include <limits>
-#include "DXResourceLoader.h"
+#include "Graphics/DXResourceLoader.h"
 
 
 Model::Model()

@@ -1,7 +1,7 @@
 #include "ModelLoader.h"
-#include "DXResourceLoader.h"
-#include "AppRenderer.h"
-#include "D3D11_Renderer.h"
+#include "Graphics/DXResourceLoader.h"
+#include "Graphics/AppRenderer.h"
+#include "Graphics/D3D11_Renderer.h"
 
 ModelLoader::ModelLoader()
 {

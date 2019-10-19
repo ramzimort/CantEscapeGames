@@ -8,7 +8,7 @@ Other Authors :
 #pragma once
 
 #include "SupportShape.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 #include "Components/TransformComponent.h"
 
 

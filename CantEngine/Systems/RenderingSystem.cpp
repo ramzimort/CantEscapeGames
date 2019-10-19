@@ -17,7 +17,7 @@ unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 
 //TODO: Alberto stuff
 #include "Graphics/AppRenderer.h"
-#include "Graphics/Model.h"
+#include "Graphics/Models/Model.h"
 
 RenderingSystem::RenderingSystem() : 
 	BaseSystem()

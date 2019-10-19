@@ -2,7 +2,7 @@
 #include "MSAAResolvePass.h"
 #include "Graphics/AppRenderer.h"
 #include "Shaders/Shading.h"
-#include "Graphics/MSAAResolvePass.h"
+#include "Graphics/PostEffects/MSAAResolvePass.h"
 #include "Graphics/GraphicsSettings.h"
 #include "CantDebug/CantDebug.h"
 
