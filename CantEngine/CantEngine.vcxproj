@@ -30,9 +30,16 @@
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Models\BoneModel.cpp" />
+    <ClCompile Include="Animation\Animation.cpp" />
+    <ClCompile Include="Animation\AnimModel.cpp" />
+    <ClCompile Include="Animation\Bone.cpp" />
+    <ClCompile Include="Animation\FBXLoader.cpp" />
+    <ClCompile Include="Animation\Interpolation.cpp" />
+    <ClCompile Include="Animation\Quaternion.cpp" />
     <ClCompile Include="CantDebug\CantDebug.cpp" />
     <ClCompile Include="CantDebug\DebugManager.cpp" />
     <ClCompile Include="CantEngine.cpp" />
+    <ClCompile Include="Components\AnimationComponent.cpp" />
     <ClCompile Include="Components\BaseComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\CustomComponent\CustomComponent.cpp" />
@@ -118,6 +125,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Developer|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Systems\AnimationSystem.cpp" />
     <ClCompile Include="Systems\BaseSystem.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CustomSystem\CustomSystem.cpp" />
@@ -132,12 +140,19 @@
   <ItemGroup>
     <ClInclude Include="Events\GameObject\DestroyGameObject.h" />
     <ClInclude Include="Events\GameObject\GameObjectEvents.h" />
+    <ClInclude Include="Animation\Animation.h" />
+    <ClInclude Include="Animation\AnimModel.h" />
+    <ClInclude Include="Animation\Bone.h" />
+    <ClInclude Include="Animation\FBXLoader.h" />
+    <ClInclude Include="Animation\Interpolation.h" />
+    <ClInclude Include="Animation\Quaternion.h" />
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />
     <ClInclude Include="CantDebug\DebugManager.h" />
     <ClInclude Include="CantEngine.h" />
     <ClInclude Include="Components\AllComponentHeaders.h" />
+    <ClInclude Include="Components\AnimationComponent.h" />
     <ClInclude Include="Components\BaseComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\CustomComponent\CustomComponent.h" />
@@ -247,6 +262,7 @@
     <ClInclude Include="Shaders\Shading.h" />
     <ClInclude Include="States\State.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Systems\AnimationSystem.h" />
     <ClInclude Include="Systems\BaseSystem.h" />
     <ClInclude Include="Systems\CameraSystem.h" />
     <ClInclude Include="Systems\CustomSystem\CustomSystem.h" />

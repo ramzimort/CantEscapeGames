@@ -295,6 +295,8 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<ParticleEmitterComponent>();
 	else if (name == "HaloEffectComponent")
 		return go->AddComponent<HaloEffectComponent>();
+	else if (name == "AnimationComponent")
+		return go->AddComponent<AnimationComponent>();
 	
 	return rttr::variant();
 }

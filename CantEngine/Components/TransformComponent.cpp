@@ -23,7 +23,6 @@ RTTR_REGISTRATION
 	.property("Scale", &TransformComponent::m_scale);
 }
 
-
 TransformComponent::TransformComponent(GameObject *owner) :
 	BaseComponent(owner, TransformComponent::static_type),
 	m_needToRecalculateModel(1),
@@ -31,9 +30,6 @@ TransformComponent::TransformComponent(GameObject *owner) :
 	m_rotation(0.f),
 	m_scale(1.f)
 {
-	//TODO remove------------------------------
-	elapsedTime = 0.0f;
-	//TODO remove------------------------------
 }
 
 

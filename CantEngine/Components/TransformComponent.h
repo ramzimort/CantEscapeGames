@@ -13,11 +13,6 @@ Primary Author: Jose Rosenbluth
 #include "BaseComponent.h"
 
 
-//TODO remove------------------------------
-#include "Events/Multicast.h"
-//TODO remove------------------------------
-
-
 class GameObjectManager;
 
 
@@ -56,11 +51,6 @@ public:
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(const Vector3& position);
 	void SetLocalRotation(float eulerX, float eulerY, float eulerZ); 
-
-	//TODO remove------------------------------
-	float elapsedTime;
-	Multicast<void(GameObject*, float, Vector3)> OnTimeUp;
-	//TODO remove------------------------------
 
 private:
 	//Setup methods

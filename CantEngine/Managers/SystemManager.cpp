@@ -17,6 +17,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/TestSystem.h"
 #include "Systems/ParticleEmitterSystem.h"
 #include "Systems/LightSystem.h"
+#include "Systems/AnimationSystem.h"
 #include "Systems/CameraSystem.h"
 #include "Systems/HaloEffectSystem.h"
 
@@ -31,6 +32,9 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<HaloEffectSystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<ParticleEmitterSystem>();
+	this->AddSystem<AnimationSystem>();
+
+
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<HaloEffectSystem*>(m_systems[HaloEffectSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);

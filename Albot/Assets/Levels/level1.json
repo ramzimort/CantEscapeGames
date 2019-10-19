@@ -31,6 +31,7 @@
       "Assets/Prefabs/player.json",
       "Assets/Prefabs/TestGoJose.json",
       "Assets/Prefabs/brick_wall.json",
+      "Assets/Prefabs/TestGoJose.json",
       "Assets/Prefabs/mini_map.json"
     ],
     "Scripts": [
@@ -118,6 +119,35 @@
             "Position": [ 0.0, 30.0, 0.0 ],
             "LookDir": [ 0.0, -1.0, 0.1 ]
           }
+        }
+      }
+    },
+    {
+      "tag": "Go_Jose01",
+      "prefab": "Assets/Prefabs/TestGoJose.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 15.0, 5.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "AnimationComponent": {
+          "Clips": [
+            {
+              "name": "WalkAnim",
+              "path": "Assets/Models/AnimTest01.fbx",
+              "loops": 1
+            },
+            {
+              "name": "StopAnim",
+              "path": "Assets/Models/Cube.fbx",
+              "loops": 0
+            },
+            {
+              "name": "JumpAnim",
+              "path": "Assets/Models/Cube.fbx",
+              "loops": 0
+            }
+          ]
         }
       }
     }

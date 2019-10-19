@@ -276,27 +276,26 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  MULTICAST           ////
 	//////////////////////////////
-	luaState.new_usertype<Multicast<void(GameObject*, float, Vector3)>>
-	(
-		"MulticastTransform",
-		///sol::constructors< Multicast<void(GameObject*, float, Vector3)>() >(),
-		//Binding to the multicast
-		"Bind", &Multicast<void(GameObject*, float, Vector3)>::BindLuaFunction
-	);
+
 	luaState.new_usertype<Multicast<void(int, bool)>>
 	(
 		"KeyEventMulticast",
-		"Bind", &Multicast<void(int, bool)>::BindLuaFunction
+		"Bind", &Multicast<void(int, bool)>::BindLuaFunction,
+		"Unbind", &Multicast<void(int, bool)>::UnbindLuaFunction
 	);
+	
 	luaState.new_usertype< Multicast<void(Vector2, Vector2)>>
 	(
 		"MouseMotionMulticast",
-		"Bind", &Multicast<void(Vector2, Vector2)>::BindLuaFunction
+		"Bind", &Multicast<void(Vector2, Vector2)>::BindLuaFunction,
+		"Unbind", &Multicast<void(Vector2, Vector2)>::UnbindLuaFunction
 	);
+	
 	luaState.new_usertype< Multicast<void(uint8_t, bool)>>
 	(
 		"MouseClickMulticast",
-		"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction
+		"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction,
+		"Unbind", &Multicast<void(uint8_t, bool)>::UnbindLuaFunction
 	);
 
 
@@ -372,20 +371,6 @@ void ScriptingManager::ManageBindings()
 	//	"KeyEvent",
 	//	"OnKeyEvent", std::ref(KeyEvent::OnKeyEvent())
 	//);
-
-	/// // Rigidbody Multicast
-	/// luabridge::getGlobalNamespace(lua_state)
-	/// 	.beginClass<Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>>("Multicast_Rigidbody")
-	/// 	.addFunction("Fire_Multicast", &Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>::operator())
-	/// 	.addFunction("Bind_Lua_Function", &Multicast<luabridge::LuaRef(GameObject*, GameObject*, Contact*)>::Bind_Lua_Function)
-	/// 	.endClass();
-	/// 
-	/// // Particle Multicast
-	/// luabridge::getGlobalNamespace(lua_state)
-	/// 	.beginClass<Multicast<luabridge::LuaRef(void)>>("Multicast_Particles")
-	/// 	.addFunction("Fire_Multicast", &Multicast<luabridge::LuaRef(void)>::operator())
-	/// 	.addFunction("Bind_Lua_Function", &Multicast<luabridge::LuaRef(void)>::Bind_Lua_Function)
-	/// 	.endClass();
 
 
 	//////////////////////////////
@@ -507,8 +492,6 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::Scale), 
 			sol::resolve<void(float, float, float)>(&TransformComponent::Scale),
 			sol::resolve<void(float)>(&TransformComponent::Scale)),
-		//Multicast test
-		"OnTimeUp", &TransformComponent::OnTimeUp,
 		//Getters
 		"GetWorldPosition", &TransformComponent::GetWorldPosition,
 		"GetPosition", &TransformComponent::GetPosition,

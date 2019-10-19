@@ -4,6 +4,27 @@
     "Rotation": [ 90.0, 180.0, 270.0 ],
     "Scale": [ 3.0, 1.0, 2.0 ]
   },
+
+  "AnimationComponent": {
+    "Clips": [
+      {
+        "name": "WalkAnim",
+        "path": "Cube.fbx",
+        "loops": 1
+      },
+      {
+        "name": "StopAnim",
+        "path": "Cube.fbx",
+        "loops": 0
+      },
+      {
+        "name": "JumpAnim",
+        "path": "Cube.fbx",
+        "loops": 0
+      }
+    ]
+  },
+
   "Scripts": [
     {
       "Name": "Scripts/Components/test01Comp.lua",
