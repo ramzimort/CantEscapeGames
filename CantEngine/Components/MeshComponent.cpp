@@ -29,6 +29,9 @@ RTTR_REGISTRATION
 MeshComponent::MeshComponent(GameObject *owner)
 	:BaseComponent(owner, static_type)
 {
+	// TODO - Not final. For now, we force this to a vector
+	//        that can hold up to 100 matrices
+	BoneTransformationsForShader = std::vector<Matrix>(100);
 }
 
 MeshComponent::~MeshComponent()

@@ -47,12 +47,8 @@ private:
 	MathUtil::Quaternion CalculateInterpRot(float AnimationTime, AnimChannel const& animChannel);
 	Vector3 CalculateInterpScale(float AnimationTime, AnimChannel const& animChannel);
 
-	void ProcessRecursiveTransformationFromRoot(AnimModel *model, Bone& node,
-		Matrix const& parentTransf, std::vector<Matrix>& BoneTransformationsForShader);
-
-
-	//Vector that, for now, will be used to pass info to shader as uniform
-	std::vector<Matrix> BoneTransformations;
+	void ProcessRecursiveTransformationFromRoot(MeshComponent *meshcomp, AnimModel *model, Bone& node,
+		Matrix const& parentTransf);
 
 
 public:

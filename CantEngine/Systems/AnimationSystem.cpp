@@ -26,10 +26,6 @@ AnimationSystem::AnimationSystem() :
 	// 3 - Push the comp to set the comp mask
 	Push_required_comp<AnimationComponent>();
 	Push_required_comp<MeshComponent>();
-
-	// TODO - Not final. For now, we force this to a vector
-	//        that can hold up to 100 matrices
-	BoneTransformations = std::vector<Matrix>(100);
 }
 
 
@@ -92,7 +88,7 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 		// Replace bonemap with skeleton structure. And have a GetRoot function.
 		Bone& root = model->boneMap["RootNode"];
 		// TODO - In future, skeleton should call the recursive function maybe
-		this->ProcessRecursiveTransformationFromRoot(model, root, Matrix::Identity, BoneTransformations);
+		this->ProcessRecursiveTransformationFromRoot(meshComp ,model, root, Matrix::Identity);
 
 		//Restart animation
 		if (animTime > animator->m_duration && animator->m_loops)
@@ -104,8 +100,8 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 
 
-void AnimationSystem::ProcessRecursiveTransformationFromRoot(AnimModel *model,
-	Bone& node, Matrix const& parentTransf, std::vector<Matrix>& BoneTransformationsForShader)
+void AnimationSystem::ProcessRecursiveTransformationFromRoot(MeshComponent *meshcomp, AnimModel *model,
+	Bone& node, Matrix const& parentTransf)
 {
 	//If bone had VQS calculated, we use that instead of nodeTransformation
 	if (node.updatedVQS)
@@ -122,13 +118,12 @@ void AnimationSystem::ProcessRecursiveTransformationFromRoot(AnimModel *model,
 	for (int i = 0; i < node.children.size(); ++i)
 	{
 		Bone& child = model->boneMap[node.children[i]];
-		ProcessRecursiveTransformationFromRoot(model, child, node.accumTransformation,
-			BoneTransformationsForShader);
+		ProcessRecursiveTransformationFromRoot(meshcomp, model, child, node.accumTransformation);
 	}
 
 	//Update stuff using offset matrix
 	Matrix result = node.accumTransformation * node.offsetMatrix;
-	BoneTransformationsForShader[node.index] = result;
+	meshcomp->BoneTransformationsForShader[node.index] = result;
 }
 
 

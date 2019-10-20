@@ -34,6 +34,9 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 	Model* GetModel();
+
+	std::vector<Matrix> BoneTransformationsForShader;
+
 public:
 	static ComponentId const static_type;
 private:
