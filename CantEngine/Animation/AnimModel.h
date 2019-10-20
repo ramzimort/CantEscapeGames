@@ -49,7 +49,7 @@ public:
 	void ResizeBoneDataList();
 
 	void PassIndicesAndWeightsPerMesh(std::vector<std::vector<int>> const& indices, 
-		std::vector<std::vector<float>> const& weights, int vertexIndexOffset);
+		std::vector<std::vector<float>> const& weights);
 
 private:
 	void InitBuffer(DXRenderer* dxrenderer) override;

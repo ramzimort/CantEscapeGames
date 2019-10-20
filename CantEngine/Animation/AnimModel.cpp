@@ -21,7 +21,7 @@ void AnimModel::ResizeBoneDataList()
 
 
 void AnimModel::PassIndicesAndWeightsPerMesh( std::vector<std::vector<int>> const& indices,
-	std::vector<std::vector<float>> const& weights, int vertexIndexOffset)
+	std::vector<std::vector<float>> const& weights)
 {
 	for (int i = 0; i < indices.size(); ++i) 
 	{
@@ -51,7 +51,19 @@ void AnimModel::PassIndicesAndWeightsPerMesh( std::vector<std::vector<int>> cons
 			}
 		}
 
-		this->m_boneDataList[vertexIndexOffset + i] = data;
+		//----------NORMALIZING-------------------------------
+		float weight = data.m_boneWeights[0] + data.m_boneWeights[1] +
+			data.m_boneWeights[2] + data.m_boneWeights[3];
+		if (fabs(1.0f - weight) > 0.001f)
+		{
+			data.m_boneWeights[0] /= weight;
+			data.m_boneWeights[1] /= weight;
+			data.m_boneWeights[2] /= weight;
+			data.m_boneWeights[3] /= weight;
+		}
+		//----------------------------------------------------
+
+		this->m_boneDataList.push_back(data);
 	}
 }
 

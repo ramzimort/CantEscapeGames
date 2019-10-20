@@ -13,7 +13,7 @@ namespace FBXLoader
 	{
 		//Animation model. Holds the skeleton and animation info
 		AnimModel *model = static_cast<AnimModel*>(mdl);
-		model->ResizeBoneDataList();
+		///model->ResizeBoneDataList();
 
 		//Other useful vars and structures
 		int totalNumberOfVertices = CalculateTotalVertexCount(scene);
@@ -36,9 +36,8 @@ namespace FBXLoader
 
 
 		// Stores all the mesh info, 
-		int vertexIndexOffset = 0;
 		for (unsigned i = 0; i < scene->mNumMeshes; ++i) 
-			GetPerVertexData(model, scene->mMeshes[i], vertexIndexOffset, BoneOffsetMap, BoneNameIdMap);
+			GetPerVertexData(model, scene->mMeshes[i], BoneOffsetMap, BoneNameIdMap);
 
 
 
@@ -71,7 +70,7 @@ namespace FBXLoader
 
 
 	// Process the aiMesh and get all the information
-	void GetPerVertexData(AnimModel *model, aiMesh* mesh, int& vertexIndexOffset,
+	void GetPerVertexData(AnimModel *model, aiMesh* mesh,
 		std::unordered_map<std::string, Matrix>& BoneOffsetMap,
 		std::unordered_map<std::string, int> const& BonesNameIdMap)
 	{
@@ -100,8 +99,7 @@ namespace FBXLoader
 		}
 
 		//We have to pass the indices and weights info to the animModel
-		model->PassIndicesAndWeightsPerMesh(bones_indices, bones_weights, vertexIndexOffset);
-		vertexIndexOffset += mesh->mNumVertices;
+		model->PassIndicesAndWeightsPerMesh(bones_indices, bones_weights);
 	}
 
 
