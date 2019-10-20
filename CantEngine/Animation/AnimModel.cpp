@@ -14,9 +14,14 @@ AnimModel::~AnimModel()
 }
 
 
-void AnimModel::PassIndicesAndWeightsPerMesh(
-	std::vector<std::vector<int>> const& indices,
-	std::vector<std::vector<float>> const& weights) 
+void AnimModel::ResizeBoneDataList()
+{
+	this->m_boneDataList.resize(this->GetVerticesList().size());
+}
+
+
+void AnimModel::PassIndicesAndWeightsPerMesh( std::vector<std::vector<int>> const& indices,
+	std::vector<std::vector<float>> const& weights, int vertexIndexOffset)
 {
 	for (int i = 0; i < indices.size(); ++i) 
 	{
@@ -46,7 +51,7 @@ void AnimModel::PassIndicesAndWeightsPerMesh(
 			}
 		}
 
-		this->m_boneDataList.push_back(data);
+		this->m_boneDataList[vertexIndexOffset + i] = data;
 	}
 }
 

@@ -22,7 +22,7 @@ namespace FBXLoader
 
 
 	// Process the aiMesh and get all the information
-	void GetPerVertexData(AnimModel *model, aiMesh* mesh,
+	void GetPerVertexData(AnimModel *model, aiMesh* mesh, int& vertexIndexOffset,
 		std::unordered_map<std::string, Matrix>& BoneOffsetMap,
 		std::unordered_map<std::string, int> const& BonesNameIdMap);
 

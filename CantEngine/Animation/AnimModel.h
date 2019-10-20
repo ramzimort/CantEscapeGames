@@ -46,8 +46,10 @@ public:
 	AnimModel();
 	virtual ~AnimModel();
 
+	void ResizeBoneDataList();
+
 	void PassIndicesAndWeightsPerMesh(std::vector<std::vector<int>> const& indices, 
-		std::vector<std::vector<float>> const& weights);
+		std::vector<std::vector<float>> const& weights, int vertexIndexOffset);
 
 private:
 	void InitBuffer(DXRenderer* dxrenderer) override;
