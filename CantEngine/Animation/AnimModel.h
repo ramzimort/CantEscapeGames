@@ -1,37 +1,63 @@
 #pragma once
-#include "Physics/Geometry/Aabb.h"
 #include "Helper/Hash.h"
 #include "Graphics/Models/Model.h"
+#include "Animation/Bone.h"
+#include "Animation/Animation.h"
 
+
+
+struct BoneVertexData
+{
+	int32_t m_boneIndices[4];
+	float m_boneWeights[4];
+
+	BoneVertexData()
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			m_boneIndices[i] = -1;
+			m_boneWeights[i] = 0.0f;
+		}
+	}
+};
 
 
 struct AnimVertexData
 {
 	VertexData m_vertexData;
-	uint32_t m_boneIndices[4];
+	int32_t m_boneIndices[4];
 	float m_boneWeights[4];
+
+	AnimVertexData(const VertexData& vertexData) : m_vertexData(vertexData)
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			m_boneIndices[i] = -1;
+			m_boneWeights[i] = 0.0f;
+		}
+	}
 };
 
 
-
-class LoadedMesh;
-class Texture;
-class DXRenderer;
-
 class AnimModel : public Model 
 {
-public:
-	friend class FBXLoader;
-public:
-	AnimModel() {};
-	~AnimModel() {};
 
+public:
+	AnimModel();
+	virtual ~AnimModel();
+
+	void PassIndicesAndWeightsPerMesh(std::vector<std::vector<int>> const& indices, 
+		std::vector<std::vector<float>> const& weights);
 
 private:
-	
+	void InitBuffer(DXRenderer* dxrenderer) override;
+
+public:
+	//Important data for the animations TODO - make private
+	std::unordered_map<std::string, Bone> boneMap;
+	std::unordered_map<std::string, Animation> animMap;
+
 private:
+	std::vector<BoneVertexData> m_boneDataList;
 
-	
-
-	
 };

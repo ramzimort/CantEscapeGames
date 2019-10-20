@@ -14,6 +14,8 @@ Primary Author: Jose Rosenbluth
 #include "Animation/Bone.h"
 
 class AnimationComponent;
+class MeshComponent;
+class AnimModel;
 
 
 ///TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP
@@ -21,10 +23,11 @@ class AnimationComponent;
 struct AnimatorCompNode : BaseSystemCompNode
 {
 	AnimationComponent *n_animator;
+	MeshComponent *n_meshComp;
 
 	//Ctor
-	AnimatorCompNode(AnimationComponent *animator) :
-		n_animator(animator)
+	AnimatorCompNode(AnimationComponent *animator, MeshComponent *meshComp) :
+		n_animator(animator), n_meshComp(meshComp)
 	{}
 };
 
@@ -44,7 +47,7 @@ private:
 	MathUtil::Quaternion CalculateInterpRot(float AnimationTime, AnimChannel const& animChannel);
 	Vector3 CalculateInterpScale(float AnimationTime, AnimChannel const& animChannel);
 
-	void ProcessRecursiveTransformationFromRoot(AnimationComponent *animator, Bone& node, 
+	void ProcessRecursiveTransformationFromRoot(AnimModel *model, Bone& node,
 		Matrix const& parentTransf, std::vector<Matrix>& BoneTransformationsForShader);
 
 

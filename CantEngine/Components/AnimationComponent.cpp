@@ -11,6 +11,11 @@ unsigned const AnimationComponent::static_type = BaseComponent::numberOfTypes++;
 
 #include "GameObjects/GameObject.h"
 #include "Managers/GameObjectManager.h"
+#include "Managers/ResourceManager.h"
+
+#include "Components/MeshComponent.h"
+#include "Animation/AnimModel.h"
+#include "Animation/FBXLoader.h"
 
 
 RTTR_REGISTRATION
@@ -42,23 +47,43 @@ AnimationComponent::~AnimationComponent()
 
 void AnimationComponent::Init(ResourceManager* res, DXRenderer* dxrenderer) 
 {
-	//Once we have all the animations paths, we should load them and their data one by one
-	std::string& name = this->m_clips[0].name;
-	for (int i = 1; name != ""; ++i)
-	{
-		//Get path, load model
-		std::string const& path = this->m_clips[i - 1].path;
-
-		name = this->m_clips[i].name;
-	}
+	this->m_resMgr = res;
 }
 
 
 void AnimationComponent::Begin(GameObjectManager *goMgr) 
 {
-	//At some point, decide if either this or the mesh comp will retrieve the per vertex info (index and weight)
-	// TODO - Make sure m_animMap is complete
-	// TODO - Make sure m_boneMap is complete
+	//Temporary measure: Get animModel directly from meshComp
+	MeshComponent *meshcomp = this->GetOwner()->GetComponent<MeshComponent>();
+	if (meshcomp) 
+	{
+		//Get the model
+		AnimModel *model = static_cast<AnimModel*>(meshcomp->GetModel());
+
+		//Once we have all the animations paths, we should load them 
+		//and their data one by one
+		std::string name = this->m_clips[0].name;
+		for (int i = 1; name != ""; ++i)
+		{
+			//Get path, load model
+			std::string const& path = this->m_clips[i - 1].path;
+			Assimp::Importer importer;
+			aiScene const *scene = importer.ReadFile(path, aiProcess_Triangulate | 
+				aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+			if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+				return;
+
+			//Load animation with FBX loader (Later change to res mgr)
+			FBXLoader::LoadAnimationData(model, scene, name);
+
+			//Pass animation data to the animComp
+			this->m_animationMap = model->animMap;
+
+			//RIGHT NOW NOT HANDLING MULTIPLE ONES TODO
+
+			name = this->m_clips[i].name;
+		}
+	}
 
 
 	//General setup of the animator

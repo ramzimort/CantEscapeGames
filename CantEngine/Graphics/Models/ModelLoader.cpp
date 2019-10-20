@@ -78,7 +78,6 @@ void ModelLoader::LoadModel( Model* model, aiScene const *scene,DXRenderer* dxre
 	{
 		ModelLoader::CalculateModelTangents(*model);
 	}
-	model->InitBuffer(dxrenderer);
 }
 
 void ModelLoader::ProcessNode(aiNode *node, const aiScene *scene, Model& model, 

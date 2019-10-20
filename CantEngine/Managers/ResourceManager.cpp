@@ -1,9 +1,11 @@
 
 #include "ResourceManager.h"
+#include "Animation/AnimModel.h"
 #include "Graphics/Models/Model.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Material.h"
 #include "Graphics/Models/ModelLoader.h"
+#include "Animation/FBXLoader.h"
 #include "Graphics/D3D11_Renderer.h"
 #include "Graphics/DXResourceLoader.h"
 #include "Reflection/Serialization.h"
@@ -64,6 +66,7 @@ sol::table& ResourceManager::GetScript(StringId scriptId)
 		return *node->second.res.p_solTable;
 }
 
+
 void ResourceManager::LoadModel(const std::string& filePath)
 {
 	DEBUG_LOG("Loading Model: %s...\n", filePath.c_str());
@@ -72,7 +75,7 @@ void ResourceManager::LoadModel(const std::string& filePath)
 	if (m_resources.find(id) != m_resources.end())
 		return;
 
-	Model* model = CantMemory::PoolResource<Model>::Allocate();
+	Model* model = nullptr;
 	Assimp::Importer importer;
 	aiScene const *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
 	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
@@ -83,12 +86,34 @@ void ResourceManager::LoadModel(const std::string& filePath)
 		return;
 	}
 
-	ModelLoader::LoadModel(model, scene, m_dxrenderer);
+	//Figure out if we need animModel or not based on bones
+	bool hasBoneFlag = false;
+	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+	{
+		if (scene->mMeshes[i]->HasBones())
+		{
+			hasBoneFlag = true;
+			break;
+		}
+	}
 
-	ResPtr p; p.p_model = model;
+	//Create model with the right virtual ctor
+	model = (hasBoneFlag) ? CantMemory::PoolResource<AnimModel>::Allocate() : CantMemory::PoolResource<Model>::Allocate();
+
+	//First load mesh data. If has bones, load extra bones parameters
+	ModelLoader::LoadModel(model, scene, m_dxrenderer);
+	if (hasBoneFlag)
+		FBXLoader::LoadSkeletalData(model, scene);
+
+	//Finally, init buffer for renderer
+	model->InitBuffer(m_dxrenderer);
+
+	ResPtr p; 
+	p.p_model = model;
 	Resource res(MODEL, p);
 	m_resources[id] = res;
 }
+
 
 void ResourceManager::LoadMaterial(const std::string& filePath)
 {

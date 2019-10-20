@@ -5,14 +5,19 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 Primary Author: Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
+
 // 1 - Include the headers and add the line for the static type
 #include "AnimationSystem.h"
 unsigned const AnimationSystem::static_type = BaseSystem::numberOfTypes++;
+
 #include "../GameObjects/GameObject.h"
+#include "Animation/Interpolation.h"
+#include "Animation/AnimModel.h"
 
 // 2 - Include the components you want to add
 #include "Components/AnimationComponent.h"
-#include "Animation/Interpolation.h"
+#include "Components/MeshComponent.h"
+
 
 
 AnimationSystem::AnimationSystem() :
@@ -20,6 +25,7 @@ AnimationSystem::AnimationSystem() :
 {
 	// 3 - Push the comp to set the comp mask
 	Push_required_comp<AnimationComponent>();
+	Push_required_comp<MeshComponent>();
 
 	// TODO - Not final. For now, we force this to a vector
 	//        that can hold up to 100 matrices
@@ -32,8 +38,9 @@ void AnimationSystem::Register_GameObject(GameObject *go)
 	// 4 - Register by adding the components to the system
 
 	AnimationComponent *animator = go->GetComponent<AnimationComponent>();
+	MeshComponent *meshComp = go->GetComponent<MeshComponent>();
 
-	AnimatorCompNode *component_node = new AnimatorCompNode(animator);
+	AnimatorCompNode *component_node = new AnimatorCompNode(animator, meshComp);
 	component_node->m_goID = go->GetId();
 
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
@@ -45,8 +52,10 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 	// 5 - Get the pointer to the components, and then freely update
 	AnimatorCompNode *node = static_cast<AnimatorCompNode*>(compNode);
 	AnimationComponent *animator = node->n_animator;
+	MeshComponent *meshComp = node->n_meshComp;
 
 	//UPDATE CODE GOES HERE
+	AnimModel *model = static_cast<AnimModel*>(meshComp->GetModel());
 	animator->m_animationTime += dt * animator->m_currentTPS;
 
 	//Cache some stuff
@@ -73,7 +82,7 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 			Matrix vqs = MathUtil::GenVQSMatrix(interpPos, interpQuat, interpScale);
 
 			//Pass the bone its VQS matrix
-			Bone& b = animator->m_boneMap.find(boneName)->second;
+			Bone& b = model->boneMap.find(boneName)->second;
 			b.vqs = vqs;
 			b.updatedVQS = true;
 		}
@@ -81,9 +90,9 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 		//After updating, update the matrices recursively from root down the hierarchy
 		// TODO - Find a better way to reach the root
 		// Replace bonemap with skeleton structure. And have a GetRoot function.
-		Bone& root = animator->m_boneMap["RootNode"];
+		Bone& root = model->boneMap["RootNode"];
 		// TODO - In future, skeleton should call the recursive function maybe
-		this->ProcessRecursiveTransformationFromRoot(animator, root, Matrix::Identity, BoneTransformations);
+		this->ProcessRecursiveTransformationFromRoot(model, root, Matrix::Identity, BoneTransformations);
 
 		//Restart animation
 		if (animTime > animator->m_duration && animator->m_loops)
@@ -91,6 +100,35 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 			animator->m_animationTime = animTime - animator->m_duration;
 		}
 	}
+}
+
+
+
+void AnimationSystem::ProcessRecursiveTransformationFromRoot(AnimModel *model,
+	Bone& node, Matrix const& parentTransf, std::vector<Matrix>& BoneTransformationsForShader)
+{
+	//If bone had VQS calculated, we use that instead of nodeTransformation
+	if (node.updatedVQS)
+	{
+		node.updatedVQS = false;
+		node.accumTransformation = parentTransf * node.vqs;
+	}
+	else
+	{
+		node.accumTransformation = parentTransf * node.nodeTransformation;
+	}
+
+	//Continue with children
+	for (int i = 0; i < node.children.size(); ++i)
+	{
+		Bone& child = model->boneMap[node.children[i]];
+		ProcessRecursiveTransformationFromRoot(model, child, node.accumTransformation,
+			BoneTransformationsForShader);
+	}
+
+	//Update stuff using offset matrix
+	Matrix result = node.accumTransformation * node.offsetMatrix;
+	BoneTransformationsForShader[node.index] = result;
 }
 
 
@@ -115,7 +153,8 @@ Vector3 AnimationSystem::CalculateInterpPos(float AnimationTime, AnimChannel con
 		else prevKey = posk;
 	}
 
-	//If we exit the loop and do not find, just return last key for now
+	//If we exit the loop and do not find, 
+	//just return last key for now
 	return prevKey.position;
 }
 
@@ -141,7 +180,8 @@ MathUtil::Quaternion AnimationSystem::CalculateInterpRot(float AnimationTime, An
 		else prevKey = rotk;
 	}
 
-	//If we exit the loop and do not find, just return last key for now
+	//If we exit the loop and do not find, 
+	//just return last key for now
 	return prevKey.quaternion;
 }
 
@@ -166,36 +206,7 @@ Vector3 AnimationSystem::CalculateInterpScale(float AnimationTime, AnimChannel c
 		else prevKey = scak;
 	}
 
-	//If we exit the loop and do not find, just return last key for now
+	//If we exit the loop and do not find, 
+	//just return last key for now
 	return prevKey.scale;
-}
-
-
-
-
-void AnimationSystem::ProcessRecursiveTransformationFromRoot(AnimationComponent *animator, 
-	Bone& node, Matrix const& parentTransf, std::vector<Matrix>& BoneTransformationsForShader)
-{
-	//If bone had VQS calculated, we use that instead of nodeTransformation
-	if (node.updatedVQS)
-	{
-		node.updatedVQS = false;
-		node.accumTransformation = parentTransf * node.vqs;
-	}
-	else
-	{
-		node.accumTransformation = parentTransf * node.nodeTransformation;
-	}
-
-	//Continue with children
-	for (int i = 0; i < node.children.size(); ++i)
-	{
-		Bone& child = animator->m_boneMap[node.children[i]];
-		ProcessRecursiveTransformationFromRoot(animator, child, node.accumTransformation, 
-			BoneTransformationsForShader);
-	}
-
-	//Update stuff using offset matrix
-	Matrix result = node.accumTransformation * node.offsetMatrix;
-	BoneTransformationsForShader[node.index] = result;
 }

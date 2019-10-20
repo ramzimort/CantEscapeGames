@@ -31,6 +31,7 @@ class Model
 {
 public:
 	friend class ModelLoader;
+	friend class ResourceManager;
 	//TODO: temp way
 	friend class Factory;
 	typedef std::vector<Mesh> MeshesList;
@@ -44,7 +45,7 @@ public:
 	};
 public:
 	Model();
-	~Model();
+	virtual ~Model();
 
 	Buffer* get_vertex_buffer();
 	Buffer* get_index_buffer();
@@ -57,8 +58,17 @@ public:
 	const VerticesList& GetVerticesList() const;
 	const std::vector<Triangle>& GetTriangleList() const;
 	const Aabb& GetAABB() const;
+protected:
+	std::vector<Triangle> m_triangle_indices;
+	VerticesList m_vertices;
+
+	Buffer* m_vertex_buffer;
+	Buffer* m_index_buffer;
+
+	bool m_hasBones;
+
 private:
-	void InitBuffer(DXRenderer* dxrenderer);
+	virtual void InitBuffer(DXRenderer* dxrenderer);
 private:
 	Aabb m_aabb;
 	StringId m_modelId;
@@ -66,11 +76,9 @@ private:
 	std::vector<Mesh> m_meshes;
 	std::vector<const Texture*> m_textures;
 
-	VerticesList m_vertices;
-	std::vector<Triangle> m_triangle_indices;
+	
 
-	Buffer* m_vertex_buffer;
-	Buffer* m_index_buffer;
+	
 	
 	
 };

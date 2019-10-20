@@ -11,7 +11,8 @@
       "Assets/Models/mitsuba-sphere.obj",
       "Assets/Models/plane.fbx",
       "Assets/Models/Cube.fbx",
-      "Assets/Models/Sphere.fbx"
+      "Assets/Models/Sphere.fbx",
+      "Assets/Models/AnimTest01.fbx"
     ],
     "Materials": [
       "Assets/Materials/Material1.json",
@@ -127,8 +128,12 @@
       "prefab": "Assets/Prefabs/TestGoJose.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 15.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
+          "Position": [ -1.0, 0.5, 1.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 0.015, 0.015, 0.015 ]
+        },
+        "MeshComponent": {
+          "ModelId": "Assets/Models/AnimTest01.fbx"
         },
         "AnimationComponent": {
           "Clips": [

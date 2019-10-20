@@ -58,7 +58,6 @@ private:
 	ClipInfo m_clips[MAX_ANIM_CLIPS]; 
 	
 	//Bone and animation information
-	std::unordered_map<std::string, Bone> m_boneMap;
 	std::unordered_map<std::string, Animation> m_animationMap;
 	
 	//Animation parameters 
@@ -67,6 +66,9 @@ private:
 	float m_duration;
 	float m_currentTPS;
 	float m_loops;
+
+	//Hold the pointer to use it later
+	ResourceManager* m_resMgr = nullptr;
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

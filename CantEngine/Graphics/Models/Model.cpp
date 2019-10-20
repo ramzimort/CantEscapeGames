@@ -5,9 +5,9 @@
 
 
 Model::Model()
-	:m_has_tangent(false)
+	:m_has_tangent(false),
+	m_hasBones(false)
 {
-	
 }
 
 
