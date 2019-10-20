@@ -395,7 +395,7 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 	uint32_t basicInstanceIndex = 0;
 
 	//HERE I AM ASSUMING THAT BASIC MESH IS BEIGN DRAWN BEFORE THE ANIMATED MODEL :)
-	//material_index = m_lastMaterialIndex - 1;
+	material_index = m_lastMaterialIndex;
 
 	for (uint32_t i = 0; i < m_appRenderer->m_boneMeshInstancesList.size(); ++i)
 	{
@@ -499,7 +499,7 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
 			Texture* height_texture = cur_material_instance->GetHeightTexture();
 
-			//++material_index;
+			++material_index;
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
 				++total_params_count;

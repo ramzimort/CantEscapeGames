@@ -667,9 +667,16 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 	{
 		return;
 	}
+	
+	struct MaterialFullData
+	{
+		Material* material;
+		const InstanceRenderData* instanceRenderData;
+	};
 
-	uint32_t material_index = 0;
-	uint32_t basicInstanceIndex = 0;
+
+	std::vector<MaterialFullData> finalMaterialList;
+
 	for (uint64_t i = 0; i < m_basicInstances.size(); ++i)
 	{
 		const InstanceRenderData& inst_data = m_basicInstances[i];
@@ -680,39 +687,70 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 
 		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
 		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
-		++basicInstanceIndex;
+
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
 
 			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
-
 			//sometimes despite having multiple child of mesh instance it may still not have its own material
 			if (!cur_material_instance)
 			{
 				cur_material_instance = p_ref_material;
 			}
-
-			if (material_index >= m_material_uniform_buffer_list.size())
-			{
-				AddMaterialUniformBuffer();
-			}
-
-			Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
-			m_material_uniform_data_list[material_index] = {};
-			m_material_uniform_data_list[material_index].DiffuseColor = cur_material_instance->GetDiffuseColor();
-			m_material_uniform_data_list[material_index].SpecularColor = cur_material_instance->GetSpecularColor();
-			m_material_uniform_data_list[material_index].MaterialMiscData.w = (float)cur_material_instance->GetShaderMaterialType();
-			m_material_uniform_data_list[material_index].MaterialMiscData.x = inst_data.uv_tiling.x;
-			m_material_uniform_data_list[material_index].MaterialMiscData.y = inst_data.uv_tiling.y;
-
-			BufferUpdateDesc update_material_uniform_desc = {};
-			update_material_uniform_desc.m_buffer = m_material_uniform_buffer_list[material_index];
-			update_material_uniform_desc.m_pSource = &m_material_uniform_data_list[material_index];
-			update_material_uniform_desc.m_size = sizeof(MaterialUniformData);
-			m_dxrenderer->cmd_update_buffer(update_material_uniform_desc);
-
-			++material_index;
+			finalMaterialList.push_back(MaterialFullData{cur_material_instance, &inst_data});
 		}
+	}
+
+	for (uint64_t i = 0; i < m_boneMeshInstancesList.size(); ++i)
+	{
+		const InstanceRenderData& inst_data = m_boneMeshInstancesList[i].m_instanceRenderData;
+		Model* p_ref_model = inst_data.p_ref_model;
+		Material* p_ref_material = inst_data.p_ref_material;
+
+		assert(p_ref_material && p_ref_model);
+
+		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
+		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
+
+		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
+		{
+
+			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
+			//sometimes despite having multiple child of mesh instance it may still not have its own material
+			if (!cur_material_instance)
+			{
+				cur_material_instance = p_ref_material;
+			}
+			finalMaterialList.push_back(MaterialFullData{ cur_material_instance, &inst_data });
+		}
+	}
+
+	for (uint64_t material_index = 0; material_index < finalMaterialList.size(); ++material_index)
+	{
+		MaterialFullData& materialFullData = finalMaterialList[material_index];
+
+		Material* curMaterialInstance = materialFullData.material;
+		const InstanceRenderData* instanceRenderData = materialFullData.instanceRenderData;
+
+		if (material_index >= m_material_uniform_buffer_list.size())
+		{
+			AddMaterialUniformBuffer();
+		}
+
+		Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
+		m_material_uniform_data_list[material_index] = {};
+		m_material_uniform_data_list[material_index].DiffuseColor = curMaterialInstance->GetDiffuseColor();
+		m_material_uniform_data_list[material_index].SpecularColor = curMaterialInstance->GetSpecularColor();
+		m_material_uniform_data_list[material_index].MaterialMiscData.w = (float)curMaterialInstance->GetShaderMaterialType();
+		m_material_uniform_data_list[material_index].MaterialMiscData.x = instanceRenderData->uv_tiling.x;
+		m_material_uniform_data_list[material_index].MaterialMiscData.y = instanceRenderData->uv_tiling.y;
+
+		BufferUpdateDesc update_material_uniform_desc = {};
+		update_material_uniform_desc.m_buffer = m_material_uniform_buffer_list[material_index];
+		update_material_uniform_desc.m_pSource = &m_material_uniform_data_list[material_index];
+		update_material_uniform_desc.m_size = sizeof(MaterialUniformData);
+		m_dxrenderer->cmd_update_buffer(update_material_uniform_desc);
+
 	}
 }
 
