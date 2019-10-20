@@ -300,6 +300,12 @@
     <ClCompile Include="Directory\User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\UIComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\UISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -669,6 +675,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Input\MouseClickEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\UIComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\UISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

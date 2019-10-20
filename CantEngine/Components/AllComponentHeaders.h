@@ -9,3 +9,4 @@
 #include "HaloEffectComponent.h"
 #include "CameraComponent.h"
 #include "ParticleEmitterComponent.h"
+#include "UIComponent.h"
