@@ -16,17 +16,17 @@ Model::~Model()
 	
 }
 
-Buffer* Model::get_vertex_buffer()
+Buffer* Model::GetVertexBuffer()
 {
 	return m_vertex_buffer;
 }
 
-Buffer* Model::get_index_buffer()
+Buffer* Model::GetIndexBuffer()
 {
 	return m_index_buffer;
 }
 
-uint32_t Model::get_index_total_count() const
+uint32_t Model::GetIndexTotalCount() const
 {
 	return static_cast<uint32_t>(m_triangle_indices.size() * 3);
 }

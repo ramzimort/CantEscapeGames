@@ -37,6 +37,17 @@ void AppRendererInstance::Release()
 	{
 		SafeReleaseDelete(buffer);
 	}
+
+	for (Buffer* buffer : m_boneTransformsUniformBufferList)
+	{
+		SafeReleaseDelete(buffer);
+	}
+
+	for (Buffer* buffer : m_boneMeshObjectUniformBufferList)
+	{
+		SafeReleaseDelete(buffer);
+	}
+
 	SafeReleaseDelete(m_debugRenderingInstance);
 	SafeReleaseDelete(m_deferredRenderingInstance);
 	SafeReleaseDelete(m_msaaResolvePassInstance);
@@ -211,10 +222,8 @@ void AppRendererInstance::Render()
 	{
 		m_msaaResolvePassInstance->Render(m_context);
 	}
-
-	
-
 	m_debugRenderingInstance->Render(m_context);
+	m_lastMaterialIndex = 0;
 }
 
 
@@ -257,9 +266,9 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
 
-		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->get_vertex_buffer());
+		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->GetVertexBuffer());
 
-		Buffer* index_buffer = p_ref_model->get_index_buffer();
+		Buffer* index_buffer = p_ref_model->GetIndexBuffer();
 		if (index_buffer)
 		{
 			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
@@ -346,7 +355,7 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 
 			if (meshes_list.size() <= 0)
 			{
-				m_dxrenderer->cmd_draw_index(p_ref_model->get_index_total_count(), 0, 0);
+				m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);
 			}
 			else
 			{
@@ -355,4 +364,185 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 			}
 		}
 	}
+
+	m_lastMaterialIndex = material_index;
+}
+
+
+void AppRendererInstance::AddBoneTransformBuffer()
+{
+	BufferLoadDesc boneTransformBufferDesc = {};
+	boneTransformBufferDesc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	boneTransformBufferDesc.m_desc.m_debugName = "Bone Transforms Uniform Buffer";
+	boneTransformBufferDesc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	boneTransformBufferDesc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	boneTransformBufferDesc.m_rawData = nullptr;
+	boneTransformBufferDesc.m_size = sizeof(BoneTransformsUniformData);
+	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, boneTransformBufferDesc);
+	m_boneTransformsUniformBufferList.push_back(object_uniform_buffer);
+}
+
+void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
+{
+	if (m_appRenderer->m_boneMeshInstancesList.empty())
+	{
+		return;
+	}
+
+	m_dxrenderer->cmd_bind_pipeline(pipeline);
+
+	uint32_t material_index = 0;
+	uint32_t basicInstanceIndex = 0;
+
+	//HERE I AM ASSUMING THAT BASIC MESH IS BEIGN DRAWN BEFORE THE ANIMATED MODEL :)
+	//material_index = m_lastMaterialIndex - 1;
+
+	for (uint32_t i = 0; i < m_appRenderer->m_boneMeshInstancesList.size(); ++i)
+	{
+		const InstanceRenderData& inst_data = m_appRenderer->m_boneMeshInstancesList[i].m_instanceRenderData;
+		Model* p_ref_model = inst_data.p_ref_model;
+		Material* p_ref_material = inst_data.p_ref_material;
+
+		assert(p_ref_model && p_ref_material);
+
+		if (i >= m_boneMeshObjectUniformBufferList.size())
+		{
+			m_appRenderer->AddObjectUniformBuffer(m_boneMeshObjectUniformBufferList, m_boneMeshObjectUniformDataList);
+		}
+
+		if (i >= m_boneTransformsUniformBufferList.size())
+		{
+			AddBoneTransformBuffer();
+		}
+
+		Buffer* obj_uniform_buffer = m_boneMeshObjectUniformBufferList[i];
+
+		m_boneMeshObjectUniformDataList[i] = {};
+		m_boneMeshObjectUniformDataList[i].ModelMat = inst_data.model_mat;
+		m_boneMeshObjectUniformDataList[i].InvModelMat = DirectX::XMMatrixInverse(nullptr, m_boneMeshObjectUniformDataList[i].ModelMat);
+		m_boneMeshObjectUniformDataList[i].ModelViewProjectionMat = m_boneMeshObjectUniformDataList[i].ModelMat * m_camera_uniform_data.ViewProjectionMat;
+		m_boneMeshObjectUniformDataList[i].NormalMat = inst_data.normal_mat;
+
+		BufferUpdateDesc update_object_uniform_desc = {};
+		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
+		update_object_uniform_desc.m_pSource = &m_boneMeshObjectUniformDataList[i];
+		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
+		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
+
+
+		Buffer* bone_uniform_buffer = m_boneTransformsUniformBufferList[i];
+		const BoneTransformationsList& boneTransformationsList = *m_appRenderer->m_boneMeshInstancesList[i].m_pBoneTransformationsList;
+
+		BufferUpdateDesc update_bone_uniform_desc = {};
+		update_bone_uniform_desc.m_buffer = bone_uniform_buffer;
+		update_bone_uniform_desc.m_pSource = &boneTransformationsList[0];
+		update_bone_uniform_desc.m_size = sizeof(BoneTransformsUniformData);
+		m_dxrenderer->cmd_update_buffer(update_bone_uniform_desc);
+
+
+		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->GetVertexBuffer());
+
+		Buffer* index_buffer = p_ref_model->GetIndexBuffer();
+		if (index_buffer)
+		{
+			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
+		}
+
+		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
+		uint32_t mesh_instance_count = std::max(1u, (uint32_t)meshes_list.size());
+
+		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
+		{
+
+			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
+
+			//sometimes despite having multiple child of mesh instance it may still not have its own material
+			if (!cur_material_instance)
+			{
+				cur_material_instance = p_ref_material;
+			}
+
+			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
+
+			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
+
+			DescriptorData params[8] = {};
+			params[0].m_binding_location = 0;
+			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[0].m_buffers = &m_camera_uniform_buffer;
+
+			params[1].m_binding_location = 1;
+			params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[1].m_buffers = &obj_uniform_buffer;
+
+			params[2].m_binding_location = 2;
+			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+			params[2].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
+
+
+			params[3].m_binding_location = 3;
+			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+			params[3].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+			params[3].m_buffers = &bone_uniform_buffer;
+
+			params[4].m_binding_location = 0;
+			params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+			params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+			params[4].m_samplers = &m_appRenderer->m_texture_sampler;
+
+			uint32_t total_params_count = 5;
+
+			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
+			Texture* normal_texture = cur_material_instance->GetNormalTexture();
+			Texture* height_texture = cur_material_instance->GetHeightTexture();
+
+			//++material_index;
+			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
+			{
+				++total_params_count;
+
+				params[5].m_binding_location = 0;
+				params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[5].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[5].m_textures = &diffuse_texture;
+
+				if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0 || (mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+				{
+					++total_params_count;
+					params[6].m_binding_location = 1;
+					params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+					params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+					params[6].m_textures = &normal_texture;
+
+
+					if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+					{
+						++total_params_count;
+						params[7].m_binding_location = 2;
+						params[7].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+						params[7].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+						params[7].m_textures = &height_texture;
+					}
+
+				}
+			}
+
+
+			m_dxrenderer->cmd_bind_descriptor(pipeline, total_params_count, params);
+
+			if (meshes_list.size() <= 0)
+			{
+				m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);
+			}
+			else
+			{
+				const Mesh& mesh_instance = meshes_list[mesh_index];
+				m_dxrenderer->cmd_draw_index(mesh_instance.get_index_count(), mesh_instance.get_start_index(), mesh_instance.get_start_vertex());
+			}
+		}
+	}
+
 }

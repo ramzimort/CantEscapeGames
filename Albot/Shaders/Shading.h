@@ -11,6 +11,8 @@
 
 #define MAX_PARTICLE_EMIT_ONCE 50u
 
+#define MAX_BONE_COUNT 100
+
 
 #define BLUR_WORKGROUP_THREAD_ID_X 128
 #define BLUR_WORKGROUP_THREAD_ID_Y 1
@@ -159,5 +161,10 @@ struct BlurUniformData
 	uint DirectionY;
 };
 
+
+struct BoneTransformsUniformData
+{
+	float4x4 BoneTransforms[MAX_BONE_COUNT];
+};
 
 #endif

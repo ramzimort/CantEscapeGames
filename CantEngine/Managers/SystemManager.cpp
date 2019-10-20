@@ -30,10 +30,9 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<CameraSystem>();
 	this->AddSystem<LightSystem>();
 	this->AddSystem<HaloEffectSystem>();
+	this->AddSystem<AnimationSystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<ParticleEmitterSystem>();
-	this->AddSystem<AnimationSystem>();
-
 
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<HaloEffectSystem*>(m_systems[HaloEffectSystem::static_type])->RegisterAppRenderer(appRenderer);

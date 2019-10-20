@@ -4,6 +4,7 @@
 #include "Managers/ResourceManager.h"
 #include "Graphics/D3D11_Renderer.h"
 #include "Managers/GameObjectManager.h"
+#include "Shaders/Shading.h"
 
 unsigned const MeshComponent::static_type = BaseComponent::numberOfTypes++;
 
@@ -29,9 +30,7 @@ RTTR_REGISTRATION
 MeshComponent::MeshComponent(GameObject *owner)
 	:BaseComponent(owner, static_type)
 {
-	// TODO - Not final. For now, we force this to a vector
-	//        that can hold up to 100 matrices
-	BoneTransformationsForShader = std::vector<Matrix>(100);
+	BoneTransformationsForShader = std::vector<Matrix>(MAX_BONE_COUNT);
 }
 
 MeshComponent::~MeshComponent()

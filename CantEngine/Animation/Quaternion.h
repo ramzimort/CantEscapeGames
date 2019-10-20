@@ -250,14 +250,23 @@ namespace MathUtil
 			matrix._33 = 1 - 2 * (x2 + y2);
 
 			//column major
-			matrix._12 = _2xy - _2sz;
+			/*matrix._12 = _2xy - _2sz;
 			matrix._13 = _2xz + _2sy;
 
 			matrix._21 = _2xy + _2sz;
 			matrix._23 = _2yz - _2sx;
 
 			matrix._31 = _2xz - _2sy;
-			matrix._32 = _2yz + _2sx;
+			matrix._32 = _2yz + _2sx;*/
+
+			matrix._21 = _2xy - _2sz;
+			matrix._31 = _2xz + _2sy;
+
+			matrix._12 = _2xy + _2sz;
+			matrix._32 = _2yz - _2sx;
+
+			matrix._13 = _2xz - _2sy;
+			matrix._23 = _2yz + _2sx;
 
 			return matrix;
 		}

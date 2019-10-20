@@ -28,6 +28,9 @@ void DeferredRendering::Release()
 	SafeReleaseDelete(m_deferred_pass_pipeline);
 	SafeReleaseDelete(m_deferred_pass_shader);
 
+	SafeReleaseDelete(m_deferredBonePassPipeline);
+	SafeReleaseDelete(m_deferredBonePassShader);
+
 	SafeReleaseDelete(m_deferred_shade_pipeline);
 	SafeReleaseDelete(m_deferred_shade_shader);
 	SafeReleaseDelete(m_shadeHaloEffectShader);
@@ -74,6 +77,36 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_0;
 
 
+	VertexLayout pos_normal_tangent_bitangent_uv_bones_layout = {};
+	pos_normal_tangent_bitangent_uv_bones_layout.m_atrrib_count = 7;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_semantic = Attrib_Semantic::POSITION;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_semantic = Attrib_Semantic::NORMAL;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_semantic = Attrib_Semantic::TANGENT;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_semantic = Attrib_Semantic::BITANGENT;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_format = DXGI_FORMAT_R32G32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_0;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_format = DXGI_FORMAT_R32G32B32A32_SINT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_semantic = Attrib_Semantic::TEXCOORD_1;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_semantic = Attrib_Semantic::TEXCOORD_2;
+
 
 	VertexLayout pos_layout = {};
 	pos_layout.m_atrrib_count = 1;
@@ -92,12 +125,27 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	rt_height = swap_chain_rt->get_desc().m_texture_desc.m_height;
 
 
+	ShaderMacro deferredPassShaderMacro = {};
+	deferredPassShaderMacro.m_name = "ANIM_MODEL";
+	deferredPassShaderMacro.m_definition = std::to_string(0);
+
 	ShaderLoadDesc deferred_pass_shader_load_desc = {};
 	deferred_pass_shader_load_desc.m_desc.m_vertex_shader_path = "deferred_pass_vert.hlsl";
 	deferred_pass_shader_load_desc.m_desc.m_pixel_shader_path = "deferred_pass_frag.hlsl";
 
+	deferred_pass_shader_load_desc.m_shader_macro_count = 1;
+	deferred_pass_shader_load_desc.m_shader_macro = &deferredPassShaderMacro;
+
 	m_deferred_pass_shader = DXResourceLoader::Create_Shader(m_dxrenderer,
 		deferred_pass_shader_load_desc);
+
+
+	deferredPassShaderMacro.m_definition = std::to_string(1);
+	deferred_pass_shader_load_desc.m_shader_macro = &deferredPassShaderMacro;
+	
+
+	m_deferredBonePassShader = DXResourceLoader::Create_Shader(m_dxrenderer, deferred_pass_shader_load_desc);
+
 
 	ShaderLoadDesc deferred_shade_shader_load_desc = {};
 	deferred_shade_shader_load_desc.m_desc.m_vertex_shader_path = "fullscreen_quad_vert.hlsl";
@@ -127,6 +175,11 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_shader = m_deferred_pass_shader;
 
 	m_deferred_pass_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+	graphic_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_bones_layout;
+	graphic_pipeline_desc.m_shader = m_deferredBonePassShader;
+
+	m_deferredBonePassPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 	graphic_pipeline_desc = {};
 

@@ -47,10 +47,9 @@ public:
 	Model();
 	virtual ~Model();
 
-	Buffer* get_vertex_buffer();
-	Buffer* get_index_buffer();
-	
-	uint32_t get_index_total_count() const;
+	Buffer* GetVertexBuffer();
+	Buffer* GetIndexBuffer();
+	uint32_t GetIndexTotalCount() const;
 
 	void Release();
 
@@ -75,10 +74,4 @@ private:
 	bool m_has_tangent;
 	std::vector<Mesh> m_meshes;
 	std::vector<const Texture*> m_textures;
-
-	
-
-	
-	
-	
 };

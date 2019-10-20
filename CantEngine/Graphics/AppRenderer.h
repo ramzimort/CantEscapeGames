@@ -83,6 +83,7 @@ public:
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
 	void RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData);
 	void RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData);
+	void RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData);
 
 	void LoadContent();
 private:
@@ -170,12 +171,9 @@ private:
 	HaloEffectInstanceList m_haloEffectInstanceList;
 	
 	InstanceRenderList m_basicInstances;
+	BoneMeshInstancesRenderDataList m_boneMeshInstancesList;
 
 	std::map<int32_t, AppRendererInstance*> m_appRendererInstances;
-
-
-
-
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
 	SkyboxUniformData m_skybox_uniform_data;

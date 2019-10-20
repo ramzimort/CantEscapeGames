@@ -62,10 +62,10 @@ namespace MathUtil
 
 		//TRANSLATION
 		Matrix V = Matrix::Identity;
-		V._14 = v.x;
-		V._24 = v.y;
-		V._34 = v.z;
+		V._41 = v.x;
+		V._42 = v.y;
+		V._43 = v.z;
 
-		return V*Q*S;
+		return S * Q * V;
 	}
 }

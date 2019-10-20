@@ -1,6 +1,9 @@
 #pragma once
 #include "Shaders/Shading.h"
 
+
+typedef std::vector<Matrix> BoneTransformationsList;
+
 class Light;
 class Material;
 class Model;
@@ -39,6 +42,13 @@ struct InstanceRenderData
 };
 
 
+struct BoneMeshInstanceRenderData
+{
+	InstanceRenderData m_instanceRenderData;
+	BoneTransformationsList* m_pBoneTransformationsList;
+};
+
+
 struct ParticleEmitterInstanceData
 {
 	ParticleEmitterUniformData m_pParticleEmitterUniformData;
@@ -49,8 +59,12 @@ struct ParticleEmitterInstanceData
 	bool m_firstTime;
 };
 
+
+
+
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
 typedef std::vector<InstanceRenderData> InstanceRenderList;
-typedef std::vector< HaloEffectInstanceData> HaloEffectInstanceList;
-typedef std::vector< PointLightInstanceData > PointLightInstanceDataList;
+typedef std::vector<HaloEffectInstanceData> HaloEffectInstanceList;
+typedef std::vector<PointLightInstanceData > PointLightInstanceDataList;
 typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;
+typedef std::vector<BoneMeshInstanceRenderData> BoneMeshInstancesRenderDataList;

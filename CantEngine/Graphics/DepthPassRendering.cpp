@@ -79,9 +79,9 @@ void DepthPassRendering::RenderBasicMeshDepthPass(const DepthPassContext& depth_
 		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
 
-		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->get_vertex_buffer());
+		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->GetVertexBuffer());
 
-		Buffer* index_buffer = p_ref_model->get_index_buffer();
+		Buffer* index_buffer = p_ref_model->GetIndexBuffer();
 		if (index_buffer)
 		{
 			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
@@ -101,7 +101,7 @@ void DepthPassRendering::RenderBasicMeshDepthPass(const DepthPassContext& depth_
 
 		if (meshes_list.size() <= 0)
 		{
-			m_dxrenderer->cmd_draw_index(p_ref_model->get_index_total_count(), 0, 0);
+			m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);
 		}
 		else
 		{

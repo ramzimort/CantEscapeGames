@@ -47,6 +47,9 @@ public:
 	void Release();
 private:
 	void RenderBasicInstances(Pipeline* pipeline);
+	void RenderBoneMeshInstances(Pipeline* pipeline);
+
+	void AddBoneTransformBuffer();
 private:
 	DXRenderer* m_dxrenderer;
 	AppRenderer* m_appRenderer;
@@ -66,9 +69,18 @@ private:
 	std::vector<ObjectUniformData> m_objectUniformDataList;
 	BufferList m_objectUniformBufferList;
 
+
+	std::vector<ObjectUniformData> m_boneMeshObjectUniformDataList;
+	BufferList m_boneMeshObjectUniformBufferList;
+
+	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;
+	BufferList m_boneTransformsUniformBufferList;
+
 	CameraUniformData m_camera_uniform_data;
 	Buffer* m_camera_uniform_buffer;
 
 	Buffer* m_resolveUniformBuffer;
+
+	uint32_t m_lastMaterialIndex;
 };
 

@@ -147,8 +147,8 @@ void DebugRenderingInstance::RenderDebugAABBScene(const AppRendererContext& appR
 	Model* cube_model = m_debugRendering.m_resourceManager->GetModel(cubeId);
 
 	m_dxrenderer->cmd_bind_pipeline(m_debugRendering.m_debug_draw_pipeline);
-	m_dxrenderer->cmd_bind_vertex_buffer(cube_model->get_vertex_buffer());
-	m_dxrenderer->cmd_bind_index_buffer(cube_model->get_index_buffer());
+	m_dxrenderer->cmd_bind_vertex_buffer(cube_model->GetVertexBuffer());
+	m_dxrenderer->cmd_bind_index_buffer(cube_model->GetIndexBuffer());
 
 	DescriptorData params[4] = {};
 	params[0].m_binding_location = 0;
@@ -157,7 +157,7 @@ void DebugRenderingInstance::RenderDebugAABBScene(const AppRendererContext& appR
 	params[0].m_buffers = &m_debug_aabb_instance_uniform_buffer;
 
 	m_dxrenderer->cmd_bind_descriptor(m_debugRendering.m_debug_draw_pipeline, 1, params);
-	m_dxrenderer->cmd_draw_index_instanced(debug_instance_count, 0, cube_model->get_index_total_count(), 0, 0);
+	m_dxrenderer->cmd_draw_index_instanced(debug_instance_count, 0, cube_model->GetIndexTotalCount(), 0, 0);
 
 #endif
 }
@@ -181,8 +181,8 @@ void DebugRenderingInstance::RenderDebugSphereScene(const AppRendererContext& ap
 	Model* sphereModel = m_debugRendering.m_resourceManager->GetModel(sphereId);
 
 	m_dxrenderer->cmd_bind_pipeline(m_debugRendering.m_debug_draw_pipeline);
-	m_dxrenderer->cmd_bind_vertex_buffer(sphereModel->get_vertex_buffer());
-	m_dxrenderer->cmd_bind_index_buffer(sphereModel->get_index_buffer());
+	m_dxrenderer->cmd_bind_vertex_buffer(sphereModel->GetVertexBuffer());
+	m_dxrenderer->cmd_bind_index_buffer(sphereModel->GetIndexBuffer());
 
 	DescriptorData params[4] = {};
 	params[0].m_binding_location = 0;
@@ -191,7 +191,7 @@ void DebugRenderingInstance::RenderDebugSphereScene(const AppRendererContext& ap
 	params[0].m_buffers = &m_debugSphereInstanceUniformBuffer;
 
 	m_dxrenderer->cmd_bind_descriptor(m_debugRendering.m_debug_draw_pipeline, 1, params);
-	m_dxrenderer->cmd_draw_index_instanced(debug_instance_count, 0, sphereModel->get_index_total_count(), 0, 0);
+	m_dxrenderer->cmd_draw_index_instanced(debug_instance_count, 0, sphereModel->GetIndexTotalCount(), 0, 0);
 
 #endif
 }

@@ -199,7 +199,7 @@ namespace FBXLoader
 		mat._44 = inMat.d4;
 
 		//TODO - check if this is right
-		return mat;
+		return mat.Transpose();
 	}
 
 

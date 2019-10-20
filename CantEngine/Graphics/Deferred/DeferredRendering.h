@@ -44,6 +44,9 @@ private:
 	Shader* m_deferred_pass_shader;
 	//RenderTarget* m_deferred_rts[DEFERRED_TOTAL_COUNT];
 
+	Shader* m_deferredBonePassShader;
+	Pipeline* m_deferredBonePassPipeline;
+
 	Pipeline* m_deferred_shade_pipeline;
 	Shader* m_deferred_shade_shader;
 

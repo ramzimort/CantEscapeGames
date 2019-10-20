@@ -137,6 +137,7 @@ void DeferredRenderingInstance::RenderDeferredPass(const AppRendererContext& app
 		m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_desc().m_texture_desc.m_height);
 
 	appRendererContext.m_appRendererInstance->RenderBasicInstances(m_deferredRendering.m_deferred_pass_pipeline);
+	appRendererContext.m_appRendererInstance->RenderBoneMeshInstances(m_deferredRendering.m_deferredBonePassPipeline);
 }
 
 void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const AppRendererContext& appRendererContext)
@@ -228,8 +229,8 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 
 	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
 
-	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
-	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
+	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->GetVertexBuffer());
+	m_dxrenderer->cmd_bind_index_buffer(sphere_model->GetIndexBuffer());
 
 	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
 	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
@@ -269,7 +270,7 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 	params[5].m_buffers = &m_deferredRendering.m_point_light_buffer;
 
 	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pointlight_pipeline, 6, params);
-	m_dxrenderer->cmd_draw_index_instanced(point_light_inst_count, 0, sphere_model->get_index_total_count(), 0, 0);
+	m_dxrenderer->cmd_draw_index_instanced(point_light_inst_count, 0, sphere_model->GetIndexTotalCount(), 0, 0);
 }
 
 
@@ -286,8 +287,8 @@ void DeferredRenderingInstance::RenderHaloEffect(const AppRendererContext& appRe
 
 	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
 
-	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->get_vertex_buffer());
-	m_dxrenderer->cmd_bind_index_buffer(sphere_model->get_index_buffer());
+	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->GetVertexBuffer());
+	m_dxrenderer->cmd_bind_index_buffer(sphere_model->GetIndexBuffer());
 
 	Texture* structureBufferTexture = m_deferred_rts[DEFERRED_STRUCTURED_BUFFER]->get_texture();
 	DescriptorData params[4] = {};
@@ -308,5 +309,5 @@ void DeferredRenderingInstance::RenderHaloEffect(const AppRendererContext& appRe
 	params[2].m_textures = &structureBufferTexture;
 
 	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_shadeHaloEffectPipeline, 3, params);
-	m_dxrenderer->cmd_draw_index_instanced(haloEffectInstCount, 0, sphere_model->get_index_total_count(), 0, 0);
+	m_dxrenderer->cmd_draw_index_instanced(haloEffectInstCount, 0, sphere_model->GetIndexTotalCount(), 0, 0);
 }

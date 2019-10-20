@@ -107,11 +107,11 @@ void AnimationSystem::ProcessRecursiveTransformationFromRoot(MeshComponent *mesh
 	if (node.updatedVQS)
 	{
 		node.updatedVQS = false;
-		node.accumTransformation = parentTransf * node.vqs;
+		node.accumTransformation = node.vqs * parentTransf;
 	}
 	else
 	{
-		node.accumTransformation = parentTransf * node.nodeTransformation;
+		node.accumTransformation = node.nodeTransformation * parentTransf;
 	}
 
 	//Continue with children
@@ -122,7 +122,7 @@ void AnimationSystem::ProcessRecursiveTransformationFromRoot(MeshComponent *mesh
 	}
 
 	//Update stuff using offset matrix
-	Matrix result = node.accumTransformation * node.offsetMatrix;
+	Matrix result = node.offsetMatrix * node.accumTransformation;
 	meshcomp->BoneTransformationsForShader[node.index] = result;
 }
 

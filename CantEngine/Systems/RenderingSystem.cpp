@@ -14,6 +14,7 @@ unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 #include "Components/TransformComponent.h"
 #include "Components/RendererComponent.h"
 #include "Components/MeshComponent.h"
+#include "Components/AnimationComponent.h"
 
 //TODO: Alberto stuff
 #include "Graphics/AppRenderer.h"
@@ -67,14 +68,24 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	const Matrix& rotMatrix = transformComp->GetRotationMatrix();
 	const Matrix& invertScaleMatrix = transformComp->GetScaleMatrix().Invert();
 
-	InstanceRenderData instanceRenderData = {};
-	instanceRenderData.model_mat = modelMatrix;
-	instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
-	instanceRenderData.p_ref_model = meshesComp->GetModel();
-	instanceRenderData.p_ref_material = rendererComp->m_pMaterial;
-	instanceRenderData.uv_tiling = Vector2(rendererComp->m_xTileFactor, rendererComp->m_yTileFactor);
+	BoneMeshInstanceRenderData boneMeshInstanceRenderData = {};
 
-	m_pAppRenderer->RegisterBasicInstance(instanceRenderData);
+	boneMeshInstanceRenderData.m_instanceRenderData = {};
+	boneMeshInstanceRenderData.m_instanceRenderData.model_mat = modelMatrix;
+	boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
+	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_model = meshesComp->GetModel();
+	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_material = rendererComp->m_pMaterial;
+	boneMeshInstanceRenderData.m_instanceRenderData.uv_tiling = Vector2(rendererComp->m_xTileFactor, rendererComp->m_yTileFactor);
+
+	if (transformComp->GetOwner()->HasComponent<AnimationComponent>())
+	{
+		boneMeshInstanceRenderData.m_pBoneTransformationsList = &meshesComp->BoneTransformationsForShader;
+		m_pAppRenderer->RegisterBoneMeshInstance(boneMeshInstanceRenderData);
+	}
+	else
+	{
+		m_pAppRenderer->RegisterBasicInstance(boneMeshInstanceRenderData.m_instanceRenderData);
+	}
 
 	//Aabb new_aabb = Aabb::BuildFromLocalAABBAndModelMatrix(modelMatrix, meshesComp->GetModel()->GetAABB());
 	//DebugAABBInstance aabb_instance = { new_aabb.m_Min, new_aabb.m_Max, Vector3(1.f, 0.f, 0.f) };

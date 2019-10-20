@@ -627,6 +627,7 @@ void AppRenderer::RenderApp()
 	m_directionLightInstanceList.clear();
 	m_pointLightInstanceList.clear();
 	m_basicInstances.clear();
+	m_boneMeshInstancesList.clear();
 	m_haloEffectInstanceList.clear();
 	m_debugRendering.ClearInstances();
 	m_particleRendering.ClearInstances();
@@ -736,6 +737,11 @@ void AppRenderer::RegisterHaloEffectInstance(const HaloEffectInstanceData& haloE
 void AppRenderer::RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData)
 {
 	m_pointLightInstanceList.push_back(pointLightInstanceData);
+}
+
+void AppRenderer::RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData)
+{
+	m_boneMeshInstancesList.push_back(boneMeshInstanceData);
 }
 
 void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,
