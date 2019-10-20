@@ -63,7 +63,7 @@ namespace FBXLoader
 
 		// NOTE - Right now we are loading one anim per scene
 		// Prints all the anim info for each animation
-		for (int i = 0; i < scene->mNumAnimations; ++i)
+		for (unsigned i = 0; i < scene->mNumAnimations; ++i)
 			ProcessAnimation(scene->mAnimations[i], model, name);
 	}
 
