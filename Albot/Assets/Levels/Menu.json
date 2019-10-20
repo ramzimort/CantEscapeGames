@@ -1,123 +1,48 @@
 {
   "Resources": {
     "Textures": [
-      "Assets/Textures/floor.png",
-      "Assets/Textures/Particles/flare0.png",
-      "Assets/Textures/redbrick.jpg",
-      "Assets/Textures/redbrick_normal.jpg",
-      "Assets/Textures/redbrick_height.jpg"
+
     ],
     "Models": [
-      "Assets/Models/mitsuba-sphere.obj",
-      "Assets/Models/plane.fbx",
-      "Assets/Models/Cube.fbx",
-      "Assets/Models/Sphere.fbx"
+      "Assets/Models/Cube.fbx"
     ],
     "Materials": [
-      "Assets/Materials/Material1.json",
-      "Assets/Materials/Red_Brick_Material.json"
+      "Assets/Materials/Material1.json"
     ],
     "Audio": [
 
     ],
     "Prefabs": [
-      "Assets/Prefabs/mono_azul.json",
-      "Assets/Prefabs/mono_rojo.json",
-      "Assets/Prefabs/mitsuba_sphere.json",
+
       "Assets/Prefabs/Lights/directional_light.json",
-      "Assets/Prefabs/Lights/point_light.json",
-      "Assets/Prefabs/RBTestObj.json",
-      "Assets/Prefabs/player.json",
-      "Assets/Prefabs/TestGoJose.json",
-      "Assets/Prefabs/brick_wall.json",
-      "Assets/Prefabs/mini_map.json"
+      "Assets/Prefabs/Button.json",
+      "Assets/Prefabs/UIObject.json"
     ],
     "Scripts": [
-      "Scripts/States/level1.lua",
-      "Scripts/Components/test01Comp.lua",
-      "Scripts/Components/test02Comp.lua",
-      "Scripts/Components/fpscontroller.lua"
+      "Scripts/States/Menu.lua",
+      "Scripts/Components/UICamera.lua"
     ]
   },
   "Objects": [
     {
       "tag": "obj8",
-      "prefab": "Assets/Prefabs/player.json",
+      "prefab": "Assets/Prefabs/UIObject.json",
       "overrides": {
       }
     },
     {
-      "tag": "obj3",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "tag": "Button1",
+      "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 150.0, 30.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj4",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 45.0, 0.0 ]
-        }
-      }
-    },
-
-    {
-      "tag": "albertobj",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 1.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "albertobj2",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -10.0, 1.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "albertobj3",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 1.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "red_brick_floor",
-      "prefab": "Assets/Prefabs/brick_wall.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, -0.5, -0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "obj7",
-      "prefab": "Assets/Prefabs/RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.5, 3.0, 0.0 ],
+          "Position": [ 0.0, 0.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
         },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": 1,
-          "Velocity": [ 0.0, 0.0, 0.0 ]
-        }
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 0 
+		}	
       }
     },
     {
@@ -129,39 +54,7 @@
           "Rotation": [ 45.0, 0.0, 0.0 ]
         }
       }
-    },
-    {
-      "tag": "point_light1",
-      "prefab": "Assets/Prefabs/Lights/point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-
-    {
-      "tag": "point_light2",
-      "prefab": "Assets/Prefabs/Lights/point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 15.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "mini_map1",
-      "prefab": "Assets/Prefabs/mini_map.json",
-      "overrides": {
-        "CameraComponent": {
-          "Camera": {
-            "Position": [ 0.0, 30.0, 0.0 ],
-            "LookDir": [ 0.0, -1.0, 0.1 ]
-          }
-        }
-      }
     }
+  
   ]
 }
