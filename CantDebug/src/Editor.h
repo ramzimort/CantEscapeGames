@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CheckboxQueue.h"
 #include <unordered_map>
 
 struct Info
@@ -24,11 +25,13 @@ public:
 	~Editor();
 
 	void LoadResources();
+	void UpdateSettings(const char* checkboxName, bool* pFlag);
 	void Update();
 
 private:
 	ResourceMap m_resourceMap;
 	IncludeMap m_includeMap;
+	CheckboxQueue m_queue;
 
 	const std::string TextureFolder;
 	const std::string ModelFolder;

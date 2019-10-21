@@ -136,10 +136,7 @@ void DebugRendering::RegisterDebugLineInstance(const DebugLineInstance& line_ins
 void DebugRendering::RegisterDebugAABB(const DebugAABBInstance& debug_aabb_instance)
 {
 #ifdef DEVELOPER
-	if (GraphicsSettings::Draw_Debug_Mesh_AABB_Flag)
-	{
-		m_debug_aabb_instance_list.push_back(debug_aabb_instance);
-	}
+	m_debug_aabb_instance_list.push_back(debug_aabb_instance);
 #endif
 }
 

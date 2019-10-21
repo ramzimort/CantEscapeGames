@@ -16,7 +16,7 @@ class ScriptingManager;
 
 class Factory
 {
-
+	friend class DebugManager;
 public:
 	Factory() = default;
 	~Factory() = default;
@@ -24,6 +24,7 @@ public:
 	static void Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr);
 	static void LoadLevel(const std::string& path, GameObjectManager* goMgr);
 	static void LoadObject(GameObject* gameObject, const std::string& path);
+	static void LoadResource(const std::string& path);
 
 	Factory(Factory const& rhs) = delete;
 private:

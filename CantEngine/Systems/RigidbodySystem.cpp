@@ -116,7 +116,8 @@ void RigidbodySystem::LateUpdate(float dt)
 		results.DeleteDuplicates();
 
 #ifdef DEVELOPER
-		m_broadPhase.DebugDraw(m_pAppRenderer,-1, debugColor);
+		if(GraphicsSettings::Draw_Dynamic_AABB_Tree)
+			m_broadPhase.DebugDraw(m_pAppRenderer,-1, debugColor);
 		
 		for (size_t i = 0; i < results.m_results.size(); ++i)
 		{

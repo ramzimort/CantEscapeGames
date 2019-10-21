@@ -87,11 +87,6 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 		m_pAppRenderer->RegisterBasicInstance(boneMeshInstanceRenderData.m_instanceRenderData);
 	}
 
-	//Aabb new_aabb = Aabb::BuildFromLocalAABBAndModelMatrix(modelMatrix, meshesComp->GetModel()->GetAABB());
-	//DebugAABBInstance aabb_instance = { new_aabb.m_Min, new_aabb.m_Max, Vector3(1.f, 0.f, 0.f) };
-
-	//m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb_instance);
-
 	//DRAW CODE GOES HEREex}
 
 }

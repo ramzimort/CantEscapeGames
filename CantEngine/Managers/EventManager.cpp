@@ -52,12 +52,9 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
-	m_pStateManager = new StateManager();
-
-
-	// TODO: Pass Initial State to State Manager (Not hardcoded)
-	m_pStateManager->SwitchState(new State(levelPath, m_pAppRenderer,
-		m_pResourceManager, m_pScriptingManager));
+		
+	m_pStateManager = new StateManager(m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
+	m_pStateManager->SwitchState(levelPath);
 
 	m_pAppRenderer->LoadContent();
 

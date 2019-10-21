@@ -6,10 +6,15 @@ Primary Author:
 - End Header --------------------------------------------------------*/
 
 #include "StateManager.h"
+#include "EventManager.h"
+#include "Events/State/StateEvents.h"
 
 
-StateManager::StateManager()
+StateManager::StateManager(AppRenderer* AppRenderer, ResourceManager* ResourceManager, ScriptingManager* ScriptingManager)
+	: m_pAppRenderer(AppRenderer), m_pResourceManager(ResourceManager), m_pScriptingManager(ScriptingManager)
 {
+	EventManager::Get()->SubscribeEvent<PushStateEvent>(this, std::bind(&StateManager::OnPushStateEvent, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<PopStateEvent>(this, std::bind(&StateManager::OnPopStateEvent, this, std::placeholders::_1));
 }
 
 StateManager::~StateManager()
@@ -40,7 +45,7 @@ void StateManager::DrawStack(float dt)
 	}
 }
 
-void StateManager::SwitchState(State *newState)
+void StateManager::SwitchState(const std::string& levelPath)
 {
 	//Empty the stateStack (deletion could be another thread maybe?)
 	for (State *state : m_stateStack) 
@@ -48,15 +53,16 @@ void StateManager::SwitchState(State *newState)
 	m_stateStack.clear();
 
 	//This is for having this call also clear the stack when called with 0
-	if (newState == nullptr) return;
+	if (levelPath == "") return;
 
 	//Now push the new state
-	PushState(newState);
+	PushState(levelPath);
 }
 
-void StateManager::PushState(State *state)
+void StateManager::PushState(const std::string& levelPath)
 {
 	// TODO - Check what else may need to be done
+	State* state = new State(levelPath, m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
 	m_stateStack.push_back(state);
 }
 
@@ -66,6 +72,16 @@ void StateManager::PopState()
 	State *topState = m_stateStack[index];
 	delete topState;
 	m_stateStack.pop_back();
+}
+
+void StateManager::OnPushStateEvent(const PushStateEvent* e)
+{
+	PushState(e->m_path);
+}
+
+void StateManager::OnPopStateEvent(const PopStateEvent* e)
+{
+	PopState();
 }
 
 void StateManager::ProcessInstantiationAndDestruction() 

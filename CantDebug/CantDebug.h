@@ -37,4 +37,5 @@ namespace CantDebugAPI
 
 	CANTDEBUG_API void CheckboxUI(const char* checkboxName, bool* pFlag);
 
+	CANTDEBUG_API void EditorSetting(const char* checkboxName, bool* pFlag);
 }

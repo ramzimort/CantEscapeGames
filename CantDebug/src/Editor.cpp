@@ -41,12 +41,21 @@ void Editor::LoadResources()
 	m_resourceMap[AudioFolder] = InitializeList(GetAllObjects(AudioFolder));
 }
 
+void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
+{
+	m_queue.m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
+}
 
 void Editor::Update()
 {
 	// ENABLE/DISABLE SELECTOR TOOL
-	static bool Selector;
-	ImGui::Checkbox("Selector", &Selector);
+	ImGui::Text("Editor Settings");
+	while (!m_queue.m_queueData.empty())
+	{
+		const CheckboxQueue::CheckboxData& data = m_queue.m_queueData.front();
+		ImGui::Checkbox(data.m_checkBoxName.c_str(), data.m_pFlag);
+		m_queue.m_queueData.pop();
+	}
 
 
 	//RESOURCE MAP INCLUDES
@@ -66,4 +75,8 @@ void Editor::Update()
 			ImGui::TreePop();
 		}
 	}
+
+	// ===================
+
+
 }

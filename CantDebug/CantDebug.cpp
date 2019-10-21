@@ -158,6 +158,12 @@ namespace CantDebugAPI
 			}
 		}
 	}
+
+	void EditorSetting(const char* checkboxName, bool* pFlag)
+	{
+		g_Editor->UpdateSettings(checkboxName, pFlag);
+	}
+
 }
 
 void UpdateWindow()

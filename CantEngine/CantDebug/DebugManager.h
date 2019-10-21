@@ -4,15 +4,24 @@
 #include "Physics/SpatialPartition/DynamicAabbTree.h"
 #include "Physics/Geometry/Aabb.h"
 #include "GameObjects/GameObject.h"
-
 #include "Events/GameObject/GameObjectEvents.h"
 #include "Events/Input/Input.h"
+#include "Events/State/StateEvents.h"
+
 namespace CantDebug
 {
 	struct DebugConfig
 	{
-		bool SelectionTool;
-		bool Is_Ctrl;
+		bool SelectionTool = false;
+		bool Is_Ctrl = false;
+		bool Pause_State = false;
+
+		//uint32_t MSAA_SAMPLE_COUNT;
+		//float MSAA_Filter_Size;
+		//bool Draw_Debug_Mesh_AABB_Flag;
+		//bool Draw_Debug_Mesh_Sphere_Flag;
+		//int Moment_Shadow_Map_Blur_Width;
+
 	};
 
 	struct GameObjectData
@@ -24,8 +33,8 @@ namespace CantDebug
 
 		Aabb m_aabb;
 		unsigned int m_key;
-		bool m_selected;
-		bool m_highlighted;
+		bool m_selected = false;
+		bool m_highlighted = false;
 	};
 
 	class DebugManager
@@ -42,6 +51,8 @@ namespace CantDebug
 
 		void RegisterObject(const GameObjectCreated* e);
 		void UnregisterObject(const GameObjectDestroyed* e);
+		void LoadResource(const std::string& resName);
+		void CreateObject(const std::string& prefabName);
 
 		void OnClick(const MouseClickEvent* e);
 		void OnMotion(const MouseMotionEvent* e);
@@ -52,6 +63,7 @@ namespace CantDebug
 		Vector2 m_scrDimensions = { 1280,720 };
 		Vector2 m_pointerPosition;
 		GameObject* m_pGameObjEditor;
+		GameObjectManager* m_pLevelGOManager;
 
 		ObjectList m_objects;
 

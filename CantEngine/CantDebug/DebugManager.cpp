@@ -7,11 +7,9 @@
 #include "Managers/EventManager.h"
 #include "Graphics/Camera.h"
 
-
-
-
 namespace CantDebug
 {
+
 	DebugManager::DebugManager(AppRenderer* pAppRenderer) : 
 		m_pGameObjEditor(nullptr)
 	{
@@ -29,9 +27,39 @@ namespace CantDebug
 
 	void DebugManager::Update()
 	{
+		static bool _pauseState = false;
+		static bool _selectionTool = false;
+
+		// On change of settings 
+		if (_selectionTool != m_config.SelectionTool)
+		{
+			if (m_config.SelectionTool)
+			{
+				
+			}
+			else
+			{
+				for (auto& go : m_objects)
+				{
+					go.second.m_highlighted = false;
+					go.second.m_selected = false;
+				}
+			}
+		}
+		if (_pauseState != m_config.Pause_State)
+		{
+			if(m_config.Pause_State)
+				EventManager::Get()->EnqueueEvent<PushStateEvent>(false, "Assets/Levels/DebugPause.json");
+			else
+				EventManager::Get()->EnqueueEvent<PopStateEvent>(false);
+		}
+
+		CantDebugAPI::EditorSetting("Pause", &m_config.Pause_State);
+		CantDebugAPI::EditorSetting("SelectionTool", &m_config.SelectionTool);
+
 		Matrix model;
 		MeshComponent* mesh;
-		
+
 		for (auto& go : m_objects)
 		{
 			// updating aabb tree
@@ -42,7 +70,7 @@ namespace CantDebug
 			aabb.Transform(model);
 			SpatialPartitionData data(go.first, aabb);
 			m_AabbTree.UpdateData(go.second.m_key, data);
-			
+
 			if (go.second.m_highlighted)
 			{
 				aabb.DebugDraw(m_pAppRenderer, Vector4(0.5f, 0.f, 0.f, 0.5f));
@@ -51,7 +79,12 @@ namespace CantDebug
 			{
 				aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
 			}
-		}
+		}		
+
+		// Update State
+		_pauseState = m_config.Pause_State;
+		_selectionTool = m_config.SelectionTool;
+
 	}
 
 	std::vector<GameObject*> DebugManager::GetSelectedObjects()
@@ -137,15 +170,46 @@ namespace CantDebug
 		m_objects.erase(event->m_pGameObject);
 	}
 
+	void DebugManager::LoadResource(const std::string& resName)
+	{
+	}
+
+	void DebugManager::CreateObject(const std::string& prefabName)
+	{
+	}
+
 	void DebugManager::OnClick(const MouseClickEvent* e)
 	{
-		if (e->m_button == SDL_BUTTON_LEFT && e->m_state)
+		if (m_config.SelectionTool)
 		{
-			if (!m_config.Is_Ctrl)
+			if (e->m_button == SDL_BUTTON_LEFT && e->m_state)
 			{
-				for (auto& go : m_objects)
-					go.second.m_selected = false;
+				if (!m_config.Is_Ctrl)
+				{
+					for (auto& go : m_objects)
+						go.second.m_selected = false;
+				}
+
+				std::vector<GameObject*> raycast = RayCast();
+				if (raycast.size() > 0)
+				{
+					auto it = m_objects.find(*raycast.begin());
+					if (it == m_objects.end())
+						return;
+					it->second.m_selected = !it->second.m_selected;
+				}
 			}
+		}
+		
+	}
+
+	void DebugManager::OnMotion(const MouseMotionEvent* e)
+	{
+		m_pointerPosition = e->m_position;
+		if (m_config.SelectionTool)
+		{
+			for (auto& go : m_objects)
+				go.second.m_highlighted = false;
 
 			std::vector<GameObject*> raycast = RayCast();
 			if (raycast.size() > 0)
@@ -153,25 +217,10 @@ namespace CantDebug
 				auto it = m_objects.find(*raycast.begin());
 				if (it == m_objects.end())
 					return;
-				it->second.m_selected = true;
+				it->second.m_highlighted = true;
 			}
 		}
-	}
-
-	void DebugManager::OnMotion(const MouseMotionEvent* e)
-	{
-		m_pointerPosition = e->m_position;
-		for (auto& go : m_objects)
-			go.second.m_highlighted = false;
-
-		std::vector<GameObject*> raycast = RayCast();
-		if (raycast.size() > 0)
-		{
-			auto it = m_objects.find(*raycast.begin());
-			if (it == m_objects.end())
-				return;
-			it->second.m_highlighted = true;
-		}
+		
 	}
 
 	void DebugManager::OnScreenResize(const WindowSizeEvent* e)
@@ -182,33 +231,30 @@ namespace CantDebug
 
 	void DebugManager::OnKey(const KeyEvent* e)
 	{
-		// On Release
-		if (e->m_press)
+		switch (e->m_scancode)
 		{
-			switch (e->m_scancode)
-			{
-			case SDL_SCANCODE_LCTRL:
-				m_config.Is_Ctrl = e->m_press;
+		case SDL_SCANCODE_LCTRL:
+			m_config.Is_Ctrl = e->m_press;
+			break;
+		case SDL_SCANCODE_DELETE:
+		{
+			if (!e->m_press)
 				break;
-
-			case SDL_SCANCODE_DELETE:
+			auto it = m_objects.begin();
+			GameObject* go;
+			while (it != m_objects.end())
 			{
-				auto it = m_objects.begin();
-				GameObject* go;
-				while (it != m_objects.end())
+				if (it->second.m_selected)
 				{
-					if (it->second.m_selected)
-					{
-						go = it->first;
-						it = m_objects.erase(it);
-						go->Destroy();
-					}
-					else
-						++it;
+					go = it->first;
+					it = m_objects.erase(it);
+					go->Destroy();
 				}
-				break;
+				else
+					++it;
 			}
-			}
+			break;
+		}
 		}
 	}
 

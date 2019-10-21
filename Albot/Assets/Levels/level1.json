@@ -50,6 +50,24 @@
       }
     },
     {
+      "tag": "RGDBDY1",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 10.0, 10.0, -10.0 ]
+        }
+      }
+    },
+    {
+      "tag": "RGDBDY2",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 10.0, 0.0, -10.0 ]
+        }
+      }
+    },
+    {
       "tag": "Right",
       "prefab": "Assets/Prefabs/mitsuba_sphere.json",
       "overrides": {

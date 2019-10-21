@@ -1,0 +1,21 @@
+{
+  "Resources": {
+    "Textures": [
+
+    ],
+    "Models": [
+    ],
+    "Materials": [
+    ],
+    "Audio": [
+
+    ],
+    "Prefabs": [
+    ],
+    "Scripts": [
+      "Scripts/States/DebugPause.lua"
+    ]
+  },
+  "Objects": [
+  ]
+}

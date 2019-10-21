@@ -100,6 +100,12 @@ void Factory::LoadObject(GameObject* gameObject, const std::string& path)
 	}
 }
 
+static void LoadResource(const std::string& path)
+{
+
+}
+
+
 void Factory::Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr)
 {
 	m_pResourceManager = resMgr;
