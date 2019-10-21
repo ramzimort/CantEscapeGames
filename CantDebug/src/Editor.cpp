@@ -4,18 +4,6 @@
 #include "..\imgui\imgui.h"
 
 using namespace std;
-vector<Info> InitializeList(const vector<string>& list)
-{
-	vector<Info> result;
-	for (auto it = list.begin(); it != list.end(); ++it)
-	{
-		Info info; 
-		info.Name = *it;
-		info.Include = false;
-		result.push_back(info);
-	}
-	return result;
-}
 
 Editor::Editor()
 { 
@@ -29,9 +17,27 @@ void Editor::Clear()
 	m_resourceMap.clear();
 }
 
+void Editor::UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created)
+{
+	Info info; info.Name = name; info.Pressed = pClicked; info.DoubleClicked = pDoubleClicked; info.ID = id;
+	if (created)
+		m_objects.push_back(info);
+	else
+	{
+		for (auto it = m_objects.begin(); it != m_objects.end(); ++it)
+		{
+			if (!strcmp(it->Name.c_str(), name))
+			{
+				m_objects.erase(it);
+				return;
+			}
+		}
+	}
+}
+
 void Editor::UpdateResources(const char* dir, const char* asset, bool* pFlag)
 {
-	Info info; info.Name = asset; info.Include = pFlag;
+	Info info; info.Name = asset; info.Pressed = pFlag;
 	string dirName(dir);
 	auto it = m_resourceMap.find(dirName);
 
@@ -45,7 +51,7 @@ void Editor::UpdateResources(const char* dir, const char* asset, bool* pFlag)
 
 void Editor::UpdatePrefabs(const char* prefabName, bool* p_buttonState)
 {
-	Info info; info.Include = p_buttonState; info.Name = prefabName;
+	Info info; info.Pressed = p_buttonState; info.Name = prefabName;
 	m_prefabButtons.push_back(info);
 }
 
@@ -71,13 +77,12 @@ void Editor::Update()
 	ImGui::Text("Objects");
 	for (auto& object : m_objects)
 	{
-		if (ImGui::Button(object.Name.c_str()))
-		{
-			*(object.Include) = true;
-		}
+		ImGui::Checkbox(object.ID.c_str(), object.Pressed);
+		ImGui::SameLine(); 	
+		if(ImGui::Button(object.Name.c_str()))
+			*(object.DoubleClicked) = true;			
 	}
 	
-
 	// Resources
 	ImGui::Separator();
 	ImGui::Text("Resources To Include in Level");
@@ -90,7 +95,7 @@ void Editor::Update()
 		{
 			for (int i = 0; i < dir.size(); ++i)
 			{
-				ImGui::Checkbox(dir[i].Name.c_str(), dir[i].Include);
+				ImGui::Checkbox(dir[i].Name.c_str(), dir[i].Pressed);
 			}
 			ImGui::TreePop();
 		}
@@ -105,7 +110,7 @@ void Editor::Update()
 	{
 		if (ImGui::Button(prefab.Name.c_str()))
 		{
-			*(prefab.Include) = true;
+			*(prefab.Pressed) = true;
 		}
 	}
 

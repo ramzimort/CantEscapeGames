@@ -72,6 +72,44 @@ namespace CantDebug
 		}
 	}
 
+	void DebugManager::UpdateObjects()
+	{
+		for (auto& objInfo : m_objectList)
+		{
+			if (objInfo.second.DoublePressed)
+			{
+				auto cam = m_pGameObjEditor->GetComponent<CameraComponent>();
+				auto transform = m_pGameObjEditor->GetComponent<TransformComponent>();
+				Vector3 position = objInfo.first->GetComponent<TransformComponent>()->GetPosition(); 
+				Vector3 translation = cam->GetCamera().GetForward(); translation.Normalize(); translation = translation * -10.f;
+				transform->SetLocalPosition(position);
+				transform->Translate(translation);
+			}
+			objInfo.second.DoublePressed = false;
+
+
+			if (!m_config.SelectionTool)
+			{
+				objInfo.second.Highlighted = false;
+				objInfo.second.Pressed = false;
+				continue;
+			}
+
+			if (m_meshObjects.find(objInfo.first) == m_meshObjects.end())
+				continue;
+
+
+			if (objInfo.second.Highlighted)
+			{
+				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(0.5f, 0.f, 0.f, 0.5f));
+			}
+			if (objInfo.second.Pressed)
+			{
+				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
+			}
+		}
+	}
+
 	void DebugManager::UpdateResources()
 	{
 		for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
@@ -130,28 +168,13 @@ namespace CantDebug
 
 	void DebugManager::Update()
 	{
+		UpdateObjects();
 		UpdateResources();
 		UpdatePrefabCreation();
 
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
 
-		// On change of settings 
-		if (_selectionTool != m_config.SelectionTool)
-		{
-			if (m_config.SelectionTool)
-			{
-				
-			}
-			else
-			{
-				for (auto& go : m_objects)
-				{
-					go.second.m_highlighted = false;
-					go.second.m_selected = false;
-				}
-			}
-		}
 		if (_pauseState != m_config.Pause_State)
 		{
 			if (m_config.Pause_State)
@@ -166,7 +189,7 @@ namespace CantDebug
 		Matrix model;
 		MeshComponent* mesh;
 
-		for (auto& go : m_objects)
+		for (auto& go : m_meshObjects)
 		{
 			// updating aabb tree
 			mesh = go.first->GetComponent<MeshComponent>();
@@ -176,15 +199,6 @@ namespace CantDebug
 			aabb.Transform(model);
 			SpatialPartitionData data(go.first, aabb);
 			m_AabbTree.UpdateData(go.second.m_key, data);
-
-			if (go.second.m_highlighted)
-			{
-				aabb.DebugDraw(m_pAppRenderer, Vector4(0.5f, 0.f, 0.f, 0.5f));
-			}
-			if (go.second.m_selected)
-			{
-				aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
-			}
 		}		
 
 		// Update State
@@ -197,9 +211,9 @@ namespace CantDebug
 	std::vector<GameObject*> DebugManager::GetSelectedObjects()
 	{
 		std::vector<GameObject*> result;
-		for (auto it = m_objects.begin(); it != m_objects.end(); ++it)
+		for (auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
 		{
-			if (it->second.m_selected)
+			if (it->second.Pressed)
 				result.push_back(it->first);
 		}
 		return result;
@@ -254,31 +268,37 @@ namespace CantDebug
 			return;
 		}
 
-		static unsigned int key = 0;
-		MeshComponent* mesh = e->m_pGameObject->GetComponent<MeshComponent>();
+		// Register into Objects
+		Info objInfo; 
+		objInfo.ID = go->GetId();
+		if (go->GetTag() == "")	objInfo.Name = std::to_string(go->GetId());
+		else objInfo.Name = go->GetTag();
+		objInfo.Pressed = false; objInfo.DoublePressed = false; objInfo.Highlighted = false;
+		m_objectList.insert(std::make_pair(go,objInfo));
+		CantDebugAPI::ObjectButtonList(std::to_string(objInfo.ID).c_str(), objInfo.Name.c_str(), &m_objectList[go].Pressed, &m_objectList[go].DoublePressed, true);
 
+		// Register dynamic AABB for raycast
+		static unsigned int key = 0;
+		MeshComponent* mesh = go->GetComponent<MeshComponent>();
 		if (mesh == nullptr)
 			return;
-
-		// register with debug dynamic aabb
 		SpatialPartitionData data1;
 		Aabb aabb = mesh->GetModel()->GetAABB();
 		m_AabbTree.InsertData(key, SpatialPartitionData(go, aabb));
-
-		// Register in list
 		GameObjectData data(key, aabb);
-		data.m_selected = false;
-		data.m_highlighted = false;
-		m_objects.insert(std::make_pair(e->m_pGameObject, data));
+		m_meshObjects.insert(std::make_pair(e->m_pGameObject, data));
 	}
 
-	void DebugManager::UnregisterObject(const GameObjectDestroyed* event)
+	void DebugManager::UnregisterObject(const GameObjectDestroyed* e)
 	{
-		m_objects.erase(event->m_pGameObject);
-	}
+		GameObject* go = e->m_pGameObject;
+		if (m_objectList.find(go) != m_objectList.end())
+		{
+			CantDebugAPI::ObjectButtonList(std::to_string(m_objectList[go].ID).c_str(), m_objectList[go].Name.c_str(), &m_objectList[go].Pressed, &m_objectList[go].DoublePressed, false);
+			m_objectList.erase(go);
+		}
 
-	void DebugManager::CreateObject(const std::string& prefabName)
-	{
+		m_meshObjects.erase(go);
 	}
 
 	void DebugManager::OnClick(const MouseClickEvent* e)
@@ -289,17 +309,17 @@ namespace CantDebug
 			{
 				if (!m_config.Is_Ctrl)
 				{
-					for (auto& go : m_objects)
-						go.second.m_selected = false;
+					for (auto& go : m_objectList)
+						go.second.Pressed = false;
 				}
 
 				std::vector<GameObject*> raycast = RayCast();
 				if (raycast.size() > 0)
 				{
-					auto it = m_objects.find(*raycast.begin());
-					if (it == m_objects.end())
+					auto it = m_objectList.find(*raycast.begin());
+					if (it == m_objectList.end())
 						return;
-					it->second.m_selected = !it->second.m_selected;
+					it->second.Pressed = !it->second.Pressed;
 				}
 			}
 		}
@@ -311,16 +331,16 @@ namespace CantDebug
 		m_pointerPosition = e->m_position;
 		if (m_config.SelectionTool)
 		{
-			for (auto& go : m_objects)
-				go.second.m_highlighted = false;
+			for (auto& go : m_objectList)
+				go.second.Highlighted = false;
 
 			std::vector<GameObject*> raycast = RayCast();
 			if (raycast.size() > 0)
 			{
-				auto it = m_objects.find(*raycast.begin());
-				if (it == m_objects.end())
+				auto it = m_objectList.find(*raycast.begin());
+				if (it == m_objectList.end())
 					return;
-				it->second.m_highlighted = true;
+				it->second.Highlighted = true;
 			}
 		}
 		
@@ -347,15 +367,21 @@ namespace CantDebug
 		{
 			if (!e->m_press)
 				break;
-			auto it = m_objects.begin();
+
+			auto it = m_objectList.begin();
 			GameObject* go;
-			while (it != m_objects.end())
+			while (it != m_objectList.end())
 			{
-				if (it->second.m_selected)
+				if (it->second.Pressed)
 				{
 					go = it->first;
-					m_AabbTree.RemoveData(it->second.m_key);
-					it = m_objects.erase(it);
+					CantDebugAPI::ObjectButtonList(std::to_string(m_objectList[go].ID).c_str(), m_objectList[go].Name.c_str(), &m_objectList[go].Pressed, &m_objectList[go].DoublePressed, false);
+					it = m_objectList.erase(it);
+					if (m_meshObjects.find(go) != m_meshObjects.end())
+					{
+						m_AabbTree.RemoveData(m_meshObjects[go].m_key);
+						m_meshObjects.erase(go);
+					}
 					go->Destroy();
 				}
 				else

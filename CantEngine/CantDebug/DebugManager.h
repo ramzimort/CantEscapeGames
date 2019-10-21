@@ -17,13 +17,6 @@ namespace CantDebug
 		bool SelectionTool = false;
 		bool Is_Ctrl = false;
 		bool Pause_State = false;
-
-		//uint32_t MSAA_SAMPLE_COUNT;
-		//float MSAA_Filter_Size;
-		//bool Draw_Debug_Mesh_AABB_Flag;
-		//bool Draw_Debug_Mesh_Sphere_Flag;
-		//int Moment_Shadow_Map_Blur_Width;
-
 	};
 
 	struct Info
@@ -32,11 +25,14 @@ namespace CantDebug
 		std::string Name;
 		bool Pressed = false;
 		bool DoublePressed = false;
+		bool Highlighted = false;
 		bool _pressed;
+		size_t ID;
 	};
 
 	struct GameObjectData
 	{
+		GameObjectData() = default;
 		GameObjectData(const GameObjectData& rhs) :
 			m_aabb(rhs.m_aabb), m_key(rhs.m_key) { }
 		GameObjectData(unsigned int key, const Aabb& aabb) :
@@ -44,15 +40,14 @@ namespace CantDebug
 
 		Aabb m_aabb;
 		unsigned int m_key;
-		bool m_selected = false;
-		bool m_highlighted = false;
 	};
 
 	class DebugManager
 	{
-		typedef std::unordered_map<GameObject*, GameObjectData> ObjectList;
+		typedef std::unordered_map<GameObject*, Info> ObjectList;
 		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
 		typedef std::vector<Info> PrefabButtonList;
+		typedef std::unordered_map<GameObject*, GameObjectData> MeshObjectList;
 
 	public:
 		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
@@ -62,10 +57,10 @@ namespace CantDebug
 
 		// Update
 		void Update();
+		void UpdateObjects();
 		void UpdateResources();
 		void UpdatePrefabCreation();
 		void UpdateState();
-
 
 		// Helpers
 		std::vector<GameObject*> GetSelectedObjects();
@@ -74,7 +69,6 @@ namespace CantDebug
 		// Gameobjects
 		void RegisterObject(const GameObjectCreated* e);
 		void UnregisterObject(const GameObjectDestroyed* e);
-		void CreateObject(const std::string& prefabName);
 
 		// Events
 		void OnClick(const MouseClickEvent* e);
@@ -85,13 +79,14 @@ namespace CantDebug
 	private:
 		Vector2 m_scrDimensions = { 1280,720 };
 		Vector2 m_pointerPosition;
+		DebugConfig m_config;
 		GameObject* m_pGameObjEditor;
 
-		ObjectList m_objects;
+		ObjectList m_objectList;
 		ResourceMap m_resources;
 		PrefabButtonList m_prefabList;
 
-		DebugConfig m_config;
+		MeshObjectList m_meshObjects;
 		DynamicAabbTree m_AabbTree;
 
 		State* m_pGameState;

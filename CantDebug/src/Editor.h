@@ -5,15 +5,11 @@
 
 struct Info
 {
+	std::string ID;
 	std::string Name;
-	bool* Include;
+	bool* Pressed;
+	bool* DoubleClicked;
 };
-
-struct ButtonInfo
-{
-
-};
-
 class Editor
 {
 	typedef std::pair<std::string, bool> ResourceInclude;
@@ -23,6 +19,7 @@ public:
 	Editor();
 	~Editor();
 
+	void UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created);
 	void UpdateResources(const char* dir, const char* asset, bool* pFlag);
 	void UpdatePrefabs(const char* prefabName, bool* p_buttonState);
 	void UpdateSettings(const char* checkboxName, bool* pFlag);
