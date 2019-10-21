@@ -21,17 +21,22 @@ test02Comp.OnKey = function(self, key, state)
 	if(SCANCODE.I == key) then
 	
 		self.nextAnim = "DanceAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+		self.animComp:SwitchAnimation(self.nextAnim, 100.0);
 	
 	elseif(SCANCODE.O == key) then
 	
 		self.nextAnim = "StopAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+		self.animComp:SwitchAnimation(self.nextAnim, 100.0);
 
 	elseif(SCANCODE.P == key) then
 	
 		self.nextAnim = "WalkAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+		self.animComp:SwitchAnimation(self.nextAnim, 100.0);
+
+	elseif(SCANCODE.U == key) then
+	
+		self.nextAnim = "IdleAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 100.0);
 	
 	end
 

@@ -14,7 +14,7 @@
   },
 
   "AnimationComponent": {
-    "StartingAnimation": "WalkAnim",
+    "StartingAnimation": "IdleAnim",
     "Clips": [
       {
         "name": "DanceAnim",
@@ -30,7 +30,27 @@
         "name": "WalkAnim",
         "path": "Assets/Models/TestWalk.fbx",
         "loops": true
+      },
+      {
+        "name": "IdleAnim",
+        "path": "Assets/Models/TestIdle.fbx",
+        "loops": true
       }
     ]
-  }
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts/Components/test01Comp.lua",
+      "Overrides": {
+        "hashed": "ANDRES NOT OVERRIDEN!",
+        "ranked": -777
+      }
+    },
+    {
+      "Name": "Scripts/Components/test02Comp.lua",
+      "Overrides": {
+      }
+    }
+  ]
 }

@@ -386,6 +386,7 @@ void ScriptingManager::ManageBindings()
 			sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
 			sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
 	);
+
 	luaState.new_usertype<Vector3>
 	(
 		"Vector3",
@@ -394,6 +395,7 @@ void ScriptingManager::ManageBindings()
 		"y", &Vector3::y,
 		"z", &Vector3::z,
 		"dot", &Vector3::Dot,
+		"len", &Vector3::Length,
 		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 		sol::meta_function::addition, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator-),

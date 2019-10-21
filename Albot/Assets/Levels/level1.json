@@ -38,10 +38,11 @@
       "Assets\\Prefabs\\mini_map.json"
     ],
     "Scripts": [
-      "Scripts\\States\\level1.lua",
-      "Scripts\\Components\\test01Comp.lua",
-      "Scripts\\Components\\test02Comp.lua",
-      "Scripts\\Components\\fpscontroller.lua"
+      "Scripts/States/level1.lua",
+      "Scripts/Components/test01Comp.lua",
+      "Scripts/Components/test02Comp.lua",
+      "Scripts/Components/PlayerComp.lua",
+      "Scripts/Components/fpscontroller.lua"
     ]
   },
   "Objects": [
@@ -184,12 +185,12 @@
           "ModelId": "Assets\\Models\\AnimTest01.fbx"
         },
         "AnimationComponent": {
-          "StartingAnimation": "WalkAnim",
+          "StartingAnimation": "IdleAnim",
           "Clips": [
             {
-              "name": "DanceAnim",
-              "path": "Assets\\Models\\AnimTest01.fbx",
-              "loops": true
+              "name": "AttackAnim",
+              "path": "Assets/Models/TestAttack.fbx",
+              "loops": false
             },
             {
               "name": "StopAnim",
@@ -199,6 +200,11 @@
             {
               "name": "WalkAnim",
               "path": "Assets\\Models\\TestWalk.fbx",
+              "loops": true
+            },
+            {
+              "name": "IdleAnim",
+              "path": "Assets/Models/TestIdle.fbx",
               "loops": true
             }
           ]
