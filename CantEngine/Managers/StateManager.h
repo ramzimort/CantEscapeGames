@@ -17,6 +17,7 @@ class PopStateEvent;
 
 class StateManager
 {
+	//friend class CantDebug::DebugManager;
 public:
 	StateManager(AppRenderer* m_pAppRenderer, ResourceManager* m_pResourceManager, ScriptingManager* m_pScriptingManager);
 	~StateManager();

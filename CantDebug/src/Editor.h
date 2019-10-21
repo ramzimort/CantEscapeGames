@@ -5,38 +5,23 @@
 
 struct Info
 {
-	bool Include = false;
 	std::string Name;
+	bool* Include;
 };
 
 class Editor
 {
 	typedef std::pair<std::string, bool> ResourceInclude;
 	typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
-	typedef std::unordered_map<std::string, std::vector<bool>> IncludeMap;
 public:
-	Editor(const std::string& texturesDir,
-		const std::string& modelDir,
-		const std::string& materialDir,
-		const std::string& scriptDir,
-		const std::string& prefabDir,
-		const std::string& audioDir);
-
+	Editor();
 	~Editor();
 
-	void LoadResources();
+	void UpdateResources(const char* dir, const char* asset, bool* pFlag);
 	void UpdateSettings(const char* checkboxName, bool* pFlag);
 	void Update();
-
+	void Clear();
 private:
 	ResourceMap m_resourceMap;
-	IncludeMap m_includeMap;
 	CheckboxQueue m_queue;
-
-	const std::string TextureFolder;
-	const std::string ModelFolder;
-	const std::string MaterialFolder;
-	const std::string ScriptFolder;
-	const std::string PrefabFolder;
-	const std::string AudioFolder;
 };

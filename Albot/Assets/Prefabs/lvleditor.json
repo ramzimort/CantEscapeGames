@@ -17,7 +17,7 @@
   },
   "Scripts": [
     {
-      "Name": "Scripts/Components/fpscontroller.lua",
+      "Name": "Scripts\\Components\\fpscontroller.lua",
       "Overrides": {
       }
     }

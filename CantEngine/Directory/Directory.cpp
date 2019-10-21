@@ -48,7 +48,7 @@ namespace CantDirectory
 		return Objects;
 	}
 
-	std::vector<std::string> GetAllObjectsIn(const std::string& dir_path)
+	std::vector<std::string> GetAllObjects(const std::string& dir_path, const std::vector<std::string>& file_extensions)
 	{
 		std::vector<std::string> Objects;
 		fs::path FilePath;
@@ -56,8 +56,10 @@ namespace CantDirectory
 		{
 			FilePath = dir_iterator;
 
-			if (FilePath.extension() != "")
+			if (file_extensions.empty() || std::find(file_extensions.begin(), file_extensions.end(), FilePath.extension()) != file_extensions.end())
 			{
+				if (!FilePath.has_extension())
+					continue;
 				std::string full_path = FilePath.string();
 				std::string path = full_path.substr(fs::path(dir_path).string().size());
 				Objects.push_back(path);

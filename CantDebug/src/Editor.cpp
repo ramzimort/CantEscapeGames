@@ -17,29 +17,32 @@ vector<Info> InitializeList(const vector<string>& list)
 	return result;
 }
 
-Editor::Editor( const std::string& texturesDir,	const std::string& modelDir, const std::string& materialDir,	const std::string& scriptDir, const std::string& prefabDir, const std::string& audioDir) :
-	TextureFolder(texturesDir), 
-	ModelFolder(modelDir), 
-	MaterialFolder(materialDir), 
-	ScriptFolder(scriptDir), 
-	PrefabFolder(prefabDir), 
-	AudioFolder(audioDir) 
+Editor::Editor()
 { 
-	LoadResources();
 }
 
 Editor::~Editor()
 { }
 
-void Editor::LoadResources()
+void Editor::Clear()
 {
-	m_resourceMap[TextureFolder] = InitializeList(GetAllObjects(TextureFolder));
-	m_resourceMap[ModelFolder] = InitializeList(GetAllObjects(ModelFolder));
-	m_resourceMap[MaterialFolder] =  InitializeList(GetAllObjects(MaterialFolder));
-	m_resourceMap[ScriptFolder] = InitializeList(GetAllObjects(ScriptFolder));
-	m_resourceMap[PrefabFolder] = InitializeList(GetAllObjects(PrefabFolder));
-	m_resourceMap[AudioFolder] = InitializeList(GetAllObjects(AudioFolder));
+	m_resourceMap.clear();
 }
+
+void Editor::UpdateResources(const char* dir, const char* asset, bool* pFlag)
+{
+	Info info; info.Name = asset; info.Include = pFlag;
+	string dirName(dir);
+	auto it = m_resourceMap.find(dirName);
+
+	if (m_resourceMap.find(dirName) != m_resourceMap.end())
+	{
+		m_resourceMap.insert(std::make_pair(dirName, vector<Info>()));
+	}
+	m_resourceMap[dirName].push_back(info);
+
+}
+
 
 void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
 {
@@ -48,7 +51,7 @@ void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
 
 void Editor::Update()
 {
-	// ENABLE/DISABLE SELECTOR TOOL
+	// SETTINGS
 	ImGui::Text("Editor Settings");
 	while (!m_queue.m_queueData.empty())
 	{
@@ -58,7 +61,7 @@ void Editor::Update()
 	}
 
 
-	//RESOURCE MAP INCLUDES
+	// Resources
 	ImGui::Separator();
 	ImGui::Text("Resources To Include in Level");
 
@@ -70,7 +73,8 @@ void Editor::Update()
 		{
 			for (int i = 0; i < dir.size(); ++i)
 			{
-				ImGui::Checkbox(dir[i].Name.c_str(), &dir[i].Include);
+				ImGui::Checkbox(dir[i].Name.c_str(), dir[i].Include);
+				ImGui::SameLine();  ImGui::Button(dir[i].Name.c_str());
 			}
 			ImGui::TreePop();
 		}

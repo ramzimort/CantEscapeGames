@@ -7,6 +7,8 @@
 #include "Events/GameObject/GameObjectEvents.h"
 #include "Events/Input/Input.h"
 #include "Events/State/StateEvents.h"
+#include "Managers/StateManager.h"
+#include "Managers/ResourceManager.h"
 
 namespace CantDebug
 {
@@ -22,6 +24,13 @@ namespace CantDebug
 		//bool Draw_Debug_Mesh_Sphere_Flag;
 		//int Moment_Shadow_Map_Blur_Width;
 
+	};
+
+	struct Info
+	{
+		std::string Name;
+		bool Include = false;
+		bool _include;
 	};
 
 	struct GameObjectData
@@ -40,9 +49,14 @@ namespace CantDebug
 	class DebugManager
 	{
 		typedef std::unordered_map<GameObject*, GameObjectData> ObjectList;
+		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
+
 	public:
-		DebugManager(AppRenderer* pAppRenderer);
+		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
 		~DebugManager();
+
+		void LoadResources();
+		void UpdateResources();
 
 		void Update();
 
@@ -51,7 +65,6 @@ namespace CantDebug
 
 		void RegisterObject(const GameObjectCreated* e);
 		void UnregisterObject(const GameObjectDestroyed* e);
-		void LoadResource(const std::string& resName);
 		void CreateObject(const std::string& prefabName);
 
 		void OnClick(const MouseClickEvent* e);
@@ -66,11 +79,15 @@ namespace CantDebug
 		GameObjectManager* m_pLevelGOManager;
 
 		ObjectList m_objects;
+		ResourceMap m_resources;
 
 		DebugConfig m_config;
 		DynamicAabbTree m_AabbTree;
 
+
 		AppRenderer* m_pAppRenderer;
+		ResourceManager* m_pResourceManager;
+		StateManager* m_pStateManager;
 	};
 }
 

@@ -36,14 +36,14 @@
 
   "Scripts": [
     {
-      "Name": "Scripts/Components/test01Comp.lua",
+      "Name": "Scripts\\Components\\test01Comp.lua",
       "Overrides": {
         "hashed": "ANDRES NOT OVERRIDEN!",
         "ranked": -777
       }
     },
     {
-      "Name": "Scripts/Components/test02Comp.lua",
+      "Name": "Scripts\\Components\\test02Comp.lua",
       "Overrides": {
         "hashed": "ANDRES COMP 2 NOT OVERRIDEN!",
         "ranked": -555

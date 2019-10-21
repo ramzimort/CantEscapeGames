@@ -5,11 +5,11 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets/Materials/Material1.json"
+    "MaterialId": "Assets\\Materials\\Material1.json"
   },
 
   "MeshComponent": {
-    "ModelId": "Assets/Models/Cube.fbx"
+    "ModelId": "Assets\\Models\\Cube.fbx"
   },
 
   "RigidBodyComponent": {

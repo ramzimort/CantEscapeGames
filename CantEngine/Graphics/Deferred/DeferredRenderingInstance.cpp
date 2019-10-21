@@ -227,7 +227,7 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 
 	m_dxrenderer->cmd_bind_pipeline(m_deferredRendering.m_deferred_shade_pointlight_pipeline);
 
-	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
+	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets\\Models\\Sphere.fbx"));
 
 	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->GetVertexBuffer());
 	m_dxrenderer->cmd_bind_index_buffer(sphere_model->GetIndexBuffer());
@@ -285,7 +285,7 @@ void DeferredRenderingInstance::RenderHaloEffect(const AppRendererContext& appRe
 
 	m_dxrenderer->cmd_bind_pipeline(m_deferredRendering.m_shadeHaloEffectPipeline);
 
-	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets/Models/Sphere.fbx"));
+	Model* sphere_model = m_deferredRendering.m_resourceManager->GetModel(StringId("Assets\\Models\\Sphere.fbx"));
 
 	m_dxrenderer->cmd_bind_vertex_buffer(sphere_model->GetVertexBuffer());
 	m_dxrenderer->cmd_bind_index_buffer(sphere_model->GetIndexBuffer());

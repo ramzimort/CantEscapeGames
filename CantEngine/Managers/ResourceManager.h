@@ -40,7 +40,6 @@ struct Resource
 class ResourceManager
 {
 	friend class Factory;
-	friend class DebugManager;
 	typedef std::unordered_map<StringId, Resource, StringIdHash> ResourceMap;
 
 public:
@@ -52,11 +51,10 @@ public:
 	Texture* GetTexture(StringId textureId);
 	std::string& GetPrefab(StringId prefabId);
 	sol::table& GetScript(StringId scriptId);
-
+	bool HasResource(StringId id);
 	void FreeResource(StringId id);
 	void Free();
 
-private:
 	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);

@@ -24,8 +24,6 @@ public:
 	static void Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr);
 	static void LoadLevel(const std::string& path, GameObjectManager* goMgr);
 	static void LoadObject(GameObject* gameObject, const std::string& path);
-	static void LoadResource(const std::string& path);
-
 	Factory(Factory const& rhs) = delete;
 private:
 	static void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);

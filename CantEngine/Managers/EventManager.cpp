@@ -46,7 +46,7 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 		m_pAppRenderer->GetDXRenderer()->get_device_context());
 
 #ifdef DEVELOPER
-	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer);
+	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager);
 #endif
 
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);

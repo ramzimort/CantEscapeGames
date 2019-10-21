@@ -6,12 +6,27 @@
 #include "GameObjects/GameObject.h"
 #include "Managers/EventManager.h"
 #include "Graphics/Camera.h"
+#include "Directory/Directory.h"
+#include "Factory/Factory.h"
 
 namespace CantDebug
 {
+	using namespace std;
+	vector<Info> InitializeList(const vector<string>& list)
+	{
+		vector<Info> result;
+		for (auto it = list.begin(); it != list.end(); ++it)
+		{
+			Info info;
+			info.Name = *it;
+			info.Include = false;
+			result.push_back(info);
+		}
+		return result;
+	}
 
-	DebugManager::DebugManager(AppRenderer* pAppRenderer) : 
-		m_pGameObjEditor(nullptr)
+	DebugManager::DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager) :
+		m_pGameObjEditor(nullptr), m_pAppRenderer(pAppRenderer), m_pResourceManager(pResourceManager), m_pStateManager(pStateManager)
 	{
 		EventManager::Get()->SubscribeEvent<GameObjectCreated>(this, std::bind(&DebugManager::RegisterObject, this, std::placeholders::_1));
 		EventManager::Get()->SubscribeEvent<GameObjectDestroyed>(this, std::bind(&DebugManager::UnregisterObject, this, std::placeholders::_1));
@@ -20,13 +35,81 @@ namespace CantDebug
 		EventManager::Get()->SubscribeEvent<WindowSizeEvent>(this, std::bind(&DebugManager::OnScreenResize, this, std::placeholders::_1));
 		EventManager::Get()->SubscribeEvent<KeyEvent>(this, std::bind(&DebugManager::OnKey, this, std::placeholders::_1));
 
+		LoadResources();
+
 		m_pAppRenderer = pAppRenderer;
 	}
 
 	DebugManager::~DebugManager() { }
 
+	void DebugManager::LoadResources()
+	{
+		m_resources["Assets\\Textures"] = InitializeList(CantDirectory::GetAllObjects("Assets\\Textures"));
+		m_resources["Assets\\Models"] = InitializeList(CantDirectory::GetAllObjects("Assets\\Models"));
+		m_resources["Assets\\Materials"] = InitializeList(CantDirectory::GetAllObjects("Assets\\Materials"));
+		m_resources["Scripts"] = InitializeList(CantDirectory::GetAllObjects("Scripts"));
+		m_resources["Assets\\Prefabs"] = InitializeList(CantDirectory::GetAllObjects("Assets\\Prefabs"));
+		m_resources["Assets\\Audio"] = InitializeList(CantDirectory::GetAllObjects("Assets\\Audio"));
+
+
+		for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
+		{
+			const std::string dirName = it->first;
+			auto& assetList = it->second;
+			for (auto& info : assetList)
+			{
+				const std::string fileName = info.Name;
+				const std::string fullPath = dirName + fileName;
+				info.Include = m_pResourceManager->HasResource(StringId(fullPath));
+				info._include = info.Include;
+				CantDebugAPI::ResourceSetting(dirName.c_str(), fileName.c_str(), &info.Include);
+			}
+		}
+	}
+
+	void DebugManager::UpdateResources()
+	{
+		for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
+		{
+			const std::string dirName = it->first.c_str();
+			auto& assetList = it->second;
+			for (auto& info : assetList)
+			{
+				const std::string fileName = info.Name;
+				const std::string path = dirName + fileName;
+
+				if (info.Include != info._include)
+				{
+					if (info.Include)
+					{
+						if (dirName == "Assets\\Textures")
+							m_pResourceManager->LoadTexture(path);
+						else if (dirName == "Assets\\Models")
+							m_pResourceManager->LoadModel(path);
+						else if (dirName == "Scripts")
+							m_pResourceManager->LoadScript(path);
+						else if (dirName == "Assets\\Prefabs")
+							m_pResourceManager->LoadPrefab(path);
+						else if (dirName == "Assets\\Audio")
+							m_pResourceManager->LoadAudio(path);
+					}
+					else
+					{
+						if(m_pResourceManager->HasResource(StringId(path)))
+							m_pResourceManager->FreeResource(StringId(path));
+					}
+				}
+
+				info.Include = m_pResourceManager->HasResource(StringId(path));
+				info._include = info.Include;
+			}
+		}
+	}
+
 	void DebugManager::Update()
 	{
+		UpdateResources();
+
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
 
@@ -48,10 +131,14 @@ namespace CantDebug
 		}
 		if (_pauseState != m_config.Pause_State)
 		{
-			if(m_config.Pause_State)
-				EventManager::Get()->EnqueueEvent<PushStateEvent>(false, "Assets/Levels/DebugPause.json");
+			if (m_config.Pause_State)
+			{
+				m_pStateManager->PushState("Assets\\Levels\\DebugPause.json");
+			}
 			else
-				EventManager::Get()->EnqueueEvent<PopStateEvent>(false);
+			{
+				m_pStateManager->PopState();
+			}
 		}
 
 		CantDebugAPI::EditorSetting("Pause", &m_config.Pause_State);
@@ -168,10 +255,6 @@ namespace CantDebug
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* event)
 	{
 		m_objects.erase(event->m_pGameObject);
-	}
-
-	void DebugManager::LoadResource(const std::string& resName)
-	{
 	}
 
 	void DebugManager::CreateObject(const std::string& prefabName)

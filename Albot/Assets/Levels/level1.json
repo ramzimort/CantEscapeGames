@@ -1,57 +1,55 @@
 {
   "Resources": {
     "Textures": [
-      "Assets/Textures/floor.png",
-      "Assets/Textures/Particles/flare0.png",
-      "Assets/Textures/redbrick.jpg",
-      "Assets/Textures/redbrick_normal.jpg",
-      "Assets/Textures/redbrick_height.jpg"
+      "Assets\\Textures\\floor.png",
+      "Assets\\Textures\\Particles\\flare0.png",
+      "Assets\\Textures\\redbrick.jpg",
+      "Assets\\Textures\\redbrick_normal.jpg",
+      "Assets\\Textures\\redbrick_height.jpg"
     ],
     "Models": [
-      "Assets/Models/mitsuba-sphere.obj",
-      "Assets/Models/plane.fbx",
-      "Assets/Models/Cube.fbx",
-      "Assets/Models/Sphere.fbx",
-      "Assets/Models/AnimTest01.fbx"
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\Sphere.fbx"
     ],
     "Materials": [
-      "Assets/Materials/Material1.json",
-      "Assets/Materials/Red_Brick_Material.json"
+      "Assets\\Materials\\Material1.json",
+      "Assets\\Materials\\Red_Brick_Material.json"
     ],
     "Audio": [
 
     ],
     "Prefabs": [
-      "Assets/Prefabs/lvleditor.json",
-      "Assets/Prefabs/mono_azul.json",
-      "Assets/Prefabs/mono_rojo.json",
-      "Assets/Prefabs/mitsuba_sphere.json",
-      "Assets/Prefabs/Lights/directional_light.json",
-      "Assets/Prefabs/Lights/point_light.json",
-      "Assets/Prefabs/RBTestObj.json",
-      "Assets/Prefabs/player.json",
-      "Assets/Prefabs/TestGoJose.json",
-      "Assets/Prefabs/brick_wall.json",
-      "Assets/Prefabs/TestGoJose.json",
-      "Assets/Prefabs/mini_map.json"
+      "Assets\\Prefabs\\lvleditor.json",
+      "Assets\\Prefabs\\mono_azul.json",
+      "Assets\\Prefabs\\mono_rojo.json",
+      "Assets\\Prefabs\\mitsuba_sphere.json",
+      "Assets\\Prefabs\\Lights\\directional_light.json",
+      "Assets\\Prefabs\\Lights\\point_light.json",
+      "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\player.json",
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\brick_wall.json",
+      "Assets\\Prefabs\\mini_map.json"
     ],
     "Scripts": [
-      "Scripts/States/level1.lua",
-      "Scripts/Components/test01Comp.lua",
-      "Scripts/Components/test02Comp.lua",
-      "Scripts/Components/fpscontroller.lua"
+      "Scripts\\States\\level1.lua",
+      "Scripts\\Components\\test01Comp.lua",
+      "Scripts\\Components\\test02Comp.lua",
+      "Scripts\\Components\\fpscontroller.lua"
     ]
   },
   "Objects": [
     {
       "tag": "lvleditor",
-      "prefab": "Assets/Prefabs/lvleditor.json",
+      "prefab": "Assets\\Prefabs\\lvleditor.json",
       "overrides": {
       }
     },
     {
       "tag": "RGDBDY1",
-      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 10.0, 10.0, -10.0 ]
@@ -60,7 +58,7 @@
     },
     {
       "tag": "RGDBDY2",
-      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 10.0, 0.0, -10.0 ]
@@ -69,7 +67,7 @@
     },
     {
       "tag": "Right",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 10.0, 0.0, -10.0 ],
@@ -80,7 +78,7 @@
 
     {
       "tag": "Middle",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 0.0, 0.0, -10.0 ],
@@ -90,7 +88,7 @@
     },
     {
       "tag": "Left",
-      "prefab": "Assets/Prefabs/mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ -10.0, 0.0, -10.0 ],
@@ -100,7 +98,7 @@
     },
     {
       "tag": "directional_light01",
-      "prefab": "Assets/Prefabs/Lights/directional_light.json",
+      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 150.0, 0.0, 0.0 ],
@@ -110,7 +108,7 @@
     },
     {
       "tag": "point_light1",
-      "prefab": "Assets/Prefabs/Lights/point_light.json",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 0.0, 5.0, 0.0 ],
@@ -121,7 +119,7 @@
 
     {
       "tag": "point_light2",
-      "prefab": "Assets/Prefabs/Lights/point_light.json",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 15.0, 5.0, 0.0 ],
@@ -131,7 +129,7 @@
     },
     {
       "tag": "mini_map1",
-      "prefab": "Assets/Prefabs/mini_map.json",
+      "prefab": "Assets\\Prefabs\\mini_map.json",
       "overrides": {
         "CameraComponent": {
           "Camera": {

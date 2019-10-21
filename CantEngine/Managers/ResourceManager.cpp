@@ -25,12 +25,6 @@ void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState)
 {
 	m_dxrenderer = dxrenderer;
 	m_pSolState = pSolState;
-
-
-#ifdef DEVELOPER
-	DEBUG_LOADRESDIR("Assets\\Textures", "Assets\\Models", "Assets\\Materials", "Scripts", "Assets\\Prefabs", "Assets\\Audio");
-	LoadModel("Assets/Models/Cube.fbx");
-#endif // DEVELOPER
 }
 
 Model* ResourceManager::GetModel(StringId modelId)
@@ -143,9 +137,15 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 	}
 
 	ResPtr p; p.p_material = material;
-	Resource res(MODEL, p);
+	Resource res(MATERIAL, p);
 	m_resources[id] = res;
 }
+
+bool ResourceManager::HasResource(StringId id)
+{
+	return m_resources.find(id) != m_resources.end();
+}
+
 
 void ResourceManager::FreeResource(StringId id)
 {
@@ -199,7 +199,7 @@ void ResourceManager::LoadTexture(const std::string& filePath)
 	Texture* texture = DXResourceLoader::Create_Texture(m_dxrenderer, loadTextureDesc);
 
 	ResPtr p; p.p_texture = texture;
-	Resource res(MODEL, p);
+	Resource res(TEXTURE, p);
 	m_resources[id] = res;
 }
 
@@ -220,7 +220,7 @@ void ResourceManager::LoadPrefab(const std::string& filePath)
 	std::string* defaultGameObj = CantMemory::PoolResource<std::string>::Allocate(CantReflect::StringifyJson(filePath));
 
 	ResPtr p; p.p_prefab = defaultGameObj;
-	Resource res(MODEL, p);
+	Resource res(PREFAB, p);
 	m_resources[id] = res;
 }
 
@@ -242,7 +242,7 @@ void ResourceManager::LoadScript(const std::string& filePath)
 			*pLuaTable = m_pSolState->script_file(filePath);
 
 			ResPtr p; p.p_solTable = pLuaTable;
-			Resource res(MODEL, p);
+			Resource res(SCRIPT, p);
 			m_resources[id] = res;
 		}
 		catch (const sol::error& e)

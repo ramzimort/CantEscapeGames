@@ -7,12 +7,12 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets/Materials/Red_Brick_Material.json",
+    "MaterialId": "Assets\\Materials\\Red_Brick_Material.json",
     "XTileFactor": 5.0,
     "YTileFactor":  5.0
   },
 
   "MeshComponent": {
-    "ModelId": "Assets/Models/plane.fbx"
+    "ModelId": "Assets\\Models\\plane.fbx"
   }
 }
