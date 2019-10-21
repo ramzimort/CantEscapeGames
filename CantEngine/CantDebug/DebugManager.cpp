@@ -319,6 +319,10 @@ namespace CantDebug
 		case SDL_SCANCODE_LCTRL:
 			m_config.Is_Ctrl = e->m_press;
 			break;
+		case SDL_SCANCODE_P:
+			if(e->m_press)
+			m_config.Pause_State = !m_config.Pause_State;
+			break;
 		case SDL_SCANCODE_DELETE:
 		{
 			if (!e->m_press)
