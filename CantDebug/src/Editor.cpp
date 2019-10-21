@@ -43,6 +43,11 @@ void Editor::UpdateResources(const char* dir, const char* asset, bool* pFlag)
 
 }
 
+void Editor::UpdatePrefabs(const char* prefabName, bool* p_buttonState)
+{
+	Info info; info.Include = p_buttonState; info.Name = prefabName;
+	m_prefabButtons.push_back(info);
+}
 
 void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
 {
@@ -61,6 +66,18 @@ void Editor::Update()
 	}
 
 
+	// Objects
+	ImGui::Separator();
+	ImGui::Text("Objects");
+	for (auto& object : m_objects)
+	{
+		if (ImGui::Button(object.Name.c_str()))
+		{
+			*(object.Include) = true;
+		}
+	}
+	
+
 	// Resources
 	ImGui::Separator();
 	ImGui::Text("Resources To Include in Level");
@@ -74,7 +91,6 @@ void Editor::Update()
 			for (int i = 0; i < dir.size(); ++i)
 			{
 				ImGui::Checkbox(dir[i].Name.c_str(), dir[i].Include);
-				ImGui::SameLine();  ImGui::Button(dir[i].Name.c_str());
 			}
 			ImGui::TreePop();
 		}
@@ -82,5 +98,15 @@ void Editor::Update()
 
 	// ===================
 
+	ImGui::Separator();
+	ImGui::Text("Prefabs To Load");
+	int a = 5;
+	for (auto& prefab : m_prefabButtons)
+	{
+		if (ImGui::Button(prefab.Name.c_str()))
+		{
+			*(prefab.Include) = true;
+		}
+	}
 
 }

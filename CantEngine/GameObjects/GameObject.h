@@ -73,8 +73,6 @@ private:
 	static GameObject *Instantiate(GameObjectManager *goMgr);
 	static GameObject *Instantiate(GameObjectManager *goMgr, 
 		std::string const& prefabName);
-
-
 //Variables
 private:
 	static int go_count;

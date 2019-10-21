@@ -9,6 +9,7 @@ Primary Author:
 
 //#include <vector>
 #include "States/State.h"
+
 class AppRenderer;
 class ScriptingManager;
 class ResourceManager;
@@ -17,7 +18,6 @@ class PopStateEvent;
 
 class StateManager
 {
-	//friend class CantDebug::DebugManager;
 public:
 	StateManager(AppRenderer* m_pAppRenderer, ResourceManager* m_pResourceManager, ScriptingManager* m_pScriptingManager);
 	~StateManager();
@@ -44,5 +44,6 @@ private:
 	AppRenderer* m_pAppRenderer;
 	ResourceManager* m_pResourceManager; 
 	ScriptingManager* m_pScriptingManager;
+	friend class CantDebug::DebugManager;
 };
 

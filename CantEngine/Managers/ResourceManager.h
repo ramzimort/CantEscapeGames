@@ -55,12 +55,14 @@ public:
 	void FreeResource(StringId id);
 	void Free();
 
+private:
 	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);
 	void LoadAudio(const std::string& filePath);
 	void LoadPrefab(const std::string& filePath);
 	void LoadScript(const std::string& filePath);
+	friend class CantDebug::DebugManager;
 
 private:
 	ResourceMap m_resources;

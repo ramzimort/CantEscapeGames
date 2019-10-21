@@ -59,7 +59,7 @@ private:
 	void CallBeginOnNewInstances(std::vector<GameObject*> const& newGameObjects);
 	void Destroy_Queued_GameObjects();
 
-
+	friend class CantDebug::DebugManager;
 ///////////////
 // VARIABLES //
 ///////////////

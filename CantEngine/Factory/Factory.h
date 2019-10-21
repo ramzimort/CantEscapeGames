@@ -27,10 +27,11 @@ public:
 	Factory(Factory const& rhs) = delete;
 private:
 	static void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
-	static void LoadObject(const std::string& prefabName, const std::string& tag,
-		GameObjectManager *goMgr, ResourceManager* resMgr, DXRenderer* dxrenderer, ScriptingManager *luaMgr);
+	static void LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr);
 
 	static ResourceManager* m_pResourceManager;
 	static DXRenderer* m_pDXRenderer;
 	static ScriptingManager* m_pScriptingManager;
+
+	friend class CantDebug::DebugManager;
 };

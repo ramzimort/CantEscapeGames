@@ -96,6 +96,7 @@ namespace CantDebug
 		}
 	}
 
+	class DebugManager;
 }
 
 #endif

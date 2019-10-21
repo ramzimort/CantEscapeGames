@@ -28,9 +28,11 @@ namespace CantDebug
 
 	struct Info
 	{
+		std::string FullPath;
 		std::string Name;
-		bool Include = false;
-		bool _include;
+		bool Pressed = false;
+		bool DoublePressed = false;
+		bool _pressed;
 	};
 
 	struct GameObjectData
@@ -50,23 +52,31 @@ namespace CantDebug
 	{
 		typedef std::unordered_map<GameObject*, GameObjectData> ObjectList;
 		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
+		typedef std::vector<Info> PrefabButtonList;
 
 	public:
 		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
 		~DebugManager();
 
-		void LoadResources();
-		void UpdateResources();
+		void Initialize();
 
+		// Update
 		void Update();
+		void UpdateResources();
+		void UpdatePrefabCreation();
+		void UpdateState();
 
+
+		// Helpers
 		std::vector<GameObject*> GetSelectedObjects();
 		std::vector<GameObject*> RayCast();
 
+		// Gameobjects
 		void RegisterObject(const GameObjectCreated* e);
 		void UnregisterObject(const GameObjectDestroyed* e);
 		void CreateObject(const std::string& prefabName);
 
+		// Events
 		void OnClick(const MouseClickEvent* e);
 		void OnMotion(const MouseMotionEvent* e);
 		void OnScreenResize(const WindowSizeEvent* e);
@@ -76,15 +86,15 @@ namespace CantDebug
 		Vector2 m_scrDimensions = { 1280,720 };
 		Vector2 m_pointerPosition;
 		GameObject* m_pGameObjEditor;
-		GameObjectManager* m_pLevelGOManager;
 
 		ObjectList m_objects;
 		ResourceMap m_resources;
+		PrefabButtonList m_prefabList;
 
 		DebugConfig m_config;
 		DynamicAabbTree m_AabbTree;
 
-
+		State* m_pGameState;
 		AppRenderer* m_pAppRenderer;
 		ResourceManager* m_pResourceManager;
 		StateManager* m_pStateManager;

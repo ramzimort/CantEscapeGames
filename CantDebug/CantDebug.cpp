@@ -163,9 +163,10 @@ namespace CantDebugAPI
 	{
 		g_Editor->Clear();
 	}
-
-
-
+	void PrefabButtonList(const char* button, bool* pFlag)
+	{
+		g_Editor->UpdatePrefabs(button, pFlag);
+	}
 }
 
 void UpdateWindow()

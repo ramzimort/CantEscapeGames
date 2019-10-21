@@ -31,5 +31,6 @@ namespace CantDebugAPI
 
 	CANTDEBUG_API void EditorSetting(const char* checkboxName, bool* pFlag);
 	CANTDEBUG_API void ResourceSetting(const char* dir, const char* file, bool* pFlag);
+	CANTDEBUG_API void PrefabButtonList(const char* button, bool* pFlag);
 	CANTDEBUG_API void ResetResources();
 }
