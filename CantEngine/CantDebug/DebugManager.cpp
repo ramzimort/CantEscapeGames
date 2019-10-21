@@ -330,6 +330,7 @@ namespace CantDebug
 				if (it->second.m_selected)
 				{
 					go = it->first;
+					m_AabbTree.RemoveData(it->second.m_key);
 					it = m_objects.erase(it);
 					go->Destroy();
 				}

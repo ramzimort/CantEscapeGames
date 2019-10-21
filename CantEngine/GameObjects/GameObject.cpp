@@ -176,7 +176,7 @@ sol::table GameObject::LuaAddCustomComponent(std::string scriptName)
 	//If it was created correctly
 	if (comp)
 	{
-		std::string wholePath = "Scripts/Components/" + scriptName + ".lua";
+		std::string wholePath = "Scripts\\Components\\" + scriptName + ".lua";
 		comp->ScriptSetup(wholePath, scriptName, this->m_gameObjectMgr->GetScriptingManager());
 		m_customComponents[scriptName] = comp;
 		return comp->getCustomCompLuaRef();

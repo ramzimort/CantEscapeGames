@@ -59,7 +59,6 @@
     <Text Include="Shaders\shade_halo_effect_vert.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Materials\Red_Brick_Material.json" />
     <None Include="Assets\Prefabs\Lights\point_light.json" />
   </ItemGroup>
 </Project>

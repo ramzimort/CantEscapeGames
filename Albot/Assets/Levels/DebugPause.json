@@ -13,7 +13,7 @@
     "Prefabs": [
     ],
     "Scripts": [
-      "Scripts/States/DebugPause.lua"
+      "Scripts\\States\\DebugPause.lua"
     ]
   },
   "Objects": [

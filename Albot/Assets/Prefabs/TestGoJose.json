@@ -6,11 +6,11 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets/Materials/Material1.json"
+    "MaterialId": "Assets\\Materials\\Material1.json"
   },
 
   "MeshComponent": {
-    "ModelId": "Assets/Models/AnimTest01.fbx"
+    "ModelId": "Assets\\Models\\AnimTest01.fbx"
   },
 
   "AnimationComponent": {
@@ -32,22 +32,5 @@
         "loops": 1
       }
     ]
-  },
-
-  "Scripts": [
-    {
-      "Name": "Scripts\\Components\\test01Comp.lua",
-      "Overrides": {
-        "hashed": "ANDRES NOT OVERRIDEN!",
-        "ranked": -777
-      }
-    },
-    {
-      "Name": "Scripts\\Components\\test02Comp.lua",
-      "Overrides": {
-        "hashed": "ANDRES COMP 2 NOT OVERRIDEN!",
-        "ranked": -555
-      }
-    }
-  ]
+  }
 }

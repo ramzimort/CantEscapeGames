@@ -45,15 +45,17 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
 		m_pAppRenderer->GetDXRenderer()->get_device_context());
 
-#ifdef DEVELOPER
-	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager);
-#endif
+
 
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
 		
 	m_pStateManager = new StateManager(m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
+#ifdef DEVELOPER
+	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager);
+#endif
+
 	m_pStateManager->SwitchState(levelPath);
 
 	m_pAppRenderer->LoadContent();
