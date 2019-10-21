@@ -41,4 +41,5 @@ struct Animation
 	float ticksPerSecond;
 
 	std::vector<AnimChannel> channels;
+	std::unordered_map<std::string, AnimChannel> boneChannelMap;
 };

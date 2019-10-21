@@ -43,9 +43,18 @@ public:
 	virtual void Update(float dt, BaseSystemCompNode *compNode);
 
 private:
+	//Interpolating keys when in a single animation
 	Vector3 CalculateInterpPos(float AnimationTime, AnimChannel const& animChannel);
 	MathUtil::Quaternion CalculateInterpRot(float AnimationTime, AnimChannel const& animChannel);
 	Vector3 CalculateInterpScale(float AnimationTime, AnimChannel const& animChannel);
+
+	//Interpolating keys when transitioning between animations
+	Vector3 CalculateInterpPos(float AnimationTime, float transitionTime, float transitionDuration,
+		AnimChannel const& animChannel, AnimChannel const& nextAnimChannel);
+	MathUtil::Quaternion CalculateInterpRot(float AnimationTime, float transitionTime, float transitionDuration,
+		AnimChannel const& animChannel, AnimChannel const& nextAnimChannel);
+	Vector3 CalculateInterpScale(float AnimationTime, float transitionTime, float transitionDuration, 
+		AnimChannel const& animChannel, AnimChannel const& nextAnimChannel);
 
 	void ProcessRecursiveTransformationFromRoot(MeshComponent *meshcomp, AnimModel *model, Bone& node,
 		Matrix const& parentTransf);

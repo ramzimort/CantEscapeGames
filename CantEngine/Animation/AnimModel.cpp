@@ -14,6 +14,7 @@ AnimModel::~AnimModel()
 }
 
 
+//NOT USED RIGHT NOW
 void AnimModel::ResizeBoneDataList()
 {
 	this->m_boneDataList.resize(this->GetVerticesList().size());

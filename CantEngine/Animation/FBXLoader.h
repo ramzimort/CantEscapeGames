@@ -18,7 +18,8 @@ namespace FBXLoader
 
 
 	// Reads the assimp FBX and starts the unwrapping process
-	void LoadAnimationData(Model *mdl, aiScene const *scene, std::string const& name);
+	void LoadAnimationData(std::unordered_map<std::string, Animation>& animMap, 
+		aiScene const *scene, std::string const& name);
 
 
 	// Process the aiMesh and get all the information
@@ -28,7 +29,8 @@ namespace FBXLoader
 
 
 	// Process an animation and stores all the channels and info in myAnimList
-	void ProcessAnimation(aiAnimation* aiAnim, AnimModel *model, std::string const& name);
+	void ProcessAnimation(aiAnimation* aiAnim, 
+		std::unordered_map<std::string, Animation>& animMap, std::string const& name);
 
 
 	// Process the nodes and get some bone information from here

@@ -22,7 +22,8 @@ RTTR_REGISTRATION
 {
 	rttr::registration::class_<AnimationComponent>("AnimationComponent")
 	.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-	.property("Clips", &AnimationComponent::m_clips);
+	.property("Clips", &AnimationComponent::m_clips)
+	.property("StartingAnimation", &AnimationComponent::startingAnimation);
 
 
 	rttr::registration::class_<ClipInfo>("ClipInfo")
@@ -33,7 +34,8 @@ RTTR_REGISTRATION
 
 
 AnimationComponent::AnimationComponent(GameObject *owner) :
-	BaseComponent(owner, AnimationComponent::static_type)
+	BaseComponent(owner, AnimationComponent::static_type), 
+	transitionDuration(0.0f), transitionTime(0.0f), inTransition(false)
 {
 	//CTOR
 }
@@ -68,26 +70,33 @@ void AnimationComponent::Begin(GameObjectManager *goMgr)
 			//Get path, load model
 			std::string const& path = this->m_clips[i - 1].path;
 			Assimp::Importer importer;
-			aiScene const *scene = importer.ReadFile(path, aiProcess_Triangulate | 
-				aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
-			if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-				return;
+			aiScene const *scene = importer.ReadFile(path, 0);
+			if (!scene || !scene->mRootNode)
+			{
+				name = this->m_clips[i].name;
+				continue;
+			}
 
 			//Load animation with FBX loader (Later change to res mgr)
-			FBXLoader::LoadAnimationData(model, scene, name);
-
-			//Pass animation data to the animComp
-			this->m_animationMap = model->animMap;
-
-			//RIGHT NOW NOT HANDLING MULTIPLE ONES TODO
+			FBXLoader::LoadAnimationData(this->m_animationMap, scene, name);
 
 			name = this->m_clips[i].name;
 		}
 	}
 
+	//Set starting animation. TODO - This can be set from json
+	SetCurrentAnimation(startingAnimation, 0.0f);
+}
 
-	//General setup of the animator
-	this->m_currentAnimation = 0;
+
+void AnimationComponent::SetCurrentAnimation(std::string const& animName, float timeElapsed)
+{
+	//Find index based on name
+	for (int i = 0; i < m_animationMap.size(); ++i) 
+	{
+		if (animName == m_clips[i].name)
+			m_currentAnimation = i;
+	}
 
 	//Get current animation from map
 	auto iter = m_animationMap.find(m_clips[m_currentAnimation].name);
@@ -96,7 +105,38 @@ void AnimationComponent::Begin(GameObjectManager *goMgr)
 		Animation const& anim = iter->second;
 		this->m_currentTPS = anim.ticksPerSecond;
 		this->m_duration = anim.duration;
-		this->m_animationTime = 0.0f;
+		this->m_animationTime = timeElapsed;
 		this->m_loops = m_clips[m_currentAnimation].loops;
 	}
+}
+
+
+void AnimationComponent::SwitchAnimation(std::string const& animName, 
+	float transDuration)
+{
+	//For now, only if not in transition
+	if (inTransition)
+		return;
+
+	//Check if the animation exists
+	auto iter = m_animationMap.find(animName);
+	if (iter != m_animationMap.end())
+	{
+		nextAnimName = animName;
+		inTransition = true;
+		transitionTime = 0.0f;
+		transitionDuration = transDuration;
+	}
+}
+
+
+void AnimationComponent::OnTransitionEndSwitchAnimation(float timeElapsed) 
+{
+	//Call that effectively starts the second animation after transition
+	SetCurrentAnimation(nextAnimName, timeElapsed);
+
+	nextAnimName = "";
+	inTransition = false;
+	transitionDuration = 0.0f;
+	transitionTime = 0.0f;
 }

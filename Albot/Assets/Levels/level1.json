@@ -136,21 +136,22 @@
           "ModelId": "Assets/Models/AnimTest01.fbx"
         },
         "AnimationComponent": {
+          "StartingAnimation": "WalkAnim",
           "Clips": [
             {
-              "name": "WalkAnim",
+              "name": "DanceAnim",
               "path": "Assets/Models/AnimTest01.fbx",
               "loops": 1
             },
             {
               "name": "StopAnim",
-              "path": "Assets/Models/Cube.fbx",
-              "loops": 0
+              "path": "Assets/Models/TestStand.fbx",
+              "loops": 1
             },
             {
-              "name": "JumpAnim",
-              "path": "Assets/Models/Cube.fbx",
-              "loops": 0
+              "name": "WalkAnim",
+              "path": "Assets/Models/TestWalk.fbx",
+              "loops": 1
             }
           ]
         }

@@ -47,14 +47,19 @@ public:
 	virtual void Init(ResourceManager* res, DXRenderer* dxrenderer);
 	virtual void Begin(GameObjectManager *goMgr);
 
+	void SwitchAnimation(std::string const& animName, float transDuration);
+
 private:
-	//private methods
+	void SetCurrentAnimation(std::string const& animName, 
+		float timeElapsed = 0.0f);
+	void OnTransitionEndSwitchAnimation(float timeElapsed);
 
 public:
 	//To compare when using templates
 	static ComponentId const static_type;
 	
 private:
+	std::string startingAnimation;
 	ClipInfo m_clips[MAX_ANIM_CLIPS]; 
 	
 	//Bone and animation information
@@ -66,6 +71,13 @@ private:
 	float m_duration;
 	float m_currentTPS;
 	float m_loops;
+
+	//Switching anim variables
+	std::string nextAnimName;
+	float transitionDuration; //In ticks
+	float transitionTime; //how much has elapsed since transition started
+	bool inTransition;
+
 
 	//Hold the pointer to use it later
 	ResourceManager* m_resMgr = nullptr;

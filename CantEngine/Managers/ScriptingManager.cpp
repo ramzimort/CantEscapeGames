@@ -453,6 +453,7 @@ void ScriptingManager::ManageBindings()
 		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
 		"GetCameraComp",          &GameObject::GetComponent<CameraComponent>,
 		"GetParticleEmitterComp", &GameObject::GetComponent<ParticleEmitterComponent>,
+		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
@@ -462,6 +463,7 @@ void ScriptingManager::ManageBindings()
 		"AddLightComp",           &GameObject::AddComponent<LightComponent>,
 		"AddCameraComp",          &GameObject::AddComponent<CameraComponent>,
 		"AddParticleEmitterComp", &GameObject::AddComponent<ParticleEmitterComponent>,
+		"AddAnimationComp",       &GameObject::AddComponent<AnimationComponent>,
 		"AddTransformComp",       &GameObject::AddComponent<TransformComponent>
 	);
 
@@ -505,6 +507,13 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::SetLocalPosition),
 			sol::resolve<void(float, float, float)>(&TransformComponent::SetLocalPosition)),
 		"SetLocalRotation", &TransformComponent::SetLocalRotation
+	);
+
+	//ANIMATION
+	luaState.new_usertype<AnimationComponent>
+	(
+		"AnimationComponent",
+		"SwitchAnimation", &AnimationComponent::SwitchAnimation
 	);
 
 	//RIGIDBODY

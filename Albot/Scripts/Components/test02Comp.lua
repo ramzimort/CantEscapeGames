@@ -2,11 +2,14 @@
 
 test02Comp = 
 {
-	name = "test02Comp",
+	name = "test02Comp";
 	
 	--Custom stuff
-	timeElapsed = 0.0,
-	OnTimePassed = multicast()
+	timeElapsed = 0.0;
+	OnTimePassed = multicast();
+
+	nextAnim = "";
+	animComp = nil;
 }
 
 
@@ -21,9 +24,8 @@ end
 --Begin called when obj has all comps
 test02Comp.Begin = function(self, owner)
 
-	OutputPrint("\n<<-- " .. self.name .. " BEGIN IN LUA -->>\n");
-	OutputPrint("Amount of binded funcs: " .. #self.OnTimePassed.suscribers .. " -\n");
-	OutputPrint("<<-- COMP " .. self.name .. " BEGIN END -->>\n");
+	OnKeyEvent():Bind({self, self.OnKey});
+	self.animComp = owner:GetAnimationComp();
 
 end
 
@@ -33,8 +35,7 @@ test02Comp.Update = function(self, dt, owner)
 
 	self.timeElapsed = self.timeElapsed + dt;
 
-
-
+	--[[
 	if (self.timeElapsed >= 5.0) then
 		self.timeElapsed = 0.0;
 		if (self.OnTimePassed == nil) then
@@ -53,6 +54,7 @@ test02Comp.Update = function(self, dt, owner)
 
 		end
 	end
+	--]]
 
 end
 
@@ -73,35 +75,28 @@ test02Comp.ReturnWeirdString02 = function(self)
 end
 
 
---[[ Test local stuff
-test02Comp.SpawnBullet = function(self, owner)
 
-	OutputPrint("\nBULLET SPAWNED\n");
+--Method
+test02Comp.OnKey = function(self, key, state)
 	
-	--Option01 : with descriptor----------------------------
-	desc = GameObjectDesc.new();
-	desc.setupFunction = function(go)  
-		
-		comp01 = go:addCustomComp("test01Comp.lua");
-		comp01.hashed = "SHUPA-SHUP";
-		comp01.init();
+	if(SCANCODE.I == key) then
+	
+		self.nextAnim = "DanceAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
+	
+	elseif(SCANCODE.O == key) then
+	
+		self.nextAnim = "StopAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
 
-		transform = go:AddTransformComponent();
-		transform.position = Vector3(0, 0, 1);
-		transform.init();
-
-		go:Begin();
+	elseif(SCANCODE.P == key) then
+	
+		self.nextAnim = "WalkAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
+	
 	end
-	owner:Instantiate(desc);
-
-	--Option02 : With cloning-------------------------------
-	local bulletGo = GameObject.new(); --Imagine this go has a lot of components
-	owner:Instantiate(bulletGo);
-
-	--Option03 : With prefab name (uses factory)------------
-	owner:Instantiate("Bullet.json");
 
 end
---]]
+
 
 return test02Comp;

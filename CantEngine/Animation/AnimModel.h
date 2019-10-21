@@ -57,7 +57,6 @@ private:
 public:
 	//Important data for the animations TODO - make private
 	std::unordered_map<std::string, Bone> boneMap;
-	std::unordered_map<std::string, Animation> animMap;
 
 private:
 	std::vector<BoneVertexData> m_boneDataList;

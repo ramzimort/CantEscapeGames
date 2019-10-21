@@ -57,15 +57,13 @@ namespace FBXLoader
 
 
 	// Reads the assimp FBX and starts the unwrapping process
-	void LoadAnimationData(Model *mdl, aiScene const *scene, std::string const& name)
+	void LoadAnimationData(std::unordered_map<std::string, Animation>& animMap, 
+		aiScene const *scene, std::string const& name)
 	{
-		//Animation model. Holds the skeleton and animation info
-		AnimModel *model = static_cast<AnimModel*>(mdl);
-
 		// NOTE - Right now we are loading one anim per scene
 		// Prints all the anim info for each animation
 		for (unsigned i = 0; i < scene->mNumAnimations; ++i)
-			ProcessAnimation(scene->mAnimations[i], model, name);
+			ProcessAnimation(scene->mAnimations[i], animMap, name);
 	}
 
 
@@ -106,7 +104,8 @@ namespace FBXLoader
 
 
 	// Process an animation and stores all the channels and info in myAnimList
-	void ProcessAnimation(aiAnimation* aiAnim, AnimModel *model, std::string const& name)
+	void ProcessAnimation(aiAnimation* aiAnim, std::unordered_map<std::string, Animation>& animMap, 
+		std::string const& name)
 	{
 		Animation animation;
 		animation.animName = name;// aiAnim->mName.C_Str();
@@ -120,19 +119,16 @@ namespace FBXLoader
 
 			//Create a new animation
 			AnimChannel anim;
-			///anim.animName = aiAnim->mName.C_Str();
-			///anim.ticksPerSecond = aiAnim->mTicksPerSecond;
-			///anim.duration = aiAnim->mDuration;
-
 			anim.boneName = animNode->mNodeName.C_Str();
 			anim.PositionKeys = GetPositionKeyFrames(animNode);		//Vector of PosKey
 			anim.RotationKeys = GetRotationKeyFrames(animNode);		//Vector of RotKey
 			anim.ScalingKeys = GetScalingKeyFrames(animNode);		//Vector of ScaKey 
 
 			animation.channels.push_back(anim);
+			animation.boneChannelMap[anim.boneName] = anim;
 		}
 
-		model->animMap[animation.animName] = animation;
+		animMap[animation.animName] = animation;
 	}
 
 
