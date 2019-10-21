@@ -331,7 +331,6 @@ namespace CantDebug
 				}
 			}
 		}
-		
 	}
 
 	void DebugManager::OnMotion(const MouseMotionEvent* e)

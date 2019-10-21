@@ -44,6 +44,8 @@ private:
 	AppRenderer* m_pAppRenderer;
 	ResourceManager* m_pResourceManager; 
 	ScriptingManager* m_pScriptingManager;
+#ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
+#endif
 };
 

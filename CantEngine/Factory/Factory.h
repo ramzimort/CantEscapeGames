@@ -33,5 +33,7 @@ private:
 	static DXRenderer* m_pDXRenderer;
 	static ScriptingManager* m_pScriptingManager;
 
+#ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
+#endif
 };

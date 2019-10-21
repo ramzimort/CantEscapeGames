@@ -62,7 +62,9 @@ private:
 	void LoadAudio(const std::string& filePath);
 	void LoadPrefab(const std::string& filePath);
 	void LoadScript(const std::string& filePath);
+#ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
+#endif
 
 private:
 	ResourceMap m_resources;

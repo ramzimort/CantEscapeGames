@@ -49,6 +49,8 @@ private:
 	ResourceManager *m_pResMgr;
 
 	sol::table m_stateScript;
+#ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
+#endif
 };
 
