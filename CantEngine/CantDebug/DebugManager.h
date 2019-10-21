@@ -42,12 +42,22 @@ namespace CantDebug
 		unsigned int m_key;
 	};
 
+	struct ComponentData
+	{
+		GameObject* owner;
+		Vector3 TransformPosition;
+		Vector3 TransformRotation;
+		Vector3 TransformScale;
+
+	};
+
 	class DebugManager
 	{
 		typedef std::unordered_map<GameObject*, Info> ObjectList;
 		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
 		typedef std::vector<Info> PrefabButtonList;
 		typedef std::unordered_map<GameObject*, GameObjectData> MeshObjectList;
+
 
 	public:
 		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
@@ -75,6 +85,8 @@ namespace CantDebug
 		void OnMotion(const MouseMotionEvent* e);
 		void OnScreenResize(const WindowSizeEvent* e);
 		void OnKey(const KeyEvent* e);
+		void ReadComponents(GameObject* go);
+		void UpdateComponents(GameObject* go);
 
 	private:
 		Vector2 m_scrDimensions = { 1280,720 };
@@ -85,6 +97,7 @@ namespace CantDebug
 		ObjectList m_objectList;
 		ResourceMap m_resources;
 		PrefabButtonList m_prefabList;
+		ComponentData m_compData;
 
 		MeshObjectList m_meshObjects;
 		DynamicAabbTree m_AabbTree;

@@ -74,6 +74,7 @@ namespace CantDebug
 
 	void DebugManager::UpdateObjects()
 	{
+		bool editing = false;
 		for (auto& objInfo : m_objectList)
 		{
 			if (objInfo.second.DoublePressed)
@@ -106,6 +107,13 @@ namespace CantDebug
 			if (objInfo.second.Pressed)
 			{
 				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
+				if (!editing)
+				{
+					editing = true;
+					if(m_compData.owner == objInfo.first)
+						UpdateComponents(objInfo.first);
+					ReadComponents(objInfo.first);
+				}
 			}
 		}
 	}
@@ -392,6 +400,31 @@ namespace CantDebug
 		}
 	}
 
+	
+	void DebugManager::ReadComponents(GameObject* go)
+	{
+		m_compData.owner = go;
+		TransformComponent* transform = go->GetComponent<TransformComponent>();
+		if(transform)
+		{ 
+			m_compData.TransformPosition = transform->GetPosition();
+			CantDebugAPI::ComponentVec3("Transform", "Position", &m_compData.TransformPosition.x, -100.f, 100.f);
+			m_compData.TransformRotation = transform->GetRotation();
+			CantDebugAPI::ComponentVec3("Transform", "Rotation", &m_compData.TransformRotation.x, -180.f, 180.f);
+			m_compData.TransformScale = transform->GetScale();
+			CantDebugAPI::ComponentVec3("Transform", "Scale", &m_compData.TransformScale.x, -100.f, 100.f);
+		}
+	}
+	void DebugManager::UpdateComponents(GameObject* go)
+	{
+		TransformComponent* transform = go->GetComponent<TransformComponent>();
+		if (transform)
+		{
+			transform->SetLocalPosition(m_compData.TransformPosition.x, m_compData.TransformPosition.y, m_compData.TransformPosition.z);
+			transform->SetLocalRotation(m_compData.TransformRotation.x, m_compData.TransformRotation.y, m_compData.TransformRotation.z);
+			transform->Scale(m_compData.TransformScale.x, m_compData.TransformScale.y, m_compData.TransformScale.z);
+		} 
+	}
 }
 
 #endif

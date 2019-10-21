@@ -33,5 +33,6 @@ namespace CantDebugAPI
 	CANTDEBUG_API void ResourceSetting(const char* dir, const char* file, bool* pFlag);
 	CANTDEBUG_API void PrefabButtonList(const char* button, bool* pFlag);
 	CANTDEBUG_API void ObjectButtonList(const char* id, const char* button, bool* pFlag, bool* pDoubleClicked, bool created);
+	CANTDEBUG_API void ComponentVec3(const char* compName, const char* propName, float* vec, float min, float max);
 	CANTDEBUG_API void ResetResources();
 }

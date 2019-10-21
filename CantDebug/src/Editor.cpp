@@ -60,6 +60,22 @@ void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
 	m_queue.m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
 }
 
+void Editor::UpdateComponents(const char* compName, const char* prop, float* vec, float min, float max)
+{
+	ComponentInfo info; info.CompName = compName; info.PropName = prop; info.vec3 = vec; info.min = min; info.max = max;
+	auto compIt = m_components.find(compName);
+	if (compIt == m_components.end())
+	{
+		std::queue<ComponentInfo> queue;
+		queue.push(info);
+		m_components.insert(std::make_pair(compName, queue));
+	}
+	else
+	{
+		m_components[compName].push(info);
+	}
+}
+
 void Editor::Update()
 {
 	// SETTINGS
@@ -75,12 +91,18 @@ void Editor::Update()
 	// Objects
 	ImGui::Separator();
 	ImGui::Text("Objects");
+	bool editing = false;
 	for (auto& object : m_objects)
 	{
 		ImGui::Checkbox(object.ID.c_str(), object.Pressed);
 		ImGui::SameLine(); 	
 		if(ImGui::Button(object.Name.c_str()))
 			*(object.DoubleClicked) = true;			
+		if (*object.Pressed && !editing)
+		{
+			UpdateComponentWindow();
+			editing = true;
+		}
 	}
 	
 	// Resources
@@ -113,5 +135,36 @@ void Editor::Update()
 			*(prefab.Pressed) = true;
 		}
 	}
+}
 
+void Editor::UpdateComponentWindow()
+{
+	// Show editor window
+	ImGuiIO& io = ImGui::GetIO();
+	const float MARGIN = 2.0f;
+	const float MAXWIDTH = io.DisplaySize.x;
+	ImVec2 window_pos = ImVec2(MAXWIDTH-400, MARGIN);
+	ImVec2 window_pos_pivot = ImVec2(0.0f, 0.0f);
+	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+	ImGui::SetNextWindowSizeConstraints(ImVec2(400, io.DisplaySize.y), ImVec2(400, io.DisplaySize.y));
+	if (ImGui::Begin("Components"), 0, ImGuiWindowFlags_NoCollapse)
+	{
+		// Place components here to be used by the thing.
+		auto it = m_components.find("Transform");
+		if (it != m_components.end())
+		{
+			auto& queue = it->second;
+			if (ImGui::TreeNode(it->first.c_str()))
+			{
+				while (!queue.empty())
+				{
+					auto& info = queue.front();
+					ImGui::SliderFloat3(info.PropName.c_str(), info.vec3, info.min, info.max);
+					queue.pop();
+				}
+				ImGui::TreePop();
+			}
+		}
+	}
+	ImGui::End();
 }

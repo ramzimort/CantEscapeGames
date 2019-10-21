@@ -171,6 +171,10 @@ namespace CantDebugAPI
 	{
 		g_Editor->UpdateObjects(id, button, pFlag, pDoubleClick, created);
 	}
+	void ComponentVec3(const char* compName, const char* propName, float* vec, float min, float max)
+	{
+		g_Editor->UpdateComponents(compName, propName, vec, min, max);
+	}
 
 }
 
