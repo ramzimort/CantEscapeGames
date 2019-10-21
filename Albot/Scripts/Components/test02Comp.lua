@@ -13,6 +13,31 @@ test02Comp =
 }
 
 
+--Method
+test02Comp.OnKey = function(self, key, state)
+	
+	if (self.animComp == nil) then return end
+
+	if(SCANCODE.I == key) then
+	
+		self.nextAnim = "DanceAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+	
+	elseif(SCANCODE.O == key) then
+	
+		self.nextAnim = "StopAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+
+	elseif(SCANCODE.P == key) then
+	
+		self.nextAnim = "WalkAnim";
+		self.animComp:SwitchAnimation(self.nextAnim, 10.0);
+	
+	end
+
+end
+
+
 --Init called when comp is created
 test02Comp.Init = function(self)
 
@@ -71,30 +96,6 @@ end
 test02Comp.ReturnWeirdString02 = function(self)
 
 	return "FUUUUUUUUUUUUUUUUUCK ALBERT!!!!!!!!!!!";
-
-end
-
-
-
---Method
-test02Comp.OnKey = function(self, key, state)
-	
-	if(SCANCODE.I == key) then
-	
-		self.nextAnim = "DanceAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
-	
-	elseif(SCANCODE.O == key) then
-	
-		self.nextAnim = "StopAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
-
-	elseif(SCANCODE.P == key) then
-	
-		self.nextAnim = "WalkAnim";
-		self.animComp:SwitchAnimation(self.nextAnim, 15.0);
-	
-	end
 
 end
 
