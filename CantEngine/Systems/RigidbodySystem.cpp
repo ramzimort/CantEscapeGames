@@ -70,8 +70,6 @@ void RigidbodySystem::LateUpdate(float dt)
 		return;
 	}
 #endif
-	//GraphicsSettings::Draw_Mesh_Flag = false;
-	//GraphicsSettings::Draw_Mesh_AABB_Flag = false;
 	m_timeAccumulator += dt;
 	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
