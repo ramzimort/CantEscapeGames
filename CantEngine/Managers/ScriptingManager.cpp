@@ -18,6 +18,7 @@ Primary Author: Jose Rosenbluth
 #include "Components/AllComponentHeaders.h"
 #include "ResourceManager.h"
 #include "Events/Input/Input.h"
+#include "EventManager.h"
 
 
 //We will use this to print from LUA to out stream
@@ -359,18 +360,14 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
+	
+
 #pragma endregion
 
 #pragma region HELPERS
 	luaState.set_function("GetRotationMatrix", &MathUtil::GetRotationMatrix);
 
 #pragma endregion
-
-	//luaState.new_usertype<KeyEvent>
-	//(
-	//	"KeyEvent",
-	//	"OnKeyEvent", std::ref(KeyEvent::OnKeyEvent())
-	//);
 
 
 	//////////////////////////////
@@ -418,16 +415,37 @@ void ScriptingManager::ManageBindings()
 		sol::meta_function::addition, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator-),
 		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*)
-	);
+		);
 
 	////////////////////
 	////  SYSTEMS   ////
 	////////////////////
+	//luaState.new_usertype<WindowSizeEvent>
+	//(
+	//	"WindowSizeEvent",
+	//	sol::constructors<WindowSizeEvent(size_t, size_t)>()
+	//);
+
+	//luaState.new_usertype<EventManager>
+	//(
+	//	"EventManager",
+	//	"Get", &EventManager::Get,
+	//	"EnqueueWindowSizeEvent", &EventManager::EnqueueEvent<WindowSizeEvent>
+	//);	
 
 	//SYSTEM MANAGER
 	luaState.new_usertype<SystemManager>
 	(
 		"SystemManager"
+	);
+
+
+	//GAMEOBJECTMANAGER
+	luaState.new_usertype<GameObjectManager>
+	(
+		"GameObjectManager",
+		"FindGameObjectById", &GameObjectManager::FindGameObjectById,
+		"FindGameObject", &GameObjectManager::FindGameObject
 	);
 
 	///////////////////////
@@ -465,14 +483,6 @@ void ScriptingManager::ManageBindings()
 		"AddParticleEmitterComp", &GameObject::AddComponent<ParticleEmitterComponent>,
 		"AddAnimationComp",       &GameObject::AddComponent<AnimationComponent>,
 		"AddTransformComp",       &GameObject::AddComponent<TransformComponent>
-	);
-
-	//GAMEOBJECTMANAGER
-	luaState.new_usertype<GameObjectManager>
-	(
-		"GameObjectManager",
-		"FindGameObjectById", &GameObjectManager::FindGameObjectById,
-		"FindGameObject", &GameObjectManager::FindGameObject
 	);
 
 	//////////////////////
