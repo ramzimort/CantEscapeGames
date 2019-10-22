@@ -10,13 +10,26 @@ MassMatrix::MassMatrix(const Matrix& mass1, const Matrix& inertiaTensor1,
 	m_mass1(mass1), m_inertiaTensor1(inertiaTensor1), m_mass2(mass2), m_inertiaTensor2(inertiaTensor2)
 {
 }
+namespace hack
+{
+	inline Vector3 Transform(const Vector3& v, const Matrix& m)
+	{
+		using namespace DirectX;
+		XMVECTOR v1 = XMLoadFloat3(&v);
+		XMMATRIX M = XMLoadFloat4x4(&m);
+		XMVECTOR X = XMVector3Transform(v1, M);
 
+		Vector3 result;
+		XMStoreFloat3(&result, X);
+		return result;
+	}
+}
 void MassMatrix::MultiplyByJacobian(Jacobian& result, const Jacobian& rhs)
 {
-	result.m_velocity1 = Vector3::Transform(rhs.m_velocity1, m_mass1);
-	result.m_angularVelocity1 = Vector3::Transform(rhs.m_angularVelocity1, m_inertiaTensor1);
-	result.m_velocity2 = Vector3::Transform(rhs.m_velocity2, m_mass2);
-	result.m_angularVelocity2 = Vector3::Transform(rhs.m_angularVelocity2, m_inertiaTensor2);
+	result.m_velocity1 = hack::Transform(rhs.m_velocity1, m_mass1);
+	result.m_angularVelocity1 = hack::Transform(rhs.m_angularVelocity1, m_inertiaTensor1);
+	result.m_velocity2 = hack::Transform(rhs.m_velocity2, m_mass2);
+	result.m_angularVelocity2 = hack::Transform(rhs.m_angularVelocity2, m_inertiaTensor2);
 }
 
 Jacobian::Jacobian()
@@ -72,11 +85,6 @@ void Constraint::CalculateNormalJacobian(const CollisionManifold& collision)
 	Vector3 r2 = collision.m_pB - m_object2->GetPosition();
 
 	CalculateJacobian(m_normal, r1, r2);
-
-	/*Math::Matrix4 result;
-	ToMatrix4(result, jacobian);
-	object1->constraints.push_back(result);
-	object2->constraints.push_back(result);*/
 }
 
 void Constraint::CalculateFrictionJacobians(const CollisionManifold& collision, Constraint& constraintFriction1, Constraint& constraintFriction2)

@@ -5,44 +5,45 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 Primary Author: Aleksey Perfilev
 - End Header --------------------------------------------------------*/
 
-// 1 - Include the headers and add the line for the static type
 #include "Physics/SuppportShape/ObbSupportShape.h"
 #include "RigidbodySystem.h"
 #include "GameObjects/GameObject.h"
 #include "Physics/PhysicsUtils.h"
 #include "Physics/Gjk/Gjk.h"
 #include "CantDebug/CantDebug.h"
+#include "Graphics/AppRenderer.h"
+#include "Graphics/GraphicsSettings.h"
 unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 
-// 2 - Include the components you want to add
 #include "Components/TransformComponent.h"
 #include "Components/RigidbodyComponent.h"
 
-#include "Graphics/AppRenderer.h"
-#include "Graphics/GraphicsSettings.h"
 
 
 RigidbodySystem::RigidbodySystem() : 
 	BaseSystem(), m_timeAccumulator(0.0f)
 {
-	// 3 - Push the comp to set the comp mask
 	Push_required_comp<TransformComponent>();
 	Push_required_comp<RigidbodyComponent>();
 	Push_required_comp<MeshComponent>();
+
+	EventManager::Get()->SubscribeEvent<KeyEvent>(this,
+		std::bind(&RigidbodySystem::OnKeyDown, this, std::placeholders::_1));
 }
 
 
 void RigidbodySystem::Register_GameObject(GameObject *go)
 {
-	// 4 - Register by adding the components to the system
+	TransformComponent* transform = go->GetComponent<TransformComponent>();
+	RigidbodyComponent* rigidbody = go->GetComponent<RigidbodyComponent>();
+	MeshComponent* mesh = go->GetComponent<MeshComponent>();
 
-	TransformComponent*transform = go->GetComponent<TransformComponent>();
-	RigidbodyComponent*rigidbody = go->GetComponent<RigidbodyComponent>();
-	MeshComponent*mesh = go->GetComponent<MeshComponent>();
-
-	BaseSystemCompNode *component_node = new RigidbodyCompNode(transform, rigidbody, mesh);
+	BaseSystemCompNode* component_node = new RigidbodyCompNode(transform, rigidbody, mesh);
 	component_node->m_goID = go->GetId();
 
+	// inertia tensors 
+	const Vector3 scale = transform->GetScale();
+	rigidbody->InitInertiaTensor(scale.x, scale.y, scale.z);
 
 	// register with dynamic aabb
 	SpatialPartitionData data1;
@@ -63,18 +64,32 @@ void RigidbodySystem::RegisterAppRenderer(AppRenderer * renderer)
 //Access all the components data and stuff through the unordered_map
 void RigidbodySystem::LateUpdate(float dt) 
 {
-	//GraphicsSettings::Draw_Mesh_Flag = false;
-	//GraphicsSettings::Draw_Debug_Mesh_AABB_Flag = false;
-	for (auto& node : m_ObjComponentsMap)
+#ifdef DEVELOPER
+	if (m_isPaused && !m_isAdvanceOneStep)
 	{
-		RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
-		RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
-		Vector3& vel = rigidbody->m_velocity;
-		//DEBUG_TRACE("%f, %f, %f\n", vel.x, vel.y, vel.z);
+		return;
 	}
+#endif
+	//GraphicsSettings::Draw_Mesh_Flag = false;
+	//GraphicsSettings::Draw_Mesh_AABB_Flag = false;
 	m_timeAccumulator += dt;
-//	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
+	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
+#ifdef DEVELOPER
+		if (m_isPaused)
+		{
+			if (m_isAdvanceOneStep)
+			{
+				m_isAdvanceOneStep = false;
+			}
+			else
+			{
+				m_timeAccumulator -= dt;
+				m_timeAccumulator += PhysicsUtils::Consts::fixedTimeStep;
+				return;
+			}
+		}
+#endif
 #pragma region BroadPhaase
 		// update all the aabb of all objects and dynamic aabb tree
 		for (auto& node : m_ObjComponentsMap)
@@ -115,9 +130,22 @@ void RigidbodySystem::LateUpdate(float dt)
 		m_broadPhase.SelfQuery(results);
 		results.DeleteDuplicates();
 
+		// check with collision table
+		for (int i = 0; i < results.m_results.size(); ++i)
+		{
+			QueryResult& query = results.m_results[i];
+			RigidbodyComponent* rb1 = static_cast<RigidbodyComponent*>(query.m_clientData0);
+			RigidbodyComponent* rb2 = static_cast<RigidbodyComponent*>(query.m_clientData1);
+			if (!m_collisionTable.CheckCollisionMatrix(rb1->m_collisionMask, rb2->m_collisionMask) || 
+				!m_collisionTable.CheckCollisionMatrix(rb2->m_collisionMask, rb1->m_collisionMask))
+			{
+				std::swap(results.m_results[i], results.m_results.back());
+				results.m_results.pop_back();
+			}
+		}
+
 #ifdef DEVELOPER
-		if(GraphicsSettings::Draw_Dynamic_AABB_Tree)
-			m_broadPhase.DebugDraw(m_pAppRenderer,-1, debugColor);
+		m_broadPhase.DebugDraw(m_pAppRenderer,-1, Vector4(1, 0, 0, 1));
 		
 		for (size_t i = 0; i < results.m_results.size(); ++i)
 		{
@@ -136,12 +164,9 @@ void RigidbodySystem::LateUpdate(float dt)
 #pragma endregion BroadPhaase
 
 #pragma region NarrowPhase
-		
-		debugColor = Vector4(0, 1, 0, 1);
+
 		for (QueryResult& query : results.m_results)
 		{
-
-				debugColor = Vector4(1, 0, 0, 1);
 			RigidbodyComponent* rb1 = static_cast<RigidbodyComponent*>(query.m_clientData0);
 			RigidbodyComponent* rb2 = static_cast<RigidbodyComponent*>(query.m_clientData1);
 
@@ -163,23 +188,26 @@ void RigidbodySystem::LateUpdate(float dt)
 				collision.m_objectB = rb2;
 				if (gjk.Epa(simplex, &supportShape1, &supportShape2, collision, epsilon))
 				{
+					rb1->m_isColliding = true;
+					rb2->m_isColliding = true;
+
 					collision.m_objectA->m_constraints.clear();
 					collision.m_objectB->m_constraints.clear();
-
+					
 					// Normal constraint for both objects
 					Constraint constraintNormal(collision.m_objectA, collision.m_objectB, collision.m_depth);
 					constraintNormal.CalculateNormalJacobian(collision);
 					collision.m_objectA->m_constraints.push_back(constraintNormal);
-					collision.m_objectB->m_constraints.push_back(constraintNormal);
+					//collision.m_objectB->m_constraints.push_back(constraintNormal);
 
 					// Friction constraint for both objects
 					Constraint constraintFriction1(collision.m_objectA, collision.m_objectB);
 					Constraint constraintFriction2(collision.m_objectA, collision.m_objectB);
 					Constraint::CalculateFrictionJacobians(collision, constraintFriction1, constraintFriction2);
 					collision.m_objectA->m_constraints.push_back(constraintFriction1);
-					collision.m_objectB->m_constraints.push_back(constraintFriction1);
+					//collision.m_objectB->m_constraints.push_back(constraintFriction1);
 					collision.m_objectA->m_constraints.push_back(constraintFriction2);
-					collision.m_objectB->m_constraints.push_back(constraintFriction2);					
+					//collision.m_objectB->m_constraints.push_back(constraintFriction2);					
 				}
 			}
 			// else no collision
@@ -204,16 +232,30 @@ void RigidbodySystem::LateUpdate(float dt)
 			Vector3& velocity = rigidbody->m_velocity;
 			Vector3& angularV = rigidbody->m_angularVelocity;
 
+			rigidbody->m_velocityLastFrame = velocity;
+			rigidbody->m_angularVelocityLastFrame = angularV;
+
 			const Matrix& rotMat = transform->GetRotationMatrix();
 			const Matrix inverseRotMat = rotMat.Transpose();
 			rigidbody->m_inertiaTensorWorldInverse = rotMat * rigidbody->m_inertiaTensorInverse * inverseRotMat;
 
-			// calculate acceleration due to gravity, airdrag, sping acceleration, etc ( a = (all forces) / m )
-			Vector3 acceleration;
-			if (rigidbody->m_isEffectedByGravity)
-				acceleration += Vector3(0, PhysicsUtils::Consts::gravity, 0);
+			// gravity
+			Vector3 force;
+			force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
+			
+		
+			if (rigidbody->m_inverseMass < PhysicsUtils::Consts::minMass)
+				continue;
+			// airdrag
+			float airDragForCube = 1.05f;
+			force -= airDragForCube * velocity;
+			velocity += PhysicsUtils::Consts::fixedTimeStep * rigidbody->m_inverseMass * force;
 
-			velocity += acceleration * PhysicsUtils::Consts::fixedTimeStep;
+			
+			Vector3 angularAcceleration;
+			Vector3 torque;// outside source FxR
+			angularAcceleration = Vector3::Transform(torque, rigidbody->m_inertiaTensorWorldInverse);
+			angularV += PhysicsUtils::Consts::fixedTimeStep * angularAcceleration;
 		}
 #pragma endregion VelocityUpdate
 
@@ -228,6 +270,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			if (!constraints.empty())
 			{				
 				Vector3& velocity = rigidbody->m_velocity;
+				float vLen = velocity.LengthSquared();
 				Vector3& angularV = rigidbody->m_angularVelocity;
 				
 				//precomputing some of the terms
@@ -266,10 +309,6 @@ void RigidbodySystem::LateUpdate(float dt)
 						massInverseMatrix.MultiplyByJacobian(massMatrixInverseJTranspose, constraints[j].m_jacobian);
 
 						float jacobianMatrixDotMassMatrixInverseJTranspose = constraints[j].m_jacobian * massMatrixInverseJTranspose;
-						if (jacobianMatrixDotMassMatrixInverseJTranspose == 0.0f)
-						{
-							__debugbreak();
-						}
 						float effectiveMass = 1.0f / jacobianMatrixDotMassMatrixInverseJTranspose;//  (constraints[j].m_jacobian* massMatrixInverseJTranspose);
 
 						// calculate lambda
@@ -277,17 +316,20 @@ void RigidbodySystem::LateUpdate(float dt)
 						if (j % 3 == 0) // normal constraints
 						{
 							float depth = constraints[j].m_depthPen;
-							zeta = -PhysicsUtils::Consts::Constraints::bias * depth / PhysicsUtils::Consts::fixedTimeStep +
+							const float slop = -0.005f; // penetration error
+							zeta = -PhysicsUtils::Consts::Constraints::bias * (depth + slop) / PhysicsUtils::Consts::fixedTimeStep;// +
 								PhysicsUtils::Consts::Constraints::restitution * JV;
-
 						}
 
 						float lambda = -(JV + zeta) * effectiveMass;
+						//lambda += constraints[j].m_lambda;
+						
 						sumLambdaOld[j] = sumLambda[j];
 						sumLambda[j] += lambda;
 
 						if (j % 3 == 0) // clamp lambda for normal constraint
 						{
+							//MathUtil::Clamp(lambda, 0.0f, MathUtil::PositiveMax());
 							MathUtil::Clamp(sumLambda[j], 0.0f, MathUtil::PositiveMax());
 						}
 						else // clamp lambda for friction constraint
@@ -299,11 +341,19 @@ void RigidbodySystem::LateUpdate(float dt)
 							float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].m_normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
 
 							MathUtil::Clamp(sumLambda[j], -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
+							//MathUtil::Clamp(lambda, -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
 								PhysicsUtils::Consts::Constraints::friction * collisionWeight);
 						}
-
 						float deltaLambda = sumLambda[j] - sumLambdaOld[j];
+						//float deltaLambda = lambda - constraints[j].m_lambda;
+						//constraints[j].m_lambda = lambda;
 
+						/*if (abs(deltaLambda) < 0.001f)
+						{
+							std::swap(rigidbody->m_constraints[j], rigidbody->m_constraints.back());
+							rigidbody->m_constraints.pop_back();
+							continue;
+						}*/
 						// this is change in velocity or acceleration due to constraint
 						Jacobian velocityCorrection;
 						massMatrixInverseJTranspose.MultiplyByFloat(velocityCorrection, deltaLambda);
@@ -312,6 +362,16 @@ void RigidbodySystem::LateUpdate(float dt)
 						V.AddJacobian(finalVel, velocityCorrection);
 
 						// converting back to normal storage
+						if (constraints[j].m_object1->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ)
+						{
+							finalVel.m_velocity1 = Vector3(0.0f, 0.0f, 0.0f);
+							finalVel.m_angularVelocity1 = Vector3(0.0f, 0.0f, 0.0f);
+						}
+						if (constraints[j].m_object2->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ)
+						{
+							finalVel.m_velocity2 = Vector3(0.0f, 0.0f, 0.0f);
+							finalVel.m_angularVelocity2 = Vector3(0.0f, 0.0f, 0.0f);
+						}
 						constraints[j].m_object1->m_velocity = finalVel.m_velocity1;
 						constraints[j].m_object1->m_angularVelocity = finalVel.m_angularVelocity1;
 						constraints[j].m_object2->m_velocity = finalVel.m_velocity2;
@@ -333,9 +393,18 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			Vector3 position = transform->GetPosition();
 			Vector3& velocity = rigidbody->m_velocity;
+			
 			Quaternion orientationQuat = Quaternion::CreateFromRotationMatrix(transform->GetRotationMatrix());
+			/*if ((rigidbody->m_velocityLastFrame - velocity).LengthSquared() < 0.001f)
+			{
+				velocity = rigidbody->m_velocityLastFrame;
+			}*/
 			Quaternion angularVelocity(rigidbody->m_angularVelocity.x, rigidbody->m_angularVelocity.y, rigidbody->m_angularVelocity.z, 0);
-
+			/*if ((rigidbody->m_angularVelocityLastFrame - rigidbody->m_angularVelocity).LengthSquared() < 0.001f)
+			{
+				rigidbody->m_angularVelocity = rigidbody->m_angularVelocityLastFrame;
+			}*/
+			
 			position += velocity * PhysicsUtils::Consts::fixedTimeStep;
 			Quaternion wq = angularVelocity * orientationQuat;
 			orientationQuat += PhysicsUtils::Consts::fixedTimeStep * 0.5f * wq;
@@ -363,5 +432,32 @@ DynamicAabbTree& RigidbodySystem::GetAabbTree()
 	return m_broadPhase;
 }
 
+void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
+{
+#ifdef DEVELOPER
+	static bool isSpacePressedIn = false;
+	static bool isRightPressedIn = false;
+#endif
+	switch (keyEvent->m_scancode)
+	{
+#ifdef DEVELOPER
+		case SDL_SCANCODE_SPACE:
+			isSpacePressedIn = !isSpacePressedIn;
+			if (isSpacePressedIn)
+			{
+				m_isPaused = !m_isPaused;
+			}
+			break;
+		case SDL_SCANCODE_RIGHT:
+			isRightPressedIn = !isRightPressedIn;
+			if (isRightPressedIn)
+			{
+				m_isAdvanceOneStep = !m_isAdvanceOneStep;
+			}
+			break;
+#endif
+
+	}
+}
 
 

@@ -97,6 +97,8 @@ public:
 	// The debugging values are for your own use (make sure they don't interfere with the unit tests).
 	bool Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw = false);
 
+	float Intersect2(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw = false);
+
 	// Finds the point furthest in the given direction on the CSO (and the relevant points from each object)
 	CsoPoint ComputeSupport(const SupportShape* shapeA, const SupportShape* shapeB, const Vector3& direction);
 

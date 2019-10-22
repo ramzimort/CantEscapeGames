@@ -6,7 +6,7 @@ Other Authors :
 -End Header--------------------------------------------------------*/
 
 #include "CollisionManifold.h"
-CollisionManifold::CollisionManifold() : m_objectA(nullptr), m_objectB(nullptr), m_depth(0.0f), m_isVertexFace(false), m_isColliding(false)
+CollisionManifold::CollisionManifold() : m_objectA(nullptr), m_objectB(nullptr), m_depth(0.0f), m_isColliding(false)
 {
 }
 
@@ -16,7 +16,6 @@ m_pA(rhs.m_pA),
 m_pB(rhs.m_pB),
 m_normal(rhs.m_normal),
 m_depth(rhs.m_depth),
-m_isVertexFace(rhs.m_isVertexFace),
 m_isColliding(rhs.m_isColliding)
 {
 }
@@ -29,7 +28,6 @@ CollisionManifold& CollisionManifold::operator=(const CollisionManifold& rhs)
 	this->m_pB = rhs.m_pB;
 	this->m_normal = rhs.m_normal;
 	this->m_depth = rhs.m_depth;
-	this->m_isVertexFace = rhs.m_isVertexFace;
 	this->m_isColliding = rhs.m_isColliding;
 
 	return *this;

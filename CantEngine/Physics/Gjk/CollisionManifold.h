@@ -23,8 +23,5 @@ public:
 	Vector3 m_normal;					// outwards pointing normal of face
 
 	float m_depth;
-
-	//float timeOfImpact;           // time of impact
-	bool m_isVertexFace;            // true if vertex/face contact 
 	bool m_isColliding;
 };

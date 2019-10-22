@@ -13,6 +13,8 @@ Primary Author: Jose Rosenbluth
 #include "Physics/CollisionTable.h"
 #include "../Components/MeshComponent.h"
 #include "Physics/Gjk/CollisionManifold.h"
+#include "Managers/EventManager.h"
+#include"Events/Input/KeyEvent.h"
 
 class TransformComponent;
 class RigidbodyComponent;
@@ -57,14 +59,20 @@ public:
 
 	DynamicAabbTree& GetAabbTree();
 	
+	void OnKeyDown(const KeyEvent* keyEvent);
+
 private:
 	// this is used to make fixed update time
-	float  m_timeAccumulator;
 
 	DynamicAabbTree m_broadPhase;
 		
 	CollisionTable m_collisionTable;
 	AppRenderer* m_pAppRenderer;
 
-	Vector4 debugColor = { 0, 1, 0, 1 };
+	float  m_timeAccumulator;
+
+#ifdef DEVELOPER
+	bool m_isPaused;
+	bool m_isAdvanceOneStep;
+#endif
 };

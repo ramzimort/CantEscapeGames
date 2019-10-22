@@ -1,179 +1,94 @@
 {
   "Resources": {
     "Textures": [
-      "Assets\\Textures\\floor.png",
-      "Assets\\Textures\\Particles\\flare0.png",
-      "Assets\\Textures\\redbrick.jpg",
-      "Assets\\Textures\\redbrick_normal.jpg",
-      "Assets\\Textures\\redbrick_height.jpg"
+      "Assets/Textures/floor.png",
+      "Assets/Textures/Particles/flare0.png"
     ],
     "Models": [
-      "Assets\\Models\\mitsuba-sphere.obj",
-      "Assets\\Models\\plane.fbx",
-      "Assets\\Models\\Cube.fbx",
-      "Assets\\Models\\Sphere.fbx",
-      "Assets\\Models\\AnimTest01.fbx",
-      "Assets\\Models\\TestStand.fbx",
-      "Assets\\Models\\TestWalk.fbx"
+      "Assets/Models/mitsuba-sphere.obj"
     ],
     "Materials": [
-      "Assets\\Materials\\Material1.json",
-      "Assets\\Materials\\Red_Brick_Material.json"
+      "Assets/Materials/Material1.json",
+      "Assets/Materials/MaterialDarkGreen.json"
     ],
     "Audio": [
 
     ],
     "Prefabs": [
-      "Assets\\Prefabs\\lvleditor.json",
-      "Assets\\Prefabs\\mono_azul.json",
-      "Assets\\Prefabs\\mono_rojo.json",
-      "Assets\\Prefabs\\mitsuba_sphere.json",
-      "Assets\\Prefabs\\Lights\\directional_light.json",
-      "Assets\\Prefabs\\Lights\\point_light.json",
-      "Assets\\Prefabs\\RBTestObj.json",
-      "Assets\\Prefabs\\player.json",
-      "Assets\\Prefabs\\TestGoJose.json",
-      "Assets\\Prefabs\\brick_wall.json",
-      "Assets\\Prefabs\\mini_map.json"
+      "Assets/Prefabs/mono_azul.json",
+      "Assets/Prefabs/mono_rojo.json",
+      "Assets/Prefabs/mitsuba_sphere.json",
+      "Assets/Prefabs/directional_light.json",
+      "Assets/Prefabs/RBTestObj.json",
+      "Assets/Prefabs/player.json",
+      "Assets/Prefabs/TestGoJose.json"
     ],
     "Scripts": [
-      "Scripts\\States\\level1.lua",
-      "Scripts\\Components\\test01Comp.lua",
-      "Scripts\\Components\\test02Comp.lua",
-      "Scripts\\Components\\fpscontroller.lua"
+      "Scripts/Test/test01Comp.lua",
+      "Scripts/Test/test02Comp.lua"
     ]
   },
   "Objects": [
     {
-      "tag": "lvleditor",
-      "prefab": "Assets\\Prefabs\\lvleditor.json",
-      "overrides": {
-      }
-    },
-    {
-      "tag": "RGDBDY1",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 10.0, -10.0 ]
-        }
-      }
-    },
-    {
-      "tag": "RGDBDY2",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 0.0, -10.0 ]
-        }
-      }
-    },
-    {
-      "tag": "Right",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-
-    {
-      "tag": "Middle",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "Left",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "directional_light01",
-      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+      "tag": "obj5",
+      "prefab": "Assets/Prefabs/directional_light.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 45.0, 0.0, 0.0 ]
+          "Rotation": [ 45.0, 30.0, 0.0 ]
         }
       }
     },
     {
-      "tag": "point_light1",
-      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+      "tag": "objground",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-
-    {
-      "tag": "point_light2",
-      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 15.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "mini_map1",
-      "prefab": "Assets\\Prefabs\\mini_map.json",
-      "overrides": {
-        "CameraComponent": {
-          "Camera": {
-            "Position": [ 0.0, 30.0, 0.0 ],
-            "LookDir": [ 0.0, -1.0, 0.1 ]
-          }
-        }
-      }
-    },
-    {
-      "tag": "Go_Jose01",
-      "prefab": "Assets\\Prefabs\\TestGoJose.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -1.0, 0.5, 1.0 ],
+          "Position": [ 0.0, -1.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 0.015, 0.015, 0.015 ]
+          "Scale": [ 10.0, 1.0, 10.0 ]
         },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\AnimTest01.fbx"
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 0,
+          "Velocity": [ 0.0, 0.0, 0.0 ],
+          "Mass": 3.4e38,
+          "CollisionMask": "DINAMIC_OBJ"
         },
-        "AnimationComponent": {
-          "StartingAnimation": "WalkAnim",
-          "Clips": [
-            {
-              "name": "DanceAnim",
-              "path": "Assets\\Models\\AnimTest01.fbx",
-              "loops": 1
-            },
-            {
-              "name": "StopAnim",
-              "path": "Assets\\Models\\TestStand.fbx",
-              "loops": 1
-            },
-            {
-              "name": "WalkAnim",
-              "path": "Assets\\Models\\TestWalk.fbx",
-              "loops": 1
-            }
-          ]
+        "RendererComponent": {
+          "MaterialId": "Assets/Materials/MaterialDarkGreen.json"
         }
+      }
+    },
+    {
+      "tag": "obj7",
+      "prefab": "Assets/Prefabs/RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 3.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1.0, 1.0, 1.0 ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": 1,
+          "Velocity": [ 0.0, 0.0, 0.0 ],
+          "Mass": 1.0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "obj20",
+      "prefab": "Assets/Prefabs/player.json",
+      "overrides": {
+        "Scripts": [
+          {
+            "Name": "Scripts/Test/test01Comp.lua",
+            "Overrides": {
+              "hashed": "Marcos comp1 OVERRIDE!",
+              "ranked": 512
+            }
+          }
+        ]
       }
     }
   ]

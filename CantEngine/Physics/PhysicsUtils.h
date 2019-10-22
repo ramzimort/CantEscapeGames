@@ -11,10 +11,15 @@ Other Authors :
 
 namespace PhysicsUtils
 {
+	std::vector<Vector3> UniformDistibutionInSphere();
+
 	namespace Consts
 	{
 		// math
 		const float pi = 4 * atanf(1);
+		const float pi_2 = pi / 2;
+		const float pi_3 = pi / 3;
+		const float pi_6 = pi / 6;
 		const float e = 2.71828182845904523536028747135266249775724709369995f;
 		const double sqrt2 = std::sqrt(2.0);
 
@@ -23,10 +28,13 @@ namespace PhysicsUtils
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
 		const float fatteningFactor = 1.1f;
 		const float gravity = -9.8f;
+		const float minMass = 0.000001f;
+
+		const std::vector<Vector3> directionsInUnitSphere = PhysicsUtils::UniformDistibutionInSphere();
 
 		namespace Constraints
 		{
-			const int numGaussSeidelIterations = 10;
+			const int numGaussSeidelIterations = 20;
 			const float bias = 0.2f;                   // damping term for position
 			const float restitution = 0.4f;            // damping term for velocity
 			const float friction = 0.2f;               // friction coefficient
@@ -36,7 +44,6 @@ namespace PhysicsUtils
 		const std::string Assets_Dir = "Assets\\";
 		const std::string Physics_Dir = Assets_Dir + "Physics\\";
 		const std::string Collision_Matrix_Dir = Physics_Dir + "Collision_Matrix\\";
-
 	}
 
 	template <typename T>
@@ -72,6 +79,7 @@ namespace PhysicsUtils
 	{
 		return rhs * rhs;
 	}
+
 
 	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b,
 		float& u, float& v, float expansionEpsilon = 0.0f);

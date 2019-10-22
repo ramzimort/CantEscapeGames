@@ -60,7 +60,6 @@ public:
 	float SurfaceArea(const Aabb& aabb1, const Aabb& aabb2) const;
 	DynamicAabbTreeNode* SelectNode(DynamicAabbTreeNode* newNode, DynamicAabbTreeNode* leftNode, DynamicAabbTreeNode* rightNode, bool& isLeft) const;
 	void BalanceTree(DynamicAabbTreeNode* tree, bool isLeft);
-	int InsertDataRec(unsigned int& key, const SpatialPartitionData& data, DynamicAabbTreeNode* newNode, DynamicAabbTreeNode* currentNode, bool is_left);
 
 	// Spatial Partition Interface
 	void InsertData(unsigned int& key, const SpatialPartitionData& data);
@@ -73,7 +72,6 @@ public:
 	void DebugDraw(AppRenderer* pAppRenderer, int level, const Vector4& color = Vector4(1));
 #endif
 
-	void CastRayRec(const RayCant& ray, CastResults& results, DynamicAabbTreeNode* node) const;
 /*
 	void FrustumAddResultsRec(CastResults& results, DynamicAabbTreeNode* node) const;
 	void CastFrustumRec(const Frustum& frustum, CastResults& results, DynamicAabbTreeNode* node) const;
@@ -82,9 +80,7 @@ public:
 
 	void ClearRec(DynamicAabbTreeNode* node);
 
-	void SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* node) const;
 	void SplitNodes(QueryResults& results, DynamicAabbTreeNode* left, DynamicAabbTreeNode* right) const;
-	void SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* left, DynamicAabbTreeNode* right) const;
 	void SelfQuery(QueryResults& results);
 
 	DynamicAabbTreeNode* GetRoot() const;
@@ -94,4 +90,9 @@ private:
 	unsigned int m_CurrentId;
 
 	std::unordered_map<unsigned int, DynamicAabbTreeNode*> m_Data;
+	
+	int InsertDataRec(unsigned int& key, const SpatialPartitionData& data, DynamicAabbTreeNode* newNode, DynamicAabbTreeNode* currentNode, bool is_left);
+	void CastRayRec(const RayCant& ray, CastResults& results, DynamicAabbTreeNode* node) const;
+	void SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* node) const;
+	void SelfQueryRec(QueryResults& results, DynamicAabbTreeNode* left, DynamicAabbTreeNode* right) const;
 };

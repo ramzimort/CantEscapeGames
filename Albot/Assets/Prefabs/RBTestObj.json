@@ -1,7 +1,8 @@
 {
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
-    "Rotation": [ 0.0, 0.0, 0.0 ]
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [1.0, 1.0, 1.0]
   },
 
   "RendererComponent": {
@@ -15,7 +16,9 @@
   "RigidBodyComponent": {
     "IsEffectedByGravity": 1,
     "Velocity": [ 0.0, 0.0, 0.0 ],
-    "Mass": 1.0
+    "Mass": 1.0,
+    "IsStatic": 0,
+    "CollisionMask": "WALL"
   }
 
 }

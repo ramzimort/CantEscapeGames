@@ -1,4 +1,27 @@
 #include "PhysicsUtils.h"
+#include "Shaders\Shading.h"
+
+std::vector<Vector3> PhysicsUtils::UniformDistibutionInSphere()
+{
+	std::vector<Vector3> uniformVectors; // uniformly distributed vectors from O to a surface of a unit sphere
+
+	const float angleStep = PI / 4.0f;
+	uniformVectors.emplace_back(0.0f, 1.0f, 0.0f);
+	for (float theta = 0; theta < 2 * PI; theta += angleStep)
+	{
+		for (float phi = angleStep; phi < PI; phi += angleStep)
+		{
+			float x = sin(phi) * cos(theta);
+			float y = cos(phi);
+			float z = sin(phi) * sin(theta);
+			Vector3 dir(x, y, z);
+			dir.Normalize();
+			uniformVectors.push_back(dir);
+		}
+	}
+	uniformVectors.emplace_back(0.0f, -1.0f, 0.0f);
+	return uniformVectors;
+}
 
 bool PhysicsUtils::BarycentricCoordinates(const Vector3& p, const Vector3& a, const Vector3& b, float& u, float& v, float expansionEpsilon)
 {

@@ -3,25 +3,13 @@
 class CollisionTable
 {
 public:
-	enum class CollisionMask
+	enum CollisionMask
 	{
-		WALL = 0,
-		DINAMIC_OBJ,
-		STATIC_OBJ,
-		PLAYER,
-		ENEMY,
-		WEAPONS,
-		UI,
-		LOW_OBSTACLE,
-		ENEMY_PROJ,
-		NEUTRAL_PROJ,
-		PLAYER_PROJ,
-		MELEE_ENEMY,
-		LOW_PROJ_WALL,
-		ENEMY_BLOCK_WALL,
+		#define COLLISION_MASK(ENTRY) ENTRY,
+		#include "Physics/CollisionMaskTypes.def"
+		#undef COLLISION_MASK
 		NUM
 	};
-
 	CollisionTable();
 	~CollisionTable();
 	

@@ -29,7 +29,16 @@ namespace MathUtil
 
 	inline void  BuildTangentBitangent(const Vector3& vector, Vector3& tangent, Vector3& bitangent)
 	{
-		const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));
+		// Catto's approach
+		if (vector.x >= 0.57735f)
+			tangent = Vector3(vector.y, -vector.x, 0.0f);
+		else
+			tangent = Vector3(0.0f, vector.z, -vector.y);
+
+		tangent.Normalize();
+		bitangent = vector.Cross(tangent);
+		bitangent.Normalize();
+		/*const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));
 		const Vector3 cross2 = vector.Cross(Vector3(0.0, 1.0, 0.0));
 
 		if (cross1.LengthSquared() > cross2.LengthSquared())
@@ -43,7 +52,7 @@ namespace MathUtil
 		tangent.Normalize();
 
 		bitangent = vector.Cross(tangent);
-		bitangent.Normalize();
+		bitangent.Normalize();*/
 	}
 
 	inline float Clamp(float input, float min, float max)
@@ -85,27 +94,21 @@ namespace MathUtil
 		return angles;
 	}
 
-	inline Matrix GetRotationMatrix(const Vector3& right, const Vector2& rotation)
+	inline unsigned LeastSignificantComponent(const Vector3& vec)
 	{
-		DirectX::XMVECTOR rotation_vector = XMLoadFloat2(&rotation);
-		DirectX::XMMATRIX pitch_mat = XMMatrixRotationAxis(right, DirectX::XMVectorGetY(rotation_vector));
-		DirectX::XMMATRIX yaw_mat = DirectX::XMMatrixRotationY(DirectX::XMVectorGetX(rotation_vector));
-		return DirectX::XMMatrixMultiply(pitch_mat, yaw_mat);
+		float min = vec.x;
+		unsigned minIndex = 0;
+
+		if (vec.y < min)
+		{
+			minIndex = 1;
+			min = vec.y;
+		}
+		if (vec.z < min)
+		{
+			minIndex = 2;
+		}
+
+		return minIndex;
 	}
-
-	//roll - around Z vector
-	//yaw - around Y vector
-	//pitch - around X vector
-	inline Vector3 RotateVector(const Vector3& v, float roll, float yaw, float pitch)
-	{
-		float xRad = DirectX::XMConvertToRadians(pitch);
-		float yRad = DirectX::XMConvertToRadians(yaw);
-		float zRad = DirectX::XMConvertToRadians(roll);
-		Matrix R = Matrix::CreateRotationX(xRad) *
-			Matrix::CreateRotationY(yRad) *
-			Matrix::CreateRotationZ(zRad);
-
-		return Vector3::Transform(v, R);
-	}
-
 }

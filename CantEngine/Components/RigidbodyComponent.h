@@ -43,6 +43,10 @@ public:
 
 	float GetMass() const;
 	void SetMass(float mass);
+
+	CollisionTable::CollisionMask GetCollisionMask();
+
+	bool IsStatic() const;
 	
 public:
 	//Unique class identifier
@@ -56,8 +60,10 @@ private:
 
 	Vector3 m_position;
 	Vector3 m_velocity;
+	Vector3 m_velocityLastFrame;
 	Quaternion m_quaternion;
 	Vector3 m_angularVelocity;
+	Vector3 m_angularVelocityLastFrame;
 
 	Matrix m_inertiaTensor;
 	Matrix m_inertiaTensorInverse;
@@ -66,12 +72,16 @@ private:
 	float m_inverseMass;
 
 	bool m_isEffectedByGravity;
+	bool m_isStatic;
+	bool m_isColliding;
 	
 	std::vector<Constraint> m_constraints;
 	
 	CollisionTable::CollisionMask m_collisionMask;
 
 	unsigned int m_dynamicAabbTreeKey;
+
+	void InitInertiaTensor(float x, float y, float z);
 	
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

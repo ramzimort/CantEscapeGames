@@ -11,6 +11,7 @@ Narrow phase of the physics engine.
 #include "Physics/PhysicsUtils.h"
 #include "CollisionManifold.h"
 #include "Graphics/AppRenderer.h"
+#include "Physics/PhysicsUtils.h"
 
 //////////////// Voronoi Region Tests //////////////////
 VoronoiRegion::Type Gjk::IdentifyVoronoiRegion(const Vector3& q, const Vector3& p0,
@@ -404,7 +405,6 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 			break;
 		}
 
-
 		std::vector<CsoPoint> newSimplex;
 		for (size_t i = 0; i < size; i++)
 		{
@@ -416,36 +416,7 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 		float lengthSq = (q - closestPoint.m_CsoPoint).LengthSquared();
 		if (lengthSq < epsilon * epsilon)
 		{
-			/*FillSimplexInDirection(simplex, Vector3::Up      , shapeA, shapeB);
-			FillSimplexInDirection(simplex, Vector3::Down    , shapeA, shapeB);
-			FillSimplexInDirection(simplex, Vector3::Right   , shapeA, shapeB);
-			FillSimplexInDirection(simplex, Vector3::Left    , shapeA, shapeB);
-			FillSimplexInDirection(simplex, Vector3::Forward , shapeA, shapeB);
-			FillSimplexInDirection(simplex, Vector3::Backward, shapeA, shapeB);*/
 			FillSimplex(simplex, shapeA, shapeB);
-			//if (simplex.size() < 4)
-			//{
-
-			//	direction = simplex.back().m_CsoPoint - q;
-			//	direction.Normalize();
-			//	Vector3 tangent, bitangent;
-			//	tangent = direction.Cross(Vector3::Up);
-			//	//MathUtil::BuildTangentBitangent(direction, tangent, bitangent);
-
-			//	CsoPoint newPoint = ComputeSupport(shapeA, shapeB, tangent);
-			//	simplex.push_back(newPoint);
-
-			//	if (simplex.size() < 4)
-			//	{
-			//		CsoPoint newPoint = ComputeSupport(shapeA, shapeB, -tangent);
-			//		simplex.push_back(newPoint);
-			//		if (simplex.size() < 4)
-			//		{
-			//			CsoPoint newPoint = ComputeSupport(shapeA, shapeB, bitangent);
-			//			simplex.push_back(newPoint);
-			//		}
-			//	}
-			//}
 			return true;
 		}
 
@@ -520,7 +491,6 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 	//Expanding Polytope Algorithm (EPA) as described here: http://hacktank.net/blog/?p=119
 	const unsigned MAX_ITERATIONS = 50;
 	unsigned iteration = 0;
-
 	std::list<CsoTriangle> triangles;
 	std::list<CsoEdge> edges;
 
@@ -533,6 +503,10 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 	while (true)
 	{
 		if (iteration++ >= MAX_ITERATIONS)
+		{
+			return false;
+		}
+		if (triangles.size() == 0)
 		{
 			return false;
 		}
@@ -558,6 +532,9 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 		// on the hull from the origin
 		if (currentTriangleIterator->m_normal.Dot(currentSuport.m_CsoPoint) - currentDist < epsilon)
 		{
+			if (currentDist < epsilon)
+				return false;
+
 			// I am storing an iterator to the closest triangle to the origin
 			// rather than copying it for efficiency (currentTriangleIterator)
 			// currentSuport is the new support point in the direction of
@@ -585,20 +562,6 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 
 			// penetration depth
 			collision.m_depth = currentDist;
-
-			/*if (PhysicsSpace::Globals::EpaGlobals::isDebugDraw)
-			{
-				Graphics::Get().AddLine(currentTriangleIterator->mA.mPointA, currentTriangleIterator->mB.mPointA, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-				Graphics::Get().AddLine(currentTriangleIterator->mA.mPointA, currentTriangleIterator->mC.mPointA, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-				Graphics::Get().AddLine(currentTriangleIterator->mB.mPointA, currentTriangleIterator->mC.mPointA, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-
-				Graphics::Get().AddLine(currentTriangleIterator->mA.mPointB, currentTriangleIterator->mB.mPointB, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-				Graphics::Get().AddLine(currentTriangleIterator->mA.mPointB, currentTriangleIterator->mC.mPointB, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-				Graphics::Get().AddLine(currentTriangleIterator->mB.mPointB, currentTriangleIterator->mC.mPointB, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-
-				Graphics::Get().AddLine(collision.pA, collision.pA + collision.depth * collision.n, Math::Vector4(1, 0, 0, 1), Math::Vector4(1, 0, 0, 1));
-				Graphics::Get().AddLine(collision.pA, collision.pB, Math::Vector4(0, 1, 0, 1), Math::Vector4(0, 1, 0, 1));
-			}*/
 
 			break;
 		}
@@ -658,25 +621,122 @@ void Gjk::FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vect
 
 void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB)
 {
-	std::vector<Vector3> uniformVectors; // uniformly distributed vectors from O to a surface of a unit sphere
+	/*// small floating-point margin
+	const float k_epsilon = 0.00001f;
+	const float k_epsilonSq = k_epsilon * k_epsilon;
 
-	const float angleStep = PI / 4.0f;
-	uniformVectors.emplace_back(0.0f, 1.0f, 0.0f);
-	for (float theta = 0; theta < 2 * PI; theta += angleStep)
+	// constant vector representing the origin
+	const Vector3 origin(0.0f, 0.0f, 0.0f);
+
+	Vector3 searchDir;
+	// blow up simplex to tetrahedron
+	switch (simplex.size())
 	{
-		for (float phi = angleStep; phi < PI; phi += angleStep)
+		// intentional ommision of "break" statements
+		// for case fall-through
+
+	case 1:
+	{		// 6 principal directions
+		static const Vector3 searchDirs[] =
 		{
-			float x = sin(phi) * cos(theta);
-			float y = cos(phi);
-			float z = sin(phi) * sin(theta);
-			Vector3 dir(x, y, z);
-			dir.Normalize();
-			uniformVectors.push_back(dir);
+		  Vector3(1.0f,  0.0f,  0.0f),
+		  Vector3(-1.0f,  0.0f,  0.0f),
+		  Vector3(0.0f,  1.0f,  0.0f),
+		  Vector3(0.0f, -1.0f,  0.0f),
+		  Vector3(0.0f,  0.0f,  1.0f),
+		  Vector3(0.0f,  0.0f, -1.0f),
+		};
+
+		// iterate until a good search direction is used
+		for (const Vector3& searchDir : searchDirs)
+		{
+			CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
+
+			// good search direction used, break
+			if ((pointToAdd.m_CsoPoint - simplex[0].m_CsoPoint).LengthSquared() >= k_epsilonSq)
+			{
+				simplex.push_back(pointToAdd);
+				break;
+			}
+		}
+		// end of case 1
+	}
+
+	case 2:
+	{		// 3 principal axes
+		static const Vector3 axes[3] =
+		{
+			Vector3(1.0f, 0.0f, 0.0f),
+			Vector3(0.0f, 1.0f, 0.0f),
+			Vector3(0.0f, 0.0f, 1.0f)
+		};
+
+		// line direction vector
+		const Vector3 lineVec = simplex[1].m_CsoPoint - simplex[0].m_CsoPoint;
+
+		// find least significant axis of line direction
+		// 0 = x, 1 = y, 2 = z
+		const unsigned leastSignificantAxis = MathUtil::LeastSignificantComponent(lineVec);
+
+		// initial search direction
+		searchDir = lineVec.Cross(axes[leastSignificantAxis]);
+
+		// build a rotation matrix of 60 degrees about line vector
+		Matrix rot = XMMatrixRotationAxis(lineVec, PhysicsUtils::Consts::pi_3);
+
+		// find up to 6 directions perpendicular to the line vector
+		// until a good search direction is used
+		for (int i = 0; i < 6; ++i)
+		{
+			CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
+			// good search direction used, break
+			if (pointToAdd.m_CsoPoint.LengthSquared() > k_epsilonSq)
+			{
+				simplex.push_back(pointToAdd);
+				break;
+			}
+
+			// rotate search direction by 60 degrees
+			Vector3::Transform(searchDir, rot, searchDir);
 		}
 	}
-	uniformVectors.emplace_back(0.0f, -1.0f, 0.0f);
+	case 3:
+	{
+		// use triangle normal as search direction
+		const Vector3 v01 = simplex[1].m_CsoPoint - simplex[0].m_CsoPoint;
+		const Vector3 v02 = simplex[2].m_CsoPoint - simplex[0].m_CsoPoint;
+		searchDir = v01.Cross(v02);
 
-	for (const Vector3& dir : uniformVectors)
+		CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
+
+		// search direction not good, use its opposite direction
+		if (pointToAdd.m_CsoPoint.LengthSquared() > k_epsilonSq)
+		{
+			simplex.push_back(pointToAdd);
+			
+		}
+		else
+		{	
+			searchDir *= -1.0f;
+			pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
+			simplex.push_back(pointToAdd);
+		}
+		// end of case 3
+	}
+	}
+
+	// fix tetrahedron winding
+	// so that simplex[0]-simplex[1]-simplex[2] is CCW winding
+	const Vector3 v30 = simplex[0].m_CsoPoint - simplex[3].m_CsoPoint;
+	const Vector3 v31 = simplex[1].m_CsoPoint - simplex[3].m_CsoPoint;
+	const Vector3 v32 = simplex[2].m_CsoPoint - simplex[3].m_CsoPoint;
+	const float det = v30.Dot(v31.Cross(v32));
+	if (det > 0.0f)
+	{
+		std::swap(simplex[0], simplex[1]);
+	}//*/
+	
+	for (const Vector3& dir : PhysicsUtils::Consts::directionsInUnitSphere)
 	{
 		if (simplex.size() >= 4)
 			break;
@@ -704,6 +764,7 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 		{
 			simplex.push_back(newPoint);
 		}
-	}
+	}//*/
+
 }
 

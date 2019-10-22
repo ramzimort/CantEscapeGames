@@ -24,7 +24,14 @@ RTTR_REGISTRATION
 		.property("IsEffectedByGravity", &RigidbodyComponent::m_isEffectedByGravity)
 		.property("Velocity", &RigidbodyComponent::m_velocity)
 		.property("Mass", &RigidbodyComponent::m_mass)
+		.property("IsStatic", &RigidbodyComponent::m_isStatic)
+		.property("CollisionMask", &RigidbodyComponent::m_collisionMask)
 	;
+	rttr::registration::enumeration<CollisionTable::CollisionMask>("CollisionMask")(
+		#define COLLISION_MASK(ENTRY) rttr::value(#ENTRY, CollisionTable::CollisionMask::ENTRY),
+		#include "Physics/CollisionMaskTypes.def"
+		#undef COLLISION_MASK
+		rttr::value("NUM", CollisionTable::CollisionMask::NUM));
 }
 
 RigidbodyComponent::RigidbodyComponent(GameObject *owner) :
@@ -40,6 +47,10 @@ void RigidbodyComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	m_inertiaTensor = m_inertiaTensorInverse = Matrix::Identity; // this works for cubes
 	m_inverseMass = 1.0f / m_mass;
+	if (m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ)
+	{
+		m_isStatic = true;
+	}
 }
 
 void RigidbodyComponent::Begin(GameObjectManager *goMgr)
@@ -75,4 +86,51 @@ void RigidbodyComponent::SetMass(float mass)
 {
 	m_mass = mass;
 	m_inverseMass = 1.0f / mass;
+}
+
+CollisionTable::CollisionMask RigidbodyComponent::GetCollisionMask()
+{
+	return m_collisionMask;
+}
+
+bool RigidbodyComponent::IsStatic() const 
+{
+	return m_isStatic;
+}
+
+void RigidbodyComponent::InitInertiaTensor(float x, float y, float z)
+{
+	//DirectX::XMFLOAT3X3 m;
+	//
+	//m.m[0][0] = m_mass * (y * y + z * z);
+	//m.m[1][1] = m_mass * (x * x + z * z);
+	//m.m[2][2] = m_mass * (x * x + y * y);
+	//
+	//m.m[0][1] = m.m[1][0] = -m_mass * x * y;
+	//m.m[0][2] = m.m[2][0] = -m_mass * x * z;
+	//m.m[1][2] = m.m[2][1] = -m_mass * y * z;
+	//
+	//DirectX::XMMatrixInverse();
+
+	m_inverseMass = 1.0f / m_mass;
+	if (m_inverseMass < PhysicsUtils::Consts::minMass)
+	{
+		m_inverseMass = 0.0f;
+		m_inertiaTensorInverse = Matrix() * 0.0f;
+		return;
+	}
+
+	float massCoef = m_mass / 12.0f;
+	m_inertiaTensor.m[0][0] = (y * y + z * z);
+	m_inertiaTensor.m[1][1] = (x * x + z * z);
+	m_inertiaTensor.m[2][2] = (x * x + y * y);
+
+	m_inertiaTensor.m[0][1] = m_inertiaTensor.m[1][0] = m_inertiaTensor.m[0][2] = 
+		m_inertiaTensor.m[2][0] = m_inertiaTensor.m[1][2] = m_inertiaTensor.m[2][1] = 
+		m_inertiaTensor.m[0][3] = m_inertiaTensor.m[1][3] = m_inertiaTensor.m[2][3] =
+		m_inertiaTensor.m[3][0] = m_inertiaTensor.m[3][1] = m_inertiaTensor.m[3][2] = 0.0f;
+	m_inertiaTensor.m[3][3] = 1.0f;
+
+	m_inertiaTensor *= massCoef; 
+	m_inertiaTensorInverse = m_inertiaTensor.Invert();
 }
