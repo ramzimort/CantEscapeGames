@@ -60,20 +60,17 @@ void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
 	m_queue.m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
 }
 
-void Editor::UpdateComponents(const char* compName, const char* prop, float* vec, float min, float max)
+void Editor::UpdateComponents(PropertyInfo info)
 {
-	ComponentInfo info; info.CompName = compName; info.PropName = prop; info.vec3 = vec; info.min = min; info.max = max;
-	auto compIt = m_components.find(compName);
-	if (compIt == m_components.end())
-	{
-		std::queue<ComponentInfo> queue;
-		queue.push(info);
-		m_components.insert(std::make_pair(compName, queue));
-	}
-	else
-	{
-		m_components[compName].push(info);
-	}
+	if (m_components.find(info.goName) == m_components.end())
+		m_components.insert(std::make_pair(info.goName, std::map<std::string, std::list<PropertyInfo>>()));
+	//if (m_components.at(info.goName).find(info.compName) == m_components.at(info.goName).end())
+	
+	auto& comps = m_components.at(info.goName);
+	if (comps.find(info.compName) == comps.end())
+		comps.insert(std::make_pair(info.compName, std::list<PropertyInfo>()));
+	
+	comps.at(info.compName).push_back(info);
 }
 
 void Editor::Update()
@@ -147,24 +144,53 @@ void Editor::UpdateComponentWindow()
 	ImVec2 window_pos_pivot = ImVec2(0.0f, 0.0f);
 	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
 	ImGui::SetNextWindowSizeConstraints(ImVec2(400, io.DisplaySize.y), ImVec2(400, io.DisplaySize.y));
-	if (ImGui::Begin("Components"), 0, ImGuiWindowFlags_NoCollapse)
+	if (ImGui::Begin("Object Editor"), 0, ImGuiWindowFlags_NoCollapse)
 	{
 		// Place components here to be used by the thing.
-		auto it = m_components.find("Transform");
-		if (it != m_components.end())
+		int i = 0;
+		for(auto it = m_components.begin(); it != m_components.end(); ++it)
 		{
-			auto& queue = it->second;
-			if (ImGui::TreeNode(it->first.c_str()))
+			const std::string& objName = it->first;
+			auto& comps = it->second;
+			// Obj Tree
+			i++; ImGui::PushID(i);
+			ImGui::Text(objName.c_str());
+			for (auto it2 = comps.begin(); it2 != comps.end(); ++it2)
 			{
-				while (!queue.empty())
+				ImGui::Text(it2->first.c_str());
+				auto& props = it2->second;
+				for (auto it3 = props.begin(); it3 != props.end(); ++it3)
 				{
-					auto& info = queue.front();
-					ImGui::SliderFloat3(info.PropName.c_str(), info.vec3, info.min, info.max);
-					queue.pop();
+					ImGui::Indent(10.f);
+					switch (it3->t)
+					{
+					case CantDebugAPI::FLOAT:
+						ImGui::SliderFloat(it3->propName.c_str(), it3->f, it3->min, it3->max);
+						break;
+					case VEC2:
+						ImGui::SliderFloat2(it3->propName.c_str(), it3->f, it3->min, it3->max);
+						break;
+					case VEC3:
+						ImGui::SliderFloat3(it3->propName.c_str(), it3->f, it3->min, it3->max);
+						break;
+					case VEC4:
+						ImGui::SliderFloat4(it3->propName.c_str(), it3->f, it3->min, it3->max);
+						break;
+					case INTEGER:
+						ImGui::SliderInt(it3->propName.c_str(), (int*)(it3->i), static_cast<int>(it3->min), static_cast<int>(it3->max));
+						break;
+					case STRING:
+						break;
+					}
+					ImGui::Indent(-10.f);
 				}
-				ImGui::TreePop();
+				ImGui::Separator();
 			}
+			ImGui::Separator();
+			ImGui::Separator();
+			ImGui::PopID();
 		}
+		m_components.clear();
 	}
 	ImGui::End();
 }

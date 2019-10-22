@@ -69,7 +69,7 @@ void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
 
 			// Load the object
 			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
-			LoadObject(objSetup, tag, goMgr);
+			LoadObject(objSetup, prefabName, tag, goMgr);
 		}
 	}
 }
@@ -98,11 +98,6 @@ void Factory::LoadObject(GameObject* gameObject, const std::string& path)
 			BaseComponent* baseComp = comp.get_value<BaseComponent*>();
 		}
 	}
-}
-
-static void LoadResource(const std::string& path)
-{
-
 }
 
 
@@ -155,10 +150,11 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 		resMgr->LoadPrefab(it->GetString());
 }
 
-void Factory::LoadObject(const std::string& compSetup, const std::string& tag, GameObjectManager* goMgr)
+void Factory::LoadObject(const std::string& compSetup, const std::string& prefabName, const std::string& tag, GameObjectManager* goMgr)
 {
 	GameObjectDesc desc;
 	desc.tag = tag;
+	desc.prefabName = prefabName;
 	ResourceManager* resMgr = m_pResourceManager;
 	DXRenderer* dxrenderer = m_pDXRenderer;
 	ScriptingManager* luaMgr = m_pScriptingManager;

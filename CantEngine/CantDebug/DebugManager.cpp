@@ -8,10 +8,16 @@
 #include "Graphics/Camera.h"
 #include "Directory/Directory.h"
 #include "Factory/Factory.h"
+#include "Reflection/Helpers.h"
+#include "Reflection/Serialization.h"
 
 namespace CantDebug
 {
 	using namespace std;
+	template<typename T>
+	void WriteComponentOverride(T* component, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
+	void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
+
 	vector<Info> InitializeList(const std::string& name)
 	{
 		auto list = CantDirectory::GetAllObjects(name);
@@ -39,8 +45,6 @@ namespace CantDebug
 		EventManager::Get()->SubscribeEvent<KeyEvent>(this, std::bind(&DebugManager::OnKey, this, std::placeholders::_1));
 
 		Initialize();
-
-		m_pAppRenderer = pAppRenderer;
 	}
 
 	DebugManager::~DebugManager() { }
@@ -106,15 +110,10 @@ namespace CantDebug
 			}
 			if (objInfo.second.Pressed)
 			{
+				DisplayCompData(objInfo.first);
 				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
-				if (!editing)
-				{
-					editing = true;
-					if(m_compData.owner == objInfo.first)
-						UpdateComponents(objInfo.first);
-					ReadComponents(objInfo.first);
-				}
 			}
+			UpdateComponents(objInfo.first);
 		}
 	}
 
@@ -160,7 +159,7 @@ namespace CantDebug
 		{
 			if (goInfo.Pressed)
 			{
-				Factory::LoadObject(m_pResourceManager->GetPrefab(goInfo.FullPath), "", m_pGameState->m_gameObjectMgr);
+				Factory::LoadObject(m_pResourceManager->GetPrefab(goInfo.FullPath), goInfo.FullPath, "", m_pGameState->m_gameObjectMgr);
 				goInfo.Pressed = false;
 			}
 		}
@@ -182,17 +181,34 @@ namespace CantDebug
 
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
+		static bool _CreateLevel = false;
 
 		if (_pauseState != m_config.Pause_State)
 		{
 			if (m_config.Pause_State)
+			{
 				m_pStateManager->PushState("Assets\\Levels\\DebugPause.json");
+				std::vector<GameObject*> m;
+				m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1]->m_gameObjectMgr->CompleteGORegistration(m_pGameObjEditor, m_pAppRenderer, m_pResourceManager, m);
+			}
 			else
+			{
+				m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1]->m_gameObjectMgr->m_gameObjects.clear();
 				m_pStateManager->PopState();
+			}
+		}
+
+		if (_CreateLevel != m_config.Create_Level)
+		{
+			if (m_config.Create_Level)
+				LevelToJson("Assets\\Levels\\Testing.json");
+			m_config.Create_Level = false;
 		}
 
 		CantDebugAPI::EditorSetting("Pause", &m_config.Pause_State);
 		CantDebugAPI::EditorSetting("SelectionTool", &m_config.SelectionTool);
+		CantDebugAPI::EditorSetting("Create Level", &m_config.Create_Level);
+
 
 		Matrix model;
 		MeshComponent* mesh;
@@ -212,6 +228,7 @@ namespace CantDebug
 		// Update State
 		_pauseState = m_config.Pause_State;
 		_selectionTool = m_config.SelectionTool;
+		_CreateLevel = m_config.Create_Level;
 		UpdateState();
 
 	}
@@ -284,6 +301,7 @@ namespace CantDebug
 		objInfo.Pressed = false; objInfo.DoublePressed = false; objInfo.Highlighted = false;
 		m_objectList.insert(std::make_pair(go,objInfo));
 		CantDebugAPI::ObjectButtonList(std::to_string(objInfo.ID).c_str(), objInfo.Name.c_str(), &m_objectList[go].Pressed, &m_objectList[go].DoublePressed, true);
+		RegisterComponents(go);
 
 		// Register dynamic AABB for raycast
 		static unsigned int key = 0;
@@ -295,6 +313,26 @@ namespace CantDebug
 		m_AabbTree.InsertData(key, SpatialPartitionData(go, aabb));
 		GameObjectData data(key, aabb);
 		m_meshObjects.insert(std::make_pair(e->m_pGameObject, data));
+	}
+
+	void DebugManager::RegisterComponents(GameObject* go)
+	{
+		CompInfo info;
+		CantDebugAPI::PropertyInfo debugInfo;
+		auto& components = m_objectList[go].Components;
+		auto transform = go->GetComponent<TransformComponent>();
+		if (transform)
+		{
+			info.compName = "Transform"; info.propName = "Position"; info.data.vec3 = transform->GetPosition();  info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "Transform"; info.propName = "Rotation"; info.data.vec3 = transform->GetRotation();  info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "Transform"; info.propName = "Scale";	 info.data.vec3 = transform->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
+		}
+		auto rigidbdy = go->GetComponent<RigidbodyComponent>();
+		if (rigidbdy)
+		{
+			info.compName = "RigidBody"; info.propName = "Mass"; info.data.f = rigidbdy->GetMass(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
+		}
+
 	}
 
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* e)
@@ -399,30 +437,163 @@ namespace CantDebug
 		}
 	}
 
-	
-	void DebugManager::ReadComponents(GameObject* go)
+	void DebugManager::DisplayCompData(GameObject* go)
 	{
-		m_compData.owner = go;
-		TransformComponent* transform = go->GetComponent<TransformComponent>();
-		if(transform)
-		{ 
-			m_compData.TransformPosition = transform->GetPosition();
-			CantDebugAPI::ComponentVec3("Transform", "Position", &m_compData.TransformPosition.x, -100.f, 100.f);
-			m_compData.TransformRotation = transform->GetRotation();
-			CantDebugAPI::ComponentVec3("Transform", "Rotation", &m_compData.TransformRotation.x, -180.f, 180.f);
-			m_compData.TransformScale = transform->GetScale();
-			CantDebugAPI::ComponentVec3("Transform", "Scale", &m_compData.TransformScale.x, -100.f, 100.f);
-		}
-	}
-	void DebugManager::UpdateComponents(GameObject* go)
-	{
+		auto& compList = m_objectList[go].Components;
+		auto it = compList.begin();
+		CantDebugAPI::PropertyInfo debugInfo;
+		debugInfo.goName = m_objectList[go].Name;
+
 		TransformComponent* transform = go->GetComponent<TransformComponent>();
 		if (transform)
 		{
-			transform->SetLocalPosition(m_compData.TransformPosition.x, m_compData.TransformPosition.y, m_compData.TransformPosition.z);
-			transform->SetLocalRotation(m_compData.TransformRotation.x, m_compData.TransformRotation.y, m_compData.TransformRotation.z);
-			transform->Scale(m_compData.TransformScale.x, m_compData.TransformScale.y, m_compData.TransformScale.z);
-		} 
+			debugInfo.compName = it->compName;
+			// Transform 
+			transform->SetLocalPosition(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -100.f; debugInfo.max = 100.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			transform->SetLocalRotation(it->data.vec3.x, it->data.vec3.y, it->data.vec3.z);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -180.f; debugInfo.max = 180.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			transform->Scale(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 0.f; debugInfo.max = 50.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
+		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
+		if (rigidBody)
+		{
+			debugInfo.compName = it->compName;
+
+			rigidBody->SetMass(it->data.f);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 50.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
+	}
+	
+	void DebugManager::UpdateComponents(GameObject* go)
+	{
+		auto& compList = m_objectList[go].Components;
+		auto it = compList.begin();
+		TransformComponent* transform = go->GetComponent<TransformComponent>();
+		if (transform)
+		{
+			it->data.vec3 = transform->GetPosition(); ++it;
+			it->data.vec3 = transform->GetRotation(); ++it;
+			it->data.vec3 = transform->GetScale(); ++it;
+		}
+		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
+		if (rigidBody)
+		{
+			it->data.f = rigidBody->GetMass(); ++it;
+		}
+	}
+
+	void DebugManager::LevelToJson(const std::string& levelPath)
+	{
+		using namespace rapidjson;
+		Document doc; 
+		StringBuffer sb;
+		PrettyWriter<StringBuffer> writer(sb);
+		writer.StartObject();
+#pragma region RESOURCES
+		writer.Key("Resources");
+		writer.StartObject();
+		writer.Key("Textures");
+		writer.StartArray();
+		for (auto& info : m_resources["Assets\\Textures\\"])
+			if(info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+
+		writer.Key("Models");
+		writer.StartArray();
+		for (auto& info : m_resources["Assets\\Models\\"])
+			if (info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+
+		writer.Key("Materials");
+		writer.StartArray();
+		for (auto& info : m_resources["Assets\\Materials\\"])
+			if (info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+
+		writer.Key("Scripts");
+		writer.StartArray();
+		for (auto& info : m_resources["Scripts\\"])
+			if (info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+
+		writer.Key("Prefabs");
+		writer.StartArray();
+		for (auto& info : m_resources["Assets\\Prefabs\\"])
+			if (info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+
+		writer.Key("Audio");
+		writer.StartArray();
+		for (auto& info : m_resources["Assets\\Audio\\"])
+			if (info.Pressed) writer.String(info.FullPath.c_str());
+		writer.EndArray();
+		writer.EndObject();
+#pragma endregion
+#pragma region OBJECTS
+		writer.Key("Objects");
+		writer.StartArray();
+		for (auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
+		{
+			writer.StartObject();
+			writer.Key("tag"); writer.String(it->first->GetTag().c_str());
+			writer.Key("prefab"); writer.String(it->first->GetPrefabName().c_str());
+			writer.Key("overrides"); writer.StartObject(); ReadOverrides(it->first, writer); writer.EndObject();
+			writer.EndObject();
+		}
+		writer.EndArray();
+#pragma endregion
+		writer.EndObject();
+		const std::string jsonString = sb.GetString();
+		ofstream out_file;
+		out_file.open(levelPath);
+		if (out_file.is_open())
+		{
+			out_file << sb.GetString();
+			out_file.close();
+		}
+
+	}
+
+	template<typename T>
+	void WriteComponentOverride(T* component, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+	{
+		rttr::instance var(component);
+		writer.Key(var.get_derived_type().get_name().to_string());
+		CantReflect::WriteRecursive(component, writer);
+	}
+
+	void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+	{
+		if (go->HasComponent<TransformComponent>())
+			WriteComponentOverride(go->GetComponent<TransformComponent>(), writer);
+		if (go->HasComponent<RigidbodyComponent>())
+			WriteComponentOverride(go->GetComponent<RigidbodyComponent>(), writer);
+		if (go->HasComponent<RendererComponent>())
+			WriteComponentOverride(go->GetComponent<RendererComponent>(), writer);
+		if (go->HasComponent<MeshComponent>())
+			WriteComponentOverride(go->GetComponent<MeshComponent>(), writer);
+		if (go->HasComponent<LightComponent>())
+			WriteComponentOverride(go->GetComponent<LightComponent>(), writer);
+		if (go->HasComponent<CameraComponent>())
+			WriteComponentOverride(go->GetComponent<CameraComponent>(), writer);
+		if (go->HasComponent<ParticleEmitterComponent>())
+			WriteComponentOverride(go->GetComponent<ParticleEmitterComponent>(), writer);
+		if (go->HasComponent<HaloEffectComponent>())
+			WriteComponentOverride(go->GetComponent<HaloEffectComponent>(), writer);
+		if (go->HasComponent<AnimationComponent>())
+			WriteComponentOverride(go->GetComponent<AnimationComponent>(), writer);
 	}
 }
 

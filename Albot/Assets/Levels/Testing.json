@@ -1,0 +1,598 @@
+{
+    "Resources": {
+        "Textures": [
+            "Assets\\Textures\\floor.png",
+            "Assets\\Textures\\Particles\\flare0.png",
+            "Assets\\Textures\\redbrick.jpg",
+            "Assets\\Textures\\redbrick_height.jpg",
+            "Assets\\Textures\\redbrick_normal.jpg"
+        ],
+        "Models": [
+            "Assets\\Models\\AnimTest01.fbx",
+            "Assets\\Models\\Cube.fbx",
+            "Assets\\Models\\mitsuba-sphere.obj",
+            "Assets\\Models\\plane.fbx",
+            "Assets\\Models\\Sphere.fbx",
+            "Assets\\Models\\TestWalk.fbx"
+        ],
+        "Materials": [
+            "Assets\\Materials\\Material1.json",
+            "Assets\\Materials\\Red_Brick_Material.json"
+        ],
+        "Scripts": [
+            "Scripts\\Components\\fpscontroller.lua",
+            "Scripts\\Components\\test01Comp.lua",
+            "Scripts\\Components\\test02Comp.lua",
+            "Scripts\\States\\level1.lua"
+        ],
+        "Prefabs": [
+            "Assets\\Prefabs\\brick_wall.json",
+            "Assets\\Prefabs\\Lights\\directional_light.json",
+            "Assets\\Prefabs\\Lights\\point_light.json",
+            "Assets\\Prefabs\\lvleditor.json",
+            "Assets\\Prefabs\\mini_map.json",
+            "Assets\\Prefabs\\mitsuba_sphere.json",
+            "Assets\\Prefabs\\mono_azul.json",
+            "Assets\\Prefabs\\mono_rojo.json",
+            "Assets\\Prefabs\\player.json",
+            "Assets\\Prefabs\\RBTestObj.json",
+            "Assets\\Prefabs\\TestGoJose.json"
+        ],
+        "Audio": []
+    },
+  "Objects": [
+    {
+      "tag": "lvleditor",
+      "prefab": "Assets\\Prefabs\\lvleditor.json",
+      "overrides": {
+      }
+    },
+    {
+      "tag": "Left",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -10.0,
+            0.0,
+            -10.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\mitsuba-sphere.obj",
+          "Type": "Quad",
+          "MissingTangents": false
+        },
+        "ParticleEmitterComponent": {
+          "Emitter_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Emitter_Direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "Emitter_Spread_Angle_Yaw": 360.0,
+          "Emitter_Spread_Angle_Pitch": 90.0,
+          "Emitter_Rate": 0.004999999888241291,
+          "Emitter_Lifetime": 5.0,
+          "Particle_Emit_Count": 50,
+          "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png",
+          "Particle_Emitter_Type": "Infinite_Lifetime"
+        },
+        "HaloEffectComponent": {
+          "HaloEffect": {
+            "Radius": 8.0,
+            "Intensity": 1.0,
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ]
+          }
+        }
+      }
+    },
+    {
+      "tag": "RGDBDY1",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            10.0,
+            -12.615056037902832,
+            -10.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            0.0,
+            -21.03730010986328,
+            0.0
+          ],
+          "Mass": 1.0
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx",
+          "Type": "Quad",
+          "MissingTangents": false
+        }
+      }
+    },
+    {
+      "tag": "point_light2",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            15.0,
+            5.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Point",
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ],
+            "Intensity": 10.0,
+            "CastShadow": true,
+            "Enabled": true,
+            "Radius": 10.0,
+            "ShadowIntensity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "tag": "Middle",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            -10.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\mitsuba-sphere.obj",
+          "Type": "Quad",
+          "MissingTangents": false
+        },
+        "ParticleEmitterComponent": {
+          "Emitter_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Emitter_Direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "Emitter_Spread_Angle_Yaw": 360.0,
+          "Emitter_Spread_Angle_Pitch": 90.0,
+          "Emitter_Rate": 0.004999999888241291,
+          "Emitter_Lifetime": 5.0,
+          "Particle_Emit_Count": 50,
+          "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png",
+          "Particle_Emitter_Type": "Infinite_Lifetime"
+        },
+        "HaloEffectComponent": {
+          "HaloEffect": {
+            "Radius": 8.0,
+            "Intensity": 1.0,
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ]
+          }
+        }
+      }
+    },
+    {
+      "tag": "RGDBDY2",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            10.0,
+            -22.61505126953125,
+            -10.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            0.0,
+            -21.03730010986328,
+            0.0
+          ],
+          "Mass": 1.0
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx",
+          "Type": "Quad",
+          "MissingTangents": false
+        }
+      }
+    },
+    {
+      "tag": "directional_light01",
+      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            150.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            45.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Directional",
+            "Color": [
+              1.0,
+              0.800000011920929,
+              0.7360000014305115
+            ],
+            "Intensity": 2.0,
+            "CastShadow": true,
+            "Enabled": true,
+            "Radius": 1.0,
+            "ShadowIntensity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "tag": "Right",
+      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            10.0,
+            0.0,
+            -10.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\mitsuba-sphere.obj",
+          "Type": "Quad",
+          "MissingTangents": false
+        },
+        "ParticleEmitterComponent": {
+          "Emitter_Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Emitter_Direction": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "Emitter_Spread_Angle_Yaw": 360.0,
+          "Emitter_Spread_Angle_Pitch": 90.0,
+          "Emitter_Rate": 0.004999999888241291,
+          "Emitter_Lifetime": 5.0,
+          "Particle_Emit_Count": 50,
+          "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png",
+          "Particle_Emitter_Type": "Infinite_Lifetime"
+        },
+        "HaloEffectComponent": {
+          "HaloEffect": {
+            "Radius": 8.0,
+            "Intensity": 1.0,
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ]
+          }
+        }
+      }
+    },
+    {
+      "tag": "point_light1",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Point",
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ],
+            "Intensity": 10.0,
+            "CastShadow": true,
+            "Enabled": true,
+            "Radius": 10.0,
+            "ShadowIntensity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "tag": "mini_map1",
+      "prefab": "Assets\\Prefabs\\mini_map.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CameraComponent": {
+          "Camera": {
+            "Near": 0.10000000149011612,
+            "Far": 1000.0,
+            "FOV": 75.0,
+            "Position": [
+              0.0,
+              30.0,
+              0.0
+            ],
+            "CameraName": "MiniMap",
+            "LookDir": [
+              0.0,
+              -0.9950371384620667,
+              0.09950371831655503
+            ],
+            "ZOrder": 1
+          }
+        }
+      }
+    },
+    {
+      "tag": "Go_Jose01",
+      "prefab": "Assets\\Prefabs\\TestGoJose.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -1.0,
+            0.5,
+            1.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            0.014999999664723874,
+            0.014999999664723874,
+            0.014999999664723874
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\AnimTest01.fbx",
+          "Type": "Quad",
+          "MissingTangents": false
+        },
+        "AnimationComponent": {
+          "Clips": [
+            {
+              "name": "DanceAnim",
+              "path": "Assets\\Models\\AnimTest01.fbx",
+              "loops": true
+            },
+            {
+              "name": "StopAnim",
+              "path": "Assets\\Models\\TestStand.fbx",
+              "loops": true
+            },
+            {
+              "name": "WalkAnim",
+              "path": "Assets\\Models\\TestWalk.fbx",
+              "loops": true
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            },
+            {
+              "name": "",
+              "path": "",
+              "loops": false
+            }
+          ],
+          "StartingAnimation": "WalkAnim"
+        }
+      }
+    }
+  ]
+}

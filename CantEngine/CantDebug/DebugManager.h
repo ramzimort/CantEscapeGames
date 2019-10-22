@@ -17,10 +17,31 @@ namespace CantDebug
 		bool SelectionTool = false;
 		bool Is_Ctrl = false;
 		bool Pause_State = false;
+		bool Create_Level = false;
+	};
+
+	union CompDataUnion
+	{
+		CompDataUnion() { memset(this, 0, sizeof(CompDataUnion)); }
+		size_t _int;
+		float f;
+		Vector2 vec2;
+		Vector3 vec3;
+		Vector4 vec4;
+	};
+
+	struct CompInfo
+	{
+		CompDataUnion data;
+		CantDebugAPI::type type;
+		std::string compName;
+		std::string propName;
 	};
 
 	struct Info
 	{
+		Info() : FullPath(""), Name(""), Pressed(false), DoublePressed(false), Highlighted(false), _pressed(false), ID(-1), Components(std::list<CompInfo>()) { }
+
 		std::string FullPath;
 		std::string Name;
 		bool Pressed = false;
@@ -28,6 +49,7 @@ namespace CantDebug
 		bool Highlighted = false;
 		bool _pressed;
 		size_t ID;
+		std::list<CompInfo> Components;
 	};
 
 	struct GameObjectData
@@ -42,14 +64,6 @@ namespace CantDebug
 		unsigned int m_key;
 	};
 
-	struct ComponentData
-	{
-		GameObject* owner;
-		Vector3 TransformPosition;
-		Vector3 TransformRotation;
-		Vector3 TransformScale;
-
-	};
 
 	class DebugManager
 	{
@@ -57,7 +71,6 @@ namespace CantDebug
 		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
 		typedef std::vector<Info> PrefabButtonList;
 		typedef std::unordered_map<GameObject*, GameObjectData> MeshObjectList;
-
 
 	public:
 		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
@@ -85,8 +98,11 @@ namespace CantDebug
 		void OnMotion(const MouseMotionEvent* e);
 		void OnScreenResize(const WindowSizeEvent* e);
 		void OnKey(const KeyEvent* e);
-		void ReadComponents(GameObject* go);
+		
+		void RegisterComponents(GameObject* go);
+		void DisplayCompData(GameObject* go);
 		void UpdateComponents(GameObject* go);
+		void LevelToJson(const std::string& levelName);
 
 	private:
 		Vector2 m_scrDimensions = { 1280,720 };
@@ -97,7 +113,6 @@ namespace CantDebug
 		ObjectList m_objectList;
 		ResourceMap m_resources;
 		PrefabButtonList m_prefabList;
-		ComponentData m_compData;
 
 		MeshObjectList m_meshObjects;
 		DynamicAabbTree m_AabbTree;

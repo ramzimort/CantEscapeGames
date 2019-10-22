@@ -82,15 +82,14 @@ void GameObjectManager::Instantiate_Queued_GameObjects(AppRenderer *pRenderer, R
 		GameObjectDesc& descriptor = m_instantiationQueue.front();
 
 		//Create the new GameObject and handle tag
-		GameObject *go = (descriptor.tag == "") ? new GameObject(this) : new GameObject(this, descriptor.tag);
+		GameObject *go = (descriptor.tag == "") ? new GameObject(this, descriptor.prefabName) : new GameObject(this, descriptor.prefabName, descriptor.tag);
 		if (go) 
 		{
 			//Lambda call
 			descriptor.initializeComponentSetup(go);
 
 			//Registering for the new GO
-			CompleteGORegistration(go, pRenderer, pResMgr,
-				newGameObjects);
+			CompleteGORegistration(go, pRenderer, pResMgr, newGameObjects);
 		}
 
 		EventManager::Get()->EnqueueEvent<GameObjectCreated>(true, go->GetId(), go);

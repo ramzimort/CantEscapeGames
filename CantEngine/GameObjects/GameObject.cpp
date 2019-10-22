@@ -23,15 +23,15 @@ RTTR_REGISTRATION
 	rttr::registration::class_<GameObject>("GameObject");
 }
 
-GameObject::GameObject(GameObjectManager *goMgr) :
-	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0),
+GameObject::GameObject(GameObjectManager *goMgr, std::string prefabName) :
+	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0), m_prefabName(prefabName),
 	m_markedForRemoval(false)
 {
 }
 
-GameObject::GameObject(GameObjectManager *goMgr, std::string tag) :
+GameObject::GameObject(GameObjectManager *goMgr, std::string prefabName, std::string tag) :
 	m_gameObjectMgr(goMgr), m_id(go_count++), m_compMask(0), 
-	m_markedForRemoval(false), m_tag(tag)
+	m_markedForRemoval(false), m_tag(tag), m_prefabName(prefabName)
 {
 }
 
@@ -75,6 +75,11 @@ void GameObject::Destroy()
 	// 1- Communicate to the GO MGR so the go is queued for deletion
 	// TODO - Change for event call
 	m_gameObjectMgr->Queue_GameObject_Destruction(this->GetId());
+}
+
+const std::string& GameObject::GetPrefabName() const
+{
+	return m_prefabName;
 }
 
 bool GameObject::Is_marked_for_remove() const
@@ -199,7 +204,7 @@ GameObjectManager *GameObject::GetGOManager()
 
 GameObject *GameObject::Instantiate(GameObjectManager *goMgr)
 {
-	GameObject *go = CantMemory::PoolResource<GameObject>::Allocate(goMgr);
+	GameObject *go = CantMemory::PoolResource<GameObject>::Allocate(goMgr, "");
 	if (go == nullptr)
 		return go;
 
@@ -212,7 +217,7 @@ GameObject *GameObject::Instantiate(GameObjectManager *goMgr)
 
 GameObject *GameObject::Instantiate(GameObjectManager *goMgr, std::string const& prefabPath)
 {
-	GameObject* go = CantMemory::PoolResource<GameObject>::Allocate(goMgr);
+	GameObject* go = CantMemory::PoolResource<GameObject>::Allocate(goMgr, prefabPath);
 	Factory::LoadObject(go, prefabPath);
 	//Add to the goMgr's list of scripted Intantiations
 	goMgr->AddToScriptInstantiateQueue(go);

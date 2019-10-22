@@ -19,6 +19,7 @@ struct GameObjectDesc
 	using InitializeComponentSetup = std::function<void(GameObject*)>;
 	
 	std::string tag;
+	std::string prefabName;
 	InitializeComponentSetup initializeComponentSetup;
 
 	GameObjectDesc() :

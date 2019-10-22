@@ -27,44 +27,34 @@ class StringId
 	friend class StringIdHash;
 public:
 	StringId() :
-#ifdef DEVELOPER
 		m_name(""),
-#endif
 		m_id(0)
 	{	};
 	StringId(const StringId& rhs) :
-#ifdef DEVELOPER
 		m_name(rhs.m_name),
-#endif
 		m_id(rhs.m_id)
 	{	}
 	StringId(const char* _name) :
-#ifdef DEVELOPER
 		m_name(std::string(_name)),
-#endif
 		m_id(FNVHash(std::string(_name).c_str(), std::string(_name).size())) { }
 	StringId(const std::string& _name) :
-#ifdef DEVELOPER
 		m_name(_name),
-#endif
 		m_id(FNVHash(_name.c_str(), _name.size())) { }
 
 	StringId& operator=(const StringId& rhs)
 	{
 		m_id = rhs.m_id; 
-#ifdef DEVELOPER
 		m_name = rhs.m_name;
-#endif
 		return *this;
 	}
 	bool operator==(const StringId& rhs) const { return m_id == rhs.m_id; }
 	bool operator<(const StringId& rhs) const { return m_id < rhs.m_id; }
+	const std::string& getName() const{ return m_name; }
 
 private:
 	size_t m_id;
-#ifdef DEVELOPER
 	std::string m_name;
-#endif
+
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

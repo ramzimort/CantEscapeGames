@@ -7,6 +7,7 @@ Other Authors : <None>
 -End Header--------------------------------------------------------*/
 
 #include "Helpers.h"
+#include "CantDebug/DebugManager.h"
 #include "CantDebug/CantDebug.h"
 #include "Helper/Hash.h"
 
@@ -63,6 +64,12 @@ namespace CantReflect
 					writer.Null();
 			}
 
+			return true;
+		}
+		else if (t == type::get<StringId>())
+		{
+			StringId my_ID = var.get_value<StringId>();
+			writer.String(my_ID.getName().c_str());
 			return true;
 		}
 		else if (t == type::get<std::string>())

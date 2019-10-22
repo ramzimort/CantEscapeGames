@@ -27,7 +27,7 @@ public:
 	Factory(Factory const& rhs) = delete;
 private:
 	static void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
-	static void LoadObject(const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr);
+	static void LoadObject(const std::string& compSetup, const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr);
 
 	static ResourceManager* m_pResourceManager;
 	static DXRenderer* m_pDXRenderer;

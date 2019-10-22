@@ -10,6 +10,32 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
+	enum type
+	{
+		STRING,
+		FLOAT,
+		INTEGER,
+		VEC2,
+		VEC3,
+		VEC4,
+	};
+
+	struct PropertyInfo
+	{
+		PropertyInfo() = default;
+		type t;
+		size_t* i;
+		float* f;
+		std::string propValString;
+
+		float min;
+		float max;
+
+		std::string goName;
+		std::string compName;
+		std::string propName;
+	};
+
 	CANTDEBUG_API void InitDebugWindow(const std::string& name, SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
 
 	CANTDEBUG_API void UpdateDebugWindow();
@@ -33,6 +59,8 @@ namespace CantDebugAPI
 	CANTDEBUG_API void ResourceSetting(const char* dir, const char* file, bool* pFlag);
 	CANTDEBUG_API void PrefabButtonList(const char* button, bool* pFlag);
 	CANTDEBUG_API void ObjectButtonList(const char* id, const char* button, bool* pFlag, bool* pDoubleClicked, bool created);
-	CANTDEBUG_API void ComponentVec3(const char* compName, const char* propName, float* vec, float min, float max);
+	CANTDEBUG_API void ComponentData(PropertyInfo info);
 	CANTDEBUG_API void ResetResources();
+
+
 }

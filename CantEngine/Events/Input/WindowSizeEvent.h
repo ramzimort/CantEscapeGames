@@ -10,9 +10,6 @@ public:
 
 	WindowSizeEvent(size_t width, size_t height) :
 		m_width(width), m_height(height) {
-		int a = 5;
-		a = a++;
-		a *= height;
 		//DEBUG_LOG("w: %d, h: %d", width, height);
 	}
 	virtual ~WindowSizeEvent() { }

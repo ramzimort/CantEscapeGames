@@ -3,6 +3,8 @@
 #include "CheckboxQueue.h"
 #include <unordered_map>
 #include <DirectXTK/SimpleMath.h>
+#include "..\CantDebug\CantDebug.h"
+#include <map>
 
 struct Info
 {
@@ -12,25 +14,17 @@ struct Info
 	bool* DoubleClicked;
 };
 
-struct ComponentInfo
-{
-	std::string CompName;
-	std::string PropName;
-	float* vec3;
-	float min;
-	float max;
-};
-
+using namespace CantDebugAPI;
 class Editor
 {
 	typedef std::pair<std::string, bool> ResourceInclude;
 	typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
 	typedef std::vector<Info> PrefabButtons;
-	typedef std::unordered_map<std::string, std::queue<ComponentInfo>> ComponentData;
+	typedef std::map<std::string, std::map<std::string, std::list<PropertyInfo>>> ComponentData;
 public:
 	Editor();
 	~Editor();
-	void UpdateComponents(const char* compName, const char* propName, float* vec, float min, float max);
+	void UpdateComponents(PropertyInfo info);
 	void UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created);
 	void UpdateResources(const char* dir, const char* asset, bool* pFlag);
 	void UpdatePrefabs(const char* prefabName, bool* p_buttonState);

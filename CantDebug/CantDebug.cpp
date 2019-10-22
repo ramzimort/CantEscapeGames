@@ -86,9 +86,9 @@ namespace CantDebugAPI
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
-		//ImGui::Checkbox("Demo Window", &_showDemoWindow);
-		//if (_showDemoWindow)
-		//	ImGui::ShowDemoWindow();
+		ImGui::Checkbox("Demo Window", &_showDemoWindow);
+		if (_showDemoWindow)
+			ImGui::ShowDemoWindow();
 
 		UpdateWindow();
 		
@@ -171,11 +171,12 @@ namespace CantDebugAPI
 	{
 		g_Editor->UpdateObjects(id, button, pFlag, pDoubleClick, created);
 	}
-	void ComponentVec3(const char* compName, const char* propName, float* vec, float min, float max)
-	{
-		g_Editor->UpdateComponents(compName, propName, vec, min, max);
-	}
 
+	void ComponentData(PropertyInfo info)
+	{
+		g_Editor->UpdateComponents(info);
+
+	}
 }
 
 void UpdateWindow()
@@ -193,6 +194,11 @@ void UpdateWindow()
 		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 		if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
 		{
+			if (ImGui::BeginTabItem("Edit"))
+			{
+				g_Editor->Update();
+				ImGui::EndTabItem();
+			}
 			if (ImGui::BeginTabItem("Graphics"))
 			{
 				UpdateGraphicsSettings();
@@ -201,11 +207,6 @@ void UpdateWindow()
 			if (ImGui::BeginTabItem("Memory"))
 			{
 				UpdateMemoryProfile();
-				ImGui::EndTabItem();
-			}
-			if (ImGui::BeginTabItem("Edit"))
-			{
-				g_Editor->Update();
 				ImGui::EndTabItem();
 			}
 			if (ImGui::BeginTabItem("Console"))

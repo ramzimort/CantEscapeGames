@@ -31,8 +31,8 @@ public:
 	typedef std::bitset< MAX_NUM_COMPONENTS > ComponentMask;
 
 public:
-	GameObject(GameObjectManager *goMgr);
-	GameObject(GameObjectManager *goMgr, std::string tag);
+	GameObject(GameObjectManager *goMgr, std::string prefabName);
+	GameObject(GameObjectManager* goMgr, std::string prefabName, std::string tag);
 	virtual ~GameObject();
 
 	//Component methods
@@ -61,6 +61,7 @@ public:
 	ComponentMask GetComponentMask() const;
 	size_t GetId() const;
 	const std::string& GetTag() const;
+	const std::string& GetPrefabName() const;
 	GameObjectManager *GetGOManager();
 
 
@@ -86,6 +87,7 @@ private:
 
 	//Tag will be an optional identifier, set by us in the json file
 	std::string m_tag;
+	std::string m_prefabName;
 
 	//Container for the ENGINE components - For now separated from custom
 	BaseComponent* m_components[MAX_NUM_COMPONENTS] = { 0 }; //128 bytes
