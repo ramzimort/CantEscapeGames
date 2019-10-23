@@ -10,7 +10,7 @@
 
 struct SwapChain
 {
-	IDXGISwapChain* m_d3d_swap_chain;
+	IDXGISwapChain1* m_d3d_swap_chain;
 	RenderTarget* m_p_swap_chain_render_target;
 };
 
