@@ -24,7 +24,8 @@
             "Scripts\\Components\\fpscontroller.lua",
             "Scripts\\Components\\test01Comp.lua",
             "Scripts\\Components\\test02Comp.lua",
-            "Scripts\\States\\level1.lua"
+            "Scripts\\States\\level1.lua",
+            "Scripts\\States\\Testing.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -42,6 +43,82 @@
         "Audio": []
     },
     "Objects": [
+        {
+            "tag": "lvleditor",
+            "prefab": "Assets\\Prefabs\\lvleditor.json",
+            "overrides": {}
+        },
+        {
+            "tag": "RGDBDY1",
+            "prefab": "Assets\\Prefabs\\RBTestObj.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.025777751579880716,
+                        -0.9827133417129516,
+                        -4.8290114402771
+                    ],
+                    "Rotation": [
+                        3.286409854888916,
+                        -3.6210217475891115,
+                        -0.3417545557022095
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": true,
+                    "Velocity": [
+                        0.09561800956726074,
+                        -0.30645251274108889,
+                        -0.3307763934135437
+                    ],
+                    "Mass": 1.0,
+                    "IsStatic": true,
+                    "CollisionMask": "DINAMIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "point_light2",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        15.0,
+                        5.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 10.0,
+                        "CastShadow": true,
+                        "Radius": 10.0
+                    }
+                }
+            }
+        },
         {
             "tag": "Brick_Floor",
             "prefab": "Assets\\Prefabs\\brick_wall.json",
@@ -74,40 +151,40 @@
             }
         },
         {
-            "tag": "RGDBDY1",
+            "tag": "RGDBDYGROUND",
             "prefab": "Assets\\Prefabs\\RBTestObj.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -0.03042871691286564,
-                        -1.0028270483016968,
-                        -4.896276473999023
+                        0.0,
+                        -2.0,
+                        -5.0
                     ],
                     "Rotation": [
-                        0.11822632700204848,
-                        -1.192641258239746,
-                        -0.12840503454208378
+                        0.0,
+                        0.0,
+                        0.0
                     ],
                     "Scale": [
+                        10.0,
                         1.0,
-                        1.0,
-                        1.0
+                        10.0
                     ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\Material1.json"
+                    "MaterialId": "Assets\\Materials\\MaterialDarkGreen.json"
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
                 },
                 "RigidBodyComponent": {
-                    "IsEffectedByGravity": true,
+                    "IsEffectedByGravity": false,
                     "Velocity": [
-                        0.036315273493528369,
-                        0.1256115585565567,
-                        0.0920124277472496
+                        0.0,
+                        0.0,
+                        0.0
                     ],
-                    "Mass": 1.0,
+                    "Mass": 3.3999999521443644e38,
                     "IsStatic": true,
                     "CollisionMask": "DINAMIC_OBJ"
                 }
@@ -157,42 +234,33 @@
             }
         },
         {
-            "tag": "RGDBDYGROUND",
-            "prefab": "Assets\\Prefabs\\RBTestObj.json",
+            "tag": "point_light1",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
                         0.0,
-                        -2.0,
-                        -5.0
+                        5.0,
+                        0.0
                     ],
                     "Rotation": [
                         0.0,
                         0.0,
                         0.0
-                    ],
-                    "Scale": [
-                        10.0,
-                        1.0,
-                        10.0
                     ]
                 },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\MaterialDarkGreen.json"
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                },
-                "RigidBodyComponent": {
-                    "IsEffectedByGravity": false,
-                    "Velocity": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Mass": 3.3999999521443644e38,
-                    "IsStatic": true,
-                    "CollisionMask": "DINAMIC_OBJ"
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 10.0,
+                        "CastShadow": true,
+                        "Radius": 10.0
+                    }
                 }
             }
         },
@@ -283,37 +351,6 @@
             }
         },
         {
-            "tag": "point_light2",
-            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        15.0,
-                        5.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 10.0,
-                        "CastShadow": true,
-                        "Radius": 10.0
-                    }
-                }
-            }
-        },
-        {
             "tag": "directional_light01",
             "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
             "overrides": {
@@ -339,37 +376,6 @@
                         ],
                         "Intensity": 2.0,
                         "CastShadow": true
-                    }
-                }
-            }
-        },
-        {
-            "tag": "point_light1",
-            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        5.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 10.0,
-                        "CastShadow": true,
-                        "Radius": 10.0
                     }
                 }
             }

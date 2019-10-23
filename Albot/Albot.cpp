@@ -12,9 +12,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
 	CantEngineAPI::InitializeUserSettings("Albot");
-
-
 	CantEngineAPI::InitializeEngine("Assets/Levels/level1.json", 1280, 720);
-
-
 }
