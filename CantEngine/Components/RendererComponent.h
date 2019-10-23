@@ -49,6 +49,10 @@ private:
 	float m_xTileFactor;
 	float m_yTileFactor;
 
+#ifdef DEVELOPER	
+	friend class CantDebug::DebugManager;
+#endif
+
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;
 };

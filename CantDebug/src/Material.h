@@ -1,24 +1,16 @@
 #pragma once
 
-struct MaterialControls
-{
-
-};
-
-struct MaterialInfo
-{
-
-};
+#include "..\CantDebug\CantDebug.h"
 
 class MaterialMaker
 {
-	typedef std::unordered_map<std::string, std::vector<MaterialInfo>> MaterialList;
 public:
 	MaterialMaker();
 	~MaterialMaker();
 
 	void Update();
+	void UpdateInfo(CantDebugAPI::MaterialInfo info);
 
 private:
-	MaterialList m_materialParams;
+	CantDebugAPI::MaterialInfo m_materialParams;
 };

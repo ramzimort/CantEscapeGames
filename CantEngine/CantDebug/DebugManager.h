@@ -12,6 +12,22 @@
 
 namespace CantDebug
 {
+	struct MaterialInfo
+	{
+		bool GenerateFile;
+		std::string OutputFileName;
+
+		MaterialInfo() = default;
+		std::string DiffuseTexturePath = "";
+		std::string NormalTexturePath = "";
+		std::string HeightTexturePath = "";
+		Vector4 DiffuseColor;
+		Vector4 SpecularColor;
+
+		std::vector<std::string> TextureList;
+	};
+
+
 	struct DebugConfig
 	{
 		bool SelectionTool = false;
@@ -33,6 +49,7 @@ namespace CantDebug
 	struct CompInfo
 	{
 		CompDataUnion data;
+		std::string strVal;
 		CantDebugAPI::type type;
 		std::string compName;
 		std::string propName;
@@ -85,6 +102,7 @@ namespace CantDebug
 		void UpdateResources();
 		void UpdatePrefabCreation();
 		void UpdateState();
+		void UpdateMaterialInfo();
 
 		// Helpers
 		std::vector<GameObject*> GetSelectedObjects();
@@ -115,6 +133,7 @@ namespace CantDebug
 		ObjectList m_objectList;
 		ResourceMap m_resources;
 		PrefabButtonList m_prefabList;
+		MaterialInfo m_materialInfo;
 
 		MeshObjectList m_meshObjects;
 		DynamicAabbTree m_AabbTree;

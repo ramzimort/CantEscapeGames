@@ -18,7 +18,7 @@ fpscontroller =
 	Right = false;
 
 	MoveSpeed = 10.0;
-	RotationSpeed = -100.0 * 3.14159 / 180.0;
+	RotationSpeed = -10.0 * 3.14159 / 180.0;
 }
 
 --Init called when comp is created

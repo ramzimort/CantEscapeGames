@@ -74,6 +74,57 @@ namespace CantDebug
 		{
 			CantDebugAPI::PrefabButtonList(info.Name.c_str(), &info.Pressed);
 		}
+
+
+		// Material Generator Initialization
+		CantDebugAPI::MaterialInfo debugInfo;
+		debugInfo.Pressed = &m_materialInfo.GenerateFile;
+		debugInfo.OutputPath = &m_materialInfo.OutputFileName;
+		debugInfo.DiffuseTexturePath = &m_materialInfo.DiffuseTexturePath;
+		debugInfo.NormalTexturePath = &m_materialInfo.NormalTexturePath;
+		debugInfo.HeightTexturePath = &m_materialInfo.HeightTexturePath;
+		debugInfo.DiffuseColor = &m_materialInfo.DiffuseColor.x;
+		debugInfo.SpecularColor = &m_materialInfo.SpecularColor.x;
+		for (auto it = m_resources["Assets\\Textures\\"].begin(); it != m_resources["Assets\\Textures\\"].end(); ++it)
+		{
+			m_materialInfo.TextureList.push_back(it->FullPath);
+		}
+		debugInfo.TextureList = &m_materialInfo.TextureList;
+		CantDebugAPI::MaterialData(debugInfo);
+
+	}
+
+	void DebugManager::UpdateMaterialInfo()
+	{
+		if (m_materialInfo.GenerateFile)
+		{
+			// Output json here:
+			using namespace rapidjson;
+			Document doc;
+			StringBuffer sb;
+			PrettyWriter<StringBuffer> writer(sb);
+
+			writer.StartObject();
+			writer.Key("Diffuse_Texture_Dir"); writer.String(m_materialInfo.DiffuseTexturePath);
+			writer.Key("Normal_Texture_Dir"); writer.String(m_materialInfo.NormalTexturePath);
+			writer.Key("Height_Texture_Dir"); writer.String(m_materialInfo.HeightTexturePath);
+			writer.Key("Diffuse_Color"); writer.StartArray();
+			writer.Double(m_materialInfo.DiffuseColor.x); writer.Double(m_materialInfo.DiffuseColor.y); writer.Double(m_materialInfo.DiffuseColor.z); writer.Double(m_materialInfo.DiffuseColor.z);
+			writer.EndArray();
+			writer.Key("Specular_Color"); writer.StartArray();
+			writer.Double(m_materialInfo.SpecularColor.x); writer.Double(m_materialInfo.SpecularColor.y); writer.Double(m_materialInfo.SpecularColor.z); writer.Double(m_materialInfo.SpecularColor.z);
+			writer.EndArray();
+			writer.EndObject();
+
+			ofstream out_file;
+			out_file.open("Assets\\Materials\\" + m_materialInfo.OutputFileName + ".json");
+			if (out_file.is_open())
+			{
+				out_file << sb.GetString();
+				out_file.close();
+			}
+			m_materialInfo.GenerateFile = false;
+		}
 	}
 
 	void DebugManager::UpdateObjects()
@@ -177,6 +228,7 @@ namespace CantDebug
 		UpdateObjects();
 		UpdateResources();
 		UpdatePrefabCreation();
+		UpdateMaterialInfo();
 
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
@@ -305,7 +357,7 @@ namespace CantDebug
 		// Register dynamic AABB for raycast
 		static unsigned int key = 0;
 		MeshComponent* mesh = go->GetComponent<MeshComponent>();
-		if (mesh == nullptr)
+		if (mesh == nullptr || go->HasComponent<AnimationComponent>())
 			return;
 		SpatialPartitionData data1;
 		Aabb aabb = mesh->GetModel()->GetAABB();
@@ -330,6 +382,11 @@ namespace CantDebug
 		if (rigidbdy)
 		{
 			info.compName = "RigidBody"; info.propName = "Mass"; info.data.f = rigidbdy->GetMass(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
+		}
+		auto renderer = go->GetComponent<RendererComponent>();
+		if (renderer)
+		{
+			info.compName = "Renderer"; info.propName = "MaterialId"; info.strVal = renderer->m_materialId.getName(); info.type = CantDebugAPI::STRING; components.push_back(info);
 		}
 
 	}
@@ -473,6 +530,16 @@ namespace CantDebug
 			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 50.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
+		auto renderer = go->GetComponent<RendererComponent>();
+		if (renderer)
+		{
+			debugInfo.compName = it->compName;
+			renderer->m_materialId = it->strVal;
+			debugInfo.propName = it->propName;
+			debugInfo.propValString = &it->strVal; debugInfo.t = CantDebugAPI::STRING;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
+
 	}
 	
 	void DebugManager::UpdateComponents(GameObject* go)
@@ -490,6 +557,11 @@ namespace CantDebug
 		if (rigidBody)
 		{
 			it->data.f = rigidBody->GetMass(); ++it;
+		}
+		auto renderer = go->GetComponent<RendererComponent>();
+		if (renderer)
+		{
+			it->strVal = renderer->m_materialId.getName(); ++it;
 		}
 	}
 

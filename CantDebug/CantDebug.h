@@ -20,7 +20,20 @@ namespace CantDebugAPI
 		VEC4,
 	};
 
-	struct MaterialInfo;
+	struct MaterialInfo
+	{
+		MaterialInfo() = default;
+		bool* Pressed;
+		std::string* OutputPath;
+
+		std::string* DiffuseTexturePath;
+		std::string* NormalTexturePath;
+		std::string* HeightTexturePath;
+		float* DiffuseColor;
+		float* SpecularColor;
+
+		std::vector<std::string>* TextureList;
+	};
 
 	struct PropertyInfo
 	{
@@ -28,7 +41,7 @@ namespace CantDebugAPI
 		type t;
 		size_t* i;
 		float* f;
-		std::string propValString;
+		std::string* propValString;
 
 		float min;
 		float max;
@@ -64,5 +77,5 @@ namespace CantDebugAPI
 	CANTDEBUG_API void ComponentData(PropertyInfo info);
 	CANTDEBUG_API void ResetResources();
 
-
+	CANTDEBUG_API void MaterialData(MaterialInfo info);
 }

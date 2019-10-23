@@ -2,6 +2,7 @@
 #include "Editor.h"
 #include "Directory.h"
 #include "..\imgui\imgui.h"
+#include "..\imgui\imgui_stdlib.h"
 
 using namespace std;
 
@@ -148,13 +149,19 @@ void Editor::UpdateComponentWindow()
 	{
 		// Place components here to be used by the thing.
 		int i = 0;
+		ImGui::Separator();
+		ImGui::Separator();
+
 		for(auto it = m_components.begin(); it != m_components.end(); ++it)
 		{
 			const std::string& objName = it->first;
 			auto& comps = it->second;
 			// Obj Tree
 			i++; ImGui::PushID(i);
+			
+
 			ImGui::Text(objName.c_str());
+			ImGui::Separator();
 			for (auto it2 = comps.begin(); it2 != comps.end(); ++it2)
 			{
 				ImGui::Text(it2->first.c_str());
@@ -180,6 +187,7 @@ void Editor::UpdateComponentWindow()
 						ImGui::SliderInt(it3->propName.c_str(), (int*)(it3->i), static_cast<int>(it3->min), static_cast<int>(it3->max));
 						break;
 					case STRING:
+						ImGui::InputText(it3->propName.c_str(), it3->propValString);
 						break;
 					}
 					ImGui::Indent(-10.f);

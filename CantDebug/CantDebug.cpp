@@ -7,6 +7,7 @@
 #include "src/MemoryProfiler.h"
 #include "src/InputQueue.h"
 #include "src/Editor.h"
+#include "src/Material.h"
 
 // Data
 static SDL_Window*				g_mainWindow = NULL;
@@ -26,6 +27,7 @@ static SliderFloatQueue*		g_sliderFloatQueue = NULL;
 static CheckboxQueue*			g_checkBoxQueue = NULL;
 static InputQueue*				g_InputQueue = NULL;
 static Editor*					g_Editor = NULL;
+static MaterialMaker*			g_materialMaker = NULL;
 
 // Our State
 bool _update = true;
@@ -58,7 +60,6 @@ namespace CantDebugAPI
 		g_iniFileName = userDir +"imgui.ini";
 		io.IniFilename = g_iniFileName.c_str();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 		// Setup Dear ImGui style
 		//ImGui::StyleColorsDark();
@@ -75,6 +76,7 @@ namespace CantDebugAPI
 		g_checkBoxQueue = new CheckboxQueue();
 		g_InputQueue = new InputQueue();
 		g_Editor = new Editor();
+		g_materialMaker = new MaterialMaker();
 	}
 
 	void UpdateDebugWindow()
@@ -132,19 +134,37 @@ namespace CantDebugAPI
 		{
 			switch (e.type)
 			{
-			case SDL_QUIT:
-				quit = true;
-				break;
 			case SDL_KEYUP:
-				if (e.key.keysym.scancode == SDL_SCANCODE_TAB)
+				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 					_update = !_update;
-				break;
-			default:
-				if ((io.WantCaptureKeyboard || io.WantCaptureMouse) && _update)
+				if (io.WantCaptureKeyboard && _update)
 				{
 					ImGui_ImplSDL2_ProcessEvent(&e);
-					e = SDL_Event();
+					if (e.key.keysym.scancode != SDL_SCANCODE_DELETE)
+						e = SDL_Event();
 				}
+				break;
+			case SDL_KEYDOWN:
+				if (io.WantCaptureKeyboard)
+				{
+					ImGui_ImplSDL2_ProcessEvent(&e);
+					if (e.key.keysym.scancode != SDL_SCANCODE_DELETE)
+						e = SDL_Event();
+				}
+				break;
+			case SDL_MOUSEMOTION:
+			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
+				if (io.WantCaptureMouse)
+				{
+					e = SDL_Event();
+					ImGui_ImplSDL2_ProcessEvent(&e);
+					break;
+				}
+				else
+					break;
+			default:
+				ImGui_ImplSDL2_ProcessEvent(&e);
 				break;
 			}
 		}
@@ -177,6 +197,11 @@ namespace CantDebugAPI
 		g_Editor->UpdateComponents(info);
 
 	}
+
+	void MaterialData(MaterialInfo info)
+	{
+		g_materialMaker->UpdateInfo(info);
+	}
 }
 
 void UpdateWindow()
@@ -207,6 +232,11 @@ void UpdateWindow()
 			if (ImGui::BeginTabItem("Memory"))
 			{
 				UpdateMemoryProfile();
+				ImGui::EndTabItem();
+			}
+			if (ImGui::BeginTabItem("Material Maker"))
+			{
+				g_materialMaker->Update();
 				ImGui::EndTabItem();
 			}
 			if (ImGui::BeginTabItem("Console"))
@@ -263,4 +293,9 @@ void UpdateGraphicsSettings()
 void UpdateMemoryProfile()
 {
 	g_memoryProfiler->Update();
+}
+
+void UpdateMaterialMaker()
+{
+
 }

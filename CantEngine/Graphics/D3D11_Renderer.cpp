@@ -509,7 +509,7 @@ void DXRenderer::execute_queued_cmd()
 					{
 						Texture* p_cur_texture = (*p_cur_descriptor_data->m_textures) + srv_i;
 
-						srvs[srv_i] = p_cur_texture->m_p_srv;
+					srvs[srv_i] = p_cur_texture->m_p_srv;
 					}
 
 					set_shader_resources(p_cur_descriptor_data->m_binding_location,

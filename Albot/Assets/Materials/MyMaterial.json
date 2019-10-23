@@ -1,0 +1,17 @@
+{
+    "Diffuse_Texture_Dir": "Assets\\Textures\\floor.png",
+    "Normal_Texture_Dir": "Assets\\Textures\\redbrick.jpg",
+    "Height_Texture_Dir": "Assets\\Textures\\Skybox\\bottom.jpg",
+    "Diffuse_Color": [
+        0.6200000047683716,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "Specular_Color": [
+        0.0,
+        0.8799999952316284,
+        0.0,
+        0.0
+    ]
+}
