@@ -86,9 +86,9 @@ namespace CantDebugAPI
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplSDL2_NewFrame(g_mainWindow);
 		ImGui::NewFrame();
-		ImGui::Checkbox("Demo Window", &_showDemoWindow);
-		if (_showDemoWindow)
-			ImGui::ShowDemoWindow();
+		//ImGui::Checkbox("Demo Window", &_showDemoWindow);
+		//if (_showDemoWindow)
+		//	ImGui::ShowDemoWindow();
 
 		UpdateWindow();
 		

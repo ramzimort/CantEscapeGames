@@ -435,10 +435,8 @@ void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
 #ifdef DEVELOPER
 	static bool isSpacePressedIn = false;
 	static bool isRightPressedIn = false;
-#endif
 	switch (keyEvent->m_scancode)
 	{
-#ifdef DEVELOPER
 		case SDL_SCANCODE_SPACE:
 			isSpacePressedIn = !isSpacePressedIn;
 			if (isSpacePressedIn)
@@ -453,9 +451,11 @@ void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
 				m_isAdvanceOneStep = !m_isAdvanceOneStep;
 			}
 			break;
+		default:
+			break;
+	}
 #endif
 
-	}
 }
 
 
