@@ -71,6 +71,7 @@ namespace CantDebug
 		typedef std::unordered_map<std::string, std::vector<Info>> ResourceMap;
 		typedef std::vector<Info> PrefabButtonList;
 		typedef std::unordered_map<GameObject*, GameObjectData> MeshObjectList;
+		//typedef std::unordered_map<std::string, 
 
 	public:
 		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);

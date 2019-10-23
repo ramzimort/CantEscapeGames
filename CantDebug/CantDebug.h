@@ -20,6 +20,8 @@ namespace CantDebugAPI
 		VEC4,
 	};
 
+	struct MaterialInfo;
+
 	struct PropertyInfo
 	{
 		PropertyInfo() = default;

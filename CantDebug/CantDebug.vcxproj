@@ -275,6 +275,7 @@
     <ClInclude Include="src\Editor.h" />
     <ClInclude Include="src\InputQueue.h" />
     <ClInclude Include="src\Logger.h" />
+    <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\MemoryProfiler.h" />
     <ClInclude Include="src\SliderFloatQueue.h" />
     <ClInclude Include="stdafx.h" />
@@ -299,6 +300,7 @@
     <ClCompile Include="src\InputQueue.cpp" />
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\DataQueue.cpp" />
+    <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\MemoryProfiler.cpp" />
     <ClCompile Include="src\SliderFloatQueue.cpp" />
     <ClCompile Include="stdafx.cpp">
