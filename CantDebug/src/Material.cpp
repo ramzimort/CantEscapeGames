@@ -15,9 +15,9 @@ MaterialMaker::~MaterialMaker()
 
 void MaterialMaker::Update()
 {
-	if(ImGui::Begin("MaterialEditor"))
-	for (auto& material : m_materialParams)
-	{
-		material.first = 
-	}
+	//if(ImGui::Begin("MaterialEditor"))
+	//for (auto& material : m_materialParams)
+	//{
+	//	material.first = 
+	//}
 }

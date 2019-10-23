@@ -24,10 +24,14 @@ public:
 	static void Initialize(ResourceManager* resMgr, DXRenderer* dxRenderer, ScriptingManager* luaMgr);
 	static void LoadLevel(const std::string& path, GameObjectManager* goMgr);
 	static void LoadObject(GameObject* gameObject, const std::string& path);
+	static void RecursiveRead(rapidjson::Value::Object& _prefabList, const rapidjson::Value::Object& _overrideList, rapidjson::Document& output);
+	static rttr::variant GetComponent(GameObject* go, const std::string& name);
+
 	Factory(Factory const& rhs) = delete;
 private:
 	static void LoadResources(const rapidjson::Value::Object& resObj, ResourceManager* resMgr);
 	static void LoadObject(const std::string& compSetup, const std::string& prefabName, const std::string& tag, GameObjectManager *goMgr);
+	
 
 	static ResourceManager* m_pResourceManager;
 	static DXRenderer* m_pDXRenderer;

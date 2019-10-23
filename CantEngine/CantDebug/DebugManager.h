@@ -104,6 +104,7 @@ namespace CantDebug
 		void DisplayCompData(GameObject* go);
 		void UpdateComponents(GameObject* go);
 		void LevelToJson(const std::string& levelName);
+		void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 
 	private:
 		Vector2 m_scrDimensions = { 1280,720 };

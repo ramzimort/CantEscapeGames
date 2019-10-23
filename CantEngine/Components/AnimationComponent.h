@@ -70,7 +70,7 @@ private:
 	float m_animationTime;
 	float m_duration;
 	float m_currentTPS;
-	float m_loops;
+	bool m_loops;
 
 	//Switching anim variables
 	std::string nextAnimName;

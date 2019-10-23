@@ -186,7 +186,7 @@ void Factory::LoadObject(const std::string& compSetup, const std::string& prefab
 }
 
 // Helpers
-void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc)
+void Factory::RecursiveRead(rapidjson::Value::Object& _prefabList, const rapidjson::Value::Object& _overrideList, rapidjson::Document& doc)
 {
 	for (auto compIt = _prefabList.begin(); compIt != _prefabList.end(); ++compIt)
 	{
@@ -195,6 +195,8 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 		{
 			auto& _member = _prefabList[memberName];
 			auto& _override = _overrideList[memberName];
+			auto a = _member.GetType();
+			auto b = _override.GetType();
 			switch (_member.GetType())
 			{
 			case rapidjson::kObjectType:
@@ -214,7 +216,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 			case rapidjson::kFalseType:
 			case rapidjson::kTrueType:
 			{
-				_member.SetBool(_overrideList[_override].GetBool());
+				_member.SetBool(_override.GetBool());
 				break;
 			}
 			case rapidjson::kNumberType:
@@ -281,7 +283,7 @@ void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Obje
 	}
 }
 
-rttr::variant GetComponent(GameObject* go, const std::string& name)
+rttr::variant Factory::GetComponent(GameObject* go, const std::string& name)
 {
 	if (name == "TransformComponent")
 		return go->AddComponent<TransformComponent>();
@@ -304,6 +306,7 @@ rttr::variant GetComponent(GameObject* go, const std::string& name)
 	
 	return rttr::variant();
 }
+
 
 void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go)//, ScriptingManager* luaMgr)
 {

@@ -545,10 +545,12 @@ namespace CantDebug
 		writer.StartArray();
 		for (auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
 		{
+			if (it->first->GetPrefabName().empty())
+				continue;
 			writer.StartObject();
 			writer.Key("tag"); writer.String(it->first->GetTag().c_str());
 			writer.Key("prefab"); writer.String(it->first->GetPrefabName().c_str());
-			writer.Key("overrides"); writer.StartObject(); ReadOverrides(it->first, writer); writer.EndObject();
+			writer.Key("overrides"); ReadOverrides(it->first, writer);
 			writer.EndObject();
 		}
 		writer.EndArray();
@@ -573,8 +575,22 @@ namespace CantDebug
 		CantReflect::WriteRecursive(component, writer);
 	}
 
-	void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+	void DebugManager::ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& levelWriter)
 	{
+		using namespace rapidjson;
+
+		// Read the object in its current state completely.
+		// Get the prefabdoc from the resmgr
+		const std::string & prefabName = go->GetPrefabName();
+		StringId prefabId = StringId(prefabName);
+		const std::string prefabJson = m_pResourceManager->GetPrefab(prefabId);
+		rapidjson::Document prefabDoc;
+		prefabDoc.Parse(prefabJson);
+		assert(!prefabDoc.HasParseError());
+		
+		StringBuffer sb;
+		PrettyWriter<StringBuffer> writer(sb);
+		writer.StartObject();
 		if (go->HasComponent<TransformComponent>())
 			WriteComponentOverride(go->GetComponent<TransformComponent>(), writer);
 		if (go->HasComponent<RigidbodyComponent>())
@@ -593,6 +609,17 @@ namespace CantDebug
 			WriteComponentOverride(go->GetComponent<HaloEffectComponent>(), writer);
 		if (go->HasComponent<AnimationComponent>())
 			WriteComponentOverride(go->GetComponent<AnimationComponent>(), writer);
+		writer.EndObject();
+
+		Document overrideDoc;
+		overrideDoc.Parse(sb.GetString());
+		assert(!overrideDoc.GetParseError());
+
+		auto prefabList = prefabDoc.GetObjectA();
+		auto overrideList = overrideDoc.GetObjectA();
+
+		Factory::RecursiveRead(prefabList, overrideList, prefabDoc);
+		prefabDoc.Accept(levelWriter);
 	}
 }
 

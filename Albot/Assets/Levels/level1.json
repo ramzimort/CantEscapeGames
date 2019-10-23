@@ -61,7 +61,7 @@
           "Scale": [ 1.0, 1.0, 1.0 ]
         },
         "RigidBodyComponent": {
-          "IsEffectedByGravity": 1,
+          "IsEffectedByGravity": true,
           "Velocity": [ 0.0, 0.0, 0.0 ],
           "Mass": 1.0,
           "CollisionMask": "DINAMIC_OBJ"
@@ -78,7 +78,7 @@
           "Scale": [ 10.0, 1.0, 10.0 ]
         },
         "RigidBodyComponent": {
-          "IsEffectedByGravity": 0,
+          "IsEffectedByGravity": false,
           "Velocity": [ 0.0, 0.0, 0.0 ],
           "Mass": 3.4e38,
           "CollisionMask": "DINAMIC_OBJ"
@@ -189,17 +189,17 @@
             {
               "name": "DanceAnim",
               "path": "Assets\\Models\\AnimTest01.fbx",
-              "loops": 1
+              "loops": true
             },
             {
               "name": "StopAnim",
               "path": "Assets\\Models\\TestStand.fbx",
-              "loops": 1
+              "loops": true
             },
             {
               "name": "WalkAnim",
               "path": "Assets\\Models\\TestWalk.fbx",
-              "loops": 1
+              "loops": true
             }
           ]
         }
