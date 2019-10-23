@@ -418,7 +418,21 @@ void ScriptingManager::ManageBindings()
 		sol::meta_function::multiplication, sol::resolve<Vector3(float, Vector3 const&)>(operator*),
 		sol::meta_function::multiplication, sol::resolve<Vector3(Vector3 const&, float)>(operator*)
 	);
-	
+	luaState.new_usertype<Vector4>
+		(
+			"Vector4",
+			sol::constructors<Vector4(), Vector4(float), Vector4(float x, float y, float z, float w), Vector4(Vector4 const&) >(),
+			"x", &Vector4::x,
+			"y", &Vector4::y,
+			"z", &Vector4::z,
+			"w", &Vector4::w,
+			"dot", &Vector4::Dot,
+			// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+			sol::meta_function::addition, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator+),
+			sol::meta_function::subtraction, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator-),
+			sol::meta_function::multiplication, sol::resolve<Vector4(float, Vector4 const&)>(operator*),
+			sol::meta_function::multiplication, sol::resolve<Vector4(Vector4 const&, float)>(operator*)
+			);
 	luaState.new_usertype<Matrix>
 	(
 		"Matrix",
@@ -432,7 +446,8 @@ void ScriptingManager::ManageBindings()
 		"a31", &Matrix::_41, "a32", &Matrix::_42, "a33", &Matrix::_43, "a34", &Matrix::_44,
 		sol::meta_function::addition, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator-),
-		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*)
+		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*),
+		sol::meta_function::multiplication, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator*)
 	);
 
 	////////////////////
@@ -469,6 +484,7 @@ void ScriptingManager::ManageBindings()
 		"GetCameraComp",          &GameObject::GetComponent<CameraComponent>,
 		"GetParticleEmitterComp", &GameObject::GetComponent<ParticleEmitterComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
+		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
@@ -524,6 +540,14 @@ void ScriptingManager::ManageBindings()
 		"SetLocalRotation", &TransformComponent::SetLocalRotation
 	);
 
+	// UIComponent
+	luaState.new_usertype<UIComponent>
+		("UIComponent",
+			"IsTriggerd", &UIComponent::IsTriggerd,
+			"IsNotTriggered", &UIComponent::IsNotTriggered,
+			"GetLocation", &UIComponent::GetLocation
+			);
+
 	//RIGIDBODY
 	luaState.new_usertype<RigidbodyComponent>
 	(
@@ -559,6 +583,11 @@ void ScriptingManager::ManageBindings()
 	(
 		"Camera",
 		"GetForward", &Camera::GetForward,
+		"GetViewMatrix", &Camera::GetViewMatrix,
+		"GetViewProjectionMatrix", &Camera::GetViewProjectionMatrix,
+		"GetProjectionMatrix", &Camera::GetProjectionMatrix,
+		"GetScreenWidth", &Camera::GetScreenWidth,
+		"GetScreenHeight", &Camera::GetScreenHeight,
 		"GetRight", &Camera::GetRight,
 		"SetCameraPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),

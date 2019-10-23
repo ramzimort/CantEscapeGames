@@ -61,5 +61,6 @@
   <ItemGroup>
     <None Include="Assets\Materials\Red_Brick_Material.json" />
     <None Include="Assets\Prefabs\Lights\point_light.json" />
+    <None Include="Scripts\Components\Button.lua" />
   </ItemGroup>
 </Project>

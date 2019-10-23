@@ -25,7 +25,7 @@ public:
 	virtual ~UISystem();
 
 	virtual void Register_GameObject(GameObject *go) override;
-	virtual void Update(float dt, BaseSystemCompNode *compNode) override;
+	virtual void EarlyUpdate(float dt) override;
 
 	//virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
 
@@ -36,8 +36,7 @@ public:
 	static unsigned int const static_type;
 private:
 	AppRenderer* m_pAppRenderer;
-	//Event manager to get state
-	EventManager* World;
+
 	//Current UI State
 	int currentState;
 	//Previous UI state

@@ -18,6 +18,12 @@ public:
 
 	Multicast<void(int)> OnButtonClick;
 
+	void IsTriggerd();
+	void IsNotTriggered();
+
+	void IsTouched();
+	void IsNotTouched();
+	int GetLocation();
 
 public:
 	//Unique class identifier
@@ -31,7 +37,9 @@ private:
 	//Component count in state, (used when we want highlight a button when mouse cursor on it)
 	int locationCount;
 	//if mouse on ui object
-	bool triggerd;
+	bool isTouched;
+	//if mouse on ui object
+	bool isTriggerd;
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

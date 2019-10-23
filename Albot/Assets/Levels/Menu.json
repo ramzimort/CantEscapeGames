@@ -20,12 +20,13 @@
     ],
     "Scripts": [
       "Scripts/States/Menu.lua",
-      "Scripts/Components/UICamera.lua"
+      "Scripts/Components/UICamera.lua",
+	  "Scripts/Components/Button.lua"
     ]
   },
   "Objects": [
     {
-      "tag": "obj8",
+      "tag": "UIObject1",
       "prefab": "Assets/Prefabs/UIObject.json",
       "overrides": {
       }
@@ -35,13 +36,78 @@
       "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
+          "Position": [ 0.0, 3.0, -10.0],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+		  "Scale": [ 1.0, 1.0, 1.0 ]
         },
 		"UIComponent": {
 			"CurrentState": 0,
 			"NextState": 1,
 			"LocationCount": 0 
+		}	
+      }
+    },
+	{
+      "tag": "Button2",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 1.5, -10.0],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+		  "Scale": [ 1.0, 1.0, 1.0 ]
+        },
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 1 
+		}	
+      }
+    },
+	{
+      "tag": "Button3",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, -10.0],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+		  "Scale": [ 1.0, 1.0, 1.0 ]
+        },
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 2 
+		}	
+      }
+    },
+	{
+      "tag": "Button4",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, -1.5, -10.0],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+		  "Scale": [ 1.0, 1.0, 1.0 ]
+        },
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 3 
+		}	
+      }
+    },
+	{
+      "tag": "Button5",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, -3.0, -10.0],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+		  "Scale": [ 1.0, 1.0, 1.0 ]
+        },
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 4 
 		}	
       }
     },
