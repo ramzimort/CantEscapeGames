@@ -85,6 +85,8 @@ size_t Camera::GetId()
 
 void Camera::SetAspectRatio(size_t width, size_t height)
 {
+	screenWidth = width;
+	screenHeight = height;
 	m_aspect = static_cast<float>(width) / static_cast<float>(height);
 }
 
@@ -176,4 +178,13 @@ int32_t Camera::GetZOrder() const
 const Vector4& Camera::GetViewportRenderInformation() const
 {
 	return m_viewportRenderInformation;
+}
+
+size_t Camera::GetScreenWidth() const
+{
+	return screenWidth;
+}
+size_t Camera::GetScreenHeight() const
+{
+	return screenHeight;
 }

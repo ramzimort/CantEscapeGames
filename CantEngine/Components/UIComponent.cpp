@@ -16,7 +16,7 @@ RTTR_REGISTRATION
 		.method("Init", &UIComponent::Init);
 }
 
-UIComponent::UIComponent(GameObject *owner) :BaseComponent(owner, static_type), triggerd(false)
+UIComponent::UIComponent(GameObject *owner) :BaseComponent(owner, static_type), isTriggerd(false), isTouched(false)
 {
 
 }
@@ -31,4 +31,26 @@ void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 void UIComponent::Begin(GameObjectManager *goMgr)
 {
 
+}
+
+void UIComponent::IsTriggerd()
+{
+	isTriggerd = true;
+}
+void UIComponent::IsNotTriggered()
+{
+	isTriggerd = false;
+}
+
+void UIComponent::IsTouched()
+{
+	isTouched = true;
+}
+void UIComponent::IsNotTouched()
+{
+	isTouched = false;
+}
+int UIComponent::GetLocation()
+{
+	return locationCount;
 }

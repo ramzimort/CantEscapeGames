@@ -1,6 +1,7 @@
 
 -- First approximation of a component script
 
+
 UICamera = 
 {
 	-- MOUSE
@@ -17,9 +18,10 @@ UICamera =
 	Left = false;
 	Right = false;
 
-	MoveSpeed = 10.0;
-	RotationSpeed = -100.0 * 3.14159 / 180.0;
+	-- Buttons
+	CurrentButtonSelected = 0;
 }
+
 
 --Init called when comp is created
 UICamera.Init = function(self)
@@ -39,77 +41,40 @@ UICamera.Begin = function(self, owner, goMgr)
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	
 	OnMouseClick():Bind({self, self.OnMouseClick});
+
+	
 end
 
 --Update called every tick
 UICamera.Update = function(self, dt, owner) 
 
-	local transform_comp = owner:GetTransformComp();
-	local camera_comp = owner:GetCameraComp();
-	local camera = camera_comp:GetCamera();
-
-	local movement_amount = Vector2.new(0);
-	if (self.Forward) then
-		movement_amount.y = 1.0;
-	end
-	if (self.Backward) then
-		movement_amount.y = -1.0;
-	end
-	if (self.Left) then
-		movement_amount.x = -1.0;
-	end
-	if (self.Right) then
-		movement_amount.x = 1.0;
-	end
-
-	local position = transform_comp:GetPosition();
-	local movement = movement_amount * self.MoveSpeed * dt;
-	local strafe = camera:GetRight() * movement.x;
-	local forward = camera:GetForward() * movement.y;
-	position = position + strafe + forward;
-
-	--TRACE("a" .. position.x .. "\n");
-	
-	-- Left Click Case
-	if (self.LEFTCLICK) then
-		local rotationX = self.DeltaPositionX * dt * self.RotationSpeed;
-		local rotationY = self.DeltaPositionY * dt * self.RotationSpeed;
-		local rotation = Vector2.new(rotationX, rotationY);
-		local right = camera:GetRight();
-		local matrix = GetRotationMatrix(right, rotation);
-		camera:ApplyRotation(matrix);
-	end
-
-	
-	self.DeltaPositionX = 0.0;
-	self.DeltaPositionY = 0.0;
-
-	transform_comp:SetLocalPosition(position.x, position.y, position.z);
-	camera:SetCameraPosition(position);
+	_G.value = self.CurrentButtonSelected;
 end
 
 --Method
 UICamera.OnKey = function(self, key, state)
 	if(SCANCODE.W == key) then
 		self.Forward = state;
+		if(state == true) then
+			if(self.CurrentButtonSelected > 0) then
+				self.CurrentButtonSelected = self.CurrentButtonSelected -1;
+			end
+		end
 	elseif(SCANCODE.S == key) then
 		self.Backward = state;
-	elseif(SCANCODE.A == key) then
-		self.Left = state;
-	elseif(SCANCODE.D == key) then
-		self.Right = state;
+		if(state == true) then
+			if(self.CurrentButtonSelected < 5) then
+				self.CurrentButtonSelected = self.CurrentButtonSelected + 1;
+			end
+		end
 	end
 end
 
 UICamera.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
-	self.MousePositionY = position.y;
-	self.DeltaPositionX = deltaposition.x;
-	self.DeltaPositionY = deltaposition.y;
-
---	OutputPrint("x" .. self.DeltaPositionX .. "y" .. self.DeltaPositionY .. "\n");
-
 end
+
+	
 
 UICamera.OnMouseClick = function(self, button, state)
 	if(button == 1) then

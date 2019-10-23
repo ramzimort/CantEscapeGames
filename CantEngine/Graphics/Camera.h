@@ -53,6 +53,10 @@ public:
 
 	const Vector4& GetViewportRenderInformation() const;
 
+	size_t GetScreenWidth() const;
+	size_t GetScreenHeight() const;
+
+
 private:
 	void InitFromComponent();
 private:
@@ -80,6 +84,10 @@ private:
 	float m_aspect;
 	float m_near;
 	float m_far;
+
+	size_t screenWidth;
+	size_t screenHeight;
+
 
 	static size_t ID()
 	{

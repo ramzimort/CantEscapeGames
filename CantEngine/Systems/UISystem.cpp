@@ -8,7 +8,7 @@ unsigned const UISystem::static_type = BaseSystem::numberOfTypes++;
 
 UISystem::UISystem()
 {
-	World = EventManager::Get();
+	
 	Push_required_comp<TransformComponent>();
 	Push_required_comp<UIComponent>();
 }
@@ -26,7 +26,7 @@ void UISystem::Register_GameObject(GameObject *go)
 	component_node->m_goID = go->GetId();
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
-void UISystem::Update(float dt, BaseSystemCompNode *compNode)
+void UISystem::EarlyUpdate(float dt)
 {
 	for (auto& node : m_ObjComponentsMap)
 	{
@@ -34,8 +34,14 @@ void UISystem::Update(float dt, BaseSystemCompNode *compNode)
 		UIComponent* uiComponent = uiNode->uiComp;
 		TransformComponent* transformComponent = uiNode->m_transform;
 
-		
+		if (uiComponent->isTriggerd == true)
+		{
+			int test = 0;
+		}
+
 	}
+
+
 
 }
 
