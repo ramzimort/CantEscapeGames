@@ -13,6 +13,10 @@ public:
 		//DEBUG_LOG("w: %d, h: %d", width, height);
 	}
 	virtual ~WindowSizeEvent() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	size_t m_width;
 	size_t m_height;

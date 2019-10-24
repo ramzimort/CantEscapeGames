@@ -12,9 +12,12 @@ public:
 		m_state(state)
 	{
 		//DEBUG_LOG("Position: %f,%f; Delta: %f,%f, State: %d\n", pos.x, pos.y, delta.x, delta.y, state);
-		OnMouseClick()(button, state);
 	}
 	virtual ~MouseClickEvent() {}
+	virtual void operator()() override
+	{
+		OnMouseClick()(m_button, m_state);
+	}
 
 	static Multicast<void(Uint8, bool)>& OnMouseClick()
 	{

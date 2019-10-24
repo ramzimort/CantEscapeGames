@@ -2,6 +2,7 @@
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "Graphics/AppRenderer.h"
+#include "FrameManager.h"
 #include "ResourceManager.h"
 #include "StateManager.h"
 #include "Graphics/Camera.h"
@@ -15,6 +16,9 @@ EventManager* EventManager::m_EventManager = new EventManager();
 
 EventManager::EventManager()
 {
+	//AllocConsole();
+	//freopen("CONOUT$", "w", stdout);
+	//std::cout << "This works" << std::endl;
 }
 
 EventManager::~EventManager()
@@ -61,6 +65,15 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 	m_pAppRenderer->LoadContent();
 
 	m_pInputManager->SetWindowSize(width, height);
+
+	SubscribeEvent<QuitEvent>(this, std::bind(&EventManager::OnQuit, this, std::placeholders::_1));
+}
+
+void EventManager::OnQuit(const QuitEvent* e)
+{
+	m_quit1 = true;
+	m_quit2 = true;
+
 }
 
 EventManager* EventManager::Get()
@@ -68,26 +81,39 @@ EventManager* EventManager::Get()
 	return m_EventManager;
 }
 
-void EventManager::Update(float dt)
+void EventManager::Update()
 {
 	m_pInputManager->Update();
-	m_pStateManager->ProcessInstantiationAndDestruction();
-	m_pStateManager->UpdateStack(dt);
-	m_pStateManager->DrawStack(dt);
+	m_quit2 = true;
+
+}
+
+void EventManager::Update2()
+{
+	EventManager* World = EventManager::Get();
+	FrameManager frame_manager;
+	bool done = false;
+	float dt;
+	while (!m_quit2)
+	{
+		frame_manager.StartFrame();
+		dt = static_cast<float>(frame_manager.GetFloatFrameTime());
+		m_pStateManager->ProcessInstantiationAndDestruction();
+		m_pStateManager->UpdateStack(dt);
+		m_pStateManager->DrawStack(dt);
 
 #ifdef DEVELOPER
-	m_pDebugManager->Update();
+		m_pDebugManager->Update();
 #endif // DEVELOPER
 
-	m_pAppRenderer->UpdateAppRenderer(dt);
+		m_pAppRenderer->UpdateAppRenderer(dt);
+		m_pAppRenderer->RenderApp();
 
-	m_pAppRenderer->RenderApp();
-
-
-	DEBUG_UPDATE;
-	m_pAppRenderer->PresentApp();
-	m_pEventBus->Update(dt);
-
+		DEBUG_UPDATE;
+		m_pAppRenderer->PresentApp();
+		m_pEventBus->Update(dt);
+		frame_manager.EndFrame();
+	}
 }
 
 

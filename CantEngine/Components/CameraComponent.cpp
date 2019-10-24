@@ -47,8 +47,3 @@ Camera& CameraComponent::GetCamera()
 {
 	return m_camera;
 }
-
-void CameraComponent::SetCamera(const Camera& lhs)
-{
-	m_camera = lhs;
-}

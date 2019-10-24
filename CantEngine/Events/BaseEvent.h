@@ -9,6 +9,7 @@ public:
 	friend class EventManager;
 public:
 	virtual ~BaseEvent();
+	virtual void operator()() = 0;
 	float m_delay;
 protected:
 	BaseEvent();

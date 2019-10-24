@@ -21,38 +21,35 @@ public:
 	InputManager();
 	~InputManager();
 	void Update();
-	bool IsKeyPressed(unsigned int KeyScanCode);
+	bool IsKeyPressed(unsigned int KeyScanCode) const; 
 	
 	/** Get mouse position in screen space as int[2] array (depends on window width/height) */
-	int* GetPointerLocation();
+	const int* GetPointerLocation() const;
 	/** Get mouse position in screen space as vec2 (depends on window width/height) */
-	Vector2 GetPointerLocVec2();
+	Vector2 GetPointerLocVec2() const;
 	/** Get mouse position change b/w frames as vec2 (depends on window width/height) */
-	Vector2 GetPointerDeltaVec2();
+	Vector2 GetPointerDeltaVec2() const;
 
 	/** Check mouse button press */
-	bool IsMousePressed(unsigned int MouseScanCode);
+	bool IsMousePressed(unsigned int MouseScanCode) const;
 	/** Check mouse button trigger (rising edge) */
-	bool IsMouseTriggered(unsigned int MouseScanCode);
+	bool IsMouseTriggered(unsigned int MouseScanCode) const;
 	/** Check mouse button release (falling edge) */
-	bool IsMouseReleased(unsigned int MouseScanCode);
+	bool IsMouseReleased(unsigned int MouseScanCode) const;
 	/** Returns scrolling amount in y-direction*/
-	Sint32 GetMouseScroll();
+	Sint32 GetMouseScroll() const;
 
 	void SetWindowSize(size_t width, size_t height);
 
 	SDL_Window* GetWindow();
 	/** Check if exit button is pressed (close window) */
-	bool IsQuit();
+	bool IsQuit() const;
 
 private:
-	void UpdateMouseState();
-
-
+	void UpdateMouseClickState();
 private:
 	SDL_Window* m_pWindow;
 	std::array<bool, 512> m_keyboardState;
-
 	Uint8 m_mouseStateCurrent;
 	Uint8 m_mouseStatePrevious;
 	int m_mousePositionCurrent[2];

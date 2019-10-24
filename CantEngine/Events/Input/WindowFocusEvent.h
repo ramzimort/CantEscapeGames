@@ -8,6 +8,10 @@ public:
 	WindowFocusEvent(bool gainedFocus) : 
 		m_gainedFocus(gainedFocus) { }
 	virtual ~WindowFocusEvent() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	bool m_gainedFocus;
 };

@@ -79,7 +79,8 @@ fpscontroller.Update = function(self, dt, owner)
 		local matrix = GetRotationMatrix(right, rotation);
 		camera:ApplyRotation(matrix);
 	end
-
+	--OutputPrint("Pos:" .. self.MousePositionX .. " " .. self.MousePositionY .. "\n");
+	--OutputPrint("DeltaPos:" .. self.DeltaPositionX .. " " .. self.DeltaPositionY .. "\n");
 	
 	self.DeltaPositionX = 0.0;
 	self.DeltaPositionY = 0.0;
@@ -107,7 +108,9 @@ fpscontroller.OnMouseMotion = function(self, position, deltaposition)
 	self.DeltaPositionX = deltaposition.x;
 	self.DeltaPositionY = deltaposition.y;
 
---	OutputPrint("x" .. self.DeltaPositionX .. "y" .. self.DeltaPositionY .. "\n");
+
+
+	--LOG("x" .. self.DeltaPositionX .. "y" .. self.DeltaPositionY .. "\n");
 
 end
 
@@ -117,6 +120,10 @@ fpscontroller.OnMouseClick = function(self, button, state)
 	elseif(button == 2) then
 		self.RIGHTCLICK = state;
 	end
+
+	--LOG("Button");
+	--LOG("Button" .. self.MousePositionX .. " " ..  self.MousePositionY .. "\n");
+
 end
 
 return fpscontroller;

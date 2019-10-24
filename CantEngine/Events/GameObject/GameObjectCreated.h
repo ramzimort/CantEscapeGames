@@ -11,6 +11,10 @@ public:
 	{
 	}
 	virtual ~GameObjectCreated() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	size_t m_ID;
 	GameObject* m_pGameObject;

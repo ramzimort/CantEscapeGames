@@ -13,6 +13,7 @@ class Event : public BaseEvent
 public:
 	typedef std::unique_ptr<Event> Ptr;
 	virtual ~Event() = default;
+	virtual void operator()() = 0;
 protected:
 	Event() = default;
 

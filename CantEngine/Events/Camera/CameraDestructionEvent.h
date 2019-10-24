@@ -13,6 +13,10 @@ public:
 		DEBUG_LOG("Removing Camera: %d\n", id);
 	}
 	virtual ~CameraDestructionEvent() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	size_t m_id;
 };

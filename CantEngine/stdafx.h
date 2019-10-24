@@ -34,6 +34,9 @@
 #include <algorithm>
 #include <functional>
 #include <filesystem>
+#include <thread>
+#include <mutex>
+#include <iostream>
 
 
 //DirectX and DirectXTK

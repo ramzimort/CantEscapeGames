@@ -11,6 +11,7 @@ EventBus::~EventBus()
 
 void EventBus::Update(float dt)
 {
+	std::lock_guard<std::mutex> lock(m_mutex);
 	m_eventQueue = std::move(m_eventBuffer);
 
 	auto it = m_eventQueue.begin();
@@ -36,8 +37,8 @@ void EventBus::Update(float dt)
 				cb.second->Call(pEvent.get());
 			}
 		}
+		(*pEvent.get())();
 		// Maybe not a good idea to erase and mark for deletion (Use intermediate buffer)
 		it = m_eventQueue.erase(it);
-		
 	}
 }

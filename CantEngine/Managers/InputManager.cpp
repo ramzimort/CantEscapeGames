@@ -40,102 +40,112 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::UpdateMouseState()
+void InputManager::UpdateMouseClickState()
 {
 	m_mouseStatePrevious = m_mouseStateCurrent;
-	m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
-	m_mouseStateCurrent = SDL_GetMouseState(m_mousePositionCurrent, m_mousePositionCurrent + 1);
+	m_mouseStateCurrent = SDL_GetMouseState(NULL, NULL);
 }
 
 
 void InputManager::Update()
 {
+	using namespace std::chrono_literals;
 	m_mouseWheelY = 0;
-	while (SDL_PollEvent(&m_event))
-	{
-		DEBUG_PROCESSIO(m_event, m_quit);
-		switch (m_event.type)
+	//while (!m_quit)
+	//{
+		//std::this_thread::sleep_for(1ms);
+		while (SDL_WaitEvent(&m_event) && !m_quit)
 		{
-
-		// ALL WINDOW EVENTS
-		case SDL_WINDOWEVENT:
-		{
-			if (m_event.window.windowID != SDL_GetWindowID(m_pWindow))
-				break;
-			switch (m_event.window.event)
+			DEBUG_PROCESSIO(m_event, m_quit);
+			switch (m_event.type)
 			{
-			case SDL_WINDOWEVENT_RESIZED:
-				// TODO: CALL RESIZE EVENT HERE WITH WIDTH AND HEIGHT AND ANY OTHER PARAMS 
-				break;
+			// ALL WINDOW EVENTS
+			case SDL_WINDOWEVENT:
+			{
+				if (m_event.window.windowID != SDL_GetWindowID(m_pWindow))
+					break;
+				switch (m_event.window.event)
+				{
+				case SDL_WINDOWEVENT_RESIZED:
+					// TODO: CALL RESIZE EVENT HERE WITH WIDTH AND HEIGHT AND ANY OTHER PARAMS 
+					break;
 
-			case SDL_WINDOWEVENT_FOCUS_GAINED:
-			case SDL_WINDOWEVENT_SHOWN:
-			case SDL_WINDOWEVENT_RESTORED:
-				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, true);
+				case SDL_WINDOWEVENT_FOCUS_GAINED:
+				case SDL_WINDOWEVENT_SHOWN:
+				case SDL_WINDOWEVENT_RESTORED:
+					EventManager::Get()->EnqueueEvent<WindowFocusEvent>(false, true);
+					break;
+				case SDL_WINDOWEVENT_HIDDEN:
+				case SDL_WINDOWEVENT_FOCUS_LOST:
+				case SDL_WINDOWEVENT_MINIMIZED:
+					EventManager::Get()->EnqueueEvent<WindowFocusEvent>(false, false);
+					break;
+				case SDL_WINDOWEVENT_CLOSE:
+					EventManager::Get()->EnqueueEvent<QuitEvent>(false);
+					m_quit = true;
+					break;
+				default:
+					break;
+				}
 				break;
-			case SDL_WINDOWEVENT_HIDDEN:
-			case SDL_WINDOWEVENT_FOCUS_LOST:
-			case SDL_WINDOWEVENT_MINIMIZED:
-				EventManager::Get()->EnqueueEvent<WindowFocusEvent>(true, false);
+			}
+			case SDL_JOYDEVICEADDED:
+				EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
 				break;
-			case SDL_WINDOWEVENT_CLOSE:
-				m_quit = true;
+			case SDL_JOYDEVICEREMOVED:
+				EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
+				break;
+			case SDL_MOUSEWHEEL:
+				break;
+			case SDL_MOUSEMOTION:
+			{
+				m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
+				m_mousePositionCurrent[0] = m_event.button.x; m_mousePositionCurrent[1] = m_event.button.y;
+				Vector2 Loc = GetPointerLocVec2();
+				Vector2 Delta = GetPointerDeltaVec2();
+				EventManager::Get()->EnqueueEvent<MouseMotionEvent>(false, Loc, Delta);
+				break;
+			}
+			case SDL_MOUSEBUTTONDOWN:
+				if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) == 0)
+				{
+					EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, true);
+					UpdateMouseClickState();
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
+				{
+					EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, false);
+					UpdateMouseClickState();
+				}
+				break;
+			case SDL_KEYDOWN:
+				if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
+					m_event.key.keysym.scancode < 512 &&
+					m_keyboardState[m_event.key.keysym.scancode] == false)
+				{
+					m_keyboardState[m_event.key.keysym.scancode] = true;
+					EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
+				}
+				break;
+			case SDL_KEYUP:
+				if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
+					m_event.key.keysym.scancode < 512 &&
+					m_keyboardState[m_event.key.keysym.scancode] == true)
+				{
+					m_keyboardState[m_event.key.keysym.scancode] = false;
+					EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
+				}
 				break;
 			default:
 				break;
 			}
-			break;
 		}
-		
-		case SDL_JOYDEVICEADDED:
-			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
-			break;
-		case SDL_JOYDEVICEREMOVED:
-			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
-			break;
-		case SDL_MOUSEWHEEL:
-			break;
-		case SDL_MOUSEMOTION:
-			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(false, GetPointerLocVec2(), GetPointerDeltaVec2());
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			if ((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) == 0)
-				EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, true);
-			break;
-		case SDL_MOUSEBUTTONUP:
-			if((m_mouseStateCurrent & SDL_BUTTON(m_event.button.button)) > 0)
-				EventManager::Get()->EnqueueEvent<MouseClickEvent>(false, m_event.button.button, false);
-			break;
-		case SDL_KEYDOWN:
-			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
-				m_event.key.keysym.scancode < 512 && 
-				m_keyboardState[m_event.key.keysym.scancode] == false)
-			{
-				m_keyboardState[m_event.key.keysym.scancode] = true;
-				EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
-			}
-			break;
-		case SDL_KEYUP:
-			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
-				m_event.key.keysym.scancode < 512 &&
-				m_keyboardState[m_event.key.keysym.scancode] == true)
-			{
-				m_keyboardState[m_event.key.keysym.scancode] = false;
-				EventManager::Get()->EnqueueEvent<KeyEvent>(false, m_event.key.keysym.scancode, m_event.key.state);
-			}
-			break;
-		default:
-			break;
-		}
-	}
-
-	UpdateMouseState();
-	// DEBUG
-	DEBUG_TRACE("Pointer: x = %f, y = %f", GetPointerLocVec2().x, GetPointerLocVec2().y);
-
+//	}
 }
 
-bool InputManager::IsKeyPressed(unsigned int KeyScanCode) 
+bool InputManager::IsKeyPressed(unsigned int KeyScanCode) const
 {
 	if (KeyScanCode >= 512)
 		return false;
@@ -143,18 +153,18 @@ bool InputManager::IsKeyPressed(unsigned int KeyScanCode)
 	return m_keyboardState[KeyScanCode];
 }
 
-int* InputManager::GetPointerLocation()
+const int* InputManager::GetPointerLocation() const
 {
 	return m_mousePositionCurrent;
 }
 
-Vector2 InputManager::GetPointerLocVec2()
+Vector2 InputManager::GetPointerLocVec2() const
 {
 	return Vector2( static_cast<float>(m_mousePositionCurrent[0]), 
 					static_cast<float>(m_mousePositionCurrent[1]));
 }
 
-Vector2 InputManager::GetPointerDeltaVec2()
+Vector2 InputManager::GetPointerDeltaVec2() const
 {
 	int deltaX = m_mousePositionCurrent[0] - m_mousePositionPrevious[0];
 	int deltaY = m_mousePositionCurrent[1] - m_mousePositionPrevious[1];
@@ -162,22 +172,22 @@ Vector2 InputManager::GetPointerDeltaVec2()
 	return Vector2(static_cast<float>(deltaX), static_cast<float>(deltaY));
 }
 
-bool InputManager::IsMousePressed(unsigned int MouseScanCode)
+bool InputManager::IsMousePressed(unsigned int MouseScanCode)  const
 {
 	return (m_mouseStateCurrent & SDL_BUTTON(MouseScanCode));
 }
 
-bool InputManager::IsMouseTriggered(unsigned int MouseScanCode)
+bool InputManager::IsMouseTriggered(unsigned int MouseScanCode)  const
 {
 	return (m_mouseStateCurrent & ~m_mouseStatePrevious & SDL_BUTTON(MouseScanCode));
 }
 
-bool InputManager::IsMouseReleased(unsigned int MouseScanCode)
+bool InputManager::IsMouseReleased(unsigned int MouseScanCode)  const
 {
 	return (m_mouseStatePrevious & ~m_mouseStateCurrent & SDL_BUTTON(MouseScanCode));
 }
 
-Sint32 InputManager::GetMouseScroll()
+Sint32 InputManager::GetMouseScroll()  const
 {
 	return m_mouseWheelY;
 }
@@ -194,7 +204,7 @@ SDL_Window* InputManager::GetWindow()
 }
 
 
-bool InputManager::IsQuit()
+bool InputManager::IsQuit()  const
 {
 	return m_quit;
 }

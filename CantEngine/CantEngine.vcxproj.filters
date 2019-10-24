@@ -755,5 +755,8 @@
     <ClInclude Include="Systems\UISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Events\State\StateEvents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

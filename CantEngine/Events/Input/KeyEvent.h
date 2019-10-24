@@ -11,9 +11,12 @@ public:
 		m_press(press)
 	{
 		DEBUG_LOG("Key: %s, State: %d\n", SDL_GetKeyName(SDL_GetKeyFromScancode(m_scancode)), press);
-		OnKeyEvent()((int)key_scancode, press);
 	}
 	virtual ~KeyEvent() { }
+	virtual void operator()() override
+	{
+		OnKeyEvent()((int)m_scancode, m_press);
+	}
 
 	static Multicast<void(int, bool)>& OnKeyEvent()
 	{

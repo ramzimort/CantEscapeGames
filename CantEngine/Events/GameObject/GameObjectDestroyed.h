@@ -11,6 +11,10 @@ public:
 	{
 	}
 	virtual ~GameObjectDestroyed() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	GameObject* m_pGameObject;
 	size_t m_ID;

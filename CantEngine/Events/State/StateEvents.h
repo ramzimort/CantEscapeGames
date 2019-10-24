@@ -3,6 +3,27 @@
 #include "Events/Event.h"
 #include "Events/Multicast.h"
 
+
+class QuitEvent : public Event<QuitEvent>
+{
+public:
+	QuitEvent()
+	{
+		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
+		//OnNewStatePushed()((int)key_scancode, press);
+	}
+	virtual ~QuitEvent() { }
+	virtual void operator()()
+	{
+		OnQuit();
+	}
+	static Multicast<void()>& OnQuit()
+	{
+		static Multicast<void()> m;
+		return m;
+	}
+};
+
 class PushStateEvent : public Event<PushStateEvent>
 {
 public:
@@ -22,6 +43,8 @@ public:
 
 	const std::string m_path;
 };
+
+
 
 class PopStateEvent : public Event<PopStateEvent>
 {

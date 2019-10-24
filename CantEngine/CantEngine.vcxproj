@@ -148,6 +148,7 @@
     <ClInclude Include="Animation\FBXLoader.h" />
     <ClInclude Include="Animation\Interpolation.h" />
     <ClInclude Include="Animation\Quaternion.h" />
+    <ClInclude Include="Events\State\StateEvents.h" />
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />

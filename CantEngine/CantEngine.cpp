@@ -11,16 +11,10 @@ namespace CantEngineAPI
 	{
 		EventManager* World = EventManager::Get();
 		World->Initialize(levelPath, w, h);
-		FrameManager frame_manager;
-		bool done = false;
-		float dt;
-		while (!World->IsQuit())
-		{
-			frame_manager.StartFrame();
-			dt = static_cast<float>(frame_manager.GetFloatFrameTime());
-			World->Update(dt);
-			frame_manager.EndFrame();
-		}
+
+		std::thread th1(&EventManager::Update2, World);
+		World->Update();
+		th1.join();
 	}
 	void InitializeUserSettings(const std::string& gameName)
 	{

@@ -2,6 +2,7 @@
 
 #include "Events/EventCallback.h"
 #include "Events/EventBus.h"
+#include "Events/State/StateEvents.h"
 #include "CantDebug/DebugManager.h"
 
 class BaseEvent;
@@ -24,9 +25,10 @@ public:
 	EventManager();
 	~EventManager();
 	static EventManager* Get();
-	
+	void OnQuit(const QuitEvent* e);
 	void Initialize(const std::string& levelName, size_t scr_width, size_t scr_height);
-	void Update(float dt);
+	void Update();
+	void Update2();
 	bool IsQuit();
 
 	template<typename T, typename ...Args>
@@ -47,9 +49,14 @@ private:
 	EventBus* m_pEventBus;
 	static EventManager* m_EventManager;
 
+	std::mutex m_mutex;
+	bool m_quit1;
+	bool m_quit2;
+
 #ifdef DEVELOPER
 	CantDebug::DebugManager* m_pDebugManager;
 #endif // !DEVELOPER
+
 
 };
 
@@ -70,5 +77,6 @@ void EventManager::UnsubscribeEvent(void* objPtr)
 template<typename T, typename ...Args>
 void EventManager::EnqueueEvent(Args&&... args)
 {
+	std::lock_guard<std::mutex> lock(m_mutex);
 	m_pEventBus->QueueEvent<T>(std::forward<Args>(args)...);
 }

@@ -16,6 +16,10 @@ public:
 		DEBUG_LOG("Registering Camera: %p\n", &rCamera);
 	}
 	virtual ~CameraRegistrationEvent() { }
+	virtual void operator()() override
+	{
+
+	}
 
 	Camera& m_camera;
 	size_t m_xViewPortPos;

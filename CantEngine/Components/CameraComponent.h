@@ -17,7 +17,6 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer);
 	void Begin(GameObjectManager *goMgr);
 	Camera& GetCamera();
-	void SetCamera(const Camera& lhs);
 public:
 	static ComponentId const static_type;
 
