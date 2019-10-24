@@ -14,6 +14,7 @@ Primary Author: Jose Rosenbluth
 #include "Events/Multicast.h"
 #include "Managers/GameObjectManager.h"
 #include "Managers/SystemManager.h"
+#include "Managers/StateManager.h"
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
 #include "ResourceManager.h"
@@ -374,17 +375,17 @@ void ScriptingManager::ManageBindings()
 	////  VECTORS & MATRICES  ////
 	//////////////////////////////
 	luaState.new_usertype<Vector2>
-		(
-			"Vector2",
-			sol::constructors<Vector2(), Vector2(float), Vector2(float x, float y), Vector2(const Vector2& rhs) >(),
-			"x", &Vector2::x,
-			"y", &Vector2::y,
-			"dot", &Vector2::Dot,
-			// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
-			sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
-			sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
-			sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
-			sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
+	(
+		"Vector2",
+		sol::constructors<Vector2(), Vector2(float), Vector2(float x, float y), Vector2(const Vector2& rhs) >(),
+		"x", &Vector2::x,
+		"y", &Vector2::y,
+		"dot", &Vector2::Dot,
+		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+		sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
+		sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
+		sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
+		sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
 	);
 
 	luaState.new_usertype<Vector3>
@@ -420,20 +421,25 @@ void ScriptingManager::ManageBindings()
 		);
 
 	////////////////////
-	////  SYSTEMS   ////
+	////  MANAGERS  ////
 	////////////////////
-	//luaState.new_usertype<WindowSizeEvent>
-	//(
-	//	"WindowSizeEvent",
-	//	sol::constructors<WindowSizeEvent(size_t, size_t)>()
-	//);
 
-	//luaState.new_usertype<EventManager>
-	//(
-	//	"EventManager",
-	//	"Get", &EventManager::Get,
-	//	"EnqueueWindowSizeEvent", &EventManager::EnqueueEvent<WindowSizeEvent>
-	//);	
+	//Solution so scripting can access stuff, even though the rest of the engine cant
+	luaState.new_usertype<EventManager>
+	(
+		"World",
+		"Get", &EventManager::Get,
+		"StateManager", &EventManager::m_pStateManager
+	);
+
+	//SYSTEM MANAGER
+	luaState.new_usertype<StateManager>
+	(
+		"StateManager",
+		"SwitchState", &StateManager::SwitchState,
+		"PushState", &StateManager::PushState,
+		"PopState", &StateManager::PopState
+	);
 
 	//SYSTEM MANAGER
 	luaState.new_usertype<SystemManager>

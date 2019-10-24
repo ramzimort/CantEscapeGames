@@ -39,6 +39,7 @@
     ],
     "Scripts": [
       "Scripts\\States\\level1.lua",
+      "Scripts\\States\\DebugPause.lua",
       "Scripts\\Components\\test01Comp.lua",
       "Scripts\\Components\\test02Comp.lua",
       "Scripts\\Components\\PlayerComp.lua",

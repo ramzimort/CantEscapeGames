@@ -43,10 +43,6 @@ end
 
 --Update called every tick
 fpscontroller.Update = function(self, dt, owner) 
-
-	--local a = EventManager.Get();
-	--a:EnqueueWindowSizeEvent(4, 4);
-	
 	
 	local transform_comp = owner:GetTransformComp();
 	local camera_comp = owner:GetCameraComp();

@@ -49,7 +49,7 @@ State::State(std::string const& path, AppRenderer* appRenderer,
 		//  we can check if the luastate associated is null
 		//  Either way, since the lua calls are protected, nothing should crash
 		m_stateScript = luaMgr->GetScriptDeepCopy(name_b);
-		assert(m_stateScript.lua_state() != nullptr);
+		//assert(m_stateScript.lua_state() != nullptr);
 
 		m_stateScript["OnCreateState"](m_stateScript);
 	}

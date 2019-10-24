@@ -1,7 +1,7 @@
 --TEMPLATE FOR A SCRIPTED STATE
 
 
-DebugPause = 
+DebugPause =
 {
 	name = "DebugPause"
 }

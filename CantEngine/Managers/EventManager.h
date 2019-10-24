@@ -18,6 +18,9 @@ class DebugManager;
 class EventManager
 {
 public:
+	friend class ScriptingManager;
+
+public:
 	EventManager();
 	~EventManager();
 	static EventManager* Get();

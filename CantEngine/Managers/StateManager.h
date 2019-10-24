@@ -29,6 +29,7 @@ public:
 	//This would be called when changing states, it empties 
 	//the stack, and pushes a state into the empty one. 
 	void SwitchState(const std::string& levelPath = "");
+	void ClearStack();
 
 	//These are called when we dont want to replace 
 	//a state, but put other states on top

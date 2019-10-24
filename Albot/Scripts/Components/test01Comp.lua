@@ -40,6 +40,14 @@ end
 --Begin called when obj has all comps
 test01Comp.Begin = function(self, owner, goMgr)
 
+	-----------------------
+	--  STATES  CHANGES  --
+	-----------------------
+	local world = World.Get();
+	--world.StateManager:SwitchState("");
+	--world.StateManager:PushState("nameOfState");
+
+	
 	OutputPrint("\n<<-- " .. self.name .. " BEGIN IN LUA -->>\n");
 
 	if (owner == nil) then
