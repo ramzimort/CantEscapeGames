@@ -10,9 +10,9 @@ EquirectangularToSkyboxRenderInstance::EquirectangularToSkyboxRenderInstance(Equ
 	m_source_texture_to_skybox_uniform_data_list.reserve(16);
 }
 
-void EquirectangularToSkyboxRenderInstance::render(Texture* src_texture, Texture* dest_texture)
+void EquirectangularToSkyboxRenderInstance::Render(Texture* src_texture, Texture* dest_texture)
 {
-	uint32_t mip_levels = dest_texture->get_desc().m_mip_levels;
+	uint32_t mip_levels = dest_texture->get_desc().m_mipLevels;
 
 
 	uint32_t skybox_width = dest_texture->get_desc().m_width;
@@ -22,61 +22,26 @@ void EquirectangularToSkyboxRenderInstance::render(Texture* src_texture, Texture
 	{
 		if (mip_index >= m_source_texture_to_skybox_uniform_buffer_list.size())
 		{
-			add_uniform_buffer();
+			AddUniformBuffer();
 		}
 
 		m_source_texture_to_skybox_uniform_data_list[mip_index].MipLevel = mip_index;
-		m_source_texture_to_skybox_uniform_data_list[mip_index].SkyboxSize = Vector4((skybox_width >> mip_index), (skybox_height >> mip_index), 0.f, 0.f);
+		m_source_texture_to_skybox_uniform_data_list[mip_index].SkyboxSize = Vector4(float(skybox_width >> mip_index), float(skybox_height >> mip_index), 0.f, 0.f);
 
 		BufferUpdateDesc update_desc = {};
 		update_desc.m_buffer = m_source_texture_to_skybox_uniform_buffer_list[mip_index];
-		update_desc.m_p_source = &m_source_texture_to_skybox_uniform_data_list[mip_index];
+		update_desc.m_pSource = &m_source_texture_to_skybox_uniform_data_list[mip_index];
 		update_desc.m_size = sizeof(SourceTextureToSkyboxUniformData);
 
 		m_parent_render.m_dxrenderer->cmd_update_buffer(update_desc);
 	}
-
-	/*DescriptorData params[3] = {};
-	params[0].m_binding_location = 0;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[0].m_samplers = &m_parent_render.m_app_renderer->m_texture_sampler;
-	params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	params[1].m_binding_location = 0;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[1].m_textures = &src_texture;
-	params[1].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	params[2].m_binding_location = 0;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_RW_TEXTURE;
-	params[2].m_textures = &dest_texture;
-	params[2].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	m_parent_render.m_dxrenderer->cmd_bind_descriptor(m_parent_render.m_to_skybox_pipeline, 3, params);
-
-	for (uint32_t mip_index = 0; mip_index < mip_levels; ++mip_index)
-	{
-		DescriptorData unique_params[1] = {};
-
-		unique_params[0].m_binding_location = 0;
-		unique_params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-		unique_params[0].m_buffers = &m_source_texture_to_skybox_uniform_buffer_list[mip_index];
-		unique_params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-		m_parent_render.m_dxrenderer->cmd_bind_descriptor(m_parent_render.m_to_skybox_pipeline, 1, unique_params);
-
-		m_parent_render.m_dxrenderer->cmd_dispatch((uint32_t)skybox_size.x / TO_SKYBOX_WORKGROUP_THREAD_ID_X,
-			(uint32_t)skybox_size.y / TO_SKYBOX_WORKGROUP_THREAD_ID_Y, 6u);
-	}*/
-
-
 
 	for (uint32_t mip_index = 0; mip_index < mip_levels; ++mip_index)
 	{
 		DescriptorData params[4] = {};
 		params[0].m_binding_location = 0;
 		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-		params[0].m_samplers = &m_parent_render.m_app_renderer->m_texture_sampler;
+		params[0].m_samplers = &m_parent_render.m_appRenderer->m_texture_sampler;
 		params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
 
 		params[1].m_binding_location = 0;
@@ -110,15 +75,15 @@ void EquirectangularToSkyboxRenderInstance::Release()
 	}
 }
 
-void EquirectangularToSkyboxRenderInstance::add_uniform_buffer()
+void EquirectangularToSkyboxRenderInstance::AddUniformBuffer()
 {
 	BufferLoadDesc to_skybox_uniform_buffer_desc = {};
-	to_skybox_uniform_buffer_desc.m_desc.m_bind_flags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	to_skybox_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_DYNAMIC;
-	to_skybox_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE;
-	to_skybox_uniform_buffer_desc.m_desc.m_debug_name = "To skybox";
+	to_skybox_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	to_skybox_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	to_skybox_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	to_skybox_uniform_buffer_desc.m_desc.m_debugName = "To skybox";
 	to_skybox_uniform_buffer_desc.m_size = sizeof(SourceTextureToSkyboxUniformData);
-	to_skybox_uniform_buffer_desc.m_raw_data = nullptr;
+	to_skybox_uniform_buffer_desc.m_rawData = nullptr;
 
 	Buffer* source_texture_to_skybox_uniform_buffer =
 		DXResourceLoader::Create_Buffer(m_parent_render.m_dxrenderer, to_skybox_uniform_buffer_desc);
@@ -129,7 +94,7 @@ void EquirectangularToSkyboxRenderInstance::add_uniform_buffer()
 }
 
 EquirectangularToSkyboxRender::EquirectangularToSkyboxRender(AppRenderer* app_renderer)
-	:m_app_renderer(app_renderer)
+	:m_appRenderer(app_renderer)
 {
 }
 
@@ -143,7 +108,7 @@ void EquirectangularToSkyboxRender::Release()
 	SafeReleaseDelete(m_to_skybox_pipeline);
 	SafeReleaseDelete(m_to_skybox_shader);
 
-	for (auto& ptr : m_instances_render)
+	for (auto& ptr : m_instancesRender)
 	{
 		SafeReleaseDelete(ptr);
 	}
@@ -151,15 +116,15 @@ void EquirectangularToSkyboxRender::Release()
 	//SafeReleaseDelete(m_source_texture_to_skybox_uniform_buffer);
 }
 
-void EquirectangularToSkyboxRender::render(Texture* src_texture, Texture* dest_texture)
+void EquirectangularToSkyboxRender::Render(Texture* src_texture, Texture* dest_texture)
 {
-	if (m_cur_instances_count >= m_instances_render.size())
+	if (m_curInstancesCount >= m_instancesRender.size())
 	{
-		m_instances_render.push_back(new EquirectangularToSkyboxRenderInstance(*this));
+		m_instancesRender.push_back(new EquirectangularToSkyboxRenderInstance(*this));
 	}
 
-	m_instances_render[m_cur_instances_count]->render(src_texture, dest_texture);
-	++m_cur_instances_count;
+	m_instancesRender[m_curInstancesCount]->Render(src_texture, dest_texture);
+	++m_curInstancesCount;
 
 
 	/*m_source_texture_to_skybox_uniform_data.SkyboxSize.x = (float)dest_texture->get_desc().m_width;
@@ -178,7 +143,7 @@ void EquirectangularToSkyboxRender::render(Texture* src_texture, Texture* dest_t
 	DescriptorData params[4] = {};
 	params[0].m_binding_location = 0;
 	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[0].m_samplers = &m_app_renderer->m_texture_sampler;
+	params[0].m_samplers = &m_appRenderer->m_texture_sampler;
 	params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
 
 	params[1].m_binding_location = 0;
@@ -204,7 +169,7 @@ void EquirectangularToSkyboxRender::render(Texture* src_texture, Texture* dest_t
 }
 
 
-void EquirectangularToSkyboxRender::initialize(DXRenderer* dxrenderer)
+void EquirectangularToSkyboxRender::Initialize(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 

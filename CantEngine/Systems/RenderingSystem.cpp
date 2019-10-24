@@ -16,7 +16,7 @@ unsigned const RenderingSystem::static_type = BaseSystem::numberOfTypes++;
 #include "Components/MeshComponent.h"
 #include "Components/AnimationComponent.h"
 
-//TODO: Alberto stuff
+
 #include "Graphics/AppRenderer.h"
 #include "Graphics/Models/Model.h"
 

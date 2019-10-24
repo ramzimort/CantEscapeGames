@@ -59,7 +59,20 @@ struct ParticleEmitterInstanceData
 	bool m_firstTime;
 };
 
+struct BakedSkyboxIrradianceInstanceData
+{
+	Texture* m_pSkyboxTexture;
+	Texture* m_pSkyboxIrradianceTexture;
+	Texture* m_pIblPrefilteredEnvMapTexture;
+};
 
+struct ProcessSkyboxIrradianceInstanceData
+{
+	Texture* m_pSkyboxEquirectangularTexture;
+	Texture* m_pSkyboxEquirectangularIrradianceTexture;
+	bool* m_hasBaked;
+	BakedSkyboxIrradianceInstanceData m_bakedData;
+};
 
 
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
@@ -68,3 +81,5 @@ typedef std::vector<HaloEffectInstanceData> HaloEffectInstanceList;
 typedef std::vector<PointLightInstanceData > PointLightInstanceDataList;
 typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataList;
 typedef std::vector<BoneMeshInstanceRenderData> BoneMeshInstancesRenderDataList;
+typedef std::vector< ProcessSkyboxIrradianceInstanceData> ProcessSkyboxIrradianceInstanceDataList;
+typedef std::vector< BakedSkyboxIrradianceInstanceData> BakedSkyboxIrradianceInstanceDataList;

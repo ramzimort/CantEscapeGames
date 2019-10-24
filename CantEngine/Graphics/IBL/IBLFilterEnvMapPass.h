@@ -11,14 +11,14 @@ public:
 	IBLFilterEnvMapPass(AppRenderer* m_appRenderer);
 	~IBLFilterEnvMapPass();
 
-	void render(Texture* src_skybox_texture, Texture* dest_filtered_env_map);
+	void Render(Texture* src_skybox_texture, Texture* dest_filtered_env_map);
 
 	void Release();
-	void initialize(DXRenderer* dxrenderer);
+	void Initialize(DXRenderer* dxrenderer);
 private:
-	void add_uniform_buffer();
+	void AddUniformBuffer();
 private:
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
 	Pipeline* m_ibl_filter_env_map_pipeline;

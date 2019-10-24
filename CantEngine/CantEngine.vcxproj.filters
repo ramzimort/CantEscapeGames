@@ -333,6 +333,21 @@
     <ClCompile Include="Animation\AnimModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\IBL\EquirectangularToSkyboxRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IBL\BRDFLookupTexturePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\IBL\IBLFilterEnvMapPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SkyboxIrradianceComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SkyboxIrradianceSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Components\UIComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -747,6 +762,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animation\AnimModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IBL\EquirectangularToSkyboxRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IBL\BRDFLookupTexturePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\IBL\IBLFilterEnvMapPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SkyboxIrradianceComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SkyboxIrradianceSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\UIComponent.h">

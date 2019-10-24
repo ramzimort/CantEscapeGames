@@ -34,7 +34,8 @@ enum SampleCount
 
 struct TextureDesc
 {
-	bool m_is_srgb;
+	bool m_isSRGB;
+	uint32_t m_arraySize;
 	uint32_t m_bindFlags;
 	Usage_Type m_usageType;
 	CPU_Access_Type m_cpuAccessType;
@@ -43,7 +44,7 @@ struct TextureDesc
 	int32_t m_width;
 	int32_t m_height;
 	DXGI_FORMAT m_imageFormat;
-	Misc_Flags m_miscFlags;
+	uint32_t m_miscFlags;
 	ClearValue m_clearVal;
 	SampleCount m_sampleCount = SAMPLE_COUNT_1;
 };
@@ -53,6 +54,7 @@ struct TextureLoadDesc
 {
 	TextureDesc* m_tex_desc = nullptr;
 	std::string m_file_name = "";
+	bool m_useDXLoader = true;
 	bool m_use_ex_flag = false;
 	bool m_generateMipMap = false;
 	const void* m_rawData = nullptr;
@@ -65,7 +67,6 @@ public:
 	friend class DXResourceLoader;
 	friend class DXRenderer;
 public:
-    //Texture(unsigned char * p_data, const TextureDesc& texture_desc);
 	Texture(const TextureDesc& texture_desc);
     virtual ~Texture();
 

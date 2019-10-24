@@ -12,7 +12,9 @@
 #include "Graphics/Particles/ParticleRendering.h"
 #include "Graphics/InstanceRenderData.h"
 #include "Graphics/AppRendererInstance.h"
-
+#include "Graphics/IBL/EquirectangularToSkyboxRender.h"
+#include "Graphics/IBL/IBLFilterEnvMapPass.h"
+#include "Graphics/IBL/BRDFLookupTexturePass.h"
 
 class Material;
 class Model;
@@ -62,6 +64,9 @@ public:
 	friend class DebugRenderingInstance;
 	friend class ParticleRenderingInstance;
 	friend class AppRendererInstance;
+	friend class EquirectangularToSkyboxRender;
+	friend class EquirectangularToSkyboxRenderInstance;
+	friend class IBLFilterEnvMapPass;
 public:
 	AppRenderer(SDL_Window& sdlWindow, ResourceManager* resourceManager, 
 		CameraManager* cameraManager);
@@ -85,9 +90,15 @@ public:
 	void RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData);
 	void RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData);
 
+	void RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData);
+	void RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData);
+
+	void InitializeRenderer();
+	void InitializeResources();
 	void LoadContent();
 private:
-	void Initialize();
+	
+	void InitializeDefaultIBLData();
 	void InnerLoadContent();
 
 	void LoadSkyboxContent();
@@ -100,6 +111,7 @@ private:
 	void AddMaterialUniformBuffer();
 	void UpdateMaterialUniformBuffer();
 
+	void BakeSkyboxIrradianceData();
 private:
 	//Callbacks
 	void OnCameraRegistration(const CameraRegistrationEvent* event);
@@ -155,6 +167,13 @@ private:
 	BlendState* m_additiveBlending;
 
 
+	Texture* m_pBRDFLookupTexture;
+	EquirectangularToSkyboxRender m_toSkyboxRender;
+	IBLFilterEnvMapPass m_iblFilterEnvMapPass;
+	BRDFLookupTexturePass m_brdfLookupTexturePass;
+
+	ProcessSkyboxIrradianceInstanceDataList m_processSkyboxIrradianceInstanceList;
+	BakedSkyboxIrradianceInstanceDataList m_bakedSkyboxIrradianceInstanceList;
 	
 	float m_gameTime;
 	ParticleRendering m_particleRendering;

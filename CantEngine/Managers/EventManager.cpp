@@ -50,7 +50,7 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 		m_pAppRenderer->GetDXRenderer()->get_device_context());
 
 
-
+	m_pAppRenderer->InitializeResources();
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);

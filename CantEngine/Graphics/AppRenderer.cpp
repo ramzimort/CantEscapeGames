@@ -24,10 +24,12 @@ m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
 m_particleRendering(this),
 m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
+m_toSkyboxRender(this),
+m_iblFilterEnvMapPass(this),
+m_brdfLookupTexturePass(this),
 m_gameTime(0.f)
 {
-	//TODO: call initialize manually
-	Initialize();
+	InitializeRenderer();
 }
 
 
@@ -289,7 +291,7 @@ void AppRenderer::InitRandomTexture1D()
 	randomTex1DDesc.m_mipLevels = 1;
 	randomTex1DDesc.m_height = 1;
 	randomTex1DDesc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	randomTex1DDesc.m_is_srgb = false;
+	randomTex1DDesc.m_isSRGB = false;
 
 	Vector4 finalData[1024] = { Vector4(0.0, 0.0, 0.0, 1.0) };
 	for (uint32_t i = 0; i < 1024; ++i)
@@ -411,7 +413,7 @@ void AppRenderer::LoadSkyboxContent()
 
 
 
-void AppRenderer::Initialize()
+void AppRenderer::InitializeRenderer()
 {
 	SDL_SysWMinfo sys_info;
 	SDL_VERSION(&sys_info.version);
@@ -420,6 +422,11 @@ void AppRenderer::Initialize()
 
 	m_dxrenderer = new DXRenderer(sys_info.info.win.window, true);
 	m_dxrenderer->init(1);
+}
+
+void AppRenderer::InitializeResources()
+{
+	InitializeDefaultIBLData(); 
 
 	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
 		std::bind(&AppRenderer::OnCameraRegistration, this, std::placeholders::_1));
@@ -431,6 +438,34 @@ void AppRenderer::Initialize()
 		std::bind(&AppRenderer::OnWindowSize, this, std::placeholders::_1));
 }
 
+
+void AppRenderer::InitializeDefaultIBLData()
+{
+	TextureDesc brdf_lookup_texture_desc = {};
+	brdf_lookup_texture_desc.m_arraySize = 1;
+	brdf_lookup_texture_desc.m_width = 512;
+	brdf_lookup_texture_desc.m_height = 512;
+	brdf_lookup_texture_desc.m_bindFlags = Bind_Flags::BIND_SHADER_RESOURCE | Bind_Flags::BIND_UNORDERED_ACCESS;
+	brdf_lookup_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
+	brdf_lookup_texture_desc.m_mipLevels = 1;
+	brdf_lookup_texture_desc.m_imageFormat = DXGI_FORMAT_R16G16_FLOAT;
+	brdf_lookup_texture_desc.m_isSRGB = false;
+	brdf_lookup_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	brdf_lookup_texture_desc.m_depth = 1;
+	brdf_lookup_texture_desc.m_clearVal = ClearValue{ 0.f, 0.f, 0.f, 0.f };
+
+	TextureLoadDesc load_brdf_lookup_texture_desc = {};
+	load_brdf_lookup_texture_desc.m_tex_desc = &brdf_lookup_texture_desc;
+	load_brdf_lookup_texture_desc.m_file_name = "";
+
+	m_pBRDFLookupTexture = DXResourceLoader::Create_Texture(m_dxrenderer, load_brdf_lookup_texture_desc);
+
+	m_toSkyboxRender.Initialize(m_dxrenderer);
+	m_iblFilterEnvMapPass.Initialize(m_dxrenderer);
+	m_brdfLookupTexturePass.Initialize(m_dxrenderer);
+
+	m_brdfLookupTexturePass.Render(m_pBRDFLookupTexture);
+}
 
 void AppRenderer::LoadContent()
 {
@@ -488,6 +523,10 @@ void AppRenderer::Release()
 	m_debugRendering.Release();
 	m_momentShadowMapRendering.Release();
 
+	m_toSkyboxRender.Release();
+	m_iblFilterEnvMapPass.Release();
+	m_brdfLookupTexturePass.Release();
+
 	SafeReleaseDelete(m_cull_none_rasterizer_state);
 	SafeReleaseDelete(m_cull_front_rasterizer_state);
 	SafeReleaseDelete(m_cull_back_rasterizer_state);
@@ -507,6 +546,8 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_skybox_shader);
 	SafeReleaseDelete(m_skybox_vertices_buffer);
 	SafeReleaseDelete(m_skybox_texture);
+
+	SafeReleaseDelete(m_pBRDFLookupTexture);
 
 	SafeReleaseDelete(m_trillinear_sampler);
 	SafeReleaseDelete(m_texture_sampler);
@@ -629,10 +670,18 @@ void AppRenderer::RenderApp()
 	m_basicInstances.clear();
 	m_boneMeshInstancesList.clear();
 	m_haloEffectInstanceList.clear();
+	m_processSkyboxIrradianceInstanceList.clear();
+	m_bakedSkyboxIrradianceInstanceList.clear();
 	m_debugRendering.ClearInstances();
 	m_particleRendering.ClearInstances();
 
 	m_dxrenderer->execute_queued_cmd();	
+}
+
+
+void AppRenderer::BakeSkyboxIrradianceData()
+{
+
 }
 
 void AppRenderer::ResolveAppRendererInstances()
@@ -773,6 +822,16 @@ void AppRenderer::RegisterPointLightInstance(const PointLightInstanceData& point
 void AppRenderer::RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData)
 {
 	m_boneMeshInstancesList.push_back(boneMeshInstanceData);
+}
+
+void AppRenderer::RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData)
+{
+	m_processSkyboxIrradianceInstanceList.push_back(processInstanceData);
+}
+
+void AppRenderer::RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData)
+{
+	m_bakedSkyboxIrradianceInstanceList.push_back(bakedInstanceData);
 }
 
 void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,

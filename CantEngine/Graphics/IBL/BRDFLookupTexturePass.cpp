@@ -3,7 +3,7 @@
 
 
 BRDFLookupTexturePass::BRDFLookupTexturePass(AppRenderer* appRenderer)
-	:m_app_renderer(appRenderer)
+	:m_appRenderer(appRenderer)
 {
 }
 
@@ -13,7 +13,7 @@ BRDFLookupTexturePass::~BRDFLookupTexturePass()
 }
 
 
-void BRDFLookupTexturePass::initialize(DXRenderer* dxrenderer)
+void BRDFLookupTexturePass::Initialize(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
@@ -32,11 +32,11 @@ void BRDFLookupTexturePass::initialize(DXRenderer* dxrenderer)
 	m_brdf_lookup_texture_pass_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 	BufferLoadDesc process_brdf_lookup_uniform_buffer_desc = {};
-	process_brdf_lookup_uniform_buffer_desc.m_desc.m_bind_flags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	process_brdf_lookup_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE;
-	process_brdf_lookup_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_DYNAMIC;
+	process_brdf_lookup_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	process_brdf_lookup_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	process_brdf_lookup_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
 	process_brdf_lookup_uniform_buffer_desc.m_size = sizeof(ProcessBRDFLookupTextureUniformData);
-	process_brdf_lookup_uniform_buffer_desc.m_raw_data = nullptr;
+	process_brdf_lookup_uniform_buffer_desc.m_rawData = nullptr;
 
 	m_process_brdf_lookup_texture_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, process_brdf_lookup_uniform_buffer_desc);
 }
@@ -48,14 +48,14 @@ void BRDFLookupTexturePass::Release()
 	SafeReleaseDelete(m_process_brdf_lookup_texture_uniform_buffer);
 }
 
-void BRDFLookupTexturePass::render(Texture* brdf_lut_texture)
+void BRDFLookupTexturePass::Render(Texture* brdf_lut_texture)
 {
 	m_process_brdf_lookup_texture_uniform_data.BRDFLUTTextureSize.x = (float)brdf_lut_texture->get_desc().m_width;
 	m_process_brdf_lookup_texture_uniform_data.BRDFLUTTextureSize.y = (float)brdf_lut_texture->get_desc().m_height;
 
 	BufferUpdateDesc update_brdf_lookup_texture_desc = {};
 	update_brdf_lookup_texture_desc.m_buffer = m_process_brdf_lookup_texture_uniform_buffer;
-	update_brdf_lookup_texture_desc.m_p_source = &m_process_brdf_lookup_texture_uniform_data;
+	update_brdf_lookup_texture_desc.m_pSource = &m_process_brdf_lookup_texture_uniform_data;
 	update_brdf_lookup_texture_desc.m_size = sizeof(ProcessBRDFLookupTextureUniformData);
 	m_dxrenderer->cmd_update_buffer(update_brdf_lookup_texture_desc);
 

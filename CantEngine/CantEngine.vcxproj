@@ -27,8 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
+    <ClCompile Include="Graphics\IBL\BRDFLookupTexturePass.cpp" />
+    <ClCompile Include="Graphics\IBL\EquirectangularToSkyboxRender.cpp" />
+    <ClCompile Include="Graphics\IBL\IBLFilterEnvMapPass.cpp" />
     <ClCompile Include="Graphics\Models\BoneModel.cpp" />
     <ClCompile Include="Animation\Animation.cpp" />
     <ClCompile Include="Animation\AnimModel.cpp" />
@@ -135,11 +139,13 @@
     <ClCompile Include="Systems\ParticleEmitterSystem.cpp" />
     <ClCompile Include="Systems\RenderingSystem.cpp" />
     <ClCompile Include="Systems\RigidbodySystem.cpp" />
+    <ClCompile Include="Systems\SkyboxIrradianceSystem.cpp" />
     <ClCompile Include="Systems\TestSystem.cpp" />
     <ClCompile Include="Systems\TransformSystem.cpp" />
     <ClCompile Include="Systems\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\SkyboxIrradianceComponent.h" />
     <ClInclude Include="Events\GameObject\DestroyGameObject.h" />
     <ClInclude Include="Events\GameObject\GameObjectEvents.h" />
     <ClInclude Include="Animation\Animation.h" />
@@ -150,6 +156,9 @@
     <ClInclude Include="Animation\Quaternion.h" />
     <ClInclude Include="Events\State\StateEvents.h" />
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
+    <ClInclude Include="Graphics\IBL\BRDFLookupTexturePass.h" />
+    <ClInclude Include="Graphics\IBL\EquirectangularToSkyboxRender.h" />
+    <ClInclude Include="Graphics\IBL\IBLFilterEnvMapPass.h" />
     <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />
     <ClInclude Include="CantDebug\DebugManager.h" />
@@ -275,6 +284,7 @@
     <ClInclude Include="Systems\ParticleEmitterSystem.h" />
     <ClInclude Include="Systems\RenderingSystem.h" />
     <ClInclude Include="Systems\RigidbodySystem.h" />
+    <ClInclude Include="Systems\SkyboxIrradianceSystem.h" />
     <ClInclude Include="Systems\TestSystem.h" />
     <ClInclude Include="Systems\TransformSystem.h" />
     <ClInclude Include="Systems\UISystem.h" />

@@ -3,7 +3,7 @@
 
 
 BlurImagePass::BlurImagePass(AppRenderer* app_renderer, BlurChannel blur_channel, uint32_t blur_width)
-	:m_app_renderer(app_renderer),
+	:m_appRenderer(app_renderer),
 	m_blur_width(blur_width),
 	m_blur_channel_type(blur_channel)
 {

@@ -5,7 +5,7 @@
 #include "Graphics/GraphicsSettings.h"
 
 MomentShadowMapRendering::MomentShadowMapRendering(AppRenderer* app_renderer, const MomentShadowMapData& shadow_map_data)
-	:m_app_renderer(app_renderer),
+	:m_appRenderer(app_renderer),
 	m_depth_pass_rendering(nullptr),
 	m_moment_shadow_map_data(shadow_map_data),
 	m_blur_image_pass(app_renderer, BLUR_CHANNEL_FOUR, 5),
@@ -42,7 +42,7 @@ void MomentShadowMapRendering::LoadContent(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 	//TODO: probably shadow MSAA is possible we will see
-	m_depth_pass_rendering = new DepthPassRendering(m_app_renderer, 1, DepthPassContextType::FOUR_MOMENT_Z_BUFFER);
+	m_depth_pass_rendering = new DepthPassRendering(m_appRenderer, 1, DepthPassContextType::FOUR_MOMENT_Z_BUFFER);
 	m_depth_pass_rendering->LoadContent(dxrenderer);
 
 	RenderTargetDesc depth_map_rt_desc = {};
@@ -56,7 +56,7 @@ void MomentShadowMapRendering::LoadContent(DXRenderer* dxrenderer)
 	depth_map_rt_desc.m_texture_desc.m_sampleCount = SAMPLE_COUNT_1;
 	depth_map_rt_desc.m_texture_desc.m_width = m_moment_shadow_map_data.m_map_width;
 	depth_map_rt_desc.m_texture_desc.m_height = m_moment_shadow_map_data.m_map_height;
-	depth_map_rt_desc.m_texture_desc.m_is_srgb = false;
+	depth_map_rt_desc.m_texture_desc.m_isSRGB = false;
 
 	m_depth_rt = DXResourceLoader::Create_RenderTarget(dxrenderer, depth_map_rt_desc);
 
@@ -72,7 +72,7 @@ void MomentShadowMapRendering::LoadContent(DXRenderer* dxrenderer)
 	shadow_map_rt_desc.m_texture_desc.m_sampleCount = SAMPLE_COUNT_1;
 	shadow_map_rt_desc.m_texture_desc.m_width = m_moment_shadow_map_data.m_map_width;
 	shadow_map_rt_desc.m_texture_desc.m_height = m_moment_shadow_map_data.m_map_height;
-	shadow_map_rt_desc.m_texture_desc.m_is_srgb = false;
+	shadow_map_rt_desc.m_texture_desc.m_isSRGB = false;
 
 	m_moment_shadow_map_rt = DXResourceLoader::Create_RenderTarget(dxrenderer, shadow_map_rt_desc);
 
@@ -95,7 +95,7 @@ void MomentShadowMapRendering::LoadContent(DXRenderer* dxrenderer)
 	intermediate_texture_desc.m_height = m_moment_shadow_map_data.m_map_height;
 	intermediate_texture_desc.m_depth = 1;
 	intermediate_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	intermediate_texture_desc.m_is_srgb = false;
+	intermediate_texture_desc.m_isSRGB = false;
 	intermediate_texture_desc.m_mipLevels = 1;
 
 	TextureLoadDesc intermediate_texture_load_desc = {};
@@ -110,12 +110,12 @@ void MomentShadowMapRendering::LoadContent(DXRenderer* dxrenderer)
 
 void MomentShadowMapRendering::RenderShadowMap()
 {
-	if (m_app_renderer->m_directionLightInstanceList.empty())
+	if (m_appRenderer->m_directionLightInstanceList.empty())
 	{
 		return;
 	}
 
-	DirectionalLightInstanceData& directional_light_inst_data = m_app_renderer->m_directionLightInstanceList[0];
+	DirectionalLightInstanceData& directional_light_inst_data = m_appRenderer->m_directionLightInstanceList[0];
 
 	Vector3 light_view_pos = m_focusPoint + (directional_light_inst_data.light_direction * -50.f);
 	Vector3 right_dir = directional_light_inst_data.light_direction.Cross(Vector3(0.f, 1.f, 0.f));
@@ -143,7 +143,7 @@ void MomentShadowMapRendering::RenderShadowMap()
 	m_dxrenderer->cmd_update_buffer(light_camera_buffer_update_desc);
 
 	DepthPassContext depth_pass_context(m_moment_shadow_map_rt, m_depth_rt,
-		&m_shadow_camera_uniform_data, &m_app_renderer->m_basicInstances);
+		&m_shadow_camera_uniform_data, &m_appRenderer->m_basicInstances);
 
 	m_depth_pass_rendering->RenderDepthPass(depth_pass_context);
 

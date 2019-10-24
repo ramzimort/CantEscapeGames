@@ -31,7 +31,7 @@ private:
 private:
 	uint32_t m_blur_width;
 
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
 	Pipeline* m_blur_pipeline;

@@ -12,12 +12,12 @@ public:
 	~BRDFLookupTexturePass();
 
 
-	void render(Texture* brdf_lut_texture);
+	void Render(Texture* brdf_lut_texture);
 
-	void initialize(DXRenderer* dxrenderer);
+	void Initialize(DXRenderer* dxrenderer);
 	void Release();
 private:
-	AppRenderer* m_app_renderer;
+	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
 	Pipeline* m_brdf_lookup_texture_pass_pipeline;

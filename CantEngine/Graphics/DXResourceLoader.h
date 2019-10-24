@@ -62,6 +62,8 @@ private:
 	static Pipeline* Create_ComputePipeline(DXRenderer* renderer, const PipelineDesc& pipeline_desc,
 		const ComputePipelineDesc& graphics_pipeline_desc);
 
+	static Texture* Create_TextureFromFile(DXRenderer* renderer, TextureLoadDesc& load_desc);
+
 	static void Add_RenderTarget_View(
 		DXRenderer* renderer, 
 		RenderTarget* render_target, uint32_t mip_slice, 

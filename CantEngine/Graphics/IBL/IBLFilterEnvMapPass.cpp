@@ -3,7 +3,7 @@
 #include "Graphics/AppRenderer.h"
 
 IBLFilterEnvMapPass::IBLFilterEnvMapPass(AppRenderer* appRenderer)
-	:m_app_renderer(appRenderer)
+	:m_appRenderer(appRenderer)
 {
 	m_ibl_filter_env_map_uniform_buffer_list.reserve(16);
 	m_ibl_filter_env_map_uniform_data_list.reserve(16);
@@ -26,7 +26,7 @@ void IBLFilterEnvMapPass::Release()
 	}
 }
 
-void IBLFilterEnvMapPass::initialize(DXRenderer* dxrenderer)
+void IBLFilterEnvMapPass::Initialize(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
@@ -45,9 +45,9 @@ void IBLFilterEnvMapPass::initialize(DXRenderer* dxrenderer)
 	m_ibl_filter_env_map_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 }
 
-void IBLFilterEnvMapPass::render(Texture* src_skybox_texture, Texture* dest_filtered_env_map)
+void IBLFilterEnvMapPass::Render(Texture* src_skybox_texture, Texture* dest_filtered_env_map)
 {
-	uint32_t mip_levels = dest_filtered_env_map->get_desc().m_mip_levels;
+	uint32_t mip_levels = dest_filtered_env_map->get_desc().m_mipLevels;
 	uint32_t skybox_width = dest_filtered_env_map->get_desc().m_width;
 	uint32_t skybox_height = dest_filtered_env_map->get_desc().m_height;
 
@@ -55,7 +55,7 @@ void IBLFilterEnvMapPass::render(Texture* src_skybox_texture, Texture* dest_filt
 	{
 		if (mip_index >= m_ibl_filter_env_map_uniform_buffer_list.size())
 		{
-			add_uniform_buffer();
+			AddUniformBuffer();
 		}
 
 		m_ibl_filter_env_map_uniform_data_list[mip_index].SourceSkyboxSize.x = (float)src_skybox_texture->get_desc().m_width;
@@ -67,7 +67,7 @@ void IBLFilterEnvMapPass::render(Texture* src_skybox_texture, Texture* dest_filt
 
 		BufferUpdateDesc update_desc = {};
 		update_desc.m_buffer = m_ibl_filter_env_map_uniform_buffer_list[mip_index];
-		update_desc.m_p_source = &m_ibl_filter_env_map_uniform_data_list[mip_index];
+		update_desc.m_pSource = &m_ibl_filter_env_map_uniform_data_list[mip_index];
 		update_desc.m_size = sizeof(IBLFilterEnvMapUniformData);
 
 		m_dxrenderer->cmd_update_buffer(update_desc);
@@ -78,7 +78,7 @@ void IBLFilterEnvMapPass::render(Texture* src_skybox_texture, Texture* dest_filt
 	DescriptorData params[2] = {};
 	params[0].m_binding_location = 0;
 	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[0].m_samplers = &m_app_renderer->m_texture_sampler;
+	params[0].m_samplers = &m_appRenderer->m_texture_sampler;
 	params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
 
 	params[1].m_binding_location = 0;
@@ -113,15 +113,15 @@ void IBLFilterEnvMapPass::render(Texture* src_skybox_texture, Texture* dest_filt
 }
 
 
-void IBLFilterEnvMapPass::add_uniform_buffer()
+void IBLFilterEnvMapPass::AddUniformBuffer()
 {
 	BufferLoadDesc ibl_filter_uniform_buffer_desc = {};
-	ibl_filter_uniform_buffer_desc.m_desc.m_bind_flags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	ibl_filter_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_DYNAMIC;
-	ibl_filter_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE;
-	ibl_filter_uniform_buffer_desc.m_desc.m_debug_name = "To skybox";
+	ibl_filter_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	ibl_filter_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	ibl_filter_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	ibl_filter_uniform_buffer_desc.m_desc.m_debugName = "To skybox";
 	ibl_filter_uniform_buffer_desc.m_size = sizeof(IBLFilterEnvMapUniformData);
-	ibl_filter_uniform_buffer_desc.m_raw_data = nullptr;
+	ibl_filter_uniform_buffer_desc.m_rawData = nullptr;
 
 	Buffer* buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, ibl_filter_uniform_buffer_desc);
 

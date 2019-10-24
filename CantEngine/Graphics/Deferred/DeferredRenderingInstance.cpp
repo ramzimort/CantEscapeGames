@@ -66,7 +66,7 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_depth = 1;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_isSRGB = false;
 	rt_desc[DEFERRED_WORLD_NORMAL].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_WORLD_NORMAL] = DXResourceLoader::Create_RenderTarget(
@@ -82,7 +82,7 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_depth = 1;
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_isSRGB = false;
 	rt_desc[DEFERRED_ALBEDO].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_ALBEDO] = DXResourceLoader::Create_RenderTarget(
@@ -97,7 +97,7 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_depth = 1;
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_isSRGB = false;
 	rt_desc[DEFERRED_SPECULAR].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_SPECULAR] = DXResourceLoader::Create_RenderTarget(
@@ -113,7 +113,7 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_depth = 1;
 	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_isSRGB = false;
 	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_MATERIAL_PROPERTY] = DXResourceLoader::Create_RenderTarget(
@@ -128,7 +128,7 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_depth = 1;
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_mipLevels = 1;
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_imageFormat = DXGI_FORMAT_R16G16B16A16_FLOAT;
-	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_isSRGB = false;
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
 
 	m_deferred_rts[DEFERRED_STRUCTURED_BUFFER] = DXResourceLoader::Create_RenderTarget(

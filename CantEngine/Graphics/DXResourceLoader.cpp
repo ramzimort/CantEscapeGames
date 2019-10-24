@@ -665,58 +665,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 {
 	if (load_desc.m_file_name != "")
 	{
-		std::wstring load_file_name_w(load_desc.m_file_name.begin(), load_desc.m_file_name.end());
-
-		ID3D11Resource* d3d_tex2d = nullptr;
-		ID3D11ShaderResourceView* d3d_tex2d_srv = nullptr;
-
-		if (load_desc.m_use_ex_flag)
-		{
-			HRESULT hr = DirectX::CreateWICTextureFromFileEx(renderer->get_device(), renderer->get_device_context(), load_file_name_w.c_str(), 0,
-				Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags),
-				CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType), 0, 0, &d3d_tex2d, &d3d_tex2d_srv);
-
-			if (FAILED_HR(hr))
-			{
-				assert(false == true);
-
-				return nullptr;
-			}
-		}
-		else
-		{
-			HRESULT hr = DirectX::CreateWICTextureFromFile(renderer->get_device(),
-				renderer->get_device_context(), load_file_name_w.c_str(), &d3d_tex2d, &d3d_tex2d_srv, 0);
-
-			if (FAILED_HR(hr))
-			{
-				//TODO:
-				assert(false == true);
-				char    buf[4096], *p = buf;
-				sprintf(buf, "Failed to load texture %s", load_desc.m_file_name.c_str());
-				OutputDebugString(buf);
-				return nullptr;
-			}
-		}
-
-		//TODO: this part isn't really clean, find a way to make it clean or 
-		//re-do texture loading from hard disk in a completely different way
-
-		ID3D11Texture2D* casted_tex2d = static_cast<ID3D11Texture2D*>(d3d_tex2d);
-		D3D11_TEXTURE2D_DESC tex2d_desc = {};
-		casted_tex2d->GetDesc(&tex2d_desc);
-
-		TextureDesc texture_desc = {};
-		texture_desc.m_width = tex2d_desc.Width;
-		texture_desc.m_height = tex2d_desc.Height;
-
-
-
-		Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
-		texture->m_p_raw_resource = d3d_tex2d;
-		texture->m_p_srv = d3d_tex2d_srv;
-
-		return texture;
+		return Create_TextureFromFile(renderer, load_desc);
 	}
 
 	D3D11_SUBRESOURCE_DATA raw_d3d_data = {};
@@ -729,6 +678,8 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		raw_d3d_data.SysMemPitch = (UINT)load_desc.m_tex_desc->m_width  * load_desc.m_rawDataOnePixelSize;
 		raw_d3d_data.SysMemSlicePitch = 0;
 	}
+
+	uint32_t arraySize = std::max(load_desc.m_tex_desc->m_arraySize, 1u);
 
 	Texture* texture = CantMemory::PoolResource<Texture>::Allocate(*load_desc.m_tex_desc);
 
@@ -759,6 +710,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		d3d_texture3d_desc.Height = load_desc.m_tex_desc->m_height;
 		d3d_texture3d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
 		d3d_texture3d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
+		d3d_texture3d_desc.MiscFlags = misc_flags_to_d3d11_misc_flags(load_desc.m_tex_desc->m_miscFlags);
 
 		ID3D11Texture3D* new_d3d_texture3d = nullptr;
 		HRESULT hr = renderer->get_device()->CreateTexture3D(&d3d_texture3d_desc, nullptr, &new_d3d_texture3d);
@@ -776,7 +728,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		D3D11_TEXTURE2D_DESC d3d_texture2d_desc;
 		ZeroMemory(&d3d_texture2d_desc, sizeof(D3D11_TEXTURE2D_DESC));
 
-		d3d_texture2d_desc.ArraySize = 1;
+		d3d_texture2d_desc.ArraySize = arraySize;
 		d3d_texture2d_desc.BindFlags = Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags);
 		d3d_texture2d_desc.CPUAccessFlags = CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType);
 		d3d_texture2d_desc.Format = final_image_format;
@@ -786,6 +738,7 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		d3d_texture2d_desc.SampleDesc.Count = (UINT)load_desc.m_tex_desc->m_sampleCount;
 		d3d_texture2d_desc.SampleDesc.Quality = 0;
 		d3d_texture2d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
+		d3d_texture2d_desc.MiscFlags = misc_flags_to_d3d11_misc_flags(load_desc.m_tex_desc->m_miscFlags);
 
 		ID3D11Texture2D* d3d_texture2d = nullptr;
 
@@ -813,13 +766,14 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 		D3D11_TEXTURE1D_DESC d3d_texture1d_desc;
 		ZeroMemory(&d3d_texture1d_desc, sizeof(D3D11_TEXTURE1D_DESC));
 
-		d3d_texture1d_desc.ArraySize = 1;
+		d3d_texture1d_desc.ArraySize = arraySize;
 		d3d_texture1d_desc.BindFlags = Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags);
 		d3d_texture1d_desc.CPUAccessFlags = CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType);
 		d3d_texture1d_desc.Format = final_image_format;
 		d3d_texture1d_desc.Width = load_desc.m_tex_desc->m_width;
 		d3d_texture1d_desc.MipLevels = load_desc.m_tex_desc->m_mipLevels;
 		d3d_texture1d_desc.Usage = Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType);
+		d3d_texture1d_desc.MiscFlags = misc_flags_to_d3d11_misc_flags(load_desc.m_tex_desc->m_miscFlags);
 
 		ID3D11Texture1D* d3d_texture1d = nullptr;
 		HRESULT hr;
@@ -877,19 +831,59 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	{
 		D3D11_TEXTURE2D_DESC d3d_tex2d_desc = {};
 		static_cast<ID3D11Texture2D*>(texture->m_p_raw_resource)->GetDesc(&d3d_tex2d_desc);
-		if (d3d_tex2d_desc.SampleDesc.Count > 1)
+
+		if ((d3d_tex2d_desc.MiscFlags & D3D11_RESOURCE_MISC_TEXTURECUBE) != 0)
 		{
-			//TODO: add Array support
-			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+
+			srv_desc.TextureCube.MipLevels = d3d_tex2d_desc.MipLevels;
+			srv_desc.TextureCube.MostDetailedMip = 0;
+
+			uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2DARRAY;
+			uav_desc.Texture2DArray.MipSlice = 0;
+			uav_desc.Texture2DArray.FirstArraySlice = 0;
+			uav_desc.Texture2DArray.ArraySize = d3d_tex2d_desc.ArraySize;
 		}
 		else
 		{
-			srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-			srv_desc.Texture2D.MipLevels = d3d_tex2d_desc.MipLevels;
-			srv_desc.Texture2D.MostDetailedMip = 0;
+			if (d3d_tex2d_desc.ArraySize > 1)
+			{
+				if (d3d_tex2d_desc.SampleDesc.Count > 1)
+				{
+				}
+				else
+				{
+					srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
 
-			uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
-			uav_desc.Texture2D.MipSlice = 0;
+					srv_desc.Texture2DArray.MipLevels = d3d_tex2d_desc.MipLevels;
+					srv_desc.Texture2DArray.ArraySize = 0;
+					srv_desc.Texture2DArray.MostDetailedMip = 0;
+					srv_desc.Texture2DArray.ArraySize = d3d_tex2d_desc.ArraySize;
+
+					uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2DARRAY;
+					uav_desc.Texture2DArray.MipSlice = 0;
+					uav_desc.Texture2DArray.FirstArraySlice = 0;
+					uav_desc.Texture2DArray.ArraySize = d3d_tex2d_desc.ArraySize;
+				}
+			}
+			else
+			{
+				if (d3d_tex2d_desc.SampleDesc.Count > 1)
+				{
+					//TODO: add Array support
+					srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+				}
+				else
+				{
+
+					srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+					srv_desc.Texture2D.MipLevels = d3d_tex2d_desc.MipLevels;
+					srv_desc.Texture2D.MostDetailedMip = 0;
+
+					uav_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
+					uav_desc.Texture2D.MipSlice = 0;
+				}
+			}
 		}
 		break;
 	}
@@ -946,6 +940,175 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	return texture;
 }
 
+struct STBI_Image_Data
+{
+	void* pixels;
+	uint32_t line_width;
+};
+
+Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureLoadDesc& load_desc)
+{
+	bool isHDRImage = load_desc.m_file_name.find(".hdr") != std::string::npos;
+
+	if (load_desc.m_useDXLoader && !isHDRImage)
+	{
+		ID3D11Resource* d3d_tex2d = nullptr;
+		ID3D11ShaderResourceView* d3d_tex2d_srv = nullptr;
+		std::wstring load_file_name_w(load_desc.m_file_name.begin(), load_desc.m_file_name.end());
+
+		if (load_desc.m_use_ex_flag)
+		{
+			HRESULT hr = DirectX::CreateWICTextureFromFileEx(renderer->get_device(), renderer->get_device_context(), load_file_name_w.c_str(), 0,
+				Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags),
+				CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType), 0, 0, &d3d_tex2d, &d3d_tex2d_srv);
+
+			if (FAILED_HR(hr))
+			{
+				assert(0);
+				return nullptr;
+			}
+		}
+		else
+		{
+			HRESULT hr = DirectX::CreateWICTextureFromFile(renderer->get_device(),
+				renderer->get_device_context(), load_file_name_w.c_str(), &d3d_tex2d, &d3d_tex2d_srv, 0);
+
+			if (FAILED_HR(hr))
+			{
+				assert(0);
+				return nullptr;
+			}
+		}
+
+		ID3D11Texture2D* casted_tex2d = static_cast<ID3D11Texture2D*>(d3d_tex2d);
+		D3D11_TEXTURE2D_DESC tex2d_desc = {};
+		casted_tex2d->GetDesc(&tex2d_desc);
+
+		TextureDesc texture_desc = {};
+		texture_desc.m_width = tex2d_desc.Width;
+		texture_desc.m_height = tex2d_desc.Height;
+
+
+
+		Texture* texture = new Texture(texture_desc);
+		texture->m_p_raw_resource = d3d_tex2d;
+		texture->m_p_srv = d3d_tex2d_srv;
+
+		return texture;
+	}
+
+	//TEMPORARY code
+	//this is used to load HDR image mostly for now
+	STBI_Image_Data stbi_image_data = {};
+
+	int32_t width, height, channel;
+	stbi_image_data.pixels = stbi_loadf(load_desc.m_file_name.c_str(), &width, &height, &channel, STBI_rgb_alpha);
+	stbi_image_data.line_width = width * sizeof(float) * 4;
+
+	if (stbi_image_data.pixels)
+	{
+
+		std::vector<D3D11_SUBRESOURCE_DATA> initial_data_list;
+		std::vector<float*> initial_color_list;
+
+		initial_data_list.reserve(16);
+		initial_color_list.reserve(16);
+
+		int32_t min_size = std::min(width, height);
+
+		while (min_size >= 1)
+		{
+			initial_data_list.push_back(D3D11_SUBRESOURCE_DATA{});
+			initial_color_list.push_back(nullptr);
+
+			float*& cur_color_list = initial_color_list.back();
+			uint64_t color_sizes_width = width * 4 * sizeof(float);
+			uint64_t color_sizes = color_sizes_width * height;
+
+			cur_color_list = (float*)malloc(color_sizes);
+
+			std::memset(cur_color_list, 0u, color_sizes);
+
+			D3D11_SUBRESOURCE_DATA& d3d_subresource_data = initial_data_list.back();
+			d3d_subresource_data.pSysMem = &cur_color_list[0];
+			d3d_subresource_data.SysMemPitch = (UINT)color_sizes_width;
+			d3d_subresource_data.SysMemSlicePitch = 0;
+			min_size = min_size >> 1;
+		}
+
+		ID3D11Texture2D* d3d_tex2d = nullptr;
+		ID3D11ShaderResourceView* d3d_srv = nullptr;
+
+		D3D11_TEXTURE2D_DESC tex2d_desc = {};
+		tex2d_desc.ArraySize = 1;
+		tex2d_desc.MipLevels = (UINT)initial_data_list.size();
+		tex2d_desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		tex2d_desc.CPUAccessFlags = 0;
+		tex2d_desc.Usage = D3D11_USAGE_DEFAULT;
+		tex2d_desc.Width = width;
+		tex2d_desc.Height = height;
+		tex2d_desc.SampleDesc.Count = 1;
+		tex2d_desc.SampleDesc.Quality = 0;
+		tex2d_desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		tex2d_desc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC srv_d3d_desc = {};
+		srv_d3d_desc.Format = tex2d_desc.Format;
+		srv_d3d_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srv_d3d_desc.Texture2D.MipLevels = tex2d_desc.MipLevels;
+		srv_d3d_desc.Texture2D.MostDetailedMip = 0;
+
+		D3D11_UNORDERED_ACCESS_VIEW_DESC uav_d3d_desc = {};
+		uav_d3d_desc.Format = tex2d_desc.Format;
+		uav_d3d_desc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
+
+
+		initial_data_list[0].pSysMem = stbi_image_data.pixels;
+		initial_data_list[0].SysMemPitch = (UINT)stbi_image_data.line_width;
+
+		HRESULT hr = renderer->get_device()->CreateTexture2D(&tex2d_desc,
+			&initial_data_list[0], &d3d_tex2d);
+
+		stbi_image_free(stbi_image_data.pixels);
+
+		for (float* rawfloat : initial_color_list)
+		{
+			free(rawfloat);
+		}
+
+		if (FAILED_HR(hr))
+		{
+			assert(0);
+			return nullptr;
+		}
+		hr = renderer->get_device()->CreateShaderResourceView(d3d_tex2d, &srv_d3d_desc, &d3d_srv);
+
+		if (FAILED_HR(hr))
+		{
+			assert(0);
+			return nullptr;
+		}
+
+		renderer->get_device_context()->GenerateMips(d3d_srv);
+
+		TextureDesc texture_desc = {};
+		texture_desc.m_width = tex2d_desc.Width;
+		texture_desc.m_height = tex2d_desc.Height;
+		texture_desc.m_mipLevels = tex2d_desc.MipLevels;
+		texture_desc.m_depth = 1;
+		texture_desc.m_clearVal = ClearValue{ 0.f, 0.f, 0.f, 0.f };
+
+		Texture* texture = new Texture(texture_desc);
+		texture->m_p_raw_resource = d3d_tex2d;
+		texture->m_p_srv = d3d_srv;
+
+		return texture;
+	}
+
+	assert(0);
+	return nullptr;
+}
+
 void DXResourceLoader::Update_Buffer(DXRenderer* renderer, BufferUpdateDesc& buffer_update_desc)
 {
 	//TODO:
@@ -977,7 +1140,9 @@ Pipeline* DXResourceLoader::Create_ComputePipeline(DXRenderer* renderer, const P
 	const ComputePipelineDesc& compute_pipeline_desc)
 {
 	assert(compute_pipeline_desc.m_shader);
+	//Pipeline* new_pipeline = CantMemory::PoolResource<Pipeline>::Allocate(pipeline_desc);
 	Pipeline* new_pipeline = new Pipeline(pipeline_desc);
+
 	return new_pipeline;
 }
 
@@ -1055,6 +1220,7 @@ Pipeline* DXResourceLoader::Create_GraphicsPipeline(DXRenderer* renderer, const 
 	}
 
 	Pipeline* new_graphics_pipeline = new Pipeline(pipeline_desc);
+
 	new_graphics_pipeline->m_input_layout = new_input_layout;
 
 	BlendState* cur_blend_state = new_graphics_pipeline->m_desc.m_graphics_desc.m_blend_state;
@@ -1128,9 +1294,10 @@ RasterizerState* DXResourceLoader::Create_RasterizerState(DXRenderer* renderer,
 		return nullptr;
 	}
 
-	RasterizerState* rasterizer_state = new RasterizerState(rasterizer_desc);
-	rasterizer_state->m_d3d_rasterizer_state = new_d3d_rasterizer_state;
-	return rasterizer_state;
+	//RasterizerState* rasterizerState = CantMemory::PoolResource<RasterizerState>::Allocate(rasterizer_desc);
+	RasterizerState* rasterizerState = new RasterizerState(rasterizer_desc);
+	rasterizerState->m_d3d_rasterizer_state = new_d3d_rasterizer_state;
+	return rasterizerState;
 }
 
 DepthState* DXResourceLoader::Create_DepthState(DXRenderer* renderer,
