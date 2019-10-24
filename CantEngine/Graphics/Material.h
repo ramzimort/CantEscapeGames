@@ -23,6 +23,8 @@ public:
 	Texture* GetHeightTexture()const;
 	Vector4 GetDiffuseColor() const;
 	Vector4 GetSpecularColor() const;
+	float GetMetallicValue() const;
+	float GetRoughnessValue() const;
 
 private:
 	Vector4 m_diffuseColor;
@@ -34,6 +36,8 @@ private:
 	StringId m_diffuseTextureId;
 	StringId m_normalTextureId;
 	StringId m_heightTextureId;
+	float m_metallicValue;
+	float m_roughnessValue;
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

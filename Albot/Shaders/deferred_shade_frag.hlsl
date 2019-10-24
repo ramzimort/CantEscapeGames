@@ -7,11 +7,13 @@ Texture2DMS<float4, SAMPLE_COUNT> WorldNormal_Texture : register(t0);
 Texture2DMS<float4, SAMPLE_COUNT> Albedo_Texture : register(t1);
 Texture2DMS<float4, SAMPLE_COUNT> Specular_Texture : register(t2);
 Texture2DMS<float, SAMPLE_COUNT> Depth_Texture : register(t3);
+Texture2DMS<float4, SAMPLE_COUNT> MaterialProperty_Texture : register(t5);
 #else
 Texture2D<float4> WorldNormal_Texture : register(t0);
 Texture2D<float4> Albedo_Texture : register(t1);
 Texture2D<float4> Specular_Texture : register(t2);
 Texture2D<float> Depth_Texture : register(t3);
+Texture2D<float4> MaterialProperty_Texture : register(t5);
 #endif
 
 Texture2D<float4> ShadowMap_Texture : register(t4);

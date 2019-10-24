@@ -333,6 +333,20 @@
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\equirectangular_to_skybox_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\ibl_prefilter_env_map_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\PBR.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\process_brdf_lut_comp.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

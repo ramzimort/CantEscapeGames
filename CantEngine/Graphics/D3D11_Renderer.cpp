@@ -202,7 +202,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 		back_desc.m_shader_stages = cur_descriptor->m_shader_stages;
 		back_desc.m_var_count = final_var_count;
 		back_desc.m_descriptor_type = cur_descriptor->m_descriptor_type;
-
+		back_desc.m_uav_mip_slice = cur_descriptor->m_uav_mip_slice;
 
 		for (uint32_t j = 0; j < final_var_count; ++j)
 		{
@@ -245,12 +245,7 @@ void DXRenderer::cmd_bind_descriptor(Pipeline* pipeline, uint32_t descriptor_cou
 				DXDescriptorDataReference dx_descriptor_data = {};
 				dx_descriptor_data.p_texture = cur_descriptor->m_textures[j];
 				m_dxdescriptor_data_reference_list.push_back(dx_descriptor_data);
-
-
-
 			}
-
-
 			back_desc.m_textures = &m_dxdescriptor_data_reference_list[dx_descriptor_ref_original_size].p_texture;
 
 		}
@@ -949,6 +944,7 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 	swap_chain_desc.SampleDesc.Quality = 0;
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	swap_chain_desc.Flags = 0;
+	swap_chain_desc.Scaling = DXGI_SCALING_STRETCH;
 
 	UINT create_device_flags = 0;
 #if _DEBUG

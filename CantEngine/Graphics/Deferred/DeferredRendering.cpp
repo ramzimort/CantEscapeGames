@@ -258,29 +258,8 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	point_light_load_buffer_desc.m_rawData = nullptr;
 
 	m_point_light_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, point_light_load_buffer_desc);
-
-	init_deferred_scene_light();
 }
 
-
-void DeferredRendering::init_deferred_scene_light()
-{
-	Vector3 start_pos(-150.f, -30.f, -150.f);
-	Vector3 inc_pos(10.f, 0.f, 10.f);
-	for (int i = 0; i < 30; ++i)
-	{
-		for (int k = 0; k < 30; ++k)
-		{
-			Light& light = m_point_light_deferred_scene[(i * 30) + k];
-			int light_color_max = 1000;
-			light.m_color = Vector3((float)(rand() % light_color_max) / (float)light_color_max,
-				(float)(rand() % light_color_max) / (float)light_color_max, (float)(rand() % light_color_max) / (float)light_color_max);
-			light.m_radius = static_cast<float>(10 + rand() % 100);
-			light.m_intensity = static_cast<float>(2 + rand() % 2);
-			light.m_light_type = ELightType::POINT_LIGHT;
-		}
-	}
-}
 
 
 void DeferredRendering::Update(float dt)

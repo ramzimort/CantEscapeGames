@@ -62,4 +62,10 @@
     <None Include="Assets\Prefabs\Lights\point_light.json" />
     <None Include="Scripts\Components\Button.lua" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\equirectangular_to_skybox_comp.hlsl" />
+    <FxCompile Include="Shaders\ibl_prefilter_env_map_comp.hlsl" />
+    <FxCompile Include="Shaders\PBR.hlsl" />
+    <FxCompile Include="Shaders\process_brdf_lut_comp.hlsl" />
+  </ItemGroup>
 </Project>

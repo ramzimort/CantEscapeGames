@@ -676,34 +676,24 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 
 
 	std::vector<MaterialFullData> finalMaterialList;
+	std::vector<const InstanceRenderData*> allInstancesList;
 
 	for (uint64_t i = 0; i < m_basicInstances.size(); ++i)
 	{
 		const InstanceRenderData& inst_data = m_basicInstances[i];
-		Model* p_ref_model = inst_data.p_ref_model;
-		Material* p_ref_material = inst_data.p_ref_material;
-
-		assert(p_ref_material && p_ref_model);
-
-		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
-		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
-
-		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
-		{
-
-			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
-			//sometimes despite having multiple child of mesh instance it may still not have its own material
-			if (!cur_material_instance)
-			{
-				cur_material_instance = p_ref_material;
-			}
-			finalMaterialList.push_back(MaterialFullData{cur_material_instance, &inst_data});
-		}
+		allInstancesList.push_back(&inst_data);
 	}
 
 	for (uint64_t i = 0; i < m_boneMeshInstancesList.size(); ++i)
 	{
 		const InstanceRenderData& inst_data = m_boneMeshInstancesList[i].m_instanceRenderData;
+		allInstancesList.push_back(&inst_data);
+	}
+
+	for (uint64_t i = 0; i < allInstancesList.size(); ++i)
+	{
+		const InstanceRenderData& inst_data = *allInstancesList[i];
+
 		Model* p_ref_model = inst_data.p_ref_model;
 		Material* p_ref_material = inst_data.p_ref_material;
 
@@ -725,6 +715,7 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 		}
 	}
 
+
 	for (uint64_t material_index = 0; material_index < finalMaterialList.size(); ++material_index)
 	{
 		MaterialFullData& materialFullData = finalMaterialList[material_index];
@@ -744,6 +735,8 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 		m_material_uniform_data_list[material_index].MaterialMiscData.w = (float)curMaterialInstance->GetShaderMaterialType();
 		m_material_uniform_data_list[material_index].MaterialMiscData.x = instanceRenderData->uv_tiling.x;
 		m_material_uniform_data_list[material_index].MaterialMiscData.y = instanceRenderData->uv_tiling.y;
+		m_material_uniform_data_list[material_index].MaterialMiscData2.x = curMaterialInstance->GetRoughnessValue();
+		m_material_uniform_data_list[material_index].MaterialMiscData2.y = curMaterialInstance->GetMetallicValue();
 
 		BufferUpdateDesc update_material_uniform_desc = {};
 		update_material_uniform_desc.m_buffer = m_material_uniform_buffer_list[material_index];

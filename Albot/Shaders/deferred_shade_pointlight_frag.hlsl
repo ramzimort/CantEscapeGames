@@ -1,5 +1,5 @@
 #include "Shading.h"
-
+#include "PBR.hlsl"
 
 
 #if SAMPLE_COUNT > 1
@@ -7,11 +7,13 @@ Texture2DMS<float4, SAMPLE_COUNT> WorldNormal_Texture : register(t1);
 Texture2DMS<float4, SAMPLE_COUNT> Albedo_Texture : register(t2);
 Texture2DMS<float4, SAMPLE_COUNT> Specular_Texture : register(t3);
 Texture2DMS<float, SAMPLE_COUNT> Depth_Texture : register(t4);
+Texture2DMS<float4, SAMPLE_COUNT> MaterialProperty_Texture : register(t5);
 #else
 Texture2D<float4> WorldNormal_Texture : register(t1);
 Texture2D<float4> Albedo_Texture : register(t2);
 Texture2D<float4> Specular_Texture : register(t3);
 Texture2D<float> Depth_Texture : register(t4);
+Texture2D<float4> MaterialProperty_Texture : register(t5);
 #endif
 
 
@@ -114,12 +116,15 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
     float3 world_normal = WorldNormal_Texture.Load(float2(ps_in.Position.xy), sample_index).xyz;
     float3 material_diffuse_color = Albedo_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
     float3 material_specular_color = Specular_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+    float2 material_property = MaterialProperty_Texture.Load(float2(ps_in.Position.xy), sample_index).rg;
 #else
     float3 world_normal = WorldNormal_Texture.Load(float3(ps_in.Position.xy, 0.0)).xyz;
     float3 material_diffuse_color = Albedo_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
     float3 material_specular_color = Specular_Texture.Load(float3(ps_in.Position.xy, 0.0)).rgb;
+    float2 material_property = MaterialProperty_Texture.Load(float3(ps_in.Position.xy, 0.0)).rg;
 #endif
-    
+    float3 final_color = float3(0.0, 0.0, 0.0);
+
     const float light_intensity = ps_in.LightMiscData.y;
     const float2 light_atten_constant = ps_in.LightMiscData.zw;
 
@@ -127,12 +132,22 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 
     float3 light_illuminance = light_intensity * light_atten * ps_in.LightColor;
 
-    PhongCalculateTotalLightFactor(world_normal, world_position, ps_in.LightPosition, light_illuminance,
-        total_diffuse_power, total_specular_power);
+    float3 pixel_to_eye_diff = CameraUniformData_Buffer.CameraPosition.xyz - world_position;
+    float3 viewer_vector = normalize(pixel_to_eye_diff);
 
-    float3 final_color = total_diffuse_power * material_diffuse_color * (1.f / PI);
+    float3 pixel_to_light_diff = ps_in.LightPosition.xyz - world_position;
+    float3 light_vector = normalize(pixel_to_light_diff);
 
-    final_color += total_specular_power * material_specular_color.rgb;
+    float roughness = material_property.r;
+    float metallic = material_property.g;
+
+    float3 F0 = float3(0.04f, 0.04f, 0.04f);
+    F0 = lerp(F0, material_specular_color.xyz, metallic);
+
+   
+
+    final_color.xyz = PBRLightingCalculation(light_vector, light_illuminance,
+            viewer_vector, world_normal, F0, material_diffuse_color.xyz, metallic, roughness, true);
 
     ps_out.Color = float4(final_color.rgb, 1.0);
 

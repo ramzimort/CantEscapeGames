@@ -16,6 +16,7 @@ enum DEFERRED_RT_TYPE
 	DEFERRED_WORLD_NORMAL,
 	DEFERRED_ALBEDO,
 	DEFERRED_SPECULAR,
+	DEFERRED_MATERIAL_PROPERTY,
 	DEFERRED_STRUCTURED_BUFFER,
 	DEFERRED_TOTAL_COUNT
 };
@@ -34,8 +35,6 @@ public:
 	void UpdateUniformBuffer();
 	void RenderDeferredScene();
 	void LoadContent(DXRenderer* dxrenderer);
-private:
-	void init_deferred_scene_light();
 private:
 	DXRenderer* m_dxrenderer;
 	AppRenderer* m_appRenderer;
@@ -61,9 +60,6 @@ private:
 	Shader* m_shadeHaloEffectShader;
 	Buffer* m_haloEffectUniformBuffer;
 	ConstantHaloEffectData m_constantHaloEffectLightData[MAX_DEFERRED_HALO_EFFECT];
-
-
-	Light m_point_light_deferred_scene[900];
 
 	ResourceManager* m_resourceManager;
 };

@@ -24,7 +24,8 @@ struct PS_OUT
     float4 WorldNormal : SV_TARGET0;
     float4 Albedo : SV_TARGET1;
     float4 Specular : SV_TARGET2;
-    float4 StructureBuffer : SV_TARGET3;
+    float4 MaterialProperty : SV_TARGET3;
+    float4 StructureBuffer : SV_TARGET4;
 };
 
 cbuffer ObjectUniformBlock : register(b1)
@@ -118,6 +119,9 @@ PS_OUT main(PS_IN ps_in)
     ps_out.WorldNormal = float4(world_normal, 1.0);
     ps_out.Albedo = float4(material_diffuse_color.rgb, 1.0);
     //ps_out.Albedo = float4(UV.rg, 0.0, 1.0);
+    ps_out.MaterialProperty.x = MaterialUniformData_Buffer.MaterialMiscData2.x;
+    ps_out.MaterialProperty.y = MaterialUniformData_Buffer.MaterialMiscData2.y;
+    ps_out.MaterialProperty.zw = float2(0.f, 0.f);
     ps_out.Specular = float4(MaterialUniformData_Buffer.SpecularColor.xyz, 1.0);
     ps_out.StructureBuffer = CalculateStructureBuffer(ps_in.CameraSpacePosition.z);
 

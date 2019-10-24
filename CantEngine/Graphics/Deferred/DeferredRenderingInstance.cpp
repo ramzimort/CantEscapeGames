@@ -103,6 +103,22 @@ void DeferredRenderingInstance::LoadContent(const AppRendererContext& appRendere
 	m_deferred_rts[DEFERRED_SPECULAR] = DXResourceLoader::Create_RenderTarget(
 		dxrenderer, rt_desc[DEFERRED_SPECULAR]);
 
+
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_width = rt_width;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_height = rt_height;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_depth = 1;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_mipLevels = 1;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_imageFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_is_srgb = false;
+	rt_desc[DEFERRED_MATERIAL_PROPERTY].m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
+
+	m_deferred_rts[DEFERRED_MATERIAL_PROPERTY] = DXResourceLoader::Create_RenderTarget(
+		m_dxrenderer, rt_desc[DEFERRED_MATERIAL_PROPERTY]);
+
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_bindFlags = Bind_Flags::BIND_RENDER_TARGET | BIND_SHADER_RESOURCE;
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_clearVal = ClearValue{ 0.0, 0.0, 0.0, 0.0 };
 	rt_desc[DEFERRED_STRUCTURED_BUFFER].m_texture_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_NONE;
@@ -160,6 +176,7 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
 	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
 	Texture* specular_texture = m_deferred_rts[DEFERRED_SPECULAR]->get_texture();
+	Texture* materialPropertyTexture = m_deferred_rts[DEFERRED_MATERIAL_PROPERTY]->get_texture(); 
 	Texture* depth_texture = appRendererContext.m_appRendererInstance->m_depthRT->get_texture();
 
 	Buffer* lightUniformBuffer = m_appRenderer->m_momentShadowMapRendering.get_light_camera_uniform_buffer();
@@ -212,7 +229,12 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	params[8].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
 	params[8].m_textures = &shadowmapTexture;
 
-	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pipeline, 9, params);
+	params[9].m_binding_location = 5;
+	params[9].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[9].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[9].m_textures = &materialPropertyTexture;
+
+	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pipeline, 10, params);
 	m_dxrenderer->cmd_draw(6, 0);
 }
 
@@ -235,6 +257,7 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
 	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
 	Texture* specular_texture = m_deferred_rts[DEFERRED_SPECULAR]->get_texture();
+	Texture* materialPropertyTexture = m_deferred_rts[DEFERRED_MATERIAL_PROPERTY]->get_texture();
 	Texture* depth_texture = appRendererContext.m_appRendererInstance->m_depthRT->get_texture();
 
 	DescriptorData params[7] = {};
@@ -269,7 +292,12 @@ void DeferredRenderingInstance::RenderDeferredPointLightShade(const AppRendererC
 	params[5].m_shader_stages = Shader_Stages::VERTEX_STAGE;
 	params[5].m_buffers = &m_deferredRendering.m_point_light_buffer;
 
-	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pointlight_pipeline, 6, params);
+	params[6].m_binding_location = 5;
+	params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[6].m_textures = &materialPropertyTexture;
+
+	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pointlight_pipeline, 7, params);
 	m_dxrenderer->cmd_draw_index_instanced(point_light_inst_count, 0, sphere_model->GetIndexTotalCount(), 0, 0);
 }
 

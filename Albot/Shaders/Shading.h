@@ -18,6 +18,19 @@
 #define BLUR_WORKGROUP_THREAD_ID_Y 1
 #define BLUR_WORKGROUP_THREAD_ID_Z 1
 
+#define TO_SKYBOX_WORKGROUP_THREAD_ID_X 8
+#define TO_SKYBOX_WORKGROUP_THREAD_ID_Y 8
+#define TO_SKYBOX_WORKGROUP_THREAD_ID_Z 1
+
+#define IBL_ENV_MAP_FILTER_WORKGROUP_THREAD_ID_X 8
+#define IBL_ENV_MAP_FILTER_WORKGROUP_THREAD_ID_Y 8
+#define IBL_ENV_MAP_FILTER_WORKGROUP_THREAD_ID_Z 1
+
+
+#define PROCESS_BRDF_LUT_WORKGROUP_THREAD_ID_X 8
+#define PROCESS_BRDF_LUT_WORKGROUP_THREAD_ID_Y 8
+#define PROCESS_BRDF_LUT_WORKGROUP_THREAD_ID_Z 1
+
 #define MAT_ID_COLOR 1 << 0
 #define MAT_ID_DIFFUSE_TEXTURE 1 << 1 
 #define MAT_ID_NORMAL_TEXTURE 1 << 2
@@ -59,6 +72,9 @@ struct MaterialUniformData
 
 	//the W component determine the material type
 	float4 MaterialMiscData;
+	//The X component determines the roughness
+	//The Y Component determiens the metallic
+	float4 MaterialMiscData2;
 };
 
 
@@ -159,6 +175,25 @@ struct BlurUniformData
 	float BlurWidth2;
 	uint DirectionX;
 	uint DirectionY;
+};
+
+struct SourceTextureToSkyboxUniformData
+{
+	float4 SkyboxSize;
+	uint MipLevel;
+};
+
+struct IBLFilterEnvMapUniformData
+{
+	float4 SourceSkyboxSize;
+	float4 SkyboxSize;
+	float4 MiscData;
+	uint MipLevel;
+};
+
+struct ProcessBRDFLookupTextureUniformData
+{
+	float4 BRDFLUTTextureSize;
 };
 
 

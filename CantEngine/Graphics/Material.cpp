@@ -9,6 +9,8 @@ RTTR_REGISTRATION
 		.property("Diffuse_Texture_Dir", &Material::m_diffuseTextureId)
 		.property("Normal_Texture_Dir", &Material::m_normalTextureId)
 		.property("Height_Texture_Dir", &Material::m_heightTextureId)
+		.property("Metallic_Value", &Material::m_metallicValue)
+		.property("Roughness_Value", &Material::m_roughnessValue)
 		//.property("MaterialId", &Material::m_materialId)
 		//.property("Diffuse_Texture", &Material::m_pDiffuseTexture)
 		//.property("Normal_Texture", &Material::m_pNormalTexture)
@@ -23,7 +25,9 @@ Material::Material() :
 	m_materialId(""),
 	m_diffuseTextureId(""),
 	m_normalTextureId(""),
-	m_heightTextureId("")
+	m_heightTextureId(""),
+	m_metallicValue(0.5),
+	m_roughnessValue(0.5)
 {
 }
 
@@ -81,4 +85,13 @@ Vector4 Material::GetDiffuseColor() const
 Vector4 Material::GetSpecularColor() const
 {
 	return m_specularColor;
+}
+
+float Material::GetMetallicValue() const
+{
+	return m_metallicValue;
+}
+float Material::GetRoughnessValue() const
+{
+	return m_roughnessValue;
 }
