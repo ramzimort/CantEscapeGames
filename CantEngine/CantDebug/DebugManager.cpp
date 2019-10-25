@@ -85,6 +85,9 @@ namespace CantDebug
 		debugInfo.HeightTexturePath = &m_materialInfo.HeightTexturePath;
 		debugInfo.DiffuseColor = &m_materialInfo.DiffuseColor.x;
 		debugInfo.SpecularColor = &m_materialInfo.SpecularColor.x;
+		debugInfo.RoughnessValue = &m_materialInfo.RoughnessValue;
+		debugInfo.MetallicValue = &m_materialInfo.MetallicValue;
+
 		for (auto it = m_resources["Assets\\Textures\\"].begin(); it != m_resources["Assets\\Textures\\"].end(); ++it)
 		{
 			m_materialInfo.TextureList.push_back(it->FullPath);
@@ -108,6 +111,8 @@ namespace CantDebug
 			writer.Key("Diffuse_Texture_Dir"); writer.String(m_materialInfo.DiffuseTexturePath);
 			writer.Key("Normal_Texture_Dir"); writer.String(m_materialInfo.NormalTexturePath);
 			writer.Key("Height_Texture_Dir"); writer.String(m_materialInfo.HeightTexturePath);
+			writer.Key("Roughness_Value"); writer.Double(m_materialInfo.RoughnessValue);
+			writer.Key("Metallic_Value"); writer.Double(m_materialInfo.MetallicValue);
 			writer.Key("Diffuse_Color"); writer.StartArray();
 			writer.Double(m_materialInfo.DiffuseColor.x); writer.Double(m_materialInfo.DiffuseColor.y); writer.Double(m_materialInfo.DiffuseColor.z); writer.Double(m_materialInfo.DiffuseColor.z);
 			writer.EndArray();

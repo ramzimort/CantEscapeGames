@@ -27,9 +27,10 @@ void MaterialMaker::Update()
 	ImGui::InputText("Height Texture", m_materialParams.HeightTexturePath);
 	ImGui::SliderFloat4("Diffuse Color", m_materialParams.DiffuseColor, 0.0, 1.0);
 	ImGui::SliderFloat4("Specular Color", m_materialParams.SpecularColor, 0.0, 1.0);
+	ImGui::DragFloat("Roughness", m_materialParams.RoughnessValue, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat("Metallic", m_materialParams.MetallicValue, 0.01f, 0.0f, 1.0f);
 
 	ImGui::Separator();
-	int i = 0;
 	for(auto& mat : *m_materialParams.TextureList)
 	{
 		if (ImGui::Button(mat.c_str()))

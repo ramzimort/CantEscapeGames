@@ -11,6 +11,10 @@
   "MeshComponent": {
     "ModelId": "Assets\\Models\\mitsuba-sphere.obj"
   },
+  "ParticleEmitterComponent": {
+    "Emitter_Position": [ 0.0, 0.0, 0.0 ],
+    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+  },
   "HaloEffectComponent": {
     "HaloEffect": {
       "Radius": 8.0,

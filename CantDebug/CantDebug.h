@@ -31,6 +31,8 @@ namespace CantDebugAPI
 		std::string* HeightTexturePath;
 		float* DiffuseColor;
 		float* SpecularColor;
+		float* RoughnessValue;
+		float* MetallicValue;
 
 		std::vector<std::string>* TextureList;
 	};

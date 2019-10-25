@@ -23,6 +23,8 @@ namespace CantDebug
 		std::string HeightTexturePath = "";
 		Vector4 DiffuseColor;
 		Vector4 SpecularColor;
+		float RoughnessValue;
+		float MetallicValue;
 
 		std::vector<std::string> TextureList;
 	};

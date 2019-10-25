@@ -1,0 +1,19 @@
+{
+  "Diffuse_Texture_Dir": "",
+  "Normal_Texture_Dir": "",
+  "Height_Texture_Dir": "",
+  "Roughness_Value": 0.200000011920929,
+  "Metallic_Value": 0.80000000298023225,
+  "Diffuse_Color": [
+    1.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "Specular_Color": [
+    1.0,
+    0.0,
+    1.0,
+    1.0
+  ]
+}

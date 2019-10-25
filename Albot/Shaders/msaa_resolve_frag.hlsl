@@ -89,7 +89,7 @@ PS_OUT main(PS_IN ps_in)
                 if(sampler_dist <= 1.0f)
                 {
                     float4 cur_sampled_color = MSAA_Texture.Load(cur_sample_pos, sample_index).rgba;
-                    cur_sampled_color.rgb = ToneMapFilmicALU(cur_sampled_color.rgb);
+                    //cur_sampled_color.rgb = ToneMapFilmicALU(cur_sampled_color.rgb);
                     float weight = FilterCubic(sampler_dist, 1 / 3.0f, 1 / 3.0f);
                     total_color += cur_sampled_color.rgba * weight;
                     total_weight += weight;

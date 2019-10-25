@@ -21,7 +21,10 @@
     "Materials": [
       "Assets\\Materials\\Material1.json",
       "Assets\\Materials\\Red_Brick_Material.json",
-      "Assets\\Materials\\MaterialDarkGreen.json"
+      "Assets\\Materials\\MaterialDarkGreen.json",
+      "Assets\\Materials\\RedDieletricRoughMaterial.json",
+      "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+      "Assets\\Materials\\RedMetallicSmoothMaterial.json"
     ],
     "Audio": [
 
@@ -38,7 +41,8 @@
       "Assets\\Prefabs\\TestGoJose.json",
       "Assets\\Prefabs\\brick_wall.json",
       "Assets\\Prefabs\\mini_map.json",
-      "Assets\\Prefabs\\Skybox\\factory_skybox.json"
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "Assets\\Prefabs\\burning_mitsuba_sphere.json"
     ],
     "Scripts": [
       "Scripts\\States\\level1.lua",
@@ -107,6 +111,9 @@
         "TransformComponent": {
           "Position": [ 10.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RedDieletricSmoothMaterial.json"
         }
       }
     },
@@ -127,6 +134,22 @@
         "TransformComponent": {
           "Position": [ 0.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json"
+        }
+      }
+    },
+    {
+      "tag": "TopMitsubaSphere",
+      "prefab": "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 10.0, -10.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json"
         }
       }
     },
@@ -137,6 +160,9 @@
         "TransformComponent": {
           "Position": [ -10.0, 0.0, -10.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RedDieletricRoughMaterial.json"
         }
       }
     },
