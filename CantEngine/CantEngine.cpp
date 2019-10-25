@@ -12,8 +12,8 @@ namespace CantEngineAPI
 		EventManager* World = EventManager::Get();
 		World->Initialize(levelPath, w, h);
 
-		std::thread th1(&EventManager::Update2, World);
-		World->Update();
+		std::thread th1(&EventManager::RunGameThread, World);
+		World->RunInputThread();
 		th1.join();
 	}
 	void InitializeUserSettings(const std::string& gameName)

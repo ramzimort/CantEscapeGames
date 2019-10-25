@@ -81,14 +81,14 @@ EventManager* EventManager::Get()
 	return m_EventManager;
 }
 
-void EventManager::Update()
+void EventManager::RunInputThread()
 {
 	m_pInputManager->Update();
 	m_quit2 = true;
 
 }
 
-void EventManager::Update2()
+void EventManager::RunGameThread()
 {
 	EventManager* World = EventManager::Get();
 	FrameManager frame_manager;
