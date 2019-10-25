@@ -8,7 +8,7 @@
     "Light": {
       "LightType": "Directional",
       "Color": [ 1.0, 0.8, 0.736 ],
-      "Intensity": 2.0,
+      "Intensity": 1.0,
       "CastShadow": true
     }
   }

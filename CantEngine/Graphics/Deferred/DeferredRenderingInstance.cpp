@@ -182,7 +182,9 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	Buffer* lightUniformBuffer = m_appRenderer->m_momentShadowMapRendering.get_light_camera_uniform_buffer();
 	Texture* shadowmapTexture = m_appRenderer->m_momentShadowMapRendering.get_blurred_shadow_map_texture();
 
-	DescriptorData params[10] = {};
+	uint32_t paramsCount = 10;
+
+	DescriptorData params[14] = {};
 
 	params[0].m_binding_location = 0;
 	params[0].m_shader_stages = Shader_Stages::PIXEL_STAGE;
@@ -234,7 +236,36 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	params[9].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
 	params[9].m_textures = &materialPropertyTexture;
 
-	m_dxrenderer->cmd_bind_descriptor(m_deferredRendering.m_deferred_shade_pipeline, 10, params);
+	Pipeline* deferredShadePipeline = m_deferredRendering.m_deferred_shade_pipeline;
+
+	if (!m_appRenderer->m_bakedSkyboxIrradianceInstanceList.empty())
+	{
+		BakedSkyboxIrradianceInstanceData& bakedSkyboxIrradianceData = m_appRenderer->m_bakedSkyboxIrradianceInstanceList[0];
+		params[10].m_binding_location = 6;
+		params[10].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[10].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+		params[10].m_textures = &bakedSkyboxIrradianceData.m_pSkyboxIrradianceTexture;
+
+		params[11].m_binding_location = 7;
+		params[11].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[11].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+		params[11].m_textures = &bakedSkyboxIrradianceData.m_pIBLPrefilteredEnvMapTexture;
+
+		params[12].m_binding_location = 8;
+		params[12].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[12].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+		params[12].m_textures = &m_appRenderer->m_pBRDFLookupTexture;
+
+		params[13].m_binding_location = 1;
+		params[13].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		params[13].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+		params[13].m_samplers = &m_appRenderer->m_trillinear_sampler;
+
+		deferredShadePipeline = m_deferredRendering.m_deferredShadeIrradiancePipeline;
+		paramsCount = 14;
+	}
+
+	m_dxrenderer->cmd_bind_descriptor(deferredShadePipeline, paramsCount, params);
 	m_dxrenderer->cmd_draw(6, 0);
 }
 

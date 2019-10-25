@@ -1,7 +1,8 @@
 #include "Shading.h"
 #include "moment_shadow.hlsl"
+#include "PBR.hlsl"
 
-//Texture2D<float4> WorldPosition_Texture : register(t0);
+
 #if SAMPLE_COUNT > 1
 Texture2DMS<float4, SAMPLE_COUNT> WorldNormal_Texture : register(t0);
 Texture2DMS<float4, SAMPLE_COUNT> Albedo_Texture : register(t1);
@@ -20,6 +21,13 @@ Texture2D<float4> ShadowMap_Texture : register(t4);
 
 SamplerState Clamp_Billinear_Sampler : register(s0);
 
+#if SKYBOX_IRRADIANCE == 1
+TextureCube<float4> Irradiance_Texture : register(t6);
+TextureCube<float4> IBLFilteredEnvMap_Texture : register(t7);
+Texture2D<float2> BRDFLookup_Texture : register(t8);
+
+SamplerState Trillinear_Sampler : register(s1);
+#endif
 
 cbuffer CameraUniformData_CB : register(b0)
 {
@@ -109,14 +117,21 @@ void PhongCalculateTotalLightFactor(float3 world_normal, float3 world_position, 
 }
 
 
-
-
-float LinearizeDepth(float depth)
+void CalculateDirectionalLightFactor(float3 world_normal, float3 world_position, float3 viewer_vector, float3 albedo, float3 irradiance, float3 F0,
+    float metallic, float roughness, out float3 light_power)
 {
-    float near_plane = 0.1f;
-    float far_plane = 1000.f;
-    float z = depth * 2.0 - 1.0; // Back to NDC 
-    return (2.0 * near_plane * far_plane) / (far_plane + near_plane - z * (far_plane - near_plane));
+    uint total_light_count = (uint) (DirectionLightUniform.DirectionalLightUniformMiscData.w);
+    float3 final_color = float3(0.0, 0.0, 0.0);
+
+    for (uint i = 0; i < total_light_count; ++i)
+    {
+        float3 light_color = irradiance * DirectionLightUniform.DirectionalLightColor[i].rgb * DirectionLightUniform.DirectionalLightMiscData[i].y;
+        float3 light_vector = -DirectionLightUniform.LightDirection[i].xyz;
+
+        final_color += PBRLightingCalculation(light_vector, light_color,
+            viewer_vector, world_normal, F0, albedo.xyz, metallic, roughness, true);
+    }
+    light_power = final_color;
 }
 
 PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
@@ -133,7 +148,7 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
         discard;
     }
 
-    float ambient_strength = 0.15f;
+    float ambient_strength = 0.1f;
 
 
     float2 clip_pixel = float2((ps_in.UV.x * 2.f) - 1, 1.f - (ps_in.UV.y * 2.f));
@@ -149,32 +164,65 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
     float3 albedo = Albedo_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
     float3 world_normal = WorldNormal_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
     float3 specular = Specular_Texture.Load(float2(ps_in.Position.xy), sample_index).rgb;
+    float2 material_property = MaterialProperty_Texture.Load(float2(ps_in.Position.xy), sample_index).rg;
 #else
     float3 albedo = Albedo_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
     float3 world_normal = WorldNormal_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
     float3 specular = Specular_Texture.Load(float3(ps_in.Position.xy, 0.0f)).rgb;
+    float2 material_property = MaterialProperty_Texture.Load(float3(ps_in.Position.xy, 0.0)).rg;
 #endif
+    float3 final_color = float3(0.0, 0.0, 0.0);
 
+    float3 irradiance = float3(1.0, 1.0, 1.0);
+    float3 total_light_strength = float3(0.0, 0.0, 0.0);
+    float roughness = material_property.r;
+    float metallic = material_property.g;
 
-    float3 total_diffuse_power = float3(0.0, 0.0, 0.0);
+    float3 F0 = float3(0.04f, 0.04f, 0.04f);
+    F0 = lerp(F0, albedo.xyz, metallic);
+
+    float3 pixel_to_eye_diff = CameraUniformData_Buffer.CameraPosition.xyz - world_position;
+    float3 viewer_vector = normalize(pixel_to_eye_diff);
+#if SKYBOX_IRRADIANCE == 1
+    irradiance = Irradiance_Texture.Sample(Clamp_Billinear_Sampler, world_normal).rgb;
+
+    CalculateDirectionalLightFactor(world_normal, world_position, viewer_vector, albedo, irradiance, F0, metallic, roughness, total_light_strength);
+
+    total_light_strength *= (1.f - shadow_factor);
+
+    float3 F_roughness_term = FresnelSchlickRoughness(F0, world_normal, viewer_vector, roughness);
+    F_roughness_term = max(F_roughness_term, float3(0.0, 0.0, 0.0));
+    float3 KS_term = F_roughness_term;
+    float3 KD_term = float3(1.f, 1.f, 1.f) - KS_term;
+    KD_term *= float3(1.f, 1.f, 1.f) - float3(metallic, metallic, metallic);
+
+    float3 reflected_L = reflect(-viewer_vector, world_normal);
+
+    float N_dot_V = max(dot(world_normal, viewer_vector), 0);
+
+    float3 prefiltered_color = IBLFilteredEnvMap_Texture.SampleLevel(Trillinear_Sampler, float3(reflected_L.xyz), roughness * 4.0).rgb;
+    float2 brdf_factor = BRDFLookup_Texture.SampleLevel(Clamp_Billinear_Sampler, float2(N_dot_V, roughness), 0).rg;
+
+    float3 specular_part = prefiltered_color * (F_roughness_term * brdf_factor.x + brdf_factor.y);
+
+    float3 ambient_color = KD_term * albedo * irradiance * ambient_strength;
+
+    specular_part *= (1.f - shadow_factor);
+
+    final_color = ambient_color + total_light_strength + specular_part;
+
+    final_color = final_color / (final_color + float3(1.f, 1.f, 1.f));
+    final_color = pow(final_color, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
+#else
+    float3 ambient_color = albedo.rgb * ambient_strength;
+    CalculateDirectionalLightFactor(world_normal, world_position, viewer_vector, albedo, irradiance, F0, metallic, roughness, total_light_strength);
+
+    total_light_strength *= (1.f - shadow_factor);
+
+    final_color = ambient_color + total_light_strength;
+#endif
    
-
-
-    PhongCalculateTotalLightFactor(world_normal, world_position, total_diffuse_power);
-
-    total_diffuse_power *= (1.0 - shadow_factor);
-
-
-    //float3 final_color = total_diffuse_power * albedo;
-    float3 final_color = ((PI * ambient_strength * albedo)
-        + total_diffuse_power) * albedo * (1.f / PI);
-
-    float linear_depth = LinearizeDepth(depth) / 1000.f;
-   
-
     ps_out.Color = float4(final_color.rgb, 1.0);
-    //ps_out.Color = float4(linear_depth, linear_depth, linear_depth, 1.0);
-    //ps_out.Color = float4(world_normal.rgb, 1.0);
     return ps_out;
 }
 

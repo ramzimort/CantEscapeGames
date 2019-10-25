@@ -49,6 +49,9 @@ private:
 	Pipeline* m_deferred_shade_pipeline;
 	Shader* m_deferred_shade_shader;
 
+	Pipeline* m_deferredShadeIrradiancePipeline;
+	Shader* m_deferredShadeIrradianceShader;
+
 
 	Pipeline* m_deferred_shade_pointlight_pipeline;
 	Shader* m_deferred_shade_pointlight_shader;

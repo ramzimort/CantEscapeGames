@@ -696,7 +696,7 @@ void AppRenderer::BakeSkyboxIrradianceData()
 	m_toSkyboxRender.Render(processSkyboxIrradianceData.m_pSkyboxEquirectangularIrradianceTexture,
 		processSkyboxIrradianceData.m_bakedData.m_pSkyboxIrradianceTexture);
 
-	//m_iblFilterEnvMapPass.Render(processSkyboxIrradianceData.m_bakedData.m_pSkyboxTexture, processSkyboxIrradianceData.m_bakedData.m_pIBLPrefilteredEnvMapTexture);
+	m_iblFilterEnvMapPass.Render(processSkyboxIrradianceData.m_bakedData.m_pSkyboxTexture, processSkyboxIrradianceData.m_bakedData.m_pIBLPrefilteredEnvMapTexture);
 
 	*processSkyboxIrradianceData.m_hasBaked = true;
 

@@ -928,9 +928,26 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	if (load_desc.m_tex_desc->m_bindFlags & BIND_UNORDERED_ACCESS)
 	{
 		uav_desc.Format = load_desc.m_tex_desc->m_imageFormat;
+		
 		texture->m_pp_uav = (ID3D11UnorderedAccessView**)(malloc(sizeof(ID3D11UnorderedAccessView*) * load_desc.m_tex_desc->m_mipLevels));
 		for (uint32_t mip_index = 0; mip_index < load_desc.m_tex_desc->m_mipLevels; ++mip_index)
 		{
+			switch (resource_dim_type)
+			{
+			case D3D11_RESOURCE_DIMENSION_TEXTURE1D:
+			{
+				uav_desc.Texture1D.MipSlice = mip_index;
+				break;
+			}
+			case D3D11_RESOURCE_DIMENSION_TEXTURE2D:
+			{
+				uav_desc.Texture2D.MipSlice = mip_index;
+				break;
+			}
+			default:
+				break;
+			}
+
 			renderer->get_device()->CreateUnorderedAccessView(
 				texture->m_p_raw_resource, &uav_desc, &texture->m_pp_uav[mip_index]);
 		}

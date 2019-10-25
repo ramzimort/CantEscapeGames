@@ -135,16 +135,6 @@ void EquirectangularToSkyboxRender::Initialize(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
-	/*BufferLoadDesc to_skybox_uniform_buffer_desc = {};
-	to_skybox_uniform_buffer_desc.m_desc.m_bind_flags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	to_skybox_uniform_buffer_desc.m_desc.m_usage_type = Usage_Type::USAGE_DYNAMIC;
-	to_skybox_uniform_buffer_desc.m_desc.m_cpu_access_type = CPU_Access_Type::ACCESS_WRITE;
-	to_skybox_uniform_buffer_desc.m_desc.m_debug_name = "To skybox";
-	to_skybox_uniform_buffer_desc.m_size = sizeof(SourceTextureToSkyboxUniformData);
-	to_skybox_uniform_buffer_desc.m_raw_data = nullptr;
-
-	m_source_texture_to_skybox_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, to_skybox_uniform_buffer_desc);*/
-
 	ShaderLoadDesc to_skybox_shader_desc = {};
 	to_skybox_shader_desc.m_desc.m_compute_shader_path = "equirectangular_to_skybox_comp.hlsl";
 

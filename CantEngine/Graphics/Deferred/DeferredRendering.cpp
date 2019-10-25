@@ -41,16 +41,15 @@ void DeferredRendering::Release()
 	SafeReleaseDelete(m_deferred_shade_pointlight_pipeline);
 	SafeReleaseDelete(m_deferred_shade_pointlight_shader);
 	SafeReleaseDelete(m_point_light_buffer);
+
+	SafeReleaseDelete(m_deferredShadeIrradiancePipeline);
+	SafeReleaseDelete(m_deferredShadeIrradianceShader);
 }
 
 
 void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 {
-	char buff[100];
-	snprintf(buff, sizeof(buff), "%d", GraphicsSettings::MSAA_SAMPLE_COUNT);
-	std::string sample_count_definition = buff;
-
-	ShaderMacro msaa_sample_macro = { "SAMPLE_COUNT", sample_count_definition };
+	ShaderMacro msaa_sample_macro = { "SAMPLE_COUNT", std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT) };
 
 	m_dxrenderer = dxrenderer;
 
@@ -146,14 +145,30 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 
 	m_deferredBonePassShader = DXResourceLoader::Create_Shader(m_dxrenderer, deferred_pass_shader_load_desc);
 
+	ShaderMacro deferredShadeMacroIrradiance[2] = {};
+	deferredShadeMacroIrradiance[0].m_name = "SAMPLE_COUNT";
+	deferredShadeMacroIrradiance[0].m_definition = std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT);
+
+	deferredShadeMacroIrradiance[1].m_name = "SKYBOX_IRRADIANCE";
+	deferredShadeMacroIrradiance[1].m_definition = std::to_string(1);
+
+	ShaderMacro deferredShadeMacroNoIrradiance[2] = {};
+	deferredShadeMacroNoIrradiance[0].m_name = "SAMPLE_COUNT";
+	deferredShadeMacroNoIrradiance[0].m_definition = std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT);
+
+	deferredShadeMacroNoIrradiance[1].m_name = "SKYBOX_IRRADIANCE";
+	deferredShadeMacroNoIrradiance[1].m_definition = std::to_string(1);
 
 	ShaderLoadDesc deferred_shade_shader_load_desc = {};
 	deferred_shade_shader_load_desc.m_desc.m_vertex_shader_path = "fullscreen_quad_vert.hlsl";
 	deferred_shade_shader_load_desc.m_desc.m_pixel_shader_path = "deferred_shade_frag.hlsl";
-	deferred_shade_shader_load_desc.m_shader_macro_count = 1;
-	deferred_shade_shader_load_desc.m_shader_macro = &msaa_sample_macro;
+	deferred_shade_shader_load_desc.m_shader_macro_count = 2;
+	deferred_shade_shader_load_desc.m_shader_macro = deferredShadeMacroNoIrradiance;
 	m_deferred_shade_shader = DXResourceLoader::Create_Shader(m_dxrenderer,
 		deferred_shade_shader_load_desc);
+
+	deferred_shade_shader_load_desc.m_shader_macro = deferredShadeMacroIrradiance;
+	m_deferredShadeIrradianceShader = DXResourceLoader::Create_Shader(m_dxrenderer, deferred_shade_shader_load_desc);
 
 	PipelineDesc pipeline_desc = {};
 	pipeline_desc.m_pipeline_type = PipelineType::GRAPHICS;
@@ -191,6 +206,9 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_vertex_layout = nullptr;
 
 	m_deferred_shade_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
+
+	graphic_pipeline_desc.m_shader = m_deferredShadeIrradianceShader;
+	m_deferredShadeIrradiancePipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 
 	ShaderLoadDesc deferred_shade_pointlight_shader_desc = {};

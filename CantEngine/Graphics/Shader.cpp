@@ -387,16 +387,17 @@ ShaderClass* Load_Shader(const ShaderLoadDesc& shaderLoadDesc, ID3D11Device* dev
 		entry_point.c_str(), profile.c_str(),
 		flags, 0, &p_shader_blob, &p_error_blob);
 
-	if (FAILED_HR(hr))
+	if (p_error_blob)
 	{
-		if (p_error_blob)
-		{
-			std::string error_message =
-				(char*)p_error_blob->GetBufferPointer();
-			OutputDebugStringA(error_message.c_str());
-			SafeRelease(p_shader_blob);
-			SafeRelease(p_error_blob);
-		}
+		std::string error_message =
+			(char*)p_error_blob->GetBufferPointer();
+		OutputDebugStringA(error_message.c_str());
+	}
+
+	if (FAILED_HR(hr))
+	{	
+		SafeRelease(p_shader_blob);
+		SafeRelease(p_error_blob);
 		return nullptr;
 	}
 
