@@ -42,13 +42,14 @@ State::State(std::string const& path, AppRenderer* appRenderer,
 		//Get the correct script name from the path
 		size_t index = path.find_last_of("/\\");
 		size_t len = (path.size() - 5) - (index + 1);
-		std::string name = "Scripts\\States\\" + path.substr(index + 1, len) + ".lua";
+		std::string name_b = "Scripts\\States\\" + path.substr(index + 1, len) + ".lua";
 
 		//Get a deep copy of the table so each table has their own state
 		//  For now, to check if the table is valid for calling, 
 		//  we can check if the luastate associated is null
 		//  Either way, since the lua calls are protected, nothing should crash
-		m_stateScript = luaMgr->GetScriptDeepCopy(name);
+		m_stateScript = luaMgr->GetScriptDeepCopy(name_b);
+		//assert(m_stateScript.lua_state() != nullptr);
 
 		m_stateScript["OnCreateState"](m_stateScript);
 	}

@@ -40,6 +40,14 @@ end
 --Begin called when obj has all comps
 test01Comp.Begin = function(self, owner, goMgr)
 
+	-----------------------
+	--  STATES  CHANGES  --
+	-----------------------
+	local world = World.Get();
+	--world.StateManager:SwitchState("");
+	--world.StateManager:PushState("nameOfState");
+
+	
 	OutputPrint("\n<<-- " .. self.name .. " BEGIN IN LUA -->>\n");
 
 	if (owner == nil) then
@@ -94,15 +102,17 @@ test01Comp.Begin = function(self, owner, goMgr)
 
 	--GETTING OTHER GO COMPONENT AND BINDING TO ITS MULTICAST----------
 	local otherGoComp02 = gameobj01:GetCustomComp("test02Comp");
-	OutputPrint(">>>>>>>>>> Retrieved function from other go's comp02: " .. otherGoComp02:ReturnWeirdString() .. " -\n");
+	if (otherGoComp02 ~= nil) then
+		OutputPrint(">>>>>>>>>> Retrieved function from other go's comp02: " .. otherGoComp02:ReturnWeirdString() .. " -\n");
 
-	--Multicast suscribe (2 ways)
-	otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed + {self, self.BindingExample};
-	otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed + {nil, BindingFunction};
-	--otherGoComp02.OnTimePassed:suscribe( {self, self.BindingExample} );
-	--otherGoComp02.OnTimePassed:suscribe( {nil, BindingFunction} );
-	--otherGoComp02.OnTimePassed:unsuscribe({self, self.BindingExample});
-	--otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed - {self, self.BindingExample};
+		--Multicast suscribe (2 ways)
+		otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed + {self, self.BindingExample};
+		otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed + {nil, BindingFunction};
+		--otherGoComp02.OnTimePassed:suscribe( {self, self.BindingExample} );
+		--otherGoComp02.OnTimePassed:suscribe( {nil, BindingFunction} );
+		--otherGoComp02.OnTimePassed:unsuscribe({self, self.BindingExample});
+		--otherGoComp02.OnTimePassed = otherGoComp02.OnTimePassed - {self, self.BindingExample};
+	end
 
 	--TRANSFORM--------------------------------------------------------
 	local transform = owner:GetTransformComp();
@@ -116,15 +126,6 @@ test01Comp.Begin = function(self, owner, goMgr)
 		OutputPrint(">>> transform scale    :  " .. scale.x .. ", " .. scale.y .. ", " .. scale.z .. " \n");
 		transform:Translate(Vector3.new(-1, -1, -1));
 		OutputPrint(">>> transform position :  " .. pos.x .. ", " .. pos.y .. ", " .. pos.z .. " \n");
-	end
-	
-	--BIND TO CPP MULTICAST--------------------------------------------
-	local transform2 = albert:GetTransformComp();
-	if (transform2 ~= nil) then
-		OutputPrint("Transform not nil\n");
-		transform2.OnTimeUp:Bind( {self, self.MulticastExample} );
-		transform2.OnTimeUp:Bind( {nil, BindingFunction02} );
-		OutputPrint("BINDED to cpp multicast\n");
 	end
 	
 	OutputPrint("<<-- COMP " .. self.name .. " BEGIN END -->>\n");

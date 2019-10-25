@@ -69,6 +69,7 @@ void CustomComponent::ScriptSetup(StringId scriptPath, std::string const& name, 
 	{
 		//Get a deep copy of the table so each table has their own state
 		m_luaScriptTable = luaMgr->GetScriptDeepCopy(scriptPath);
+		assert(m_luaScriptTable.lua_state() != nullptr);
 
 		//Set the name
 		this->m_name = name;

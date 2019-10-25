@@ -20,6 +20,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/AnimationSystem.h"
 #include "Systems/CameraSystem.h"
 #include "Systems/HaloEffectSystem.h"
+#include "Systems/UISystem.h"
 
 
 SystemManager::SystemManager(AppRenderer* appRenderer)
@@ -33,12 +34,13 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<AnimationSystem>();
 	this->AddSystem<RenderingSystem>();
 	this->AddSystem<ParticleEmitterSystem>();
-
+	this->AddSystem<UISystem>();
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<HaloEffectSystem*>(m_systems[HaloEffectSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RigidbodySystem*>(m_systems[RigidbodySystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<UISystem*>(m_systems[UISystem::static_type])->RegisterAppRenderer(appRenderer);
 }
 
 SystemManager::~SystemManager()

@@ -10,3 +10,4 @@
 #include "CameraComponent.h"
 #include "ParticleEmitterComponent.h"
 #include "AnimationComponent.h"
+#include "UIComponent.h"

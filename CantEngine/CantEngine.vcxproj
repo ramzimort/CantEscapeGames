@@ -51,6 +51,7 @@
     <ClCompile Include="Components\RigidbodyComponent.cpp" />
     <ClCompile Include="Components\TestComponent.cpp" />
     <ClCompile Include="Components\TransformComponent.cpp" />
+    <ClCompile Include="Components\UIComponent.cpp" />
     <ClCompile Include="Directory\Directory.cpp" />
     <ClCompile Include="Directory\User.cpp" />
     <ClCompile Include="Events\GameObject\GameObjectDestroyed.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Systems\TestSystem.cpp" />
     <ClCompile Include="Systems\TransformSystem.cpp" />
+    <ClCompile Include="Systems\UISystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events\GameObject\DestroyGameObject.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="Components\RigidbodyComponent.h" />
     <ClInclude Include="Components\TestComponent.h" />
     <ClInclude Include="Components\TransformComponent.h" />
+    <ClInclude Include="Components\UIComponent.h" />
     <ClInclude Include="Directory\Directory.h" />
     <ClInclude Include="Directory\User.h" />
     <ClInclude Include="Events\GameObject\GameObjectCreated.h" />
@@ -273,6 +276,7 @@
     <ClInclude Include="Systems\RigidbodySystem.h" />
     <ClInclude Include="Systems\TestSystem.h" />
     <ClInclude Include="Systems\TransformSystem.h" />
+    <ClInclude Include="Systems\UISystem.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

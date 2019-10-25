@@ -3,7 +3,7 @@
 
 Testing = 
 {
-	name = "level1"
+	name = "level1";
 }
 
 --OnCreate, called when creating this state

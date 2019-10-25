@@ -47,21 +47,13 @@ void StateManager::DrawStack(float dt)
 
 void StateManager::SwitchState(const std::string& levelPath)
 {
-	//Empty the stateStack (deletion could be another thread maybe?)
-	for (State *state : m_stateStack) 
-		delete state;
-	m_stateStack.clear();
-
-	//This is for having this call also clear the stack when called with 0
-	if (levelPath == "") return;
-
-	//Now push the new state
-	PushState(levelPath);
+	State* state = new State(levelPath, m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
+	ClearStack();
+	m_stateStack.push_back(state);
 }
 
 void StateManager::PushState(const std::string& levelPath)
 {
-	// TODO - Check what else may need to be done
 	State* state = new State(levelPath, m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
 	m_stateStack.push_back(state);
 }
@@ -69,10 +61,23 @@ void StateManager::PushState(const std::string& levelPath)
 void StateManager::PopState()
 {
 	size_t index = m_stateStack.size() - 1;
-	State *topState = m_stateStack[index];
-	delete topState;
-	m_stateStack.pop_back();
+
+	if (index >= 0) 
+	{
+		State *topState = m_stateStack[index];
+		delete topState;
+		m_stateStack.pop_back();
+	}
 }
+
+
+void StateManager::ClearStack() 
+{
+	for (State *state : m_stateStack)
+		delete state;
+	m_stateStack.clear();
+}
+
 
 void StateManager::OnPushStateEvent(const PushStateEvent* e)
 {
