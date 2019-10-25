@@ -38,10 +38,7 @@ void AppRendererInstance::Release()
 		SafeReleaseDelete(buffer);
 	}
 
-	for (Buffer* buffer : m_boneTransformsUniformBufferList)
-	{
-		SafeReleaseDelete(buffer);
-	}
+	
 
 	for (Buffer* buffer : m_boneMeshObjectUniformBufferList)
 	{
@@ -390,18 +387,7 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 }
 
 
-void AppRendererInstance::AddBoneTransformBuffer()
-{
-	BufferLoadDesc boneTransformBufferDesc = {};
-	boneTransformBufferDesc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	boneTransformBufferDesc.m_desc.m_debugName = "Bone Transforms Uniform Buffer";
-	boneTransformBufferDesc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
-	boneTransformBufferDesc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
-	boneTransformBufferDesc.m_rawData = nullptr;
-	boneTransformBufferDesc.m_size = sizeof(BoneTransformsUniformData);
-	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, boneTransformBufferDesc);
-	m_boneTransformsUniformBufferList.push_back(object_uniform_buffer);
-}
+
 
 void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 {
@@ -431,10 +417,6 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			m_appRenderer->AddObjectUniformBuffer(m_boneMeshObjectUniformBufferList, m_boneMeshObjectUniformDataList);
 		}
 
-		if (i >= m_boneTransformsUniformBufferList.size())
-		{
-			AddBoneTransformBuffer();
-		}
 
 		Buffer* obj_uniform_buffer = m_boneMeshObjectUniformBufferList[i];
 
@@ -451,14 +433,7 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
 
 
-		Buffer* bone_uniform_buffer = m_boneTransformsUniformBufferList[i];
-		const BoneTransformationsList& boneTransformationsList = *m_appRenderer->m_boneMeshInstancesList[i].m_pBoneTransformationsList;
-
-		BufferUpdateDesc update_bone_uniform_desc = {};
-		update_bone_uniform_desc.m_buffer = bone_uniform_buffer;
-		update_bone_uniform_desc.m_pSource = &boneTransformationsList[0];
-		update_bone_uniform_desc.m_size = sizeof(BoneTransformsUniformData);
-		m_dxrenderer->cmd_update_buffer(update_bone_uniform_desc);
+		Buffer* bone_uniform_buffer = m_appRenderer->m_boneTransformsUniformBufferList[i];
 
 
 		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->GetVertexBuffer());

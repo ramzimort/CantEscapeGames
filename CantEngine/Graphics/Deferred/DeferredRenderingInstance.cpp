@@ -171,7 +171,7 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 	m_dxrenderer->cmd_set_viewport(0, 0, curMainRT->get_desc().m_texture_desc.m_width,
 		curMainRT->get_desc().m_texture_desc.m_height);
 
-	m_dxrenderer->cmd_bind_pipeline(m_deferredRendering.m_deferred_shade_pipeline);
+	
 
 	Texture* world_normal_texture = m_deferred_rts[DEFERRED_WORLD_NORMAL]->get_texture();
 	Texture* albedo_texture = m_deferred_rts[DEFERRED_ALBEDO]->get_texture();
@@ -264,7 +264,7 @@ void DeferredRenderingInstance::RenderDeferredGlobalDirectionalLightShade(const 
 		deferredShadePipeline = m_deferredRendering.m_deferredShadeIrradiancePipeline;
 		paramsCount = 14;
 	}
-
+	m_dxrenderer->cmd_bind_pipeline(deferredShadePipeline);
 	m_dxrenderer->cmd_bind_descriptor(deferredShadePipeline, paramsCount, params);
 	m_dxrenderer->cmd_draw(6, 0);
 }

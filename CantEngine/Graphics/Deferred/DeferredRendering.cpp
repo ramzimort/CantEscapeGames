@@ -157,7 +157,7 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	deferredShadeMacroNoIrradiance[0].m_definition = std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT);
 
 	deferredShadeMacroNoIrradiance[1].m_name = "SKYBOX_IRRADIANCE";
-	deferredShadeMacroNoIrradiance[1].m_definition = std::to_string(1);
+	deferredShadeMacroNoIrradiance[1].m_definition = std::to_string(0);
 
 	ShaderLoadDesc deferred_shade_shader_load_desc = {};
 	deferred_shade_shader_load_desc.m_desc.m_vertex_shader_path = "fullscreen_quad_vert.hlsl";

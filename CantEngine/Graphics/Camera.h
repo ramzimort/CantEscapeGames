@@ -7,7 +7,14 @@ Primary Author: Jose Rosenbluth
 
 #pragma once
 
-
+enum CameraProjectionType
+{
+	PROJECTION_PERSPECTIVE,
+	//your normal orthographic camera
+	PROJECTION_ORTHOGRAPHIC,
+	//follows window size with viewport render information
+	PROJECTION_ORTHOGRAPHIC_VIEWPORT,
+};
 
 class Camera
 {
@@ -23,6 +30,7 @@ public:
 	~Camera();
 
 	void SetAspectRatio(size_t width, size_t height);
+	void SetProjectionType(CameraProjectionType projectionType);
 
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
@@ -66,7 +74,7 @@ private:
 	//XY is  the viewport location in the window , ZW is the view port width & height 
 	Vector4 m_viewportRenderInformation;
 
-
+	CameraProjectionType m_cameraProjectionType;
 	
 	size_t m_id;	
 	Vector3 m_position, m_lookDir, m_upDir, m_rightDir;
@@ -79,6 +87,12 @@ private:
 
 	Matrix m_viewProjectionMatrix;
 	Matrix m_invViewProjectionMatrix;
+
+	size_t m_width;
+	size_t m_height;
+
+	size_t m_orthographicWidth;
+	size_t m_orthographicHeight;
 
 	float m_fov;
 	float m_aspect;

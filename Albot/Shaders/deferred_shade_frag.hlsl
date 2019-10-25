@@ -211,8 +211,7 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 
     final_color = ambient_color + total_light_strength + specular_part;
 
-    final_color = final_color / (final_color + float3(1.f, 1.f, 1.f));
-    final_color = pow(final_color, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
+    
 #else
     float3 ambient_color = albedo.rgb * ambient_strength;
     CalculateDirectionalLightFactor(world_normal, world_position, viewer_vector, albedo, irradiance, F0, metallic, roughness, total_light_strength);
@@ -221,6 +220,9 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
 
     final_color = ambient_color + total_light_strength;
 #endif
+
+    final_color = final_color / (final_color + float3(1.f, 1.f, 1.f));
+    final_color = pow(final_color, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
    
     ps_out.Color = float4(final_color.rgb, 1.0);
     return ps_out;

@@ -53,8 +53,6 @@ private:
 	void RenderBasicInstances(Pipeline* pipeline);
 	void RenderBoneMeshInstances(Pipeline* pipeline);
 	void RenderSkybox();
-
-	void AddBoneTransformBuffer();
 private:
 	DXRenderer* m_dxrenderer;
 	AppRenderer* m_appRenderer;
@@ -77,9 +75,6 @@ private:
 
 	std::vector<ObjectUniformData> m_boneMeshObjectUniformDataList;
 	BufferList m_boneMeshObjectUniformBufferList;
-
-	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;
-	BufferList m_boneTransformsUniformBufferList;
 
 	CameraUniformData m_camera_uniform_data;
 	Buffer* m_camera_uniform_buffer;

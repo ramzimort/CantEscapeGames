@@ -7,21 +7,24 @@ Primary Author: Jose Rosenbluth
 
 #include "Camera.h"
 
-//Macros for std constructor
-#define STD_NEAR		0.01f
-#define STD_FAR			1000.0f
-#define STD_FOV			75
-#define STD_WIDTH		1280
-#define STD_HEIGHT		720
 
 RTTR_REGISTRATION
 {
+	rttr::registration::enumeration<CameraProjectionType>("CameraProjectionType")(
+		rttr::value("Projection_Perspective", CameraProjectionType::PROJECTION_PERSPECTIVE),
+		rttr::value("Projection_Orthographic", CameraProjectionType::PROJECTION_ORTHOGRAPHIC),
+		rttr::value("Projection_Orthographic_Viewport", CameraProjectionType::PROJECTION_ORTHOGRAPHIC_VIEWPORT)
+		);
+
 	rttr::registration::class_<Camera>("Camera")
 		.property("Near", &Camera::m_near)
 		.property("Far", &Camera::m_far)
 		.property("FOV", &Camera::m_fov)
 		.property("Position", &Camera::m_position)
 		.property("CameraName", &Camera::m_cameraName)
+		.property("CameraProjectionType", &Camera::m_cameraProjectionType)
+		.property("OrthographicWidth", &Camera::m_orthographicWidth)
+		.property("OrthographicHeight", &Camera::m_orthographicHeight)
 		.property("LookDir", &Camera::m_lookDir)
 		.property("ZOrder", &Camera::m_zOrder)
 		.property("ViewportRenderInfo", &Camera::m_viewportRenderInformation)
@@ -39,7 +42,10 @@ Camera::Camera() :
 	m_rightDir(1.f, 0.f, 0.f),
 	m_cameraName(""),
 	m_zOrder(-1),
-	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
+	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f),
+	m_cameraProjectionType(PROJECTION_PERSPECTIVE),
+	m_orthographicWidth(100),
+	m_orthographicHeight(100)
 {
 }
 
@@ -55,11 +61,14 @@ Camera::Camera(float fov,
 	m_rightDir(1.f, 0.f, 0.f),
 	m_cameraName(""),
 	m_zOrder(-1),
-	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
+	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f),
+	m_cameraProjectionType(PROJECTION_PERSPECTIVE),
+	m_orthographicWidth(100),
+	m_orthographicHeight(100)
 { 
 }
 
-Camera::Camera(const Camera& lhs) : 
+Camera::Camera(const Camera& lhs) :
 	m_id(ID()),
 	m_near(lhs.m_near),
 	m_far(lhs.m_far),
@@ -70,7 +79,10 @@ Camera::Camera(const Camera& lhs) :
 	m_rightDir(lhs.m_rightDir),
 	m_cameraName(lhs.m_cameraName),
 	m_zOrder(lhs.m_zOrder),
-	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f)
+	m_viewportRenderInformation(lhs.m_viewportRenderInformation),
+	m_cameraProjectionType(lhs.m_cameraProjectionType),
+	m_orthographicWidth(lhs.m_orthographicWidth),
+	m_orthographicHeight(lhs.m_orthographicHeight)
 { 
 }
 
@@ -88,6 +100,11 @@ void Camera::SetAspectRatio(size_t width, size_t height)
 	screenWidth = width;
 	screenHeight = height;
 	m_aspect = static_cast<float>(width) / static_cast<float>(height);
+}
+
+void Camera::SetProjectionType(CameraProjectionType projectionType)
+{
+	m_cameraProjectionType = projectionType;
 }
 
 void Camera::SetCameraPosition(float x, float y, float z)
@@ -154,8 +171,22 @@ void Camera::UpdateViewMatrix()
 
 void Camera::UpdateProjectionMatrix()
 {
-	m_projectionMatrix = DirectX::XMMatrixPerspectiveFovRH(
-		DirectX::XMConvertToRadians(m_fov), m_aspect, m_near, m_far);
+	if (m_cameraProjectionType == PROJECTION_ORTHOGRAPHIC_VIEWPORT)
+	{
+		float finalWidth = ( (float)m_width * m_viewportRenderInformation.z);
+		float finalHeight =  ((float)m_height * m_viewportRenderInformation.w);
+
+		m_projectionMatrix = DirectX::XMMatrixOrthographicRH(finalWidth, finalHeight, m_near, m_far);
+	}
+	else if (m_cameraProjectionType == PROJECTION_ORTHOGRAPHIC)
+	{
+		m_projectionMatrix = DirectX::XMMatrixOrthographicRH((float)m_orthographicWidth, (float)m_orthographicHeight, m_near, m_far);
+	}
+	else if (m_cameraProjectionType == PROJECTION_PERSPECTIVE)
+	{
+		m_projectionMatrix = DirectX::XMMatrixPerspectiveFovRH(
+			DirectX::XMConvertToRadians(m_fov), m_aspect, m_near, m_far);
+	}
 	m_invProjectionMatrix =	DirectX::XMMatrixInverse(nullptr, m_projectionMatrix);
 }
 

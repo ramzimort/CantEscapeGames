@@ -40,6 +40,7 @@ void DepthPassRendering::RenderDepthPass(const DepthPassContext& depth_pass_cont
 	m_dxrenderer->cmd_set_viewport(0, 0, depth_rt->get_texture()->get_desc().m_width, depth_rt->get_texture()->get_desc().m_height);
 
 	RenderBasicMeshDepthPass(depth_pass_context);
+	RenderAnimatedModelDepthPass(depth_pass_context);
 }
 
 
@@ -57,18 +58,12 @@ void DepthPassRendering::RenderBasicMeshDepthPass(const DepthPassContext& depth_
 
 		if (i >= m_objectUniformBufferList.size())
 		{
-			add_object_uniform_buffer();
+			AddObjectUniformBuffer();
 		}
 
 		Buffer* obj_uniform_buffer = m_objectUniformBufferList[i];
 
 		m_objectUniformDataList[i] = {};
-		//m_object_uniform_data = {};
-		/*
-		Commented for now since this variable won't be used, probably in the parallel universe ?
-		m_object_uniform_data.ModelMat = inst_data.model_mat;
-		m_object_uniform_data.InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
-		m_object_uniform_data.NormalMat = inst_data.normal_mat;*/
 		m_objectUniformDataList[i].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
 
 
@@ -115,10 +110,89 @@ void DepthPassRendering::RenderBasicMeshDepthPass(const DepthPassContext& depth_
 
 }
 
+void DepthPassRendering::RenderAnimatedModelDepthPass(const DepthPassContext& depth_pass_context)
+{
+	m_dxrenderer->cmd_bind_pipeline(m_depthPassAnimModelPipeline);
+
+	uint64_t latestObjectBufferIndex = m_appRenderer->m_basicInstances.size();
+
+	for (uint64_t i = 0; i < m_appRenderer->m_boneMeshInstancesList.size(); ++i)
+	{
+		const InstanceRenderData& inst_data = m_appRenderer->m_boneMeshInstancesList[i].m_instanceRenderData;
+		Model* p_ref_model = inst_data.p_ref_model;
+
+		assert(p_ref_model);
+
+		if (latestObjectBufferIndex >= m_objectUniformBufferList.size())
+		{
+			AddObjectUniformBuffer();
+		}
+
+		Buffer* obj_uniform_buffer = m_objectUniformBufferList[i];
+
+		m_objectUniformDataList[latestObjectBufferIndex] = {};
+		m_objectUniformDataList[latestObjectBufferIndex].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
+
+
+		BufferUpdateDesc update_object_uniform_desc = {};
+		update_object_uniform_desc.m_buffer = obj_uniform_buffer;
+		update_object_uniform_desc.m_pSource = &m_objectUniformDataList[latestObjectBufferIndex];
+		update_object_uniform_desc.m_size = sizeof(ObjectUniformData);
+		m_dxrenderer->cmd_update_buffer(update_object_uniform_desc);
+
+		++latestObjectBufferIndex;
+
+		Buffer* boneUniformBuffer = m_appRenderer->m_boneTransformsUniformBufferList[i];
+
+		m_dxrenderer->cmd_bind_vertex_buffer(inst_data.p_ref_model->GetVertexBuffer());
+
+		Buffer* index_buffer = p_ref_model->GetIndexBuffer();
+		if (index_buffer)
+		{
+			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
+		}
+
+		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
+		uint32_t mesh_instance_count = std::max(1u, (uint32_t)meshes_list.size());
+
+		DescriptorData params[2] = {};
+
+		params[0].m_binding_location = 0;
+		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+		params[0].m_buffers = &obj_uniform_buffer;
+
+		params[1].m_binding_location = 1;
+		params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+		params[1].m_buffers = &boneUniformBuffer;
+
+		m_dxrenderer->cmd_bind_descriptor(m_depthPassAnimModelPipeline, 2, params);
+
+		if (meshes_list.size() <= 0)
+		{
+			m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);
+		}
+		else
+		{
+			for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
+			{
+				const Mesh& mesh_instance = meshes_list[mesh_index];
+				m_dxrenderer->cmd_draw_index(mesh_instance.get_index_count(), mesh_instance.get_start_index(), mesh_instance.get_start_vertex());
+			}
+		}
+	}
+
+}
+
+
 void DepthPassRendering::Release()
 {
 	SafeReleaseDelete(m_depth_pass_shader);
 	SafeReleaseDelete(m_depth_pass_pipeline);
+
+	SafeReleaseDelete(m_depthPassAnimModelShader);
+	SafeReleaseDelete(m_depthPassAnimModelPipeline);
 
 	for (Buffer* buffer : m_objectUniformBufferList)
 	{
@@ -126,7 +200,7 @@ void DepthPassRendering::Release()
 	}
 }
 
-void DepthPassRendering::add_object_uniform_buffer()
+void DepthPassRendering::AddObjectUniformBuffer()
 {
 	BufferLoadDesc object_uniform_buffer_desc = {};
 	object_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
@@ -147,10 +221,14 @@ void DepthPassRendering::LoadContent(DXRenderer* dxrenderer)
 {
 	m_dxrenderer = dxrenderer;
 
-	m_objectUniformDataList.reserve(100);
+	ShaderMacro deferredPassShaderMacro = {};
+	deferredPassShaderMacro.m_name = "ANIM_MODEL";
+	deferredPassShaderMacro.m_definition = std::to_string(0);
 
 	ShaderLoadDesc depth_pass_shader_desc = {};
 	depth_pass_shader_desc.m_desc.m_vertex_shader_path = "depth_pass_vert.hlsl";
+	depth_pass_shader_desc.m_shader_macro_count = 1;
+	depth_pass_shader_desc.m_shader_macro = &deferredPassShaderMacro;
 
 	if (m_depth_pass_context_type == DepthPassContextType::FOUR_MOMENT_Z_BUFFER)
 	{
@@ -160,6 +238,9 @@ void DepthPassRendering::LoadContent(DXRenderer* dxrenderer)
 
 	m_depth_pass_shader = DXResourceLoader::Create_Shader(m_dxrenderer, depth_pass_shader_desc);
 
+	deferredPassShaderMacro.m_definition = std::to_string(1);
+
+	m_depthPassAnimModelShader = DXResourceLoader::Create_Shader(m_dxrenderer, depth_pass_shader_desc);
 
 	VertexLayout pos3_layout = {};
 	pos3_layout.m_atrrib_count = 1;
@@ -193,5 +274,40 @@ void DepthPassRendering::LoadContent(DXRenderer* dxrenderer)
 
 	m_depth_pass_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
+
+	VertexLayout pos_normal_tangent_bitangent_uv_bones_layout = {};
+	pos_normal_tangent_bitangent_uv_bones_layout.m_atrrib_count = 7;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[0].m_semantic = Attrib_Semantic::POSITION;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[1].m_semantic = Attrib_Semantic::NORMAL;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[2].m_semantic = Attrib_Semantic::TANGENT;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[3].m_semantic = Attrib_Semantic::BITANGENT;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_format = DXGI_FORMAT_R32G32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_0;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_format = DXGI_FORMAT_R32G32B32A32_SINT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[5].m_semantic = Attrib_Semantic::TEXCOORD_1;
+
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_binding = 0;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	pos_normal_tangent_bitangent_uv_bones_layout.m_attribs[6].m_semantic = Attrib_Semantic::TEXCOORD_2;
+
+	depth_pass_pipeline_desc.m_shader = m_depthPassAnimModelShader;
+	depth_pass_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_bones_layout;
+
+	m_depthPassAnimModelPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 }
 

@@ -99,7 +99,8 @@ private:
 	void InitRandomTexture1D();
 	void RenderSkybox();
 
-
+	void UpdateBoneTransformsBufferList();
+	void AddBoneTransformBuffer();
 	void AddObjectUniformBuffer(BufferList& objectUniformBufferList,
 		std::vector<ObjectUniformData>& objectUniformDataList);
 	void AddMaterialUniformBuffer();
@@ -191,7 +192,8 @@ private:
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
 	BufferList m_material_uniform_buffer_list;
 
-
+	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;
+	std::deque<Buffer*> m_boneTransformsUniformBufferList;
 
 	
 };

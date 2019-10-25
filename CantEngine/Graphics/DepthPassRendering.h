@@ -43,8 +43,9 @@ public:
 	void LoadContent(DXRenderer* dxrenderer);
 private:
 	void RenderBasicMeshDepthPass(const DepthPassContext& depth_pass_context);
+	void RenderAnimatedModelDepthPass(const DepthPassContext& depth_pass_context);
 private:
-	void add_object_uniform_buffer();
+	void AddObjectUniformBuffer();
 private:
 	uint32_t m_sample_count;
 	AppRenderer* m_appRenderer;
@@ -53,10 +54,14 @@ private:
 	Pipeline* m_depth_pass_pipeline;
 	Shader* m_depth_pass_shader;
 
-	std::vector<Buffer*> m_objectUniformBufferList;
+	Pipeline* m_depthPassAnimModelPipeline;
+	Shader* m_depthPassAnimModelShader;
+
+	std::deque<Buffer*> m_objectUniformBufferList;
 	//ObjectUniformData m_object_uniform_data;
-	std::vector<ObjectUniformData> m_objectUniformDataList;
+	std::deque<ObjectUniformData> m_objectUniformDataList;
 
 	DepthPassContextType m_depth_pass_context_type;
+	std::deque<Buffer*> m_boneTransformsUniformBufferList;
 };
 
