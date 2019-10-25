@@ -97,8 +97,8 @@ size_t Camera::GetId()
 
 void Camera::SetAspectRatio(size_t width, size_t height)
 {
-	screenWidth = width;
-	screenHeight = height;
+	m_screenWidth = width;
+	m_screenHeight = height;
 	m_aspect = static_cast<float>(width) / static_cast<float>(height);
 }
 
@@ -173,8 +173,8 @@ void Camera::UpdateProjectionMatrix()
 {
 	if (m_cameraProjectionType == PROJECTION_ORTHOGRAPHIC_VIEWPORT)
 	{
-		float finalWidth = ( (float)m_width * m_viewportRenderInformation.z);
-		float finalHeight =  ((float)m_height * m_viewportRenderInformation.w);
+		float finalWidth = ( (float)m_screenWidth * m_viewportRenderInformation.z);
+		float finalHeight =  ((float)m_screenHeight * m_viewportRenderInformation.w);
 
 		m_projectionMatrix = DirectX::XMMatrixOrthographicRH(finalWidth, finalHeight, m_near, m_far);
 	}
@@ -213,9 +213,9 @@ const Vector4& Camera::GetViewportRenderInformation() const
 
 size_t Camera::GetScreenWidth() const
 {
-	return screenWidth;
+	return m_screenWidth;
 }
 size_t Camera::GetScreenHeight() const
 {
-	return screenHeight;
+	return m_screenHeight;
 }

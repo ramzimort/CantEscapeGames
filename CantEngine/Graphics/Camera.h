@@ -88,9 +88,6 @@ private:
 	Matrix m_viewProjectionMatrix;
 	Matrix m_invViewProjectionMatrix;
 
-	size_t m_width;
-	size_t m_height;
-
 	size_t m_orthographicWidth;
 	size_t m_orthographicHeight;
 
@@ -99,8 +96,8 @@ private:
 	float m_near;
 	float m_far;
 
-	size_t screenWidth;
-	size_t screenHeight;
+	size_t m_screenWidth;
+	size_t m_screenHeight;
 
 
 	static size_t ID()
