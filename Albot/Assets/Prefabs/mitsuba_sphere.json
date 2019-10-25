@@ -13,6 +13,7 @@
   },
   "HaloEffectComponent": {
     "HaloEffect": {
+      "Position": [ 0.0, 0.0, 0.0 ],
       "Radius": 8.0,
       "Intensity": 1.0,
       "Color": [ 1.0, 0.85, 0.70 ]

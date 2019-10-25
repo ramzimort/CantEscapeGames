@@ -19,6 +19,8 @@ public:
 	float GetRadius() const { return m_radius; };
 
 private:
+	//relative halo position to game object
+	Vector3 m_position;
 	Vector3 m_color;
 	float m_intensity;
 	float m_radius;
