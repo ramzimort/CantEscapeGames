@@ -128,7 +128,7 @@ void DepthPassRendering::RenderAnimatedModelDepthPass(const DepthPassContext& de
 			AddObjectUniformBuffer();
 		}
 
-		Buffer* obj_uniform_buffer = m_objectUniformBufferList[i];
+		Buffer* obj_uniform_buffer = m_objectUniformBufferList[latestObjectBufferIndex];
 
 		m_objectUniformDataList[latestObjectBufferIndex] = {};
 		m_objectUniformDataList[latestObjectBufferIndex].ModelViewProjectionMat = inst_data.model_mat * depth_pass_context.depth_pass_camera_uniform_data->ViewProjectionMat;
