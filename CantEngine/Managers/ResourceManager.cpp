@@ -156,11 +156,17 @@ void ResourceManager::FreeResource(StringId id)
 	switch (it->second.type)
 	{
 	case TEXTURE:
+	{
+		p.p_texture->Release();
 		CantMemory::PoolResource<Texture>::Free(p.p_texture);
 		break;
+	}
 	case MODEL:
+	{
+		p.p_model->Release();
 		CantMemory::PoolResource<Model>::Free(p.p_model);
 		break;
+	}
 	case MATERIAL:
 		CantMemory::PoolResource<Material>::Free(p.p_material);
 		break;

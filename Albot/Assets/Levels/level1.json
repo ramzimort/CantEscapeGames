@@ -5,7 +5,9 @@
       "Assets\\Textures\\Particles\\flare0.png",
       "Assets\\Textures\\redbrick.jpg",
       "Assets\\Textures\\redbrick_normal.jpg",
-      "Assets\\Textures\\redbrick_height.jpg"
+      "Assets\\Textures\\redbrick_height.jpg",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
     ],
     "Models": [
       "Assets\\Models\\mitsuba-sphere.obj",
@@ -35,7 +37,8 @@
       "Assets\\Prefabs\\player.json",
       "Assets\\Prefabs\\TestGoJose.json",
       "Assets\\Prefabs\\brick_wall.json",
-      "Assets\\Prefabs\\mini_map.json"
+      "Assets\\Prefabs\\mini_map.json",
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json"
     ],
     "Scripts": [
       "Scripts\\States\\level1.lua",
@@ -51,6 +54,13 @@
       "tag": "lvleditor",
       "prefab": "Assets\\Prefabs\\lvleditor.json",
       "overrides": {
+      }
+    },
+    {
+      "tag": "skybox",
+      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "overrides": {
+
       }
     },
     {

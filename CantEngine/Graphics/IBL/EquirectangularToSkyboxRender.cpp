@@ -41,7 +41,7 @@ void EquirectangularToSkyboxRenderInstance::Render(Texture* src_texture, Texture
 		DescriptorData params[4] = {};
 		params[0].m_binding_location = 0;
 		params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-		params[0].m_samplers = &m_parent_render.m_appRenderer->m_texture_sampler;
+		params[0].m_samplers = &m_parent_render.m_appRenderer->m_trillinear_sampler;
 		params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
 
 		params[1].m_binding_location = 0;
@@ -118,6 +118,8 @@ void EquirectangularToSkyboxRender::Release()
 
 void EquirectangularToSkyboxRender::Render(Texture* src_texture, Texture* dest_texture)
 {
+	m_dxrenderer->cmd_bind_pipeline(m_to_skybox_pipeline);
+
 	if (m_curInstancesCount >= m_instancesRender.size())
 	{
 		m_instancesRender.push_back(new EquirectangularToSkyboxRenderInstance(*this));
@@ -125,46 +127,6 @@ void EquirectangularToSkyboxRender::Render(Texture* src_texture, Texture* dest_t
 
 	m_instancesRender[m_curInstancesCount]->Render(src_texture, dest_texture);
 	++m_curInstancesCount;
-
-
-	/*m_source_texture_to_skybox_uniform_data.SkyboxSize.x = (float)dest_texture->get_desc().m_width;
-	m_source_texture_to_skybox_uniform_data.SkyboxSize.y = (float)dest_texture->get_desc().m_height;
-
-	BufferUpdateDesc update_toskybox_uniform_desc = {};
-
-	update_toskybox_uniform_desc.m_buffer = m_source_texture_to_skybox_uniform_buffer;
-	update_toskybox_uniform_desc.m_p_source = &m_source_texture_to_skybox_uniform_data;
-	update_toskybox_uniform_desc.m_size = sizeof(SourceTextureToSkyboxUniformData);
-	
-	m_dxrenderer->cmd_update_buffer(update_toskybox_uniform_desc);
-
-	m_dxrenderer->cmd_bind_pipeline(m_to_skybox_pipeline);
-	
-	DescriptorData params[4] = {};
-	params[0].m_binding_location = 0;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[0].m_samplers = &m_appRenderer->m_texture_sampler;
-	params[0].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	params[1].m_binding_location = 0;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[1].m_textures = &src_texture;
-	params[1].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	params[2].m_binding_location = 0;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_RW_TEXTURE;
-	params[2].m_textures = &dest_texture;
-	params[2].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-	params[3].m_binding_location = 0;
-	params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[3].m_buffers = &m_source_texture_to_skybox_uniform_buffer;
-	params[3].m_shader_stages = Shader_Stages::COMPUTE_STAGE;
-
-
-	m_dxrenderer->cmd_bind_descriptor(m_to_skybox_pipeline, 4, params);
-	m_dxrenderer->cmd_dispatch((uint32_t)dest_texture->get_desc().m_width / TO_SKYBOX_WORKGROUP_THREAD_ID_X, 
-		(uint32_t)dest_texture->get_desc().m_height / TO_SKYBOX_WORKGROUP_THREAD_ID_Y, 6u);*/
 
 }
 

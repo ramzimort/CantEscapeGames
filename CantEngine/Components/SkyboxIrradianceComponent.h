@@ -29,7 +29,7 @@ private:
 	Texture* m_pSkyboxTexture;
 	Texture* m_pSkyboxIrradianceTexture;
 
-	Texture* m_pIblPrefilteredEnvMapTexture;
+	Texture* m_pIBLPrefilteredEnvMapTexture;
 
 	bool m_hasBakedData;
 

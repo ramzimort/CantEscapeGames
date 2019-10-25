@@ -622,8 +622,9 @@ void AppRenderer::UpdateAppRenderer(float dt)
 }
 void AppRenderer::RenderApp()
 {
-	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
+	BakeSkyboxIrradianceData();
 
+	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	LoadActionsDesc load_actions_desc = {};
 	load_actions_desc.m_clear_color_values[0] = swap_chain_rt->get_clear_value();
@@ -664,6 +665,8 @@ void AppRenderer::RenderApp()
 
 
 	ResolveAppRendererInstances();
+	m_dxrenderer->execute_queued_cmd();	
+
 
 	m_directionLightInstanceList.clear();
 	m_pointLightInstanceList.clear();
@@ -674,14 +677,30 @@ void AppRenderer::RenderApp()
 	m_bakedSkyboxIrradianceInstanceList.clear();
 	m_debugRendering.ClearInstances();
 	m_particleRendering.ClearInstances();
-
-	m_dxrenderer->execute_queued_cmd();	
+	m_toSkyboxRender.ClearInstancesCount();
 }
 
 
 void AppRenderer::BakeSkyboxIrradianceData()
 {
+	if (m_processSkyboxIrradianceInstanceList.empty())
+	{
+		return;
+	}
 
+	ProcessSkyboxIrradianceInstanceData& processSkyboxIrradianceData = m_processSkyboxIrradianceInstanceList[0];
+
+	m_toSkyboxRender.Render(processSkyboxIrradianceData.m_pSkyboxEquirectangularTexture,
+		processSkyboxIrradianceData.m_bakedData.m_pSkyboxTexture);
+
+	m_toSkyboxRender.Render(processSkyboxIrradianceData.m_pSkyboxEquirectangularIrradianceTexture,
+		processSkyboxIrradianceData.m_bakedData.m_pSkyboxIrradianceTexture);
+
+	//m_iblFilterEnvMapPass.Render(processSkyboxIrradianceData.m_bakedData.m_pSkyboxTexture, processSkyboxIrradianceData.m_bakedData.m_pIBLPrefilteredEnvMapTexture);
+
+	*processSkyboxIrradianceData.m_hasBaked = true;
+
+	m_processSkyboxIrradianceInstanceList.erase(m_processSkyboxIrradianceInstanceList.begin());
 }
 
 void AppRenderer::ResolveAppRendererInstances()

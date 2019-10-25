@@ -63,7 +63,7 @@ struct BakedSkyboxIrradianceInstanceData
 {
 	Texture* m_pSkyboxTexture;
 	Texture* m_pSkyboxIrradianceTexture;
-	Texture* m_pIblPrefilteredEnvMapTexture;
+	Texture* m_pIBLPrefilteredEnvMapTexture;
 };
 
 struct ProcessSkyboxIrradianceInstanceData

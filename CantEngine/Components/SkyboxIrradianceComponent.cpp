@@ -29,7 +29,7 @@ SkyboxIrradianceComponent::~SkyboxIrradianceComponent()
 {
 	SafeReleaseDelete(m_pSkyboxTexture);
 	SafeReleaseDelete(m_pSkyboxIrradianceTexture);
-	SafeReleaseDelete(m_pIblPrefilteredEnvMapTexture);
+	SafeReleaseDelete(m_pIBLPrefilteredEnvMapTexture);
 }
 
 
@@ -69,7 +69,7 @@ void SkyboxIrradianceComponent::Init(ResourceManager* resMgr, DXRenderer* dxrend
 	hdr_skybox_texture_desc.m_height = 512;
 	hdr_skybox_texture_desc.m_mipLevels = 5;
 
-	m_pIblPrefilteredEnvMapTexture = DXResourceLoader::Create_Texture(dxrenderer, load_hdr_skybox_texture_desc);
+	m_pIBLPrefilteredEnvMapTexture = DXResourceLoader::Create_Texture(dxrenderer, load_hdr_skybox_texture_desc);
 }
 
 void SkyboxIrradianceComponent::Begin(GameObjectManager *goMgr)

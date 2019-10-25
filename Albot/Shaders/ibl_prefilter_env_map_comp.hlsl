@@ -72,12 +72,12 @@ void main(uint3 DispatchThreadID : SV_DispatchThreadID)
 
             float resolution_width = IBLFilterEnvMapUniformData_Buffer.SourceSkyboxSize.x;
             float resolution_height = IBLFilterEnvMapUniformData_Buffer.SourceSkyboxSize.y;
-            float saTexel = 4.0 * PI / (6.0 * resolution_width * resolution_height);
-            float saSample = 1.0 / (float(sample_count) * pdf + 0.0001);
+            float sa_texel = 4.0 * PI / (6.0 * resolution_width * resolution_height);
+            float sa_sample = 1.0 / (float(sample_count) * pdf + 0.0001);
 
-            float mipLevel = roughness == 0.0 ? 0.0 : 0.5 * log2(saSample / saTexel);
+            float final_mip_level = roughness == 0.0 ? 0.0 : 0.5 * log2(sa_sample / sa_texel);
 
-            prefiltered_color += SourceTexture.SampleLevel(SkyboxSampler, L_term, mipLevel).rgb * N_dot_L;
+            prefiltered_color += SourceTexture.SampleLevel(SkyboxSampler, L_term, final_mip_level).rgb * N_dot_L;
             total_weight += N_dot_L;
         }
     }
