@@ -13,7 +13,11 @@ class AppRendererInstance;
 class MSAAResolvePassInstance;
 class ParticleRenderingInstance;
 
-
+struct SkyboxUniformData
+{
+	//no camera position included here
+	Matrix ModelViewProjectionMat;
+};
 
 struct AppRendererContext
 {
@@ -48,6 +52,7 @@ public:
 private:
 	void RenderBasicInstances(Pipeline* pipeline);
 	void RenderBoneMeshInstances(Pipeline* pipeline);
+	void RenderSkybox();
 
 	void AddBoneTransformBuffer();
 private:
@@ -82,5 +87,8 @@ private:
 	Buffer* m_resolveUniformBuffer;
 
 	uint32_t m_lastMaterialIndex;
+
+	SkyboxUniformData m_skyboxUniformData;
+	Buffer* m_skyboxUniformBuffer;
 };
 

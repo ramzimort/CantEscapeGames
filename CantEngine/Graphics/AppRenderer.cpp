@@ -275,7 +275,7 @@ void AppRenderer::InnerLoadContent()
 
 	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
-	LoadSkyboxContent();
+	InitializeSkyboxData();
 	
 
 }
@@ -310,20 +310,8 @@ void AppRenderer::InitRandomTexture1D()
 	m_random1DTexture = DXResourceLoader::Create_Texture(m_dxrenderer, loadRandomTex1DDesc);
 }
 
-void AppRenderer::LoadSkyboxContent()
+void AppRenderer::InitializeSkyboxData()
 {
-	
-	BufferLoadDesc skybox_uniform_buffer_desc = {};
-	skybox_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
-	skybox_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
-	skybox_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
-	skybox_uniform_buffer_desc.m_desc.m_debugName = "Skybox camera uniform data";
-	skybox_uniform_buffer_desc.m_size = sizeof(SkyboxUniformData);
-	skybox_uniform_buffer_desc.m_rawData = nullptr;
-
-	m_skybox_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, skybox_uniform_buffer_desc);
-
-
 	float skyBoxPoints[] = 
 	{
 			0.5f,  -0.5f, -0.5f, 1.0f,    // -z
@@ -396,19 +384,6 @@ void AppRenderer::LoadSkyboxContent()
 	graphics_pipeline_desc.m_vertex_layout = &pos4_layout;
 
 	m_skybox_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
-
-
-	std::array<std::string, 6> cube_texs =
-	{
-		Constant::SkyboxTexturesDir + "right.jpg",
-		Constant::SkyboxTexturesDir + "left.jpg",
-		Constant::SkyboxTexturesDir + "top.jpg",
-		Constant::SkyboxTexturesDir + "bottom.jpg",
-		Constant::SkyboxTexturesDir + "front.jpg",
-		Constant::SkyboxTexturesDir + "back.jpg"
-	};
-
-	m_skybox_texture = DXResourceLoader::Create_CubeTexture(m_dxrenderer, cube_texs);
 }
 
 
@@ -427,6 +402,7 @@ void AppRenderer::InitializeRenderer()
 void AppRenderer::InitializeResources()
 {
 	InitializeDefaultIBLData(); 
+	
 
 	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
 		std::bind(&AppRenderer::OnCameraRegistration, this, std::placeholders::_1));
@@ -545,7 +521,6 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_skybox_pipeline);
 	SafeReleaseDelete(m_skybox_shader);
 	SafeReleaseDelete(m_skybox_vertices_buffer);
-	SafeReleaseDelete(m_skybox_texture);
 
 	SafeReleaseDelete(m_pBRDFLookupTexture);
 
@@ -555,10 +530,7 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_blend_state_one_zero_add);
 	SafeReleaseDelete(m_skybox_blend_state);
 	SafeReleaseDelete(m_additiveBlending);
-
-
 	SafeReleaseDelete(m_directional_light_uniform_buffer);
-	SafeReleaseDelete(m_skybox_uniform_buffer);
 	SafeReleaseDelete(m_random1DTexture);
 
 	SafeReleaseDelete(m_resolveAppRendererInstancesPipeline);
@@ -888,36 +860,7 @@ void AppRenderer::AddMaterialUniformBuffer()
 }
 
 
-void AppRenderer::RenderSkybox()
-{
-	BufferUpdateDesc update_skybox_buffer_desc = {};
-	update_skybox_buffer_desc.m_buffer = m_skybox_uniform_buffer;
-	update_skybox_buffer_desc.m_pSource = &m_skybox_uniform_data;
-	update_skybox_buffer_desc.m_size = sizeof(SkyboxUniformData);
-	m_dxrenderer->cmd_update_buffer(update_skybox_buffer_desc);
 
-	m_dxrenderer->cmd_bind_pipeline(m_skybox_pipeline);
-	m_dxrenderer->cmd_bind_vertex_buffer(m_skybox_vertices_buffer);
-
-	DescriptorData params[3] = {};
-	params[0].m_binding_location = 0;
-	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-	params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE;
-	params[0].m_buffers = &m_skybox_uniform_buffer;
-
-	params[1].m_binding_location = 0;
-	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[1].m_textures = &m_skybox_texture;
-
-	params[2].m_binding_location = 0;
-	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-	params[2].m_samplers = &m_trillinear_sampler;
-
-	m_dxrenderer->cmd_bind_descriptor(m_skybox_pipeline, 3, params);
-	m_dxrenderer->cmd_draw(36, 0);
-}
 
 void AppRenderer::PresentApp()
 {

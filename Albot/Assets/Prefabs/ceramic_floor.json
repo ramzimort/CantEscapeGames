@@ -2,14 +2,14 @@
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ -90.0, 0.0, 0.0 ],
-    "Scale": [25.0, 25.0, 1.0]
+    "Scale": [ 25.0, 25.0, 1.0 ]
 
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\Red_Brick_Material.json",
+    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
     "XTileFactor": 4.0,
-    "YTileFactor":  4.0
+    "YTileFactor": 4.0
   },
 
   "MeshComponent": {

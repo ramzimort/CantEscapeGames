@@ -19,12 +19,6 @@
 class Material;
 class Model;
 
-struct SkyboxUniformData
-{
-	//no camera position included here
-	Matrix ModelViewProjectionMat;
-};
-
 struct PointLightUniformData
 {
 	Vector4 LightPosition[MAX_LIGHT_COUNT];
@@ -101,7 +95,7 @@ private:
 	void InitializeDefaultIBLData();
 	void InnerLoadContent();
 
-	void LoadSkyboxContent();
+	void InitializeSkyboxData();
 	void InitRandomTexture1D();
 	void RenderSkybox();
 
@@ -152,7 +146,6 @@ private:
 	Pipeline* m_skybox_pipeline;
 	Shader* m_skybox_shader;
 	Buffer* m_skybox_vertices_buffer;
-	Texture* m_skybox_texture;
 
 
 	Texture* m_random1DTexture;
@@ -195,12 +188,7 @@ private:
 	std::map<int32_t, AppRendererInstance*> m_appRendererInstances;
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
-	SkyboxUniformData m_skybox_uniform_data;
-
-	
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
-
-	Buffer* m_skybox_uniform_buffer;
 	BufferList m_material_uniform_buffer_list;
 
 

@@ -18,7 +18,11 @@ struct PS_OUT
 PS_OUT main(PS_IN ps_in)
 {
     PS_OUT ps_out;
-    ps_out.Color = Skybox_Texture.Sample(trillinear_sampler, ps_in.ObjectPosition).rgba;
+    float3 skybox_color = Skybox_Texture.Sample(trillinear_sampler, ps_in.ObjectPosition).rgb;
+    skybox_color = skybox_color / (skybox_color + float3(1.0, 1.0, 1.0));
+    skybox_color = pow(skybox_color, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
+
+    ps_out.Color = float4(skybox_color.rgb, 1.0);
     return ps_out;
 }
 

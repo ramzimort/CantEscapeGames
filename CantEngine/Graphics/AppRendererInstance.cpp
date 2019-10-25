@@ -60,6 +60,7 @@ void AppRendererInstance::Release()
 	SafeReleaseDelete(m_curMainRT);
 	SafeReleaseDelete(m_msaaMainRT);
 	SafeReleaseDelete(m_depthRT);
+	SafeReleaseDelete(m_skyboxUniformBuffer);
 }
 
 void AppRendererInstance::Initialize()
@@ -73,6 +74,17 @@ void AppRendererInstance::Initialize()
 	camera_uniform_buffer_desc.m_size = sizeof(CameraUniformData);
 
 	m_camera_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, camera_uniform_buffer_desc);
+
+
+	BufferLoadDesc skybox_uniform_buffer_desc = {};
+	skybox_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	skybox_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	skybox_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	skybox_uniform_buffer_desc.m_desc.m_debugName = "Skybox camera uniform data";
+	skybox_uniform_buffer_desc.m_size = sizeof(SkyboxUniformData);
+	skybox_uniform_buffer_desc.m_rawData = nullptr;
+
+	m_skyboxUniformBuffer = DXResourceLoader::Create_Buffer(m_dxrenderer, skybox_uniform_buffer_desc);
 
 
 	const Vector4& viewportRenderInformation = m_context.m_cameraInfo.m_camera.GetViewportRenderInformation();
@@ -180,6 +192,14 @@ void AppRendererInstance::Update(float dt)
 	m_camera_uniform_data.CameraViewportSize = Vector2((float)finalTextureDesc.m_width,
 		(float)finalTextureDesc.m_height);
 
+	Matrix no_position_view_mat = m_camera_uniform_data.ViewMat;
+	no_position_view_mat._41 = 0.f;
+	no_position_view_mat._42 = 0.f;
+	no_position_view_mat._43 = 0.f;
+
+	m_skyboxUniformData.ModelViewProjectionMat =
+		no_position_view_mat * m_camera_uniform_data.ProjectionMat;
+
 	m_debugRenderingInstance->Update(m_context, dt);
 }
 
@@ -222,6 +242,7 @@ void AppRendererInstance::Render()
 	{
 		m_msaaResolvePassInstance->Render(m_context);
 	}
+	RenderSkybox();
 	m_debugRenderingInstance->Render(m_context);
 	m_lastMaterialIndex = 0;
 }
@@ -545,4 +566,41 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 		}
 	}
 
+}
+
+
+void AppRendererInstance::RenderSkybox()
+{
+	if (m_appRenderer->m_bakedSkyboxIrradianceInstanceList.empty())
+	{
+		return;
+	}
+
+	BufferUpdateDesc update_skybox_buffer_desc = {};
+	update_skybox_buffer_desc.m_buffer = m_skyboxUniformBuffer;
+	update_skybox_buffer_desc.m_pSource = &m_skyboxUniformData;
+	update_skybox_buffer_desc.m_size = sizeof(SkyboxUniformData);
+	m_dxrenderer->cmd_update_buffer(update_skybox_buffer_desc);
+
+	m_dxrenderer->cmd_bind_pipeline(m_appRenderer->m_skybox_pipeline);
+	m_dxrenderer->cmd_bind_vertex_buffer(m_appRenderer->m_skybox_vertices_buffer);
+
+	DescriptorData params[3] = {};
+	params[0].m_binding_location = 0;
+	params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+	params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+	params[0].m_buffers = &m_skyboxUniformBuffer;
+
+	params[1].m_binding_location = 0;
+	params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+	params[1].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[1].m_textures = &m_appRenderer->m_bakedSkyboxIrradianceInstanceList[0].m_pSkyboxTexture;
+
+	params[2].m_binding_location = 0;
+	params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+	params[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+	params[2].m_samplers = &m_appRenderer->m_trillinear_sampler;
+
+	m_dxrenderer->cmd_bind_descriptor(m_appRenderer->m_skybox_pipeline, 3, params);
+	m_dxrenderer->cmd_draw(36, 0);
 }

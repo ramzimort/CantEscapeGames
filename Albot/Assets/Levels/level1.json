@@ -6,6 +6,10 @@
       "Assets\\Textures\\redbrick.jpg",
       "Assets\\Textures\\redbrick_normal.jpg",
       "Assets\\Textures\\redbrick_height.jpg",
+      "Assets\\Textures\\redbrick_height_invert.jpg",
+      "Assets\\Textures\\ceramic_diffuse.jpg",
+      "Assets\\Textures\\ceramic_normal.jpg",
+      "Assets\\Textures\\ceramic_height.jpg",
       "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
       "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
     ],
@@ -24,7 +28,8 @@
       "Assets\\Materials\\MaterialDarkGreen.json",
       "Assets\\Materials\\RedDieletricRoughMaterial.json",
       "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-      "Assets\\Materials\\RedMetallicSmoothMaterial.json"
+      "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+      "Assets\\Materials\\CeramicMaterial.json"
     ],
     "Audio": [
 
@@ -42,7 +47,8 @@
       "Assets\\Prefabs\\brick_wall.json",
       "Assets\\Prefabs\\mini_map.json",
       "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "Assets\\Prefabs\\burning_mitsuba_sphere.json"
+      "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+      "Assets\\Prefabs\\ceramic_floor.json"
     ],
     "Scripts": [
       "Scripts\\States\\level1.lua",
@@ -122,7 +128,16 @@
       "prefab": "Assets\\Prefabs\\brick_wall.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, -5.0, 0.0 ]
+          "Position": [ -25.0, -5.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "Ceramic_Floor",
+      "prefab": "Assets\\Prefabs\\ceramic_floor.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 25.0, -5.0, 0.0 ]
         }
       }
     },

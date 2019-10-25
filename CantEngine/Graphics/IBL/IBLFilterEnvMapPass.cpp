@@ -61,7 +61,7 @@ void IBLFilterEnvMapPass::Render(Texture* src_skybox_texture, Texture* dest_filt
 		m_ibl_filter_env_map_uniform_data_list[mip_index].SourceSkyboxSize.x = (float)src_skybox_texture->get_desc().m_width;
 		m_ibl_filter_env_map_uniform_data_list[mip_index].SourceSkyboxSize.y = (float)src_skybox_texture->get_desc().m_height;
 		m_ibl_filter_env_map_uniform_data_list[mip_index].MipLevel = mip_index;
-		m_ibl_filter_env_map_uniform_data_list[mip_index].SkyboxSize = Vector4((skybox_width >> mip_index), (skybox_height >> mip_index), 0.f, 0.f);
+		m_ibl_filter_env_map_uniform_data_list[mip_index].SkyboxSize = Vector4(float(skybox_width >> mip_index), float(skybox_height >> mip_index), 0.f, 0.f);
 		m_ibl_filter_env_map_uniform_data_list[mip_index].MiscData.x = (float)(mip_index) / (float)(mip_levels - 1);
 
 
