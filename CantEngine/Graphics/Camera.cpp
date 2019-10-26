@@ -16,6 +16,12 @@ RTTR_REGISTRATION
 		rttr::value("Projection_Orthographic_Viewport", CameraProjectionType::PROJECTION_ORTHOGRAPHIC_VIEWPORT)
 		);
 
+	rttr::registration::enumeration<CameraRenderObjectType>("CameraRenderObjectType")(
+		rttr::value("Render_Meshes", CameraRenderObjectType::CAMERA_RENDER_MESHES),
+		rttr::value("Render_UI", CameraRenderObjectType::CAMERA_RENDER_UI),
+		rttr::value("Render_UI_And_Meshes", CameraRenderObjectType::CAMERA_RENDER_UI_AND_MESHES)
+		);
+
 	rttr::registration::class_<Camera>("Camera")
 		.property("Near", &Camera::m_near)
 		.property("Far", &Camera::m_far)
@@ -25,6 +31,7 @@ RTTR_REGISTRATION
 		.property("CameraProjectionType", &Camera::m_cameraProjectionType)
 		.property("OrthographicWidth", &Camera::m_orthographicWidth)
 		.property("OrthographicHeight", &Camera::m_orthographicHeight)
+		.property("RenderObjectType", &Camera::m_cameraRenderObjectType)
 		.property("LookDir", &Camera::m_lookDir)
 		.property("ZOrder", &Camera::m_zOrder)
 		.property("ViewportRenderInfo", &Camera::m_viewportRenderInformation)
@@ -45,7 +52,8 @@ Camera::Camera() :
 	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f),
 	m_cameraProjectionType(PROJECTION_PERSPECTIVE),
 	m_orthographicWidth(100),
-	m_orthographicHeight(100)
+	m_orthographicHeight(100),
+	m_cameraRenderObjectType(CAMERA_RENDER_MESHES)
 {
 }
 
@@ -64,7 +72,8 @@ Camera::Camera(float fov,
 	m_viewportRenderInformation(0.f, 0.f, 1.f, 1.f),
 	m_cameraProjectionType(PROJECTION_PERSPECTIVE),
 	m_orthographicWidth(100),
-	m_orthographicHeight(100)
+	m_orthographicHeight(100),
+	m_cameraRenderObjectType(CAMERA_RENDER_MESHES)
 { 
 }
 
@@ -82,7 +91,8 @@ Camera::Camera(const Camera& lhs) :
 	m_viewportRenderInformation(lhs.m_viewportRenderInformation),
 	m_cameraProjectionType(lhs.m_cameraProjectionType),
 	m_orthographicWidth(lhs.m_orthographicWidth),
-	m_orthographicHeight(lhs.m_orthographicHeight)
+	m_orthographicHeight(lhs.m_orthographicHeight),
+	m_cameraRenderObjectType(lhs.m_cameraRenderObjectType)
 { 
 }
 
@@ -100,6 +110,16 @@ void Camera::SetAspectRatio(size_t width, size_t height)
 	m_screenWidth = width;
 	m_screenHeight = height;
 	m_aspect = static_cast<float>(width) / static_cast<float>(height);
+}
+
+uint32_t Camera::GetCameraRenderObjectType() const
+{
+	return m_cameraRenderObjectType;
+}
+
+void Camera::SetCameraRenderObjectType(uint32_t renderObjectType)
+{
+	m_cameraRenderObjectType = renderObjectType;
 }
 
 void Camera::SetProjectionType(CameraProjectionType projectionType)
@@ -218,4 +238,24 @@ size_t Camera::GetScreenWidth() const
 size_t Camera::GetScreenHeight() const
 {
 	return m_screenHeight;
+}
+
+
+void Camera::SetOrthographicWidth(size_t width)
+{
+	m_orthographicWidth = width;
+}
+
+void Camera::SetOrthographicHeight(size_t height)
+{
+	m_orthographicHeight = height;
+}
+
+size_t Camera::GetOrthographicWidth() const
+{
+	return m_orthographicWidth;
+}
+size_t Camera::GetOrthographicHeight() const
+{
+	return m_orthographicHeight;
 }

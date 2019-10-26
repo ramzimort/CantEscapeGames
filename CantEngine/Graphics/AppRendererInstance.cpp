@@ -39,9 +39,6 @@ void AppRendererInstance::Release()
 	{
 		SafeReleaseDelete(buffer);
 	}
-
-	
-
 	for (Buffer* buffer : m_boneMeshObjectUniformBufferList)
 	{
 		SafeReleaseDelete(buffer);
@@ -197,16 +194,9 @@ void AppRendererInstance::Update(float dt)
 
 void AppRendererInstance::Render()
 {
-	LoadActionsDesc load_actions_desc = {};
-	load_actions_desc.m_clear_color_values[0] = m_curMainRT->get_clear_value();
-	load_actions_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
-	load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
-	load_actions_desc.m_load_action_depth = LoadActionType::CLEAR;
+	Camera& thisCamera = m_context.m_cameraInfo.m_camera;
 
-	m_dxrenderer->cmd_bind_render_targets(&m_curMainRT, 1, m_depthRT, load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, m_curMainRT->get_desc().m_texture_desc.m_width,
-		m_curMainRT->get_desc().m_texture_desc.m_height);
-
+	
 
 	BufferUpdateDesc update_camera_desc = {};
 	update_camera_desc.m_buffer = m_camera_uniform_buffer;
@@ -214,12 +204,41 @@ void AppRendererInstance::Render()
 	update_camera_desc.m_size = sizeof(CameraUniformData);
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
-	m_deferredRenderingInstance->Render(m_context);
-	m_particleRenderingInstance->Render(m_context);
+	uint32_t cameraRenderObjectType = thisCamera.GetCameraRenderObjectType();
 
-	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+	if ((cameraRenderObjectType & CAMERA_RENDER_MESHES) != 0)
 	{
-		m_msaaResolvePassInstance->Render(m_context);
+		LoadActionsDesc load_actions_desc = {};
+		load_actions_desc.m_clear_color_values[0] = m_curMainRT->get_clear_value();
+		load_actions_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
+		load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
+		load_actions_desc.m_load_action_depth = LoadActionType::CLEAR;
+
+		m_dxrenderer->cmd_bind_render_targets(&m_curMainRT, 1, m_depthRT, load_actions_desc);
+		m_dxrenderer->cmd_set_viewport(0, 0, m_curMainRT->get_desc().m_texture_desc.m_width,
+			m_curMainRT->get_desc().m_texture_desc.m_height);
+
+		m_deferredRenderingInstance->Render(m_context);
+		m_particleRenderingInstance->Render(m_context);
+
+
+		if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
+		{
+			m_msaaResolvePassInstance->Render(m_context);
+		}
+		else
+		{
+			LoadActionsDesc next_load_actions_desc = {};
+			next_load_actions_desc.m_clear_color_values[0] = m_finalOutputRT->get_clear_value();
+			next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+			next_load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
+			next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+
+			m_dxrenderer->cmd_bind_render_targets(&m_finalOutputRT, 1, nullptr, next_load_actions_desc);
+			m_dxrenderer->cmd_set_viewport(0, 0, m_finalOutputRT->get_desc().m_texture_desc.m_width,
+				m_finalOutputRT->get_desc().m_texture_desc.m_height);
+		}
+		RenderSkybox();
 	}
 	else
 	{
@@ -234,11 +253,12 @@ void AppRendererInstance::Render()
 			m_finalOutputRT->get_desc().m_texture_desc.m_height);
 	}
 
+	if ((cameraRenderObjectType & CAMERA_RENDER_UI) != 0)
+	{
+		m_uiObjectRenderingInstance->Render(m_context);
+	}
 
-	RenderSkybox();
 	m_debugRenderingInstance->Render(m_context);
-	m_uiObjectRenderingInstance->Render(m_context);
-
 	m_lastMaterialIndex = 0;
 }
 

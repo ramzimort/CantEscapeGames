@@ -19,7 +19,9 @@ enum CameraProjectionType
 enum CameraRenderObjectType
 {
 	CAMERA_RENDER_UI = 1 << 0,
-	CAMERA_RENDER_MESHES = 1 << 1
+	CAMERA_RENDER_MESHES = 1 << 1,
+
+	CAMERA_RENDER_UI_AND_MESHES = CAMERA_RENDER_UI | CAMERA_RENDER_MESHES
 };
 
 class Camera
@@ -37,6 +39,9 @@ public:
 
 	void SetAspectRatio(size_t width, size_t height);
 	void SetProjectionType(CameraProjectionType projectionType);
+
+	uint32_t GetCameraRenderObjectType() const;
+	void SetCameraRenderObjectType(uint32_t renderObjectType);
 
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
@@ -70,7 +75,11 @@ public:
 	size_t GetScreenWidth() const;
 	size_t GetScreenHeight() const;
 
+	void SetOrthographicWidth(size_t width);
+	void SetOrthographicHeight(size_t height);
 
+	size_t GetOrthographicWidth() const;
+	size_t GetOrthographicHeight() const;
 private:
 	void InitFromComponent();
 private:
@@ -105,6 +114,7 @@ private:
 	size_t m_screenWidth;
 	size_t m_screenHeight;
 
+	uint32_t m_cameraRenderObjectType;
 
 	static size_t ID()
 	{

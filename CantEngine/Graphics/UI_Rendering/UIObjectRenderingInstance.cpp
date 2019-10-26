@@ -66,8 +66,8 @@ void UIObjectRenderingInstance::Render(const AppRendererContext& appRendererCont
 			AddUIObjectUniformBuffer();
 		}
 
-		m_uiObjectUniformDataList[index].ModelMat = Matrix::CreateScale(Vector3(finalUIScale.x, finalUIScale.y, 1.f))
-			* Matrix::CreateTranslation(Vector3(finalUIPosition.x, finalUIPosition.y, -0.1f));
+		m_uiObjectUniformDataList[index].ModelMat = Matrix::CreateScale(Vector3(finalUIScale.x, finalUIScale.y, 1.f)) * 
+			(*uiObjectInstance.m_rotationMatrix) * Matrix::CreateTranslation(Vector3(finalUIPosition.x, finalUIPosition.y, -0.1f));
 
 		m_uiObjectUniformDataList[index].ModelViewProjectionMat = m_uiObjectUniformDataList[index].ModelMat * 
 			appRendererContext.m_appRendererInstance->m_camera_uniform_data.ViewProjectionMat;
