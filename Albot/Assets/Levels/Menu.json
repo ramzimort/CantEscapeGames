@@ -19,8 +19,8 @@
     ],
     "Scripts": [
       "Scripts\\States\\Menu.lua",
-      "Scripts/Components/UICamera.lua",
-      "Scripts/Components/Button.lua"
+      "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\Button.lua"
     ]
   },
   "Objects": [
@@ -44,11 +44,17 @@
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 250.0, 50.0, 1.0 ]
         },
-        "UIComponent": {
-          "CurrentState": 0,
-          "NextState": 1,
-          "LocationCount": 0
-        }
+		"UIComponent": {
+			"CurrentState": 0,
+			"NextState": 1,
+			"LocationCount": 0 
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -50.0, 3.0, -10.0],
+			"FinalPosition": [ 0.0, 3.0, -10.0],
+			"DeltaTime": 0.5 
+		}			
+		
       }
     },
     {

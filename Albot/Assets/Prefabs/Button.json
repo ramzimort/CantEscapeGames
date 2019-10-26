@@ -15,10 +15,16 @@
   "RendererComponent": {
     "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
   },
-
+	
+  
+  "AffineAnimationComponent": {
+    "InitialPosition": [ 0.0, 0.0, 0.0],
+			"FinalPosition": [ 0.0, 0.0, 0.0],
+			"DeltaTime": 0.0 
+  },
   "Scripts": [
     {
-      "Name": "Scripts/Components/Button.lua"
+      "Name": "Scripts\\Components\\Button.lua"
     }]
   
  }

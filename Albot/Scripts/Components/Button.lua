@@ -3,27 +3,29 @@
 
 Button = 
 {
+	-- States
+	NextStatePath = "Assets\\Levels\\level1.json";
+	
 	-- Component
 	uiComp;
 	uiTransform;
+	uiAffineAnimation;
 	
 	-- Data
 	position;
+	initialPosition;
+	finalPosition;
 	scale;
 	loacation;
 	maxPosX;
 	minPosX;
 	maxPosY;
 	minPosY;
-	clipSpacePos;
-	ndcSpacePos;
-	windowSpacePos;
-	clipSpaceScaleMax;
-	ndcSpaceScaleMax;
-	windowSpaceScaleMax;
-	clipSpaceScaleMin;
-	ndcSpaceScaleMin;
-	windowSpaceScaleMin;
+	deltaTime;
+	velocity;
+	initialAnimationEnable = false;
+	finalAnimationEnable = false;
+	enableButton = false;
 	
 	
 	-- MOUSE
@@ -31,7 +33,7 @@ Button =
 	MousePositionY = 0;
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
-	
+	ENTER = false;
 	-- KEYBOARD
 	Up = false;
 	Down = false;	
@@ -61,8 +63,11 @@ Button.Begin = function(self, owner, goMgr)
 		return;
 	end
 	
-	
+	OnKeyEvent():Bind({self, self.OnKey});
+
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	
+	OnMouseClick():Bind({self, self.OnMouseClick});
 	
 	self.cameraObj = goMgr:FindGameObject("UIObject1");
 	if (self.cameraObj == nil) then
@@ -93,110 +98,70 @@ Button.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
 	
+	self.uiAffineAnimation = owner:GetAffineAnimationComp();
+	if (self.uiAffineAnimation == nil) then 
+		OutputPrint("ERROR, Ui Affine Animation IS NIL\n");
+	end
+	
+	self.initialPosition = self.uiAffineAnimation:GetInitialPosition();
+	self.position = self.initialPosition;
+	self.finalPosition = self.uiAffineAnimation:GetFinalPosition();
+	self.deltaTime = self.uiAffineAnimation:GetDeltaTime();
+	self.velocity = self.uiAffineAnimation:GetVelocity();
 	
 	self.loacation = self.uiComp:GetLocation();
 
-	--self.maxPosX = self.position.x + self.scale.x;
-	--self.minPosX = self.position.x - self.scale.x;
-	--self.maxPosY = self.position.y + self.scale.y;
-	--self.minPosY = self.position.y - self.scale.y;
+	self.initialAnimationEnable = true;
 	
 end
 
 --Update called every tick
 Button.Update = function(self, dt, owner) 
 
-	--self.viewProjectionMatrix = self.camera:GetViewProjectionMatrix();
-	self.projectionMatrix = self.camera:GetProjectionMatrix();
-	self.viewMatrix = self.camera:GetViewMatrix();
-	self.viewProjectionMatrix = self.projectionMatrix * self.viewMatrix;
-	self.screenWidth = self.camera:GetScreenWidth();
-	self.screenHeight = self.camera:GetScreenHeight();
+	if(self.ENTER == true) then
+		self.finalAnimationEnable = true;
+		self.enableButton = false;
+		OutputPrint(">>> Reached\n");
+	end
 	
-	self.position = self.uiTransform:GetPosition();
-	self.scale = self.uiTransform:GetScale();
 	
-	self.clipSpacePos = Vector4.new();
-	self.clipSpaceScaleMax = Vector4.new();
-	self.clipSpaceScaleMin = Vector4.new();
+	if(self.initialAnimationEnable == true) then
+		if(self.position == self.finalPosition) then
+			self.initialAnimationEnable = false;
+			self.enableButton = true;
+			
+			return;
+		end
+		self.position = self.position + self.velocity * self.deltaTime;
+		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
+	end
 	
-	self.clipSpacePos.x = self.viewProjectionMatrix.a00 * self.position.x + self.viewProjectionMatrix.a01 * self.position.y + self.viewProjectionMatrix.a02 * self.position.z + self.viewProjectionMatrix.a03 * 1.0;
-	self.clipSpacePos.y = self.viewProjectionMatrix.a11 * self.position.x + self.viewProjectionMatrix.a12 * self.position.y + self.viewProjectionMatrix.a13 * self.position.z + self.viewProjectionMatrix.a14 * 1.0;
-	self.clipSpacePos.z = self.viewProjectionMatrix.a21 * self.position.x + self.viewProjectionMatrix.a22 * self.position.y + self.viewProjectionMatrix.a23 * self.position.z + self.viewProjectionMatrix.a24 *  1.0;
-	self.clipSpacePos.w = self.viewProjectionMatrix.a31 * self.position.x + self.viewProjectionMatrix.a32 * self.position.y + self.viewProjectionMatrix.a33 * self.position.z + self.viewProjectionMatrix.a34 *  1.0;
+	if(self.finalAnimationEnable == true) then
 	
-	self.clipSpaceScaleMax.x = self.viewProjectionMatrix.a00 * (self.scale.x+self.position.x) + self.viewProjectionMatrix.a01 * (self.scale.y+self.position.y) + self.viewProjectionMatrix.a02 * (self.scale.z+self.position.z) + self.viewProjectionMatrix.a03 * 1.0;
-	self.clipSpaceScaleMax.y = self.viewProjectionMatrix.a11 * (self.scale.x+self.position.x) + self.viewProjectionMatrix.a12 * (self.scale.y+self.position.y) + self.viewProjectionMatrix.a13 * (self.scale.z+self.position.z) + self.viewProjectionMatrix.a14 * 1.0;
-	self.clipSpaceScaleMax.z = self.viewProjectionMatrix.a21 * (self.scale.x+self.position.x) + self.viewProjectionMatrix.a22 * (self.scale.y+self.position.y) + self.viewProjectionMatrix.a23 * (self.scale.z+self.position.z) + self.viewProjectionMatrix.a24 *  1.0;
-	self.clipSpaceScaleMax.w = self.viewProjectionMatrix.a31 * (self.scale.x+self.position.x) + self.viewProjectionMatrix.a32 * (self.scale.y+self.position.y) + self.viewProjectionMatrix.a33 * (self.scale.z+self.position.z) + self.viewProjectionMatrix.a34 *  1.0;
-	
-	self.clipSpaceScaleMin.x = self.viewProjectionMatrix.a00 * (self.position.x - self.scale.x) + self.viewProjectionMatrix.a01 * (self.position.y - self.scale.y) + self.viewProjectionMatrix.a02 * (self.position.z - self.scale.z) + self.viewProjectionMatrix.a03 * 1.0;
-	self.clipSpaceScaleMin.y = self.viewProjectionMatrix.a11 * (self.position.x - self.scale.x) + self.viewProjectionMatrix.a12 * (self.position.y - self.scale.y) + self.viewProjectionMatrix.a13 * (self.position.z - self.scale.z) + self.viewProjectionMatrix.a14 * 1.0;
-	self.clipSpaceScaleMin.z = self.viewProjectionMatrix.a21 * (self.position.x - self.scale.x) + self.viewProjectionMatrix.a22 * (self.position.y - self.scale.y) + self.viewProjectionMatrix.a23 * (self.position.z - self.scale.z) + self.viewProjectionMatrix.a24 *  1.0;
-	self.clipSpaceScaleMin.w = self.viewProjectionMatrix.a31 * (self.position.x - self.scale.x) + self.viewProjectionMatrix.a32 * (self.position.y - self.scale.y) + self.viewProjectionMatrix.a33 * (self.position.z - self.scale.z) + self.viewProjectionMatrix.a34 *  1.0;
-	
-	self.ndcSpacePos = Vector3.new();
-	self.ndcSpaceScaleMax = Vector3.new();
-	self.ndcSpaceScaleMin = Vector3.new();
-	
-	self.ndcSpacePos.x = self.clipSpacePos.x ;
-	self.ndcSpacePos.y = self.clipSpacePos.y ;
-	self.ndcSpacePos.z = self.clipSpacePos.z ;
-	
-	self.ndcSpaceScaleMax.x = self.clipSpaceScaleMax.x / self.clipSpaceScaleMax.w;
-	self.ndcSpaceScaleMax.y = self.clipSpaceScaleMax.y / self.clipSpaceScaleMax.w;
-	self.ndcSpaceScaleMax.z = self.clipSpaceScaleMax.z / self.clipSpaceScaleMax.w;
-	
-	self.ndcSpaceScaleMin.x = self.clipSpaceScaleMin.x / self.clipSpaceScaleMin.w;
-	self.ndcSpaceScaleMin.y = self.clipSpaceScaleMin.y / self.clipSpaceScaleMin.w;
-	self.ndcSpaceScaleMin.z = self.clipSpaceScaleMin.z / self.clipSpaceScaleMin.w;
-	
-	self.windowSpacePos = Vector2.new();
-	self.windowSpaceScaleMax = Vector2.new();
-	self.windowSpaceScaleMin = Vector2.new();
-	
-	self.windowSpacePos.x = ((self.ndcSpacePos.x + 1.0)/2.0)* self.screenWidth; 
-	self.windowSpacePos.y = ((self.ndcSpacePos.y + 1.0)/2.0)* self.screenHeight; 
-	
-	self.windowSpaceScaleMax.x = ((self.ndcSpaceScaleMax.x + 1.0)/2.0)* self.screenWidth; 
-	self.windowSpaceScaleMax.y = ((self.ndcSpaceScaleMax.y + 1.0)/2.0)* self.screenHeight; 
-	
-	self.windowSpaceScaleMin.x = ((self.ndcSpaceScaleMin.x + 1.0)/2.0)* self.screenWidth; 
-	self.windowSpaceScaleMin.y = ((self.ndcSpaceScaleMin.y + 1.0)/2.0)* self.screenHeight; 
-	
-	OutputPrint("\n var:\n\n" .. self.loacation);
-	
-	--if(self.loacation == _G.value) then
-	--	self.uiTransform:Scale(1.2,1.2,1.2);
-	--else
-	--	self.uiTransform:Scale(1.0,1.0,1.0);
-	--end
-	--OutputPrint("\n var:\n\n" .. self.windowSpaceScaleMax.y);
-	
-	-- self.maxPosX = self.windowSpacePos.x + self.windowSpaceScale.x;
-	-- self.minPosX = self.windowSpacePos.x - self.windowSpaceScale.x;
-	-- self.maxPosY = self.windowSpacePos.y + self.windowSpaceScale.y;
-	-- self.minPosY = self.windowSpacePos.y - self.windowSpaceScale.y;
-
-	-- if(self.MousePositionX < self.maxPosX) then
-		-- if(self.MousePositionX > self.minPosX) then
-			-- if(self.MousePositionY < self.maxPosY) then
-				-- if(self.MousePositionY > self.minPosY) then
-					-- self.uiComp:IsTriggerd();
-				-- end
-			-- end
-		-- end
-	-- else
-		-- self.uiComp:IsNotTriggered();
-	-- end
-	
-		
-	
+		if(self.position == self.initialPosition) then
+		World.Get():PushStateEvent(false, self.NextStatePath);
+			return;
+		end
+		self.position = self.position - self.velocity * self.deltaTime;
+		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
+	end
 end
-
+--Method
+Button.OnKey = function(self, key, state)
+	if(SCANCODE.ENTER == key) then
+		self.ENTER = state;
+		
+	end
+end
 Button.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
 end
-
+Button.OnMouseClick = function(self, button, state)
+	if(button == 1) then
+		self.LEFTCLICK = state;
+	elseif(button == 2) then
+		self.RIGHTCLICK = state;
+	end
+end
 return Button;

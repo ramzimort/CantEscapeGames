@@ -358,7 +358,8 @@ void ScriptingManager::ManageBindings()
 		"EQUALS", SDL_SCANCODE_EQUALS,
 		"LEFTBRACKET", SDL_SCANCODE_LEFTBRACKET,
 		"RIGHTBRACKET", SDL_SCANCODE_RIGHTBRACKET,
-		"BLACKSLASH", SDL_SCANCODE_BACKSLASH
+		"BLACKSLASH", SDL_SCANCODE_BACKSLASH,
+		"ENTER", SDL_SCANCODE_RETURN
 		);
 #pragma endregion
 	
@@ -459,6 +460,15 @@ void ScriptingManager::ManageBindings()
 	////  MANAGERS  ////
 	////////////////////
 
+	//Solution so scripting can access stuff, even though the rest of the engine cant
+	luaState.new_usertype<EventManager>
+	(
+		"World",
+		"Get", &EventManager::Get,
+		"PushStateEvent", &EventManager::EnqueueEvent<PushStateEvent, bool, const std::string&>,
+		"StateManager", &EventManager::m_pStateManager
+	);
+
 	//SYSTEM MANAGER
 	luaState.new_usertype<StateManager>
 	(
@@ -509,6 +519,7 @@ void ScriptingManager::ManageBindings()
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
+		"GetAffineAnimationComp", &GameObject::GetComponent<AffineAnimationComponent>,
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
@@ -561,6 +572,15 @@ void ScriptingManager::ManageBindings()
 			"IsTriggerd", &UIComponent::IsTriggerd,
 			"IsNotTriggered", &UIComponent::IsNotTriggered,
 			"GetLocation", &UIComponent::GetLocation
+			);
+
+	// AffineAnimationComponent
+	luaState.new_usertype<AffineAnimationComponent>
+		("AffineAnimationComponent",
+			"GetInitialPosition", &AffineAnimationComponent::GetInitialPosition,
+			"GetFinalPosition", &AffineAnimationComponent::GetFinalPosition,
+			"GetDeltaTime", &AffineAnimationComponent::GetDeltaTime,
+			"GetVelocity", &AffineAnimationComponent::GetVelocity
 			);
 
 	//ANIMATION
