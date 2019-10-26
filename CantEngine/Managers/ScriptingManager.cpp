@@ -19,8 +19,11 @@ Primary Author: Jose Rosenbluth
 #include "Components/AllComponentHeaders.h"
 #include "ResourceManager.h"
 #include "Events/Input/Input.h"
+#include "Events/Audio/AudioEvents.h"
+
 #include "EventManager.h"
 
+EventManager* World = EventManager::Get();
 
 //We will use this to print from LUA to out stream
 void ScriptOutput(const std::string& msg)
@@ -361,8 +364,18 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
-	
 
+	luaState.new_usertype<KeyEvent>("KeyEvent");
+
+	//Solution so scripting can access stuff, even though the rest of the engine cant
+	luaState.new_usertype<EventManager>
+		(
+			"EventManager",
+			"Get", &EventManager::Get,
+			"KeyEvent", &EventManager::EnqueueEvent<KeyEvent, bool, SDL_Scancode, bool>,
+			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+		);
 #pragma endregion
 
 #pragma region HELPERS
@@ -438,14 +451,6 @@ void ScriptingManager::ManageBindings()
 	////////////////////
 	////  MANAGERS  ////
 	////////////////////
-
-	//Solution so scripting can access stuff, even though the rest of the engine cant
-	luaState.new_usertype<EventManager>
-	(
-		"World",
-		"Get", &EventManager::Get,
-		"StateManager", &EventManager::m_pStateManager
-	);
 
 	//SYSTEM MANAGER
 	luaState.new_usertype<StateManager>

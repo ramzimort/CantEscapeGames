@@ -5,6 +5,7 @@
 #include "FrameManager.h"
 #include "ResourceManager.h"
 #include "StateManager.h"
+#include "AudioManager.h"
 #include "Graphics/Camera.h"
 #include "Memory/CantMemory.h"
 #include "Events/EventBus.h"
@@ -26,6 +27,7 @@ EventManager::~EventManager()
 	delete m_pStateManager;
 	delete m_pResourceManager;
 	delete m_pAppRenderer;
+	delete m_pAudioManager;
 	delete m_pInputManager;
 	delete m_pCameraManager;
 	delete m_pEventBus;
@@ -40,6 +42,7 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager();
+	m_pAudioManager = new AudioManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
 
@@ -52,7 +55,7 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 
 	m_pAppRenderer->InitializeResources();
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager);
-	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState);
+	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState, m_pAudioManager);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
 		
 	m_pStateManager = new StateManager(m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
@@ -112,6 +115,7 @@ void EventManager::RunGameThread()
 		DEBUG_UPDATE;
 		m_pAppRenderer->PresentApp();
 		m_pEventBus->Update(dt);
+		m_pAudioManager->Update(dt);
 		frame_manager.EndFrame();
 	}
 }

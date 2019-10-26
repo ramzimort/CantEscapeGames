@@ -3,6 +3,7 @@
 
 fpscontroller = 
 {
+	SongPath = "Assets\\Songs\\Fight_Techno_1.mp3";
 	-- MOUSE
 	MousePositionX = 0;
 	MousePositionY = 0;
@@ -10,7 +11,7 @@ fpscontroller =
 	DeltaPositionY = 0;
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
-	
+	Test = false;
 	-- KEYBOARD
 	Forward = false;
 	Backward = false;
@@ -44,6 +45,12 @@ end
 --Update called every tick
 fpscontroller.Update = function(self, dt, owner) 
 	
+	if(self.Test) then
+		local World = EventManager.Get();
+		World:PlaySong(true, self.SongPath);
+		self.Test = false;
+	end
+
 	local transform_comp = owner:GetTransformComp();
 	local camera_comp = owner:GetCameraComp();
 	local camera = camera_comp:GetCamera();
@@ -99,6 +106,11 @@ fpscontroller.OnKey = function(self, key, state)
 		self.Left = state;
 	elseif(SCANCODE.D == key) then
 		self.Right = state;
+	elseif(SCANCODE.L == key) then
+		self.Test = state;
+		
+		--LOG("World: " .. World .. "\n");
+		--test:PlaySong(false, "Assets\\Songs\\Techno_1.mp3");
 	end
 end
 
@@ -107,9 +119,6 @@ fpscontroller.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionY = position.y;
 	self.DeltaPositionX = deltaposition.x;
 	self.DeltaPositionY = deltaposition.y;
-
-
-
 	--LOG("x" .. self.DeltaPositionX .. "y" .. self.DeltaPositionY .. "\n");
 
 end

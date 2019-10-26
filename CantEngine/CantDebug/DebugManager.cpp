@@ -56,7 +56,8 @@ namespace CantDebug
 		m_resources["Assets\\Materials\\"] = InitializeList("Assets\\Materials");
 		m_resources["Scripts\\"] = InitializeList("Scripts");
 		m_resources["Assets\\Prefabs\\"] = InitializeList("Assets\\Prefabs");
-		m_resources["Assets\\Audio\\"] = InitializeList("Assets\\Audio");
+		m_resources["Assets\\Songs\\"] = InitializeList("Assets\\Songs");
+		m_resources["Assets\\SFX\\"] = InitializeList("Assets\\SFX");
 
 
 		for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
@@ -193,8 +194,10 @@ namespace CantDebug
 							m_pResourceManager->LoadScript(info.FullPath);
 						else if (dirName == "Assets\\Prefabs\\")
 							m_pResourceManager->LoadPrefab(info.FullPath);
-						else if (dirName == "Assets\\Audio\\")
-							m_pResourceManager->LoadAudio(info.FullPath);
+						else if (dirName == "Assets\\Songs\\")
+							m_pResourceManager->LoadAudio(info.FullPath, Category::CATEGORY_SONG);
+						else if (dirName == "Assets\\SFX\\")
+							m_pResourceManager->LoadAudio(info.FullPath, Category::CATEGORY_SFX);
 					}
 					else
 					{
@@ -577,61 +580,69 @@ namespace CantDebug
 		StringBuffer sb;
 		PrettyWriter<StringBuffer> writer(sb);
 		writer.StartObject();
-#pragma region RESOURCES
-		writer.Key("Resources");
-		writer.StartObject();
-		writer.Key("Textures");
-		writer.StartArray();
-		for (auto& info : m_resources["Assets\\Textures\\"])
-			if(info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
+		#pragma region RESOURCES
+				writer.Key("Resources");
+				writer.StartObject();
+				writer.Key("Textures");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\Textures\\"])
+					if(info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
 
-		writer.Key("Models");
-		writer.StartArray();
-		for (auto& info : m_resources["Assets\\Models\\"])
-			if (info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
+				writer.Key("Models");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\Models\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
 
-		writer.Key("Materials");
-		writer.StartArray();
-		for (auto& info : m_resources["Assets\\Materials\\"])
-			if (info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
+				writer.Key("Materials");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\Materials\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
 
-		writer.Key("Scripts");
-		writer.StartArray();
-		for (auto& info : m_resources["Scripts\\"])
-			if (info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
+				writer.Key("Scripts");
+				writer.StartArray();
+				for (auto& info : m_resources["Scripts\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
 
-		writer.Key("Prefabs");
-		writer.StartArray();
-		for (auto& info : m_resources["Assets\\Prefabs\\"])
-			if (info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
+				writer.Key("Prefabs");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\Prefabs\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
 
-		writer.Key("Audio");
-		writer.StartArray();
-		for (auto& info : m_resources["Assets\\Audio\\"])
-			if (info.Pressed) writer.String(info.FullPath.c_str());
-		writer.EndArray();
-		writer.EndObject();
-#pragma endregion
-#pragma region OBJECTS
-		writer.Key("Objects");
-		writer.StartArray();
-		for (auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
-		{
-			if (it->first->GetPrefabName().empty())
-				continue;
-			writer.StartObject();
-			writer.Key("tag"); writer.String(it->first->GetTag().c_str());
-			writer.Key("prefab"); writer.String(it->first->GetPrefabName().c_str());
-			writer.Key("overrides"); ReadOverrides(it->first, writer);
-			writer.EndObject();
-		}
-		writer.EndArray();
-#pragma endregion
+				writer.Key("Songs");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\Songs\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
+				writer.EndObject();
+
+				writer.Key("SFX");
+				writer.StartArray();
+				for (auto& info : m_resources["Assets\\SFX\\"])
+					if (info.Pressed) writer.String(info.FullPath.c_str());
+				writer.EndArray();
+				writer.EndObject();
+
+		#pragma endregion
+		#pragma region OBJECTS
+				writer.Key("Objects");
+				writer.StartArray();
+				for (auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
+				{
+					if (it->first->GetPrefabName().empty())
+						continue;
+					writer.StartObject();
+					writer.Key("tag"); writer.String(it->first->GetTag().c_str());
+					writer.Key("prefab"); writer.String(it->first->GetPrefabName().c_str());
+					writer.Key("overrides"); ReadOverrides(it->first, writer);
+					writer.EndObject();
+				}
+				writer.EndArray();
+		#pragma endregion
 		writer.EndObject();
 		const std::string jsonString = sb.GetString();
 		ofstream out_file;

@@ -50,6 +50,10 @@
 #include <DirectXTK/WICTextureLoader.h>
 #include <DirectXTK/CommonStates.h>
 
+// Audio
+#include <fmod/fmod.hpp>
+#include <fmod/fmod_errors.h>
+
 // Assimp Stuff
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

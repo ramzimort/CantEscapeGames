@@ -48,6 +48,7 @@ public:
 		return *this;
 	}
 	bool operator==(const StringId& rhs) const { return m_id == rhs.m_id; }
+	bool operator==(const size_t& rhs) const { return m_id == rhs; }
 	bool operator<(const StringId& rhs) const { return m_id < rhs.m_id; }
 	const std::string& getName() const{ return m_name; }
 

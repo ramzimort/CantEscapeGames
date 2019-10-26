@@ -31,7 +31,10 @@
       "Assets\\Materials\\RedMetallicSmoothMaterial.json",
       "Assets\\Materials\\CeramicMaterial.json"
     ],
-    "Audio": [
+    "Songs": [
+
+    ],
+    "SFX": [
 
     ],
     "Prefabs": [
