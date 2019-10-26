@@ -19,7 +19,7 @@
   },
   "Scripts": [
     {
-      "Name": "Scripts/Components/UICamera.lua",
+      "Name": "Scripts\\Components\\UICamera.lua",
       "Overrides": {
       }
     }
