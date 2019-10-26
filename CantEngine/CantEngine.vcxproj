@@ -93,6 +93,7 @@
     <ClCompile Include="Graphics\Sampler.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
+    <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp" />
     <ClCompile Include="Managers\CameraManager.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="Managers\FrameManager.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="Systems\TestSystem.cpp" />
     <ClCompile Include="Systems\TransformSystem.cpp" />
     <ClCompile Include="Systems\UISystem.cpp" />
+    <ClCompile Include="Graphics\UI_Rendering\UIObjectRendering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\SkyboxIrradianceComponent.h" />
@@ -234,6 +236,7 @@
     <ClInclude Include="Graphics\Sampler.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Graphics\UI_Rendering\UIObjectRenderingInstance.h" />
     <ClInclude Include="Graphics\VertexLayout.h" />
     <ClInclude Include="Helper\Constant.h" />
     <ClInclude Include="Helper\Hash.h" />
@@ -289,6 +292,7 @@
     <ClInclude Include="Systems\TransformSystem.h" />
     <ClInclude Include="Systems\UISystem.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Graphics\UI_Rendering\UIObjectRendering.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

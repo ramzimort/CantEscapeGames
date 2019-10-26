@@ -16,6 +16,12 @@ enum CameraProjectionType
 	PROJECTION_ORTHOGRAPHIC_VIEWPORT,
 };
 
+enum CameraRenderObjectType
+{
+	CAMERA_RENDER_UI = 1 << 0,
+	CAMERA_RENDER_MESHES = 1 << 1
+};
+
 class Camera
 {
 public:

@@ -354,6 +354,12 @@
     <ClCompile Include="Systems\UISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\UI_Rendering\UIObjectRendering.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -786,6 +792,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\State\StateEvents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\UI_Rendering\UIObjectRendering.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\UI_Rendering\UIObjectRenderingInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -67,4 +67,8 @@
     <None Include="Assets\Prefabs\Skybox\factory_skybox.json" />
     <None Include="Scripts\Components\Button.lua" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\ui_quad_vert.hlsl" />
+    <FxCompile Include="Shaders\ui_quad_frag.hlsl" />
+  </ItemGroup>
 </Project>

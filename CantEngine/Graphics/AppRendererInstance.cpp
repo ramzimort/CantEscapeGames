@@ -5,6 +5,7 @@
 #include "Graphics/DebugRendering/DebugRenderingInstance.h"
 #include "Graphics/PostEffects/MSAAResolvePassInstance.h"
 #include "Graphics/Particles/ParticleRenderingInstance.h"
+#include "Graphics/UI_Rendering/UIObjectRenderingInstance.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Graphics/AppRenderer.h"
@@ -24,6 +25,7 @@ AppRendererInstance::AppRendererInstance(AppRenderer* appRenderer,
 	m_debugRenderingInstance = new DebugRenderingInstance(appRenderer->m_debugRendering);
 	m_msaaResolvePassInstance = new MSAAResolvePassInstance(appRenderer->m_msaa_resolve_pass);
 	m_particleRenderingInstance = new ParticleRenderingInstance(appRenderer->m_particleRendering);
+	m_uiObjectRenderingInstance = new UIObjectRenderingInstance(appRenderer->m_uiObjectRendering);
 }
 
 
@@ -49,6 +51,7 @@ void AppRendererInstance::Release()
 	SafeReleaseDelete(m_deferredRenderingInstance);
 	SafeReleaseDelete(m_msaaResolvePassInstance);
 	SafeReleaseDelete(m_particleRenderingInstance);
+	SafeReleaseDelete(m_uiObjectRenderingInstance);
 
 	SafeReleaseDelete(m_camera_uniform_buffer);
 	SafeReleaseDelete(m_resolveUniformBuffer);
@@ -69,7 +72,6 @@ void AppRendererInstance::Initialize()
 	camera_uniform_buffer_desc.m_desc.m_debugName = "Camera Uniform Buffer";
 	camera_uniform_buffer_desc.m_rawData = nullptr;
 	camera_uniform_buffer_desc.m_size = sizeof(CameraUniformData);
-
 	m_camera_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, camera_uniform_buffer_desc);
 
 
@@ -80,19 +82,15 @@ void AppRendererInstance::Initialize()
 	skybox_uniform_buffer_desc.m_desc.m_debugName = "Skybox camera uniform data";
 	skybox_uniform_buffer_desc.m_size = sizeof(SkyboxUniformData);
 	skybox_uniform_buffer_desc.m_rawData = nullptr;
-
 	m_skyboxUniformBuffer = DXResourceLoader::Create_Buffer(m_dxrenderer, skybox_uniform_buffer_desc);
 
 
 	const Vector4& viewportRenderInformation = m_context.m_cameraInfo.m_camera.GetViewportRenderInformation();
-
 	const Vector2 ndcLocation(viewportRenderInformation.x, viewportRenderInformation.y);
 
 	ResolveRendererInstancesUniformData resolveRendererInstancesUniformData = {};
 	resolveRendererInstancesUniformData.Translation = Vector4(ndcLocation.x * 2.f, ndcLocation.y * 2.f, 0.f, 0.f);
-
 	Vector2 ndcScaleLoc = Vector2((viewportRenderInformation.z - 0.5f) * 2.f, (viewportRenderInformation.w - 0.5f) * -2.f);
-
 	resolveRendererInstancesUniformData.Scale = Vector4(ndcScaleLoc.x, ndcScaleLoc.y, 0.f, 0.f);
 
 
@@ -111,8 +109,7 @@ void AppRendererInstance::Initialize()
 	m_msaaResolvePassInstance->Initialize(m_context);
 	m_debugRenderingInstance->Initialize();
 	m_particleRenderingInstance->Initialize(m_context);
-
-
+	m_uiObjectRenderingInstance->Initialize(m_context);
 }
 
 void AppRendererInstance::LoadContent()
@@ -120,7 +117,6 @@ void AppRendererInstance::LoadContent()
 	RenderTarget* swap_chain_rt = m_dxrenderer->GetSwapChain()->m_p_swap_chain_render_target;
 
 	const Vector4& viewPortRenderInformation = m_context.m_cameraInfo.m_camera.GetViewportRenderInformation();
-
 	int32_t finalRTWidth = (int32_t) (viewPortRenderInformation.z * (float)swap_chain_rt->get_desc().m_texture_desc.m_width);
 	int32_t finalRTHeight = (int32_t)(viewPortRenderInformation.w * (float)swap_chain_rt->get_desc().m_texture_desc.m_height);
 
@@ -135,7 +131,6 @@ void AppRendererInstance::LoadContent()
 	depth_rt_desc.m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
 	depth_rt_desc.m_texture_desc.m_depth = 1;
 	depth_rt_desc.m_texture_desc.m_sampleCount = (SampleCount)GraphicsSettings::MSAA_SAMPLE_COUNT;
-
 	m_depthRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, depth_rt_desc);
 
 
@@ -150,11 +145,9 @@ void AppRendererInstance::LoadContent()
 	msaa_rt_desc.m_texture_desc.m_imageFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
 	msaa_rt_desc.m_texture_desc.m_usageType = Usage_Type::USAGE_DEFAULT;
 	msaa_rt_desc.m_texture_desc.m_depth = 1;
-
 	m_msaaMainRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
 	msaa_rt_desc.m_texture_desc.m_sampleCount = SAMPLE_COUNT_1;
-	
 	m_finalOutputRT = DXResourceLoader::Create_RenderTarget(m_dxrenderer, msaa_rt_desc);
 
 	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
@@ -169,6 +162,7 @@ void AppRendererInstance::LoadContent()
 	m_deferredRenderingInstance->LoadContent(m_context);
 	m_msaaResolvePassInstance->LoadContent(m_context);
 	m_particleRenderingInstance->LoadContent(m_context);
+	m_uiObjectRenderingInstance->LoadContent(m_context);
 	m_debugRenderingInstance->LoadContent();
 }
 
@@ -218,29 +212,33 @@ void AppRendererInstance::Render()
 	update_camera_desc.m_buffer = m_camera_uniform_buffer;
 	update_camera_desc.m_pSource = &m_camera_uniform_data;
 	update_camera_desc.m_size = sizeof(CameraUniformData);
-
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
 	m_deferredRenderingInstance->Render(m_context);
 	m_particleRenderingInstance->Render(m_context);
 
-	LoadActionsDesc next_load_actions_desc = {};
-	next_load_actions_desc.m_clear_color_values[0] = m_curMainRT->get_clear_value();
-	next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
-	next_load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
-	next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
-
-	m_dxrenderer->cmd_bind_render_targets(&m_curMainRT, 1, m_depthRT, next_load_actions_desc);
-	m_dxrenderer->cmd_set_viewport(0, 0, m_curMainRT->get_desc().m_texture_desc.m_width,
-		m_curMainRT->get_desc().m_texture_desc.m_height);
-
-
 	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
 	{
 		m_msaaResolvePassInstance->Render(m_context);
 	}
+	else
+	{
+		LoadActionsDesc next_load_actions_desc = {};
+		next_load_actions_desc.m_clear_color_values[0] = m_finalOutputRT->get_clear_value();
+		next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+		next_load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
+		next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
+
+		m_dxrenderer->cmd_bind_render_targets(&m_finalOutputRT, 1, nullptr, next_load_actions_desc);
+		m_dxrenderer->cmd_set_viewport(0, 0, m_finalOutputRT->get_desc().m_texture_desc.m_width,
+			m_finalOutputRT->get_desc().m_texture_desc.m_height);
+	}
+
+
 	RenderSkybox();
 	m_debugRenderingInstance->Render(m_context);
+	m_uiObjectRenderingInstance->Render(m_context);
+
 	m_lastMaterialIndex = 0;
 }
 

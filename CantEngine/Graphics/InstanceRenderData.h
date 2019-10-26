@@ -74,6 +74,14 @@ struct ProcessSkyboxIrradianceInstanceData
 	BakedSkyboxIrradianceInstanceData m_bakedData;
 };
 
+struct UIObjectInstanceRenderData
+{
+	//origin in top left of the UI object
+	Vector2 m_windowSpacePosition;
+	Vector2 m_windowSpaceSize;
+	Material* m_pUIMaterial;
+};
+
 
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
 typedef std::vector<InstanceRenderData> InstanceRenderList;
@@ -83,3 +91,4 @@ typedef std::vector<DirectionalLightInstanceData> DirectionalLightInstanceDataLi
 typedef std::vector<BoneMeshInstanceRenderData> BoneMeshInstancesRenderDataList;
 typedef std::vector< ProcessSkyboxIrradianceInstanceData> ProcessSkyboxIrradianceInstanceDataList;
 typedef std::vector< BakedSkyboxIrradianceInstanceData> BakedSkyboxIrradianceInstanceDataList;
+typedef std::vector<UIObjectInstanceRenderData> UIObjectInstanceRenderDataList;

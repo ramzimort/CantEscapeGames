@@ -65,6 +65,12 @@ struct ObjectUniformData
 	float4x4 NormalMat;
 };
 
+struct UIObjectUniformData
+{
+	float4x4 ModelViewProjectionMat;
+	float4x4 ModelMat;
+};
+
 struct MaterialUniformData
 {
 	float4 DiffuseColor;

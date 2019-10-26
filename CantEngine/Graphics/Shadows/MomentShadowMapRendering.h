@@ -1,7 +1,6 @@
 #pragma once
 #include "Graphics/Renderer_Includes.h"
 #include "Shaders/Shading.h"
-#include "Graphics/Shadows/MomentShadowMapRendering.h"
 #include "Graphics/PostEffects/BlurImagePass.h"
 
 class DepthPassRendering;

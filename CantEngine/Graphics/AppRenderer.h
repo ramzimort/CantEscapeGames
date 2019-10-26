@@ -15,6 +15,8 @@
 #include "Graphics/IBL/EquirectangularToSkyboxRender.h"
 #include "Graphics/IBL/IBLFilterEnvMapPass.h"
 #include "Graphics/IBL/BRDFLookupTexturePass.h"
+#include "Graphics/UI_Rendering/UIObjectRendering.h"
+
 
 class Material;
 class Model;
@@ -61,6 +63,8 @@ public:
 	friend class EquirectangularToSkyboxRender;
 	friend class EquirectangularToSkyboxRenderInstance;
 	friend class IBLFilterEnvMapPass;
+	friend class UIObjectRendering;
+	friend class UIObjectRenderingInstance;
 public:
 	AppRenderer(SDL_Window& sdlWindow, ResourceManager* resourceManager, 
 		CameraManager* cameraManager);
@@ -83,6 +87,8 @@ public:
 	void RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData);
 	void RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData);
 	void RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData);
+
+	void RegisterUIObjectInstance(const UIObjectInstanceRenderData& uiObjectInstanceData);
 
 	void RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData);
 	void RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData);
@@ -195,6 +201,8 @@ private:
 	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;
 	std::deque<Buffer*> m_boneTransformsUniformBufferList;
 
-	
+
+	UIObjectInstanceRenderDataList m_uiObjectInstanceRenderDataList;
+	UIObjectRendering m_uiObjectRendering;
 };
 

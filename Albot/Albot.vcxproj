@@ -348,6 +348,14 @@
       <FileType>Document</FileType>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\ui_quad_frag.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Shaders\ui_quad_vert.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

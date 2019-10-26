@@ -5,6 +5,7 @@
 class Buffer;
 
 typedef std::vector<Buffer*> BufferList;
+typedef std::deque<Buffer*> BuffersDeque;
 
 enum IndexType
 {

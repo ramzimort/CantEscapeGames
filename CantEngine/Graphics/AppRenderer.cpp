@@ -27,6 +27,7 @@ m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
 m_toSkyboxRender(this),
 m_iblFilterEnvMapPass(this),
 m_brdfLookupTexturePass(this),
+m_uiObjectRendering(this),
 m_gameTime(0.f)
 {
 	InitializeRenderer();
@@ -451,6 +452,7 @@ void AppRenderer::LoadContent()
 	m_msaa_resolve_pass.LoadContent(m_dxrenderer);
 	m_particleRendering.LoadContent(m_dxrenderer);
 	m_momentShadowMapRendering.LoadContent(m_dxrenderer);
+	m_uiObjectRendering.Initialize(m_dxrenderer);
 }
 
 
@@ -506,6 +508,7 @@ void AppRenderer::Release()
 	m_toSkyboxRender.Release();
 	m_iblFilterEnvMapPass.Release();
 	m_brdfLookupTexturePass.Release();
+	m_uiObjectRendering.Release();
 
 	SafeReleaseDelete(m_cull_none_rasterizer_state);
 	SafeReleaseDelete(m_cull_front_rasterizer_state);
@@ -660,7 +663,6 @@ void AppRenderer::RenderApp()
 
 	m_deferrredRendering.UpdateUniformBuffer();
 	m_debugRendering.UpdateDebugUniformBuffer();
-	m_debugRendering.RenderDebugScene();
 
 	m_momentShadowMapRendering.RenderShadowMap();
 
@@ -683,7 +685,7 @@ void AppRenderer::RenderApp()
 	ResolveAppRendererInstances();
 	m_dxrenderer->execute_queued_cmd();	
 
-
+	m_uiObjectInstanceRenderDataList.clear();
 	m_directionLightInstanceList.clear();
 	m_pointLightInstanceList.clear();
 	m_basicInstances.clear();
@@ -857,6 +859,11 @@ void AppRenderer::RegisterPointLightInstance(const PointLightInstanceData& point
 void AppRenderer::RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData)
 {
 	m_boneMeshInstancesList.push_back(boneMeshInstanceData);
+}
+
+void AppRenderer::RegisterUIObjectInstance(const UIObjectInstanceRenderData& uiObjectInstanceData)
+{
+	m_uiObjectInstanceRenderDataList.push_back(uiObjectInstanceData);
 }
 
 void AppRenderer::RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData)
