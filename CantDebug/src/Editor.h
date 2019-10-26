@@ -24,18 +24,18 @@ class Editor
 public:
 	Editor();
 	~Editor();
+	void RegisterSettings(DebugConfig config);
 	void UpdateComponents(PropertyInfo info);
 	void UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created);
 	void UpdateResources(const char* dir, const char* asset, bool* pFlag);
 	void UpdatePrefabs(const char* prefabName, bool* p_buttonState);
-	void UpdateSettings(const char* checkboxName, bool* pFlag);
 	void Update();
 	void UpdateComponentWindow();
 	void Clear();
 private:
 	ResourceMap m_resourceMap;
-	CheckboxQueue m_queue;
 	PrefabButtons m_prefabButtons;
 	PrefabButtons m_objects;
 	ComponentData m_components;
+	DebugConfig m_settings;
 };

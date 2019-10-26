@@ -18,6 +18,15 @@ void Editor::Clear()
 	m_resourceMap.clear();
 }
 
+void Editor::RegisterSettings(DebugConfig config)
+{
+	m_settings.CreateLevel = config.CreateLevel;
+	m_settings.LevelName = config.LevelName;
+	m_settings.PauseState = config.PauseState;
+	m_settings.SelectionTool = config.SelectionTool;
+	m_settings.StepFrame = config.StepFrame;
+}
+
 void Editor::UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created)
 {
 	Info info; info.Name = name; info.Pressed = pClicked; info.DoubleClicked = pDoubleClicked; info.ID = id;
@@ -56,11 +65,6 @@ void Editor::UpdatePrefabs(const char* prefabName, bool* p_buttonState)
 	m_prefabButtons.push_back(info);
 }
 
-void Editor::UpdateSettings(const char* checkboxName, bool* pFlag)
-{
-	m_queue.m_queueData.push(CheckboxQueue::CheckboxData{ checkboxName, pFlag });
-}
-
 void Editor::UpdateComponents(PropertyInfo info)
 {
 	if (m_components.find(info.goName) == m_components.end())
@@ -77,13 +81,12 @@ void Editor::UpdateComponents(PropertyInfo info)
 void Editor::Update()
 {
 	// SETTINGS
-	ImGui::Text("Editor Settings");
-	while (!m_queue.m_queueData.empty())
-	{
-		const CheckboxQueue::CheckboxData& data = m_queue.m_queueData.front();
-		ImGui::Checkbox(data.m_checkBoxName.c_str(), data.m_pFlag);
-		m_queue.m_queueData.pop();
-	}
+	ImGui::Checkbox("Selection Tool", m_settings.SelectionTool);
+	ImGui::Checkbox("Pause", m_settings.PauseState);
+	ImGui::SameLine();
+	*m_settings.StepFrame = ImGui::Button("Step Frame");
+	ImGui::InputText("Level Name", m_settings.LevelName);
+	*m_settings.CreateLevel = ImGui::Button("Create Level");
 
 
 	// Objects

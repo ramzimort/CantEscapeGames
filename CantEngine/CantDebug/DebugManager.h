@@ -33,9 +33,11 @@ namespace CantDebug
 	struct DebugConfig
 	{
 		bool SelectionTool = false;
-		bool Is_Ctrl = false;
-		bool Pause_State = false;
-		bool Create_Level = false;
+		bool PauseState = false;
+		bool StepFrame = false;
+		std::string LevelName;
+		bool CreateLevel = false;
+		bool IsCtrl = false;
 	};
 
 	union CompDataUnion

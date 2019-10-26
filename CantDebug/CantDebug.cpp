@@ -170,9 +170,9 @@ namespace CantDebugAPI
 		}
 	}
 
-	void EditorSetting(const char* checkboxName, bool* pFlag)
+	void EditorSetting(DebugConfig config)
 	{
-		g_Editor->UpdateSettings(checkboxName, pFlag);
+		g_Editor->RegisterSettings(config);
 	}
 
 	void ResourceSetting(const char* dir, const char* file, bool* pFlag)

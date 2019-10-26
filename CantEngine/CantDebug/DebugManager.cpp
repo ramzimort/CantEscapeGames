@@ -76,6 +76,14 @@ namespace CantDebug
 			CantDebugAPI::PrefabButtonList(info.Name.c_str(), &info.Pressed);
 		}
 
+		// Debug Settings Initalizer
+		CantDebugAPI::DebugConfig debugConfig;
+		debugConfig.CreateLevel = &m_config.CreateLevel;
+		debugConfig.LevelName = &m_config.LevelName;
+		debugConfig.PauseState= &m_config.PauseState;
+		debugConfig.SelectionTool= &m_config.SelectionTool;
+		debugConfig.StepFrame = &m_config.StepFrame;
+		CantDebugAPI::EditorSetting(debugConfig);
 
 		// Material Generator Initialization
 		CantDebugAPI::MaterialInfo debugInfo;
@@ -225,7 +233,7 @@ namespace CantDebug
 
 	void DebugManager::UpdateState()
 	{
-		if(m_config.Pause_State)
+		if(m_config.PauseState)
 			m_pGameState = m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 2];
 		else
 			m_pGameState = m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1];
@@ -240,11 +248,16 @@ namespace CantDebug
 
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
-		static bool _CreateLevel = false;
+		static bool _step = false;
 
-		if (_pauseState != m_config.Pause_State)
+		if (!_selectionTool)
 		{
-			if (m_config.Pause_State)
+			for(auto it = m_objectList.begin(); it != m_objectList.end(); ++it)
+				it->second.Pressed = false;
+		}
+		if (_pauseState != m_config.PauseState)
+		{
+			if (m_config.PauseState)
 			{
 				m_pStateManager->PushState("Assets\\Levels\\DebugPause.json");
 				std::vector<GameObject*> m;
@@ -256,17 +269,26 @@ namespace CantDebug
 				m_pStateManager->PopState();
 			}
 		}
-
-		if (_CreateLevel != m_config.Create_Level)
+		// Pause and Step Code
+		if (_step)
 		{
-			if (m_config.Create_Level)
-				LevelToJson("Assets\\Levels\\Testing.json");
-			m_config.Create_Level = false;
+			_step = false;
+			m_pStateManager->PushState("Assets\\Levels\\DebugPause.json");
+			std::vector<GameObject*> m;
+			m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1]->m_gameObjectMgr->CompleteGORegistration(m_pGameObjEditor, m_pAppRenderer, m_pResourceManager, m);
+		}
+		if (m_config.StepFrame && m_config.PauseState)
+		{
+			m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1]->m_gameObjectMgr->m_gameObjects.clear();
+			m_pStateManager->PopState();
+			_step = true;
 		}
 
-		CantDebugAPI::EditorSetting("Pause", &m_config.Pause_State);
-		CantDebugAPI::EditorSetting("SelectionTool", &m_config.SelectionTool);
-		CantDebugAPI::EditorSetting("Create Level", &m_config.Create_Level);
+		if (m_config.CreateLevel)
+		{
+			LevelToJson("Assets\\Levels\\" + m_config.LevelName + ".json");
+			m_config.CreateLevel = false;
+		}
 
 
 		Matrix model;
@@ -285,9 +307,8 @@ namespace CantDebug
 		}		
 
 		// Update State
-		_pauseState = m_config.Pause_State;
+		_pauseState = m_config.PauseState;
 		_selectionTool = m_config.SelectionTool;
-		_CreateLevel = m_config.Create_Level;
 		UpdateState();
 
 	}
@@ -349,7 +370,6 @@ namespace CantDebug
 		if (go->GetTag() == "lvleditor")
 		{
 			m_pGameObjEditor = go;
-			return;
 		}
 
 		// Register into Objects
@@ -417,7 +437,7 @@ namespace CantDebug
 		{
 			if (e->m_button == SDL_BUTTON_LEFT && e->m_state)
 			{
-				if (!m_config.Is_Ctrl)
+				if (!m_config.IsCtrl)
 				{
 					for (auto& go : m_objectList)
 						go.second.Pressed = false;
@@ -466,11 +486,11 @@ namespace CantDebug
 		switch (e->m_scancode)
 		{
 		case SDL_SCANCODE_LCTRL:
-			m_config.Is_Ctrl = e->m_press;
+			m_config.IsCtrl = e->m_press;
 			break;
 		case SDL_SCANCODE_P:
 			if(e->m_press)
-			m_config.Pause_State = !m_config.Pause_State;
+			m_config.PauseState = !m_config.PauseState;
 			break;
 		case SDL_SCANCODE_DELETE:
 		{
@@ -618,7 +638,6 @@ namespace CantDebug
 				for (auto& info : m_resources["Assets\\Songs\\"])
 					if (info.Pressed) writer.String(info.FullPath.c_str());
 				writer.EndArray();
-				writer.EndObject();
 
 				writer.Key("SFX");
 				writer.StartArray();
