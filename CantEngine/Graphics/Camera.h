@@ -114,7 +114,7 @@ private:
 	size_t m_screenWidth;
 	size_t m_screenHeight;
 
-	uint32_t m_cameraRenderObjectType;
+	CameraRenderObjectType m_cameraRenderObjectType;
 
 	static size_t ID()
 	{

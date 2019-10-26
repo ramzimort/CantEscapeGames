@@ -2,13 +2,13 @@
 #include "GameObjects/GameObject.h"
 #include "Components/TransformComponent.h"
 #include "Components/UIComponent.h"
+#include "Components/RendererComponent.h"
 #include "Graphics/AppRenderer.h"
 
 unsigned const UISystem::static_type = BaseSystem::numberOfTypes++;
 
 UISystem::UISystem()
 {
-	
 	Push_required_comp<TransformComponent>();
 	Push_required_comp<UIComponent>();
 }
@@ -48,4 +48,27 @@ void UISystem::EarlyUpdate(float dt)
 void UISystem::RegisterAppRenderer(AppRenderer* appRenderer)
 {
 	m_pAppRenderer = appRenderer;
+}
+
+void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
+{
+	UICompNode* uiNode = static_cast<UICompNode*>(compNode);
+
+	RendererComponent* rendererComponent = uiNode->m_transform->GetOwner()->GetComponent<RendererComponent>();
+
+	if (!rendererComponent)
+	{
+		return;
+	}
+
+	Vector3 position = uiNode->m_transform->GetWorldPosition();
+	Vector3 scale = uiNode->m_transform->GetScale();
+
+	UIObjectInstanceRenderData uiObjectInstanceRenderData = {};
+	uiObjectInstanceRenderData.m_windowSpacePosition = Vector2(position.x, position.y);
+	uiObjectInstanceRenderData.m_windowSpaceSize = Vector2(scale.x, scale.y);
+	uiObjectInstanceRenderData.m_pUIMaterial = rendererComponent->m_pMaterial;
+	uiObjectInstanceRenderData.m_rotationMatrix = &uiNode->m_transform->GetRotationMatrix();
+
+	m_pAppRenderer->RegisterUIObjectInstance(uiObjectInstanceRenderData);
 }

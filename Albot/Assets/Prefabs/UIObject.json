@@ -8,11 +8,12 @@
   "CameraComponent": {
     "Camera": {
       "FOV": 45.0,
-      "Near": 0.1,
-      "Far": 1000.0,
+      "Near": -1.0,
+      "Far": 1.0,
       "Position": [ 0.0, 0.0, 0.0 ],
       "CameraName": "Main",
       "RenderObjectType": "Render_UI",
+      "CameraProjectionType": "Projection_Orthographic_Viewport",
       "ZOrder": 0
     }
   },

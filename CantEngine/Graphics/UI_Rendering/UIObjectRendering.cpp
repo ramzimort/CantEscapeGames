@@ -50,6 +50,7 @@ void UIObjectRendering::Initialize(DXRenderer* dxrenderer)
 	pipelineDesc.m_pipeline_type = PipelineType::GRAPHICS;
 
 	GraphicsPipelineDesc& uiObjectRenderingPipelineDesc = pipelineDesc.m_graphics_desc;
+	uiObjectRenderingPipelineDesc.m_primitive_topo_type = Primitive_Topology::TOPOLOGY_TRIANGLE_LIST;
 	uiObjectRenderingPipelineDesc.m_depth_state = m_appRenderer->m_disabled_depth_state;
 	uiObjectRenderingPipelineDesc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
 	uiObjectRenderingPipelineDesc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;

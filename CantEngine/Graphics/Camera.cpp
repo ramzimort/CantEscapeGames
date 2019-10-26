@@ -119,7 +119,7 @@ uint32_t Camera::GetCameraRenderObjectType() const
 
 void Camera::SetCameraRenderObjectType(uint32_t renderObjectType)
 {
-	m_cameraRenderObjectType = renderObjectType;
+	m_cameraRenderObjectType = (CameraRenderObjectType)renderObjectType;
 }
 
 void Camera::SetProjectionType(CameraProjectionType projectionType)
@@ -196,7 +196,8 @@ void Camera::UpdateProjectionMatrix()
 		float finalWidth = ( (float)m_screenWidth * m_viewportRenderInformation.z);
 		float finalHeight =  ((float)m_screenHeight * m_viewportRenderInformation.w);
 
-		m_projectionMatrix = DirectX::XMMatrixOrthographicRH(finalWidth, finalHeight, m_near, m_far);
+		m_projectionMatrix = DirectX::XMMatrixOrthographicOffCenterRH(0.f, finalWidth, finalHeight, 0.f, m_near, m_far);
+		//m_projectionMatrix = DirectX::XMMatrixOrthographicRH(finalWidth, finalHeight, m_near, m_far);
 	}
 	else if (m_cameraProjectionType == PROJECTION_ORTHOGRAPHIC)
 	{

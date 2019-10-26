@@ -24,6 +24,7 @@ class RendererComponent : public BaseComponent
 public:
 	friend class Factory;
 	friend class RenderingSystem;
+	friend class UISystem;
 	friend struct GameObjectDesc;
 //Public interface
 public:

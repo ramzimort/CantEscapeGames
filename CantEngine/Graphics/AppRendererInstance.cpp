@@ -244,7 +244,7 @@ void AppRendererInstance::Render()
 	{
 		LoadActionsDesc next_load_actions_desc = {};
 		next_load_actions_desc.m_clear_color_values[0] = m_finalOutputRT->get_clear_value();
-		next_load_actions_desc.m_load_actions_color[0] = LoadActionType::DONT_CLEAR;
+		next_load_actions_desc.m_load_actions_color[0] = LoadActionType::CLEAR;
 		next_load_actions_desc.m_clear_depth_stencil = m_depthRT->get_clear_value();
 		next_load_actions_desc.m_load_action_depth = LoadActionType::DONT_CLEAR;
 

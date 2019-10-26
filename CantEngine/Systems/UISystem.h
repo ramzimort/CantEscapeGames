@@ -26,7 +26,7 @@ public:
 
 	virtual void Register_GameObject(GameObject *go) override;
 	virtual void EarlyUpdate(float dt) override;
-
+	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
 	//virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
 
 	void RegisterAppRenderer(AppRenderer* appRenderer);
@@ -41,4 +41,6 @@ private:
 	int currentState;
 	//Previous UI state
 	int previousstate;
+
+	
 };

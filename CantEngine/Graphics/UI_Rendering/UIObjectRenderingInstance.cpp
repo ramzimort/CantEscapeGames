@@ -55,22 +55,24 @@ void UIObjectRenderingInstance::Render(const AppRendererContext& appRendererCont
 		assert(uiObjectInstance.m_pUIMaterial != nullptr);
 		Material* pUIMaterial = uiObjectInstance.m_pUIMaterial;
 
+		Vector2 finalUIScale = uiObjectInstance.m_windowSpaceSize / 2.f;
+
 		//add by half the size of UI so that the origin is top left
 		Vector2 finalUIPosition = uiObjectInstance.m_windowSpacePosition + 
-			Vector2(uiObjectInstance.m_windowSpaceSize.x / 2.f, uiObjectInstance.m_windowSpaceSize.y / 2.f);
+			Vector2(finalUIScale.x, finalUIScale.y);
 
-		Vector2 finalUIScale = uiObjectInstance.m_windowSpaceSize;
+		
 
-		if (index >= m_appRenderer->m_uiObjectInstanceRenderDataList.size())
+		if (index >= m_uiObjectUniformBufferList.size())
 		{
 			AddUIObjectUniformBuffer();
 		}
 
 		m_uiObjectUniformDataList[index].ModelMat = Matrix::CreateScale(Vector3(finalUIScale.x, finalUIScale.y, 1.f)) * 
-			(*uiObjectInstance.m_rotationMatrix) * Matrix::CreateTranslation(Vector3(finalUIPosition.x, finalUIPosition.y, -0.1f));
+			(*uiObjectInstance.m_rotationMatrix) * Matrix::CreateTranslation(Vector3(finalUIPosition.x, finalUIPosition.y, 0.f));
 
 		m_uiObjectUniformDataList[index].ModelViewProjectionMat = m_uiObjectUniformDataList[index].ModelMat * 
-			appRendererContext.m_appRendererInstance->m_camera_uniform_data.ViewProjectionMat;
+			appRendererContext.m_appRendererInstance->m_camera_uniform_data.ProjectionMat;
 
 		Texture* pUITexture = pUIMaterial->GetDiffuseTexture();
 

@@ -166,11 +166,11 @@ Button.Update = function(self, dt, owner)
 	
 	OutputPrint("\n var:\n\n" .. self.loacation);
 	
-	if(self.loacation == _G.value) then
-		self.uiTransform:Scale(1.2,1.2,1.2);
-	else
-		self.uiTransform:Scale(1.0,1.0,1.0);
-	end
+	--if(self.loacation == _G.value) then
+	--	self.uiTransform:Scale(1.2,1.2,1.2);
+	--else
+	--	self.uiTransform:Scale(1.0,1.0,1.0);
+	--end
 	--OutputPrint("\n var:\n\n" .. self.windowSpaceScaleMax.y);
 	
 	-- self.maxPosX = self.windowSpacePos.x + self.windowSpaceScale.x;
