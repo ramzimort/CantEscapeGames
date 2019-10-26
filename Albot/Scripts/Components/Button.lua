@@ -121,7 +121,7 @@ Button.Update = function(self, dt, owner)
 	if(self.ENTER == true) then
 		self.finalAnimationEnable = true;
 		self.enableButton = false;
-		OutputPrint(">>> Reached\n");
+		
 	end
 	
 	
@@ -139,7 +139,8 @@ Button.Update = function(self, dt, owner)
 	if(self.finalAnimationEnable == true) then
 	
 		if(self.position == self.initialPosition) then
-		World.Get():PushStateEvent(false, self.NextStatePath);
+			OutputPrint(">>> Reached\n");
+			World.Get():PushStateEvent(false, self.NextStatePath);
 			return;
 		end
 		self.position = self.position - self.velocity * self.deltaTime;
