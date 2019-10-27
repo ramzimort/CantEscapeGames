@@ -6,7 +6,9 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\Material1.json"
+    "MaterialId": "Assets\\Materials\\Material1.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
   },
 
   "MeshComponent": {

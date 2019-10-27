@@ -106,7 +106,9 @@
           "CollisionMask": "DINAMIC_OBJ"
         },
         "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\MaterialDarkGreen.json"
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
         }
       }
     },
