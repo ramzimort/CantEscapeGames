@@ -14,7 +14,7 @@
   },
 
   "RigidBodyComponent": {
-    "IsEffectedByGravity": 1,
+    "IsEffectedByGravity": true,
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
