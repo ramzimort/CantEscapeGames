@@ -18,7 +18,8 @@ Primary Author: Aleksey Perfilev
 
 class GameObjectManager;
 
-class Constraint;
+class Contact;
+class CollisionManifold;
 
 class RigidbodyComponent : public BaseComponent
 {
@@ -46,7 +47,7 @@ public:
 
 	CollisionTable::CollisionMask GetCollisionMask();
 
-	bool IsStatic() const;
+	bool IsAsleep() const;
 	
 public:
 	//Unique class identifier
@@ -72,10 +73,8 @@ private:
 	float m_inverseMass;
 
 	bool m_isEffectedByGravity;
-	bool m_isStatic;
+	bool m_isAsleep;
 	bool m_isColliding;
-	
-	std::vector<Constraint> m_constraints;
 	
 	CollisionTable::CollisionMask m_collisionMask;
 

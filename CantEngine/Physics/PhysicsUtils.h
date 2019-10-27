@@ -24,18 +24,20 @@ namespace PhysicsUtils
 		const double sqrt2 = std::sqrt(2.0);
 
 		//physics
-		const int maxPhysicsIterationsPerFrame = 5;
+		const int maxPhysicsIterationsPerFrame = 1;
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
 		const float fatteningFactor = 1.1f;
 		const float gravity = -9.8f;
 		const float minMass = 0.000001f;
+		const float penetrationEpsilon = 0.01f;
+		const float penetrationEpsilonSq = penetrationEpsilon * penetrationEpsilon;
 
 		const std::vector<Vector3> directionsInUnitSphere = PhysicsUtils::UniformDistibutionInSphere();
 
 		namespace Constraints
 		{
-			const int numGaussSeidelIterations = 50;
-			const float bias = 0.2f;                   // damping term for position
+			const int numGaussSeidelIterations = 10;
+			const float bias = 0.0f;                   // damping term for position
 			const float restitution = 0.4f;            // damping term for velocity
 			const float friction = 0.2f;               // friction coefficient
 		}
@@ -44,6 +46,13 @@ namespace PhysicsUtils
 		const std::string Assets_Dir = "Assets\\";
 		const std::string Physics_Dir = Assets_Dir + "Physics\\";
 		const std::string Collision_Matrix_Dir = Physics_Dir + "Collision_Matrix\\";
+	}
+
+	namespace Settings
+	{
+		extern bool isDrawContactPoints;
+		extern bool isDrawGJKResult;
+		extern bool isDrawEPAFinalTriangle;
 	}
 
 	template <typename T>
@@ -87,6 +96,9 @@ namespace PhysicsUtils
 	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b, const Vector3& c,
 		float& u, float& v, float& w, float expansionEpsilon = 0.0f);
 	
+	Vector3 WorldToModel(const Matrix& modelToWorld, const Vector3& vec);
+
+
 #ifdef DEVELOPER
 	namespace MathPrinter
 	{

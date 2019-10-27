@@ -27,8 +27,17 @@ RigidbodySystem::RigidbodySystem() :
 	Push_required_comp<RigidbodyComponent>();
 	Push_required_comp<MeshComponent>();
 
+#ifdef DEVELOPER
 	EventManager::Get()->SubscribeEvent<KeyEvent>(this,
 		std::bind(&RigidbodySystem::OnKeyDown, this, std::placeholders::_1));
+#endif
+}
+
+RigidbodySystem::~RigidbodySystem()
+{
+#ifdef DEVELOPER
+	EventManager::Get()->UnsubscribeEvent<KeyEvent>(this);
+#endif
 }
 
 
@@ -71,7 +80,7 @@ void RigidbodySystem::LateUpdate(float dt)
 	}
 #endif
 	m_timeAccumulator += dt;
-	while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
+	//while (m_timeAccumulator >= PhysicsUtils::Consts::fixedTimeStep)
 	{
 #ifdef DEVELOPER
 		if (m_isPaused)
@@ -139,6 +148,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			{
 				std::swap(results.m_results[i], results.m_results.back());
 				results.m_results.pop_back();
+				--i; // to not skip the swapped value
 			}
 		}
 
@@ -161,6 +171,53 @@ void RigidbodySystem::LateUpdate(float dt)
 		
 #pragma endregion BroadPhaase
 
+#pragma region ValidateContacts
+		for (int j = 0; j < m_contactManifolds.size(); ++j)//ContactManifold& contactManifold : m_contactManifolds)
+		{
+			std::vector<Contact>& contacts = m_contactManifolds[j].m_contacts;
+			for (int i = 0; i < contacts.size(); ++i)//Contact& contact : contactManifold.m_contacts)
+			{
+				TransformComponent* trA = contacts[i].m_objectA->GetOwner()->GetComponent<TransformComponent>();
+				TransformComponent* trB = contacts[i].m_objectB->GetOwner()->GetComponent<TransformComponent>();
+
+				const Matrix modelToWorldA = trA->GetModel();
+				const Matrix modelToWorldB = trB->GetModel();
+
+				const Vector3 newGlobalA = Vector3::Transform(contacts[i].m_pALocal, modelToWorldA);
+				const Vector3 newGlobalB = Vector3::Transform(contacts[i].m_pBLocal, modelToWorldB);
+
+				const Vector3 rAB = newGlobalB - newGlobalA;
+				const Vector3 rA = contacts[i].m_pA - newGlobalA;
+				const Vector3 rB = contacts[i].m_pB - newGlobalB;
+
+				const float epsilonSq = PhysicsUtils::Consts::penetrationEpsilonSq;
+
+				const bool isStillPenetrating = contacts[i].m_normal.Dot(rAB) <= 0.0f;
+				const bool isAcloseEnough = rA.LengthSquared() < epsilonSq;
+				const bool isBcloseEnough = rB.LengthSquared() < epsilonSq;
+
+				if (isStillPenetrating &&
+					isAcloseEnough &&
+					isBcloseEnough)
+				{
+					// keep the contact
+				}
+				else
+				{
+					std::swap(contacts[i], contacts.back());
+					contacts.pop_back();
+					--i; // to not skip swapped value
+				}
+			}
+			//if (contacts.size() == 0)
+			//{
+			//	std::swap(m_contactManifolds[j], m_contactManifolds.back());
+			//	m_contactManifolds.pop_back();
+			//	--j; // to not skip swapped value
+			//}
+		}
+#pragma endregion
+
 #pragma region NarrowPhase
 
 		for (QueryResult& query : results.m_results)
@@ -170,54 +227,34 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			TransformComponent* tr1 = rb1->GetOwner()->GetComponent<TransformComponent>();
 			TransformComponent* tr2 = rb2->GetOwner()->GetComponent<TransformComponent>();
-			//m_pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(tr1->GetPosition(), tr2->GetPosition(), Vector3(0, 1, 0));
-			
-			ObbSupportShape supportShape1(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
-			ObbSupportShape supportShape2(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
+
+			Contact contact;
+			contact.m_objectA = rb1;
+			contact.m_objectB = rb2;
+			contact.m_supportShapeA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
+			contact.m_supportShapeB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
 
 			Gjk gjk;
-			Gjk::CsoPoint closestPoint;
-			float epsilon = 0.001f;
+			const float epsilon = PhysicsUtils::Consts::penetrationEpsilon;
 			std::vector<Gjk::CsoPoint> simplex;
-			if (gjk.Intersect(simplex, &supportShape1, &supportShape2, closestPoint, epsilon, m_pAppRenderer, true))
+
+			Gjk::CsoPoint closestPoint;
+			
+			if (gjk.Intersect(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, closestPoint, epsilon, m_pAppRenderer, true))
 			{
-				CollisionManifold collision;
-				collision.m_objectA = rb1;
-				collision.m_objectB = rb2;
-				if (gjk.Epa(simplex, &supportShape1, &supportShape2, collision, epsilon))
+				if (gjk.Epa(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, contact, m_pAppRenderer, epsilon))
 				{
+					// collision point in local space
+					contact.m_pALocal = PhysicsUtils::WorldToModel(tr1->GetModel(), contact.m_pA);
+					contact.m_pBLocal = PhysicsUtils::WorldToModel(tr2->GetModel(), contact.m_pB);
+				
 					rb1->m_isColliding = true;
 					rb2->m_isColliding = true;
 
-					collision.m_objectA->m_constraints.clear();
-					collision.m_objectB->m_constraints.clear();
-					
-					// Normal constraint for both objects
-					Constraint constraintNormal(collision.m_objectA, collision.m_objectB, collision.m_depth);
-					constraintNormal.CalculateNormalJacobian(collision);
-					collision.m_objectA->m_constraints.push_back(constraintNormal);
-					//collision.m_objectB->m_constraints.push_back(constraintNormal);
-
-					// Friction constraint for both objects
-					Constraint constraintFriction1(collision.m_objectA, collision.m_objectB);
-					Constraint constraintFriction2(collision.m_objectA, collision.m_objectB);
-					Constraint::CalculateFrictionJacobians(collision, constraintFriction1, constraintFriction2);
-					collision.m_objectA->m_constraints.push_back(constraintFriction1);
-					//collision.m_objectB->m_constraints.push_back(constraintFriction1);
-					collision.m_objectA->m_constraints.push_back(constraintFriction2);
-					//collision.m_objectB->m_constraints.push_back(constraintFriction2);					
+					ProcessCollision(contact);
 				}
 			}
-			// else no collision
-			else
-			{
-				//m_pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(closestPoint.m_PointA, closestPoint.m_PointB, Vector3(0,0,1));
-
-				
-				//float separatingDistance = Vector3::Distance(closestPoint.m_PointA, closestPoint.m_PointB);
-			}
 		}
-		
 #pragma endregion NarrowPhase
 
 #pragma region VelocityUpdate
@@ -226,6 +263,25 @@ void RigidbodySystem::LateUpdate(float dt)
 			RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
 			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
 			TransformComponent* transform = rigidbodyNode->m_transform;
+
+			// debugdraw of contacts
+#ifdef DEVELOPER
+			if (PhysicsUtils::Settings::isDrawContactPoints)
+			{
+				for (const ContactManifold& contactManifold : m_contactManifolds)
+				{
+					for (const Contact& contact : contactManifold.m_contacts)
+					{
+						DebugAABBInstance debugAabb;
+						debugAabb.m_min_bound = contact.m_pA - Vector3(0.1f);
+						debugAabb.m_max_bound = contact.m_pA + Vector3(0.1f);
+						debugAabb.m_color = Vector3(0.0f, 0.0f, 1.0f);
+
+						m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(debugAabb);
+					}
+				}
+			}
+#endif
 
 			Vector3& velocity = rigidbody->m_velocity;
 			Vector3& angularV = rigidbody->m_angularVelocity;
@@ -258,30 +314,18 @@ void RigidbodySystem::LateUpdate(float dt)
 #pragma endregion VelocityUpdate
 
 #pragma region SolvingConstraints
-		// constraints update
-		for (auto& node : m_ObjComponentsMap)
+		// Gaus-Saidel
+		const int numIterations = 50;// PhysicsUtils::Consts::Constraints::numGaussSeidelIterations
+		for (int i = 0; i < numIterations; i++)
 		{
-			RigidbodyCompNode* rigidbodyNode = static_cast<RigidbodyCompNode*>(node.second);
-			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
-
-			std::vector<Constraint>& constraints = rigidbody->m_constraints;
-			if (!constraints.empty())
-			{				
-				Vector3& velocity = rigidbody->m_velocity;
-				float vLen = velocity.LengthSquared();
-				Vector3& angularV = rigidbody->m_angularVelocity;
-				
-				//precomputing some of the terms
-				std::vector<Jacobian> velocityVectors;
-				velocityVectors.reserve(constraints.size() / 3); // 1 normal constraint + 2 friction constraint = 3 types of constraints
-
-				std::vector<float> sumLambda(constraints.size(), 0.0f);
-				std::vector<float> sumLambdaOld(constraints.size(), 0.0f);
-
-				// Gaus-Saidel
-				for (int i = 0; i < PhysicsUtils::Consts::Constraints::numGaussSeidelIterations; i++)
+			// for each collision with another object
+			for (ContactManifold& contactManifold : m_contactManifolds)
+			{
+				std::vector<Contact>& contacts = contactManifold.m_contacts;
+				// solve for each constraint and update velocity
+				for (int k = 0; k < contacts.size(); k++)
 				{
-					// solve for each constraint and update velocity
+					std::vector<Constraint>& constraints = contacts[k].m_constraints;
 					for (int j = 0; j < constraints.size(); j++)
 					{
 						// calculating Velocity vector
@@ -307,7 +351,7 @@ void RigidbodySystem::LateUpdate(float dt)
 						massInverseMatrix.MultiplyByJacobian(massMatrixInverseJTranspose, constraints[j].m_jacobian);
 
 						float jacobianMatrixDotMassMatrixInverseJTranspose = constraints[j].m_jacobian * massMatrixInverseJTranspose;
-						float effectiveMass = 1.0f / jacobianMatrixDotMassMatrixInverseJTranspose;//  (constraints[j].m_jacobian* massMatrixInverseJTranspose);
+						float effectiveMass = 1.0f / jacobianMatrixDotMassMatrixInverseJTranspose;
 
 						// calculate lambda
 						float zeta = 0.0f;
@@ -315,20 +359,18 @@ void RigidbodySystem::LateUpdate(float dt)
 						{
 							float depth = constraints[j].m_depthPen;
 							const float slop = -0.005f; // penetration error
-							zeta = -PhysicsUtils::Consts::Constraints::bias * (depth + slop) / PhysicsUtils::Consts::fixedTimeStep;// +
-								PhysicsUtils::Consts::Constraints::restitution * JV;
+							float bias = PhysicsUtils::Consts::Constraints::bias;
+							zeta = -bias * (depth + slop) / PhysicsUtils::Consts::fixedTimeStep;// +
+								//PhysicsUtils::Consts::Constraints::restitution * JV; // TODO: add this when stable
 						}
 
 						float lambda = -(JV + zeta) * effectiveMass;
-						//lambda += constraints[j].m_lambda;
-						
-						sumLambdaOld[j] = sumLambda[j];
-						sumLambda[j] += lambda;
+						lambda += constraints[j].m_lambda;
 
+						// TODO: fix clamping
 						if (j % 3 == 0) // clamp lambda for normal constraint
 						{
-							//MathUtil::Clamp(lambda, 0.0f, MathUtil::PositiveMax());
-							MathUtil::Clamp(sumLambda[j], 0.0f, MathUtil::PositiveMax());
+							lambda = MathUtil::Clamp(lambda, 0.0f, MathUtil::PositiveMax());
 						}
 						else // clamp lambda for friction constraint
 						{
@@ -338,13 +380,12 @@ void RigidbodySystem::LateUpdate(float dt)
 							// dot product should give us the cos of angle between normal and gravity (both should be normalized at this point)
 							float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].m_normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
 
-							MathUtil::Clamp(sumLambda[j], -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
-							//MathUtil::Clamp(lambda, -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
+							//lambda =
+							MathUtil::Clamp(lambda, -PhysicsUtils::Consts::Constraints::friction * collisionWeight,
 								PhysicsUtils::Consts::Constraints::friction * collisionWeight);
 						}
-						float deltaLambda = sumLambda[j] - sumLambdaOld[j];
-						//float deltaLambda = lambda - constraints[j].m_lambda;
-						//constraints[j].m_lambda = lambda;
+						float deltaLambda = lambda - constraints[j].m_lambda;
+						constraints[j].m_lambda = lambda;
 
 						/*if (abs(deltaLambda) < 0.001f)
 						{
@@ -376,7 +417,6 @@ void RigidbodySystem::LateUpdate(float dt)
 						constraints[j].m_object2->m_angularVelocity = finalVel.m_angularVelocity2;
 					}
 				}
-				rigidbody->m_constraints.clear();
 			}
 		}
 #pragma endregion SolvingConstraints
@@ -393,15 +433,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			Vector3& velocity = rigidbody->m_velocity;
 			
 			Quaternion orientationQuat = Quaternion::CreateFromRotationMatrix(transform->GetRotationMatrix());
-			/*if ((rigidbody->m_velocityLastFrame - velocity).LengthSquared() < 0.001f)
-			{
-				velocity = rigidbody->m_velocityLastFrame;
-			}*/
 			Quaternion angularVelocity(rigidbody->m_angularVelocity.x, rigidbody->m_angularVelocity.y, rigidbody->m_angularVelocity.z, 0);
-			/*if ((rigidbody->m_angularVelocityLastFrame - rigidbody->m_angularVelocity).LengthSquared() < 0.001f)
-			{
-				rigidbody->m_angularVelocity = rigidbody->m_angularVelocityLastFrame;
-			}*/
 			
 			position += velocity * PhysicsUtils::Consts::fixedTimeStep;
 			Quaternion wq = angularVelocity * orientationQuat;
@@ -413,11 +445,9 @@ void RigidbodySystem::LateUpdate(float dt)
 			rigidbody->m_position = position;
 
 			transform->SetLocalPosition(position);
-			float x = eularRotation.x * 180 / PI;
-			float y = eularRotation.y * 180 / PI;
-			float z = eularRotation.z * 180 / PI;
 
-			transform->SetLocalRotation(eularRotation.x * 180 / PI, eularRotation.y * 180 / PI, eularRotation.z * 180 / PI);
+			MathUtil::DegreeToRadians(eularRotation);
+			transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
 		}
 
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;
@@ -458,4 +488,38 @@ void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
 
 }
 
+
+void RigidbodySystem::ProcessCollision(Contact& contact)
+{
+	for (ContactManifold& contactManifold : m_contactManifolds)
+	{
+		if ((contactManifold.m_object1 == contact.m_objectA && contactManifold.m_object2 == contact.m_objectB) ||
+			(contactManifold.m_object1 == contact.m_objectB && contactManifold.m_object2 == contact.m_objectA))
+		{
+			contactManifold.ProccessCollision(contact);
+			contactManifold.KeepOnlyFourContacts();
+
+			return;
+		}
+	}
+
+	// else colliding with a new body
+	contact.BuildConstraints();
+	ContactManifold contactManifold(contact);
+	m_contactManifolds.push_back(contactManifold); // creates new contact manifold created implicitly from collision manifold
+}
+
+void RigidbodySystem::RemoveCollision(const Contact& collision)
+{
+	for (int i = 0; i < m_contactManifolds.size(); ++i)
+	{
+		if ((m_contactManifolds[i].m_object1 == collision.m_objectA && m_contactManifolds[i].m_object2 == collision.m_objectB) ||
+			(m_contactManifolds[i].m_object1 == collision.m_objectB && m_contactManifolds[i].m_object2 == collision.m_objectA))
+		{
+			std::swap(m_contactManifolds[i], m_contactManifolds.back());
+			m_contactManifolds.pop_back();
+			return;
+		}
+	}
+}
 

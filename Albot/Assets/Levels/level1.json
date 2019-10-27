@@ -95,9 +95,9 @@
       "prefab": "Assets\\Prefabs\\RBTestObj.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, -2.0, -5.0 ],
+          "Position": [ 0.7, -2.0, -5.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 10.0, 1.0, 10.0 ]
+          "Scale": [ 100.0, 1.0, 100.0 ]
         },
         "RigidBodyComponent": {
           "IsEffectedByGravity": false,

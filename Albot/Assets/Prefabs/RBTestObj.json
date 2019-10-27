@@ -14,10 +14,10 @@
   },
 
   "RigidBodyComponent": {
-    "IsEffectedByGravity": false,
+    "IsEffectedByGravity": 1,
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
-    "IsStatic": true,
+    "IsAsleep": 0,
     "CollisionMask": "WALL"
   }
 

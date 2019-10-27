@@ -417,6 +417,22 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 		if (lengthSq < epsilon * epsilon)
 		{
 			FillSimplex(simplex, shapeA, shapeB);
+
+#ifdef DEVELOPER
+ 		if (PhysicsUtils::Settings::isDrawGJKResult)
+			for (auto point : simplex)
+			{
+				DebugAABBInstance aabb;
+				aabb.m_color = Vector3(0.0f, 1.0f, 0.0f);
+				aabb.m_min_bound = point.m_PointA - Vector3(0.1);
+				aabb.m_max_bound = point.m_PointA + Vector3(0.1);
+				pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb);
+				aabb.m_color = Vector3(1.0f, 1.0f, 0.0f);
+				aabb.m_min_bound = point.m_PointB - Vector3(0.1);
+				aabb.m_max_bound = point.m_PointB + Vector3(0.1);
+				pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb);
+			}
+#endif
 			return true;
 		}
 
@@ -486,7 +502,7 @@ float Gjk::TriangleSideCheck(const Vector3& q, const Vector3& p0, const Vector3&
 	return normal.Dot(q - p0);
 }
 
-bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CollisionManifold& collision, float epsilon)
+bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, Contact& contact, AppRenderer* pAppRenderer, float epsilon)
 {
 	//Expanding Polytope Algorithm (EPA) as described here: http://hacktank.net/blog/?p=119
 	const unsigned MAX_ITERATIONS = 50;
@@ -552,17 +568,35 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 												 u, v, w);
 
 			// collision point on object a in world space
-			collision.m_pA = Vector3(u * currentTriangleIterator->m_A.m_PointA +
+			contact.m_pA = Vector3(u * currentTriangleIterator->m_A.m_PointA +
 				v * currentTriangleIterator->m_B.m_PointA +
 				w * currentTriangleIterator->m_C.m_PointA);
-			collision.m_pB = collision.m_pA - currentTriangleIterator->m_normal * currentDist;
+			contact.m_pB = contact.m_pA - currentTriangleIterator->m_normal * currentDist;
 
 			// collision normal
-			collision.m_normal = currentTriangleIterator->m_normal;
+			contact.m_normal = currentTriangleIterator->m_normal;
 
 			// penetration depth
-			collision.m_depth = currentDist;
+			contact.m_depth = currentDist;
 
+#ifdef DEVELOPER
+			if (PhysicsUtils::Settings::isDrawEPAFinalTriangle)
+			{
+				for (auto point : currentTriangleIterator->points)
+				{
+					DebugAABBInstance aabbA;
+					aabbA.m_color = Vector3(0.0f, 1.0f, 0.0f);
+					aabbA.m_min_bound = point.m_PointA - Vector3(0.1);
+					aabbA.m_max_bound = point.m_PointA + Vector3(0.1);
+					pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabbA);
+					DebugAABBInstance aabbB;
+					aabbB.m_color = Vector3(1.0f, 1.0f, 0.0f);
+					aabbB.m_min_bound = point.m_PointB - Vector3(0.1);
+					aabbB.m_max_bound = point.m_PointB + Vector3(0.1);
+					pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabbB);
+				}
+			}
+#endif
 			break;
 		}
 
@@ -621,9 +655,9 @@ void Gjk::FillSimplexInDirection(std::vector<Gjk::CsoPoint>& simplex, const Vect
 
 void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB)
 {
-	/*// small floating-point margin
-	const float k_epsilon = 0.00001f;
-	const float k_epsilonSq = k_epsilon * k_epsilon;
+	// small floating-point margin
+	const float k_epsilon = PhysicsUtils::Consts::penetrationEpsilon;
+	const float k_epsilonSq = PhysicsUtils::Consts::penetrationEpsilonSq;
 
 	// constant vector representing the origin
 	const Vector3 origin(0.0f, 0.0f, 0.0f);
@@ -708,17 +742,15 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 		searchDir = v01.Cross(v02);
 
 		CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
-
-		// search direction not good, use its opposite direction
-		if (pointToAdd.m_CsoPoint.LengthSquared() > k_epsilonSq)
+		float distance = pointToAdd.m_CsoPoint.Dot(searchDir);
+		if (distance < k_epsilon) // on a triangle
 		{
+			searchDir *= -1.0f;
+			pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
 			simplex.push_back(pointToAdd);
-			
 		}
 		else
 		{	
-			searchDir *= -1.0f;
-			pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
 			simplex.push_back(pointToAdd);
 		}
 		// end of case 3
@@ -731,12 +763,12 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 	const Vector3 v31 = simplex[1].m_CsoPoint - simplex[3].m_CsoPoint;
 	const Vector3 v32 = simplex[2].m_CsoPoint - simplex[3].m_CsoPoint;
 	const float det = v30.Dot(v31.Cross(v32));
-	if (det > 0.0f)
+	if (det < 0.0f)
 	{
 		std::swap(simplex[0], simplex[1]);
 	}//*/
 	
-	for (const Vector3& dir : PhysicsUtils::Consts::directionsInUnitSphere)
+	/*for (const Vector3& dir : PhysicsUtils::Consts::directionsInUnitSphere)
 	{
 		if (simplex.size() >= 4)
 			break;

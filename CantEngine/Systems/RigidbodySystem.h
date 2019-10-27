@@ -42,7 +42,7 @@ class RigidbodySystem : public BaseSystem
 //Public interface
 public:
 	RigidbodySystem();
-	virtual ~RigidbodySystem() {}
+	virtual ~RigidbodySystem();
 
 	virtual void Register_GameObject(GameObject *go) override;
 	void RegisterAppRenderer(AppRenderer* renderer);
@@ -70,6 +70,11 @@ private:
 	AppRenderer* m_pAppRenderer;
 
 	float  m_timeAccumulator;
+
+	std::vector<ContactManifold> m_contactManifolds; // each contact manifold discribes all contacts between 2 colliding objects
+	
+	void ProcessCollision(Contact& collision);
+	void RemoveCollision(const Contact& collision);
 
 #ifdef DEVELOPER
 	bool m_isPaused;

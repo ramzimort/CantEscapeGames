@@ -1,6 +1,10 @@
 #include "PhysicsUtils.h"
 #include "Shaders\Shading.h"
 
+extern bool PhysicsUtils::Settings::isDrawContactPoints = false;
+extern bool PhysicsUtils::Settings::isDrawGJKResult = false;
+extern bool PhysicsUtils::Settings::isDrawEPAFinalTriangle = false;
+
 std::vector<Vector3> PhysicsUtils::UniformDistibutionInSphere()
 {
 	std::vector<Vector3> uniformVectors; // uniformly distributed vectors from O to a surface of a unit sphere
@@ -87,4 +91,10 @@ bool PhysicsUtils::BarycentricCoordinates(const Vector3& point, const Vector3& a
 	}
 	// else the point inside of the triangle
 	return true;
+}
+
+Vector3 PhysicsUtils::WorldToModel(const Matrix& modelToWorld, const Vector3& vec)
+{
+	const Matrix worldToModel = modelToWorld.Invert();
+	return Vector3::Transform(vec, worldToModel);
 }

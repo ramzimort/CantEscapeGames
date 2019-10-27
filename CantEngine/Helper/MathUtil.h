@@ -96,15 +96,20 @@ namespace MathUtil
 
 	inline unsigned LeastSignificantComponent(const Vector3& vec)
 	{
-		float min = vec.x;
+		const float absX = std::abs(vec.x);
+		const float absY = std::abs(vec.y);
+		const float absZ = std::abs(vec.z);
+
+
+		float min = absX;
 		unsigned minIndex = 0;
 
-		if (vec.y < min)
+		if (absY < min)
 		{
 			minIndex = 1;
-			min = vec.y;
+			min = absY;
 		}
-		if (vec.z < min)
+		if (absZ < min)
 		{
 			minIndex = 2;
 		}
@@ -133,5 +138,10 @@ namespace MathUtil
 			Matrix::CreateRotationZ(zRad);
 
 		return Vector3::Transform(v, R);
+	}
+
+	inline void DegreeToRadians(Vector3& degrees)
+	{
+		degrees *= 180.0f / PhysicsUtils::Consts::pi;
 	}
 }

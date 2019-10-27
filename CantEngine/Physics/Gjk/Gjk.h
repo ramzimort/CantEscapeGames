@@ -8,7 +8,7 @@ Primary Author: Aleksey Perfilev
 #pragma once
 #include "Physics/SuppportShape/SupportShape.h"
 #include "Physics/Geometry/Triangle.h"
-#include "CollisionManifold.h"
+#include "Physics/Constraint.h"
 
 namespace VoronoiRegion
 {
@@ -20,11 +20,8 @@ namespace VoronoiRegion
 		Unknown
 	};
 }
-namespace Framework
-{
-	class CollisionManifold;
-}
 
+class Contact;
 
 class Gjk
 {
@@ -97,14 +94,12 @@ public:
 	// The debugging values are for your own use (make sure they don't interfere with the unit tests).
 	bool Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw = false);
 
-	float Intersect2(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CsoPoint& closestPoint, float epsilon, AppRenderer* pAppRenderer, bool isDebugDraw = false);
-
 	// Finds the point furthest in the given direction on the CSO (and the relevant points from each object)
 	CsoPoint ComputeSupport(const SupportShape* shapeA, const SupportShape* shapeB, const Vector3& direction);
 
 	static float TriangleSideCheck(const Vector3& q, const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3);
 
-	bool Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, CollisionManifold& collision, float epsilon);
+	bool Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, const SupportShape* shapeB, Contact& contact, AppRenderer* pAppRenderer, float epsilon);
 	void FindClosestFace(Triangle& result, std::vector<Gjk::CsoPoint>& simplex);
 
 private:

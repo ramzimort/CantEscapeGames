@@ -24,7 +24,7 @@ RTTR_REGISTRATION
 		.property("IsEffectedByGravity", &RigidbodyComponent::m_isEffectedByGravity)
 		.property("Velocity", &RigidbodyComponent::m_velocity)
 		.property("Mass", &RigidbodyComponent::m_mass)
-		.property("IsStatic", &RigidbodyComponent::m_isStatic)
+		.property("IsAsleep", &RigidbodyComponent::m_isAsleep)
 		.property("CollisionMask", &RigidbodyComponent::m_collisionMask)
 	;
 	rttr::registration::enumeration<CollisionTable::CollisionMask>("CollisionMask")(
@@ -47,10 +47,6 @@ void RigidbodyComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 	m_inertiaTensor = m_inertiaTensorInverse = Matrix::Identity; // this works for cubes
 	m_inverseMass = 1.0f / m_mass;
-	if (m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ)
-	{
-		m_isStatic = true;
-	}
 }
 
 void RigidbodyComponent::Begin(GameObjectManager *goMgr)
@@ -93,9 +89,9 @@ CollisionTable::CollisionMask RigidbodyComponent::GetCollisionMask()
 	return m_collisionMask;
 }
 
-bool RigidbodyComponent::IsStatic() const 
+bool RigidbodyComponent::IsAsleep() const 
 {
-	return m_isStatic;
+	return m_isAsleep;
 }
 
 void RigidbodyComponent::InitInertiaTensor(float x, float y, float z)
