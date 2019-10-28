@@ -8,6 +8,7 @@
 #include "src/InputQueue.h"
 #include "src/Editor.h"
 #include "src/Material.h"
+#include <mutex>
 
 // Data
 static SDL_Window*				g_mainWindow = NULL;
@@ -28,6 +29,7 @@ static CheckboxQueue*			g_checkBoxQueue = NULL;
 static InputQueue*				g_InputQueue = NULL;
 static Editor*					g_Editor = NULL;
 static MaterialMaker*			g_materialMaker = NULL;
+std::mutex*						g_mutex = NULL;
 
 // Our State
 bool _update = true;
@@ -43,8 +45,9 @@ void UpdateGraphicsSettings();
 
 namespace CantDebugAPI
 {
-	void InitDebugWindow(const std::string& userDir, SDL_Window* gameWindow, ID3D11Device* device, ID3D11DeviceContext* context)
+	void InitDebugWindow(const std::string& userDir, SDL_Window* gameWindow, ID3D11Device* device, ID3D11DeviceContext* context, std::mutex& mutex)
 	{
+		std::lock_guard<std::mutex> lock(mutex);
 		g_pd3dDevice = device;
 		g_pd3dDeviceContext = context;
 		g_mainWindow = gameWindow;
@@ -77,10 +80,13 @@ namespace CantDebugAPI
 		g_InputQueue = new InputQueue();
 		g_Editor = new Editor();
 		g_materialMaker = new MaterialMaker();
+
+		g_mutex = &mutex;
 	}
 
 	void UpdateDebugWindow()
 	{
+		std::lock_guard<std::mutex> lock(*g_mutex);
 		if (!_update)
 			return;
 

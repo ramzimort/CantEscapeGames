@@ -198,6 +198,7 @@ void ResourceManager::FreeAll()
 // Returns null if surface does not exist
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
+	std::lock_guard<std::mutex> lock(m_dxrenderer->m_mutex);
 	DEBUG_LOG("Loading Texture: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 

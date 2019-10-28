@@ -15,5 +15,8 @@
 #include <memory.h>
 #include <tchar.h>
 #include <string>
+#include <thread>
+#include <mutex>
+
 #include "..\CantEngine\CantEngine.h"
 // reference additional headers your program requires here

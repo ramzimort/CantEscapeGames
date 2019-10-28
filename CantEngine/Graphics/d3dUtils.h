@@ -27,6 +27,11 @@ namespace DX
 	{
 		if (FAILED(hr))
 		{
+			static char s_str[64] = {};
+			//TODO: make this print with developer console
+			sprintf_s(s_str, "Failure with HRESULT of %08X",
+				static_cast<unsigned int>(hr));
+			OutputDebugString(s_str);
 			throw com_exception(hr);
 		}
 	}

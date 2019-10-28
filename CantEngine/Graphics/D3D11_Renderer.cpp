@@ -391,6 +391,7 @@ void DXRenderer::instant_update_buffer(const BufferUpdateDesc& buffer_update_des
 
 void DXRenderer::execute_queued_cmd()
 {
+	std::lock_guard<std::mutex> lock(m_mutex);
 	for (uint64_t cmd_index = 0; cmd_index < m_cmd_list.size(); ++cmd_index)
 	{
 		const DXCMD& cmd = m_cmd_list[cmd_index];

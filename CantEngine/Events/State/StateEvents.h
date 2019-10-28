@@ -3,6 +3,25 @@
 #include "Events/Event.h"
 #include "Events/Multicast.h"
 
+class ResourcesLoadedEvent : public Event<ResourcesLoadedEvent>
+{
+public:
+	ResourcesLoadedEvent()
+	{
+		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
+		//OnNewStatePushed()((int)key_scancode, press);
+	}
+	virtual ~ResourcesLoadedEvent() { }
+	virtual void operator()()
+	{
+		OnResourcesLoaded();
+	}
+	static Multicast<void()>& OnResourcesLoaded()
+	{
+		static Multicast<void()> m;
+		return m;
+	}
+};
 
 class QuitEvent : public Event<QuitEvent>
 {

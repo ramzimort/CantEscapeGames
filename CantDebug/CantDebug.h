@@ -6,6 +6,7 @@
 #define CANTDEBUG_API __declspec(dllimport)
 #endif
 
+#include <mutex>
 struct SDL_Window;
 
 namespace CantDebugAPI
@@ -62,7 +63,7 @@ namespace CantDebugAPI
 		std::string propName;
 	};
 
-	CANTDEBUG_API void InitDebugWindow(const std::string& name, SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context);
+	CANTDEBUG_API void InitDebugWindow(const std::string& name, SDL_Window* pWindow, ID3D11Device* device, ID3D11DeviceContext* context, std::mutex& mutex);
 
 	CANTDEBUG_API void UpdateDebugWindow();
 
