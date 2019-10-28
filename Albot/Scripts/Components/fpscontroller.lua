@@ -24,7 +24,7 @@ fpscontroller =
 
 --Init called when comp is created
 fpscontroller.Init = function(self)
-
+	
 end
 
 --Begin called when obj has all comps

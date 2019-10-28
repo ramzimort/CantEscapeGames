@@ -566,7 +566,8 @@ void ScriptingManager::ManageBindings()
 	//RIGIDBODY
 	luaState.new_usertype<RigidbodyComponent>
 	(
-		"RigidbodyComponent"	
+		"RigidbodyComponent",
+		"GetMass", &RigidbodyComponent::GetMass
 	);
 
 	//RENDERER

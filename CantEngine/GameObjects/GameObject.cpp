@@ -221,6 +221,5 @@ GameObject *GameObject::Instantiate(GameObjectManager *goMgr, std::string const&
 	Factory::LoadObject(go, prefabPath);
 	//Add to the goMgr's list of scripted Intantiations
 	goMgr->AddToScriptInstantiateQueue(go);
-	//TODO: RAMZI - Not yet implemented
 	return nullptr;
 }

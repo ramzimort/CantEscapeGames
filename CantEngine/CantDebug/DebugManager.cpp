@@ -227,6 +227,7 @@ namespace CantDebug
 			if (goInfo.Pressed)
 			{
 				Factory::LoadObject(m_pResourceManager->GetPrefab(goInfo.FullPath), goInfo.FullPath, "", m_pGameState->m_gameObjectMgr);
+				goInfo.Pressed = false;
 			}
 		}
 	}
