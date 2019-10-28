@@ -153,7 +153,8 @@ void RigidbodySystem::LateUpdate(float dt)
 		}
 
 #ifdef DEVELOPER
-		m_broadPhase.DebugDraw(m_pAppRenderer,-1, Vector4(1, 0, 0, 1));
+		if (GraphicsSettings::Draw_Dynamic_AABB_Tree)
+			m_broadPhase.DebugDraw(m_pAppRenderer,-1, Vector4(1, 0, 0, 1));
 		
 		for (size_t i = 0; i < results.m_results.size(); ++i)
 		{
