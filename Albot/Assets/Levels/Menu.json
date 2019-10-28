@@ -28,6 +28,11 @@
   },
   "Objects": [
     {
+      "tag": "lvleditor",
+      "prefab":"Assets/Prefabs/lvleditor.json",
+      "overrides":{ }
+    },
+    {
       "tag": "UIObject1",
       "prefab": "Assets/Prefabs/UIObject.json",
       "overrides": {

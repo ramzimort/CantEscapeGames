@@ -30,7 +30,7 @@ CameraComponent::CameraComponent(GameObject *owner) :
 
 CameraComponent::~CameraComponent()
 { 
-	EventManager::Get()->EnqueueEvent<CameraDestructionEvent>(true, m_camera.GetId());
+	EventManager::Get()->EnqueueEvent<CameraDestructionEvent>(true, &m_camera, m_camera.GetId());
 }
 
 void CameraComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)

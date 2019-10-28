@@ -13,6 +13,7 @@ Primary Author:
 #include "Reflection/Serialization.h"
 #include "Reflection/Helpers.h"
 #include "Components/AllComponentHeaders.h"
+#include "Audio/AudioTypes.h"
 
 ResourceManager* Factory::m_pResourceManager;
 DXRenderer* Factory::m_pDXRenderer;
@@ -136,12 +137,16 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 	for (auto it = scriptArr.begin(); it != scriptArr.end(); ++it)
 		resMgr->LoadScript(it->GetString());
 
-
 	// Load Audio
-	assert(resObj["Audio"].IsArray());
-	const auto& audioArr = resObj["Audio"].GetArray();
+	assert(resObj["Songs"].IsArray());
+	const auto& songArr = resObj["Songs"].GetArray();
+	for (auto it = songArr.begin(); it != songArr.end(); ++it)
+		resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SONG);
+
+	assert(resObj["SFX"].IsArray());
+	const auto& audioArr = resObj["SFX"].GetArray();
 	for (auto it = audioArr.begin(); it != audioArr.end(); ++it)
-		resMgr->LoadAudio(it->GetString());
+		resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SFX);
 
 	// Load Prefabs
 	assert(resObj["Prefabs"].IsArray());

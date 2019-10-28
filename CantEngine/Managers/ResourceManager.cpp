@@ -1,5 +1,6 @@
 
 #include "ResourceManager.h"
+#include "AudioManager.h"
 #include "Animation/AnimModel.h"
 #include "Graphics/Models/Model.h"
 #include "Graphics/Texture.h"
@@ -18,13 +19,14 @@ ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 
 ResourceManager::~ResourceManager()
 {
-	Free();
+	FreeAll();
 }
 
-void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState)
+void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager)
 {
 	m_dxrenderer = dxrenderer;
 	m_pSolState = pSolState;
+	m_pAudioManager = pAudioManager;
 }
 
 Model* ResourceManager::GetModel(StringId modelId)
@@ -155,6 +157,10 @@ void ResourceManager::FreeResource(StringId id)
 	ResPtr p = it->second.res;
 	switch (it->second.type)
 	{
+	case SONGS:
+	case SFX:
+		p.p_sound->release();
+		m_pAudioManager->UnregisterSound(it->first);
 	case TEXTURE:
 	{
 		p.p_texture->Release();
@@ -180,7 +186,7 @@ void ResourceManager::FreeResource(StringId id)
 	m_resources.erase(it);
 }
 
-void ResourceManager::Free()
+void ResourceManager::FreeAll()
 {
 	for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
 	{
@@ -209,10 +215,27 @@ void ResourceManager::LoadTexture(const std::string& filePath)
 	m_resources[id] = res;
 }
 
-void ResourceManager::LoadAudio(const std::string& filePath)
+void ResourceManager::LoadAudio(const std::string& filePath, Category type)
 {
 	DEBUG_LOG("Loading Audio: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
+
+	if (m_resources.find(id) != m_resources.end())
+		return;
+	ResPtr p;
+	switch (type)
+	{
+	case Category::CATEGORY_SFX:
+		p.p_sound = nullptr;
+		m_resources.insert(std::make_pair(id, Resource(SFX, p)));
+		break;
+	case Category::CATEGORY_SONG:
+		p.p_sound = nullptr;
+		m_resources.insert(std::make_pair(id, Resource(SONGS, p)));		
+		break;
+	}
+	m_pAudioManager->mp_system->createSound(filePath.c_str(), m_pAudioManager->m_modes[type], 0, &m_resources[id].res.p_sound);
+	m_pAudioManager->RegisterSound(SoundData(id, m_resources[id].res.p_sound, type));
 }
 
 void ResourceManager::LoadPrefab(const std::string& filePath)

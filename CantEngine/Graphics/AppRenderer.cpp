@@ -470,7 +470,14 @@ void AppRenderer::OnCameraRegistration(const CameraRegistrationEvent* event)
 
 void AppRenderer::OnCameraDestruction(const CameraDestructionEvent* event)
 {
-
+	auto findIter = m_appRendererInstances.find(event->m_pCamera->GetZOrder());
+	if (findIter == m_appRendererInstances.end())
+	{
+		return;
+	}
+	AppRendererInstance* rendererInstance = findIter->second;
+	SafeReleaseDelete(rendererInstance);
+	m_appRendererInstances.erase(findIter);
 }
 void AppRenderer::OnWindowSize(const WindowSizeEvent* event)
 {

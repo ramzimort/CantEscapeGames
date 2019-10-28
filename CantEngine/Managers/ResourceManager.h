@@ -2,14 +2,19 @@
 
 
 #include "Helper/Hash.h"
+#include "Audio/AudioTypes.h"
+#include "AudioManager.h"
 
 class Model;
 class Texture;
 class Material;
 class DXRenderer;
+class AudioManager;
 
 enum ResType
 {
+	SFX,
+	SONGS,
 	TEXTURE,
 	MODEL,
 	MATERIAL,
@@ -23,6 +28,7 @@ union ResPtr
 	Texture* p_texture;
 	Material* p_material;
 	std::string* p_prefab;
+	FMOD::Sound* p_sound;
 	sol::table* p_solTable;
 };
 
@@ -45,7 +51,7 @@ class ResourceManager
 public:
 	ResourceManager();
 	~ResourceManager();
-	void Initialize(DXRenderer* dxrenderer, sol::state* pSolState);
+	void Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager);
 	Model* GetModel(StringId modelId);
 	Material* GetMaterial(StringId materialId);
 	Texture* GetTexture(StringId textureId);
@@ -53,13 +59,13 @@ public:
 	sol::table& GetScript(StringId scriptId);
 	bool HasResource(StringId id);
 	void FreeResource(StringId id);
-	void Free();
+	void FreeAll();
 
 private:
 	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);
-	void LoadAudio(const std::string& filePath);
+	void LoadAudio(const std::string& filePath, Category type);
 	void LoadPrefab(const std::string& filePath);
 	void LoadScript(const std::string& filePath);
 #ifdef DEVELOPER
@@ -70,6 +76,7 @@ private:
 	ResourceMap m_resources;
 	DXRenderer* m_dxrenderer;
 	sol::state* m_pSolState;
+	AudioManager* m_pAudioManager;
 
 	//For scripting
 	sol::table refHolder;

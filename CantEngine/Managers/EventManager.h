@@ -30,7 +30,6 @@ public:
 	void RunInputThread();
 	void RunGameThread();
 	bool IsQuit();
-
 	template<typename T, typename ...Args>
 	void SubscribeEvent(Args... args);
 	template<typename T>
@@ -39,6 +38,7 @@ public:
 	void EnqueueEvent(Args&&...);
 
 private:
+	AudioManager* m_pAudioManager;
 	ScriptingManager *m_pScriptingManager;
 	WindowManager* m_pWindowManager;
 	CameraManager* m_pCameraManager;

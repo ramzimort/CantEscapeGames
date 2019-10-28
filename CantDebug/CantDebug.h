@@ -10,6 +10,15 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
+	struct DebugConfig
+	{
+		bool* SelectionTool;
+		bool* PauseState;
+		bool* StepFrame;
+		std::string* LevelName;
+		bool* CreateLevel;
+	};
+
 	enum type
 	{
 		STRING,
@@ -72,7 +81,7 @@ namespace CantDebugAPI
 
 	CANTDEBUG_API void CheckboxUI(const char* checkboxName, bool* pFlag);
 
-	CANTDEBUG_API void EditorSetting(const char* checkboxName, bool* pFlag);
+	CANTDEBUG_API void EditorSetting(DebugConfig config);
 	CANTDEBUG_API void ResourceSetting(const char* dir, const char* file, bool* pFlag);
 	CANTDEBUG_API void PrefabButtonList(const char* button, bool* pFlag);
 	CANTDEBUG_API void ObjectButtonList(const char* id, const char* button, bool* pFlag, bool* pDoubleClicked, bool created);
