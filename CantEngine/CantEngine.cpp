@@ -3,12 +3,19 @@
 #include "Managers/EventManager.h"
 #include "Managers/FrameManager.h"
 #include "Directory/User.h"
-
+#include "Graphics/d3dUtils.h"
 
 namespace CantEngineAPI
 {
 	void InitializeEngine(const std::string& levelPath, size_t w, size_t h)
 	{
+		//This is not dirty, it is needed to allow multi-thread DirectXTK texture loading
+		HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
+		if (FAILED_HR(hr))
+		{
+			assert(0);
+		}
+
 		EventManager* World = EventManager::Get();
 		World->Initialize(levelPath, w, h);
 
