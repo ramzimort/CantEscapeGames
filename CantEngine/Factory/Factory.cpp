@@ -14,6 +14,8 @@ Primary Author:
 #include "Reflection/Helpers.h"
 #include "Components/AllComponentHeaders.h"
 #include "Audio/AudioTypes.h"
+#include "Managers/EventManager.h"
+#include "Events/State/StateEvents.h"
 
 ResourceManager* Factory::m_pResourceManager;
 DXRenderer* Factory::m_pDXRenderer;
@@ -73,6 +75,8 @@ void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
 			LoadObject(objSetup, prefabName, tag, goMgr);
 		}
 	}
+
+	EventManager::Get()->EnqueueEvent<ResourcesLoadedEvent>(false);
 }
 
 void Factory::LoadObject(GameObject* gameObject, const std::string& path)

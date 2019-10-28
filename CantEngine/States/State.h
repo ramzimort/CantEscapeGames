@@ -16,6 +16,7 @@ class SystemManager;
 class AppRenderer;
 class ResourceManager;
 class ScriptingManager;
+class ResourcesLoadedEvent;
 
 class State
 {
@@ -23,6 +24,8 @@ public:
 	State(std::string const& path, AppRenderer* appRenderer, 
 		ResourceManager* resMgr, ScriptingManager *luaMgr);
 	virtual ~State();
+	void OnResourcesLoaded(const ResourcesLoadedEvent* e);
+
 
 	//Call update on systemManager
 	virtual void Update(float dt);
@@ -47,6 +50,8 @@ private:
 	// a ptr to the resMgr and the renderer
 	AppRenderer *m_pRenderer;
 	ResourceManager *m_pResMgr;
+	ScriptingManager* m_pLuaMgr;
+	std::string m_path;
 
 	sol::table m_stateScript;
 #ifdef DEVELOPER

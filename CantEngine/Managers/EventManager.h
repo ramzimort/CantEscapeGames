@@ -15,6 +15,7 @@ class StateManager;
 class ScriptingManager;
 class EventBus;
 class DebugManager;
+class AudioManager;
 
 class EventManager
 {

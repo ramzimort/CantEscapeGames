@@ -26,6 +26,8 @@ class DXRenderer
 {
 public:
 	friend class DXResourceLoader;
+	friend class EventManager;
+	friend class ResourceManager;
 public:
 	DXRenderer(HWND window_handle, bool enable_vsync);
 	~DXRenderer();
@@ -123,5 +125,6 @@ private:
 
 	IDXGIAdapter1* m_cur_adapter;
 	std::string m_cur_gpu_name;
+	std::mutex m_mutex;
 };
 

@@ -50,7 +50,8 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 		CantDirectory::Path(),
 		m_pInputManager->GetWindow(), 
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
-		m_pAppRenderer->GetDXRenderer()->get_device_context());
+		m_pAppRenderer->GetDXRenderer()->get_device_context(),
+		m_pAppRenderer->GetDXRenderer()->m_mutex);
 
 
 	m_pAppRenderer->InitializeResources();

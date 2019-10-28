@@ -920,6 +920,8 @@ Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc&
 	
 		if (load_desc.m_generateMipMap)
 		{
+			std::lock_guard<std::mutex> lock(renderer->m_mutex);
+
 			renderer->get_device_context()->GenerateMips(texture->m_p_srv);
 		}
 	}
@@ -965,6 +967,8 @@ struct STBI_Image_Data
 
 Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureLoadDesc& load_desc)
 {
+	//std::lock_guard<std::mutex> lock(renderer->m_mutex);
+
 	bool isHDRImage = load_desc.m_file_name.find(".hdr") != std::string::npos;
 
 	if (load_desc.m_useDXLoader && !isHDRImage)
