@@ -348,8 +348,8 @@ namespace CantDebug
 		Vector3 ray_world_dir = DirectX::XMVector4Transform(ray_eye_dir, cam.GetInvViewMatrix());
 		ray_world_dir.Normalize();
 
-		DEBUG_LOG("Position: "); DEBUG_LOGVec3(cam.GetCameraPosition());
-		DEBUG_LOG("Direction: "); DEBUG_LOGVec3(ray_world_dir);
+		//DEBUG_LOG("Position: "); DEBUG_LOGVec3(cam.GetCameraPosition());
+		//DEBUG_LOG("Direction: "); DEBUG_LOGVec3(ray_world_dir);
 
 		CastResults result;
 		RayCant ray(cam.GetCameraPosition(), ray_world_dir);

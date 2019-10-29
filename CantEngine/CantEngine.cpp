@@ -7,7 +7,7 @@
 
 namespace CantEngineAPI
 {
-	void InitializeEngine(const std::string& levelPath, size_t w, size_t h)
+	void InitializeEngine(const std::string& levelPath, bool fullscreen, int w, int h)
 	{
 		//This is not dirty, it is needed to allow multi-thread DirectXTK texture loading
 		HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
@@ -17,7 +17,7 @@ namespace CantEngineAPI
 		}
 
 		EventManager* World = EventManager::Get();
-		World->Initialize(levelPath, w, h);
+		World->Initialize(levelPath, fullscreen, w, h);
 
 		std::thread th1(&EventManager::RunGameThread, World);
 		World->RunInputThread();

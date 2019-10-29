@@ -424,12 +424,12 @@ bool Gjk::Intersect(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* sha
 			{
 				DebugAABBInstance aabb;
 				aabb.m_color = Vector3(0.0f, 1.0f, 0.0f);
-				aabb.m_min_bound = point.m_PointA - Vector3(0.1);
-				aabb.m_max_bound = point.m_PointA + Vector3(0.1);
+				aabb.m_min_bound = point.m_PointA - Vector3(0.1f);
+				aabb.m_max_bound = point.m_PointA + Vector3(0.1f);
 				pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb);
 				aabb.m_color = Vector3(1.0f, 1.0f, 0.0f);
-				aabb.m_min_bound = point.m_PointB - Vector3(0.1);
-				aabb.m_max_bound = point.m_PointB + Vector3(0.1);
+				aabb.m_min_bound = point.m_PointB - Vector3(0.1f);
+				aabb.m_max_bound = point.m_PointB + Vector3(0.1f);
 				pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabb);
 			}
 #endif
@@ -586,13 +586,13 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 				{
 					DebugAABBInstance aabbA;
 					aabbA.m_color = Vector3(0.0f, 1.0f, 0.0f);
-					aabbA.m_min_bound = point.m_PointA - Vector3(0.1);
-					aabbA.m_max_bound = point.m_PointA + Vector3(0.1);
+					aabbA.m_min_bound = point.m_PointA - Vector3(0.1f);
+					aabbA.m_max_bound = point.m_PointA + Vector3(0.1f);
 					pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabbA);
 					DebugAABBInstance aabbB;
 					aabbB.m_color = Vector3(1.0f, 1.0f, 0.0f);
-					aabbB.m_min_bound = point.m_PointB - Vector3(0.1);
-					aabbB.m_max_bound = point.m_PointB + Vector3(0.1);
+					aabbB.m_min_bound = point.m_PointB - Vector3(0.1f);
+					aabbB.m_max_bound = point.m_PointB + Vector3(0.1f);
 					pAppRenderer->GetDebugRendering().RegisterDebugAABB(aabbB);
 				}
 			}

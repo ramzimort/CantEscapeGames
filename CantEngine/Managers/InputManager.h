@@ -18,7 +18,7 @@ Other Authors : <None>
 class InputManager
 {
 public:
-	InputManager();
+	InputManager(bool Fullscreen, int w, int h);
 	~InputManager();
 	void Update();
 	bool IsKeyPressed(unsigned int KeyScanCode) const; 
@@ -38,8 +38,9 @@ public:
 	bool IsMouseReleased(unsigned int MouseScanCode) const;
 	/** Returns scrolling amount in y-direction*/
 	Sint32 GetMouseScroll() const;
-
-	void SetWindowSize(size_t width, size_t height);
+	
+	void ToggleFullscreenMode();
+	void SetWindowSize(int width, int height);
 
 	SDL_Window* GetWindow();
 	/** Check if exit button is pressed (close window) */

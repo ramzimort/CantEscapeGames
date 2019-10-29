@@ -27,7 +27,7 @@ public:
 	~EventManager();
 	static EventManager* Get();
 	void OnQuit(const QuitEvent* e);
-	void Initialize(const std::string& levelName, size_t scr_width, size_t scr_height);
+	void Initialize(const std::string& levelName, bool fullscreen, int width, int height);
 	void RunInputThread();
 	void RunGameThread();
 	bool IsQuit();

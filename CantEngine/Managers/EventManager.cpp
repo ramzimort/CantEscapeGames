@@ -37,11 +37,11 @@ EventManager::~EventManager()
 #endif // DEVELOPER
 }
 
-void EventManager::Initialize(const std::string& levelPath, size_t width, size_t height)
+void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int width, int height)
 {
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
-	m_pInputManager = new InputManager();
+	m_pInputManager = new InputManager(fullscreen, width, height);
 	m_pAudioManager = new AudioManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
@@ -68,7 +68,9 @@ void EventManager::Initialize(const std::string& levelPath, size_t width, size_t
 
 	m_pAppRenderer->LoadContent();
 
-	m_pInputManager->SetWindowSize(width, height);
+	int x, w;
+	SDL_GetWindowSize(m_pInputManager->GetWindow(), &x, &w);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, x, w);
 
 	SubscribeEvent<QuitEvent>(this, std::bind(&EventManager::OnQuit, this, std::placeholders::_1));
 }
@@ -89,7 +91,6 @@ void EventManager::RunInputThread()
 {
 	m_pInputManager->Update();
 	m_quit2 = true;
-
 }
 
 void EventManager::RunGameThread()

@@ -11,12 +11,8 @@ Primary Author: Jose Rosenbluth
 #include "Events/Camera/CameraEvents.h"
 #include "Events/Input/WindowSizeEvent.h"
 
-CameraManager* gCameraManager;
-
 CameraManager::CameraManager()
 {
-	gCameraManager = this;
-
 	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
 		std::bind(&CameraManager::OnCameraRegistration, this, std::placeholders::_1));
 
@@ -65,4 +61,6 @@ void CameraManager::OnWindowSize(const WindowSizeEvent* event)
 {
 	m_scrWidth = event->m_width;
 	m_scrHeight = event->m_height;
+	for (auto it = m_cameras.begin(); it != m_cameras.end(); ++it)
+		it->m_camera.SetAspectRatio(m_scrWidth, m_scrHeight);
 }

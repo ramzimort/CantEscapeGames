@@ -48,7 +48,7 @@ namespace CantDebugAPI
 	void InitDebugWindow(const std::string& userDir, SDL_Window* gameWindow, ID3D11Device* device, ID3D11DeviceContext* context, std::mutex& mutex)
 	{
 		std::lock_guard<std::mutex> lock(mutex);
-		g_pd3dDevice = device;
+		g_pd3dDevice = device; 
 		g_pd3dDeviceContext = context;
 		g_mainWindow = gameWindow;
 
@@ -99,7 +99,6 @@ namespace CantDebugAPI
 		//	ImGui::ShowDemoWindow();
 
 		UpdateWindow();
-		
 		// Rendering
 		ImGui::EndFrame();
 		ImGui::Render();
@@ -217,11 +216,13 @@ void UpdateWindow()
 	const float MAXWIDTH = io.DisplaySize.x;
 	ImVec2 window_pos = ImVec2(MARGIN, MARGIN);
 	ImVec2 window_pos_pivot = ImVec2(0.0f, 0.0f);
+	//ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y));
 	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
-	ImGui::SetNextWindowSizeConstraints(ImVec2(0, io.DisplaySize.y),ImVec2(MAXWIDTH, io.DisplaySize.y));
+
+	//ImGui::SetNextWindowSizeConstraints(ImVec2(0, io.DisplaySize.y),ImVec2(MAXWIDTH, io.DisplaySize.y));
 	if (ImGui::Begin("CantDebug", 0, ImGuiWindowFlags_NoCollapse))
 	{
-		ImGui::SetWindowSize(ImVec2(ImGui::GetWindowWidth(),io.DisplaySize.y));
+		//ImGui::SetWindowSize(ImVec2(ImGui::GetWindowWidth(),io.DisplaySize.y));
 		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 		if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
 		{
