@@ -9,9 +9,8 @@ Loading =
 
 --OnCreate, called when creating this state
 Loading.OnCreateState = function(self)
-
 	local World = EventManager.Get();
-	World:LoadState(false, "Assets\\Levels\\level1.json");
+	World:LoadState(false, self.NextLevel);
 	LOG("Created " .. self.name .. " state");
 end
 

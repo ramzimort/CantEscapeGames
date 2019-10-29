@@ -80,6 +80,7 @@ void EventBus::DeleteSubscriber(void* objPtr)
 		{
 			if (it->first == objPtr)
 			{
+
 				cbList.erase(it);
 				break;
 			}

@@ -33,12 +33,14 @@ public:
 class ResourcesLoadedEvent : public Event<ResourcesLoadedEvent>
 {
 public:
-	ResourcesLoadedEvent()
+	ResourcesLoadedEvent(const std::string& fileName) : m_fileName(fileName)
 	{
 		DEBUG_LOG("Resources Finished Loading!\n");
 	}
 	virtual ~ResourcesLoadedEvent() { }
 	virtual void operator()() { }
+
+	const std::string m_fileName;
 };
 
 class QuitEvent : public Event<QuitEvent>

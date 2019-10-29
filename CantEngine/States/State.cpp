@@ -58,6 +58,8 @@ State::~State()
 
 void State::OnResourcesLoaded(const ResourcesLoadedEvent* e)
 {
+	if (e->m_fileName != m_path)
+		return;
 	// Script setup
 	try
 	{

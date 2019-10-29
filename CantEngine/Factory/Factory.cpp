@@ -76,7 +76,7 @@ void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
 		}
 	}
 
-	EventManager::Get()->EnqueueEvent<ResourcesLoadedEvent>(false);
+	EventManager::Get()->EnqueueEvent<ResourcesLoadedEvent>(false, path);
 }
 
 void Factory::LoadObject(GameObject* gameObject, const std::string& path)
