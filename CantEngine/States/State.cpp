@@ -80,7 +80,6 @@ void State::OnResourcesLoaded(const ResourcesLoadedEvent* e)
 		const char* errorName = e.what();
 		DEBUG_LOG(errorName); //TODO - erase this
 	}
-
 }
 
 

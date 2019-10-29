@@ -403,8 +403,6 @@ void AppRenderer::InitializeRenderer()
 void AppRenderer::InitializeResources()
 {
 	InitializeDefaultIBLData(); 
-	
-
 	EventManager::Get()->SubscribeEvent<CameraRegistrationEvent>(this,
 		std::bind(&AppRenderer::OnCameraRegistration, this, std::placeholders::_1));
 

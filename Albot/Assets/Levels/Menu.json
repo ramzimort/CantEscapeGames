@@ -11,9 +11,6 @@
       "Assets/Materials/Material1.json",
       "Assets\\Materials\\MainMenuButtonMaterial.json"
     ],
-    "Audio": [
-
-    ],
     "Prefabs": [
 
       "Assets/Prefabs/Lights/directional_light.json",

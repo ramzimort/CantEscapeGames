@@ -300,8 +300,3 @@ void UpdateMemoryProfile()
 {
 	g_memoryProfiler->Update();
 }
-
-void UpdateMaterialMaker()
-{
-
-}

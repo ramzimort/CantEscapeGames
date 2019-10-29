@@ -15,6 +15,8 @@ class ScriptingManager;
 class ResourceManager;
 class PushStateEvent;
 class PopStateEvent;
+class LoadStateEvent;
+class PushLoadedStateEvent;
 
 class StateManager
 {
@@ -36,11 +38,17 @@ public:
 	void PushState(const std::string& levelPath = "");
 	void PopState();
 
+	void LoadState(const std::string& levelPath = "");
+	void PushLoadedState();
+
 	void OnPushStateEvent(const PushStateEvent* e);
 	void OnPopStateEvent(const PopStateEvent* e);
+	void OnLoadStateEvent(const LoadStateEvent* e);
+	void OnPushLoadedStateEvent(const PushLoadedStateEvent* e);
 
 private:
 	std::vector<State*> m_stateStack;
+	std::queue<State*> m_stateQueue;
 
 	AppRenderer* m_pAppRenderer;
 	ResourceManager* m_pResourceManager; 

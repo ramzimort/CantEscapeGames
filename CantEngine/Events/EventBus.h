@@ -30,12 +30,12 @@ private:
 template <typename T, typename ... Args>
 void EventBus::QueueEvent(bool direct_call, Args&& ... event_args)
 {
-	std::lock_guard<std::mutex> lock(m_mutex);
 	std::unique_ptr<Event<T>> event(new T(std::forward<Args>(event_args) ...));
 	std::size_t eventId = Event<T>::GetId();
 
 	if (!direct_call)
 	{
+		std::lock_guard<std::mutex> lock(m_mutex);
 		m_eventBuffer.push_back(std::make_pair(eventId, std::move(event)));
 		return;
 	}

@@ -10,18 +10,20 @@ Primary Author: Jose Rosenbluth
 #include "ScriptingManager.h"
 
 // BINDING INCLUDES
-#include "Graphics/Camera.h"
-#include "Events/Multicast.h"
-#include "Managers/GameObjectManager.h"
-#include "Managers/SystemManager.h"
-#include "Managers/StateManager.h"
+#include "GameObjectManager.h"
+#include "SystemManager.h"
+#include "StateManager.h"
+#include "ResourceManager.h"
+
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
-#include "ResourceManager.h"
-#include "Events/Input/Input.h"
-#include "Events/Audio/AudioEvents.h"
+#include "Graphics/Camera.h"
 
 #include "EventManager.h"
+#include "Events/Multicast.h"
+#include "Events/Input/Input.h"
+#include "Events/Audio/AudioEvents.h"
+#include "Events/State/StateEvents.h"
 
 EventManager* World = EventManager::Get();
 
@@ -365,14 +367,19 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
 
-	luaState.new_usertype<KeyEvent>("KeyEvent");
-
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
 		(
 			"EventManager",
 			"Get", &EventManager::Get,
-			"KeyEvent", &EventManager::EnqueueEvent<KeyEvent, bool, SDL_Scancode, bool>,
+
+			// State Events
+			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool,const std::string>,
+			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool,const std::string>,
+			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+
+			//Audio Events
 			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
 			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
 		);

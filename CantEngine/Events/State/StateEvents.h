@@ -3,24 +3,42 @@
 #include "Events/Event.h"
 #include "Events/Multicast.h"
 
+class LoadStateEvent : public Event<LoadStateEvent>
+{
+
+public:
+	LoadStateEvent(const std::string& levelPath) : m_levelPath(levelPath)
+	{
+		DEBUG_LOG("Loading State: %s\n", levelPath.c_str());
+	}
+	virtual ~LoadStateEvent() { }
+	virtual void operator()() { };
+
+	const std::string m_levelPath;
+};
+
+class PushLoadedStateEvent : public Event<PushLoadedStateEvent>
+{
+
+public:
+	PushLoadedStateEvent()
+	{
+		DEBUG_LOG("Pushing Loaded State!\n");
+	}
+	virtual ~PushLoadedStateEvent() { }
+	virtual void operator()() { };
+};
+
+
 class ResourcesLoadedEvent : public Event<ResourcesLoadedEvent>
 {
 public:
 	ResourcesLoadedEvent()
 	{
-		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
-		//OnNewStatePushed()((int)key_scancode, press);
+		DEBUG_LOG("Resources Finished Loading!\n");
 	}
 	virtual ~ResourcesLoadedEvent() { }
-	virtual void operator()()
-	{
-		OnResourcesLoaded();
-	}
-	static Multicast<void()>& OnResourcesLoaded()
-	{
-		static Multicast<void()> m;
-		return m;
-	}
+	virtual void operator()() { }
 };
 
 class QuitEvent : public Event<QuitEvent>
@@ -32,15 +50,7 @@ public:
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~QuitEvent() { }
-	virtual void operator()()
-	{
-		OnQuit();
-	}
-	static Multicast<void()>& OnQuit()
-	{
-		static Multicast<void()> m;
-		return m;
-	}
+	virtual void operator()() {}
 };
 
 class PushStateEvent : public Event<PushStateEvent>
@@ -53,6 +63,7 @@ public:
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~PushStateEvent() { }
+	virtual void operator()() {}
 
 	//static Multicast<void(int, bool)>& OnNewStatePushed()
 	//{
@@ -70,10 +81,11 @@ class PopStateEvent : public Event<PopStateEvent>
 public:
 	PopStateEvent()
 	{
-		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
+		DEBUG_LOG("Popping State!\n");
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~PopStateEvent() { }
+	virtual void operator()() {}
 
 	//static Multicast<void(int, bool)>& OnNewStatePushed()
 	//{

@@ -1,0 +1,24 @@
+{
+  "Resources": {
+    "Textures": [
+    ],
+    "Models": [
+    ],
+    "Materials": [
+    ],
+    "Scripts": [
+      "Scripts\\States\\Loading.lua",
+      "Scripts\\States\\level1.lua"
+    ],
+    "Prefabs": [
+    ],
+    "Songs": [
+
+    ],
+    "SFX": [
+
+    ]
+  },
+    "Objects": [
+    ]
+}

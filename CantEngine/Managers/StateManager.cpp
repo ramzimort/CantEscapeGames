@@ -15,6 +15,8 @@ StateManager::StateManager(AppRenderer* AppRenderer, ResourceManager* ResourceMa
 {
 	EventManager::Get()->SubscribeEvent<PushStateEvent>(this, std::bind(&StateManager::OnPushStateEvent, this, std::placeholders::_1));
 	EventManager::Get()->SubscribeEvent<PopStateEvent>(this, std::bind(&StateManager::OnPopStateEvent, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<LoadStateEvent>(this, std::bind(&StateManager::OnLoadStateEvent, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<PushLoadedStateEvent>(this, std::bind(&StateManager::OnPushLoadedStateEvent, this, std::placeholders::_1));
 }
 
 StateManager::~StateManager()
@@ -58,6 +60,19 @@ void StateManager::PushState(const std::string& levelPath)
 	m_stateStack.push_back(state);
 }
 
+void StateManager::LoadState(const std::string& levelPath)
+{
+	State* state = new State(levelPath, m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
+	m_stateQueue.push(state);
+}
+
+void StateManager::PushLoadedState()
+{
+	m_stateStack.push_back(m_stateQueue.front());
+	m_stateQueue.pop();
+}
+
+
 void StateManager::PopState()
 {
 	size_t index = m_stateStack.size() - 1;
@@ -87,6 +102,16 @@ void StateManager::OnPushStateEvent(const PushStateEvent* e)
 void StateManager::OnPopStateEvent(const PopStateEvent* e)
 {
 	PopState();
+}
+
+void StateManager::OnLoadStateEvent(const LoadStateEvent* e)
+{
+	LoadState(e->m_levelPath);
+}
+
+void StateManager::OnPushLoadedStateEvent(const PushLoadedStateEvent* e)
+{
+	PushLoadedState();
 }
 
 void StateManager::ProcessInstantiationAndDestruction() 

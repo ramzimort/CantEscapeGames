@@ -11,8 +11,9 @@ EventBus::~EventBus()
 
 void EventBus::Update(float dt)
 {
-	std::lock_guard<std::mutex> lock(m_mutex);
+	m_mutex.lock();
 	m_eventQueue = std::move(m_eventBuffer);
+	m_mutex.unlock();
 
 	auto it = m_eventQueue.begin();
 	while (it != m_eventQueue.end())
