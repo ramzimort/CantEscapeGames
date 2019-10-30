@@ -25,8 +25,6 @@ Primary Author: Jose Rosenbluth
 #include "Events/Audio/AudioEvents.h"
 #include "Events/State/StateEvents.h"
 
-EventManager* World = EventManager::Get();
-
 //We will use this to print from LUA to out stream
 void ScriptOutput(const std::string& msg)
 {
@@ -44,24 +42,30 @@ void ScriptTrace(const std::string& msg)
 	DEBUG_TRACE(msg.c_str());
 }
 
+ResourceManager* gResMgr;
+const std::wstring& GetLString(const std::string& key)
+{
+	return gResMgr->GetLString(key);
+}
+
 
 #define SOL_CHECK_ARGUMENTS 1
 
-ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) : 
+ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 	m_pResourceManager(pResourcemanager)
 {
 	//We enter here
 	luaState.open_libraries
 	(
 		sol::lib::base,
-		sol::lib::coroutine, 
-		sol::lib::string, 
+		sol::lib::coroutine,
+		sol::lib::string,
 		sol::lib::io
 	);
 
 	//Class bindings
 	ManageBindings();
-	
+
 	//Global function definition
 	try
 	{
@@ -71,194 +75,24 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
 		luaState["TRACE"] = &ScriptTrace;
 		luaState.script_file("Scripts/LuaGlobalSetups.lua");
 	}
-	catch (const sol::error& e)
+	catch (const sol::error & e)
 	{
-		const char *errorName = e.what();
+		const char* errorName = e.what();
 		DEBUG_LOG(errorName);
 		DEBUG_LOG("\n");
 	}
-
-	//-------------------------------------
-	/// 
-	/// // sol::function - takes a variable number/types of arguments
-	/// sol::protected_function fx = luaState["f"];
-	/// ///sol::function fx = luaState["f"];
-	/// int c = fx(1, 5);
-
-	/// // put an instance of "some_class" into lua
-	/// // just know here that it works and is
-	/// // put into lua as a userdata
-	/// luaState.set("Obj01", CppObject()); //Sets the userdata, as a pointer
-	
-	/*
-	// binds just the member function
-	luaState["method01"] = &CppObject::memberFunc;
-
-	// binds the class to the type
-	luaState.set_function("method02", &CppObject::memberFunc, CppObject{} );
-
-	// binds just the member variable as a function
-	luaState["v1"] = &CppObject::v;
-
-	// binds class with member variable as function
-	luaState.set_function("v2", &CppObject::v, CppObject{} );
-	try
-	{
-		luaState.script
-		(
-			R"(
-			-- need class instance if you don't bind it with the function
-			print( method01(Obj01, 21, 3) )		-- 24.0
-			-- does not need class instance: was bound to lua with one Y
-			print( method02(3, 21) )			-- 24.0
-	
-			-- need class instance if you don't bind it with the function
-			print( v1(Obj01) ) -- 30
-			-- does not need class instance. it was bound with one 
-			print( v2() )      -- 30
-
-			-- can set, still requires instance
-			v1(Obj01, 212)
-			-- can set, does not need class instance: was bound with one 
-			v2(254)
-
-			print( v1(Obj01) ) -- 212
-			print( v2() )      -- 254
-			)"
-		);
-	}
-	catch (const sol::error& e)
-	{
-		const char *errorName = e.what();
-		OutputDebugString(errorName);
-	}
-	//---------------------------------------
-
-	try 
-	{
-		auto result1 = luaState.safe_script("bad.code");
-	}
-	catch (const sol::error& e) 
-	{
-		const char *errorName = e.what();
-		OutputDebugString(errorName);
-	}
-
-	//----------------------------------------------
-
-	///luaState.set_function("printDebugAndLog", &printDebugAndLog);
-	///luaState.do_string(" printDebugAndLog(123)--'CHUPALA LUAAAA') ");
-	///c_assert(value == -99);
-
-	//----------------------------------------------
-	//BINDINGS - TestComp test
-	
-	luaState.new_usertype<GameObjectManager>
-	(
-		"GameobjectManager"
-	);
-
-	luaState.new_usertype<GameObject>
-	(
-		"GameObject",
-		sol::constructors< GameObject(GameObjectManager *goMgr) >()
-	);
-
-	sol::state_view testComp_type = luaState.new_usertype<TestComp>
-	(
-		"TestComp",
-		sol::constructors<TestComp(GameObject *owner)>() 
-	);
-
-	// Methods (1 way)
-	testComp_type["Init"] = &TestComp::Init;
-	testComp_type["Begin"] = &TestComp::Begin;
-	
-	//Setting variables ( GET - SET )
-	testComp_type["hp"]   = sol::property(&TestComp::hp, &TestComp::hp);
-	
-	// read-write vars (public)
-	testComp_type["name"] = &TestComp::name;
-	
-	// Other way to set shit (const?)
-	testComp_type.set( "hp2", sol::readonly(&TestComp::hp2) );
-	
-	
-	//Test calling execution of some code on the state
-	
-	try
-	{
-		//luaState.do_file("Code/Scripts/lua_script_test_01.lua"); //Loads and runs the script
-		///luaState.script_file("Code/Scripts/TestCompScript.lua");
-	}
-	catch (const sol::error& e)
-	{
-		const char *errorName = e.what();
-		OutputDebugString(errorName);
-	}
-
-	//--------------------------------------
-	luaState["number"] = 123;
-	sol::object number_obj = luaState.get<sol::object>("number");
-	
-	// sol::type::number
-	sol::type t1 = number_obj.get_type();
-
-	c_assert(t1 == sol::type::number);
-
-	//---------------------------
-	luaState["a_function"] = []()->int
-	{
-		int a = 123;
-		int b = 432;
-		return a + b;
-	};
-	sol::object function_obj = luaState["a_function"];
-
-	// sol::type::function
-	sol::type t2 = function_obj.get_type();
-	c_assert(t2 == sol::type::function);
-	
-	bool is_it_really = function_obj.is<std::function< int(void)> >();
-	c_assert(is_it_really);
-
-	// will not contain data
-	sol::optional<int> check_for_me = luaState["a_function"];
-	c_assert(check_for_me == sol::nullopt);
-
-	//----------------------
-	luaState.script(
-		R"(
-			abc = { [0] = 24 }
-			def = 
-			{ 
-				ghi = 
-				{ 
-					bark = 50, 
-					woof = abc 
-				} 
-			}
-		)");
-
-	sol::table abc = luaState["abc"];
-	sol::table def = luaState["def"];
-	sol::table ghi = luaState["def"]["ghi"];
-
-	//-----------------------------
-	sol::optional<int> will_not_error = luaState["abc"]["DOESNOTEXIST"]["ghi"];
-	c_assert(will_not_error == sol::nullopt);
-
-	int also_will_not_error = luaState["abc"]["def"]["ghi"]["jklm"].get_or(25);
-	c_assert(also_will_not_error == 25);
-	//*/
-	//-------------------------------------
+	gResMgr = pResourcemanager;
 }
-
 
 ScriptingManager::~ScriptingManager() { }
 
 
 void ScriptingManager::Update() { }
+
+//const std::wstring& ScriptingManager::GetString(const std::string& luaKey)
+//{
+//	return m_pResourceManager->GetLString(luaKey);
+//}
 
 
 sol::table ScriptingManager::GetScriptDeepCopy(StringId scriptId)
@@ -274,6 +108,7 @@ sol::table ScriptingManager::GetScriptDeepCopy(StringId scriptId)
 		const char *errorName = e.what();
 		DEBUG_LOG(errorName); //TODO - erase this
 		return sol::lua_nil;
+
 	}
 }
 
@@ -283,6 +118,7 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  MULTICAST           ////
 	//////////////////////////////
+	luaState["Localize"] = &GetLString;
 
 	luaState.new_usertype<Multicast<void(int, bool)>>
 	(
@@ -403,6 +239,20 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  VECTORS & MATRICES  ////
 	//////////////////////////////
+	//luaState.new_usertype<std::wstring>
+	//	(
+	//		"wstring",
+	//		sol::constructors<std::wstring(), std::wstring(std::string()), Vector2(float x, float y), Vector2(const Vector2 & rhs) >(),
+	//		"x", &Vector2::x,
+	//		"y", &Vector2::y,
+	//		"dot", &Vector2::Dot,
+	//		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
+	//		sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
+	//		sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
+	//		sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
+	//		sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
+	//		);
+
 	luaState.new_usertype<Vector2>
 	(
 		"Vector2",

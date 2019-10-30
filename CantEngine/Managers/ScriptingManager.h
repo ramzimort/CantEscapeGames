@@ -25,6 +25,7 @@ public:
 
 private:
 	void ManageBindings();
+	//const std::wstring& GetString(const std::string&);
 
 public:
 	sol::state luaState;

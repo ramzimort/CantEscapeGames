@@ -42,13 +42,6 @@ end
 
 --Update called every tick
 fpscontroller.Update = function(self, dt, owner) 
-	
-	if(self.Test) then
-		local World = EventManager.Get();
-		World:PlaySong(true, self.SongPath);
-		self.Test = false;
-	end
-
 	local transform_comp = owner:GetTransformComp();
 	local camera_comp = owner:GetCameraComp();
 	local camera = camera_comp:GetCamera();

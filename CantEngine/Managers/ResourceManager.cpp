@@ -15,11 +15,14 @@
 
 ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 {
+	m_lStrings.clear();
+	m_lStrings.insert(std::make_pair("", L"___"));
 }
 
 ResourceManager::~ResourceManager()
 {
 	FreeAll();
+	m_lStrings.clear();
 }
 
 void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager)
@@ -28,6 +31,49 @@ void ResourceManager::Initialize(DXRenderer* dxrenderer, sol::state* pSolState, 
 	m_pSolState = pSolState;
 	m_pAudioManager = pAudioManager;
 }
+
+const std::wstring& ResourceManager::GetLString(const std::string& stringId)
+{
+	const auto& it = m_lStrings.find(stringId);
+	if (it == m_lStrings.end())
+		return m_lStrings[""];
+	return it->second;
+}
+
+void ResourceManager::LoadStrings(const std::string& language)
+{
+	std::wifstream in_file;
+	in_file.open(language);
+	if (!in_file.is_open())
+	{
+		DEBUG_LOG("Couldn't Load File %s", language.c_str());
+		return;
+	}
+
+	std::wstring line;
+	std::wstring Lid, keyword, lstring;
+	std::string key;
+	size_t id = 0;
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	while (std::getline(in_file, line)) // read whole line into line
+	{
+		std::wistringstream iss(line); // string stream
+		std::getline(iss, Lid, L','); // read first part up to comma, ignore the comma
+		std::getline(iss, keyword, L','); // read first part up to comma, ignore the comma
+		key = converter.to_bytes(keyword);
+
+		std::getline(iss, lstring, L'\n'); // read first part up to comma, ignore the comma
+		//auto it = m_lStrings.find(key);
+		//if (it != m_lStrings.end())
+		//	it = m_lStrings.erase(it);
+		m_lStrings.insert(std::make_pair(key, lstring));
+		++id;
+
+		DEBUG_LOG("Key: %s, Value: %s\n", key.c_str(), lstring.c_str());
+	}
+}
+
+
 
 Model* ResourceManager::GetModel(StringId modelId)
 {

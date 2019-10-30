@@ -42,16 +42,35 @@ struct Resource
 	ResPtr res;
 };
 
+//template <>
+//struct std::hash<std::wstring>
+//{
+//	std::size_t operator()(const std::wstring& k) const
+//	{
+//		using std::size_t;
+//		using std::hash;
+//		using std::wstring;
+//
+//		// Compute individual hash values for first,
+//		// second and third and combine them using XOR
+//		// and bit shifting:
+//
+//		return ((hash<wstring>()(k)
+//	}
+//};
+
 
 class ResourceManager
 {
 	friend class Factory;
 	typedef std::unordered_map<StringId, Resource, StringIdHash> ResourceMap;
+	typedef std::unordered_map<const std::string, const std::wstring, std::hash<std::string>> LocStringMap;
 
 public:
 	ResourceManager();
 	~ResourceManager();
 	void Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager);
+	const std::wstring& GetLString(const std::string&);
 	Model* GetModel(StringId modelId);
 	Material* GetMaterial(StringId materialId);
 	Texture* GetTexture(StringId textureId);
@@ -62,6 +81,7 @@ public:
 	void FreeAll();
 
 private:
+	void LoadStrings(const std::string& language);
 	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
 	void LoadTexture(const std::string& filePath);
@@ -75,6 +95,8 @@ private:
 
 private:
 	ResourceMap m_resources;
+	LocStringMap m_lStrings;
+
 	DXRenderer* m_dxrenderer;
 	sol::state* m_pSolState;
 	AudioManager* m_pAudioManager;

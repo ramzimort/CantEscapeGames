@@ -21,9 +21,7 @@ ResourceManager* Factory::m_pResourceManager;
 DXRenderer* Factory::m_pDXRenderer;
 ScriptingManager* Factory::m_pScriptingManager;
 
-// Helper function
-void RecursiveRead(rapidjson::Value::Object& _prefabList, rapidjson::Value::Object& _overrideList, rapidjson::Document& doc);
-rttr::variant GetComponent(GameObject* go, const std::string& name);
+
 void LoadScripts(const rapidjson::Value::Array& scripts, GameObject* go);//, ScriptingManager* luaMgr);
 
 void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
@@ -34,48 +32,54 @@ void Factory::LoadLevel(const std::string& path, GameObjectManager* goMgr)
 	lvlDoc.Parse(levelJson);
 	assert(!lvlDoc.HasParseError());
 	assert(lvlDoc.IsObject());
-	assert(lvlDoc["Resources"].IsObject());
 
-	const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
-	LoadResources(resourcesObj, m_pResourceManager);
+	if (lvlDoc.HasMember("Language"))
+		m_pResourceManager->LoadStrings(lvlDoc["Language"].GetString());
 
-	assert(lvlDoc["Objects"].IsArray());
-	const auto& objsArray = lvlDoc["Objects"].GetArray();
-	rapidjson::StringBuffer buffer;
-	for (auto it = objsArray.begin(); it != objsArray.end(); ++it)
+	if (lvlDoc.HasMember("Resources"))
 	{
-		auto gameObjJson = it->GetObjectA();
-		if (gameObjJson.HasMember("prefab"))
+		const auto& resourcesObj = lvlDoc["Resources"].GetObjectA();
+		LoadResources(resourcesObj, m_pResourceManager);
+	}
+	
+	if (lvlDoc.HasMember("Objects"))
+	{
+		const auto& objsArray = lvlDoc["Objects"].GetArray();
+		rapidjson::StringBuffer buffer;
+		for (auto it = objsArray.begin(); it != objsArray.end(); ++it)
 		{
-			// Load the prefab string as document
-			const std::string& prefabName = gameObjJson["prefab"].GetString();
+			auto gameObjJson = it->GetObjectA();
+			if (gameObjJson.HasMember("prefab"))
+			{
+				// Load the prefab string as document
+				const std::string& prefabName = gameObjJson["prefab"].GetString();
 
-			StringId prefabId = StringId(prefabName);
-			const std::string prefabJson = m_pResourceManager->GetPrefab(prefabId);
-			rapidjson::Document prefabDoc;
-			prefabDoc.Parse(prefabJson);
-			assert(!prefabDoc.HasParseError());
-			auto prefabList = prefabDoc.GetObjectA();
+				StringId prefabId = StringId(prefabName);
+				const std::string prefabJson = m_pResourceManager->GetPrefab(prefabId);
+				rapidjson::Document prefabDoc;
+				prefabDoc.Parse(prefabJson);
+				assert(!prefabDoc.HasParseError());
+				auto prefabList = prefabDoc.GetObjectA();
 
-			// Load the override string as object
-			auto overrideList = gameObjJson["overrides"].GetObjectA();
+				// Load the override string as object
+				auto overrideList = gameObjJson["overrides"].GetObjectA();
 
-			RecursiveRead(prefabList, overrideList, prefabDoc);
+				RecursiveRead(prefabList, overrideList, prefabDoc);
 
-			// Stringify and pass to lambda for later instantiation
-			rapidjson::StringBuffer buffer;
-			buffer.Clear();
-			rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-			prefabDoc.Accept(writer);
-			const std::string objSetup = std::string(buffer.GetString());
-			const std::string tag = gameObjJson["tag"].GetString();
+				// Stringify and pass to lambda for later instantiation
+				rapidjson::StringBuffer buffer;
+				buffer.Clear();
+				rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+				prefabDoc.Accept(writer);
+				const std::string objSetup = std::string(buffer.GetString());
+				const std::string tag = gameObjJson["tag"].GetString();
 
-			// Load the object
-			DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
-			LoadObject(objSetup, prefabName, tag, goMgr);
+				// Load the object
+				DEBUG_LOG("Loading Object: %s, tag: %s...\n", prefabName.c_str(), tag.c_str());
+				LoadObject(objSetup, prefabName, tag, goMgr);
+			}
 		}
 	}
-
 	EventManager::Get()->EnqueueEvent<ResourcesLoadedEvent>(false, path);
 }
 
@@ -117,46 +121,61 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 {
 	DEBUG_LOG("Loading Resources...\n");
 
-	// Load Textures
-	assert(resObj["Textures"].IsArray());
-	const auto& textureArr = resObj["Textures"].GetArray();
-	for (auto it = textureArr.begin(); it != textureArr.end(); ++it)
-		resMgr->LoadTexture(it->GetString());
+	if (resObj.HasMember("Textures"))
+	{
+		assert(resObj["Textures"].IsArray());
+		const auto& textureArr = resObj["Textures"].GetArray();
+		for (auto it = textureArr.begin(); it != textureArr.end(); ++it)
+			resMgr->LoadTexture(it->GetString());
+	}
 
-	// Load Models
-	assert(resObj["Models"].IsArray());
-	const auto& modelArr = resObj["Models"].GetArray();
-	for (auto it = modelArr.begin(); it != modelArr.end(); ++it) 
-		resMgr->LoadModel(it->GetString());
+	if (resObj.HasMember("Models"))
+	{
+		assert(resObj["Models"].IsArray());
+		const auto& modelArr = resObj["Models"].GetArray();
+		for (auto it = modelArr.begin(); it != modelArr.end(); ++it)
+			resMgr->LoadModel(it->GetString());
+	}
 
-	// Load Materials
-	assert(resObj["Materials"].IsArray());
-	const auto& matArr = resObj["Materials"].GetArray();
-	for (auto it = matArr.begin(); it != matArr.end(); ++it)
-		resMgr->LoadMaterial(it->GetString());
-	
-	// Load Scripts
-	assert(resObj["Scripts"].IsArray());
-	const auto& scriptArr = resObj["Scripts"].GetArray();
-	for (auto it = scriptArr.begin(); it != scriptArr.end(); ++it)
-		resMgr->LoadScript(it->GetString());
+	if (resObj.HasMember("Materials"))
+	{
+		assert(resObj["Materials"].IsArray());
+		const auto& matArr = resObj["Materials"].GetArray();
+		for (auto it = matArr.begin(); it != matArr.end(); ++it)
+			resMgr->LoadMaterial(it->GetString());
+	}
 
-	// Load Audio
-	assert(resObj["Songs"].IsArray());
-	const auto& songArr = resObj["Songs"].GetArray();
-	for (auto it = songArr.begin(); it != songArr.end(); ++it)
-		resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SONG);
+	if (resObj.HasMember("Scripts"))
+	{
+		assert(resObj["Scripts"].IsArray());
+		const auto& scriptArr = resObj["Scripts"].GetArray();
+		for (auto it = scriptArr.begin(); it != scriptArr.end(); ++it)
+			resMgr->LoadScript(it->GetString());
+	}
 
-	assert(resObj["SFX"].IsArray());
-	const auto& audioArr = resObj["SFX"].GetArray();
-	for (auto it = audioArr.begin(); it != audioArr.end(); ++it)
-		resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SFX);
+	if (resObj.HasMember("Songs"))
+	{
+		assert(resObj["Songs"].IsArray());
+		const auto& songArr = resObj["Songs"].GetArray();
+		for (auto it = songArr.begin(); it != songArr.end(); ++it)
+			resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SONG);
+	}
 
-	// Load Prefabs
-	assert(resObj["Prefabs"].IsArray());
-	const auto& prefabArr = resObj["Prefabs"].GetArray();
-	for (auto it = prefabArr.begin(); it != prefabArr.end(); ++it)
-		resMgr->LoadPrefab(it->GetString());
+	if (resObj.HasMember("SFX"))
+	{
+		assert(resObj["SFX"].IsArray());
+		const auto& audioArr = resObj["SFX"].GetArray();
+		for (auto it = audioArr.begin(); it != audioArr.end(); ++it)
+			resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SFX);
+	}
+
+	if (resObj.HasMember("Prefabs"))
+	{
+		assert(resObj["Prefabs"].IsArray());
+		const auto& prefabArr = resObj["Prefabs"].GetArray();
+		for (auto it = prefabArr.begin(); it != prefabArr.end(); ++it)
+			resMgr->LoadPrefab(it->GetString());
+	}
 }
 
 void Factory::LoadObject(const std::string& compSetup, const std::string& prefabName, const std::string& tag, GameObjectManager* goMgr)
