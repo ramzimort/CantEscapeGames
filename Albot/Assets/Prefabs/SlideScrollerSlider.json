@@ -5,11 +5,10 @@
   "TransformComponent": {
     "Position": [ 0, 0, 0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-	  "Scale": [ 1, 1, 1 ]
+	 "Scale": [ 1, 1, 1 ]
   },
 	"UIComponent": {
-	"State": "",
-	"Location": 0
+	"SliderValue": 0.5
   },
   "RendererComponent": {
     "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
@@ -18,17 +17,12 @@
   
   "AffineAnimationComponent": {
     "InitialPosition": [ 0.0, 0.0, 0.0],
-			"FinalPosition": [ 0.0, 0.0, 0.0],
-			"DeltaTime": 0.0 ,
-			"InitialRotation" : 0.0,
-			"FinalRotation" : 0.0,
-			"RotationRate" : 0.0
+	"FinalPosition": [ 0.0, 0.0, 0.0],
+	"DeltaTime": 0.0,
+	"InitialRotation" : 0.0,
+	"FinalRotation" : 0.0,
+	"RotationRate" : 0.0	
   },
-  "Scripts": [
-    {
-      "Name": "Scripts\\Components\\Button.lua"
-	  
-    }],
 	"Scripts": [
     {
 	  "Name": "Scripts\\Components\\AffineAnimation.lua"

@@ -1,0 +1,388 @@
+{
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\UI\\MainMenu.png",
+	  "Assets\\Textures\\UI\\Setting.png",
+	  "Assets\\Textures\\UI\\Setting.png",
+      "Assets\\Textures\\UI\\Setting.png"
+    ],
+    "Models": [
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\plane.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\Material1.json",
+      "Assets\\Materials\\MainMenuButtonMaterial.json",
+	  "Assets\\Materials\\SettingButtonMaterial.json"
+	   
+    ],
+    "Audio": [
+
+    ],
+    "Prefabs": [
+
+      "Assets/Prefabs/Lights/directional_light.json",
+      "Assets/Prefabs/Button.json",
+      "Assets/Prefabs/UIObject.json",
+	  "Assets/Prefabs/SlideScroller.json",
+	  "Assets/Prefabs/SlideScrollerButton.json",
+	  "Assets/Prefabs/SlideScrollerSlider.json",
+	  "Assets/Prefabs/SlideScrollerGreenBackGround.json",
+	  "Assets/Prefabs/DropDown.json",
+	  "Assets/Prefabs/DropDownButton.json",
+	  "Assets/Prefabs/DropDownBackGround.json",
+	  "Assets/Prefabs/DropDownChildButton.json"
+    ],
+    "Scripts": [
+      "Scripts\\States\\Setting.lua",
+      "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\Button.lua",
+	  "Scripts\\Components\\SlideScroller.lua",
+	  "Scripts\\Components\\AffineAnimation.lua",
+	   "Scripts\\Components\\DropDown.lua"
+    ]
+  },
+  "Objects": [
+    {
+      "tag": "UIObject1",
+      "prefab": "Assets/Prefabs/UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 14,
+			"TotalButtons": 4
+		}
+      }
+    },
+    {
+      "tag": "Button1",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\level1.json",
+			"Location": 1			
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 0, 200, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "Button2",
+      "prefab": "Assets/Prefabs/Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 300,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Setting.json",
+			"Location": 2
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 300,0],
+			"FinalPosition": [ 0, 300, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SlideScroller1",
+      "prefab": "Assets/Prefabs/SlideScroller.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 400, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SlideScroller1Button1",
+      "prefab": "Assets/Prefabs/SlideScrollerButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 25, 50, 1 ]
+        },
+		"UIComponent": {
+			"Location": 3
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 375, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SlideScroller1Button2",
+      "prefab": "Assets/Prefabs/SlideScrollerButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 25, 50, 1 ]
+        },
+		"UIComponent": {
+			"Location": 4
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 650, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SlideScroller1Slider",
+      "prefab": "Assets/Prefabs/SlideScrollerSlider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, -100,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 10, 50, 1 ]
+        },
+		"UIComponent": {
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, -100,0],
+			"FinalPosition": [ 525, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SlideScroller1GreenBackGround",
+      "prefab": "Assets/Prefabs/SlideScrollerGreenBackGround.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 125, 50, 1 ]
+        },
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 400, 400, 0],
+			"DeltaTime": 20.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1",
+      "prefab": "Assets/Prefabs/DropDown.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+			"ChildButtonCount": 4
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 900, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1Button",
+      "prefab": "Assets/Prefabs/DropDownButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 25, 50, 1 ]
+        },
+		"UIComponent": {
+
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ 1125, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1BackGround",
+      "prefab": "Assets/Prefabs/DropDownBackGround.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ -400, 400,0 ],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1ChildButton1",
+      "prefab": "Assets/Prefabs/DropDownChildButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 50, 1 ]
+        },
+		"UIComponent": {
+			"ChildButtonLocation": 1
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ -400, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1ChildButton2",
+      "prefab": "Assets/Prefabs/DropDownChildButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  250, 50, 1  ]
+        },
+		"UIComponent": {
+			"ChildButtonLocation": 2
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ -400, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1ChildButton3",
+      "prefab": "Assets/Prefabs/DropDownChildButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  250, 50, 1 ]
+        },
+		"UIComponent": {
+			"ChildButtonLocation": 3
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ -400, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "DropDown1ChildButton4",
+      "prefab": "Assets/Prefabs/DropDownChildButton.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 400,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  250, 50, 1  ]
+        },
+		"UIComponent": {
+			"ChildButtonLocation": 4
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 400,0],
+			"FinalPosition": [ -400, 400, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\SettingButtonMaterial.json"
+		}		
+		
+      }
+    },
+    {
+      "tag": "directional_light01",
+      "prefab": "Assets/Prefabs/Lights/directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 45.0, 0.0, 0.0 ]
+        }
+      }
+    }
+
+  ]
+}

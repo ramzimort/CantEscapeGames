@@ -19,6 +19,9 @@ public:
 	Vector3 GetFinalPosition();
 	Vector3 GetVelocity();
 	float GetDeltaTime();
+	float GetInitialRotation();
+	float GetFinalRotation();
+	float GetRotationRate();
 
 public:
 	//Unique class identifier
@@ -31,6 +34,12 @@ private:
 	Vector3 finalPos;
 	// Delta time for the animation
 	float deltaTime;
+	// Inital Roation Value
+	float initailRotation;
+	// Final Rotation Value
+	float finalRotationValue;
+	// Rate of Roation along Z axis
+	float rotationRate;
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

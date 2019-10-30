@@ -1,26 +1,41 @@
 {
   "Resources": {
     "Textures": [
-      "Assets\\Textures\\UI\\MainMenu.png"
+      "Assets\\Textures\\UI\\CantEscapeGameLogo.png",
+	  "Assets\\Textures\\UI\\CreditsButton.png",
+	  "Assets\\Textures\\UI\\UIBackGroundImage.png",
+      "Assets\\Textures\\UI\\ExitButton.png",
+	  "Assets\\Textures\\UI\\Level1Button.png",
+	   "Assets\\Textures\\UI\\SettingsButton.png",
+	   "Assets\\Textures\\UI\\MainMenu.png"
+	   
     ],
     "Models": [
-      "Assets/Models/Cube.fbx",
+      "Assets\\Models\\Cube.fbx",
       "Assets\\Models\\plane.fbx"
     ],
     "Materials": [
-      "Assets/Materials/Material1.json",
-      "Assets\\Materials\\MainMenuButtonMaterial.json"
+      "Assets\\Materials\\Material1.json",
+	  "Assets\\Materials\\MainMenuButtonMaterial.json",
+      "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json",
+	  "Assets\\Materials\\UI\\CreditsButtonMaterial.json",
+	  "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
+	  "Assets\\Materials\\UI\\ExitButtonMaterial.json", 
+	  "Assets\\Materials\\UI\\Level1ButtonMaterial.json",
+	  "Assets\\Materials\\UI\\SettingsButtonMaterial.json"
     ],
     "Prefabs": [
 
       "Assets/Prefabs/Lights/directional_light.json",
       "Assets/Prefabs/Button.json",
-      "Assets/Prefabs/UIObject.json"
+      "Assets/Prefabs/UIObject.json",
+	  "Assets/Prefabs/UIEmpty.json"
     ],
     "Scripts": [
       "Scripts\\States\\Menu.lua",
       "Scripts\\Components\\UICamera.lua",
-	  "Scripts\\Components\\Button.lua"
+	  "Scripts\\Components\\Button.lua",
+	  "Scripts\\Components\\AffineAnimation.lua"
     ]
   },
   "Objects": [
@@ -33,6 +48,55 @@
       "tag": "UIObject1",
       "prefab": "Assets/Prefabs/UIObject.json",
       "overrides": {
+		"UIComponent": {
+			"TotalObjects": 6,
+			"TotalButtons": 4
+		}
+      }
+    },
+	{
+      "tag": "UIBackGround",
+      "prefab": "Assets/Prefabs/UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  0, 0,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 0, 0,0],
+			"FinalPosition": [ 0, 0, 0],
+			"DeltaTime": 1.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "TeamLogo",
+      "prefab": "Assets/Prefabs/UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -500, 130,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 520, 320, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [  -500, 130,0],
+			"FinalPosition": [ 600, 160, 0],
+			"DeltaTime": 15.0,
+			"InitialRotation" : 360.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json"
+		}		
+		
       }
     },
     {
@@ -40,85 +104,94 @@
       "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 1250.0, 600.0, 0.0 ],
+          "Position": [  -300, 325,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 250.0, 50.0, 1.0 ]
+          "Scale": [ 350, 75, 1 ]
         },
 		"UIComponent": {
-			"CurrentState": 0,
-			"NextState": 1,
-			"LocationCount": 0 
+			"State": "Assets\\Levels\\level1.json",
+			"Location": 1			
 		},
 		"AffineAnimationComponent": {
-			"InitialPosition": [ -50.0, 3.0, -10.0],
-			"FinalPosition": [ 0.0, 3.0, -10.0],
-			"DeltaTime": 0.5 
-		}			
+			"InitialPosition": [ -500, 325,0],
+			"FinalPosition": [ 50, 325, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\Level1ButtonMaterial.json"
+		}		
 		
       }
     },
-    {
+	{
       "tag": "Button2",
       "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, 0.0, -10.0 ],
+          "Position": [  -500, 425,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 320.0, 50.0, 1.0 ]
+          "Scale": [  350, 75, 1 ]
         },
-        "UIComponent": {
-          "CurrentState": 0,
-          "NextState": 1,
-          "LocationCount": 1
-        }
+		"UIComponent": {
+			"State": "Assets\\Levels\\Setting.json",
+			"Location": 2
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 425,0],
+			"FinalPosition": [ 50, 425, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SettingsButtonMaterial.json"
+		}		
+		
       }
     },
-    {
+	{
       "tag": "Button3",
       "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 200.0, 300.0, -10.0 ],
+          "Position": [  -500, 525,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 250.0, 50.0, 1.0 ]
+          "Scale": [  350, 75, 1 ]
         },
-        "UIComponent": {
-          "CurrentState": 0,
-          "NextState": 1,
-          "LocationCount": 2
-        }
+		"UIComponent": {
+
+			"Location": 3
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -500, 525,0],
+			"FinalPosition": [ 50, 525, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\CreditsButtonMaterial.json"
+		}				
+		
       }
     },
-    {
+	{
       "tag": "Button4",
       "prefab": "Assets/Prefabs/Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 0.0, -1.5, -10.0 ],
+          "Position": [  -500, 625,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
+          "Scale": [  350, 75, 1 ]
         },
-        "UIComponent": {
-          "CurrentState": 0,
-          "NextState": 1,
-          "LocationCount": 3
-        }
-      }
-    },
-    {
-      "tag": "Button5",
-      "prefab": "Assets/Prefabs/Button.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, -3.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
-        },
-        "UIComponent": {
-          "CurrentState": 0,
-          "NextState": 1,
-          "LocationCount": 4
-        }
+		"UIComponent": {
+			"Location": 4
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -500, 625,0],
+			"FinalPosition": [ 50, 625, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\ExitButtonMaterial.json"
+		}				
+		
       }
     },
     {

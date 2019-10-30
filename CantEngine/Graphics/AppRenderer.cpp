@@ -161,9 +161,20 @@ void AppRenderer::InnerLoadContent()
 	additiveBlendingDesc.m_blendStateTarget = BLEND_STATE_RT_0;
 	additiveBlendingDesc.m_individualBlend = false;
 	additiveBlendingDesc.m_enableAlphaCoverage = false;
-
 	m_additiveBlending = DXResourceLoader::Create_BlendState(m_dxrenderer, additiveBlendingDesc);
 
+	BlendStateDesc uiTransparencyBlendingDesc = {};
+	uiTransparencyBlendingDesc.m_blendOperator[0] = BO_ADD;
+	uiTransparencyBlendingDesc.m_blendAlphaOperator[0] = BO_ADD;
+	uiTransparencyBlendingDesc.m_srcFactors[0] = BF_SRC_ALPHA;
+	uiTransparencyBlendingDesc.m_dstFactors[0] = BF_DST_ALPHA;
+	uiTransparencyBlendingDesc.m_srcAlphaFactors[0] = BF_ONE_MINUS_DST_ALPHA;
+	uiTransparencyBlendingDesc.m_dstAlphaFactors[0] = BF_ONE_MINUS_DST_ALPHA;
+	uiTransparencyBlendingDesc.m_blendStateTarget = BLEND_STATE_RT_0;
+	uiTransparencyBlendingDesc.m_individualBlend = false;
+	uiTransparencyBlendingDesc.m_enableAlphaCoverage = false;
+
+	m_uiTransparencyBlending = DXResourceLoader::Create_BlendState(m_dxrenderer, uiTransparencyBlendingDesc);
 
 
 	SamplerDesc clamp_linear_sampler_desc = {};
@@ -540,6 +551,7 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_texture_sampler);
 
 	SafeReleaseDelete(m_blend_state_one_zero_add);
+	SafeReleaseDelete(m_uiTransparencyBlending);
 	SafeReleaseDelete(m_skybox_blend_state);
 	SafeReleaseDelete(m_additiveBlending);
 	SafeReleaseDelete(m_directional_light_uniform_buffer);

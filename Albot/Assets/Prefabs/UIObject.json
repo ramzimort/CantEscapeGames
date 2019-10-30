@@ -17,6 +17,11 @@
       "ZOrder": 0
     }
   },
+  "UIComponent": {
+			"State": "",
+			"TotalObjects": 0,
+			"TotalButtons": 0			
+	},
   "Scripts": [
     {
       "Name": "Scripts\\Components\\UICamera.lua",

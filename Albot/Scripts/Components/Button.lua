@@ -4,28 +4,30 @@
 Button = 
 {
 	-- States
-	NextStatePath = "Assets\\Levels\\level1.json";
+	NextStatePath;
 	
 	-- Component
 	uiComp;
 	uiTransform;
 	uiAffineAnimation;
+	cameraComp;
 	
 	-- Data
 	position;
 	initialPosition;
 	finalPosition;
 	scale;
-	loacation;
+	touchedScale;
+	location;
 	maxPosX;
-	minPosX;
 	maxPosY;
-	minPosY;
 	deltaTime;
-	velocity;
+	positveVelocity;
+	negativeVelocity;
 	initialAnimationEnable = false;
 	finalAnimationEnable = false;
 	enableButton = false;
+	
 	
 	
 	-- MOUSE
@@ -40,7 +42,7 @@ Button =
 	
 	--UI Camera
 	cameraObj;
-	cameraComp;
+	
 	camera;
 	projectionMatrix;
 	viewProjectionMatrix;
@@ -102,50 +104,66 @@ Button.Begin = function(self, owner, goMgr)
 	if (self.uiAffineAnimation == nil) then 
 		OutputPrint("ERROR, Ui Affine Animation IS NIL\n");
 	end
-	
-	self.initialPosition = self.uiAffineAnimation:GetInitialPosition();
-	self.position = self.initialPosition;
-	self.finalPosition = self.uiAffineAnimation:GetFinalPosition();
-	self.deltaTime = self.uiAffineAnimation:GetDeltaTime();
-	self.velocity = self.uiAffineAnimation:GetVelocity();
-	
-	self.loacation = self.uiComp:GetLocation();
 
-	self.initialAnimationEnable = true;
+	self.NextStatePath =  self.uiComp:GetStateAddress();
 	
+	
+	
+	self.position = self.uiAffineAnimation:GetFinalPosition();
+	
+	self.scale = Vector3.new(self.uiTransform:GetScale());
+	
+	self.touchedScale = Vector3.new( self.scale.x,self.scale.y,self.scale.z);
+	self.touchedScale = self.touchedScale * 1.1;
+	_G.PlayFinalAnimation = false;
+	
+	self.maxPosX = self.scale.x + self.position.x;
+	self.maxPosY = self.scale.y + self.position.y;
+	
+	self.location = self.uiComp:GetLocation();
 end
 
 --Update called every tick
 Button.Update = function(self, dt, owner) 
 
-	if(self.ENTER == true) then
-		self.finalAnimationEnable = true;
-		self.enableButton = false;
+	
+	if( _G.PlayFinalAnimation == true) then
+		self.uiComp:FinalAnimationEnabled();
+		self.enableButton = false;	
+	end
+
+	
+	if(self.location == _G.CurrentButtonTouched) then
+		self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
+		if(self.ENTER == true or _G.PlayFinalAnimation == true) then
+			_G.State = self.NextStatePath;
+			self.uiComp:FinalAnimationEnabled();
+			self.enableButton = false;		
+			_G.PlayFinalAnimation = true;
+		end
+	else
 		
+		self.uiTransform:Scale(self.scale.x,self.scale.y,self.scale.z);
 	end
 	
-	
-	if(self.initialAnimationEnable == true) then
-		if(self.position == self.finalPosition) then
-			self.initialAnimationEnable = false;
-			self.enableButton = true;
-			
-			return;
+	if(self.MousePositionX < self.maxPosX) then
+		if(self.MousePositionX > self.position.x) then
+			if(self.MousePositionY < self.maxPosY) then
+				if(self.MousePositionY > self.position.y) then
+					_G.CurrentButtonTouched = self.location;
+					self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
+					if(self.LEFTCLICK == true) then
+						
+						self.uiComp:FinalAnimationEnabled();
+						self.enableButton = false;
+						_G.State = self.NextStatePath;
+						_G.PlayFinalAnimation = true;
+						end
+				end
+			end
 		end
-		self.position = self.position + self.velocity * self.deltaTime;
-		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
 	end
 	
-	if(self.finalAnimationEnable == true) then
-	
-		if(self.position == self.initialPosition) then
-			OutputPrint(">>> Reached\n");
-			World.Get():PushStateEvent(false, self.NextStatePath);
-			return;
-		end
-		self.position = self.position - self.velocity * self.deltaTime;
-		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
-	end
 end
 --Method
 Button.OnKey = function(self, key, state)

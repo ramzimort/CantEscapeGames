@@ -4,6 +4,9 @@
 
 UICamera = 
 {
+	-- Component
+	uiComp;
+	
 	-- MOUSE
 	MousePositionX = 0;
 	MousePositionY = 0;
@@ -19,7 +22,11 @@ UICamera =
 	Right = false;
 
 	-- Buttons
-	CurrentButtonSelected = 0;
+	TotalButtons = 0;
+	-- Objects
+	TotalObjects = 0;
+	-- States
+	loadingState;
 }
 
 
@@ -36,19 +43,37 @@ UICamera.Begin = function(self, owner, goMgr)
 		return;
 	end
 	
+	self.uiComp = owner:GetUiComp();
+	if (self.uiComp == nil) then 
+		OutputPrint("ERROR, UIComponent IS NIL\n");
+	end
+	
+	self.TotalObjects = self.uiComp:GetTotalObjects();
+	self.TotalButtons = self.uiComp:GetTotalButtons();
+	
 	OnKeyEvent():Bind({self, self.OnKey});
 
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	
 	OnMouseClick():Bind({self, self.OnMouseClick});
-
 	
+	_G.CurrentButtonTouched = 1;
+
+	_G.FinalAnimationCount = 0;
 end
 
 --Update called every tick
 UICamera.Update = function(self, dt, owner) 
 
-	_G.value = self.CurrentButtonSelected;
+
+	
+	if(self.TotalObjects <=  _G.FinalAnimationCount) then
+		self.loadingState = _G.State;
+		
+		World.Get():PushStateEvent(false, self.loadingState);
+	end
+	
+	
 end
 
 --Method
@@ -56,15 +81,17 @@ UICamera.OnKey = function(self, key, state)
 	if(SCANCODE.W == key) then
 		self.Forward = state;
 		if(state == true) then
-			if(self.CurrentButtonSelected > 0) then
-				self.CurrentButtonSelected = self.CurrentButtonSelected -1;
+			if(_G.CurrentButtonTouched > 1) then
+				_G.CurrentButtonTouched = _G.CurrentButtonTouched -1;
 			end
 		end
 	elseif(SCANCODE.S == key) then
 		self.Backward = state;
+		
 		if(state == true) then
-			if(self.CurrentButtonSelected < 5) then
-				self.CurrentButtonSelected = self.CurrentButtonSelected + 1;
+			
+			if(_G.CurrentButtonTouched < self.TotalButtons) then
+				_G.CurrentButtonTouched = _G.CurrentButtonTouched + 1;
 			end
 		end
 	end

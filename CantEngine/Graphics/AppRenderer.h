@@ -165,6 +165,7 @@ private:
 	BlendState* m_blend_state_one_zero_add;
 	BlendState* m_skybox_blend_state;
 	BlendState* m_additiveBlending;
+	BlendState* m_uiTransparencyBlending;
 
 
 	Texture* m_pBRDFLookupTexture;
