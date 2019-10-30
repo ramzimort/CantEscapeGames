@@ -534,7 +534,7 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_skybox_shader);
 	SafeReleaseDelete(m_skybox_vertices_buffer);
 
-	SafeReleaseDelete(m_pBRDFLookupTexture);
+	SafeReleasePoolAllocatorFree(m_pBRDFLookupTexture);
 
 	SafeReleaseDelete(m_trillinear_sampler);
 	SafeReleaseDelete(m_texture_sampler);
@@ -543,7 +543,7 @@ void AppRenderer::Release()
 	SafeReleaseDelete(m_skybox_blend_state);
 	SafeReleaseDelete(m_additiveBlending);
 	SafeReleaseDelete(m_directional_light_uniform_buffer);
-	SafeReleaseDelete(m_random1DTexture);
+	SafeReleasePoolAllocatorFree(m_random1DTexture);
 
 	SafeReleaseDelete(m_resolveAppRendererInstancesPipeline);
 	SafeReleaseDelete(m_resolveAppRendererInstancesShader);

@@ -1,5 +1,6 @@
 #include "RenderTarget.h"
 #include "DXResourceLoader.h"
+#include "Memory/CantMemory.h"
 
 
 /*RenderTarget::RenderTarget(const RenderTargetDesc& desc)
@@ -71,6 +72,6 @@ void RenderTarget::Release()
 		{
 			free(m_pp_rendertargetview);
 		}
-		SafeReleaseDelete(m_texture);
+		SafeReleasePoolAllocatorFree(m_texture);
 	}
 }

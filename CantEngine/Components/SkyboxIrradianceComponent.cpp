@@ -27,9 +27,7 @@ SkyboxIrradianceComponent::SkyboxIrradianceComponent(GameObject *owner)
 
 SkyboxIrradianceComponent::~SkyboxIrradianceComponent()
 {
-	SafeReleaseDelete(m_pSkyboxTexture);
-	SafeReleaseDelete(m_pSkyboxIrradianceTexture);
-	SafeReleaseDelete(m_pIBLPrefilteredEnvMapTexture);
+	SafeReleasePoolAllocatorFree(m_pIBLPrefilteredEnvMapTexture);
 }
 
 

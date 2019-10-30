@@ -294,7 +294,7 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype< Multicast<void(Vector2, Vector2)>>
 	(
 		"MouseMotionMulticast",
-		"Bind", &Multicast<void(Vector2, Vector2)>::BindLuaFunction,
+		"Bind", &Multicast<void(Vector2, Vector2 )>::BindLuaFunction,
 		"Unbind", &Multicast<void(Vector2, Vector2)>::UnbindLuaFunction
 	);
 	
@@ -303,6 +303,13 @@ void ScriptingManager::ManageBindings()
 		"MouseClickMulticast",
 		"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction,
 		"Unbind", &Multicast<void(uint8_t, bool)>::UnbindLuaFunction
+	);
+
+	luaState.new_usertype< Multicast<void(int, int)>>
+	(
+		"WindowSizeMulticast",
+		"Bind", &Multicast<void(int, int)>::BindLuaFunction,
+		"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
 	);
 
 
@@ -366,6 +373,8 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
+	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
+
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>

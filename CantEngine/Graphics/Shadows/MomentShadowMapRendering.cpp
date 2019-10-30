@@ -25,6 +25,8 @@ void MomentShadowMapRendering::Release()
 	SafeReleaseDelete(m_moment_shadow_map_rt);
 	SafeReleaseDelete(m_depth_rt);
 	SafeReleaseDelete(m_light_camera_uniform_buffer);
+	SafeReleasePoolAllocatorFree(m_intermediate_texture);
+	SafeReleasePoolAllocatorFree(m_output_texture);
 	m_blur_image_pass.Release();
 }
 

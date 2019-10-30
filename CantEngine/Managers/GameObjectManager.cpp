@@ -182,6 +182,7 @@ void GameObjectManager::Destroy_Queued_GameObjects()
 			m_systemMgr->Unregister_GameObject(go_id);
 
 			//Delete
+			//auto comps = go->GetAllComponents<BaseComponent*>();
 			CantMemory::PoolResource<GameObject>::Free(go);
 			EventManager::Get()->EnqueueEvent<GameObjectDestroyed>(true, go_id, go);
 		}

@@ -93,7 +93,15 @@
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/ostreamwrapper.h"
 
+
+
 using namespace DirectX::SimpleMath;
+
+// Our Libraries
+#include "Helper/MathUtil.h"
+#include "Helper/Constant.h"
+#include "CantDebug/CantDebug.h"
+#include "Memory/CantMemory.h"
 
 //typedef is used here to have a matching
 //name with HLSL typedef so we can share same struct
@@ -125,8 +133,15 @@ inline void SafeReleaseDelete(T& ptr)
 	}
 }
 
-// Our Libraries
-#include "Helper/MathUtil.h"
-#include "Helper/Constant.h"
-#include "CantDebug/CantDebug.h"
+template<typename T>
+inline void SafeReleasePoolAllocatorFree(T* ptr)
+{
+	if (ptr != NULL)
+	{
+		ptr->Release();
+		CantMemory::PoolResource<T>::Free(ptr);
+		ptr = NULL;
+	}
+}
+
 

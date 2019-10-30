@@ -13,6 +13,7 @@ Primary Author: Jose Rosenbluth
 //To call init on each go's components, we need to pass these two
 #include "Graphics/AppRenderer.h"
 #include "Managers/ResourceManager.h"
+#include "Components/AllComponentHeaders.h"
 
 
 // Initialize static member of class
@@ -41,7 +42,40 @@ GameObject::~GameObject()
 	{
 		BaseComponent *c = m_components[i];
 		if (c != nullptr)
-			CantMemory::PoolResource<BaseComponent>::Free(m_components[i]);
+		{
+			if (c->GetType() == TransformComponent::static_type)
+				CantMemory::PoolResource<TransformComponent>::Free(static_cast<TransformComponent*>(c));
+			
+			else if (c->GetType() == RigidbodyComponent::static_type)
+				CantMemory::PoolResource<RigidbodyComponent>::Free(static_cast<RigidbodyComponent*>(c));
+			
+			else if (c->GetType() == RendererComponent::static_type)
+				CantMemory::PoolResource<RendererComponent>::Free(static_cast<RendererComponent*>(c));
+			
+			else if (c->GetType() == MeshComponent::static_type)
+				CantMemory::PoolResource<MeshComponent>::Free(static_cast<MeshComponent*>(c));
+			
+			else if (c->GetType() == LightComponent::static_type)
+				CantMemory::PoolResource<LightComponent>::Free(static_cast<LightComponent*>(c));
+			
+			else if (c->GetType() == CameraComponent::static_type)
+				CantMemory::PoolResource<CameraComponent>::Free(static_cast<CameraComponent*>(c));
+			
+			else if (c->GetType() == ParticleEmitterComponent::static_type)
+				CantMemory::PoolResource<ParticleEmitterComponent>::Free(static_cast<ParticleEmitterComponent*>(c));
+			
+			else if (c->GetType() == HaloEffectComponent::static_type)
+				CantMemory::PoolResource<HaloEffectComponent>::Free(static_cast<HaloEffectComponent*>(c));
+			
+			else if (c->GetType() == UIComponent::static_type)
+				CantMemory::PoolResource<UIComponent>::Free(static_cast<UIComponent*>(c));
+			
+			else if (c->GetType() == AnimationComponent::static_type)
+				CantMemory::PoolResource<AnimationComponent>::Free(static_cast<AnimationComponent*>(c));
+			
+			else if (c->GetType() == SkyboxIrradianceComponent::static_type)
+				CantMemory::PoolResource<SkyboxIrradianceComponent>::Free(static_cast<SkyboxIrradianceComponent*>(c));
+		}
 	}
 
 	for (auto& node : m_customComponents) 

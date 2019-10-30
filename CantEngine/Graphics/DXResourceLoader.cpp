@@ -1011,7 +1011,8 @@ Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureL
 
 
 
-		Texture* texture = new Texture(texture_desc);
+		Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
+
 		texture->m_p_raw_resource = d3d_tex2d;
 		texture->m_p_srv = d3d_tex2d_srv;
 
@@ -1119,7 +1120,7 @@ Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureL
 		texture_desc.m_depth = 1;
 		texture_desc.m_clearVal = ClearValue{ 0.f, 0.f, 0.f, 0.f };
 
-		Texture* texture = new Texture(texture_desc);
+		Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
 		texture->m_p_raw_resource = d3d_tex2d;
 		texture->m_p_srv = d3d_srv;
 

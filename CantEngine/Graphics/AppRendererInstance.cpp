@@ -54,7 +54,6 @@ void AppRendererInstance::Release()
 	SafeReleaseDelete(m_resolveUniformBuffer);
 
 	SafeReleaseDelete(m_finalOutputRT);
-	SafeReleaseDelete(m_curMainRT);
 	SafeReleaseDelete(m_msaaMainRT);
 	SafeReleaseDelete(m_depthRT);
 	SafeReleaseDelete(m_skyboxUniformBuffer);
