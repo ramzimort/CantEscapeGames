@@ -25,6 +25,8 @@ void Editor::RegisterSettings(DebugConfig config)
 	m_settings.PauseState = config.PauseState;
 	m_settings.SelectionTool = config.SelectionTool;
 	m_settings.StepFrame = config.StepFrame;
+	m_settings.RefreshResources = config.RefreshResources;
+
 }
 
 void Editor::UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created)
@@ -87,7 +89,7 @@ void Editor::Update()
 	*m_settings.StepFrame = ImGui::Button("Step Frame");
 	ImGui::InputText("Level Name", m_settings.LevelName);
 	*m_settings.CreateLevel = ImGui::Button("Create Level");
-
+	*m_settings.RefreshResources = ImGui::Button("Refresh Resource");
 
 	// Objects
 	ImGui::Separator();

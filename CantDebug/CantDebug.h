@@ -18,6 +18,7 @@ namespace CantDebugAPI
 		bool* StepFrame;
 		std::string* LevelName;
 		bool* CreateLevel;
+		bool* RefreshResources;
 	};
 
 	enum type

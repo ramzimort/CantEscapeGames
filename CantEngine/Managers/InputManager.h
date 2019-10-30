@@ -45,6 +45,7 @@ public:
 	SDL_Window* GetWindow();
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit() const;
+	void Quit();
 
 private:
 	void UpdateMouseClickState();

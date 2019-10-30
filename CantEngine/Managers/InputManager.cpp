@@ -221,3 +221,8 @@ bool InputManager::IsQuit()  const
 {
 	return m_quit;
 }
+
+void InputManager::Quit()
+{
+	m_quit = true;
+}

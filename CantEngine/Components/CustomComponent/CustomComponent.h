@@ -53,6 +53,9 @@ public:
 	static ComponentId const static_type; //TODO
 
 private:
+#ifdef DEVELOPER
+	friend class CantDebug::DebugManager;
+#endif
 	//It will need a name identifier
 	StringId m_name;
 

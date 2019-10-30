@@ -48,7 +48,6 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 std::string& ResourceManager::GetPrefab(StringId prefabId)
 {
 	return *m_resources.at(prefabId).res.p_prefab;
-
 }
 
 sol::table& ResourceManager::GetScript(StringId scriptId)
@@ -161,6 +160,7 @@ void ResourceManager::FreeResource(StringId id)
 	case SFX:
 		p.p_sound->release();
 		m_pAudioManager->UnregisterSound(it->first);
+		break;
 	case TEXTURE:
 	{
 		p.p_texture->Release();
@@ -181,6 +181,7 @@ void ResourceManager::FreeResource(StringId id)
 		break;
 	case SCRIPT:
 		// TODO: Should we do anything when clearing this type of resource
+		CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
 		break;
 	}
 	m_resources.erase(it);
@@ -283,3 +284,134 @@ void ResourceManager::LoadScript(const std::string& filePath)
 		}
 	}
 }
+
+#ifdef  DEVELOPER
+void ResourceManager::ReloadResources()
+{
+	auto it = m_resources.begin();
+	while (it != m_resources.end())
+	{
+		const std::string& path = it->first.getName();
+		auto p = it->second.res;
+		switch (it->second.type)
+		{		
+		//case SONGS:
+		//	p.p_sound->release();
+		//	m_pAudioManager->UnregisterSound(path);
+		//	p.p_sound = nullptr;
+		//	m_pAudioManager->mp_system->createSound(path.c_str(), CATEGORY_SONG, 0, &p.p_sound);
+		//	m_pAudioManager->RegisterSound(SoundData(it->first, p.p_sound, Category::CATEGORY_SONG));
+		//	break;
+		//case SFX:
+		//	p.p_sound->release();
+		//	m_pAudioManager->UnregisterSound(path);
+		//	p.p_sound = nullptr;
+		//	m_resources.insert(std::make_pair(it->first, Resource(SFX, p)));
+		//	m_pAudioManager->mp_system->createSound(path.c_str(), CATEGORY_SFX, 0, &p.p_sound);
+		//	m_pAudioManager->RegisterSound(SoundData(it->first, p.p_sound, Category::CATEGORY_SFX));
+		//	break;
+		/*case TEXTURE:
+		{
+			p.p_texture->Release();
+			CantMemory::PoolResource<Texture>::Free(p.p_texture);
+			LoadTexture(path);
+			break;
+		}*/
+		case MODEL:
+		{
+			//p.p_model->Release();
+			//CantMemory::PoolResource<Model>::Free(p.p_model);
+
+			//Model* model = nullptr;
+			//Assimp::Importer importer;
+			//aiScene const* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+			//// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
+
+			//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+			//{
+			//	DEBUG_LOG("Couldn't load Model %s", path.c_str());
+			//	return;
+			//}
+
+			////Figure out if we need animModel or not based on bones
+			//bool hasBoneFlag = false;
+			//for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+			//{
+			//	if (scene->mMeshes[i]->HasBones())
+			//	{
+			//		hasBoneFlag = true;
+			//		break;
+			//	}
+			//}
+
+			////Create model with the right virtual ctor
+			//model = (hasBoneFlag) ? CantMemory::PoolResource<AnimModel>::Allocate() : CantMemory::PoolResource<Model>::Allocate();
+
+			////First load mesh data. If has bones, load extra bones parameters
+			//ModelLoader::LoadModel(model, scene, m_dxrenderer);
+			//if (hasBoneFlag)
+			//	FBXLoader::LoadSkeletalData(model, scene);
+
+			////Finally, init buffer for renderer
+			//model->InitBuffer(m_dxrenderer);
+			//break;
+		}
+		case MATERIAL:
+		{
+			CantMemory::PoolResource<Material>::Free(p.p_material);
+			Material* material = CantMemory::PoolResource<Material>::Allocate();
+			const std::string materialObj = CantReflect::StringifyJson(path);
+			CantReflect::FromJson(materialObj, material);
+
+			if (!(material->m_diffuseTextureId == ""))
+			{
+				material->m_pDiffuseTexture = GetTexture(material->m_diffuseTextureId);
+			}
+
+			if (!(material->m_normalTextureId == ""))
+			{
+				material->m_pNormalTexture = GetTexture(material->m_normalTextureId);
+			}
+
+			if (!(material->m_heightTextureId == ""))
+			{
+				material->m_pHeightTexture = GetTexture(material->m_heightTextureId);
+			}
+			p.p_material = material;
+			break;
+		}
+		case PREFAB:
+		{
+			CantMemory::PoolResource<std::string>::Free(p.p_prefab);
+			std::string* defaultGameObj = CantMemory::PoolResource<std::string>::Allocate(CantReflect::StringifyJson(path));
+			ResPtr p; p.p_prefab = defaultGameObj;
+			break;
+		}
+		case SCRIPT:
+		{
+			// TODO: Should we do anything when clearing this type of resource
+			CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
+			sol::table* pLuaTable = CantMemory::PoolResource<sol::table>::Allocate();
+
+			if (*pLuaTable == sol::lua_nil)
+			{
+				try
+				{
+					//Load the script and retrieve the table
+					*pLuaTable = m_pSolState->script_file(path);
+					p.p_solTable = pLuaTable;
+				}
+				catch (const sol::error & e)
+				{
+					const char* errorName = e.what();
+					DEBUG_LOG(errorName);
+					assert(0);
+				}
+			}
+			break;
+		}
+		}
+		++it;
+	}
+}
+#endif //  DEVELOPER

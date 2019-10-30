@@ -83,6 +83,7 @@ namespace CantDebug
 		debugConfig.PauseState= &m_config.PauseState;
 		debugConfig.SelectionTool= &m_config.SelectionTool;
 		debugConfig.StepFrame = &m_config.StepFrame;
+		debugConfig.RefreshResources = &m_config.RefreshResources;
 		CantDebugAPI::EditorSetting(debugConfig);
 
 		// Material Generator Initialization
@@ -291,10 +292,26 @@ namespace CantDebug
 			m_config.CreateLevel = false;
 		}
 
+		if (m_config.RefreshResources)
+		{
+			m_pResourceManager->ReloadResources();
+			for (auto& pair : m_objectList)
+			{
+				GameObject* go = pair.first;
+				for (auto& pair2 : go->m_customComponents)
+				{
+					auto& scriptComp = pair2.second;
+					std::string wholePath = "Scripts\\Components\\" + pair2.first + ".lua";
+					scriptComp->ScriptSetup(wholePath, pair2.first, m_pStateManager->m_pScriptingManager);
+					scriptComp->Init(m_pResourceManager, m_pAppRenderer->GetDXRenderer());
+				}
+
+			}
+			m_config.RefreshResources = false;
+		}
 
 		Matrix model;
 		MeshComponent* mesh;
-
 		for (auto& go : m_meshObjects)
 		{
 			// updating aabb tree

@@ -24,7 +24,11 @@ fpscontroller =
 
 --Init called when comp is created
 fpscontroller.Init = function(self)
+	OnKeyEvent():Bind({self, self.OnKey});
+
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
@@ -34,12 +38,6 @@ fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-	
-	OnKeyEvent():Bind({self, self.OnKey});
-
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Update called every tick

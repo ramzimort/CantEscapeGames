@@ -102,6 +102,10 @@ private:
 	sol::table refHolder;
 
 	RTTR_ENABLE();
+
+#ifdef DEVELOPER
+	friend class CantDebug::DebugManager;
+#endif
 };
 
 
@@ -144,7 +148,7 @@ T* GameObject::AddComponent()
 {
 	BaseComponent::ComponentId componentTypeId = T::static_type;
  	T* component = CantMemory::PoolResource<T>::Allocate(this);
-	DEBUG_LOG("Type: %s, Size: %d, Alignment %d, Pointer: %p \n, ", typeid(T).name(), sizeof(T), alignof(T), component);
+	//DEBUG_LOG("Type: %s, Size: %d, Alignment %d, Pointer: %p \n, ", typeid(T).name(), sizeof(T), alignof(T), component);
 
 	if (component)
 	{

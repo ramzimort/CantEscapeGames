@@ -70,6 +70,7 @@ private:
 	void LoadScript(const std::string& filePath);
 #ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
+	void ReloadResources();
 #endif
 
 private:

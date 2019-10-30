@@ -9,7 +9,7 @@ DebugPause =
 --OnCreate, called when creating this state
 DebugPause.OnCreateState = function(self)
 	
-	OutputPrint("Created " .. self.name .. " state");
+	OutputPrint("Created " .. self.name .. " state\n");
 
 end
 
@@ -17,7 +17,7 @@ end
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 DebugPause.OnExitState = function(self) 
 
-	OutputPrint("Exiting (destroying) " .. self.name .. " state");
+	OutputPrint("Exiting (destroying) " .. self.name .. " state\n");
 
 end
 

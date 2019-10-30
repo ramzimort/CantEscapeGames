@@ -11,14 +11,14 @@ level1.OnCreateState = function(self)
 	local EventMgr = EventManager.Get();
 	EventMgr:PopState(false);
 	EventMgr:PushLoadedState(false);
-	LOG("Created " .. self.name .. " state");
+	LOG("Created " .. self.name .. " state\n");
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 level1.OnExitState = function(self) 
 
-	LOG("Exiting (destroying) " .. self.name .. " state");
+	LOG("Exiting (destroying) " .. self.name .. " state\n");
 
 end
 

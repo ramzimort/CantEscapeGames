@@ -65,7 +65,6 @@ void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int
 #endif
 
 	m_pStateManager->SwitchState(levelPath);
-
 	m_pAppRenderer->LoadContent();
 
 	int x, w;
@@ -77,9 +76,9 @@ void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int
 
 void EventManager::OnQuit(const QuitEvent* e)
 {
+	m_pInputManager->Quit();
 	m_quit1 = true;
 	m_quit2 = true;
-
 }
 
 EventManager* EventManager::Get()

@@ -38,6 +38,7 @@ namespace CantDebug
 		std::string LevelName;
 		bool CreateLevel = false;
 		bool IsCtrl = false;
+		bool RefreshResources = false;
 	};
 
 	union CompDataUnion
@@ -129,7 +130,7 @@ namespace CantDebug
 		void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 
 	private:
-		Vector2 m_scrDimensions = { 1280,720 };
+		Vector2 m_scrDimensions;
 		Vector2 m_pointerPosition;
 		DebugConfig m_config;
 		GameObject* m_pGameObjEditor;

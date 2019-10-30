@@ -11,14 +11,14 @@ Loading =
 Loading.OnCreateState = function(self)
 	local World = EventManager.Get();
 	World:LoadState(false, self.NextLevel);
-	LOG("Created " .. self.name .. " state");
+	LOG("Created " .. self.name .. " state\n");
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 Loading.OnExitState = function(self) 
 
-	LOG("Exiting (destroying) " .. self.name .. " state");
+	LOG("Exiting (destroying) " .. self.name .. " state\n");
 
 end
 
