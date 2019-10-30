@@ -569,9 +569,20 @@ void ScriptingManager::ManageBindings()
 	// UIComponent
 	luaState.new_usertype<UIComponent>
 		("UIComponent",
-			"IsTriggerd", &UIComponent::IsTriggerd,
-			"IsNotTriggered", &UIComponent::IsNotTriggered,
-			"GetLocation", &UIComponent::GetLocation
+			"GetLocation", &UIComponent::GetLocation,
+			"GetTotalObjects", &UIComponent::GetTotalObjects,
+			"GetTotalButtons", &UIComponent::GetTotalButtons,
+			"GetStateAddress", &UIComponent::GetStateAddress,
+			"InitialAnimationEnabled", &UIComponent::InitialAnimationEnabled,
+			"InitialAnimationDisabled", &UIComponent::InitialAnimationDisabled,
+			"FinalAnimationEnabled", &UIComponent::FinalAnimationEnabled,
+			"FinalAnimationDisabled", &UIComponent::FinalAnimationDisabled,
+			"GetInitailAnimationState", &UIComponent::GetInitailAnimationState,
+			"GetFinalAnimationState", &UIComponent::GetFinalAnimationState,
+			"SetSliderValue", sol::overload(
+				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
+			"GetChildButtonCount", &UIComponent::GetChildButtonCount,
+			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation
 			);
 
 	// AffineAnimationComponent
@@ -580,8 +591,11 @@ void ScriptingManager::ManageBindings()
 			"GetInitialPosition", &AffineAnimationComponent::GetInitialPosition,
 			"GetFinalPosition", &AffineAnimationComponent::GetFinalPosition,
 			"GetDeltaTime", &AffineAnimationComponent::GetDeltaTime,
-			"GetVelocity", &AffineAnimationComponent::GetVelocity
-			);
+			"GetVelocity", &AffineAnimationComponent::GetVelocity,
+			"GetInitialRotation", &AffineAnimationComponent::GetInitialRotation,
+			"GetFinalRotation", &AffineAnimationComponent::GetFinalRotation,
+			"GetRotationRate", &AffineAnimationComponent::GetRotationRate
+				);
 
 	//ANIMATION
 	luaState.new_usertype<AnimationComponent>

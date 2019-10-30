@@ -24,12 +24,12 @@ GameObjectManager::GameObjectManager(SystemManager *sysMgr, ScriptingManager *lu
 {
 	this->m_systemMgr = sysMgr;
 	this->m_luaMgr = luaMgr;
-	EventManager::Get()->SubscribeEvent<DestroyGameObject>(this, std::bind(&GameObjectManager::Queue_GameObject_DestructionE, this, std::placeholders::_1));
+	//EventManager::Get()->SubscribeEvent<DestroyGameObject>(this, std::bind(&GameObjectManager::Queue_GameObject_DestructionE, this, std::placeholders::_1));
 }
 
 GameObjectManager::~GameObjectManager()
 {
-	EventManager::Get()->UnsubscribeEvent<DestroyGameObject>(this);
+	//EventManager::Get()->UnsubscribeEvent<DestroyGameObject>(this);
 
 	//If the goMgr is getting destroyed, it forcefully destroys all gameObjs too
 	for (auto &node : m_gameObjects) 

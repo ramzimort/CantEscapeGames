@@ -56,6 +56,7 @@ void UIObjectRendering::Initialize(DXRenderer* dxrenderer)
 	uiObjectRenderingPipelineDesc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;
 	uiObjectRenderingPipelineDesc.m_render_target_count = 1;
 	uiObjectRenderingPipelineDesc.m_shader = m_pUIObjectRenderingShader;
+	uiObjectRenderingPipelineDesc.m_blend_state = m_appRenderer->m_uiTransparencyBlending;
 	
 	m_pUIObjectRenderingPipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipelineDesc);
 

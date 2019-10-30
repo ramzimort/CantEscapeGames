@@ -15,6 +15,9 @@ RTTR_REGISTRATION
 		.property("InitialPosition", &AffineAnimationComponent::initialPos)
 		.property("FinalPosition", &AffineAnimationComponent::finalPos)
 		.property("DeltaTime", &AffineAnimationComponent::deltaTime)
+		.property("InitialRotation", &AffineAnimationComponent::initailRotation)
+		.property("FinalRotation", &AffineAnimationComponent::finalRotationValue)
+		.property("RotationRate", &AffineAnimationComponent::rotationRate)
 		.method("Init", &AffineAnimationComponent::Init);
 }
 
@@ -52,4 +55,19 @@ Vector3 AffineAnimationComponent::GetVelocity()
 float AffineAnimationComponent::GetDeltaTime()
 {
 	return deltaTime;
+}
+
+float AffineAnimationComponent::GetInitialRotation()
+{
+	return initailRotation;
+}
+
+float AffineAnimationComponent::GetFinalRotation()
+{
+	return finalRotationValue;
+}
+
+float AffineAnimationComponent::GetRotationRate()
+{
+	return rotationRate;
 }

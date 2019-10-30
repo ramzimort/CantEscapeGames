@@ -65,8 +65,7 @@ public:
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~PushStateEvent() { }
-	virtual void operator()() {}
-
+	void operator()() override {}
 	//static Multicast<void(int, bool)>& OnNewStatePushed()
 	//{
 	//	static Multicast<void(int, bool)> m;
