@@ -18,35 +18,28 @@
     "Clips": [
       {
         "name": "DanceAnim",
-        "path": "Assets/Models/AnimTest01.fbx",
+        "path": "Assets\\Models\\AnimTest01.fbx",
         "loops": true
       },
       {
         "name": "StopAnim",
-        "path": "Assets/Models/TestStand.fbx",
+        "path": "Assets\\Models\\TestStand.fbx",
         "loops": true
       },
       {
         "name": "WalkAnim",
-        "path": "Assets/Models/TestWalk.fbx",
+        "path": "Assets\\Models\\TestWalk.fbx",
         "loops": true
       },
       {
         "name": "IdleAnim",
-        "path": "Assets/Models/TestIdle.fbx",
+        "path": "Assets\\Models\\TestIdle.fbx",
         "loops": true
       }
     ]
   },
 
   "Scripts": [
-    {
-      "Name": "Scripts\\Components\\test01Comp.lua",
-      "Overrides": {
-        "hashed": "ANDRES NOT OVERRIDEN!",
-        "ranked": -777
-      }
-    },
     {
       "Name": "Scripts\\Components\\PlayerComp.lua",
       "Overrides": {

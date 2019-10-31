@@ -37,24 +37,19 @@ test02Comp.OnKey = function(self, key, state)
 	
 		self.nextAnim = "IdleAnim";
 		self.animComp:SwitchAnimation(self.nextAnim, 100.0);
-	
 	end
-
 end
 
 
 --Init called when comp is created
 test02Comp.Init = function(self)
-
-	OutputPrint("\nCOMP INIT -" .. self.name .. "\n");
-
+	OnKeyEvent():Bind({self, self.OnKey});
 end
 
 
 --Begin called when obj has all comps
 test02Comp.Begin = function(self, owner)
 
-	OnKeyEvent():Bind({self, self.OnKey});
 	self.animComp = owner:GetAnimationComp();
 
 end
@@ -92,7 +87,7 @@ end
 -- Test local stuff
 test02Comp.ReturnWeirdString = function(self)
 
-	return "JAJAJAJAAJ";
+	--return "JAJAJAJAAJ";
 
 end
 
@@ -100,8 +95,12 @@ end
 -- Test local stuff
 test02Comp.ReturnWeirdString02 = function(self)
 
-	return "FUUUUUUUUUUUUUUUUUCK ALBERT!!!!!!!!!!!";
+	--return "FUUUUUUUUUUUUUUUUUCK ALBERT!!!!!!!!!!!";
 
+end
+
+test02Comp.OnDestruction = function(self)
+	OnKeyEvent():Unbind({self, self.OnKey});
 end
 
 

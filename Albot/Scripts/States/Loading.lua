@@ -1,6 +1,4 @@
 --TEMPLATE FOR A SCRIPTED STATE
-
-
 Loading = 
 {
 	name = "Loading";
@@ -17,11 +15,8 @@ end
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 Loading.OnExitState = function(self) 
-
 	LOG("Exiting (destroying) " .. self.name .. " state\n");
-
 end
-
 
 --AT THE END, NEED TO ADD THIS LINE
 return Loading;

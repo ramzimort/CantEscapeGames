@@ -28,33 +28,32 @@ Button =
 	finalAnimationEnable = false;
 	enableButton = false;
 	
-	
-	
 	-- MOUSE
 	MousePositionX = 0;
 	MousePositionY = 0;
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
 	ENTER = false;
+
 	-- KEYBOARD
 	Up = false;
 	Down = false;	
 	
 	--UI Camera
 	cameraObj;
-	
 	camera;
 	projectionMatrix;
 	viewProjectionMatrix;
 	viewMatrix;
 	screenWidth;
 	screenHeight;
-	
 }
 
 --Init called when comp is created
 Button.Init = function(self)
-
+	OnKeyEvent():Bind({self, self.OnKey});
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
@@ -64,12 +63,6 @@ Button.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-	
-	OnKeyEvent():Bind({self, self.OnKey});
-
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
 	
 	self.cameraObj = goMgr:FindGameObject("UIObject1");
 	if (self.cameraObj == nil) then
@@ -88,7 +81,6 @@ Button.Begin = function(self, owner, goMgr)
 		OutputPrint(">>> Camera  not found\n");
 		return;
 	end
-	
 	
 	self.uiComp = owner:GetUiComp();
 	if (self.uiComp == nil) then 
@@ -164,19 +156,19 @@ Button.Update = function(self, dt, owner)
 			end
 		end
 	end
-	
 end
 --Method
 Button.OnKey = function(self, key, state)
 	if(SCANCODE.ENTER == key) then
 		self.ENTER = state;
-		
 	end
 end
+
 Button.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
 end
+
 Button.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
@@ -184,4 +176,11 @@ Button.OnMouseClick = function(self, button, state)
 		self.RIGHTCLICK = state;
 	end
 end
+
+Button.OnDestruction = function(self)
+	OnKeyEvent():Unbind({self, self.OnMouseMotion});
+	OnMouseMotion():Unbind({self, self.OnMouseMotion});
+	OnMouseClick():Unbind({self, self.OnMouseClick});
+end
+
 return Button;

@@ -15,7 +15,6 @@ RTTR_REGISTRATION
 		.property("SkyboxEquirectangularTextureID", &SkyboxIrradianceComponent::m_skyboxEquirectangularTextureID)
 		.property("SkyboxEquirectangularIrradianceTextureID", &SkyboxIrradianceComponent::m_skyboxEquirectangularIrradianceTextureID)
 		.method("Init", &SkyboxIrradianceComponent::Init);
-
 }
 
 SkyboxIrradianceComponent::SkyboxIrradianceComponent(GameObject *owner)

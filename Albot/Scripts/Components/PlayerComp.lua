@@ -47,20 +47,16 @@ PlayerComp.OnKeyPressed = function(self, key, state)
 
 end
 
-
 --Init called when comp is created
 PlayerComp.Init = function(self)
+	OnKeyEvent():Bind({self, self.OnKeyPressed});
 end
 
 
 --Begin called when obj has all comps
 PlayerComp.Begin = function(self, owner)
-
-	OnKeyEvent():Bind({self, self.OnKeyPressed});
-
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
-
 end
 
 
@@ -108,8 +104,12 @@ PlayerComp.Update = function(self, dt, owner)
 
 	--Movement
 	self.transformComp:Translate(self.velocity);
-	OutputPrint("\n>>>> TRANSLATING: <" .. self.velocity.x .. ", " .. self.velocity.y .. ", " .. self.velocity.z .. ">");
+	--OutputPrint("\n>>>> TRANSLATING: <" .. self.velocity.x .. ", " .. self.velocity.y .. ", " .. self.velocity.z .. ">");
 
+end
+
+PlayerComp.OnDestruction = function(self)
+	OnKeyEvent():Unbind({self, self.OnKeyPressed});
 end
 
 

@@ -70,27 +70,20 @@ SlideScroller =
 
 --Init called when comp is created
 SlideScroller.Init = function(self)
-
+	OnKeyEvent():Bind({self, self.OnKey});
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
 SlideScroller.Begin = function(self, owner, goMgr)
-
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
 	tag = owner:GetTag();
-	
-	OnKeyEvent():Bind({self, self.OnKey});
 
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	
-	
 -- Scroll Slider
-	
 	self.uiComp = owner:GetUiComp();
 	if (self.uiComp == nil) then 
 		OutputPrint("ERROR, UIComponent IS NIL\n");
@@ -204,8 +197,6 @@ SlideScroller.Begin = function(self, owner, goMgr)
 	self.positionSlider = self.uiSliderAffineAnimationComp:GetFinalPosition();
 	self.scaleSlider = self.uiTransformCompSlider:GetScale();
 	
-	
-
 	-- Green BackGround
 	GreenBackGroundAddress = tag .. "GreenBackGround";
 	self.greenBackgroundObj = goMgr:FindGameObject(GreenBackGroundAddress);
@@ -237,7 +228,6 @@ SlideScroller.Update = function(self, dt, owner)
 			end
 		end
 	else
-		
 		self.uiButton1TransformComp:Scale(self.scaleButton1.x,self.scaleButton1.y,self.scaleButton1.z);
 	end
 	

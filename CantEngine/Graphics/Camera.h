@@ -45,15 +45,14 @@ public:
 
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
+	void SetCameraRotation(const Matrix& new_position);
+
 
 	Vector3 GetCameraPosition() const;
 	const Vector3& GetForward() const;
 	const Vector3& GetRight() const;
 
 	void Reset();
-
-	void ApplyRotation(const Matrix& transformation_mat);
-
 
 	const Matrix& GetViewMatrix() const { return m_viewMatrix; }
 	const Matrix& GetInvViewMatrix() const { return m_invViewMatrix; }

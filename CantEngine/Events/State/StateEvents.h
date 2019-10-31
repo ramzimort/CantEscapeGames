@@ -35,10 +35,20 @@ class ResourcesLoadedEvent : public Event<ResourcesLoadedEvent>
 public:
 	ResourcesLoadedEvent(const std::string& fileName) : m_fileName(fileName)
 	{
-		DEBUG_LOG("Resources Finished Loading!\n");
+		//DEBUG_LOG("Resources Finished Loading!\n");
 	}
 	virtual ~ResourcesLoadedEvent() { }
-	virtual void operator()() { }
+
+	virtual void operator()() override
+	{
+		OnResourcesLoaded()(m_fileName);
+	}
+
+	static Multicast<void(const std::string)>& OnResourcesLoaded()
+	{
+		static Multicast<void(const std::string)> m;
+		return m;
+	}
 
 	const std::string m_fileName;
 };
@@ -49,7 +59,6 @@ public:
 	QuitEvent()
 	{
 		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
-		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~QuitEvent() { }
 	virtual void operator()() {}
@@ -61,7 +70,7 @@ public:
 	PushStateEvent(const std::string& levelPath) :
 		m_path(levelPath)
 	{
-		DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
+		//DEBUG_LOG("Pushing State: %s\n", levelPath.c_str());
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~PushStateEvent() { }
@@ -82,7 +91,7 @@ class PopStateEvent : public Event<PopStateEvent>
 public:
 	PopStateEvent()
 	{
-		DEBUG_LOG("Popping State!\n");
+		//DEBUG_LOG("Popping State!\n");
 		//OnNewStatePushed()((int)key_scancode, press);
 	}
 	virtual ~PopStateEvent() { }

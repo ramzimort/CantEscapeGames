@@ -32,12 +32,13 @@ UICamera =
 
 --Init called when comp is created
 UICamera.Init = function(self)
-
+	OnKeyEvent():Bind({self, self.OnKey});
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
 UICamera.Begin = function(self, owner, goMgr)
-
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
@@ -51,12 +52,6 @@ UICamera.Begin = function(self, owner, goMgr)
 	self.TotalObjects = self.uiComp:GetTotalObjects();
 	self.TotalButtons = self.uiComp:GetTotalButtons();
 	
-	OnKeyEvent():Bind({self, self.OnKey});
-
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	
 	_G.CurrentButtonTouched = 1;
 
 	_G.FinalAnimationCount = 0;
@@ -64,16 +59,10 @@ end
 
 --Update called every tick
 UICamera.Update = function(self, dt, owner) 
-
-
-	
 	if(self.TotalObjects <=  _G.FinalAnimationCount) then
 		self.loadingState = _G.State;
-		
 		World.Get():PushStateEvent(false, self.loadingState);
 	end
-	
-	
 end
 
 --Method
@@ -89,7 +78,6 @@ UICamera.OnKey = function(self, key, state)
 		self.Backward = state;
 		
 		if(state == true) then
-			
 			if(_G.CurrentButtonTouched < self.TotalButtons) then
 				_G.CurrentButtonTouched = _G.CurrentButtonTouched + 1;
 			end
@@ -101,14 +89,18 @@ UICamera.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 end
 
-	
-
 UICamera.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
 	elseif(button == 2) then
 		self.RIGHTCLICK = state;
 	end
+end
+
+UICamera.OnDestruction = function(self)
+	OnMouseMotion():Unbind({self, self.OnMouseMotion});
+	OnMouseClick():Unbind({self, self.OnMouseClick});
+	OnKeyEvent():Unbind({self, self.OnKey});
 end
 
 return UICamera;

@@ -139,6 +139,15 @@ void Camera::SetCameraPosition(const Vector3& new_position)
 	m_position = new_position;
 }
 
+void  Camera::SetCameraRotation(const Matrix& transformation_mat)
+{
+	using namespace DirectX;
+
+	m_lookDir = transformation_mat.Forward();
+	m_upDir = transformation_mat.Up();
+	m_rightDir = transformation_mat.Right();
+}
+
 Vector3 Camera::GetCameraPosition() const
 {
 	return m_position;
@@ -169,17 +178,6 @@ void Camera::InitFromComponent()
 	m_rightDir.Normalize();
 	m_upDir = m_rightDir.Cross(m_lookDir);
 	m_upDir.Normalize();
-}
-
-void Camera::ApplyRotation(const Matrix& transformation_mat)
-{
-	using namespace DirectX;
-
-	m_lookDir = XMVector3Normalize(XMVector3TransformNormal(m_lookDir, transformation_mat));
-	m_upDir = XMVector3Normalize(XMVector3TransformNormal(m_upDir, transformation_mat));
-
-	m_rightDir = XMVector3Cross(m_lookDir, m_upDir);
-	m_upDir = XMVector3Cross(m_rightDir, m_lookDir);
 }
 
 void Camera::UpdateViewMatrix()

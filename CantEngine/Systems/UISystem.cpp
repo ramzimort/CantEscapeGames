@@ -28,21 +28,17 @@ void UISystem::Register_GameObject(GameObject *go)
 }
 void UISystem::EarlyUpdate(float dt)
 {
-	for (auto& node : m_ObjComponentsMap)
-	{
-		UICompNode* uiNode = static_cast<UICompNode*>(node.second);
-		UIComponent* uiComponent = uiNode->uiComp;
-		TransformComponent* transformComponent = uiNode->m_transform;
+	//for (auto& node : m_ObjComponentsMap)
+	//{
+	//	UICompNode* uiNode = static_cast<UICompNode*>(node.second);
+	//	UIComponent* uiComponent = uiNode->uiComp;
+	//	TransformComponent* transformComponent = uiNode->m_transform;
 
-		if (uiComponent->isTriggerd == true)
-		{
-			int test = 0;
-		}
-
-	}
-
-
-
+	//	if (uiComponent->isTriggerd == true)
+	//	{
+	//		int test = 0;
+	//	}
+	//}
 }
 
 void UISystem::RegisterAppRenderer(AppRenderer* appRenderer)

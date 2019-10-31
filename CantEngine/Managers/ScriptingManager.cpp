@@ -116,41 +116,81 @@ sol::table ScriptingManager::GetScriptDeepCopy(StringId scriptId)
 void ScriptingManager::ManageBindings()
 {
 	//////////////////////////////
+	////  Helpers             ////
+	//////////////////////////////
+
+	luaState.set_function("Localize", &GetLString);
+	luaState.set_function("Rotate", &MathUtil::RotateVector);
+
+#pragma region EVENTS
+	//////////////////////////////
 	////  MULTICAST           ////
 	//////////////////////////////
-	luaState["Localize"] = &GetLString;
-
 	luaState.new_usertype<Multicast<void(int, bool)>>
+		(
+			"KeyEventMulticast",
+			"Bind", &Multicast<void(int, bool)>::BindLuaFunction,
+			"Unbind", &Multicast<void(int, bool)>::UnbindLuaFunction
+			);
+
+	luaState.new_usertype<Multicast<void(Vector2, Vector2)>>
+		(
+			"MouseMotionMulticast",
+			"Bind", &Multicast<void(Vector2, Vector2)>::BindLuaFunction,
+			"Unbind", &Multicast<void(Vector2, Vector2)>::UnbindLuaFunction
+			);
+
+	luaState.new_usertype<Multicast<void(uint8_t, bool)>>
+		(
+			"MouseClickMulticast",
+			"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction,
+			"Unbind", &Multicast<void(uint8_t, bool)>::UnbindLuaFunction
+			);
+
+	luaState.new_usertype<Multicast<void(int32_t, int32_t)>>
+		(
+			"MouseScrollMulticast",
+			"Bind", &Multicast<void(Sint32, Sint32)>::BindLuaFunction,
+			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
+			);
+
+	luaState.new_usertype<Multicast<void(int, int)>>
+		(
+			"WindowSizeMulticast",
+			"Bind", &Multicast<void(int, int)>::BindLuaFunction,
+			"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
+			);
+
+
+	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
+	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
+	luaState.set_function("OnMouseScroll", &MouseScrollEvent::OnMouseScroll);
+	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
+	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
+	luaState.set_function("OnResourcesLoaded", &ResourcesLoadedEvent::OnResourcesLoaded);
+
+	//Solution so scripting can access stuff, even though the rest of the engine cant
+	luaState.new_usertype<EventManager>
 	(
-		"KeyEventMulticast",
-		"Bind", &Multicast<void(int, bool)>::BindLuaFunction,
-		"Unbind", &Multicast<void(int, bool)>::UnbindLuaFunction
-	);
-	
-	luaState.new_usertype< Multicast<void(Vector2, Vector2)>>
-	(
-		"MouseMotionMulticast",
-		"Bind", &Multicast<void(Vector2, Vector2 )>::BindLuaFunction,
-		"Unbind", &Multicast<void(Vector2, Vector2)>::UnbindLuaFunction
-	);
-	
-	luaState.new_usertype< Multicast<void(uint8_t, bool)>>
-	(
-		"MouseClickMulticast",
-		"Bind", &Multicast<void(uint8_t, bool)>::BindLuaFunction,
-		"Unbind", &Multicast<void(uint8_t, bool)>::UnbindLuaFunction
+			"EventManager",
+			"Get", &EventManager::Get,
+
+			// State Events
+			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+			
+			//Audio Events
+			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
 	);
 
-	luaState.new_usertype< Multicast<void(int, int)>>
-	(
-		"WindowSizeMulticast",
-		"Bind", &Multicast<void(int, int)>::BindLuaFunction,
-		"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
-	);
 
+
+#pragma endregion
 
 #pragma region SCANCODE
-	
 	luaState["SCANCODE"] = luaState.create_table_with(
 		"A", SDL_SCANCODE_A,
 		"B", SDL_SCANCODE_B,
@@ -205,31 +245,6 @@ void ScriptingManager::ManageBindings()
 		"ENTER", SDL_SCANCODE_RETURN
 		);
 #pragma endregion
-	
-#pragma region EVENTS
-	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
-	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
-	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
-	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
-
-
-	//Solution so scripting can access stuff, even though the rest of the engine cant
-	luaState.new_usertype<EventManager>
-		(
-			"EventManager",
-			"Get", &EventManager::Get,
-
-			// State Events
-			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool,const std::string>,
-			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool,const std::string>,
-			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
-
-			//Audio Events
-			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
-		);
-#pragma endregion
 
 #pragma region HELPERS
 	luaState.set_function("GetRotationMatrix", &MathUtil::GetRotationMatrix);
@@ -240,19 +255,6 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 	////  VECTORS & MATRICES  ////
 	//////////////////////////////
-	//luaState.new_usertype<std::wstring>
-	//	(
-	//		"wstring",
-	//		sol::constructors<std::wstring(), std::wstring(std::string()), Vector2(float x, float y), Vector2(const Vector2 & rhs) >(),
-	//		"x", &Vector2::x,
-	//		"y", &Vector2::y,
-	//		"dot", &Vector2::Dot,
-	//		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
-	//		sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
-	//		sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
-	//		sol::meta_function::multiplication, sol::resolve<Vector2(float, Vector2 const&)>(operator*),
-	//		sol::meta_function::multiplication, sol::resolve<Vector2(Vector2 const&, float)>(operator*)
-	//		);
 
 	luaState.new_usertype<Vector2>
 	(
@@ -318,25 +320,6 @@ void ScriptingManager::ManageBindings()
 	////////////////////
 	////  MANAGERS  ////
 	////////////////////
-
-	//Solution so scripting can access stuff, even though the rest of the engine cant
-	luaState.new_usertype<EventManager>
-	(
-		"World",
-		"Get", &EventManager::Get,
-		"PushStateEvent", &EventManager::EnqueueEvent<PushStateEvent, bool, const std::string&>,
-		"StateManager", &EventManager::m_pStateManager
-	);
-
-	//SYSTEM MANAGER
-	luaState.new_usertype<StateManager>
-	(
-		"StateManager",
-		"SwitchState", &StateManager::SwitchState,
-		"PushState", &StateManager::PushState,
-		"PopState", &StateManager::PopState
-	);
-
 	//SYSTEM MANAGER
 	luaState.new_usertype<SystemManager>
 	(
@@ -507,8 +490,7 @@ void ScriptingManager::ManageBindings()
 		"GetRight", &Camera::GetRight,
 		"SetCameraPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
-			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition)),
-		"ApplyRotation", &Camera::ApplyRotation
+			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition))
 	);
 
 	//PARTICLE_EMITTER

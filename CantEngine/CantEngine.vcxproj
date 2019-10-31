@@ -201,8 +201,6 @@
     <ClInclude Include="Events\Input\Input.h" />
     <ClInclude Include="Events\Input\JoystickEvent.h" />
     <ClInclude Include="Events\Input\KeyEvent.h" />
-    <ClInclude Include="Events\Input\MouseMotionEvent.h" />
-    <ClInclude Include="Events\Input\WindowFocusEvent.h" />
     <ClInclude Include="Events\Input\WindowSizeEvent.h" />
     <ClInclude Include="Events\Multicast.h" />
     <ClInclude Include="Factory\Factory.h" />

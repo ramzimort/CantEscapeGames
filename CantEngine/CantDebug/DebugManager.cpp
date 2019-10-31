@@ -16,7 +16,6 @@ namespace CantDebug
 	using namespace std;
 	template<typename T>
 	void WriteComponentOverride(T* component, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
-	void ReadOverrides(GameObject* go, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 
 	vector<Info> InitializeList(const std::string& name)
 	{

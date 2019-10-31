@@ -21,7 +21,9 @@
       "Assets\\Models\\Sphere.fbx",
       "Assets\\Models\\AnimTest01.fbx",
       "Assets\\Models\\TestStand.fbx",
-      "Assets\\Models\\TestWalk.fbx"
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\TestAttack.fbx",
+      "Assets\\Models\\TestIdle.fbx"
     ],
     "Materials": [
       "Assets\\Materials\\Material1.json",
@@ -55,10 +57,9 @@
       "Assets\\Prefabs\\ceramic_floor.json"
     ],
     "Scripts": [
+      "Scripts\\Components\\editor.lua",
       "Scripts\\States\\level1.lua",
       "Scripts\\States\\DebugPause.lua",
-      "Scripts\\Components\\test01Comp.lua",
-      "Scripts\\Components\\test02Comp.lua",
       "Scripts\\Components\\PlayerComp.lua",
       "Scripts\\Components\\fpscontroller.lua"
     ]
@@ -239,45 +240,6 @@
             "Position": [ 0.0, 5.0, 0.0 ],
             "LookDir": [ 0.0, -1.0, 0.1 ]
           }
-        }
-      }
-    },
-    {
-      "tag": "Go_Jose01",
-      "prefab": "Assets\\Prefabs\\TestGoJose.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -1.0, 0.5, 1.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 0.015, 0.015, 0.015 ]
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\AnimTest01.fbx"
-        },
-        "AnimationComponent": {
-          "StartingAnimation": "IdleAnim",
-          "Clips": [
-            {
-              "name": "AttackAnim",
-              "path": "Assets/Models/TestAttack.fbx",
-              "loops": false
-            },
-            {
-              "name": "StopAnim",
-              "path": "Assets\\Models\\TestStand.fbx",
-              "loops": true
-            },
-            {
-              "name": "WalkAnim",
-              "path": "Assets\\Models\\TestWalk.fbx",
-              "loops": true
-            },
-            {
-              "name": "IdleAnim",
-              "path": "Assets/Models/TestIdle.fbx",
-              "loops": true
-            }
-          ]
         }
       }
     }

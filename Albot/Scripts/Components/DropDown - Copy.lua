@@ -52,7 +52,9 @@ SlideScroller =
 
 --Init called when comp is created
 SlideScroller.Init = function(self)
-
+	OnKeyEvent():Bind({self, self.OnKey});
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
@@ -63,14 +65,7 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		return;
 	end
 	tag = owner:GetTag();
-	
-	OnKeyEvent():Bind({self, self.OnKey});
 
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	
-	
 -- DropDown Slider
 	
 	self.uiComp = owner:GetUiComp();
@@ -173,6 +168,7 @@ SlideScroller.Update = function(self, dt, owner)
 	end
 
 end
+
 --Method
 SlideScroller.OnKey = function(self, key, state)
 	if(SCANCODE.ENTER == key) then
@@ -191,4 +187,11 @@ SlideScroller.OnMouseClick = function(self, button, state)
 		self.RIGHTCLICK = state;
 	end
 end
+
+SlideScroller.OnDestruction = function(self, key, state)
+	OnKeyEvent():Unbind({self, self.OnKey});
+	OnMouseMotion():Unbind({self, self.OnMouseMotion});
+	OnMouseClick():Unbind({self, self.OnMouseClick});
+end
+
 return SlideScroller;

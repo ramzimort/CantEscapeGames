@@ -13,7 +13,6 @@ DropDown =
 	currentChildButtonSelected = 4;
 	ChildButtonsObj = {};
 
-	
 	-- DropDown Button Component
 	ButtonObj;
 	uiCompButton;
@@ -26,8 +25,6 @@ DropDown =
 	maxPosXButton;
 	maxPosYButton;
 	buttonEnabled = false;
-	
-	
 
 	-- Slide Scroller BackGround Component
 	DropDownBackgroundObj;
@@ -39,7 +36,6 @@ DropDown =
 	-- Child Button
 	InitalPostionChildButton = Vector3.new(-1000,-1000,0);
 	
-	
 	-- MOUSE
 	MousePositionX = 0;
 	MousePositionY = 0;
@@ -49,33 +45,24 @@ DropDown =
 	-- KEYBOARD
 	Up = false;
 	Down = false;	
-	
-	
 }
 
 --Init called when comp is created
 DropDown.Init = function(self)
-
+	OnKeyEvent():Bind({self, self.OnKey});
+	OnMouseMotion():Bind({self, self.OnMouseMotion});
+	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
 DropDown.Begin = function(self, owner, goMgr)
-
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
 	tag = owner:GetTag();
-	
-	OnKeyEvent():Bind({self, self.OnKey});
 
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	
-	
 -- DropDown 
-	
 	self.uiComp = owner:GetUiComp();
 	if (self.uiComp == nil) then 
 		OutputPrint("ERROR, UIComponent IS NIL\n");
@@ -150,7 +137,6 @@ DropDown.Begin = function(self, owner, goMgr)
 	self.positionDropDownBackGround = Vector3.new(self.uiAffineAnimationCompDropDownBackBackGround:GetFinalPosition());
 
 	-- Child Button
-
 	for count = 1,self.totalChildButtons,1 do 
 	
 			ChildButtonAddress = tag .. "ChildButton" .. tostring(count);
@@ -163,6 +149,7 @@ DropDown.Begin = function(self, owner, goMgr)
 		
 	end
 end
+
 --Update called every tick
 DropDown.Update = function(self, dt, owner) 
 
@@ -267,13 +254,12 @@ DropDown.Update = function(self, dt, owner)
 			
 		end
 	end
-
 end
+
 --Method
 DropDown.OnKey = function(self, key, state)
 	if(SCANCODE.ENTER == key) then
 		self.ENTER = state;
-		
 	end
 end
 DropDown.OnMouseMotion = function(self, position, deltaposition)
@@ -287,4 +273,11 @@ DropDown.OnMouseClick = function(self, button, state)
 		self.RIGHTCLICK = state;
 	end
 end
+
+DropDown.OnDestruction = function(self, key, state)
+	OnKeyEvent():Unbind({self, self.OnKey});
+	OnMouseMotion():Unbind({self, self.OnMouseMotion});
+	OnMouseClick():Unbind({self, self.OnMouseClick});
+end
+
 return DropDown;

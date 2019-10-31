@@ -18,8 +18,6 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 
-	Multicast<void(int)> OnButtonClick;
-
 	void IsTriggerd();
 	void IsNotTriggered();
 

@@ -25,6 +25,15 @@ CustomComponent::CustomComponent(GameObject *owner) :
 
 CustomComponent::~CustomComponent()
 {
+	try
+	{
+		m_luaScriptTable["OnDestruction"](m_luaScriptTable);
+	}
+	catch (const sol::error & e)
+	{
+		const char* errorName = e.what();
+		DEBUG_LOG(errorName); //TODO - erase this
+	}
 }
 
 

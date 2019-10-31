@@ -54,6 +54,11 @@ AffineAnimation.Init = function(self)
 
 end
 
+--Init called when comp is created
+AffineAnimation.OnDestruction = function(self)
+
+end
+
 --Begin called when obj has all comps
 AffineAnimation.Begin = function(self, owner, goMgr)
 

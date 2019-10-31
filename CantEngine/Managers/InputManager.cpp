@@ -96,6 +96,7 @@ void InputManager::Update()
 			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
 			break;
 		case SDL_MOUSEWHEEL:
+			EventManager::Get()->EnqueueEvent<MouseScrollEvent>(false, m_event.wheel.x, m_event.wheel.y);
 			break;
 		case SDL_MOUSEMOTION:
 		{

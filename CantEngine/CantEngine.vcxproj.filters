@@ -419,9 +419,6 @@
     <ClInclude Include="Events\Input\KeyEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Events\Input\WindowFocusEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Events\Input\WindowSizeEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -687,9 +684,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Directory\User.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\Input\MouseMotionEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Input\MouseClickEvent.h">
