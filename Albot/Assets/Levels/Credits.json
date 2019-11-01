@@ -1,0 +1,146 @@
+{
+  "Resources": {
+    "Textures": [
+	  "Assets\\Textures\\UI\\UIBackGroundImage.png",
+	  "Assets\\Textures\\UI\\SettingBase.png",
+	  "Assets\\Textures\\UI\\CloseButton.png",
+	  "Assets\\Textures\\UI\\CreditsText.png"
+	  
+	  
+    ],
+    "Models": [
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\plane.fbx"
+    ],
+    "Materials": [
+	  "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
+	  "Assets\\Materials\\UI\\SettingBaseMaterial.json",
+	  "Assets\\Materials\\UI\\CloseButtonMaterial.json",
+	  "Assets\\Materials\\UI\\CreditsTextMaterial.json"
+	   
+	   
+    ],
+    
+    "Prefabs": [
+      "Assets\\Prefabs\\Button.json",
+	  "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\UIObject.json"
+    ],
+    "Scripts": [
+      "Scripts\\States\\Credits.lua",
+      "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\Button.lua",
+	  "Scripts\\Components\\AffineAnimation.lua"
+    ],
+	"Songs": [
+
+    ],
+    "SFX": [
+
+    ]
+  },
+  "Objects": [
+    {
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 4,
+			"TotalButtons": 1
+		}
+      }
+    },
+	{
+      "tag": "UIBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  0, 0,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 0, 0,0],
+			"FinalPosition": [ 0, 0, 0],
+			"DeltaTime": 1.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SettingBase",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -1000, -1000,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 765, 679, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -1000, -1000,0],
+			"FinalPosition": [ 258, 20, 0],
+			"DeltaTime": 15.0,
+			"InitialRotation" : 100.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0			
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SettingBaseMaterial.json"
+		}		
+		
+      }
+    },
+    {
+      "tag": "CloseButton1",
+      "prefab": "Assets\\Prefabs\\Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 89, 81, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Menu.json",
+			"Location": 1			
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 954, 12, 0],
+			"DeltaTime": 15.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\CloseButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "CreditsText",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  1800, 300,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 509, 241, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 1800, 300,0],
+			"FinalPosition": [ 397, 222, 0],
+			"DeltaTime": 5.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\CreditsTextMaterial.json"
+		}		
+		
+      }
+    }
+    
+
+  ]
+}

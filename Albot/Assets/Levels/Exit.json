@@ -1,0 +1,178 @@
+{
+  "Resources": {
+    "Textures": [
+	  "Assets\\Textures\\UI\\UIBackGroundImage.png",
+	  "Assets\\Textures\\UI\\SettingBase.png",
+	  "Assets\\Textures\\UI\\YesButton.png",
+	  "Assets\\Textures\\UI\\NoButton.png",
+	  "Assets\\Textures\\UI\\ExitText.png"
+	  
+	  
+    ],
+    "Models": [
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\plane.fbx"
+    ],
+    "Materials": [
+	  "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
+	  "Assets\\Materials\\UI\\SettingBaseMaterial.json",
+	  "Assets\\Materials\\UI\\YesButtonMaterial.json",
+	  "Assets\\Materials\\UI\\NoButtonMaterial.json",
+	  "Assets\\Materials\\UI\\ExitTextMaterial.json"
+	   
+	   
+    ],
+    
+    "Prefabs": [
+      "Assets\\Prefabs\\Button.json",
+	  "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\UIObject.json"
+    ],
+    "Scripts": [
+      "Scripts\\States\\Exit.lua",
+      "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\Button.lua",
+	  "Scripts\\Components\\AffineAnimation.lua"
+    ],
+	"Songs": [
+
+    ],
+    "SFX": [
+
+    ]
+  },
+  "Objects": [
+    {
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 5,
+			"TotalButtons": 2
+		}
+      }
+    },
+	{
+      "tag": "UIBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  0, 0,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 0, 0,0],
+			"FinalPosition": [ 0, 0, 0],
+			"DeltaTime": 1.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SettingBase",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -1000, -1000,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 765, 679, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -1000, -1000,0],
+			"FinalPosition": [ 258, 20, 0],
+			"DeltaTime": 15.0,
+			"InitialRotation" : 100.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0			
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SettingBaseMaterial.json"
+		}		
+		
+      }
+    },
+    {
+      "tag": "YesButton1",
+      "prefab": "Assets\\Prefabs\\Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 79, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Menu.json",
+			"Location": 1			
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 321, 546, 0],
+			"DeltaTime": 15.0,
+			"InitialRotation" : 300.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0			
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\YesButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "NoButton1",
+      "prefab": "Assets\\Prefabs\\Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 79, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Menu.json",
+			"Location": 2			
+		},
+		"AffineAnimationComponent": {
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 671, 546, 0],
+			"DeltaTime": 15.0,
+			"InitialRotation" : 300.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0			
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\NoButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "ExitText",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  1800, 300,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 282, 230, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 1800, 300,0],
+			"FinalPosition": [ 508, 222, 0],
+			"DeltaTime": 5.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\ExitTextMaterial.json"
+		}		
+		
+      }
+    }
+    
+
+  ]
+}

@@ -1,16 +1,24 @@
 {
   "Resources": {
     "Textures": [
+	"Assets\\Textures\\UI\\Loading.png"
     ],
     "Models": [
+	 "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\plane.fbx"
     ],
     "Materials": [
+	"Assets\\Materials\\UI\\LoadingMaterial.json"
     ],
     "Scripts": [
       "Scripts\\States\\Loading.lua",
-      "Scripts\\States\\level1.lua"
+      "Scripts\\States\\level1.lua",
+	  "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\AffineAnimation.lua"
     ],
     "Prefabs": [
+	"Assets\\Prefabs\\UIObject.json",
+	"Assets\\Prefabs\\UIEmpty.json"
     ],
     "Songs": [
 
@@ -20,5 +28,36 @@
     ]
   },
     "Objects": [
+	{
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 1,
+			"TotalButtons": 0
+		}
+      }
+    },
+	{
+      "tag": "Loading",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  0, 0,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+
+		"AffineAnimationComponent": {
+			"InitialPosition": [ 0, 0,0],
+			"FinalPosition": [ 0, 0, 0],
+			"DeltaTime": 1.0 
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\LoadingMaterial.json"
+		}		
+		
+      }
+    }
     ]
 }

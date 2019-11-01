@@ -127,7 +127,7 @@ end
 Button.Update = function(self, dt, owner) 
 
 	
-	if( _G.PlayFinalAnimation == true) then
+	if( _G.PlayFinalAnimation == true or self.uiComp:GetFinalAnimationState() == true) then
 		self.uiComp:FinalAnimationEnabled();
 		self.enableButton = false;	
 	end
@@ -135,7 +135,7 @@ Button.Update = function(self, dt, owner)
 	
 	if(self.location == _G.CurrentButtonTouched) then
 		self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
-		if(self.ENTER == true or _G.PlayFinalAnimation == true) then
+		if(self.ENTER == true ) then
 			_G.State = self.NextStatePath;
 			self.uiComp:FinalAnimationEnabled();
 			self.enableButton = false;		
@@ -153,7 +153,8 @@ Button.Update = function(self, dt, owner)
 					_G.CurrentButtonTouched = self.location;
 					self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
 					if(self.LEFTCLICK == true) then
-						
+						self.LEFTCLICK = false;
+						OutputPrint("\n" .. self.NextStatePath);
 						self.uiComp:FinalAnimationEnabled();
 						self.enableButton = false;
 						_G.State = self.NextStatePath;

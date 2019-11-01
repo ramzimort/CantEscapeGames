@@ -283,8 +283,7 @@ SlideScroller.Update = function(self, dt, owner)
 						compare = self.position.x + self.scale.x ;
 						
 						if(self.positionSlider.x  < compare - self.scaleSlider.x- self.scaleSlider.x) then
-							OutputPrint("Reached\n" .. self.positionSlider.x);
-							OutputPrint("Reac\n" .. compare);
+							
 							self.positionSlider.x = self.positionSlider.x + 1.0;
 						else
 							self.positionSlider.x = compare - self.scaleSlider.x - self.scaleSlider.x;
@@ -295,11 +294,14 @@ SlideScroller.Update = function(self, dt, owner)
 			end
 		end
 	end
-	self.noramlizedValue = (self.positionSlider.x - self.position.x)/ (self.scale.x);
-	self.uiCompSlider:SetSliderValue(self.noramlizedValue);
-	self.uiTransformCompSlider:SetLocalPosition(self.positionSlider.x,self.positionSlider.y,self.positionSlider.z);
-	self.scaleGreenBackGround.x = self.positionSlider.x - self.position.x;
-	self.uiTransformCompGreenBackGround:Scale(self.scaleGreenBackGround);
+	if (_G.PlayFinalAnimation == false) then
+		self.noramlizedValue = (self.positionSlider.x - self.position.x)/ (self.scale.x);
+		self.uiCompSlider:SetSliderValue(self.noramlizedValue);
+		self.uiTransformCompSlider:SetLocalPosition(self.positionSlider.x,self.positionSlider.y,self.positionSlider.z);
+		self.scaleGreenBackGround.x = self.positionSlider.x - self.position.x;
+		self.uiTransformCompGreenBackGround:Scale(self.scaleGreenBackGround);
+	end
+	
 end
 --Method
 SlideScroller.OnKey = function(self, key, state)
