@@ -39,7 +39,10 @@ public:
 	// getters/setters
 	const Vector3& GetPosition() const;
 	const Aabb& GetAabb() const;
+
 	const Vector3& GetVelocity() const;
+	void SetVelocity(const Vector3& velocity);
+
 	const Vector3& GetAngularVelocity() const;
 
 	float GetMass() const;

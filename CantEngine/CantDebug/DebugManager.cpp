@@ -426,6 +426,7 @@ namespace CantDebug
 		auto rigidbdy = go->GetComponent<RigidbodyComponent>();
 		if (rigidbdy)
 		{
+			info.compName = "RigidBody"; info.propName = "Velocity"; info.data.vec3 = rigidbdy->GetVelocity(); info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "RigidBody"; info.propName = "Mass"; info.data.f = rigidbdy->GetMass(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
 		}
 		auto renderer = go->GetComponent<RendererComponent>();
@@ -570,6 +571,11 @@ namespace CantDebug
 		{
 			debugInfo.compName = it->compName;
 
+			rigidBody->SetVelocity(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -10.f; debugInfo.max = 10.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
 			rigidBody->SetMass(it->data.f);
 			debugInfo.propName = it->propName;
 			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 50.f;
@@ -601,6 +607,7 @@ namespace CantDebug
 		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
 		if (rigidBody)
 		{
+			it->data.vec3 = rigidBody->GetVelocity(); ++it;
 			it->data.f = rigidBody->GetMass(); ++it;
 		}
 		auto renderer = go->GetComponent<RendererComponent>();

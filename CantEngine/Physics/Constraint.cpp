@@ -215,9 +215,6 @@ void ContactManifold::KeepOnlyFourContacts()
 	float distanceSq2 = -FLT_MAX;
 	for (Contact& contact : m_contacts)
 	{
-		//PhysicsUtils::BarycentricCoordinates(closestPoint.m_CsoPoint, simplex[0].m_CsoPoint, simplex[1].m_CsoPoint, u, v);
-		//closestPoint.m_PointA = u * simplex[0].m_PointA + v * simplex[1].m_PointA;
-		//closestPoint.m_PointB = u * simplex[0].m_PointB + v * simplex[1].m_PointB;
 		float u, v;
 		PhysicsUtils::BarycentricCoordinates(contact.m_pA, deepest->m_pA, furthest1->m_pA , u, v);
 		const Vector3 closestPoint = u * deepest->m_pA + v * furthest1->m_pA;

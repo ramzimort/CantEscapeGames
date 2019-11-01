@@ -37,7 +37,7 @@ namespace PhysicsUtils
 		namespace Constraints
 		{
 			const int numGaussSeidelIterations = 10;
-			const float bias = 0.0f;                   // damping term for position
+			const float bias = 0.2f;                   // damping term for position
 			const float restitution = 0.4f;            // damping term for velocity
 			const float friction = 0.2f;               // friction coefficient
 		}

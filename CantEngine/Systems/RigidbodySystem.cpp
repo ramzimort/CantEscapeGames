@@ -120,8 +120,8 @@ void RigidbodySystem::LateUpdate(float dt)
 			{
 				DEBUG_LOG("RigidbodySystem::LateUpdate(): while updating aabb one or more of the following is a nullptr: rigidbody, mesh, transform.");
 			}
-#endif			
-			
+#endif		
+
 			if (!mesh->GetModel())
 			{
 				continue;
@@ -301,7 +301,6 @@ void RigidbodySystem::LateUpdate(float dt)
 			Vector3 force;
 			force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
 			
-		
 			if (rigidbody->m_inverseMass < PhysicsUtils::Consts::minMass)
 				continue;
 			// airdrag
@@ -362,9 +361,10 @@ void RigidbodySystem::LateUpdate(float dt)
 						if (j % 3 == 0) // normal constraints
 						{
 							float depth = constraints[j].m_depthPen;
-							const float slop = -0.005f; // penetration error
-							float bias = PhysicsUtils::Consts::Constraints::bias;
-							zeta = -bias * (depth + slop) / PhysicsUtils::Consts::fixedTimeStep;// +
+							const float slop = 0.008f; // penetration error
+							//float bias = PhysicsUtils::Consts::Constraints::bias;
+							float bias = 0.0f;
+							zeta = -bias * std::max((depth - slop), 0.0f) / PhysicsUtils::Consts::fixedTimeStep;// +
 								//PhysicsUtils::Consts::Constraints::restitution * JV; // TODO: add this when stable
 						}
 
