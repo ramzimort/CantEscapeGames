@@ -287,7 +287,6 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 		}
 
 		Buffer* obj_uniform_buffer = m_objectUniformBufferList[basicInstanceIndex];
-
 		m_objectUniformDataList[basicInstanceIndex] = {};
 		m_objectUniformDataList[basicInstanceIndex].ModelMat = inst_data.model_mat;
 		m_objectUniformDataList[basicInstanceIndex].InvModelMat = DirectX::XMMatrixInverse(nullptr, inst_data.model_mat);
@@ -318,7 +317,7 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
 
-			DescriptorData params[8] = {};
+			DescriptorData params[20] = {};
 			params[0].m_binding_location = 0;
 			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
@@ -344,36 +343,58 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
 			Texture* height_texture = cur_material_instance->GetHeightTexture();
+			Texture* specularTexture = cur_material_instance->GetSpecularTexture();
+			Texture* metallicTexture = cur_material_instance->GetMetallicTexture();
+			Texture* roughnessTexture = cur_material_instance->GetRoughnessTexture();
 
 			++material_index;
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
+				params[total_params_count].m_binding_location = 0;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &diffuse_texture;
 				++total_params_count;
-
-				params[4].m_binding_location = 0;
-				params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-				params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-				params[4].m_textures = &diffuse_texture;
-
-				if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0 || (mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
-				{
-					++total_params_count;
-					params[5].m_binding_location = 1;
-					params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-					params[5].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-					params[5].m_textures = &normal_texture;
-
-
-					if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
-					{
-						++total_params_count;
-						params[6].m_binding_location = 2;
-						params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-						params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-						params[6].m_textures = &height_texture;
-					}
-
-				}
+			}
+			if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 1;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &normal_texture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 2;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &height_texture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_SPECULAR_TEXUTERE) != 0)
+			{
+				params[total_params_count].m_binding_location = 3;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &specularTexture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_METALLIC_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 4;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &metallicTexture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_ROUGHNESS_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 5;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &roughnessTexture;
+				++total_params_count;
 			}
 
 			m_dxrenderer->cmd_bind_descriptor(pipeline, total_params_count, params);
@@ -459,7 +480,7 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
 
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
-			DescriptorData params[8] = {};
+			DescriptorData params[20] = {};
 			params[0].m_binding_location = 0;
 			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
@@ -474,7 +495,6 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
 			params[2].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
-
 
 			params[3].m_binding_location = 3;
 			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
@@ -491,41 +511,61 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
 			Texture* height_texture = cur_material_instance->GetHeightTexture();
+			Texture* specularTexture = cur_material_instance->GetSpecularTexture();
+			Texture* metallicTexture = cur_material_instance->GetMetallicTexture();
+			Texture* roughnessTexture = cur_material_instance->GetRoughnessTexture();
 
 			++material_index;
 			if ((mat_id & (uint32_t)MAT_ID_DIFFUSE_TEXTURE) != 0)
 			{
+				params[total_params_count].m_binding_location = 0;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &diffuse_texture;
 				++total_params_count;
-
-				params[5].m_binding_location = 0;
-				params[5].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-				params[5].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-				params[5].m_textures = &diffuse_texture;
-
-				if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0 || (mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
-				{
-					++total_params_count;
-					params[6].m_binding_location = 1;
-					params[6].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-					params[6].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-					params[6].m_textures = &normal_texture;
-
-
-					if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
-					{
-						++total_params_count;
-						params[7].m_binding_location = 2;
-						params[7].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
-						params[7].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-						params[7].m_textures = &height_texture;
-					}
-
-				}
+			}
+			if ((mat_id & (uint32_t)MAT_ID_NORMAL_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 1;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &normal_texture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_PARALLAX_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 2;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &height_texture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_SPECULAR_TEXUTERE) != 0)
+			{
+				params[total_params_count].m_binding_location = 3;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &specularTexture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_METALLIC_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 4;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &metallicTexture;
+				++total_params_count;
+			}
+			if ((mat_id & (uint32_t)MAT_ID_ROUGHNESS_TEXTURE) != 0)
+			{
+				params[total_params_count].m_binding_location = 5;
+				params[total_params_count].m_descriptor_type = DescriptorType::DESCRIPTOR_TEXTURE;
+				params[total_params_count].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+				params[total_params_count].m_textures = &roughnessTexture;
+				++total_params_count;
 			}
 
-
 			m_dxrenderer->cmd_bind_descriptor(pipeline, total_params_count, params);
-
 			if (meshes_list.size() <= 0)
 			{
 				m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);

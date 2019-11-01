@@ -1,0 +1,9 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
+  "Metallic_Texture_Dir": "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ]
+}

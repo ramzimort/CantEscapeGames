@@ -118,7 +118,7 @@ void ResourceManager::LoadModel(const std::string& filePath)
 
 	Model* model = nullptr;
 	Assimp::Importer importer;
-	aiScene const *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords);
+	aiScene const *scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals | aiProcess_GenUVCoords | aiProcess_CalcTangentSpace);
 	// | aiProcess_FixInfacingNormals);// | aiProcess_GenNormals );
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -172,17 +172,26 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 	{
 		material->m_pDiffuseTexture = GetTexture(material->m_diffuseTextureId);
 	}
-
 	if ( !(material->m_normalTextureId == "") )
 	{
 		material->m_pNormalTexture = GetTexture(material->m_normalTextureId);
 	}
-
 	if (!(material->m_heightTextureId == ""))
 	{
 		material->m_pHeightTexture = GetTexture(material->m_heightTextureId);
 	}
-
+	if (!(material->m_specularTextureId == ""))
+	{
+		material->m_pSpecularTexture = GetTexture(material->m_specularTextureId);
+	}
+	if (!(material->m_metallicTextureId == ""))
+	{
+		material->m_pMetallicTexture = GetTexture(material->m_metallicTextureId);
+	}
+	if (!(material->m_roughnessTextureId == ""))
+	{
+		material->m_pRoughnessTexture = GetTexture(material->m_roughnessTextureId);
+	}
 	ResPtr p; p.p_material = material;
 	Resource res(MATERIAL, p);
 	m_resources[id] = res;
@@ -413,15 +422,25 @@ void ResourceManager::ReloadResources()
 			{
 				material->m_pDiffuseTexture = GetTexture(material->m_diffuseTextureId);
 			}
-
 			if (!(material->m_normalTextureId == ""))
 			{
 				material->m_pNormalTexture = GetTexture(material->m_normalTextureId);
 			}
-
 			if (!(material->m_heightTextureId == ""))
 			{
 				material->m_pHeightTexture = GetTexture(material->m_heightTextureId);
+			}
+			if (!(material->m_specularTextureId == ""))
+			{
+				material->m_pSpecularTexture = GetTexture(material->m_specularTextureId);
+			}
+			if (!(material->m_metallicTextureId == ""))
+			{
+				material->m_pMetallicTexture = GetTexture(material->m_metallicTextureId);
+			}
+			if (!(material->m_roughnessTextureId == ""))
+			{
+				material->m_pRoughnessTexture = GetTexture(material->m_roughnessTextureId);
 			}
 			p.p_material = material;
 			break;

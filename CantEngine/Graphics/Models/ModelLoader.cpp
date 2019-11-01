@@ -13,60 +13,6 @@ ModelLoader::~ModelLoader()
 }
 
 
-void ModelLoader::InitCommonModel(DXRenderer* dxrenderer)
-{
-	float quad_vertices[] = 
-	{
-		// positions          // texture coords
-		 0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
-		 0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,   0.0f, 1.0f    // top left 
-	};
-
-	unsigned int quad_indices[] = 
-	{  // note that we start from 0!
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
-
-
-	Model* quad_model = new Model();
-
-	quad_model->m_vertices.push_back(VertexData(Vector3(0.5f, 0.5f, 0.0f), Vector3(),  Vector2(1.0f, 0.0f)));
-	quad_model->m_vertices.push_back(VertexData(Vector3(0.5f, -0.5f, 0.0f), Vector3(), Vector2(1.0f, 1.0f)));
-	quad_model->m_vertices.push_back(VertexData(Vector3(-0.5f, -0.5f, 0.0f), Vector3(), Vector2(0.0f, 1.0f)));
-	quad_model->m_vertices.push_back(VertexData(Vector3(-0.5f, 0.5f, 0.0f), Vector3(), Vector2(0.0f, 0.0f)));
-	
-	quad_model->m_triangle_indices.push_back(Model::Triangle{ 0, 1, 3 });
-	quad_model->m_triangle_indices.push_back(Model::Triangle{ 1, 2, 3 });
-
-	quad_model->InitBuffer(dxrenderer);
-
-
-	Model* plane_model = new Model();
-
-	plane_model->m_vertices.push_back(VertexData(Vector3(-1.f, 1.f, 0.1f), Vector3(0.f, 0.f, 1.f), Vector2(0.0f, 1.0f)));
-	plane_model->m_vertices.push_back(VertexData(Vector3(-1.f, -1.f, 0.1f), Vector3(0.f, 0.f, 1.f), Vector2(0.0f, 0.0f)));
-	plane_model->m_vertices.push_back(VertexData(Vector3(1.f, -1.f, 0.1f), Vector3(0.f, 0.f, 1.f), Vector2(1.0f, 0.0f)));
-	plane_model->m_vertices.push_back(VertexData(Vector3(1.f, 1.f, 0.1f), Vector3(0.f, 0.f, 1.f), Vector2(1.0f, 1.0f)));
-
-	plane_model->m_triangle_indices.push_back(Model::Triangle{ 0, 1, 3 });
-	plane_model->m_triangle_indices.push_back(Model::Triangle{ 1, 2, 3 });
-
-
-	ModelLoader::CalculateModelTangents(*plane_model);
-
-
-	plane_model->InitBuffer(dxrenderer);
-
-
-
-	//TODO:
-	//World::Get()->get_resource_manager()->store_model(quad_model, "Quad");
-	//World::Get()->get_resource_manager()->store_model(plane_model, "Plane");
-}
-
 void ModelLoader::LoadModel( Model* model, aiScene const *scene,DXRenderer* dxrenderer)
 {
 	uint32_t totalVertexCount = 0;
@@ -95,9 +41,6 @@ void ModelLoader::ProcessNode(aiNode *node, const aiScene *scene, Model& model,
 		ProcessNode(child, scene, model, totalVertexCount, totalIndexCount, textured_model);
 	}
 }
-
-
-
 
 void ModelLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, Model& model, 
 	uint32_t& totalVertexCount, uint32_t& totalIndexCount, bool textured_model)

@@ -13,7 +13,7 @@ public:
 	ModelLoader();
 	~ModelLoader();
 	
-	static void InitCommonModel(DXRenderer* dxrenderer);
+	
 	static void LoadModel(Model* model, aiScene const *scene, DXRenderer* dxrenderer);
 	static void CalculateModelTangents(Model& model);
 

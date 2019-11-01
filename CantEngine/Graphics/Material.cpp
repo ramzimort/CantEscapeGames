@@ -31,7 +31,7 @@ Material::Material() :
 	m_specularTextureId(""),
 	m_roughnessTextureId(""),
 	m_metallicTextureId(""),
-	m_metallicValue(0.2f),
+	m_metallicValue(0.1f),
 	m_roughnessValue(0.5f)
 {
 }
@@ -101,6 +101,7 @@ Texture* Material::GetMetallicTexture() const
 {
 	return m_pMetallicTexture;
 }
+
 Texture* Material::GetRoughnessTexture() const
 {
 	return m_pRoughnessTexture;
