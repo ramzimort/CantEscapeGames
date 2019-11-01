@@ -613,8 +613,8 @@ void AppRenderer::UpdateAppRenderer(float dt)
 	m_gameTime += dt;
 
 	DEBUG_CHECKBOX("Draw Mesh", &GraphicsSettings::Draw_Mesh_Flag);
-	DEBUG_CHECKBOX("Draw Dynamic AABB Tree", &GraphicsSettings::Draw_Dynamic_AABB_Tree);
 	DEBUG_CHECKBOX("Draw Debug Sphere", &GraphicsSettings::Draw_Debug_Mesh_Sphere_Flag);
+	DEBUG_CHECKBOX("Draw Dynamic AABB Tree", &GraphicsSettings::Draw_Dynamic_AABB_Tree);
 	DEBUG_CHECKBOX("Draw Contact Points", &PhysicsUtils::Settings::isDrawContactPoints);
 
 	size_t direction_light_num = m_directionLightInstanceList.size();

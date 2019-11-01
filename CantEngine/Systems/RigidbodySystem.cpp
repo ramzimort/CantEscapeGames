@@ -31,6 +31,8 @@ RigidbodySystem::RigidbodySystem() :
 	EventManager::Get()->SubscribeEvent<KeyEvent>(this,
 		std::bind(&RigidbodySystem::OnKeyDown, this, std::placeholders::_1));
 #endif
+	EventManager::Get()->SubscribeEvent<GameObjectDestroyed>(this,
+		std::bind(&RigidbodySystem::OnObjectDeleted, this, std::placeholders::_1));
 }
 
 RigidbodySystem::~RigidbodySystem()
@@ -38,6 +40,7 @@ RigidbodySystem::~RigidbodySystem()
 #ifdef DEVELOPER
 	EventManager::Get()->UnsubscribeEvent<KeyEvent>(this);
 #endif
+	EventManager::Get()->UnsubscribeEvent<GameObjectDestroyed>(this);
 }
 
 
@@ -524,3 +527,9 @@ void RigidbodySystem::RemoveCollision(const Contact& collision)
 	}
 }
 
+void RigidbodySystem::OnObjectDeleted(const GameObjectDestroyed* e)
+{
+	RigidbodyComponent* rigidbody = e->m_pGameObject->GetComponent<RigidbodyComponent>();
+	if (rigidbody)
+		m_broadPhase.RemoveData(rigidbody->m_dynamicAabbTreeKey);
+}

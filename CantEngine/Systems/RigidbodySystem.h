@@ -76,6 +76,8 @@ private:
 	void ProcessCollision(Contact& collision);
 	void RemoveCollision(const Contact& collision);
 
+	void OnObjectDeleted(const GameObjectDestroyed* e);
+
 #ifdef DEVELOPER
 	bool m_isPaused;
 	bool m_isAdvanceOneStep;
