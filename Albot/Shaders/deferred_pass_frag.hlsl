@@ -3,6 +3,9 @@
 Texture2D<float4> Diffuse_Texture : register(t0);
 Texture2D<float4> Normal_Texture : register(t1);
 Texture2D<float> Height_Texture : register(t2);
+Texture2D<float4> Specular_Texture : register(t3);
+Texture2D<float> Metallic_Texture : register(t4);
+Texture2D<float> Roughness_Texture : register(t5);
 
 SamplerState Texture_Sampler : register(s0);
 
@@ -95,6 +98,10 @@ PS_OUT main(PS_IN ps_in)
 
     int mat_type = (int) (MaterialUniformData_Buffer.MaterialMiscData.w);
 
+    float material_roughness = MaterialUniformData_Buffer.MaterialMiscData2.x;
+    float material_metallic = MaterialUniformData_Buffer.MaterialMiscData2.y;
+    float material_specular_color = MaterialUniformData_Buffer.SpecularColor.xyz;
+
     if ((mat_type & MAT_ID_PARALLAX_TEXTURE) != 0)
     {
         UV = CalculateParallaxUV(UV, normalize(ps_in.CameraViewTangent));
@@ -114,13 +121,23 @@ PS_OUT main(PS_IN ps_in)
     {
         material_diffuse_color = Diffuse_Texture.Sample(Texture_Sampler, UV).rgb;
     }
+    if ((mat_type & MAT_ID_SPECULAR_TEXUTERE) != 0)
+    {
+        material_specular_color = Specular_Texture.Sample(Texture_Sampler, UV).rgb;
+    }
+    if ((mat_type & MAT_ID_METALLIC_TEXTURE) != 0)
+    {
+        material_metallic = Metallic_Texture.Sample(Texture_Sampler, UV).r;
+    }
+    if ((mat_type & MAT_ID_ROUGHNESS_TEXTURE) != 0)
+    {
+        material_roughness = Roughness_Texture.Sample(Texture_Sampler, UV).r;
+    }
     
-    //ps_out.WorldPosition = float4(ps_in.WorldPosition, 1.0);
     ps_out.WorldNormal = float4(world_normal, 1.0);
     ps_out.Albedo = float4(material_diffuse_color.rgb, 1.0);
-    //ps_out.Albedo = float4(UV.rg, 0.0, 1.0);
-    ps_out.MaterialProperty.x = MaterialUniformData_Buffer.MaterialMiscData2.x;
-    ps_out.MaterialProperty.y = MaterialUniformData_Buffer.MaterialMiscData2.y;
+    ps_out.MaterialProperty.x = material_roughness;
+    ps_out.MaterialProperty.y = material_metallic;
     ps_out.MaterialProperty.zw = float2(0.f, 0.f);
     ps_out.Specular = float4(MaterialUniformData_Buffer.SpecularColor.xyz, 1.0);
     ps_out.StructureBuffer = CalculateStructureBuffer(ps_in.CameraSpacePosition.z);

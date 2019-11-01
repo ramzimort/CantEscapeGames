@@ -21,6 +21,9 @@ public:
 	Texture* GetDiffuseTexture() const;
 	Texture* GetNormalTexture()const ;
 	Texture* GetHeightTexture()const;
+	Texture* GetSpecularTexture() const;
+	Texture* GetMetallicTexture() const;
+	Texture* GetRoughnessTexture() const;
 	Vector4 GetDiffuseColor() const;
 	Vector4 GetSpecularColor() const;
 	float GetMetallicValue() const;
@@ -32,10 +35,16 @@ private:
 	Texture* m_pDiffuseTexture;
 	Texture* m_pNormalTexture;
 	Texture* m_pHeightTexture;
+	Texture* m_pSpecularTexture;
+	Texture* m_pMetallicTexture;
+	Texture* m_pRoughnessTexture;
 	StringId m_materialId;
 	StringId m_diffuseTextureId;
 	StringId m_normalTextureId;
 	StringId m_heightTextureId;
+	StringId m_specularTextureId;
+	StringId m_metallicTextureId;
+	StringId m_roughnessTextureId;
 	float m_metallicValue;
 	float m_roughnessValue;
 

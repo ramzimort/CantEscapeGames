@@ -9,12 +9,11 @@ RTTR_REGISTRATION
 		.property("Diffuse_Texture_Dir", &Material::m_diffuseTextureId)
 		.property("Normal_Texture_Dir", &Material::m_normalTextureId)
 		.property("Height_Texture_Dir", &Material::m_heightTextureId)
+		.property("Specular_Texture_Dir", &Material::m_specularTextureId)
+		.property("Metallic_Texture_Dir", &Material::m_metallicTextureId)
+		.property("Roughness_Texture_Dir", &Material::m_roughnessTextureId)
 		.property("Metallic_Value", &Material::m_metallicValue)
 		.property("Roughness_Value", &Material::m_roughnessValue)
-		//.property("MaterialId", &Material::m_materialId)
-		//.property("Diffuse_Texture", &Material::m_pDiffuseTexture)
-		//.property("Normal_Texture", &Material::m_pNormalTexture)
-		//.property("Height_Texture", &Material::m_pHeightTexture)
 		.method("Init", &Material::Init);
 }
 
@@ -22,12 +21,18 @@ Material::Material() :
 	m_pDiffuseTexture(nullptr),
 	m_pNormalTexture(nullptr),
 	m_pHeightTexture(nullptr),
+	m_pSpecularTexture(nullptr),
+	m_pRoughnessTexture(nullptr),
+	m_pMetallicTexture(nullptr),
 	m_materialId(""),
 	m_diffuseTextureId(""),
 	m_normalTextureId(""),
 	m_heightTextureId(""),
-	m_metallicValue(0.5),
-	m_roughnessValue(0.5)
+	m_specularTextureId(""),
+	m_roughnessTextureId(""),
+	m_metallicTextureId(""),
+	m_metallicValue(0.2f),
+	m_roughnessValue(0.5f)
 {
 }
 
@@ -45,12 +50,11 @@ void Material::Init()
 uint32_t Material::GetShaderMaterialType() const
 {
 	uint32_t materialID = (uint32_t)MAT_ID_COLOR;
-
 	if (m_pHeightTexture)
 	{
 		materialID |= (uint32_t)MAT_ID_PARALLAX_TEXTURE;
 	}
-	if (m_pDiffuseTexture && m_pNormalTexture)
+	if (m_pNormalTexture)
 	{
 		materialID |= (uint32_t)MAT_ID_NORMAL_TEXTURE;
 	}
@@ -58,7 +62,18 @@ uint32_t Material::GetShaderMaterialType() const
 	{
 		materialID |= (uint32_t)MAT_ID_DIFFUSE_TEXTURE;
 	}
-
+	if (m_pSpecularTexture)
+	{
+		materialID |= (uint32_t)MAT_ID_SPECULAR_TEXUTERE;
+	}
+	if (m_pRoughnessTexture)
+	{
+		materialID |= (uint32_t)MAT_ID_ROUGHNESS_TEXTURE;
+	}
+	if (m_pMetallicTexture)
+	{
+		materialID |= (uint32_t)MAT_ID_METALLIC_TEXTURE;
+	}
 	return materialID;
 }
 
@@ -75,6 +90,20 @@ Texture* Material::GetNormalTexture() const
 Texture* Material::GetHeightTexture() const
 {
 	return m_pHeightTexture;
+}
+
+Texture* Material::GetSpecularTexture() const
+{
+	return m_pSpecularTexture;
+}
+
+Texture* Material::GetMetallicTexture() const
+{
+	return m_pMetallicTexture;
+}
+Texture* Material::GetRoughnessTexture() const
+{
+	return m_pRoughnessTexture;
 }
 
 Vector4 Material::GetDiffuseColor() const

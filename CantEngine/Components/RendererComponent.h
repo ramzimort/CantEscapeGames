@@ -13,6 +13,8 @@ Primary Author:
 #include "BaseComponent.h"
 #include "Helper/Hash.h"
 
+#define MAX_RENDERER_MATERIAL_COUNT 50
+
 class Material;
 class GameObject;
 class GameObjectManager;
@@ -34,19 +36,21 @@ public:
 	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	virtual void Begin(GameObjectManager *goMgr) override;
 
-	//TEMP FUNCTION:
-	//Added by albert, there should not be a public function to set material
-	//TODO
-	void SetMaterial(Material* material);
+	
 	void SetXTileFactor(float x_factor);
 	void SetYTileFactor(float y_factor);
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
-
 private:
+	//this is our main/default material
 	StringId m_materialId;
 	Material* m_pMaterial;
+
+	StringId m_meshInstancesMaterialIDList[MAX_RENDERER_MATERIAL_COUNT] = {StringId("")};
+	Material* m_pMeshInstancesMaterialList[MAX_RENDERER_MATERIAL_COUNT] = {NULL};
+	bool m_overrideLoadedModelMaterial;
+
 	float m_xTileFactor;
 	float m_yTileFactor;
 

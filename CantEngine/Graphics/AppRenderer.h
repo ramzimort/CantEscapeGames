@@ -1,12 +1,9 @@
 #pragma once
-
-#include <vector>
-#include "D3D11_Renderer.h"
-#include "Renderer_Includes.h"
-#include "Light.h"
+#include "Graphics/D3D11_Renderer.h"
+#include "Graphics/Renderer_Includes.h"
+#include "Graphics/Light.h"
 #include "Graphics/DebugRendering/DebugRendering.h"
 #include "Graphics/Deferred/DeferredRendering.h"
-#include "Shaders/Shading.h"
 #include "Graphics/Shadows/MomentShadowMapRendering.h"
 #include "Graphics/PostEffects/MSAAResolvePass.h"
 #include "Graphics/Particles/ParticleRendering.h"
@@ -16,7 +13,7 @@
 #include "Graphics/IBL/IBLFilterEnvMapPass.h"
 #include "Graphics/IBL/BRDFLookupTexturePass.h"
 #include "Graphics/UI_Rendering/UIObjectRendering.h"
-
+#include "Shaders/Shading.h"
 
 class Material;
 class Model;
@@ -197,6 +194,7 @@ private:
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
 	std::vector<MaterialUniformData> m_material_uniform_data_list;
+	std::vector<Material*> m_materialReferenceList;
 	BufferList m_material_uniform_buffer_list;
 
 	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;

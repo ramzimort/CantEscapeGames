@@ -242,7 +242,7 @@ void ResourceManager::FreeAll()
 	m_resources.clear();
 }
 
-// Returns null if surface does not exist
+
 void ResourceManager::LoadTexture(const std::string& filePath)
 {
 	std::lock_guard<std::mutex> lock(m_dxrenderer->m_mutex);

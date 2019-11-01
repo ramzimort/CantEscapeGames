@@ -314,17 +314,8 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 		++basicInstanceIndex;
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
-
-			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
-
-			//sometimes despite having multiple child of mesh instance it may still not have its own material
-			if (!cur_material_instance)
-			{
-				cur_material_instance = p_ref_material;
-			}
-
+			Material* cur_material_instance = m_appRenderer->m_materialReferenceList[material_index];
 			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
-
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
 
 			DescriptorData params[8] = {};
@@ -385,9 +376,7 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 				}
 			}
 
-
 			m_dxrenderer->cmd_bind_descriptor(pipeline, total_params_count, params);
-
 			if (meshes_list.size() <= 0)
 			{
 				m_dxrenderer->cmd_draw_index(p_ref_model->GetIndexTotalCount(), 0, 0);
@@ -466,19 +455,10 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
-
-			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
-
-			//sometimes despite having multiple child of mesh instance it may still not have its own material
-			if (!cur_material_instance)
-			{
-				cur_material_instance = p_ref_material;
-			}
-
+			Material* cur_material_instance = m_appRenderer->m_materialReferenceList[material_index];
 			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
 
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
-
 			DescriptorData params[8] = {};
 			params[0].m_binding_location = 0;
 			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;

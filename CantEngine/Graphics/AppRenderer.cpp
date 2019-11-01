@@ -52,7 +52,6 @@ void AppRenderer::InnerLoadContent()
 	less_equal_depth_state_desc.m_depth_write_mask = DepthWriteMask::WRITE_DEPTH;
 	less_equal_depth_state_desc.m_stencil_enable = false;
 	less_equal_depth_state_desc.m_depth_compare_func = CompareFunc::CMP_LEQUAL;
-
 	m_less_equal_depth_state = DXResourceLoader::Create_DepthState(m_dxrenderer, less_equal_depth_state_desc);
 
 	DepthStateDesc testonlyLessEqualDepthStateDesc = {};
@@ -60,7 +59,6 @@ void AppRenderer::InnerLoadContent()
 	testonlyLessEqualDepthStateDesc.m_depth_write_mask = DepthWriteMask::DONT_WRITE_DEPTH;
 	testonlyLessEqualDepthStateDesc.m_stencil_enable = false;
 	testonlyLessEqualDepthStateDesc.m_depth_compare_func = CompareFunc::CMP_LEQUAL;
-
 	m_testonlyLessEqualDepthState = DXResourceLoader::Create_DepthState(m_dxrenderer, testonlyLessEqualDepthStateDesc);
 
 
@@ -69,7 +67,6 @@ void AppRenderer::InnerLoadContent()
 	disabled_depth_state_desc.m_depth_write_mask = DepthWriteMask::DONT_WRITE_DEPTH;
 	disabled_depth_state_desc.m_stencil_enable = false;
 	disabled_depth_state_desc.m_depth_compare_func = CompareFunc::CMP_NEVER;
-
 	m_disabled_depth_state = DXResourceLoader::Create_DepthState(m_dxrenderer, disabled_depth_state_desc);
 
 	
@@ -77,19 +74,16 @@ void AppRenderer::InnerLoadContent()
 	RasterizerStateDesc cull_none_state_desc = {};
 	cull_none_state_desc.m_cull_mode = CullMode::NONE;
 	cull_none_state_desc.m_fill_mode = FillMode::SOLID;
-
 	m_cull_none_rasterizer_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_none_state_desc);
 
 	RasterizerStateDesc cull_front_state_desc = {};
 	cull_front_state_desc.m_cull_mode = CullMode::FRONT;
 	cull_front_state_desc.m_fill_mode = FillMode::SOLID;
-
 	m_cull_front_rasterizer_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_front_state_desc);
 
 	RasterizerStateDesc cull_back_state_desc = {};
 	cull_back_state_desc.m_cull_mode = CullMode::BACK;
 	cull_back_state_desc.m_fill_mode = FillMode::SOLID;
-
 	m_cull_back_rasterizer_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_back_state_desc);
 
 
@@ -97,28 +91,24 @@ void AppRenderer::InnerLoadContent()
 	cull_none_state_ms_desc.m_cull_mode = CullMode::NONE;
 	cull_none_state_ms_desc.m_fill_mode = FillMode::SOLID;
 	cull_none_state_ms_desc.m_multiSample = true;
-
 	m_cull_none_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_none_state_ms_desc);
 
 	RasterizerStateDesc cull_front_state_ms_desc = {};
 	cull_front_state_ms_desc.m_cull_mode = CullMode::FRONT;
 	cull_front_state_ms_desc.m_fill_mode = FillMode::SOLID;
 	cull_front_state_ms_desc.m_multiSample = true;
-
 	m_cull_front_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_front_state_ms_desc);
 
 	RasterizerStateDesc cull_back_state_ms_desc = {};
 	cull_back_state_ms_desc.m_cull_mode = CullMode::BACK;
 	cull_back_state_ms_desc.m_fill_mode = FillMode::SOLID;
 	cull_back_state_ms_desc.m_multiSample = true;
-
 	m_cull_back_rasterizer_ms_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_back_state_ms_desc);
 
 
 	RasterizerStateDesc cull_none_wireframe_state_desc = {};
 	cull_none_wireframe_state_desc.m_cull_mode = CullMode::NONE;
 	cull_none_wireframe_state_desc.m_fill_mode = FillMode::WIREFRAME;
-
 	m_cull_none_wireframe_state = DXResourceLoader::Create_RasterizerState(m_dxrenderer, cull_none_wireframe_state_desc);
 
 
@@ -131,21 +121,16 @@ void AppRenderer::InnerLoadContent()
 	one_zero_add_blend_state_desc.m_blendAlphaOperator[0] = BlendOperator::BO_ADD;
 	one_zero_add_blend_state_desc.m_blendStateTarget = BlendStateTargets::BLEND_STATE_RT_0;
 	one_zero_add_blend_state_desc.m_individualBlend = false;
-
 	m_blend_state_one_zero_add = DXResourceLoader::Create_BlendState(m_dxrenderer, one_zero_add_blend_state_desc);
 
 
 	BlendStateDesc blend_state_skybox_desc = {};
 	blend_state_skybox_desc.m_blendOperator[0] = BO_ADD;
 	blend_state_skybox_desc.m_blendAlphaOperator[0] = BO_ADD;
-
 	blend_state_skybox_desc.m_srcFactors[0] = BF_ONE_MINUS_DST_ALPHA;
 	blend_state_skybox_desc.m_dstFactors[0] = BF_DST_ALPHA;
-
 	blend_state_skybox_desc.m_srcAlphaFactors[0] = BF_ZERO;
 	blend_state_skybox_desc.m_dstAlphaFactors[0] = BF_ONE;
-
-	//blend_state_skybox_desc.mMasks[0] = ALL;
 	blend_state_skybox_desc.m_blendStateTarget = BLEND_STATE_RT_0;
 	blend_state_skybox_desc.m_individualBlend = false;
 	m_skybox_blend_state = DXResourceLoader::Create_BlendState(m_dxrenderer, blend_state_skybox_desc);
@@ -185,7 +170,6 @@ void AppRenderer::InnerLoadContent()
 	clamp_linear_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
 	clamp_linear_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
 	clamp_linear_sampler_desc.m_max_aniso = 0.f;
-
 	m_clamp_linear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, clamp_linear_sampler_desc);
 
 
@@ -197,7 +181,6 @@ void AppRenderer::InnerLoadContent()
 	repeat_linear_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
 	repeat_linear_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
 	repeat_linear_sampler_desc.m_max_aniso = 0.f;
-
 	m_repeat_linear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, repeat_linear_sampler_desc);
 
 
@@ -209,7 +192,6 @@ void AppRenderer::InnerLoadContent()
 	clamp_trillinear_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
 	clamp_trillinear_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_LINEAR;
 	clamp_trillinear_sampler_desc.m_max_aniso = 0.f;
-
 	m_trillinear_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, clamp_trillinear_sampler_desc);
 
 	SamplerDesc texture_sampler_desc = {};
@@ -220,7 +202,6 @@ void AppRenderer::InnerLoadContent()
 	texture_sampler_desc.m_mag_filter = SamplerFilterType::FILTER_LINEAR;
 	texture_sampler_desc.m_mipmap_mode = SamplerMipMapMode::MIPMAP_MODE_POINT;
 	texture_sampler_desc.m_max_aniso = 8.f;
-
 	m_texture_sampler = DXResourceLoader::Create_Sampler(m_dxrenderer, texture_sampler_desc);
 
 	VertexLayout pos_normal_tangent_bitangent_uv_layout = {};
@@ -228,25 +209,20 @@ void AppRenderer::InnerLoadContent()
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[0].m_binding = 0;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[0].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[0].m_semantic = Attrib_Semantic::POSITION;
-
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[1].m_binding = 0;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[1].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[1].m_semantic = Attrib_Semantic::NORMAL;
-
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[2].m_binding = 0;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[2].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[2].m_semantic = Attrib_Semantic::TANGENT;
-
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[3].m_binding = 0;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[3].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[3].m_semantic = Attrib_Semantic::BITANGENT;
-
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_binding = 0;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_format = DXGI_FORMAT_R32G32_FLOAT;
 	pos_normal_tangent_bitangent_uv_layout.m_attribs[4].m_semantic = Attrib_Semantic::TEXCOORD_0;
 
 	VertexLayout pos3_layout = {};
-
 	pos3_layout.m_atrrib_count = 1;
 	pos3_layout.m_attribs[0].m_binding = 0;
 	pos3_layout.m_attribs[0].m_format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -808,13 +784,13 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 
 		for (uint32_t mesh_index = 0; mesh_index < mesh_instance_count; ++mesh_index)
 		{
-
-			Material* cur_material_instance = meshes_list.size() <= 1 ? p_ref_material : meshes_list[mesh_index].get_material();
-			//sometimes despite having multiple child of mesh instance it may still not have its own material
-			if (!cur_material_instance)
+			Material* mesh_instance_material = nullptr;
+			if (meshes_list.size() > 0)
 			{
-				cur_material_instance = p_ref_material;
+				mesh_instance_material = meshes_list[mesh_index].get_material();
 			}
+			Material* cur_material_instance = (meshes_list.size() <= 0 || !mesh_instance_material) ? p_ref_material : mesh_instance_material;
+
 			finalMaterialList.push_back(MaterialFullData{ cur_material_instance, &inst_data });
 		}
 	}
@@ -830,6 +806,7 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 		if (material_index >= m_material_uniform_buffer_list.size())
 		{
 			AddMaterialUniformBuffer();
+			m_materialReferenceList.push_back(nullptr);
 		}
 
 		Buffer* material_uniform_buffer = m_material_uniform_buffer_list[material_index];
@@ -841,6 +818,8 @@ void AppRenderer::UpdateMaterialUniformBuffer()
 		m_material_uniform_data_list[material_index].MaterialMiscData.y = instanceRenderData->uv_tiling.y;
 		m_material_uniform_data_list[material_index].MaterialMiscData2.x = curMaterialInstance->GetRoughnessValue();
 		m_material_uniform_data_list[material_index].MaterialMiscData2.y = curMaterialInstance->GetMetallicValue();
+
+		m_materialReferenceList[material_index] = curMaterialInstance;
 
 		BufferUpdateDesc update_material_uniform_desc = {};
 		update_material_uniform_desc.m_buffer = m_material_uniform_buffer_list[material_index];

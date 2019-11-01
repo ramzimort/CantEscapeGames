@@ -534,138 +534,16 @@ RenderTarget* DXResourceLoader::Create_RenderTarget(DXRenderer* renderer, Render
 	return render_target;
 }
 
-Texture* DXResourceLoader::Create_CubeTexture(DXRenderer* renderer, const std::array<std::string, 6> tex_file_names)
-{
-	struct STBI_Image_Data
-	{
-		void* pixels;
-		uint32_t line_width;
-	};
-
-	STBI_Image_Data image_data[6];
-
-	uint32_t final_width = 0;
-	uint32_t final_height = 0;
-
-	for (int i = 0; i < 6; ++i)
-	{
-		int width, height, channel;
-		if (i == 2 || i == 3)
-		{
-			//stbi_set_flip_vertically_on_load(true);
-		}
-		else
-		{
-			stbi_set_flip_vertically_on_load(false);
-		}
-		image_data[i].pixels = stbi_load(tex_file_names[i].c_str(), &width, &height, &channel, STBI_rgb_alpha);
-		image_data[i].line_width = width * 4;
-		final_width = std::max(final_width, static_cast<uint32_t>(width));
-		final_height = std::max(final_height, static_cast<uint32_t>(height));
-	}
-
-
-	//Using DXGI_FORMAT_R8G8B8A8_UNORM (28) as an example.
-	//DXGI_FORMAT format = DXGI_FORMAT_R32G32B32_TYPELESS;
-	DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM;
-
-	//DXGI_FORMAT format = DXGI_FORMAT_R32G32B32_UINT;
-	//D3DObjects to create
-	ID3D11Texture2D* d3d_cube_texture = NULL;
-	ID3D11ShaderResourceView* shaderResourceView = NULL;
-
-	//Description of each face
-	D3D11_TEXTURE2D_DESC texDesc;
-	texDesc.Width = final_width;
-	texDesc.Height = final_height;
-	texDesc.MipLevels = 1;
-	texDesc.ArraySize = 6;
-	texDesc.Format = format;
-	texDesc.CPUAccessFlags = 0;
-	texDesc.SampleDesc.Count = 1;
-	texDesc.SampleDesc.Quality = 0;
-	texDesc.Usage = D3D11_USAGE_DEFAULT;
-	texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	texDesc.CPUAccessFlags = 0;
-	texDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
-
-	//The Shader Resource view description
-	D3D11_SHADER_RESOURCE_VIEW_DESC SMViewDesc;
-	SMViewDesc.Format = texDesc.Format;
-	SMViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-	SMViewDesc.TextureCube.MipLevels = texDesc.MipLevels;
-	SMViewDesc.TextureCube.MostDetailedMip = 0;
-
-	//Array to fill which we will use to point D3D at our loaded CPU images.
-	D3D11_SUBRESOURCE_DATA pData[6];
-	for (int cubeMapFaceIndex = 0; cubeMapFaceIndex < 6; cubeMapFaceIndex++)
-	{
-		//Pointer to the pixel data
-		pData[cubeMapFaceIndex].pSysMem = image_data[cubeMapFaceIndex].pixels;
-		//Line width in bytes
-		pData[cubeMapFaceIndex].SysMemPitch = image_data[cubeMapFaceIndex].line_width;
-		// This is only used for 3d textures.
-		pData[cubeMapFaceIndex].SysMemSlicePitch = 0;
-	}
-
-	//Create the Texture Resource
-	HRESULT hr = renderer->get_device()->CreateTexture2D(&texDesc, pData, &d3d_cube_texture);
-	if (hr != S_OK)
-	{
-		for (int i = 0; i < 6; ++i)
-		{
-			if (image_data[i].pixels)
-			{
-				stbi_image_free(image_data[i].pixels);
-			}
-		}
-		return nullptr;
-	}
-
-
-
-	//If we have created the texture resource for the six faces 
-	//we create the Shader Resource View to use in our shaders.
-	hr = renderer->get_device()->CreateShaderResourceView(d3d_cube_texture, &SMViewDesc, &shaderResourceView);
-	if (hr != S_OK)
-	{
-		for (int i = 0; i < 6; ++i)
-		{
-			if (image_data[i].pixels)
-			{
-				stbi_image_free(image_data[i].pixels);
-			}
-		}
-
-		SafeRelease(d3d_cube_texture);
-		return nullptr;
-	}
-
-	TextureDesc texture_desc;
-	texture_desc.m_width = final_width;
-	texture_desc.m_height = final_height;
-
-	Texture* cube_texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
-
-	cube_texture->m_p_raw_resource = d3d_cube_texture;
-	cube_texture->m_p_srv = shaderResourceView;
-
-	for (int i = 0; i < 6; ++i)
-	{
-		if (image_data[i].pixels)
-		{
-			stbi_image_free(image_data[i].pixels);
-		}
-	}
-
-	return cube_texture;
-}
-
 Texture* DXResourceLoader::Create_Texture(DXRenderer* renderer, TextureLoadDesc& load_desc)
 {
 	if (load_desc.m_file_name != "")
 	{
 		return Create_TextureFromFile(renderer, load_desc);
+	}
+
+	if (load_desc.m_isRawDataFromInternalMemory)
+	{
+		return Create_TextureFromMemory(renderer, load_desc);
 	}
 
 	D3D11_SUBRESOURCE_DATA raw_d3d_data = {};
@@ -1009,10 +887,7 @@ Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureL
 		texture_desc.m_width = tex2d_desc.Width;
 		texture_desc.m_height = tex2d_desc.Height;
 
-
-
 		Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
-
 		texture->m_p_raw_resource = d3d_tex2d;
 		texture->m_p_srv = d3d_tex2d_srv;
 
@@ -1131,11 +1006,57 @@ Texture* DXResourceLoader::Create_TextureFromFile(DXRenderer* renderer, TextureL
 	return nullptr;
 }
 
+
+Texture* DXResourceLoader::Create_TextureFromMemory(DXRenderer* renderer, TextureLoadDesc& load_desc)
+{
+	ID3D11Resource* d3d_tex2d = nullptr;
+	ID3D11ShaderResourceView* d3d_tex2d_srv = nullptr;
+
+	if (load_desc.m_use_ex_flag)
+	{
+		HRESULT hr = DirectX::CreateWICTextureFromMemoryEx(renderer->get_device(),
+			renderer->get_device_context(), (const uint8_t*)load_desc.m_rawData, load_desc.mRawDataByteTotalSize, load_desc.mRawDataByteTotalSize,
+			Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags),
+			CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType), 0, 0, &d3d_tex2d, &d3d_tex2d_srv);
+
+		if (FAILED_HR(hr))
+		{
+			assert(0);
+			return nullptr;
+		}
+	}
+	else
+	{
+		HRESULT hr = DirectX::CreateWICTextureFromMemory(renderer->get_device(),
+			(const uint8_t*)load_desc.m_rawData, load_desc.mRawDataByteTotalSize, &d3d_tex2d, &d3d_tex2d_srv);
+
+		if (FAILED_HR(hr))
+		{
+			assert(0);
+			return nullptr;
+		}
+	}
+
+	ID3D11Texture2D* casted_tex2d = static_cast<ID3D11Texture2D*>(d3d_tex2d);
+	D3D11_TEXTURE2D_DESC tex2d_desc = {};
+	casted_tex2d->GetDesc(&tex2d_desc);
+
+	TextureDesc texture_desc = {};
+	texture_desc.m_width = tex2d_desc.Width;
+	texture_desc.m_height = tex2d_desc.Height;
+	texture_desc.m_depth = 1;
+	texture_desc.m_imageFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+	Texture* texture = CantMemory::PoolResource<Texture>::Allocate(texture_desc);
+	texture->m_p_raw_resource = d3d_tex2d;
+	texture->m_p_srv = d3d_tex2d_srv;
+	return texture;
+}
+
 void DXResourceLoader::Update_Buffer(DXRenderer* renderer, BufferUpdateDesc& buffer_update_desc)
 {
 	//TODO:
 }
-
 
 Shader* DXResourceLoader::Create_Shader(DXRenderer* renderer, const ShaderLoadDesc& shader_load_desc)
 {

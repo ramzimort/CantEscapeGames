@@ -24,9 +24,6 @@ public:
 	static void Update_Buffer(DXRenderer* renderer, BufferUpdateDesc& buffer_update_desc);
 	static RenderTarget* Create_RenderTarget(DXRenderer* renderer, RenderTargetDesc& render_target_desc);
 
-	//for now only support .jpg cubemap, a quick and dirty way to load texture cube SRV
-	static Texture* Create_CubeTexture(DXRenderer* renderer, const std::array<std::string, 6> tex_file_names);
-
 	static Texture* Create_Texture(DXRenderer* renderer, TextureLoadDesc& load_desc);
 	static Shader* Create_Shader(DXRenderer* renderer, const ShaderLoadDesc& shader_load_desc);
 
@@ -63,6 +60,7 @@ private:
 		const ComputePipelineDesc& graphics_pipeline_desc);
 
 	static Texture* Create_TextureFromFile(DXRenderer* renderer, TextureLoadDesc& load_desc);
+	static Texture* Create_TextureFromMemory(DXRenderer* renderer, TextureLoadDesc& load_desc);
 
 	static void Add_RenderTarget_View(
 		DXRenderer* renderer, 
