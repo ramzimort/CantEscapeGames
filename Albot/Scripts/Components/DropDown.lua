@@ -1,7 +1,7 @@
 
 -- First approximation of a component script
 
-SlideScroller = 
+DropDown = 
 {
 	-- Component
 	uiComp;
@@ -54,12 +54,12 @@ SlideScroller =
 }
 
 --Init called when comp is created
-SlideScroller.Init = function(self)
+DropDown.Init = function(self)
 
 end
 
 --Begin called when obj has all comps
-SlideScroller.Begin = function(self, owner, goMgr)
+DropDown.Begin = function(self, owner, goMgr)
 
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
@@ -93,10 +93,10 @@ SlideScroller.Begin = function(self, owner, goMgr)
 	self.position =  self.uiAffineAnimationComp:GetFinalPosition();
 	self.scale = Vector3.new(self.uiTransformComp:GetScale());
 	self.totalChildButtons = self.uiComp:GetChildButtonCount();
-	OutputPrint("\n" .. self.totalChildButtons);
+	
 	-- Button 
 	ButtonAddress = tag .. "Button";
-	OutputPrint("\n" .. ButtonAddress);
+	
 	self.ButtonObj = goMgr:FindGameObject(ButtonAddress);
 	if (self.ButtonObj == nil) then
 		OutputPrint(">>> GO Button not found\n");
@@ -146,15 +146,14 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		return;
 	end
 	
-	self.scaleDropDownBackGround = self.uiTransformCompDropDownBackGround:GetScale();
-	self.positionDropDownBackGround = self.uiAffineAnimationCompDropDownBackBackGround:GetFinalPosition();
+	self.scaleDropDownBackGround = Vector3.new(self.uiTransformCompDropDownBackGround:GetScale());
+	self.positionDropDownBackGround = Vector3.new(self.uiAffineAnimationCompDropDownBackBackGround:GetFinalPosition());
 
 	-- Child Button
 
 	for count = 1,self.totalChildButtons,1 do 
 	
 			ChildButtonAddress = tag .. "ChildButton" .. tostring(count);
-			OutputPrint("\n" .. ChildButtonAddress);
 			self.ChildButtonsObj[count] =  goMgr:FindGameObject(ChildButtonAddress);
 			if (self.ChildButtonsObj[count]  == nil) then
 				OutputPrint(">>> GO Child Button not found\n");
@@ -165,7 +164,7 @@ SlideScroller.Begin = function(self, owner, goMgr)
 	end
 end
 --Update called every tick
-SlideScroller.Update = function(self, dt, owner) 
+DropDown.Update = function(self, dt, owner) 
 
 	if(self.MousePositionX < self.maxPosXButton) then
 		if(self.MousePositionX > self.positionButton.x) then
@@ -176,15 +175,18 @@ SlideScroller.Update = function(self, dt, owner)
 						self.LEFTCLICK = false;
 						if(self.buttonEnabled == false) then
 							self.buttonEnabled = true;
-							local pos = Vector3.new(self.position);
-							local scaleVal = Vector3.new(self.scale);
-							scaleVal.y = scaleVal.y * (self.totalChildButtons-1)
-							pos.y = pos.y + self.scale.y ;
-							self.uiTransformCompDropDownBackGround:Scale(scaleVal);
-							self.uiTransformCompDropDownBackGround:SetLocalPosition( pos );
+							
+								local pos = Vector3.new(self.position);
+								pos.x = self.positionDropDownBackGround.x;
+								local scaleVal = Vector3.new(self.scale);
+								scaleVal.y = scaleVal.y * (self.totalChildButtons-1)
+								pos.y = pos.y + self.scale.y -5;
+								self.uiTransformCompDropDownBackGround:Scale(scaleVal);
+								self.uiTransformCompDropDownBackGround:SetLocalPosition( pos );
+							
 							local incr = 0;
 							for counter = 1,self.totalChildButtons,1 do 
-	
+								
 								local uiComponent = self.ChildButtonsObj[counter]:GetUiComp();  
 								if (uiComponent == nil) then
 									OutputPrint(">>> Drop Down Child Button UI Component not found\n");
@@ -208,7 +210,8 @@ SlideScroller.Update = function(self, dt, owner)
 									incr = incr +1;
 								else
 									local  posButton = Vector3.new(self.position);
-									posButton.y = posButton.y + self.scale.y * (counter-incr);
+									posButton.x = posButton.x - 5;
+									posButton.y = posButton.y + self.scale.y * (counter-incr) -5;
 									uiTransformComponent:SetLocalPosition( posButton.x,posButton.y,posButton.z);
 								end
 		
@@ -238,14 +241,16 @@ SlideScroller.Update = function(self, dt, owner)
 	
 	if(self.buttonEnabled == false) then
 		
-		self.uiTransformCompDropDownBackGround:SetLocalPosition(self.positionDropDownBackGround);
-		for counter = 1,self.totalChildButtons,1 do 
-			local uiTransformComponent = self.ChildButtonsObj[counter]:GetTransformComp(); 
-			if (uiTransformComponent == nil) then
-				OutputPrint(">>> Drop Down  Child Button Transform Component not found\n");
-				return;
+		if (_G.PlayFinalAnimation == false) then
+			self.uiTransformCompDropDownBackGround:SetLocalPosition(self.positionDropDownBackGround);
+			for counter = 1,self.totalChildButtons,1 do 
+				local uiTransformComponent = self.ChildButtonsObj[counter]:GetTransformComp(); 
+				if (uiTransformComponent == nil) then
+					OutputPrint(">>> Drop Down  Child Button Transform Component not found\n");
+					return;
+				end
+				uiTransformComponent:SetLocalPosition( self.InitalPostionChildButton);
 			end
-			uiTransformComponent:SetLocalPosition( self.InitalPostionChildButton);
 		end
 	else
 		for counter = 1,self.totalChildButtons,1 do 
@@ -265,21 +270,21 @@ SlideScroller.Update = function(self, dt, owner)
 
 end
 --Method
-SlideScroller.OnKey = function(self, key, state)
+DropDown.OnKey = function(self, key, state)
 	if(SCANCODE.ENTER == key) then
 		self.ENTER = state;
 		
 	end
 end
-SlideScroller.OnMouseMotion = function(self, position, deltaposition)
+DropDown.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
 end
-SlideScroller.OnMouseClick = function(self, button, state)
+DropDown.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
 	elseif(button == 2) then
 		self.RIGHTCLICK = state;
 	end
 end
-return SlideScroller;
+return DropDown;

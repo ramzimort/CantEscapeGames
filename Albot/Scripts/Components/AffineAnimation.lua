@@ -176,8 +176,8 @@ AffineAnimation.Update = function(self, dt, owner)
 		if(compare < 0) then
 			compare = compare * (-1);
 		end
-		OutputPrint("Reached\n" .. compare);
-		if(compare < self.deltaTime) then
+
+		if(compare <= self.deltaTime) then
 			
 			self.position.x = self.initialPosition.x;
 			if (self.xTranslateFinal == false)	then		
@@ -192,7 +192,7 @@ AffineAnimation.Update = function(self, dt, owner)
 		if(compare < 0) then
 			compare = compare * (-1);
 		end
-		if(compare < self.deltaTime) then
+		if(compare <= self.deltaTime) then
 			self.position.y = self.initialPosition.y;
 			if (self.yTranslateFinal == false)	then		
 				self.yTranslateFinal = true;
@@ -225,10 +225,10 @@ AffineAnimation.Update = function(self, dt, owner)
 		_G.FinalAnimationCount =  _G.FinalAnimationCount + 1;
 	end
 	--------------------------------------------------------------------------
-	self.uiTransform:SetLocalRotation(0.0,0.0,self.rotation);
-	self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
+	
 	if(self.uiComp:GetInitailAnimationState() == true or self.uiComp:GetFinalAnimationState() == true or _G.PlayFinalAnimation == true) then
-		--self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);	
+		self.uiTransform:SetLocalRotation(0.0,0.0,self.rotation);
+		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
 	end
 end
 
