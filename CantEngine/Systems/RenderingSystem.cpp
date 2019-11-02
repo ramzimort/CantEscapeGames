@@ -74,7 +74,9 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	BoneMeshInstanceRenderData boneMeshInstanceRenderData = {};
 	boneMeshInstanceRenderData.m_instanceRenderData = {};
 	boneMeshInstanceRenderData.m_instanceRenderData.model_mat = modelMatrix;
-	boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
+	boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = rotMatrix;
+	//boneMeshInstanceRenderData.m_instanceRenderData.normal_mat =  rotMatrix.Transpose() * invertScaleMatrix;
+	//boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
 	//boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = modelMatrix.Invert().Transpose();
 	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_model = meshesComp->GetModel();
 	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_material = rendererComp->m_pMaterial;

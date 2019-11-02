@@ -179,11 +179,12 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_render_target_count = DEFERRED_TOTAL_COUNT;
 	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
 	{
-		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_ms_state;
+		//graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_ms_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
 	}
 	else
 	{
-		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
 	}
 	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_less_equal_depth_state;
 	graphic_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;

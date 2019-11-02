@@ -148,9 +148,7 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
         discard;
     }
 
-    float ambient_strength = 0.01f;
-
-
+    float ambient_strength = 0.1f;
     float2 clip_pixel = float2((ps_in.UV.x * 2.f) - 1, 1.f - (ps_in.UV.y * 2.f));
 
     float4 position = mul(CameraUniformData_Buffer.InvViewProjectionMat, float4(clip_pixel.xy, depth, 1.0));

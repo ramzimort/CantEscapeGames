@@ -47,10 +47,11 @@ cbuffer MaterialUniformBlock : register(b2)
 float3 CalculateObjectNormalVector(float2 uv, float3 normal, float3 tangent, float3 bitangent, float sigma)
 {
     float3 m = Normal_Texture.Sample(Texture_Sampler, uv).rgb;
+    m = normalize(m * 2.0 - 1.0);
     float3 n = normalize(normal);
     float3 t = normalize(tangent);
-    float3 b = normalize(bitangent);
-    return (t * m.x + b * m.y + n * m.z);
+    float3 b = normalize(bitangent) * sigma;
+    return normalize((t * m.x + b * m.y + n * m.z));
 }
 
 
@@ -113,6 +114,7 @@ PS_OUT main(PS_IN ps_in)
             ps_in.Tangent, ps_in.Bitangent, -1.f);
 
         world_normal = mul(ObjectUniformData_Buffer.NormalMat, float4(fetched_normal, 0.f)).rgb;
+        //world_normal = mul(float4(fetched_normal, 0.f), ObjectUniformData_Buffer.NormalMat).rgb;
     }
 
     float3 material_diffuse_color = MaterialUniformData_Buffer.DiffuseColor.xyz;
