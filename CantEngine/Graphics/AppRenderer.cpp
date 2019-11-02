@@ -28,6 +28,7 @@ m_toSkyboxRender(this),
 m_iblFilterEnvMapPass(this),
 m_brdfLookupTexturePass(this),
 m_uiObjectRendering(this),
+m_textRendering(this),
 m_gameTime(0.f)
 {
 	InitializeRenderer();
@@ -438,6 +439,7 @@ void AppRenderer::LoadContent()
 	m_particleRendering.LoadContent(m_dxrenderer);
 	m_momentShadowMapRendering.LoadContent(m_dxrenderer);
 	m_uiObjectRendering.Initialize(m_dxrenderer);
+	m_textRendering.Initialize(m_dxrenderer);
 }
 
 
@@ -496,6 +498,7 @@ void AppRenderer::Release()
 	m_deferrredRendering.Release();
 	m_debugRendering.Release();
 	m_momentShadowMapRendering.Release();
+	m_textRendering.Release();
 
 	m_toSkyboxRender.Release();
 	m_iblFilterEnvMapPass.Release();
@@ -679,6 +682,7 @@ void AppRenderer::RenderApp()
 	ResolveAppRendererInstances();
 	m_dxrenderer->execute_queued_cmd();	
 
+	m_textFontInstanceRenderDataList.clear();
 	m_uiObjectInstanceRenderDataList.clear();
 	m_directionLightInstanceList.clear();
 	m_pointLightInstanceList.clear();

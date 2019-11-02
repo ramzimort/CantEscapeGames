@@ -308,6 +308,25 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
 		}
 
+		DescriptorData objectParams[20] = {};
+		objectParams[0].m_binding_location = 0;
+		objectParams[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		objectParams[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+		objectParams[0].m_buffers = &m_camera_uniform_buffer;
+
+		objectParams[1].m_binding_location = 1;
+		objectParams[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		objectParams[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+		objectParams[1].m_buffers = &obj_uniform_buffer;
+
+		objectParams[2].m_binding_location = 0;
+		objectParams[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+		objectParams[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		objectParams[2].m_samplers = &m_appRenderer->m_texture_sampler;
+
+		m_dxrenderer->cmd_bind_descriptor(pipeline, 3, objectParams);
+
+
 		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
 		uint32_t mesh_instance_count = std::max(1u, static_cast<unsigned int>(meshes_list.size()));
 		++basicInstanceIndex;
@@ -318,27 +337,12 @@ void AppRendererInstance::RenderBasicInstances(Pipeline* pipeline)
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
 
 			DescriptorData params[20] = {};
-			params[0].m_binding_location = 0;
+			params[0].m_binding_location = 2;
 			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[0].m_buffers = &m_camera_uniform_buffer;
+			params[0].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
 
-			params[1].m_binding_location = 1;
-			params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-			params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[1].m_buffers = &obj_uniform_buffer;
-
-			params[2].m_binding_location = 2;
-			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[2].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
-
-			params[3].m_binding_location = 0;
-			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-			params[3].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-			params[3].m_samplers = &m_appRenderer->m_texture_sampler;
-
-			uint32_t total_params_count = 4;
+			uint32_t total_params_count = 1;
 
 			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
@@ -445,6 +449,7 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 		}
 
 
+
 		Buffer* obj_uniform_buffer = m_boneMeshObjectUniformBufferList[i];
 
 		m_boneMeshObjectUniformDataList[i] = {};
@@ -471,6 +476,29 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			m_dxrenderer->cmd_bind_index_buffer(index_buffer);
 		}
 
+		DescriptorData objectParams[20] = {};
+		objectParams[0].m_binding_location = 0;
+		objectParams[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		objectParams[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+		objectParams[0].m_buffers = &m_camera_uniform_buffer;
+
+		objectParams[1].m_binding_location = 1;
+		objectParams[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		objectParams[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
+		objectParams[1].m_buffers = &obj_uniform_buffer;
+
+		objectParams[2].m_binding_location = 0;
+		objectParams[2].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
+		objectParams[2].m_shader_stages = Shader_Stages::PIXEL_STAGE;
+		objectParams[2].m_samplers = &m_appRenderer->m_texture_sampler;
+
+		objectParams[3].m_binding_location = 3;
+		objectParams[3].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
+		objectParams[3].m_shader_stages = Shader_Stages::VERTEX_STAGE;
+		objectParams[3].m_buffers = &bone_uniform_buffer;
+
+		m_dxrenderer->cmd_bind_descriptor(pipeline, 4, objectParams);
+
 		const Model::MeshesList& meshes_list = p_ref_model->GetMeshesList();
 		uint32_t mesh_instance_count = std::max(1u, (uint32_t)meshes_list.size());
 
@@ -480,34 +508,15 @@ void AppRendererInstance::RenderBoneMeshInstances(Pipeline* pipeline)
 			Buffer* material_uniform_buffer = m_appRenderer->m_material_uniform_buffer_list[material_index];
 
 			uint32_t mat_id = (uint32_t)m_appRenderer->m_material_uniform_data_list[material_index].MaterialMiscData.w;
+
 			DescriptorData params[20] = {};
-			params[0].m_binding_location = 0;
+			params[0].m_binding_location = 2;
 			params[0].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
 			params[0].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[0].m_buffers = &m_camera_uniform_buffer;
+			params[0].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
 
-			params[1].m_binding_location = 1;
-			params[1].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-			params[1].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[1].m_buffers = &obj_uniform_buffer;
-
-			params[2].m_binding_location = 2;
-			params[2].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-			params[2].m_shader_stages = Shader_Stages::VERTEX_STAGE | Shader_Stages::PIXEL_STAGE;
-			params[2].m_buffers = &m_appRenderer->m_material_uniform_buffer_list[material_index];
-
-			params[3].m_binding_location = 3;
-			params[3].m_descriptor_type = DescriptorType::DESCRIPTOR_BUFFER;
-			params[3].m_shader_stages = Shader_Stages::VERTEX_STAGE;
-			params[3].m_buffers = &bone_uniform_buffer;
-
-			params[4].m_binding_location = 0;
-			params[4].m_descriptor_type = DescriptorType::DESCRIPTOR_SAMPLER;
-			params[4].m_shader_stages = Shader_Stages::PIXEL_STAGE;
-			params[4].m_samplers = &m_appRenderer->m_texture_sampler;
-
-			uint32_t total_params_count = 5;
-
+			uint32_t total_params_count = 1;
+			
 			Texture* diffuse_texture = cur_material_instance->GetDiffuseTexture();
 			Texture* normal_texture = cur_material_instance->GetNormalTexture();
 			Texture* height_texture = cur_material_instance->GetHeightTexture();

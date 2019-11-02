@@ -179,12 +179,12 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	graphic_pipeline_desc.m_render_target_count = DEFERRED_TOTAL_COUNT;
 	if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
 	{
-		//graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_ms_state;
-		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_ms_state;
+		//graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_ms_state;
 	}
 	else
 	{
-		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_none_rasterizer_state;
+		graphic_pipeline_desc.m_rasterizer_state = m_appRenderer->m_cull_front_rasterizer_state;
 	}
 	graphic_pipeline_desc.m_depth_state = m_appRenderer->m_less_equal_depth_state;
 	graphic_pipeline_desc.m_vertex_layout = &pos_normal_tangent_bitangent_uv_layout;
@@ -233,9 +233,15 @@ void DeferredRendering::LoadContent(DXRenderer* dxrenderer)
 	m_deferred_shade_pointlight_pipeline = DXResourceLoader::Create_Pipeline(m_dxrenderer, pipeline_desc);
 
 
+	ShaderMacro haloShadeEffectMaco[1] = {};
+	haloShadeEffectMaco[0].m_name = "SAMPLE_COUNT";
+	haloShadeEffectMaco[0].m_definition = std::to_string(GraphicsSettings::MSAA_SAMPLE_COUNT);
+
 	ShaderLoadDesc shadeHaloEffectShaderDesc = {};
 	shadeHaloEffectShaderDesc.m_desc.m_vertex_shader_path = "shade_halo_effect_vert.hlsl";
 	shadeHaloEffectShaderDesc.m_desc.m_pixel_shader_path = "shade_halo_effect_frag.hlsl";
+	shadeHaloEffectShaderDesc.m_shader_macro_count = 1;
+	shadeHaloEffectShaderDesc.m_shader_macro = haloShadeEffectMaco;
 
 	m_shadeHaloEffectShader = DXResourceLoader::Create_Shader(m_dxrenderer, shadeHaloEffectShaderDesc);
 

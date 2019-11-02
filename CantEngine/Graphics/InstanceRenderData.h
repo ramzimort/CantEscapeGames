@@ -86,6 +86,23 @@ struct UIObjectInstanceRenderData
 };
 
 
+enum FontType
+{
+	COURIER_NEW,
+	COURIER_NEW_BOLD
+};
+
+
+struct TextFontInstanceRenderData
+{
+	std::wstring m_text;
+	FontType m_fontType;
+	Vector2 m_position;
+	Vector3 m_color;
+	Vector3 m_scale;
+};
+
+
 typedef std::vector<ParticleEmitterInstanceData> ParticleEmitterInstanceList;
 typedef std::vector<InstanceRenderData> InstanceRenderList;
 typedef std::vector<HaloEffectInstanceData> HaloEffectInstanceList;
@@ -95,3 +112,4 @@ typedef std::vector<BoneMeshInstanceRenderData> BoneMeshInstancesRenderDataList;
 typedef std::vector< ProcessSkyboxIrradianceInstanceData> ProcessSkyboxIrradianceInstanceDataList;
 typedef std::vector< BakedSkyboxIrradianceInstanceData> BakedSkyboxIrradianceInstanceDataList;
 typedef std::vector<UIObjectInstanceRenderData> UIObjectInstanceRenderDataList;
+typedef std::vector< TextFontInstanceRenderData> TextFontInstanceRenderDataList;

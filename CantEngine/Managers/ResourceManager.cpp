@@ -95,6 +95,16 @@ Texture* ResourceManager::GetTexture(StringId textureId)
 	return findIter->second.res.p_texture;
 }
 
+DirectX::SpriteFont* ResourceManager::GetFont(StringId fontId)
+{
+	auto findIter = m_resources.find(fontId);
+	if (findIter == m_resources.end())
+	{
+		return nullptr;
+	}
+	return findIter->second.res.p_spriteFont;
+}
+
 std::string& ResourceManager::GetPrefab(StringId prefabId)
 {
 	return *m_resources.at(prefabId).res.p_prefab;

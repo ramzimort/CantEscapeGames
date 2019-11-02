@@ -13,6 +13,7 @@
 #include "Graphics/IBL/IBLFilterEnvMapPass.h"
 #include "Graphics/IBL/BRDFLookupTexturePass.h"
 #include "Graphics/UI_Rendering/UIObjectRendering.h"
+#include "Graphics/TextRendering/TextRendering.h"
 #include "Shaders/Shading.h"
 
 class Material;
@@ -62,6 +63,8 @@ public:
 	friend class IBLFilterEnvMapPass;
 	friend class UIObjectRendering;
 	friend class UIObjectRenderingInstance;
+	friend class TextRendering;
+	friend class TextRenderingInstance;
 public:
 	AppRenderer(SDL_Window& sdlWindow, ResourceManager* resourceManager, 
 		CameraManager* cameraManager);
@@ -203,5 +206,9 @@ private:
 
 	UIObjectInstanceRenderDataList m_uiObjectInstanceRenderDataList;
 	UIObjectRendering m_uiObjectRendering;
+
+
+	TextFontInstanceRenderDataList m_textFontInstanceRenderDataList;
+	TextRendering m_textRendering;
 };
 

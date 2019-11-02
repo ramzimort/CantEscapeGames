@@ -53,7 +53,8 @@
 
     ],
     "Fonts": [
-
+      "Assets\\Fonts\\courier_new.spritefont",
+      "Assets\\Fonts\\courier_new_bold.spritefont"
     ],
     "Prefabs": [
       "Assets\\Prefabs\\lvleditor.json",

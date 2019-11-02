@@ -78,6 +78,7 @@ public:
 	Model* GetModel(StringId modelId);
 	Material* GetMaterial(StringId materialId);
 	Texture* GetTexture(StringId textureId);
+	DirectX::SpriteFont* GetFont(StringId fontId);
 	std::string& GetPrefab(StringId prefabId);
 	sol::table& GetScript(StringId scriptId);
 	bool HasResource(StringId id);
