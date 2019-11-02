@@ -12,17 +12,13 @@
     "MaterialId": "Assets\\Materials\\UIBackGroundImageMaterial.json"
   },
 	"UIComponent": {
-					
-		},
-  
-  "AffineAnimationComponent": {
-    "InitialPosition": [ 0.0, 0.0, 0.0],
+			"InitialPosition": [ 0.0, 0.0, 0.0],
 			"FinalPosition": [ 0.0, 0.0, 0.0],
 			"DeltaTime": 0.0,
 			"InitialRotation" : 0.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : 0.0
-  },
+		},
 
 	"Scripts": [
     {

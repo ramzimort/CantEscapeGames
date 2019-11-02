@@ -67,9 +67,9 @@ void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int
 	m_pStateManager->SwitchState(levelPath);
 	m_pAppRenderer->LoadContent();
 
-	int x, w;
-	SDL_GetWindowSize(m_pInputManager->GetWindow(), &x, &w);
-	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, x, w);
+	int x, y;
+	SDL_GetWindowSize(m_pInputManager->GetWindow(), &x, &y);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(true, x, y, 1.f, 1.f);
 
 	SubscribeEvent<QuitEvent>(this, std::bind(&EventManager::OnQuit, this, std::placeholders::_1));
 }

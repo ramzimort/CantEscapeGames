@@ -67,6 +67,5 @@
   <ItemGroup>
     <None Include="Assets\Prefabs\Lights\point_light.json" />
     <None Include="Assets\Prefabs\Skybox\factory_skybox.json" />
-    <None Include="Scripts\Components\Button.lua" />
   </ItemGroup>
 </Project>

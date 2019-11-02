@@ -19,8 +19,8 @@ class WindowSizeEvent : public Event<WindowSizeEvent>
 {
 public:
 
-	WindowSizeEvent(int width, int height) :
-		m_width(width), m_height(height) {
+	WindowSizeEvent(int width, int height, float xScaleFactor, float yScaleFactor) :
+		m_width(width), m_height(height), m_xScaleFactor(xScaleFactor), m_yScaleFactor(yScaleFactor) {
 		//DEBUG_LOG("w: %d, h: %d", width, height);
 	}
 	virtual ~WindowSizeEvent() { }
@@ -38,4 +38,6 @@ public:
 
 	int m_width;
 	int m_height;
+	
+	float m_xScaleFactor, m_yScaleFactor;
 };

@@ -65,7 +65,7 @@
           "Scale": [ 1280, 720, 1 ]
         },
 
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [ 0.0, 0.0, 0.0],
 			"FinalPosition": [ 0.0, 0.0, 0.0],
 			"DeltaTime": 1.0 
@@ -86,7 +86,7 @@
           "Scale": [ 520, 320, 1 ]
         },
 
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [  -500, 130,0],
 			"FinalPosition": [ 600, 160, 0],
 			"DeltaTime": 15.0,
@@ -111,12 +111,10 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\level1.json",
-			"Location": 1			
-		},
-		"AffineAnimationComponent": {
+			"Location": 1,
 			"InitialPosition": [ -500, 325,0],
 			"FinalPosition": [ 50, 325, 0],
-			"DeltaTime": 15.0 
+			"DeltaTime": 15.0 			
 		},
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\Level1ButtonMaterial.json"
@@ -135,13 +133,12 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Setting.json",
-			"Location": 2
-		},
-		"AffineAnimationComponent": {
+			"Location": 2,
 			"InitialPosition": [ -500, 425,0 ],
 			"FinalPosition": [ 50, 425, 0],
 			"DeltaTime": 15.0 
 		},
+		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\SettingsButtonMaterial.json"
 		}		
@@ -159,13 +156,12 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Credits.json",
-			"Location": 3
-		},
-		"AffineAnimationComponent": {
+			"Location": 3,
 			"InitialPosition": [ -500, 525,0],
 			"FinalPosition": [ 50, 525, 0],
 			"DeltaTime": 15.0 
 		},
+
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\CreditsButtonMaterial.json"
 		}				
@@ -183,13 +179,12 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Exit.json",
-			"Location": 4
-		},
-		"AffineAnimationComponent": {
+			"Location": 4,
 			"InitialPosition": [ -500, 625,0],
 			"FinalPosition": [ 50, 625, 0],
 			"DeltaTime": 15.0 
 		},
+
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\ExitButtonMaterial.json"
 		}				

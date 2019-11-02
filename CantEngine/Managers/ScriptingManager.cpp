@@ -424,6 +424,11 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<UIComponent>
 		("UIComponent",
 			"GetLocation", &UIComponent::GetLocation,
+			"GetParent", &UIComponent::GetParent,
+			"GetChild", &UIComponent::GetChild,
+			"GetNumberOfChildren", &UIComponent::GetNumberOfChildren,
+
+
 			"GetTotalObjects", &UIComponent::GetTotalObjects,
 			"GetTotalButtons", &UIComponent::GetTotalButtons,
 			"GetStateAddress", &UIComponent::GetStateAddress,
@@ -436,7 +441,14 @@ void ScriptingManager::ManageBindings()
 			"SetSliderValue", sol::overload(
 				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
 			"GetChildButtonCount", &UIComponent::GetChildButtonCount,
-			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation
+			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation,
+			"GetInitialPosition", &UIComponent::GetInitialPosition,
+			"GetFinalPosition", &UIComponent::GetFinalPosition,
+			"GetDeltaTime", &UIComponent::GetDeltaTime,
+			"GetVelocity", &UIComponent::GetVelocity,
+			"GetInitialRotation", &UIComponent::GetInitialRotation,
+			"GetFinalRotation", &UIComponent::GetFinalRotation,
+			"GetRotationRate", &UIComponent::GetRotationRate
 			);
 
 	// AffineAnimationComponent

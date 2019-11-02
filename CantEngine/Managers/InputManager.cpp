@@ -207,8 +207,12 @@ void InputManager::ToggleFullscreenMode()
 
 void InputManager::SetWindowSize(int w, int h)
 {
+	int prevWidth, prevHeight;
+	SDL_GetWindowSize(m_pWindow, &prevWidth, &prevHeight);
+	float xScale = (float)w / (float)prevWidth;
+	float yScale = (float)h / (float)prevHeight;
 	SDL_SetWindowSize(m_pWindow, w, h);
-	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(false, w, h);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(false, w, h, xScale, yScale);
 }
 
 

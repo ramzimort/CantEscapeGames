@@ -8,7 +8,6 @@ AffineAnimation =
 	-- Component
 	uiComp;
 	uiTransform;
-	uiAffineAnimation;
 	cameraComp;
 	
 	-- Data
@@ -39,10 +38,6 @@ AffineAnimation =
 	rotateInitial = false;
 	rotateFinal = false;
 	
-	--UI Camera
-	cameraObj;
-	screenWidth;
-	screenHeight;
 	
 	-- Death
 	ComponentDeath = false;
@@ -72,57 +67,35 @@ AffineAnimation.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
-	self.cameraObj = goMgr:FindGameObject("UIObject1");
-	if (self.cameraObj == nil) then
-		OutputPrint(">>> GO with tag UIObject1 not found\n");
-		return;
-	end
-	
-	self.cameraComp = self.cameraObj:GetCameraComp();
-	if (self.cameraComp == nil) then
-		OutputPrint(">>> Camera Component not found\n");
-		return;
-	end
 
-	self.camera = self.cameraComp:GetCamera();
-	if (self.camera == nil) then
-		OutputPrint(">>> Camera  not found\n");
-		return;
-	end
-	
-	
-	
 	
 	self.uiTransform = owner:GetTransformComp();
 	if (self.uiTransform == nil) then 
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
 	
-	self.uiAffineAnimation = owner:GetAffineAnimationComp();
-	if (self.uiAffineAnimation == nil) then 
-		OutputPrint("ERROR, Ui Affine Animation IS NIL\n");
-	end
 	
+	self.initialPosition = Vector3.new(self.uiComp:GetInitialPosition());
 	
-	self.initialPosition = Vector3.new(self.uiAffineAnimation:GetInitialPosition());
+	self.position = Vector3.new(self.uiComp:GetInitialPosition());
+	self.finalPosition = Vector3.new(self.uiComp:GetFinalPosition());
 	
-	self.position = Vector3.new(self.uiAffineAnimation:GetInitialPosition());
-	self.finalPosition = Vector3.new(self.uiAffineAnimation:GetFinalPosition());
+	self.deltaTime = self.uiComp:GetDeltaTime();
+	self.positveVelocity = Vector3.new(self.uiComp:GetVelocity());
 	
-	self.deltaTime = self.uiAffineAnimation:GetDeltaTime();
-	self.positveVelocity = Vector3.new(self.uiAffineAnimation:GetVelocity());
-	
-	self.negativeVelocity = self.uiAffineAnimation:GetVelocity();
+	self.negativeVelocity = self.uiComp:GetVelocity();
 	self.negativeVelocity = self.negativeVelocity * (-1);
 	self.initialAnimationEnable = true;
 	
 	self.scale = Vector3.new(self.uiTransform:GetScale());
 	self.uiComp:InitialAnimationEnabled();
 	
-	self.rotation = self.uiAffineAnimation:GetInitialRotation();
-	self.initialRotation = self.uiAffineAnimation:GetInitialRotation();
-	self.finalRotation = self.uiAffineAnimation:GetFinalRotation();
-	self.rotationRate = self.uiAffineAnimation:GetRotationRate();
+	self.rotation = self.uiComp:GetInitialRotation();
+	self.initialRotation = self.uiComp:GetInitialRotation();
+	self.finalRotation = self.uiComp:GetFinalRotation();
+	self.rotationRate = self.uiComp:GetRotationRate();
+	
+	OutputPrint("Reached\n" );
 	
 end
 
