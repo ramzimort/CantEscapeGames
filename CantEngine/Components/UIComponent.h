@@ -27,21 +27,27 @@ public:
 	int GetTotalObjects();
 	int GetTotalButtons();
 
-	void InitialAnimationEnabled();
-	void InitialAnimationDisabled();
-
-	void FinalAnimationEnabled();
-	void FinalAnimationDisabled();
-
-	bool GetInitailAnimationState();
-	bool GetFinalAnimationState();
-
 	std::string GetStateAddress();
 
 	void SetSliderValue(float val);
 
 	int GetChildButtonCount();
 	int GetChildButtonLocation();
+
+	// Animation  Function
+	Vector3 GetInitialPosition();
+	Vector3 GetFinalPosition();
+	Vector3 GetVelocity();
+	float GetDeltaTime();
+	float GetInitialRotation();
+	float GetFinalRotation();
+	float GetRotationRate();
+	void InitialAnimationEnabled();
+	void InitialAnimationDisabled();
+	void FinalAnimationEnabled();
+	void FinalAnimationDisabled();
+	bool GetInitailAnimationState();
+	bool GetFinalAnimationState();
 
 public:
 	//Unique class identifier
@@ -71,6 +77,18 @@ private:
 	int childButtonCount;
 	//
 	int childButtonLocation;
+	//  Inital position of the object
+	Vector3 initialPos;
+	// Final position of the object
+	Vector3 finalPos;
+	// Delta time for the animation
+	float deltaTime;
+	// Inital Roation Value
+	float initailRotation;
+	// Final Rotation Value
+	float finalRotationValue;
+	// Rate of Roation along Z axis
+	float rotationRate;
 
 
 	RTTR_ENABLE(BaseComponent);

@@ -18,6 +18,12 @@ RTTR_REGISTRATION
 		.property("SliderValue", &UIComponent::sliderValue)
 		.property("ChildButtonCount", &UIComponent::childButtonCount)
 		.property("ChildButtonLocation", &UIComponent::childButtonLocation)
+		.property("InitialPosition", &UIComponent::initialPos)
+		.property("FinalPosition", &UIComponent::finalPos)
+		.property("DeltaTime", &UIComponent::deltaTime)
+		.property("InitialRotation", &UIComponent::initailRotation)
+		.property("FinalRotation", &UIComponent::finalRotationValue)
+		.property("RotationRate", &UIComponent::rotationRate)
 		.method("Init", &UIComponent::Init);
 }
 
@@ -118,6 +124,40 @@ bool UIComponent::GetInitailAnimationState()
 bool UIComponent::GetFinalAnimationState()
 {
 	return finalAnimationEnabled;
+}
+Vector3 UIComponent::GetInitialPosition()
+{
+	return initialPos;
+}
+
+Vector3 UIComponent::GetFinalPosition()
+{
+	return finalPos;
+}
+Vector3 UIComponent::GetVelocity()
+{
+	Vector3 result = finalPos - initialPos;
+	result.Normalize();
+	return result;
+}
+float UIComponent::GetDeltaTime()
+{
+	return deltaTime;
+}
+
+float UIComponent::GetInitialRotation()
+{
+	return initailRotation;
+}
+
+float UIComponent::GetFinalRotation()
+{
+	return finalRotationValue;
+}
+
+float UIComponent::GetRotationRate()
+{
+	return rotationRate;
 }
 
 

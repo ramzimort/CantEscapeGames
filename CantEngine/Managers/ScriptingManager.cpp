@@ -424,7 +424,14 @@ void ScriptingManager::ManageBindings()
 			"SetSliderValue", sol::overload(
 				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
 			"GetChildButtonCount", &UIComponent::GetChildButtonCount,
-			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation
+			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation,
+			"GetInitialPosition", &UIComponent::GetInitialPosition,
+			"GetFinalPosition", &UIComponent::GetFinalPosition,
+			"GetDeltaTime", &UIComponent::GetDeltaTime,
+			"GetVelocity", &UIComponent::GetVelocity,
+			"GetInitialRotation", &UIComponent::GetInitialRotation,
+			"GetFinalRotation", &UIComponent::GetFinalRotation,
+			"GetRotationRate", &UIComponent::GetRotationRate
 			);
 
 	// AffineAnimationComponent

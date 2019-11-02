@@ -8,21 +8,18 @@
 	  "Scale": [ 1, 1, 1 ]
   },
 	"UIComponent": {
-		"ChildButtonCount": 0
+		"ChildButtonCount": 0,
+		"InitialPosition": [ 0.0, 0.0, 0.0],
+		"FinalPosition": [ 0.0, 0.0, 0.0],
+		"DeltaTime": 0.0,
+		"InitialRotation" : 0.0,
+		"FinalRotation" : 0.0,
+		"RotationRate" : 0.0	
   },
   "RendererComponent": {
     "MaterialId": "Assets\\Materials\\UI\\MainMenuButtonMaterial.json"
   },
 	
-  
-  "AffineAnimationComponent": {
-    "InitialPosition": [ 0.0, 0.0, 0.0],
-	"FinalPosition": [ 0.0, 0.0, 0.0],
-	"DeltaTime": 0.0,
-	"InitialRotation" : 0.0,
-	"FinalRotation" : 0.0,
-	"RotationRate" : 0.0	
-  },
   "Scripts": [
     {
       "Name": "Scripts\\Components\\DropDown.lua"
