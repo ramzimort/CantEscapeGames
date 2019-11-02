@@ -89,6 +89,20 @@ const UIComponent* UIComponent::GetChild(size_t index) const
 	return nullptr;
 }
 
+const UIComponent* UIComponent::GetParent() const
+{
+	return m_parent;
+}
+
+const UIComponent* UIComponent::GetChild(size_t index) const
+{
+	if (index < m_children.size())
+	{
+		return m_children[index];
+	}
+	return nullptr;
+}
+
 const size_t UIComponent::GetNumberOfChildren(size_t index) const
 {
 	return m_children.size();

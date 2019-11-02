@@ -106,6 +106,14 @@ private:
 	UIComponent* m_parent;
 	std::vector<UIComponent*> m_children;
 
+	// ALL NEW STUFF
+	size_t m_index;
+	bool m_clicked;
+	bool m_enabled;
+	std::string m_parentName;
+	UIComponent* m_parent;
+	std::vector<UIComponent*> m_children;
+
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;
