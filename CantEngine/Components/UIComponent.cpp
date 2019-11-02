@@ -27,12 +27,21 @@ RTTR_REGISTRATION
 		.method("Init", &UIComponent::Init);
 }
 
-UIComponent::UIComponent(GameObject *owner) :BaseComponent(owner, static_type), isTriggerd(false), isTouched(false)
+UIComponent::UIComponent(GameObject* owner) : 
+	BaseComponent(owner, static_type), 
+	isTriggerd(false), 
+	isTouched(false), 
+	m_parent(nullptr), 
+	m_children(std::vector<UIComponent*>(0))
 {
-
 }
+
 UIComponent::~UIComponent()
 {
+	if (m_parent != nullptr)
+	{
+		UnregisterChild(this);
+	}
 }
 
 void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
@@ -41,7 +50,48 @@ void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 
 void UIComponent::Begin(GameObjectManager *goMgr)
 {
+	GameObject* go = goMgr->FindGameObject(m_parentName);
+	if (go)
+	{
+		m_parent = go->GetComponent<UIComponent>();
+		m_parent->RegisterChild(this);
+	}
+}
 
+void UIComponent::RegisterChild(UIComponent* child)
+{
+	m_children.push_back(child);
+}
+
+void UIComponent::UnregisterChild(UIComponent* child)
+{
+	for (auto it = m_children.begin(); it != m_children.end(); ++it)
+	{
+		if (*it == child)
+		{
+			m_children.erase(it);
+			break;
+		}
+	}
+}
+
+const UIComponent* UIComponent::GetParent() const
+{
+	return m_parent;
+}
+
+const UIComponent* UIComponent::GetChild(size_t index) const
+{
+	if (index < m_children.size())
+	{
+		return m_children[index];
+	}
+	return nullptr;
+}
+
+const size_t UIComponent::GetNumberOfChildren(size_t index) const
+{
+	return m_children.size();
 }
 
 void UIComponent::IsTriggerd()

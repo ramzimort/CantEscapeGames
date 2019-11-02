@@ -18,6 +18,14 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 
+	void RegisterChild(UIComponent* child);
+	void UnregisterChild(UIComponent* child);
+
+	const UIComponent* GetParent() const;
+	const UIComponent* GetChild(size_t index) const;
+	const size_t GetNumberOfChildren(size_t index) const;
+
+
 	void IsTriggerd();
 	void IsNotTriggered();
 
@@ -89,6 +97,14 @@ private:
 	float finalRotationValue;
 	// Rate of Roation along Z axis
 	float rotationRate;
+
+	// ALL NEW STUFF
+	size_t m_index;
+	bool m_clicked;
+	bool m_enabled;
+	std::string m_parentName;
+	UIComponent* m_parent;
+	std::vector<UIComponent*> m_children;
 
 
 	RTTR_ENABLE(BaseComponent);

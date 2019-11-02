@@ -412,6 +412,11 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<UIComponent>
 		("UIComponent",
 			"GetLocation", &UIComponent::GetLocation,
+			"GetParent", &UIComponent::GetParent,
+			"GetChild", &UIComponent::GetChild,
+			"GetNumberOfChildren", &UIComponent::GetNumberOfChildren,
+
+
 			"GetTotalObjects", &UIComponent::GetTotalObjects,
 			"GetTotalButtons", &UIComponent::GetTotalButtons,
 			"GetStateAddress", &UIComponent::GetStateAddress,
