@@ -2,6 +2,9 @@
 #include "Graphics/DXResourceLoader.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/D3D11_Renderer.h"
+#include "Graphics/Material.h"
+#include "Memory/CantMemory.h"
+#include "Managers/ResourceManager.h"
 
 ModelLoader::ModelLoader()
 {
@@ -13,12 +16,12 @@ ModelLoader::~ModelLoader()
 }
 
 
-void ModelLoader::LoadModel( Model* model, aiScene const *scene,DXRenderer* dxrenderer)
+void ModelLoader::LoadModel( Model* model, aiScene const *scene, DXRenderer* dxrenderer, ResourceManager* resourceManager)
 {
 	uint32_t totalVertexCount = 0;
 	uint32_t totalIndexCount = 0;
 
-	ModelLoader::ProcessNode(scene->mRootNode, scene, *model, totalVertexCount, totalIndexCount, false);
+	ModelLoader::ProcessNode(scene->mRootNode, scene, *model, totalVertexCount, totalIndexCount, resourceManager);
 
 	if (!model->m_has_tangent)
 	{
@@ -27,23 +30,23 @@ void ModelLoader::LoadModel( Model* model, aiScene const *scene,DXRenderer* dxre
 }
 
 void ModelLoader::ProcessNode(aiNode *node, const aiScene *scene, Model& model, 
-	uint32_t& totalVertexCount, uint32_t& totalIndexCount, bool textured_model)
+	uint32_t& totalVertexCount, uint32_t& totalIndexCount, ResourceManager* resourceManager)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; ++i)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		ProcessMesh(mesh, scene, model, totalVertexCount, totalIndexCount, textured_model);
+		ProcessMesh(mesh, scene, model, totalVertexCount, totalIndexCount, resourceManager);
 	}
 
 	for (unsigned int i = 0; i < node->mNumChildren; ++i)
 	{
 		aiNode *child = node->mChildren[i];
-		ProcessNode(child, scene, model, totalVertexCount, totalIndexCount, textured_model);
+		ProcessNode(child, scene, model, totalVertexCount, totalIndexCount, resourceManager);
 	}
 }
 
 void ModelLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, Model& model, 
-	uint32_t& totalVertexCount, uint32_t& totalIndexCount, bool textured_model)
+	uint32_t& totalVertexCount, uint32_t& totalIndexCount, ResourceManager* resourceManager)
 {
 	size_t mesh_index = model.m_meshes.size();
 	model.m_meshes.push_back(Mesh());
@@ -127,14 +130,151 @@ void ModelLoader::ProcessMesh(aiMesh *mesh, const aiScene *scene, Model& model,
 	last_mesh.m_index_count = curIndexCount;
 	totalIndexCount += curIndexCount;
 
-	if (textured_model && mesh->mMaterialIndex >= 0)
+	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-		//TODO: load material texture
+		LoadMaterialTextures(scene, model, last_mesh, material, mesh_index, resourceManager);
 	}
 
-
 }
+
+
+void ModelLoader::LoadMaterialTextures(const aiScene* scene, Model& model, Mesh& mesh, aiMaterial *mat, uint64_t mesh_index, ResourceManager* resourceManager)
+{
+	Material* newMaterial = nullptr;
+
+	uint32_t diffuse_count = mat->GetTextureCount(aiTextureType_DIFFUSE);
+	if (diffuse_count > 0)
+	{
+		aiString diffuse_str;
+		mat->GetTexture(aiTextureType_DIFFUSE, 0, &diffuse_str);
+
+		std::string diffuse_name = std::string(diffuse_str.C_Str());
+
+		const aiTexture* tex = scene->GetEmbeddedTexture(diffuse_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string diffuse_full_key_id = model.m_modelId.getName() + diffuse_name;
+			newMaterial = CantMemory::PoolResource<Material>::Allocate();
+			newMaterial->m_diffuseColor = Vector4(0.2f, 0.2f, 0.2f, 1.0f);
+			newMaterial->m_specularColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+			newMaterial->m_pDiffuseTexture = ProcessAssimpTextureToResourceManager(diffuse_full_key_id, tex, resourceManager);
+			newMaterial->m_diffuseTextureId = diffuse_full_key_id;
+		}
+	}
+	if (!newMaterial)
+	{
+		return;
+	}
+	std::string new_material_name = model.m_modelId.getName() + std::to_string(mesh_index);
+
+	int normal_count = mat->GetTextureCount(aiTextureType_NORMALS);
+	if (normal_count > 0)
+	{
+		aiString normal_str;
+		mat->GetTexture(aiTextureType_NORMALS, 0, &normal_str);
+
+		std::string normal_name = std::string(normal_str.C_Str());
+		const aiTexture* tex = scene->GetEmbeddedTexture(normal_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string normal_key_id = model.m_modelId.getName() + normal_name;
+			newMaterial->m_pNormalTexture = ProcessAssimpTextureToResourceManager(normal_key_id, tex, resourceManager);
+			newMaterial->m_normalTextureId = normal_key_id;
+		}
+	}
+
+	int specular_count = mat->GetTextureCount(aiTextureType_SPECULAR);
+	if (specular_count > 0)
+	{
+		aiString specular_str;
+		mat->GetTexture(aiTextureType_SPECULAR, 0, &specular_str);
+
+		std::string specular_name = std::string(specular_str.C_Str());
+		const aiTexture* tex = scene->GetEmbeddedTexture(specular_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string specular_key_id = model.m_modelId.getName() + specular_name;
+			newMaterial->m_pSpecularTexture = ProcessAssimpTextureToResourceManager(specular_key_id, tex, resourceManager);
+			newMaterial->m_specularTextureId = specular_key_id;
+		}
+	}
+
+	int metal_count = mat->GetTextureCount(aiTextureType_METALNESS);
+	if (metal_count > 0)
+	{
+		aiString metal_str;
+		mat->GetTexture(aiTextureType_METALNESS, 0, &metal_str);
+
+		std::string metal_name = std::string(metal_str.C_Str());
+		const aiTexture* tex = scene->GetEmbeddedTexture(metal_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string metal_key_id = model.m_modelId.getName() + metal_name;
+			newMaterial->m_pMetallicTexture = ProcessAssimpTextureToResourceManager(metal_key_id, tex, resourceManager);
+			newMaterial->m_metallicTextureId = metal_key_id;
+		}
+	}
+
+	int rough_count = mat->GetTextureCount(aiTextureType_DIFFUSE_ROUGHNESS);
+	if (rough_count > 0)
+	{
+		aiString rough_str;
+		mat->GetTexture(aiTextureType_DIFFUSE_ROUGHNESS, 0, &rough_str);
+
+		std::string rough_name = std::string(rough_str.C_Str());
+		const aiTexture* tex = scene->GetEmbeddedTexture(rough_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string rough_key_id = model.m_modelId.getName() + rough_name;
+			newMaterial->m_pRoughnessTexture = ProcessAssimpTextureToResourceManager(rough_key_id, tex, resourceManager);
+			newMaterial->m_roughnessTextureId = rough_key_id;
+		}
+	}
+
+	int height_count = mat->GetTextureCount(aiTextureType_HEIGHT);
+	if (rough_count > 0)
+	{
+		aiString height_str;
+		mat->GetTexture(aiTextureType_HEIGHT, 0, &height_str);
+
+		std::string height_name = std::string(height_str.C_Str());
+		const aiTexture* tex = scene->GetEmbeddedTexture(height_name.c_str());
+
+		if (tex && tex->pcData)
+		{
+			std::string height_key_id = model.m_modelId.getName() + height_name;
+			newMaterial->m_pHeightTexture = ProcessAssimpTextureToResourceManager(height_key_id, tex, resourceManager);
+			newMaterial->m_heightTextureId = height_key_id;
+		}
+	}
+
+	newMaterial->m_materialId = new_material_name;
+	resourceManager->StoreMaterial(newMaterial->m_materialId.getName(), newMaterial);
+	mesh.m_material = newMaterial;
+}
+
+Texture* ModelLoader::ProcessAssimpTextureToResourceManager(const std::string& key_name, const aiTexture* ai_texture, ResourceManager* resourceManager)
+{
+	Texture* cached_texture = resourceManager->GetTexture(StringId(key_name));
+	if (cached_texture)
+	{
+		return cached_texture;
+	}
+	if (!ai_texture || !ai_texture->pcData)
+	{
+		return nullptr;
+	}
+	resourceManager->LoadInternalCompressedTexture(key_name, reinterpret_cast<const unsigned char*>(ai_texture->pcData), ai_texture->mWidth);
+	Texture* internalTexture = resourceManager->GetTexture(StringId(key_name));
+	return internalTexture;
+}
+
 
 void ModelLoader::PushVertexData(Model& model, const VertexData& vertex_data)
 {

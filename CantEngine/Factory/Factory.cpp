@@ -129,13 +129,7 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 			resMgr->LoadTexture(it->GetString());
 	}
 
-	if (resObj.HasMember("Models"))
-	{
-		assert(resObj["Models"].IsArray());
-		const auto& modelArr = resObj["Models"].GetArray();
-		for (auto it = modelArr.begin(); it != modelArr.end(); ++it)
-			resMgr->LoadModel(it->GetString());
-	}
+	
 
 	if (resObj.HasMember("Materials"))
 	{
@@ -143,6 +137,14 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 		const auto& matArr = resObj["Materials"].GetArray();
 		for (auto it = matArr.begin(); it != matArr.end(); ++it)
 			resMgr->LoadMaterial(it->GetString());
+	}
+
+	if (resObj.HasMember("Models"))
+	{
+		assert(resObj["Models"].IsArray());
+		const auto& modelArr = resObj["Models"].GetArray();
+		for (auto it = modelArr.begin(); it != modelArr.end(); ++it)
+			resMgr->LoadModel(it->GetString());
 	}
 
 	if (resObj.HasMember("Scripts"))
@@ -159,6 +161,13 @@ void Factory::LoadResources(const rapidjson::Value::Object& resObj, ResourceMana
 		const auto& songArr = resObj["Songs"].GetArray();
 		for (auto it = songArr.begin(); it != songArr.end(); ++it)
 			resMgr->LoadAudio(it->GetString(), Category::CATEGORY_SONG);
+	}
+	if (resObj.HasMember("Fonts"))
+	{
+		assert(resObj["Fonts"].IsArray());
+		const auto& fontsArr = resObj["Fonts"].GetArray();
+		for (auto it = fontsArr.begin(); it != fontsArr.end(); ++it)
+			resMgr->LoadFont(it->GetString());
 	}
 
 	if (resObj.HasMember("SFX"))

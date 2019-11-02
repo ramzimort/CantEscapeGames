@@ -9,8 +9,6 @@ level1 =
 --OnCreate, called when creating this state
 level1.OnCreateState = function(self)
 	local EventMgr = EventManager.Get();
-	EventMgr:PopState(false);
-	EventMgr:PushLoadedState(false);
 	LOG("Created " .. self.name .. " state\n");
 end
 

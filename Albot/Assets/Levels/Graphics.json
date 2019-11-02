@@ -31,7 +31,9 @@
       "Assets\\Models\\Sphere.fbx",
       "Assets\\Models\\AnimTest01.fbx",
       "Assets\\Models\\TestStand.fbx",
-      "Assets\\Models\\TestWalk.fbx"
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\TestIdle.fbx",
+      "Assets\\Models\\english_knight.fbx"
     ],
     "Materials": [
       "Assets\\Materials\\Material1.json",
@@ -50,6 +52,9 @@
     "SFX": [
 
     ],
+    "Fonts": [
+
+    ],
     "Prefabs": [
       "Assets\\Prefabs\\lvleditor.json",
       "Assets\\Prefabs\\mono_azul.json",
@@ -65,7 +70,8 @@
       "Assets\\Prefabs\\mini_map.json",
       "Assets\\Prefabs\\Skybox\\factory_skybox.json",
       "Assets\\Prefabs\\burning_mitsuba_sphere.json",
-      "Assets\\Prefabs\\ceramic_floor.json"
+      "Assets\\Prefabs\\ceramic_floor.json",
+      "Assets\\Prefabs\\english_knight.json"
     ],
     "Scripts": [
       "Scripts\\States\\Graphics.lua",
@@ -91,54 +97,16 @@
       }
     },
     {
-      "tag": "RGDBDY1",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 2.0, -5.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [ 0.0, 0.0, 0.0 ],
-          "Mass": 1.0,
-          "CollisionMask": "DINAMIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "RGDBDYGROUND",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.7, -2.0, -5.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 100.0, 1.0, 100.0 ]
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": false,
-          "Velocity": [ 0.0, 0.0, 0.0 ],
-          "Mass": 3.4e38,
-          "CollisionMask": "DINAMIC_OBJ"
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
-        }
-      }
-    },
-    {
       "tag": "Right",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\material_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 3.0, 3.0, 3.0 ]
         },
         "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\RedDieletricSmoothMaterial.json"
+          "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
         }
       }
     },
@@ -147,7 +115,16 @@
       "prefab": "Assets\\Prefabs\\brick_wall.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -25.0, -5.0, 0.0 ]
+          "Position": [ -25.0, -2.0, 0.0 ]
+        }
+      }
+    },
+    {
+      "tag": "knight01",
+      "prefab": "Assets\\Prefabs\\english_knight.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -5.0, -2.0, 5.0 ]
         }
       }
     },
@@ -156,21 +133,22 @@
       "prefab": "Assets\\Prefabs\\ceramic_floor.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ 25.0, -5.0, 0.0 ]
+          "Position": [ 25.0, -2.0, 0.0 ]
         }
       }
     },
 
     {
       "tag": "Middle",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\material_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ 0.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 3.0, 3.0, 3.0 ]
         },
         "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json"
+          "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
         }
       }
     },
@@ -181,7 +159,7 @@
         "TransformComponent": {
           "Position": [ 10.0, 0.0, -20.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 2.0, 2.0, 2.0 ]
+          "Scale": [ 3.0, 3.0, 3.0 ]
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
@@ -203,14 +181,15 @@
     },
     {
       "tag": "Left",
-      "prefab": "Assets\\Prefabs\\mitsuba_sphere.json",
+      "prefab": "Assets\\Prefabs\\material_sphere.json",
       "overrides": {
         "TransformComponent": {
           "Position": [ -10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 3.0, 3.0, 3.0 ]
         },
         "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\RedDieletricRoughMaterial.json"
+          "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
         }
       }
     },
@@ -301,7 +280,7 @@
             },
             {
               "name": "IdleAnim",
-              "path": "Assets/Models/TestIdle.fbx",
+              "path": "Assets\\Models\\TestIdle.fbx",
               "loops": true
             }
           ]

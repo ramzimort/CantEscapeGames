@@ -1011,11 +1011,10 @@ Texture* DXResourceLoader::Create_TextureFromMemory(DXRenderer* renderer, Textur
 {
 	ID3D11Resource* d3d_tex2d = nullptr;
 	ID3D11ShaderResourceView* d3d_tex2d_srv = nullptr;
-
 	if (load_desc.m_use_ex_flag)
 	{
 		HRESULT hr = DirectX::CreateWICTextureFromMemoryEx(renderer->get_device(),
-			renderer->get_device_context(), (const uint8_t*)load_desc.m_rawData, load_desc.mRawDataByteTotalSize, load_desc.mRawDataByteTotalSize,
+			renderer->get_device_context(), (const uint8_t*)load_desc.m_rawData, load_desc.m_rawDataByteTotalSize, load_desc.m_rawDataByteTotalSize,
 			Usage_Type_To_D3D11_Usage(load_desc.m_tex_desc->m_usageType), Bind_Flags_To_D3D11_Bind_Flags(load_desc.m_tex_desc->m_bindFlags),
 			CPU_Access_To_D3D11_CPU_Access(load_desc.m_tex_desc->m_cpuAccessType), 0, 0, &d3d_tex2d, &d3d_tex2d_srv);
 
@@ -1027,8 +1026,8 @@ Texture* DXResourceLoader::Create_TextureFromMemory(DXRenderer* renderer, Textur
 	}
 	else
 	{
-		HRESULT hr = DirectX::CreateWICTextureFromMemory(renderer->get_device(),
-			(const uint8_t*)load_desc.m_rawData, load_desc.mRawDataByteTotalSize, &d3d_tex2d, &d3d_tex2d_srv);
+		HRESULT hr = DirectX::CreateWICTextureFromMemory(renderer->get_device(), renderer->get_device_context(),
+			(const uint8_t*)load_desc.m_rawData, load_desc.m_rawDataByteTotalSize, &d3d_tex2d, &d3d_tex2d_srv);
 
 		if (FAILED_HR(hr))
 		{

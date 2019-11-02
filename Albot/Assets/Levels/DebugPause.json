@@ -15,6 +15,9 @@
     ],
     "Prefabs": [
     ],
+    "Fonts": [
+
+    ],
     "Scripts": [
       "Scripts\\States\\DebugPause.lua"
     ]

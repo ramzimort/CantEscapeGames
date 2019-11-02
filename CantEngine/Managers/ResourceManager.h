@@ -4,12 +4,14 @@
 #include "Helper/Hash.h"
 #include "Audio/AudioTypes.h"
 #include "AudioManager.h"
+#include <DirectXTK/SpriteFont.h>
 
 class Model;
 class Texture;
 class Material;
 class DXRenderer;
 class AudioManager;
+
 
 enum ResType
 {
@@ -20,6 +22,7 @@ enum ResType
 	MATERIAL,
 	PREFAB,
 	SCRIPT,
+	FONT,
 };
 
 union ResPtr
@@ -30,6 +33,7 @@ union ResPtr
 	std::string* p_prefab;
 	FMOD::Sound* p_sound;
 	sol::table* p_solTable;
+	DirectX::SpriteFont* p_spriteFont;
 };
 
 struct Resource
@@ -64,11 +68,11 @@ class ResourceManager
 {
 	friend class Factory;
 	typedef std::unordered_map<StringId, Resource, StringIdHash> ResourceMap;
-	typedef std::unordered_map<const std::string, const std::wstring, std::hash<std::string>> LocStringMap;
-
+	friend class ModelLoader;
 public:
 	ResourceManager();
 	~ResourceManager();
+
 	void Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager);
 	const std::wstring& GetLString(const std::string&);
 	Model* GetModel(StringId modelId);
@@ -81,6 +85,7 @@ public:
 	void FreeAll();
 
 private:
+	void LoadFont(const std::string& filePath);
 	void LoadStrings(const std::string& language);
 	void LoadModel(const std::string& filePath);
 	void LoadMaterial(const std::string& filePath);
@@ -88,6 +93,9 @@ private:
 	void LoadAudio(const std::string& filePath, Category type);
 	void LoadPrefab(const std::string& filePath);
 	void LoadScript(const std::string& filePath);
+	void LoadInternalCompressedTexture(const std::string& keyName, 
+		const unsigned char* rawData, uint32_t totalByteWidth);
+	void StoreMaterial(const std::string& keyName, Material* pMaterial);
 #ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
 	void ReloadResources();

@@ -68,11 +68,14 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	const Matrix& rotMatrix = transformComp->GetRotationMatrix();
 	const Matrix& invertScaleMatrix = transformComp->GetScaleMatrix().Invert();
 
-	BoneMeshInstanceRenderData boneMeshInstanceRenderData = {};
+	//learnopengl way for getting the correct normal matrix
+	//Normal = mat3(transpose(inverse(model))) * aNormal;  
 
+	BoneMeshInstanceRenderData boneMeshInstanceRenderData = {};
 	boneMeshInstanceRenderData.m_instanceRenderData = {};
 	boneMeshInstanceRenderData.m_instanceRenderData.model_mat = modelMatrix;
 	boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = invertScaleMatrix * rotMatrix;
+	//boneMeshInstanceRenderData.m_instanceRenderData.normal_mat = modelMatrix.Invert().Transpose();
 	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_model = meshesComp->GetModel();
 	boneMeshInstanceRenderData.m_instanceRenderData.p_ref_material = rendererComp->m_pMaterial;
 	boneMeshInstanceRenderData.m_instanceRenderData.uv_tiling = Vector2(rendererComp->m_xTileFactor, rendererComp->m_yTileFactor);

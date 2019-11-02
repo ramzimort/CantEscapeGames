@@ -40,6 +40,9 @@
     "SFX": [
 
     ],
+    "Fonts": [
+
+    ],
     "Prefabs": [
       "Assets\\Prefabs\\lvleditor.json",
       "Assets\\Prefabs\\mono_azul.json",

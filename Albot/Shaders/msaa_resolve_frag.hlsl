@@ -23,15 +23,6 @@ cbuffer MSAAResolveUniform_CB :  register(b1)
     MSAAResolveUniformData MSAAResolveUniformData_Buffer;
 };
 
-//from MJP blog for tone mapping
-float3 ToneMapFilmicALU(in float3 color)
-{
-    color = max(0, color - 0.004f);
-    color = (color * (6.2f * color + 0.5f)) / (color * (6.2f * color + 1.7f) + 0.06f);
-
-    //Result has 1/2.2 baked in
-    return pow(color, 2.2f);
-}
 
 
 Texture2DMS<float4, SAMPLE_COUNT> MSAA_Texture : register(t0);
@@ -89,7 +80,6 @@ PS_OUT main(PS_IN ps_in)
                 if(sampler_dist <= 1.0f)
                 {
                     float4 cur_sampled_color = MSAA_Texture.Load(cur_sample_pos, sample_index).rgba;
-                    //cur_sampled_color.rgb = ToneMapFilmicALU(cur_sampled_color.rgb);
                     float weight = FilterCubic(sampler_dist, 1 / 3.0f, 1 / 3.0f);
                     total_color += cur_sampled_color.rgba * weight;
                     total_weight += weight;

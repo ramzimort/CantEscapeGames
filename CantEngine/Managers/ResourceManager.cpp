@@ -83,12 +83,16 @@ Model* ResourceManager::GetModel(StringId modelId)
 Material* ResourceManager::GetMaterial(StringId materialId)
 {
 	return m_resources.at(materialId).res.p_material;
-
 }
 
 Texture* ResourceManager::GetTexture(StringId textureId)
 {
-	return m_resources.at(textureId).res.p_texture;
+	auto findIter = m_resources.find(textureId);
+	if (findIter == m_resources.end())
+	{
+		return nullptr;
+	}
+	return findIter->second.res.p_texture;
 }
 
 std::string& ResourceManager::GetPrefab(StringId prefabId)
@@ -140,9 +144,9 @@ void ResourceManager::LoadModel(const std::string& filePath)
 
 	//Create model with the right virtual ctor
 	model = (hasBoneFlag) ? CantMemory::PoolResource<AnimModel>::Allocate() : CantMemory::PoolResource<Model>::Allocate();
-
+	model->m_modelId = StringId(filePath);
 	//First load mesh data. If has bones, load extra bones parameters
-	ModelLoader::LoadModel(model, scene, m_dxrenderer);
+	ModelLoader::LoadModel(model, scene, m_dxrenderer, this);
 	if (hasBoneFlag)
 		FBXLoader::LoadSkeletalData(model, scene);
 
@@ -197,6 +201,48 @@ void ResourceManager::LoadMaterial(const std::string& filePath)
 	m_resources[id] = res;
 }
 
+void ResourceManager::StoreMaterial(const std::string& keyName, Material* pMaterial)
+{
+	DEBUG_LOG("Loading Internal Material: %s...\n", keyName.c_str());
+	StringId id = StringId(keyName);
+
+	if (m_resources.find(id) != m_resources.end())
+	{
+		DEBUG_LOG("Internal Material already existed: %s...\n", keyName.c_str());
+		return;
+	}
+
+	ResPtr p; p.p_material = pMaterial;
+	Resource res(MATERIAL, p);
+	m_resources[id] = res;
+}
+
+void ResourceManager::LoadInternalCompressedTexture(const std::string& keyName,
+	const unsigned char* rawData, uint32_t totalByteWidth)
+{
+	std::lock_guard<std::mutex> lock(m_dxrenderer->m_mutex);
+	DEBUG_LOG("Loading Internal Texture: %s...\n", keyName.c_str());
+	StringId id = StringId(keyName);
+
+	if (m_resources.find(id) != m_resources.end())
+	{
+		DEBUG_LOG("Internal Texture already existed: %s...\n", keyName.c_str());
+		return;
+	}
+
+	TextureLoadDesc texture_load_desc = {};
+	texture_load_desc.m_isRawDataFromInternalMemory = true;
+	texture_load_desc.m_useDXLoader = true;
+	texture_load_desc.m_rawData = rawData;
+	texture_load_desc.m_generateMipMap = true;
+	texture_load_desc.m_rawDataByteTotalSize = totalByteWidth;
+	Texture* internalTexture = DXResourceLoader::Create_Texture(m_dxrenderer, texture_load_desc);
+
+	ResPtr p; p.p_texture = internalTexture;
+	Resource res(TEXTURE, p);
+	m_resources[id] = res;
+}
+
 bool ResourceManager::HasResource(StringId id)
 {
 	return m_resources.find(id) != m_resources.end();
@@ -212,6 +258,9 @@ void ResourceManager::FreeResource(StringId id)
 	switch (it->second.type)
 	{
 	case SONGS:
+	case FONT:
+		CantMemory::PoolResource<DirectX::SpriteFont>::Free(p.p_spriteFont);
+		break;
 	case SFX:
 		p.p_sound->release();
 		m_pAudioManager->UnregisterSound(it->first);
@@ -251,6 +300,21 @@ void ResourceManager::FreeAll()
 	m_resources.clear();
 }
 
+
+void ResourceManager::LoadFont(const std::string& filePath)
+{
+	DEBUG_LOG("Loading Font: %s...\n", filePath.c_str());
+	StringId id = StringId(filePath);
+
+	if (m_resources.find(id) != m_resources.end())
+		return;
+
+	std::wstring wideString(filePath.begin(), filePath.end());
+	ResPtr p;
+	p.p_spriteFont = CantMemory::PoolResource<DirectX::SpriteFont>::Allocate(m_dxrenderer->get_device(), wideString.c_str());
+	Resource res(FONT, p);
+	m_resources[id] = res;
+}
 
 void ResourceManager::LoadTexture(const std::string& filePath)
 {

@@ -93,6 +93,7 @@
     <ClCompile Include="Graphics\RenderTarget.cpp" />
     <ClCompile Include="Graphics\Sampler.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\TextRendering\DXFont.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp" />
     <ClCompile Include="Managers\AudioManager.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Graphics\RenderTarget.h" />
     <ClInclude Include="Graphics\Sampler.h" />
     <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\TextRendering\DXFont.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\UI_Rendering\UIObjectRenderingInstance.h" />
     <ClInclude Include="Graphics\VertexLayout.h" />

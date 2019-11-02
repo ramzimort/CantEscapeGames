@@ -58,7 +58,7 @@ struct TextureLoadDesc
 	bool m_use_ex_flag = false;
 	bool m_generateMipMap = false;
 	bool m_isRawDataFromInternalMemory = false;
-	uint32_t mRawDataByteTotalSize = 0;
+	uint32_t m_rawDataByteTotalSize = 0;
 	const void* m_rawData = nullptr;
 	uint32_t m_rawDataOnePixelSize = 0;
 };
