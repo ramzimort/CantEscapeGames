@@ -1,305 +1,676 @@
 {
-  "Resources": {
-    "Textures": [
-      "Assets\\Textures\\floor.png",
-      "Assets\\Textures\\Particles\\flare0.png",
-      "Assets\\Textures\\redbrick.jpg",
-      "Assets\\Textures\\redbrick_normal.jpg",
-      "Assets\\Textures\\redbrick_height.jpg",
-      "Assets\\Textures\\redbrick_height_invert.jpg",
-      "Assets\\Textures\\ceramic_diffuse.jpg",
-      "Assets\\Textures\\ceramic_normal.jpg",
-      "Assets\\Textures\\ceramic_height.jpg",
-      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
-      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
-      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
-      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
-      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
-      "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
-      "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
-      "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
-      "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
-      "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
-      "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-      "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
-    ],
-    "Models": [
-      "Assets\\Models\\mitsuba-sphere.obj",
-      "Assets\\Models\\material_sphere.fbx",
-      "Assets\\Models\\plane.fbx",
-      "Assets\\Models\\Cube.fbx",
-      "Assets\\Models\\Sphere.fbx",
-      "Assets\\Models\\AnimTest01.fbx",
-      "Assets\\Models\\TestStand.fbx",
-      "Assets\\Models\\TestWalk.fbx",
-      "Assets\\Models\\TestIdle.fbx",
-      "Assets\\Models\\english_knight.fbx"
-    ],
-    "Materials": [
-      "Assets\\Materials\\Material1.json",
-      "Assets\\Materials\\Red_Brick_Material.json",
-      "Assets\\Materials\\MaterialDarkGreen.json",
-      "Assets\\Materials\\RedDieletricRoughMaterial.json",
-      "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-      "Assets\\Materials\\RedMetallicSmoothMaterial.json",
-      "Assets\\Materials\\CeramicMaterial.json",
-      "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-      "Assets\\Materials\\RoughMetalMaterial.json"
-    ],
-    "Songs": [
-
-    ],
-    "SFX": [
-
-    ],
-    "Fonts": [
-      "Assets\\Fonts\\courier_new.spritefont",
-      "Assets\\Fonts\\courier_new_bold.spritefont"
-    ],
-    "Prefabs": [
-      "Assets\\Prefabs\\lvleditor.json",
-      "Assets\\Prefabs\\mono_azul.json",
-      "Assets\\Prefabs\\mono_rojo.json",
-      "Assets\\Prefabs\\mitsuba_sphere.json",
-      "Assets\\Prefabs\\material_sphere.json",
-      "Assets\\Prefabs\\Lights\\directional_light.json",
-      "Assets\\Prefabs\\Lights\\point_light.json",
-      "Assets\\Prefabs\\RBTestObj.json",
-      "Assets\\Prefabs\\player.json",
-      "Assets\\Prefabs\\TestGoJose.json",
-      "Assets\\Prefabs\\brick_wall.json",
-      "Assets\\Prefabs\\mini_map.json",
-      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "Assets\\Prefabs\\burning_mitsuba_sphere.json",
-      "Assets\\Prefabs\\ceramic_floor.json",
-      "Assets\\Prefabs\\english_knight.json"
-    ],
-    "Scripts": [
-      "Scripts\\States\\Graphics.lua",
-      "Scripts\\States\\DebugPause.lua",
-      "Scripts\\Components\\PlayerComp.lua",
-      "Scripts\\Components\\fpscontroller.lua"
-    ]
-  },
-  "Objects": [
-    {
-      "tag": "lvleditor",
-      "prefab": "Assets\\Prefabs\\lvleditor.json",
-      "overrides": {
-      }
+    "Resources": {
+        "Textures": [
+            "Assets\\Textures\\ceramic_diffuse.jpg",
+            "Assets\\Textures\\ceramic_height.jpg",
+            "Assets\\Textures\\ceramic_normal.jpg",
+            "Assets\\Textures\\floor.png",
+            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
+            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
+            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
+            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
+            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
+            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
+            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
+            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
+            "Assets\\Textures\\Particles\\flare0.png",
+            "Assets\\Textures\\redbrick.jpg",
+            "Assets\\Textures\\redbrick_height.jpg",
+            "Assets\\Textures\\redbrick_height_invert.jpg",
+            "Assets\\Textures\\redbrick_normal.jpg",
+            "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
+            "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
+            "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
+            "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
+            "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
+            "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+            "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
+            "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
+            "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
+            "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
+            "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+            "Assets\\Textures\\Bricks\\Bricks22_col.jpg",
+            "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
+            "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
+            "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg"
+        ],
+        "Models": [
+            "Assets\\Models\\AnimTest01.fbx",
+            "Assets\\Models\\Cube.fbx",
+            "Assets\\Models\\english_knight.fbx",
+            "Assets\\Models\\material_sphere.fbx",
+            "Assets\\Models\\mitsuba-sphere.obj",
+            "Assets\\Models\\old_lantern.fbx",
+            "Assets\\Models\\plane.fbx",
+            "Assets\\Models\\Sphere.fbx",
+            "Assets\\Models\\TestWalk.fbx"
+        ],
+        "Materials": [
+            "Assets\\Materials\\CeramicMaterial.json",
+            "Assets\\Materials\\Material1.json",
+            "Assets\\Materials\\MaterialDarkGreen.json",
+            "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+            "Assets\\Materials\\OldLanternMaterial.json",
+            "Assets\\Materials\\RedDieletricRoughMaterial.json",
+            "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+            "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+            "Assets\\Materials\\Red_Brick_Material.json",
+            "Assets\\Materials\\RoughMetalMaterial.json",
+            "Assets\\Materials\\SmoothWoodMaterial.json",
+            "Assets\\Materials\\RoughBrick22Material.json"
+        ],
+        "Scripts": [
+            "Scripts\\Components\\fpscontroller.lua",
+            "Scripts\\Components\\PlayerComp.lua",
+            "Scripts\\States\\DebugPause.lua",
+            "Scripts\\States\\Graphics.lua"
+        ],
+        "Prefabs": [
+            "Assets\\Prefabs\\brick_wall.json",
+            "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+            "Assets\\Prefabs\\ceramic_floor.json",
+            "Assets\\Prefabs\\english_knight.json",
+            "Assets\\Prefabs\\Lights\\directional_light.json",
+            "Assets\\Prefabs\\Lights\\point_light.json",
+            "Assets\\Prefabs\\lvleditor.json",
+            "Assets\\Prefabs\\material_sphere.json",
+            "Assets\\Prefabs\\mini_map.json",
+            "Assets\\Prefabs\\mitsuba_sphere.json",
+            "Assets\\Prefabs\\mono_azul.json",
+            "Assets\\Prefabs\\mono_rojo.json",
+            "Assets\\Prefabs\\old_lantern.json",
+            "Assets\\Prefabs\\player.json",
+            "Assets\\Prefabs\\RBTestObj.json",
+            "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "Assets\\Prefabs\\smooth_wood_plane.json",
+            "Assets\\Prefabs\\generic_plane.json"
+            
+        ],
+        "Songs": [],
+        "SFX": []
     },
-    {
-      "tag": "skybox",
-      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "overrides": {
-
-      }
-    },
-    {
-      "tag": "Right",
-      "prefab": "Assets\\Prefabs\\material_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 3.0, 3.0, 3.0 ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
-        }
-      }
-    },
-    {
-      "tag": "Brick_Floor",
-      "prefab": "Assets\\Prefabs\\brick_wall.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -25.5, -2.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "knight01",
-      "prefab": "Assets\\Prefabs\\english_knight.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -5.0, -2.0, 5.0 ]
-        }
-      }
-    },
-    {
-      "tag": "Ceramic_Floor",
-      "prefab": "Assets\\Prefabs\\ceramic_floor.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 25.5, -2.0, 0.0 ]
-        }
-      }
-    },
-
-    {
-      "tag": "Middle",
-      "prefab": "Assets\\Prefabs\\material_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 3.0, 3.0, 3.0 ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
-        }
-      }
-    },
-    {
-      "tag": "materialsphere01",
-      "prefab": "Assets\\Prefabs\\material_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 10.0, 0.0, -20.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 3.0, 3.0, 3.0 ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
-        }
-      }
-    },
-    {
-      "tag": "TopMitsubaSphere",
-      "prefab": "Assets\\Prefabs\\burning_mitsuba_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 0.0, 10.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
-        }
-      }
-    },
-    {
-      "tag": "Left",
-      "prefab": "Assets\\Prefabs\\material_sphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -10.0, 0.0, -10.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 3.0, 3.0, 3.0 ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
-        }
-      }
-    },
-    {
-      "tag": "directional_light01",
-      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 150.0, 0.0, 0.0 ],
-          "Rotation": [ 45.0, 0.0, 0.0 ]
-        }
-      }
-    },
-    {
-      "tag": "point_light1",
-      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -12.5, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        },
-        "LightComponent": {
-          "Light": {
-            "Intensity": 5.0,
-            "Radius": 20.0
-          }
-        }
-      }
-    },
-    {
-      "tag": "point_light3",
-      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 12.5, 2.0, 5.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        },
-        "LightComponent": {
-          "Light": {
-            "Intensity": 5.0,
-            "Radius": 30.0
-          }
-        }
-      }
-    },
-    {
-      "tag": "point_light2",
-      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ 12.5, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ]
-        },
-        "LightComponent": {
-          "Light": {
-            "Intensity": 5.0,
-            "Radius": 20.0
-          }
-        }
-      }
-    },
-    {
-      "tag": "mini_map1",
-      "prefab": "Assets\\Prefabs\\mini_map.json",
-      "overrides": {
-        "CameraComponent": {
-          "Camera": {
-            "Position": [ 0.0, 5.0, 0.0 ],
-            "LookDir": [ 0.0, -1.0, 0.1 ]
-          }
-        }
-      }
-    },
-    {
-      "tag": "Go_Jose01",
-      "prefab": "Assets\\Prefabs\\TestGoJose.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -1.0, 0.5, 1.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 0.015, 0.015, 0.015 ]
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\AnimTest01.fbx"
-        },
-        "AnimationComponent": {
-          "StartingAnimation": "IdleAnim",
-          "Clips": [
-            {
-              "name": "AttackAnim",
-              "path": "Assets/Models/TestAttack.fbx",
-              "loops": false
-            },
-            {
-              "name": "StopAnim",
-              "path": "Assets\\Models\\TestStand.fbx",
-              "loops": true
-            },
-            {
-              "name": "WalkAnim",
-              "path": "Assets\\Models\\TestWalk.fbx",
-              "loops": true
-            },
-            {
-              "name": "IdleAnim",
-              "path": "Assets\\Models\\TestIdle.fbx",
-              "loops": true
+    "Objects": [
+        {
+            "tag": "skybox",
+            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "SkyboxIrradianceComponent": {
+                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                }
             }
-          ]
+        },
+        {
+            "tag": "lvleditor",
+            "prefab": "Assets\\Prefabs\\lvleditor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -6.488014221191406,
+                        14.41190242767334,
+                        28.144508361816408
+                    ],
+                    "Rotation": [
+                        -23.630014419555665,
+                        -368.020751953125,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "CameraComponent": {
+                    "Camera": {
+                        "FOV": 45.0,
+                        "Near": 0.10000000149011612,
+                        "Far": 1000.0,
+                        "Position": [
+                            -6.488014221191406,
+                            14.41190242767334,
+                            28.144508361816408
+                        ],
+                        "CameraName": "Main",
+                        "ZOrder": 0
+                    }
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\fpscontroller.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Right",
+            "prefab": "Assets\\Prefabs\\material_sphere.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        10.0,
+                        0.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\material_sphere.fbx"
+                }
+            }
+        },
+        {
+            "tag": "Brick_Floor",
+            "prefab": "Assets\\Prefabs\\brick_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -25.0,
+                        20.0,
+                        -24.5
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        25.0,
+                        25.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Red_Brick_Material.json",
+                    "XTileFactor": 4.0,
+                    "YTileFactor": 4.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
+        },
+        {
+            "tag": "lantern",
+            "prefab": "Assets\\Prefabs\\old_lantern.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -22.85700035095215,
+                        14.28600025177002,
+                        -22.85700035095215
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\OldLanternMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\old_lantern.fbx"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            0.0,
+                            -0.4000000059604645,
+                            0.20000003278255464
+                        ],
+                        "Radius": 1.5,
+                        "Intensity": 1.0,
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "tag": "Middle",
+            "prefab": "Assets\\Prefabs\\material_sphere.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\material_sphere.fbx"
+                }
+            }
+        },
+        {
+            "tag": "knight01",
+            "prefab": "Assets\\Prefabs\\english_knight.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        -2.0,
+                        5.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.05000000074505806,
+                        0.05000000074505806,
+                        0.05000000074505806
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\english_knight.fbx"
+                }
+            }
+        },
+        {
+            "tag": "Ceramic_Floor",
+            "prefab": "Assets\\Prefabs\\ceramic_floor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        -2.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        25.0,
+                        25.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 4.0,
+                    "YTileFactor": 4.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
+        },
+        {
+            "tag": "TopMitsubaSphere",
+            "prefab": "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        10.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\mitsuba-sphere.obj"
+                },
+                "ParticleEmitterComponent": {
+                    "Emitter_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Radius": 8.0,
+                        "Intensity": 1.0,
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "tag": "materialsphere01",
+            "prefab": "Assets\\Prefabs\\material_sphere.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        10.0,
+                        0.0,
+                        -20.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\material_sphere.fbx"
+                }
+            }
+        },
+        {
+            "tag": "Left",
+            "prefab": "Assets\\Prefabs\\material_sphere.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -10.0,
+                        0.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        3.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\material_sphere.fbx"
+                }
+            }
+        },
+        {
+            "tag": "directional_light01",
+            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        150.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        45.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Directional",
+                        "Color": [
+                            1.0,
+                            0.800000011920929,
+                            0.7360000014305115
+                        ],
+                        "Intensity": 1.0,
+                        "CastShadow": true
+                    }
+                }
+            }
+        },
+        {
+            "tag": "point_light1",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -12.5,
+                        5.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 20.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "point_light3",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        12.5,
+                        2.0,
+                        5.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 30.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "point_light2",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        12.5,
+                        5.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 20.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "mini_map1",
+            "prefab": "Assets\\Prefabs\\mini_map.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "CameraComponent": {
+                    "Camera": {
+                        "FOV": 75.0,
+                        "Near": 0.10000000149011612,
+                        "Far": 1000.0,
+                        "Position": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "LookDir": [
+                            -0.0,
+                            -0.0,
+                            -1.0
+                        ],
+                        "CameraName": "MiniMap",
+                        "OrthographicWidth": 80,
+                        "OrthographicHeight": 80,
+                        "CameraProjectionType": "Projection_Orthographic",
+                        "ZOrder": 1,
+                        "ViewportRenderInfo": [
+                            0.0,
+                            0.0,
+                            0.25,
+                            0.25
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\smooth_wood_plane.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -25.0,
+                        -2.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        25.0,
+                        25.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\SmoothWoodMaterial.json",
+                    "XTileFactor": 4.0,
+                    "YTileFactor": 4.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }

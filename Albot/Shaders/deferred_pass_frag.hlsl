@@ -3,7 +3,7 @@
 Texture2D<float4> Diffuse_Texture : register(t0);
 Texture2D<float4> Normal_Texture : register(t1);
 Texture2D<float> Height_Texture : register(t2);
-Texture2D<float4> Specular_Texture : register(t3);
+Texture2D<float> Specular_Texture : register(t3);
 Texture2D<float> Metallic_Texture : register(t4);
 Texture2D<float> Roughness_Texture : register(t5);
 
@@ -114,7 +114,6 @@ PS_OUT main(PS_IN ps_in)
             ps_in.Tangent, ps_in.Bitangent, -1.f);
 
         world_normal = mul(ObjectUniformData_Buffer.NormalMat, float4(fetched_normal, 0.f)).rgb;
-        //world_normal = mul(float4(fetched_normal, 0.f), ObjectUniformData_Buffer.NormalMat).rgb;
     }
 
     float3 material_diffuse_color = MaterialUniformData_Buffer.DiffuseColor.xyz;
@@ -125,7 +124,7 @@ PS_OUT main(PS_IN ps_in)
     }
     if ((mat_type & MAT_ID_SPECULAR_TEXUTERE) != 0)
     {
-        material_specular_color = Specular_Texture.Sample(Texture_Sampler, UV).rgb;
+        material_specular_color = material_diffuse_color * Specular_Texture.Sample(Texture_Sampler, UV).r;
     }
     if ((mat_type & MAT_ID_METALLIC_TEXTURE) != 0)
     {

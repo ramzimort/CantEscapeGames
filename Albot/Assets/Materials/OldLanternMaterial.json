@@ -1,0 +1,19 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
+  "Normal_Texture_Dir": "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
+  "Specular_Texture_Dir": "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
+  "Roughness_Value": 0.600000011920929,
+  "Metallic_Value": 0.10000000298023225,
+  "Diffuse_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "Specular_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ]
+}

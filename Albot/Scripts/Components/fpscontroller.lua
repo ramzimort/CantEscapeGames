@@ -45,7 +45,7 @@ end
 
 --Update called every tick
 fpscontroller.Update = function(self, dt, owner) 
-
+	
 	local movement_amount = Vector2.new(0);
 	if (self.Forward) then
 		movement_amount.y = 1.0;
