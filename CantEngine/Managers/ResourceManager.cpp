@@ -313,6 +313,7 @@ void ResourceManager::FreeAll()
 
 void ResourceManager::LoadFont(const std::string& filePath)
 {
+	std::lock_guard<std::mutex> lock(m_dxrenderer->m_mutex);
 	DEBUG_LOG("Loading Font: %s...\n", filePath.c_str());
 	StringId id = StringId(filePath);
 

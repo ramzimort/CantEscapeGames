@@ -68,6 +68,7 @@ class ResourceManager
 {
 	friend class Factory;
 	typedef std::unordered_map<StringId, Resource, StringIdHash> ResourceMap;
+	typedef std::unordered_map<const std::string, const std::wstring, std::hash<std::string>> LocStringMap;
 	friend class ModelLoader;
 public:
 	ResourceManager();
