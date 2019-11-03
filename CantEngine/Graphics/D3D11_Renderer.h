@@ -55,6 +55,10 @@ public:
 
 	void cmd_bind_streamout_render_targets(Buffer* streamoutVertexBuffer, uint32_t offsets);
 	void cmd_draw_auto();
+	void cmd_spritebatch_begin(DirectX::SpriteBatch* pSpriteBatch);
+	void cmd_spritebatch_end(DirectX::SpriteBatch* pSpriteBatch);
+	void cmd_draw_font_text_string(DirectX::SpriteBatch* pSpriteBatch, const std::wstring& text, DirectX::SpriteFont* pFont,
+		const Vector2& position, const Vector3& color, const Vector3& scale);
 
 	//TODO: temmp function / cmd, should use staging buffer way to update gpu buffer
 	void cmd_update_buffer(const BufferUpdateDesc& buffer_update_desc);
@@ -105,17 +109,12 @@ private:
 
 	BlendState* m_p_default_blend_state;
 	RasterizerState* m_p_default_rasterizer_state;
-
-	//member data that is constantly changing every frame
-
 	Buffer* m_p_transient_constant_buffer;
 
 	std::vector <DescriptorData> m_descriptor_data_list;
-
 	std::vector<DXDescriptorDataReference> m_dxdescriptor_data_reference_list;
-
-
 	std::vector<DXCMD> m_cmd_list;
+	std::deque< DXCMD_DrawFontTextStringReference> m_drawFontTextStringReferenceList;
 
 	SwapChain m_swap_chain;
 

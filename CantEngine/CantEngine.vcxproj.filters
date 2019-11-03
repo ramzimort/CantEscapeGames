@@ -366,9 +366,6 @@
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\TextRendering\DXFont.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\TextRendering\TextRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -822,9 +819,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Audio\AudioEvents.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\TextRendering\DXFont.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\TextRendering\TextRendering.h">

@@ -21,17 +21,22 @@ TextRenderingInstance::~TextRenderingInstance()
 
 void TextRenderingInstance::Render(const AppRendererContext& appRendererContext)
 {
-	m_spriteBatch->Begin();
+	RenderTarget* curMainRT = appRendererContext.m_appRendererInstance->m_curMainRT;
+	int32_t rt_width, rt_height;
+	rt_width = curMainRT->get_texture()->GetWidth();
+	rt_height = curMainRT->get_texture()->GetHeight();
+
+	m_dxrenderer->cmd_spritebatch_begin(m_spriteBatch);
 	for (uint64_t index = 0; index < m_appRenderer->m_textFontInstanceRenderDataList.size(); ++index)
 	{
 		const TextFontInstanceRenderData& textFontInstanceRenderData = m_appRenderer->m_textFontInstanceRenderDataList[index];
 		StringId fontID = m_textRendering.m_fontTypeToResourceStringId[textFontInstanceRenderData.m_fontType];
 		DirectX::SpriteFont* curFont = m_appRenderer->m_resourceManager->GetFont(fontID);
-		curFont->DrawString(m_spriteBatch, textFontInstanceRenderData.m_text.c_str(),
-			textFontInstanceRenderData.m_position, textFontInstanceRenderData.m_color, 
-			0.f, Vector3(0.f), textFontInstanceRenderData.m_scale);
+		Vector2 finalPosition(textFontInstanceRenderData.m_position.x * (float)rt_width, textFontInstanceRenderData.m_position.y * (float)rt_height);
+		m_dxrenderer->cmd_draw_font_text_string(m_spriteBatch, textFontInstanceRenderData.m_text, 
+			curFont, finalPosition, textFontInstanceRenderData.m_color, textFontInstanceRenderData.m_scale);
 	}
-	m_spriteBatch->End();
+	m_dxrenderer->cmd_spritebatch_end(m_spriteBatch);
 }
 
 void TextRenderingInstance::Initialize(const AppRendererContext& appRendererContext)

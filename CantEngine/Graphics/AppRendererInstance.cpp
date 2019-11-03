@@ -6,6 +6,7 @@
 #include "Graphics/PostEffects/MSAAResolvePassInstance.h"
 #include "Graphics/Particles/ParticleRenderingInstance.h"
 #include "Graphics/UI_Rendering/UIObjectRenderingInstance.h"
+#include "Graphics/TextRendering/TextRenderingInstance.h"
 #include "Managers/CameraManager.h"
 #include "Graphics/Camera.h"
 #include "Graphics/AppRenderer.h"
@@ -26,6 +27,7 @@ AppRendererInstance::AppRendererInstance(AppRenderer* appRenderer,
 	m_msaaResolvePassInstance = new MSAAResolvePassInstance(appRenderer->m_msaa_resolve_pass);
 	m_particleRenderingInstance = new ParticleRenderingInstance(appRenderer->m_particleRendering);
 	m_uiObjectRenderingInstance = new UIObjectRenderingInstance(appRenderer->m_uiObjectRendering);
+	m_textRenderingInstance = new TextRenderingInstance(appRenderer->m_textRendering);
 }
 
 
@@ -49,6 +51,7 @@ void AppRendererInstance::Release()
 	SafeReleaseDelete(m_msaaResolvePassInstance);
 	SafeReleaseDelete(m_particleRenderingInstance);
 	SafeReleaseDelete(m_uiObjectRenderingInstance);
+	SafeReleaseDelete(m_textRenderingInstance);
 
 	SafeReleaseDelete(m_camera_uniform_buffer);
 	SafeReleaseDelete(m_resolveUniformBuffer);
@@ -106,6 +109,7 @@ void AppRendererInstance::Initialize()
 	m_debugRenderingInstance->Initialize();
 	m_particleRenderingInstance->Initialize(m_context);
 	m_uiObjectRenderingInstance->Initialize(m_context);
+	m_textRenderingInstance->Initialize(m_context);
 }
 
 void AppRendererInstance::LoadContent()
@@ -159,6 +163,7 @@ void AppRendererInstance::LoadContent()
 	m_msaaResolvePassInstance->LoadContent(m_context);
 	m_particleRenderingInstance->LoadContent(m_context);
 	m_uiObjectRenderingInstance->LoadContent(m_context);
+	m_textRenderingInstance->LoadContent(m_context);
 	m_debugRenderingInstance->LoadContent();
 }
 
@@ -195,8 +200,6 @@ void AppRendererInstance::Render()
 {
 	Camera& thisCamera = m_context.m_cameraInfo.m_camera;
 
-	
-
 	BufferUpdateDesc update_camera_desc = {};
 	update_camera_desc.m_buffer = m_camera_uniform_buffer;
 	update_camera_desc.m_pSource = &m_camera_uniform_data;
@@ -219,7 +222,6 @@ void AppRendererInstance::Render()
 
 		m_deferredRenderingInstance->Render(m_context);
 		m_particleRenderingInstance->Render(m_context);
-
 
 		if (GraphicsSettings::MSAA_SAMPLE_COUNT > 1)
 		{
@@ -258,6 +260,7 @@ void AppRendererInstance::Render()
 	}
 
 	m_debugRenderingInstance->Render(m_context);
+	m_textRenderingInstance->Render(m_context);
 	m_lastMaterialIndex = 0;
 }
 

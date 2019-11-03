@@ -89,6 +89,11 @@ public:
 	void RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData);
 
 	void RegisterUIObjectInstance(const UIObjectInstanceRenderData& uiObjectInstanceData);
+	void RegisterTextFontInstance(const TextFontInstanceRenderData& textFontInstanceData);
+	void RegisterTextFontInstance(const std::string& text, uint32_t fontType,
+		const Vector2& position, const Vector3& color, const Vector3& scale);
+	void RegisterTextFontInstance(const std::wstring& text, FontType fontType, 
+		const Vector2& position, const Vector3& color, const Vector3& scale);
 
 	void RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData);
 	void RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData);

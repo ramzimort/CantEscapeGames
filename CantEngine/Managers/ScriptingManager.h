@@ -11,12 +11,13 @@ Primary Author: Jose Rosenbluth
 #include "Helper/Hash.h"
 
 class ResourceManager;
+class AppRenderer;
 
 class ScriptingManager
 {
 
 public:
-	ScriptingManager(ResourceManager* pResourcemanager);
+	ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer);
 	~ScriptingManager();
 
 	void Update();
@@ -32,6 +33,7 @@ public:
 
 private:
 	ResourceManager* m_pResourceManager;
+	AppRenderer* m_pAppRenderer;
 	std::unordered_map<std::string, sol::table> m_scriptTableDic;
 };
 

@@ -3,6 +3,8 @@
 #include "DescriptorData.h"
 #include "Buffer.h"
 #include "RenderTarget.h"
+#include <DirectXTK/SpriteBatch.h>
+#include <DirectXTK/SpriteFont.h>
 
 class Pipeline;
 
@@ -24,6 +26,9 @@ enum DXCMD_Type
 	Draw_Index_Instanced,
 	Draw_Auto,
 	DXCMD_Type_Dispatch,
+	DXCMD_Type_SpriteBatchBegin,
+	DXCMD_Type_SpriteBatchEnd,
+	DXCMD_Type_DrawFontTextString,
 	DXCMD_MAX_COUNT
 };
 
@@ -114,6 +119,31 @@ struct DXCMD_Dispatch
 	uint32_t m_thread_group_z;
 };
 
+struct DXCMD_SpriteBatchBegin
+{
+	DirectX::SpriteBatch* m_pSpriteBatch;
+};
+
+struct DXCMD_SpriteBatchEnd
+{
+	DirectX::SpriteBatch* m_pSpriteBatch;
+};
+
+struct DXCMD_DrawFontTextStringReference
+{
+	std::wstring m_text;
+	DirectX::SpriteFont* m_pSpriteFont;
+	DirectX::SpriteBatch* m_pSpriteBatch;
+	Vector2 m_position;
+	Vector3 m_color;
+	Vector3 m_scale;
+};
+
+struct DXCMD_DrawFontTextString
+{
+	DXCMD_DrawFontTextStringReference* m_pReference;
+};
+
 struct DXCMD
 {
 	DXCMD_Type m_type;
@@ -132,5 +162,8 @@ struct DXCMD
 		DXCMD_Dispatch m_cmd_dispatch;
 		DXCMD_Bind_StreamoutRenderTargets m_cmd_bind_streamout_render_targets;
 		DXCMD_Draw_Auto m_cmd_draw_auto;
+		DXCMD_SpriteBatchBegin m_cmdSpriteBatchBegin;
+		DXCMD_SpriteBatchEnd m_cmdSpriteBatchEnd;
+		DXCMD_DrawFontTextString m_cmdDrawFontTextString;
 	};
 };

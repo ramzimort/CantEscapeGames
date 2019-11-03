@@ -354,6 +354,39 @@ void DXRenderer::cmd_draw_auto()
 	m_cmd_list.push_back(cmd);
 }
 
+void DXRenderer::cmd_spritebatch_begin(DirectX::SpriteBatch* pSpriteBatch)
+{
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type::DXCMD_Type_SpriteBatchBegin;
+	cmd.m_cmdSpriteBatchBegin.m_pSpriteBatch = pSpriteBatch;
+	m_cmd_list.push_back(cmd);
+}
+
+void DXRenderer::cmd_spritebatch_end(DirectX::SpriteBatch* pSpriteBatch)
+{
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type::DXCMD_Type_SpriteBatchEnd;
+	cmd.m_cmdSpriteBatchEnd.m_pSpriteBatch = pSpriteBatch;
+	m_cmd_list.push_back(cmd);
+}
+
+void DXRenderer::cmd_draw_font_text_string(DirectX::SpriteBatch* pSpriteBatch, const std::wstring& text, DirectX::SpriteFont* pFont,
+	const Vector2& position, const Vector3& color, const Vector3& scale)
+{
+	DXCMD_DrawFontTextStringReference referenceCmd = {};
+	referenceCmd.m_text = text;
+	referenceCmd.m_position = position;
+	referenceCmd.m_color = color;
+	referenceCmd.m_scale = scale;
+	referenceCmd.m_pSpriteFont = pFont;
+	referenceCmd.m_pSpriteBatch = pSpriteBatch;
+	m_drawFontTextStringReferenceList.push_back(referenceCmd);
+
+	DXCMD cmd = {};
+	cmd.m_type = DXCMD_Type_DrawFontTextString;
+	cmd.m_cmdDrawFontTextString.m_pReference = &m_drawFontTextStringReferenceList.back();
+	m_cmd_list.push_back(cmd);
+}
 
 void DXRenderer::cmd_update_buffer(const BufferUpdateDesc& buffer_update_desc)
 {
@@ -740,11 +773,30 @@ void DXRenderer::execute_queued_cmd()
 			m_d3d_device_context->Dispatch(dispatch.m_thread_group_x, dispatch.m_thread_group_y, dispatch.m_thread_group_z);
 			break;
 		}
+		case DXCMD_Type::DXCMD_Type_SpriteBatchBegin:
+		{
+			cmd.m_cmdSpriteBatchBegin.m_pSpriteBatch->Begin();
+			break;
+		}
+		case DXCMD_Type::DXCMD_Type_SpriteBatchEnd:
+		{
+			cmd.m_cmdSpriteBatchEnd.m_pSpriteBatch->End();
+			break;
+		}
+		case DXCMD_Type::DXCMD_Type_DrawFontTextString:
+		{
+			const DXCMD_DrawFontTextString& drawFontTextStringCmd = cmd.m_cmdDrawFontTextString;
+			DXCMD_DrawFontTextStringReference* pReference = drawFontTextStringCmd.m_pReference;
+			pReference->m_pSpriteFont->DrawString(pReference->m_pSpriteBatch, pReference->m_text.c_str(),
+				pReference->m_position, pReference->m_color, 0.f, Vector3(0.f), pReference->m_scale);
+			break;
+		}
 		}
 	}
 	m_descriptor_data_list.clear();
 	m_dxdescriptor_data_reference_list.clear();
 	m_cmd_list.clear();
+	m_drawFontTextStringReferenceList.clear();
 }
 
 

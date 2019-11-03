@@ -18,6 +18,8 @@ Primary Author: Jose Rosenbluth
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
 #include "Graphics/Camera.h"
+#include "Graphics/AppRenderer.h"
+#include "Graphics/InstanceRenderData.h"
 
 #include "EventManager.h"
 #include "Events/Multicast.h"
@@ -51,8 +53,9 @@ const std::wstring& GetLString(const std::string& key)
 
 #define SOL_CHECK_ARGUMENTS 1
 
-ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager) :
-	m_pResourceManager(pResourcemanager)
+ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer) :
+	m_pResourceManager(pResourcemanager),
+	m_pAppRenderer(pAppRenderer)
 {
 	//We enter here
 	luaState.open_libraries
@@ -326,6 +329,13 @@ void ScriptingManager::ManageBindings()
 		"SystemManager"
 	);
 
+	luaState.new_usertype<AppRenderer>
+	(
+		"AppRenderer",
+		"RegisterTextFontInstance", sol::overload(
+			sol::resolve<void(const std::string& , uint32_t ,
+				const Vector2& , const Vector3& , const Vector3& )>(&AppRenderer::RegisterTextFontInstance) )
+	);
 
 	//GAMEOBJECTMANAGER
 	luaState.new_usertype<GameObjectManager>

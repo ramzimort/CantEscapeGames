@@ -13,6 +13,7 @@ class AppRendererInstance;
 class MSAAResolvePassInstance;
 class ParticleRenderingInstance;
 class UIObjectRenderingInstance;
+class TextRenderingInstance;
 
 struct SkyboxUniformData
 {
@@ -37,6 +38,7 @@ public:
 	friend class MSAAResolvePassInstance;
 	friend class ParticleRenderingInstance;
 	friend class UIObjectRenderingInstance;
+	friend class TextRenderingInstance;
 	friend class AppRenderer;
 public:
 	AppRendererInstance(AppRenderer* appRenderer,
@@ -71,6 +73,7 @@ private:
 	MSAAResolvePassInstance* m_msaaResolvePassInstance;
 	ParticleRenderingInstance* m_particleRenderingInstance;
 	UIObjectRenderingInstance* m_uiObjectRenderingInstance;
+	TextRenderingInstance* m_textRenderingInstance;
 
 	std::vector<ObjectUniformData> m_objectUniformDataList;
 	BufferList m_objectUniformBufferList;

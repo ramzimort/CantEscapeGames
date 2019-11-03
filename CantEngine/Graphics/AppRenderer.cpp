@@ -660,9 +660,7 @@ void AppRenderer::RenderApp()
 
 	m_deferrredRendering.UpdateUniformBuffer();
 	m_debugRendering.UpdateDebugUniformBuffer();
-
 	m_momentShadowMapRendering.RenderShadowMap();
-
 	m_particleRendering.Render();
 
 	for (const auto& pair : m_appRendererInstances)
@@ -865,6 +863,30 @@ void AppRenderer::RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& bon
 void AppRenderer::RegisterUIObjectInstance(const UIObjectInstanceRenderData& uiObjectInstanceData)
 {
 	m_uiObjectInstanceRenderDataList.push_back(uiObjectInstanceData);
+}
+
+void AppRenderer::RegisterTextFontInstance(const TextFontInstanceRenderData& textFontInstanceData)
+{
+	m_textFontInstanceRenderDataList.push_back(textFontInstanceData);
+}
+
+void AppRenderer::RegisterTextFontInstance(const std::string& text, uint32_t fontType,
+	const Vector2& position, const Vector3& color, const Vector3& scale)
+{
+	std::wstring windowString(text.begin(), text.end());
+	RegisterTextFontInstance(windowString, (FontType)fontType, position, color, scale);
+}
+
+void AppRenderer::RegisterTextFontInstance(const std::wstring& text, FontType fontType,
+	const Vector2& position, const Vector3& color, const Vector3& scale)
+{
+	TextFontInstanceRenderData textInstanceRenderData = {};
+	textInstanceRenderData.m_text = text;
+	textInstanceRenderData.m_fontType = fontType;
+	textInstanceRenderData.m_position = position;
+	textInstanceRenderData.m_color = color;
+	textInstanceRenderData.m_scale = scale;
+	RegisterTextFontInstance(textInstanceRenderData);
 }
 
 void AppRenderer::RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData)

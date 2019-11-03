@@ -97,8 +97,9 @@ struct TextFontInstanceRenderData
 {
 	std::wstring m_text;
 	FontType m_fontType;
+	//position should be defined from 0 to 1 (origin is top left of windows coordinate)
 	Vector2 m_position;
-	Vector3 m_color;
+	Vector3 m_color; 
 	Vector3 m_scale;
 };
 
