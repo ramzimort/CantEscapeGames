@@ -446,7 +446,14 @@ namespace CantDebug
 		{
 			info.compName = "Renderer"; info.propName = "MaterialId"; info.strVal = renderer->m_materialId.getName(); info.type = CantDebugAPI::STRING; components.push_back(info);
 		}
-
+		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
+		if (haloEffectComp)
+		{
+			info.compName = "HaloEffect"; info.propName = "Local Position"; info.data.vec3 = haloEffectComp->GetHaloEffect().GetPosiiton(); info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "HaloEffect"; info.propName = "Color"; info.data.vec3 = haloEffectComp->GetHaloEffect().GetColor(); info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "HaloEffect"; info.propName = "Intensity"; info.data.f = haloEffectComp->GetHaloEffect().GetIntensity(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
+			info.compName = "HaloEffect"; info.propName = "Radius"; info.data.f = haloEffectComp->GetHaloEffect().GetRadius(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
+		}
 	}
 
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* e)
@@ -605,6 +612,33 @@ namespace CantDebug
 			renderer->m_materialId = it->strVal;
 			debugInfo.propName = it->propName;
 			debugInfo.propValString = &it->strVal; debugInfo.t = CantDebugAPI::STRING;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
+		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
+		if (haloEffectComp)
+		{
+			debugInfo.compName = it->compName;
+			haloEffectComp->GetHaloEffect().SetPosition(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -100.f; debugInfo.max = 100.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			debugInfo.compName = it->compName;
+			haloEffectComp->GetHaloEffect().SetColor(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 0.f; debugInfo.max = 1.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			debugInfo.compName = it->compName;
+			haloEffectComp->GetHaloEffect().SetIntensity(it->data.f);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.1f; debugInfo.max = 100.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			debugInfo.compName = it->compName;
+			haloEffectComp->GetHaloEffect().SetRadius(it->data.f);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.1f; debugInfo.max = 100.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
 

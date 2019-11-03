@@ -14,10 +14,12 @@ public:
 	void SetIntensity(float intensity);
 	void SetColor(const Vector3& color);
 
+	const Vector3& GetPosiiton() const { return m_position; }
 	const Vector3& GetColor() const { return m_color; };
 	float GetIntensity() const { return m_intensity; };
 	float GetRadius() const { return m_radius; };
 
+	void SetPosition(const Vector3& pos) { m_position = pos; }
 private:
 	//relative halo position to game object
 	Vector3 m_position;

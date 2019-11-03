@@ -35,3 +35,13 @@ void HaloEffectComponent::Begin(GameObjectManager *goMgr)
 {
 
 }
+
+const HaloEffect& HaloEffectComponent::GetHaloEffect() const
+{
+	return m_haloEffect;
+}
+
+HaloEffect& HaloEffectComponent::GetHaloEffect()
+{
+	return m_haloEffect;
+}

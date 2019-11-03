@@ -127,8 +127,8 @@ void MomentShadowMapRendering::RenderShadowMap()
 	m_shadow_camera_uniform_data.ViewMat = Matrix::CreateLookAt(light_view_pos,
 		light_view_pos + directional_light_inst_data.light_direction, new_up_dir);
 
-	static const float ortho_width = 70.f;
-	static const float ortho_height = 70.f;
+	static const float ortho_width = 50.f;
+	static const float ortho_height = 50.f;
 
 	Matrix shadow_orthographic_matrix = Matrix::CreateOrthographic(ortho_width, ortho_height, 0.1f, 100.f);
 

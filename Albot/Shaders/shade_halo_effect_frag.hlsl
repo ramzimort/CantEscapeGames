@@ -83,6 +83,8 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
     float halo_brightness = CalculateHaloFactor(ps_in, sample_index);
 
     final_color += float4(ps_in.HaloColor, 1.0) * (halo_brightness);
+    //final_color.rgb = final_color.rgb / (final_color.rgb + float3(1.f, 1.f, 1.f));
+    //final_color.rgb = pow(final_color.rgb, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
     ps_out.Color = final_color;
 
     return ps_out;
