@@ -2,7 +2,7 @@
 Copyright (C) 2019 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
+Primary Author: Albert Harley / Jose Rosenbluth
 - End Header --------------------------------------------------------*/
 
 #pragma once
@@ -37,6 +37,10 @@ public:
 		float nearVal, float farVAl, const Vector3& position);
 	~Camera();
 
+	void SetFOV(float fov);
+	void IncreaseFOV(float fov);
+	void DecreaseFOV(float fov);
+	float GetFOV() const;
 	void SetAspectRatio(size_t width, size_t height);
 	void SetProjectionType(CameraProjectionType projectionType);
 
@@ -81,6 +85,7 @@ public:
 	size_t GetOrthographicHeight() const;
 private:
 	void InitFromComponent();
+	void CalibrateFOV();
 private:
 
 	std::string m_cameraName;

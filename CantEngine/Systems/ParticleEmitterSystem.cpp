@@ -36,15 +36,11 @@ void ParticleEmitterSystem::Draw(float dt, BaseSystemCompNode *compNode)
 
 	Vector3 gameobjPos = transformComp->GetPosition();
 
-
-
-
 	if (!particleEmitterComp->m_firstTime)
 	{
 		std::swap(particleEmitterComp->m_pDrawStreamOutVB, particleEmitterComp->m_pStreamOutVB);
 	}
 
-	
 	ParticleEmitterInstanceData emitterInstanceData = {};
 	emitterInstanceData.m_firstTime = particleEmitterComp->m_firstTime;
 	emitterInstanceData.m_pParticleEmitterUniformData.EmitterDirection = MathUtil::v3_to_v4(particleEmitterComp->m_emitterDirection, 0.f);

@@ -138,7 +138,8 @@ bool ParticleEmitterComponent::FinishedEmitting() const
 {
 	if (m_particleEmitterType == ParticleEmitterType::EMIT_ONCE)
 	{
-		return !m_firstTime;
+		//return !m_firstTime;
+		return m_localTime > m_emitterLifetime;
 	}
 	else if (m_particleEmitterType == ParticleEmitterType::FINITE_LIFETIME)
 	{

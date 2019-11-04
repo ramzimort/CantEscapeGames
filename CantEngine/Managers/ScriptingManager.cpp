@@ -519,6 +519,10 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Camera>
 	(
 		"Camera",
+		"SetFOV", &Camera::SetFOV,
+		"IncreaseFOV", &Camera::IncreaseFOV,
+		"DecreaseFOV", &Camera::DecreaseFOV,
+		"GetFOV", &Camera::GetFOV,
 		"GetForward", &Camera::GetForward,
 		"GetViewMatrix", &Camera::GetViewMatrix,
 		"GetViewProjectionMatrix", &Camera::GetViewProjectionMatrix,
@@ -530,6 +534,14 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
 			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition))
 	);
+
+	luaState.new_usertype<ParticleEmitterComponent>
+		(
+			"ParticleEmitterComponent",
+			"Emit", &ParticleEmitterComponent::Emit,
+			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
+			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
+			);
 
 	//PARTICLE_EMITTER
 	luaState.new_usertype<ParticleEmitterComponent>

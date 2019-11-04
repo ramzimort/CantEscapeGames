@@ -1,0 +1,28 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 0.2, 0.2, 0.2 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\CampfireMaterial.json"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\campfire.obj"
+  },
+  "ParticleEmitterComponent": {
+    "Emitter_Position": [ 0.0, 0.0, 0.0 ],
+    "Emitter_Spread_Angle_Yaw": 360.0,
+    "Emitter_Spread_Angle_Pitch": 360.0,
+    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare1.png"
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\PresentationParticleEmitOnce.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}
