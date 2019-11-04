@@ -12,4 +12,4 @@
 #include "AnimationComponent.h"
 #include "SkyboxIrradianceComponent.h"
 #include "UIComponent.h"
-#include "AffineAnimationComponent.h"
+

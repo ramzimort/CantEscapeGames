@@ -27,8 +27,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation\AnimatorController.cpp" />
-    <ClCompile Include="Components\AffineAnimationComponent.cpp" />
     <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
@@ -152,8 +150,6 @@
     <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation\AnimatorController.h" />
-    <ClInclude Include="Animation\AnimConditions.h" />
     <ClInclude Include="Components\AffineAnimationComponent.h" />
     <ClInclude Include="Audio\AudioTypes.h" />
     <ClInclude Include="Events\Audio\AudioEvents.h" />

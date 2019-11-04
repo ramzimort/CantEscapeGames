@@ -156,6 +156,7 @@ void ScriptingManager::ManageBindings()
 		(
 			"MouseScrollMulticast",
 			"Bind", &Multicast<void(Sint32, Sint32)>::BindLuaFunction,
+
 			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
 			);
 
@@ -165,7 +166,6 @@ void ScriptingManager::ManageBindings()
 			"Bind", &Multicast<void(int, int)>::BindLuaFunction,
 			"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
 			);
-
 
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
@@ -373,7 +373,7 @@ void ScriptingManager::ManageBindings()
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
-		"GetAffineAnimationComp", &GameObject::GetComponent<AffineAnimationComponent>,
+		
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
@@ -410,6 +410,8 @@ void ScriptingManager::ManageBindings()
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,
 		"GetScale", &TransformComponent::GetScale,
+		"GetPositionNormalized", &TransformComponent::GetPositionNormalized,
+		"GetScaleNormalized", &TransformComponent::GetScaleNormalized,
 		"GetModel", &TransformComponent::GetModel,
 		"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
 		"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
@@ -423,45 +425,39 @@ void ScriptingManager::ManageBindings()
 	// UIComponent
 	luaState.new_usertype<UIComponent>
 		("UIComponent",
-			"GetLocation", &UIComponent::GetLocation,
+			"GetButtonIndex", &UIComponent::GetButtonIndex,
 			"GetParent", &UIComponent::GetParent,
+			"GetParentName", &UIComponent::GetParentName,
 			"GetChild", &UIComponent::GetChild,
 			"GetNumberOfChildren", &UIComponent::GetNumberOfChildren,
-
-
 			"GetTotalObjects", &UIComponent::GetTotalObjects,
 			"GetTotalButtons", &UIComponent::GetTotalButtons,
 			"GetStateAddress", &UIComponent::GetStateAddress,
-			"InitialAnimationEnabled", &UIComponent::InitialAnimationEnabled,
-			"InitialAnimationDisabled", &UIComponent::InitialAnimationDisabled,
-			"FinalAnimationEnabled", &UIComponent::FinalAnimationEnabled,
-			"FinalAnimationDisabled", &UIComponent::FinalAnimationDisabled,
-			"GetInitailAnimationState", &UIComponent::GetInitailAnimationState,
-			"GetFinalAnimationState", &UIComponent::GetFinalAnimationState,
+			"GetRenderEnable", &UIComponent::GetRenderEnable,
 			"SetSliderValue", sol::overload(
 				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
-			"GetChildButtonCount", &UIComponent::GetChildButtonCount,
+			"SetRenderEnable", sol::overload(
+				sol::resolve<void(bool)>(&UIComponent::SetRenderEnable)),
+			"GetChild", &UIComponent::GetChild,
 			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation,
 			"GetInitialPosition", &UIComponent::GetInitialPosition,
 			"GetFinalPosition", &UIComponent::GetFinalPosition,
+			"GetInitialPositionNormalized", &UIComponent::GetInitialPositionNormalized,
+			"GetFinalPositionNormalized", &UIComponent::GetFinalPositionNormalized,
+			"SetInitialPosition", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetInitialPosition)),
+			"SetFinalPosition", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetFinalPosition)),
 			"GetDeltaTime", &UIComponent::GetDeltaTime,
 			"GetVelocity", &UIComponent::GetVelocity,
 			"GetInitialRotation", &UIComponent::GetInitialRotation,
 			"GetFinalRotation", &UIComponent::GetFinalRotation,
-			"GetRotationRate", &UIComponent::GetRotationRate
+			"GetRotationRate", &UIComponent::GetRotationRate,
+			"GetWidth", &UIComponent::GetWidth,
+			"GetHeight", &UIComponent::GetHeight
 			);
 
-	// AffineAnimationComponent
-	luaState.new_usertype<AffineAnimationComponent>
-		("AffineAnimationComponent",
-			"GetInitialPosition", &AffineAnimationComponent::GetInitialPosition,
-			"GetFinalPosition", &AffineAnimationComponent::GetFinalPosition,
-			"GetDeltaTime", &AffineAnimationComponent::GetDeltaTime,
-			"GetVelocity", &AffineAnimationComponent::GetVelocity,
-			"GetInitialRotation", &AffineAnimationComponent::GetInitialRotation,
-			"GetFinalRotation", &AffineAnimationComponent::GetFinalRotation,
-			"GetRotationRate", &AffineAnimationComponent::GetRotationRate
-				);
+
 
 	//ANIMATION
 	luaState.new_usertype<AnimationComponent>

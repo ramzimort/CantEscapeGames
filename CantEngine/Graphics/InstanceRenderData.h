@@ -78,8 +78,8 @@ struct UIObjectInstanceRenderData
 {
 	//window space is 0-window_width & 0-window_height
 	//origin in top left of the UI object
-	Vector2 m_windowSpacePosition;
-	Vector2 m_windowSpaceSize;
+	Vector3 m_windowSpacePosition;
+	Vector3 m_windowSpaceSize;
 	//you fill this pointer with the address of m_rotationMat from m_rotMatrix
 	const Matrix* m_rotationMatrix;
 	Material* m_pUIMaterial;

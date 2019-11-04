@@ -9,23 +9,17 @@ Button =
 	-- Component
 	uiComp;
 	uiTransform;
-	cameraComp;
 	
 	-- Data
-	position;
-	initialPosition;
-	finalPosition;
-	scale;
-	touchedScale;
-	location;
-	maxPosX;
-	maxPosY;
-	deltaTime;
-	positveVelocity;
-	negativeVelocity;
-	initialAnimationEnable = false;
-	finalAnimationEnable = false;
+	ButtonIndex;
+	Enabled = true;
+	Scale;
+	TouchedScale;
 	enableButton = false;
+	
+	-- Trigger/Touch
+	Touched = false;
+	Clicked = false;
 	
 	-- MOUSE
 	MousePositionX = 0;
@@ -38,14 +32,7 @@ Button =
 	Up = false;
 	Down = false;	
 	
-	--UI Camera
-	cameraObj;
-	camera;
-	projectionMatrix;
-	viewProjectionMatrix;
-	viewMatrix;
-	screenWidth;
-	screenHeight;
+
 }
 
 --Init called when comp is created
@@ -62,90 +49,58 @@ Button.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-	
-	self.cameraObj = goMgr:FindGameObject("UIObject1");
-	if (self.cameraObj == nil) then
-		OutputPrint(">>> GO with tag UIObject1 not found\n");
-		return;
-	end
-	
-	self.cameraComp = self.cameraObj:GetCameraComp();
-	if (self.cameraComp == nil) then
-		OutputPrint(">>> Camera Component not found\n");
-		return;
-	end
-
-	self.camera = self.cameraComp:GetCamera();
-	if (self.camera == nil) then
-		OutputPrint(">>> Camera  not found\n");
-		return;
-	end
-	
 	self.uiComp = owner:GetUiComp();
 	if (self.uiComp == nil) then 
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
-	
 	self.uiTransform = owner:GetTransformComp();
 	if (self.uiTransform == nil) then 
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
+	self.ButtonIndex = self.uiComp:GetButtonIndex();
+	self.NextStatePath = self.uiComp:GetStateAddress();
+	self.Scale = Vector3.new(self.uiTransform:GetScale());
+	self.TouchedScale = Vector3.new( self.uiTransform:GetScale())*1.1;
 	
-	
-
-	self.NextStatePath =  self.uiComp:GetStateAddress();
-	self.position = self.uiComp:GetFinalPosition();
-	
-	self.scale = Vector3.new(self.uiTransform:GetScale());
-	OutputPrint("\n" .. self.scale.x);
-	self.touchedScale = Vector3.new( self.scale.x,self.scale.y,self.scale.z);
-	self.touchedScale = self.touchedScale * 1.1;
-	_G.PlayFinalAnimation = false;
-	
-	self.maxPosX = self.scale.x + self.position.x;
-	self.maxPosY = self.scale.y + self.position.y;
-	
-	self.location = self.uiComp:GetLocation();
 end
 
 --Update called every tick
 Button.Update = function(self, dt, owner) 
 
-	
-	if( _G.PlayFinalAnimation == true or self.uiComp:GetFinalAnimationState() == true) then
-		self.uiComp:FinalAnimationEnabled();
-		self.enableButton = false;	
+	if(self.Enabled == false) then
+		return;
 	end
-
-	
-	if(self.location == _G.CurrentButtonTouched) then
-		self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
+	local position = Vector3.new(self.uiTransform:GetPosition());
+	local scale = Vector3.new(self.uiTransform:GetScale());
+	local maxPosX = scale.x + position.x;
+	local maxPosY = scale.y + position.y;
+	if(self.Touched == true) then
+		self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
+	else
+		self.uiTransform:Scale(self.Scale.x,self.Scale.y,self.Scale.z);
+	end
+	if(self.ButtonIndex == _G.CurrentButtonTouched) then
+		self.Touched = true;
 		if(self.ENTER == true ) then
-			_G.State = self.NextStatePath;
-			self.uiComp:FinalAnimationEnabled();
-			self.enableButton = false;		
-			_G.PlayFinalAnimation = true;
+			self.ENTER = false;
+			self.Clicked = true;
 		end
 	else
-		
-		self.uiTransform:Scale(self.scale.x,self.scale.y,self.scale.z);
+		self.Touched = false;
 	end
-	
-	if(self.MousePositionX < self.maxPosX) then
-		if(self.MousePositionX > self.position.x) then
-			if(self.MousePositionY < self.maxPosY) then
-				if(self.MousePositionY > self.position.y) then
-					_G.CurrentButtonTouched = self.location;
-					self.uiTransform:Scale(self.touchedScale.x,self.touchedScale.y,self.touchedScale.z);
+	if(self.MousePositionX < maxPosX) then
+		if(self.MousePositionX > position.x) then
+			if(self.MousePositionY < maxPosY) then
+				if(self.MousePositionY > position.y) then
+					self.Touched = true;
+					_G.CurrentButtonTouched = self.ButtonIndex;
+					self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
 					if(self.LEFTCLICK == true) then
 						self.LEFTCLICK = false;
-						OutputPrint("\n" .. self.NextStatePath);
-						self.uiComp:FinalAnimationEnabled();
-						self.enableButton = false;
-						_G.State = self.NextStatePath;
-						_G.PlayFinalAnimation = true;
-						end
-				end
+						
+						self.Clicked = true;
+					end
+				end	
 			end
 		end
 	end
@@ -176,4 +131,24 @@ Button.OnDestruction = function(self)
 	OnMouseClick():Unbind({self, self.OnMouseClick});
 end
 
+Button.ReturnClicked = function(self)
+   return self.Clicked;
+end
+Button.ReturnTouched= function(self)
+   return self.Touched;
+end
+Button.GetNextStateAddress = function(self)
+	
+   return self.NextStatePath;
+end
+
+Button.Disable = function(self)
+   self.Enabled = false;
+end
+Button.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
+	self.Scale.x = (self.Scale.x / BaseWidth) * Width;
+	self.Scale.y = (self.Scale.y / BaseHeight) * Height;
+	self.TouchedScale.x = (self.TouchedScale.x / BaseWidth) * Width;
+	self.TouchedScale.y = (self.TouchedScale.y / BaseHeight) * Height;
+end
 return Button;

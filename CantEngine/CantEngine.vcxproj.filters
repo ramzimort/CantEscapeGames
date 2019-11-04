@@ -354,9 +354,6 @@
     <ClCompile Include="Systems\UISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\AffineAnimationComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Managers\AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -798,9 +795,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\UISystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\AffineAnimationComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\State\StateEvents.h">
