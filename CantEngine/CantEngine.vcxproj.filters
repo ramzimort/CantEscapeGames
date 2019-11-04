@@ -824,6 +824,9 @@
     <ClInclude Include="Graphics\TextRendering\TextRenderingInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Components\AffineAnimationComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Animation\AnimatorController.h">
       <Filter>Header Files</Filter>
     </ClInclude>

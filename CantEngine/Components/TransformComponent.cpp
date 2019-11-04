@@ -181,14 +181,14 @@ Matrix const& TransformComponent::GetScaleMatrix() const
 	return m_scaleMatrix;
 }
 
-Vector3 const & TransformComponent::GetPositionNormalized() const
+Vector3  TransformComponent::GetPositionNormalized() const
 {
 	Vector3 result = m_position;
 	result.Normalize();
 	return result;
 }
 
-Vector3 const & TransformComponent::GetScaleNormalized() const
+Vector3  TransformComponent::GetScaleNormalized() const
 {
 	Vector3 result = m_scale;
 	result.Normalize();
