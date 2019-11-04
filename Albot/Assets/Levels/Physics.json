@@ -59,303 +59,387 @@
         "Songs": [],
         "SFX": []
     },
-    "Objects": [
-        {
-            "tag": "lvleditor",
-            "prefab": "Assets\\Prefabs\\lvleditor.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -3.274186611175537,
-                        1.9937593936920169,
-                        11.514646530151368
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 45.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            -3.274186611175537,
-                            1.9937593936920169,
-                            11.514646530151368
-                        ],
-                        "CameraName": "Main",
-                        "ZOrder": 0
-                    }
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\fpscontroller.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
+  "Objects": [
+    {
+      "tag": "lvleditor",
+      "prefab": "Assets\\Prefabs\\lvleditor.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -3.274186611175537,
+            1.9937593936920169,
+            11.514646530151368
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
         },
-        {
-            "tag": "RGDBDYGROUND",
-            "prefab": "Assets\\Prefabs\\RBTestObj.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.699999988079071,
-                        -2.0,
-                        -5.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        100.0,
-                        1.0,
-                        100.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-                    "XTileFactor": 4.0,
-                    "YTileFactor": 4.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                },
-                "RigidBodyComponent": {
-                    "IsEffectedByGravity": false,
-                    "Velocity": [
-                        9.886160665811583e-42,
-                        -1.7341910171929223e-36,
-                        -1.74307515977364e-41
-                    ],
-                    "Mass": 3.3999999521443644e38,
-                    "IsAsleep": 0,
-                    "CollisionMask": "DINAMIC_OBJ"
-                }
-            }
+        "CameraComponent": {
+          "Camera": {
+            "FOV": 45.0,
+            "Near": 0.10000000149011612,
+            "Far": 1000.0,
+            "Position": [
+              -3.274186611175537,
+              1.9937593936920169,
+              11.514646530151368
+            ],
+            "CameraName": "Main",
+            "ZOrder": 0
+          }
         },
-        {
-            "tag": "skybox",
-            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "SkyboxIrradianceComponent": {
-                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
-                }
-            }
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\fpscontroller.lua",
+            "Overrides": {}
+          }
+        ]
+      }
+    },
+    {
+      "tag": "RGDBDYGROUND",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            -2.0,
+            -5.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            100.0,
+            1.0,
+            100.0
+          ]
         },
-        {
-            "tag": "RGDBDY1",
-            "prefab": "Assets\\Prefabs\\RBTestObj.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0,
-                        2,
-                        0
-                    ],
-                    "Rotation": [
-                        1,
-                        0.004951635841280222,
-                        -0.21079328656196598
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\Material1.json",
-                    "XTileFactor": 1.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                },
-                "RigidBodyComponent": {
-                    "IsEffectedByGravity": true,
-                    "Velocity": [
-                        0.000003645895048975945,
-                        0.0000063925981521606449,
-                        0.000006250105798244476
-                    ],
-                    "Mass": 1.0,
-                    "IsAsleep": 0,
-                    "CollisionMask": "DINAMIC_OBJ"
-                }
-            }
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
         },
-        {
-            "tag": "directional_light01",
-            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        150.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        45.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Directional",
-                        "Color": [
-                            1.0,
-                            0.800000011920929,
-                            0.7360000014305115
-                        ],
-                        "Intensity": 1.0,
-                        "CastShadow": true
-                    }
-                }
-            }
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
         },
-        {
-            "tag": "point_light1",
-            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -12.5,
-                        5.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 5.0,
-                        "CastShadow": true,
-                        "Radius": 20.0
-                    }
-                }
-            }
-        },
-        {
-            "tag": "point_light2",
-            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        12.5,
-                        5.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 5.0,
-                        "CastShadow": true,
-                        "Radius": 20.0
-                    }
-                }
-            }
-        },
-        {
-            "tag": "mini_map1",
-            "prefab": "Assets\\Prefabs\\mini_map.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 75.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            0.0,
-                            5.0,
-                            0.0
-                        ],
-                        "LookDir": [
-                            0.0,
-                            -0.9950371980667114,
-                            0.09950372576713562
-                        ],
-                        "CameraName": "MiniMap",
-                        "OrthographicWidth": 80,
-                        "OrthographicHeight": 80,
-                        "CameraProjectionType": "Projection_Orthographic",
-                        "ZOrder": 1,
-                        "ViewportRenderInfo": [
-                            0.0,
-                            0.0,
-                            0.25,
-                            0.25
-                        ]
-                    }
-                }
-            }
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            0,
+            0,
+            0
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
         }
-    ]
+      }
+    },
+    {
+      "tag": "INCLINEGROUND10",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -45.0,
+            5.0,
+            -5.0
+          ],
+          "Rotation": [
+            10.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1.0,
+            100.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "INCLINEGROUND20",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -35.0,
+            5.0,
+            -5.0
+          ],
+          "Rotation": [
+            20.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1.0,
+            100.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "skybox",
+      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SkyboxIrradianceComponent": {
+          "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+          "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDY2",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            1,
+            0
+          ],
+          "Rotation": [
+            0,
+            0,
+            0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            0.000003645895048975945,
+            0.0000063925981521606449,
+            0.000006250105798244476
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "directional_light01",
+      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            150.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            45.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Directional",
+            "Color": [
+              1.0,
+              0.800000011920929,
+              0.7360000014305115
+            ],
+            "Intensity": 1.0,
+            "CastShadow": true
+          }
+        }
+      }
+    },
+    {
+      "tag": "point_light1",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -12.5,
+            5.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Point",
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ],
+            "Intensity": 5.0,
+            "CastShadow": true,
+            "Radius": 20.0
+          }
+        }
+      }
+    },
+    {
+      "tag": "point_light2",
+      "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            12.5,
+            5.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Point",
+            "Color": [
+              1.0,
+              0.8500000238418579,
+              0.699999988079071
+            ],
+            "Intensity": 5.0,
+            "CastShadow": true,
+            "Radius": 20.0
+          }
+        }
+      }
+    },
+    {
+      "tag": "mini_map1",
+      "prefab": "Assets\\Prefabs\\mini_map.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CameraComponent": {
+          "Camera": {
+            "FOV": 75.0,
+            "Near": 0.10000000149011612,
+            "Far": 1000.0,
+            "Position": [
+              0.0,
+              5.0,
+              0.0
+            ],
+            "LookDir": [
+              0.0,
+              -0.9950371980667114,
+              0.09950372576713562
+            ],
+            "CameraName": "MiniMap",
+            "OrthographicWidth": 80,
+            "OrthographicHeight": 80,
+            "CameraProjectionType": "Projection_Orthographic",
+            "ZOrder": 1,
+            "ViewportRenderInfo": [
+              0.0,
+              0.0,
+              0.25,
+              0.25
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

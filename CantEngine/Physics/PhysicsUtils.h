@@ -19,6 +19,7 @@ namespace PhysicsUtils
 		const float pi = 4 * atanf(1);
 		const float pi_2 = pi / 2;
 		const float pi_3 = pi / 3;
+		const float pi_4 = pi / 4;
 		const float pi_6 = pi / 6;
 		const float e = 2.71828182845904523536028747135266249775724709369995f;
 		const double sqrt2 = std::sqrt(2.0);
@@ -29,8 +30,7 @@ namespace PhysicsUtils
 		const float fatteningFactor = 1.1f;
 		const float gravity = -9.8f;
 		const float minMass = 0.000001f;
-		const float penetrationEpsilon = 0.01f;
-		const float penetrationEpsilonSq = penetrationEpsilon * penetrationEpsilon;
+		const float penetrationEpsilon = 0.001f;
 
 		const std::vector<Vector3> directionsInUnitSphere = PhysicsUtils::UniformDistibutionInSphere();
 
@@ -53,6 +53,8 @@ namespace PhysicsUtils
 		extern bool isDrawContactPoints;
 		extern bool isDrawGJKResult;
 		extern bool isDrawEPAFinalTriangle;
+		extern bool isDrawConstraints;
+		extern int dynamicAabbLevelDraw;
 	}
 
 	template <typename T>

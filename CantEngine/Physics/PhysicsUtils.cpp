@@ -4,6 +4,8 @@
 extern bool PhysicsUtils::Settings::isDrawContactPoints = false;
 extern bool PhysicsUtils::Settings::isDrawGJKResult = false;
 extern bool PhysicsUtils::Settings::isDrawEPAFinalTriangle = false;
+extern bool PhysicsUtils::Settings::isDrawConstraints = false;
+extern int PhysicsUtils::Settings::dynamicAabbLevelDraw = -1;
 
 std::vector<Vector3> PhysicsUtils::UniformDistibutionInSphere()
 {
