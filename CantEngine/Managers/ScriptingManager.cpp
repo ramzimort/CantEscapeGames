@@ -20,6 +20,8 @@ Primary Author: Jose Rosenbluth
 #include "Graphics/Camera.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/InstanceRenderData.h"
+#include "Animation/AnimatorController.h"
+#include "Animation/Animation.h"
 
 #include "EventManager.h"
 #include "Events/Multicast.h"
@@ -175,18 +177,18 @@ void ScriptingManager::ManageBindings()
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
 	(
-			"EventManager",
-			"Get", &EventManager::Get,
+		"EventManager",
+		"Get", &EventManager::Get,
 
-			// State Events
-			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+		// State Events
+		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+		"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+		"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+		"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
 			
-			//Audio Events
-			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+		//Audio Events
+		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
 	);
 
 
@@ -453,7 +455,12 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<AnimationComponent>
 	(
 		"AnimationComponent",
-		"SwitchAnimation", &AnimationComponent::SwitchAnimation
+		//"SwitchAnimation", &AnimationComponent::SwitchAnimation,
+		//Interface for animator (state machine)
+		"CreateState", &AnimationComponent::CreateState,
+		"SetEntryState", &AnimationComponent::SetEntryState,
+		"SetTrigger", &AnimationComponent::SetTrigger,
+		"AddAnimEvent", &AnimationComponent::AddAnimEvent
 	);
 
 	//RIGIDBODY
@@ -507,5 +514,20 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<ParticleEmitterComponent>
 	(
 		"ParticleEmitterComponent"
+	);
+
+	///////////////////////
+	// ANIMATION HELPERS //
+	///////////////////////
+	luaState.new_usertype<Animation>
+	(
+		"Animation",
+		"AddAnimEvent", &Animation::AddAnimEvent
+	);
+
+	luaState.new_usertype<AnimState>
+	(
+		"AnimState",
+		"SetTransition", &AnimState::SetTransition
 	);
 }

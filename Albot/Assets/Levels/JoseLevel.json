@@ -1,0 +1,291 @@
+{
+    "Resources": {
+        "Textures": [
+            "Assets\\Textures\\ceramic_diffuse.jpg",
+            "Assets\\Textures\\ceramic_height.jpg",
+            "Assets\\Textures\\ceramic_normal.jpg",
+            "Assets\\Textures\\floor.png",
+            "Assets\\Textures\\Particles\\flare0.png",
+            "Assets\\Textures\\redbrick.jpg",
+            "Assets\\Textures\\redbrick_height.jpg",
+            "Assets\\Textures\\redbrick_height_invert.jpg",
+            "Assets\\Textures\\redbrick_normal.jpg",
+            "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+            "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
+            "Assets\\Textures\\UI\\Loading.png"
+        ],
+        "Models": [
+            "Assets\\Models\\AnimTest01.fbx",
+            "Assets\\Models\\Cube.fbx",
+            "Assets\\Models\\mitsuba-sphere.obj",
+            "Assets\\Models\\plane.fbx",
+            "Assets\\Models\\Sphere.fbx",
+            "Assets\\Models\\TestWalk.fbx"
+        ],
+        "Materials": [
+            "Assets\\Materials\\CeramicMaterial.json",
+            "Assets\\Materials\\Material1.json",
+            "Assets\\Materials\\MaterialDarkGreen.json",
+            "Assets\\Materials\\RedDieletricRoughMaterial.json",
+            "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+            "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+            "Assets\\Materials\\Red_Brick_Material.json",
+            "Assets\\Materials\\UI\\LoadingMaterial.json"
+        ],
+      "Scripts": [
+            "Scripts\\Components\\TestPlayerAnimComp.lua",
+            "Scripts\\Components\\PlayerComp.lua",
+            "Scripts\\Components\\editor.lua",
+            "Scripts\\Components\\JoseController.lua",
+            "Scripts\\Components\\UICamera.lua",
+            "Scripts\\States\\DebugPause.lua",
+            "Scripts\\States\\JoseLevel.lua"
+      ],
+        "Prefabs": [
+            "Assets\\Prefabs\\brick_wall.json",
+            "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+            "Assets\\Prefabs\\ceramic_floor.json",
+            "Assets\\Prefabs\\Lights\\directional_light.json",
+            "Assets\\Prefabs\\Lights\\point_light.json",
+            "Assets\\Prefabs\\lvleditor.json",
+            "Assets\\Prefabs\\mini_map.json",
+            "Assets\\Prefabs\\mitsuba_sphere.json",
+            "Assets\\Prefabs\\mono_azul.json",
+            "Assets\\Prefabs\\mono_rojo.json",
+            "Assets\\Prefabs\\player.json",
+            "Assets\\Prefabs\\RBTestObj.json",
+            "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "Assets\\Prefabs\\TestGoJose.json",
+            "Assets\\Prefabs\\UIEmpty.json",
+            "Assets\\Prefabs\\UIObject.json"
+        ],
+        "Songs": [],
+        "SFX": [
+          "Assets\\SFX\\Collision1.mp3",
+          "Assets\\SFX\\Whoosh_01.mp3"
+        ]
+    },
+  "Objects": [
+    {
+      "tag": "lvleditor",
+      "prefab": "Assets\\Prefabs\\lvleditor.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            2.5368568897247316,
+            8.291299819946289,
+            21.91090965270996
+          ],
+          "Rotation": [
+            -21.13999938964844,
+            20.15999984741211,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "CameraComponent": {
+          "Camera": {
+            "FOV": 45.0,
+            "Near": 0.10000000149011612,
+            "Far": 1000.0,
+            "Position": [
+              2.5368568897247316,
+              10.291299819946289,
+              21.91090965270996
+            ],
+            "CameraName": "Main",
+            "ZOrder": 0
+          }
+        },
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\JoseController.lua",
+            "Overrides": {}
+          }
+        ]
+      }
+    },
+    {
+      "tag": "skybox",
+      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SkyboxIrradianceComponent": {
+          "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+          "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+        }
+      }
+    },
+    {
+      "tag": "Brick_Floor",
+      "prefab": "Assets\\Prefabs\\brick_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -25.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            -90.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            25.0,
+            25.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Red_Brick_Material.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\plane.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Ceramic_Floor",
+      "prefab": "Assets\\Prefabs\\ceramic_floor.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            25.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            -90.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            25.0,
+            25.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\plane.fbx"
+        }
+      }
+    },
+    {
+      "tag": "directional_light01",
+      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            150.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            45.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Directional",
+            "Color": [
+              1.0,
+              0.800000011920929,
+              0.7360000014305115
+            ],
+            "Intensity": 1.0,
+            "CastShadow": true
+          }
+        }
+      }
+    },
+    {
+      "tag": "Go_Jose01",
+      "prefab": "Assets\\Prefabs\\TestGoJose.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -1.0, 0.0, 1.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 0.05, 0.05, 0.05 ]
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\AnimTest01.fbx"
+        },
+        "AnimationComponent": {
+          "StartingAnimation": "IdleAnim",
+          "Clips": [
+            {
+              "name": "AttackAnim",
+              "path": "Assets/Models/TestAttack.fbx",
+              "loops": false
+            },
+            {
+              "name": "WalkAnim",
+              "path": "Assets\\Models\\TestWalk.fbx",
+              "loops": true
+            },
+            {
+              "name": "UpperAnim",
+              "path": "Assets\\Models\\UpperAnim.fbx",
+              "loops": false
+            },
+            {
+              "name": "IdleAnim",
+              "path": "Assets\\Models\\TestIdle.fbx",
+              "loops": true
+            },
+            {
+              "name": "KickAnim",
+              "path": "Assets\\Models\\Kick.fbx",
+              "loops": false
+            },
+            {
+              "name": "CrawlAnim",
+              "path": "Assets\\Models\\Crawl.fbx",
+              "loops": true
+            },
+            {
+              "name": "JumpLoopAnim",
+              "path": "Assets\\Models\\JumpLoop.fbx",
+              "loops": true
+            },
+            {
+              "name": "JumpEndAnim",
+              "path": "Assets\\Models\\JumpEnd.fbx",
+              "loops": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

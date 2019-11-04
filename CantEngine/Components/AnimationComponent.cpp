@@ -16,6 +16,7 @@ unsigned const AnimationComponent::static_type = BaseComponent::numberOfTypes++;
 #include "Components/MeshComponent.h"
 #include "Animation/AnimModel.h"
 #include "Animation/FBXLoader.h"
+#include "Animation/AnimatorController.h"
 
 
 RTTR_REGISTRATION
@@ -34,16 +35,17 @@ RTTR_REGISTRATION
 
 
 AnimationComponent::AnimationComponent(GameObject *owner) :
-	BaseComponent(owner, AnimationComponent::static_type), 
-	transitionDuration(0.0f), transitionTime(0.0f), inTransition(false)
+	BaseComponent(owner, AnimationComponent::static_type)
 {
-	//CTOR
+	//Controller
+	this->controller = new AnimatorController();
 }
 
 
 AnimationComponent::~AnimationComponent()
 {
 	//DTOR
+	delete this->controller;
 }
 
 
@@ -65,78 +67,116 @@ void AnimationComponent::Begin(GameObjectManager *goMgr)
 		//Once we have all the animations paths, we should load them 
 		//and their data one by one
 		std::string name = this->m_clips[0].name;
-		for (int i = 1; name != ""; ++i)
+		for (int i = 0; name != ""; ++i)
 		{
 			//Get path, load model
-			std::string const& path = this->m_clips[i - 1].path;
+			std::string const& path = this->m_clips[i].path;
 			Assimp::Importer importer;
 			aiScene const *scene = importer.ReadFile(path, 0);
 			if (!scene || !scene->mRootNode)
 			{
-				name = this->m_clips[i].name;
+				name = this->m_clips[i + 1].name;
 				continue;
 			}
 
 			//Load animation with FBX loader (Later change to res mgr)
 			FBXLoader::LoadAnimationData(this->m_animationMap, scene, name);
 
-			name = this->m_clips[i].name;
+			//Give animation info of wether it loops
+			m_animationMap[name].loops = this->m_clips[i].loops;
+
+			//setup animation event
+			m_animationMap[name].EventsSetup();
+
+			name = this->m_clips[i + 1].name;
 		}
 	}
-
-	//Set starting animation. TODO - This can be set from json
-	SetCurrentAnimation(startingAnimation, 0.0f);
 }
 
 
-void AnimationComponent::SetCurrentAnimation(std::string const& animName, float timeElapsed)
+void AnimationComponent::AnimationEnd(AnimState *anim)
 {
-	//Find index based on name
-	for (int i = 0; i < m_animationMap.size(); ++i) 
+	if (anim->animation->loops) 
 	{
-		if (animName == m_clips[i].name)
-			m_currentAnimation = i;
+		anim->animTime = anim->animTime - anim->animation->duration;
 	}
-
-	//Get current animation from map
-	auto iter = m_animationMap.find(m_clips[m_currentAnimation].name);
-	if (iter != m_animationMap.end())
+	else 
 	{
-		Animation const& anim = iter->second;
-		this->m_currentTPS = anim.ticksPerSecond;
-		this->m_duration = anim.duration;
-		this->m_animationTime = timeElapsed;
-		this->m_loops = m_clips[m_currentAnimation].loops;
+		anim->isAnimRunning = false;
+		anim->animation->OnAnimationEnd();
 	}
 }
 
 
-void AnimationComponent::SwitchAnimation(std::string const& animName, 
-	float transDuration)
-{
-	//For now, only if not in transition
-	if (inTransition)
-		return;
 
-	//Check if the animation exists
+
+//////////////////////////////////////////////////////
+////              ANIMATOR CONTROLLER             ////
+//////////////////////////////////////////////////////
+void AnimationComponent::FrameEndCleanUp()
+{
+	this->controller->ResetTriggers();
+}
+
+
+void AnimationComponent::CheckForTransitionChanges() 
+{
+	//If no dirty flag, no need to check
+	if (controller->dirtyFlag) 
+	{
+		AnimState *current = controller->GetCurrentState();
+
+		//Dirty flag to zero
+		controller->dirtyFlag = false;
+
+		//If in a transition, skip this
+		if (current->isInTransition)
+			return;
+
+		//Check all transitions against the controller's triggers
+		current->CheckAllTransitions(controller->triggers);
+	}
+}
+
+
+AnimState *AnimationComponent::CreateState(std::string stateName, 
+	std::string animName)
+{
+	if (controller->IsStateNameValid(stateName))
+	{
+		auto iter = m_animationMap.find(animName);
+		if (iter != m_animationMap.end()) 
+		{
+			Animation& anim = iter->second;
+			AnimState *state = new AnimState(stateName, &anim);
+			state->speed = 1.0f;
+			this->controller->AddState(state);
+			return state;
+		}
+		else 
+		{
+			//TODO - anim not found
+		}
+	}
+	return nullptr;
+}
+
+void AnimationComponent::SetEntryState(AnimState *entry)
+{
+	this->controller->SetEntryState(entry);
+}
+
+void AnimationComponent::SetTrigger(std::string const& trigger)
+{
+	this->controller->SetTrigger(trigger);
+}
+
+void AnimationComponent::AddAnimEvent(std::string const& animName, int tick, sol::table entry)
+{
 	auto iter = m_animationMap.find(animName);
-	if (iter != m_animationMap.end())
+	if (iter != m_animationMap.end()) 
 	{
-		nextAnimName = animName;
-		inTransition = true;
-		transitionTime = 0.0f;
-		transitionDuration = transDuration;
+		Animation& anim = iter->second;
+		anim.AddAnimEvent(tick, entry);
 	}
-}
-
-
-void AnimationComponent::OnTransitionEndSwitchAnimation(float timeElapsed) 
-{
-	//Call that effectively starts the second animation after transition
-	SetCurrentAnimation(nextAnimName, timeElapsed);
-
-	nextAnimName = "";
-	inTransition = false;
-	transitionDuration = 0.0f;
-	transitionTime = 0.0f;
 }

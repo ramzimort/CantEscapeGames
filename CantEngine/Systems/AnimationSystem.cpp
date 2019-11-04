@@ -13,6 +13,7 @@ unsigned const AnimationSystem::static_type = BaseSystem::numberOfTypes++;
 #include "../GameObjects/GameObject.h"
 #include "Animation/Interpolation.h"
 #include "Animation/AnimModel.h"
+#include "Animation/AnimatorController.h"
 
 // 2 - Include the components you want to add
 #include "Components/AnimationComponent.h"
@@ -53,40 +54,82 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 	//UPDATE CODE GOES HERE------------------------------------------
 	AnimModel *model = static_cast<AnimModel*>(meshComp->GetModel());
 
-	//Cache some stuff
-	std::string const& animName = animator->m_clips[animator->m_currentAnimation].name;
+	//NEW WAY WITH ANIMATOR CONTROLLER
 
-	//Different update depending on wether it is transitioning between animations
-	if (animator->inTransition) 
+	/////////////////////////////////////////////////
+	//dt = 0.016f;// TODO - ERASEEEEEEEEEEEEEEEEEE///
+	/////////////////////////////////////////////////
+
+	AnimatorController *controller = animator->controller;
+	AnimState *currentState = controller->GetCurrentState();
+	
+	if (currentState->isAnimRunning)
 	{
-		float animTime = animator->m_animationTime;
-		animator->transitionTime += dt * animator->m_currentTPS;
+		Animation *animation = currentState->animation;
+		currentState->animTime += dt * animation->ticksPerSecond;
+		float animTime = currentState->animTime;
+
+		//Anim event experiment
+		animation->CallEvent(animTime);
+
+		//Loop through the channels, find the interp, and get the VQS matrix
+		for (AnimChannel const& animChannel : animation->channels)
+		{
+			std::string const& boneName = animChannel.boneName;
+
+			//Interp position and the others
+			Vector3 interpPos = CalculateInterpPos(animTime, animChannel);
+			MathUtil::Quaternion interpQuat = CalculateInterpRot(animTime, animChannel);
+			Vector3 interpScale = CalculateInterpScale(animTime, animChannel); //TODO - special scaling
+
+			//Build the VQS matrix for this bone
+			Matrix vqs = MathUtil::GenVQSMatrix(interpPos, interpQuat, interpScale);
+
+			//Pass the bone its VQS matrix
+			Bone& b = model->boneMap.find(boneName)->second;
+			b.vqs = vqs;
+			b.updatedVQS = true;
+		}
+
+		//After updating, update the matrices recursively from root down the hierarchy
+		// TODO - Replace bonemap with skeleton structure. And have a GetRoot function.
+		Bone& root = model->boneMap["RootNode"];
+		// TODO - In future, skeleton should call the recursive function maybe
+		this->ProcessRecursiveTransformationFromRoot(meshComp, model, root, Matrix::Identity);
+
+		//ANIMATION END MANAGEMENT
+		if (animTime > animation->duration)
+			animator->AnimationEnd(currentState);
+	}
+	else if (currentState->isInTransition)
+	{
+		AnimTransition *transition = currentState->currentTransition;
+		AnimState *nextState = transition->to;
+
+		float animTime = currentState->animTime;
+		transition->transitionTime += dt * currentState->animation->ticksPerSecond;
 
 		//Get current and next animation from map
-		auto iter_curr = animator->m_animationMap.find(animName);
-		auto iter_next = animator->m_animationMap.find(animator->nextAnimName);
-		if (iter_curr != animator->m_animationMap.end() && iter_next != animator->m_animationMap.end())
+		Animation *currAnim = currentState->animation;
+		Animation *nextAnim = nextState->animation;
+		if (currAnim && nextAnim)
 		{
-			Animation const& currAnim = iter_curr->second;
-			Animation const& nextAnim = iter_next->second;
-
-			//Loop through the current anim channels, find the interp to next 
-			//anim first frame, and get the VQS matrix
-			for (AnimChannel const& animChannel : currAnim.channels)
+			//Loop through the current anim channels, find the interp to next anim first frame, and get the VQS matrix
+			for (AnimChannel const& animChannel : currAnim->channels)
 			{
 				std::string const& boneName = animChannel.boneName;
-				auto nextAnimChannelIter = nextAnim.boneChannelMap.find(boneName);
-				if (nextAnimChannelIter != nextAnim.boneChannelMap.end())
+				auto nextAnimChannelIter = nextAnim->boneChannelMap.find(boneName);
+				if (nextAnimChannelIter != nextAnim->boneChannelMap.end())
 				{
 					AnimChannel const& nextAnimChannel = nextAnimChannelIter->second;
 
 					//Interp position and the others
-					Vector3 interpPos = CalculateInterpPos(animTime, animator->transitionTime, 
-						animator->transitionDuration, animChannel, nextAnimChannel);
-					MathUtil::Quaternion interpQuat = CalculateInterpRot(animTime, animator->transitionTime, 
-						animator->transitionDuration, animChannel, nextAnimChannel);
-					Vector3 interpScale = CalculateInterpScale(animTime, animator->transitionTime, 
-						animator->transitionDuration, animChannel, nextAnimChannel);
+					Vector3 interpPos = CalculateInterpPos(animTime, transition->transitionTime,
+						transition->transitionDuration, animChannel, nextAnimChannel);
+					MathUtil::Quaternion interpQuat = CalculateInterpRot(animTime, transition->transitionTime,
+						transition->transitionDuration, animChannel, nextAnimChannel);
+					Vector3 interpScale = CalculateInterpScale(animTime, transition->transitionTime,
+						transition->transitionDuration, animChannel, nextAnimChannel);
 
 					//Build the VQS matrix for this bone
 					Matrix vqs = MathUtil::GenVQSMatrix(interpPos, interpQuat, interpScale);
@@ -105,57 +148,24 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 			// TODO - In future, skeleton should call the recursive function maybe
 			this->ProcessRecursiveTransformationFromRoot(meshComp, model, root, Matrix::Identity);
 
-			//switch animation
-			if (animator->transitionTime > animator->transitionDuration)
+			//switch state
+			if (transition->transitionTime > transition->transitionDuration)
 			{
-				float nextAnimTimeElapsed = animator->transitionTime - animator->transitionDuration;
-				animator->OnTransitionEndSwitchAnimation(nextAnimTimeElapsed);
+				float nextAnimTimeElapsed = transition->transitionTime - transition->transitionDuration;
+				nextState->animTime = nextAnimTimeElapsed;
+				
+				currentState->ExitTransition();
+				controller->ExitState();
+				controller->EnterState(nextState);
 			}
 		}
 	}
-	else 
-	{
-		animator->m_animationTime += dt * animator->m_currentTPS;
-		float animTime = animator->m_animationTime;
 
-		//Get current animation from map
-		auto iter = animator->m_animationMap.find(animName);
-		if (iter != animator->m_animationMap.end())
-		{
-			Animation const& animation = iter->second;
 
-			//Loop through the channels, find the interp, and get the VQS matrix
-			for (AnimChannel const& animChannel : animation.channels)
-			{
-				std::string const& boneName = animChannel.boneName;
-
-				//Interp position and the others
-				Vector3 interpPos = CalculateInterpPos(animTime, animChannel);
-				MathUtil::Quaternion interpQuat = CalculateInterpRot(animTime, animChannel);
-				Vector3 interpScale = CalculateInterpScale(animTime, animChannel); //TODO - special scaling
-
-				//Build the VQS matrix for this bone
-				Matrix vqs = MathUtil::GenVQSMatrix(interpPos, interpQuat, interpScale);
-
-				//Pass the bone its VQS matrix
-				Bone& b = model->boneMap.find(boneName)->second;
-				b.vqs = vqs;
-				b.updatedVQS = true;
-			}
-
-			//After updating, update the matrices recursively from root down the hierarchy
-			// TODO - Replace bonemap with skeleton structure. And have a GetRoot function.
-			Bone& root = model->boneMap["RootNode"];
-			// TODO - In future, skeleton should call the recursive function maybe
-			this->ProcessRecursiveTransformationFromRoot(meshComp, model, root, Matrix::Identity);
-
-			//Restart animation
-			if (animTime > animator->m_duration && animator->m_loops)
-			{
-				animator->m_animationTime = animTime - animator->m_duration;
-			}
-		}
-	}
+	//At the end of the frame, animator 
+	//should clean up the trigger stuff
+	animator->CheckForTransitionChanges();
+	animator->FrameEndCleanUp();
 }
 
 
@@ -237,7 +247,8 @@ Vector3 AnimationSystem::CalculateInterpPos(float AnimationTime, float transitio
 	}
 
 	//If loops exit, return next anim key
-	return nextAnimKey.position;
+	float alpha = ((AnimationTime - prevKey.time) + transitionTime) / transitionDuration;
+	return MathUtil::Lerp(prevKey.position, nextAnimKey.position, alpha);
 }
 
 
@@ -289,7 +300,8 @@ MathUtil::Quaternion AnimationSystem::CalculateInterpRot(float AnimationTime, fl
 	}
 
 	//If loops exit, return next anim key
-	return nextAnimKey.quaternion;
+	float alpha = ((AnimationTime - prevKey.time) + transitionTime) / transitionDuration;
+	return MathUtil::Slerp(prevKey.quaternion, nextAnimKey.quaternion, alpha);
 }
 
 
@@ -340,5 +352,6 @@ Vector3 AnimationSystem::CalculateInterpScale(float AnimationTime, float transit
 	}
 
 	//If loops exit, return next anim key
-	return nextAnimKey.scale;
+	float alpha = ((AnimationTime - prevKey.time) + transitionTime) / transitionDuration;
+	return MathUtil::Lerp(prevKey.scale, nextAnimKey.scale, alpha);
 }

@@ -372,6 +372,9 @@
     <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Animation\AnimatorController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -825,6 +828,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\TextRendering\TextRenderingInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimatorController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimConditions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

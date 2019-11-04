@@ -41,7 +41,7 @@ test01Comp.Begin = function(self, owner, goMgr)
 	-----------------------
 	--  STATES  CHANGES  --
 	-----------------------
-	local world = World.Get();
+	--local world = World.Get();
 	--world.StateManager:SwitchState("");
 	--world.StateManager:PushState("nameOfState");
 

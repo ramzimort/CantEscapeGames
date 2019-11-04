@@ -17,6 +17,8 @@ Primary Author: Jose Rosenbluth
 #define MAX_ANIM_CLIPS		16		//Maximum numbers of animations per obj
 
 class GameObjectManager;
+class AnimatorController;
+struct AnimState;
 
 
 struct ClipInfo 
@@ -36,6 +38,7 @@ class AnimationComponent : public BaseComponent
 //Friend classes and typedefs
 public:
 	friend class Factory;
+	friend class ScriptingManager;
 	friend class AnimationSystem;
 
 //METHODS
@@ -47,18 +50,37 @@ public:
 	virtual void Init(ResourceManager* res, DXRenderer* dxrenderer);
 	virtual void Begin(GameObjectManager *goMgr);
 
-	void SwitchAnimation(std::string const& animName, float transDuration);
+	///void SwitchAnimation(std::string const& animName, float transDuration);
+
+	void AnimationEnd(AnimState *anim);
+	
+	//Animator methods
+	void SetTrigger(std::string const& trigger); 
+	AnimState *CreateState(std::string stateName, std::string animName);
+	void SetEntryState(AnimState *entry);
+
 
 private:
-	void SetCurrentAnimation(std::string const& animName, 
-		float timeElapsed = 0.0f);
-	void OnTransitionEndSwitchAnimation(float timeElapsed);
+	///void SetCurrentAnimation(std::string const& animName, 
+	///	float timeElapsed = 0.0f);
+	///void OnTransitionEndSwitchAnimation(float timeElapsed); 
+
+	//Called from the system every frame
+	void FrameEndCleanUp(); 
+	void CheckForTransitionChanges();
+
+	//Register animation events from the scripting
+	void AddAnimEvent(std::string const& animName, int tick, sol::table entry);
 
 public:
 	//To compare when using templates
 	static ComponentId const static_type;
 	
 private:
+
+	//AnimatorController
+	AnimatorController *controller;
+
 	std::string startingAnimation;
 	ClipInfo m_clips[MAX_ANIM_CLIPS]; 
 	
@@ -66,18 +88,17 @@ private:
 	std::unordered_map<std::string, Animation> m_animationMap;
 	
 	//Animation parameters 
-	short m_currentAnimation;
-	float m_animationTime;
-	float m_duration;
-	float m_currentTPS;
-	bool m_loops;
-
-	//Switching anim variables
-	std::string nextAnimName;
-	float transitionDuration; //In ticks
-	float transitionTime; //how much has elapsed since transition started
-	bool inTransition;
-
+	std::string m_currentAnimation;
+	/// float m_animationTime;
+	/// float m_duration;
+	/// float m_currentTPS;
+	/// bool m_loops;
+	/// 
+	/// //Switching anim variables
+	/// std::string nextAnimName;
+	/// float transitionDuration; //In ticks
+	/// float transitionTime; //how much has elapsed since transition started
+	/// bool inTransition;
 
 	//Hold the pointer to use it later
 	ResourceManager* m_resMgr = nullptr;
