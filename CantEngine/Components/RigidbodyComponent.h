@@ -44,6 +44,7 @@ public:
 	void SetVelocity(const Vector3& velocity);
 
 	const Vector3& GetAngularVelocity() const;
+	void SetAngularVelocity(const Vector3& angularVelocity);
 
 	float GetMass() const;
 	void SetMass(float mass);
@@ -56,22 +57,23 @@ public:
 	//Unique class identifier
 	static ComponentId const static_type;
 
-	//TODO - Remove before push
 	Multicast<void(GameObject*, GameObject*)> m_onCollision;
-	
+
 private:
 	Aabb m_aabb;
 
 	Vector3 m_position;
 	Vector3 m_velocity;
-	Vector3 m_velocityLastFrame;
 	Quaternion m_quaternion;
 	Vector3 m_angularVelocity;
-	Vector3 m_angularVelocityLastFrame;
 
 	Matrix m_inertiaTensor;
 	Matrix m_inertiaTensorInverse;
 	Matrix m_inertiaTensorWorldInverse;
+
+	Vector3 m_forceAccumulator;
+	Vector3 m_torqueAcumulator;
+
 	float m_mass;
 	float m_inverseMass;
 

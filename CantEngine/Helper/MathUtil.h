@@ -140,7 +140,7 @@ namespace MathUtil
 		return Vector3::Transform(v, R);
 	}
 
-	inline void DegreeToRadians(Vector3& degrees)
+	inline void RadiansToDegree(Vector3& degrees)
 	{
 		degrees *= 180.0f / PhysicsUtils::Consts::pi;
 	}

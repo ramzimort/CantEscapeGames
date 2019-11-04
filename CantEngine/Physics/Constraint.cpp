@@ -164,7 +164,7 @@ void ContactManifold::ProccessCollision(Contact& newContact)
 	for (Contact& contact : m_contacts)
 	{
 		const Vector3 rA = newContact.m_pA - contact.m_pA;
-		const bool rAFarEnough = rA.LengthSquared() > PhysicsUtils::Consts::penetrationEpsilonSq;
+		const bool rAFarEnough = rA.LengthSquared() > PhysicsUtils::Consts::penetrationEpsilon;
 		if (!rAFarEnough)
 		{
 			isKeepContact = false;

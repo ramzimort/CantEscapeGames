@@ -657,7 +657,7 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 {
 	// small floating-point margin
 	const float k_epsilon = PhysicsUtils::Consts::penetrationEpsilon;
-	const float k_epsilonSq = PhysicsUtils::Consts::penetrationEpsilonSq;
+	//const float k_epsilonSq = PhysicsUtils::Consts::penetrationEpsilonSq;
 
 	// constant vector representing the origin
 	const Vector3 origin(0.0f, 0.0f, 0.0f);
@@ -687,7 +687,7 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 			CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
 
 			// good search direction used, break
-			if ((pointToAdd.m_CsoPoint - simplex[0].m_CsoPoint).LengthSquared() >= k_epsilonSq)
+			if ((pointToAdd.m_CsoPoint - simplex[0].m_CsoPoint).LengthSquared() >= k_epsilon)
 			{
 				simplex.push_back(pointToAdd);
 				break;
@@ -724,7 +724,7 @@ void Gjk::FillSimplex(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* s
 		{
 			CsoPoint pointToAdd = ComputeSupport(shapeA, shapeB, searchDir);
 			// good search direction used, break
-			if (pointToAdd.m_CsoPoint.LengthSquared() > k_epsilonSq)
+			if (pointToAdd.m_CsoPoint.LengthSquared() > k_epsilon)
 			{
 				simplex.push_back(pointToAdd);
 				break;

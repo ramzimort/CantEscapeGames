@@ -78,6 +78,11 @@ const Vector3& RigidbodyComponent::GetAngularVelocity() const
 	return m_angularVelocity;
 }
 
+void RigidbodyComponent::SetAngularVelocity(const Vector3& angularVelocity)
+{
+	m_angularVelocity = angularVelocity;
+}
+
 float RigidbodyComponent::GetMass() const
 {
 	return m_mass;
@@ -101,22 +106,12 @@ bool RigidbodyComponent::IsAsleep() const
 
 void RigidbodyComponent::InitInertiaTensor(float x, float y, float z)
 {
-
-	//m_inertiaTensor.m[0][0] = m_mass * (y * y + z * z);
-	//m_inertiaTensor.m[1][1] = m_mass * (x * x + z * z);
-	//m_inertiaTensor.m[2][2] = m_mass * (x * x + y * y);
-	//
-	//m_inertiaTensor.m[0][1] = m_inertiaTensor.m[1][0] = -m_mass * x * y;
-	//m_inertiaTensor.m[0][2] = m_inertiaTensor.m[2][0] = -m_mass * x * z;
-	//m_inertiaTensor.m[1][2] = m_inertiaTensor.m[2][1] = -m_mass * y * z;
-	//m_inertiaTensor *= m_mass;
-	//m_inertiaTensorInverse = m_inertiaTensor.Invert();
-
 	m_inverseMass = 1.0f / m_mass;
 	if (m_inverseMass < PhysicsUtils::Consts::minMass)
 	{
 		m_inverseMass = 0.0f;
-		m_inertiaTensorInverse = Matrix() * 0.0f;
+		m_inertiaTensor = m_inertiaTensorInverse = Matrix() * 0.0f;
+		m_inertiaTensor.m[3][3] = m_inertiaTensorInverse.m[3][3] = 1.0f;
 		return;
 	}
 
@@ -129,8 +124,8 @@ void RigidbodyComponent::InitInertiaTensor(float x, float y, float z)
 		m_inertiaTensor.m[2][0] = m_inertiaTensor.m[1][2] = m_inertiaTensor.m[2][1] = 
 		m_inertiaTensor.m[0][3] = m_inertiaTensor.m[1][3] = m_inertiaTensor.m[2][3] =
 		m_inertiaTensor.m[3][0] = m_inertiaTensor.m[3][1] = m_inertiaTensor.m[3][2] = 0.0f;
-	m_inertiaTensor.m[3][3] = 1.0f;
 
 	m_inertiaTensor *= massCoef; 
+	m_inertiaTensor.m[3][3] = 1.0f;
 	m_inertiaTensorInverse = m_inertiaTensor.Invert();
 }

@@ -10,6 +10,7 @@
 #include "Factory/Factory.h"
 #include "Reflection/Helpers.h"
 #include "Reflection/Serialization.h"
+#include "Physics/PhysicsUtils.h"
 
 namespace CantDebug
 {
@@ -84,6 +85,16 @@ namespace CantDebug
 		debugConfig.StepFrame = &m_config.StepFrame;
 		debugConfig.RefreshResources = &m_config.RefreshResources;
 		CantDebugAPI::EditorSetting(debugConfig);
+
+		// Physics Settings Initialization
+		CantDebugAPI::PhysicsConfig physConfig;
+		physConfig.isDrawContactPoints = &PhysicsUtils::Settings::isDrawContactPoints;
+		physConfig.isDrawGJKResult = &PhysicsUtils::Settings::isDrawGJKResult;
+		physConfig.isDrawEPAFinalTriangle = &PhysicsUtils::Settings::isDrawEPAFinalTriangle;
+		physConfig.isDrawConstraints = &PhysicsUtils::Settings::isDrawConstraints;
+		physConfig.dynamicAabbLevelDraw = &PhysicsUtils::Settings::dynamicAabbLevelDraw;
+		physConfig.Draw_Dynamic_AABB_Tree = &PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree;
+		CantDebugAPI::InitializePhysicsConfig(physConfig);
 
 		// Material Generator Initialization
 		CantDebugAPI::MaterialInfo debugInfo;
@@ -427,6 +438,7 @@ namespace CantDebug
 		if (rigidbdy)
 		{
 			info.compName = "RigidBody"; info.propName = "Velocity"; info.data.vec3 = rigidbdy->GetVelocity(); info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "RigidBody"; info.propName = "AngularVelocity"; info.data.vec3 = rigidbdy->GetAngularVelocity(); info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "RigidBody"; info.propName = "Mass"; info.data.f = rigidbdy->GetMass(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
 		}
 		auto renderer = go->GetComponent<RendererComponent>();
@@ -576,6 +588,11 @@ namespace CantDebug
 			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -10.f; debugInfo.max = 10.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 
+			rigidBody->SetAngularVelocity(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -10.f; debugInfo.max = 10.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
 			rigidBody->SetMass(it->data.f);
 			debugInfo.propName = it->propName;
 			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 50.f;
@@ -608,6 +625,7 @@ namespace CantDebug
 		if (rigidBody)
 		{
 			it->data.vec3 = rigidBody->GetVelocity(); ++it;
+			it->data.vec3 = rigidBody->GetAngularVelocity(); ++it;
 			it->data.f = rigidBody->GetMass(); ++it;
 		}
 		auto renderer = go->GetComponent<RendererComponent>();

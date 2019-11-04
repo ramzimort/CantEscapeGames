@@ -168,7 +168,7 @@ test01Comp.MulticastExample = function(self, gameobj, time, position)
 	return 7;
 end
 
-test01Comp.OnDestruction= function(self)\
+test01Comp.OnDestruction= function(self)
 end
 
 return test01Comp;
