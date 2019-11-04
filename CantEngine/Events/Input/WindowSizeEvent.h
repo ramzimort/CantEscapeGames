@@ -27,12 +27,12 @@ public:
 
 	virtual void operator()() override
 	{
-		OnWindowSizeEvent()(m_width, m_height);
+		OnWindowSizeEvent()(m_width, m_height, m_xScaleFactor, m_yScaleFactor);
 	}
 
-	static Multicast<void(int, int)>& OnWindowSizeEvent()
+	static Multicast<void(int, int, float, float)>& OnWindowSizeEvent()
 	{
-		static Multicast<void(int, int)> m;
+		static Multicast<void(int, int, float, float)> m;
 		return m;
 	}
 
@@ -40,4 +40,22 @@ public:
 	int m_height;
 	
 	float m_xScaleFactor, m_yScaleFactor;
+};
+
+class GameWindowSizeEvent : public Event<GameWindowSizeEvent>
+{
+public:
+
+	GameWindowSizeEvent(int width, int height) :
+		m_width(width), m_height(height) {
+		//DEBUG_LOG("w: %d, h: %d", width, height);
+	}
+	virtual ~GameWindowSizeEvent() { }
+
+	virtual void operator()() override
+	{
+	}
+
+	int m_width;
+	int m_height;
 };

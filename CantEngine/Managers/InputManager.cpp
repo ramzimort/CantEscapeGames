@@ -37,6 +37,13 @@ InputManager::InputManager(bool fullscreen, int w, int h) :
 	m_mouseStatePrevious = 0;
 	m_mouseWheelY = 0;
 	m_quit = false;
+
+	EventManager::Get()->SubscribeEvent<GameWindowSizeEvent>(this, std::bind(&InputManager::OnWindowResizeRequest, this, std::placeholders::_1));
+}
+
+void InputManager::OnWindowResizeRequest(const GameWindowSizeEvent* e)
+{
+	SetWindowSize(e->m_width, e->m_height);
 }
 
 InputManager::~InputManager()

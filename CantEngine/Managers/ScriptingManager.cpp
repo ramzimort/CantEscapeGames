@@ -160,11 +160,11 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
 			);
 
-	luaState.new_usertype<Multicast<void(int, int)>>
+	luaState.new_usertype<Multicast<void(int, int, float, float)>>
 		(
 			"WindowSizeMulticast",
-			"Bind", &Multicast<void(int, int)>::BindLuaFunction,
-			"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
+			"Bind", &Multicast<void(int, int, float, float)>::BindLuaFunction,
+			"Unbind", &Multicast<void(int, int, float, float)>::UnbindLuaFunction
 			);
 
 	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
@@ -187,6 +187,9 @@ void ScriptingManager::ManageBindings()
 	(
 		"EventManager",
 		"Get", &EventManager::Get,
+		// Resize Window Event
+		"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
+		
 
 		// State Events
 		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,

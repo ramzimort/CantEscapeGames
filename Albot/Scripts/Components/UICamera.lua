@@ -104,7 +104,7 @@ UICamera.Begin = function(self, owner, goMgr)
 		 if (ButtonComponent ~= nil) then 
 			 ButtonComponent:WindowResize(self.Width,self.Height, self.BaseWidth, self.BaseHeight);
 		 end	
-		 -- Get SlideScroller.lua if UI Object has it
+		 -- Get SlideScroller.lua if UI Object has itq
 		 local SlideScrollerComponent = gameObject:GetCustomComp("SlideScroller");
 		 if (SlideScrollerComponent ~= nil) then 
 			 SlideScrollerComponent:WindowResize(self.Width,self.Height, self.BaseWidth, self.BaseHeight);
@@ -180,7 +180,7 @@ UICamera.Update = function(self, dt, owner)
 		if (ButtonComponent ~= nil) then 
 			
 			if(ButtonComponent:ReturnClicked() == true) then
-			
+				-- Check the tag and use it to specify 
 				self.loadingState = ButtonComponent:GetNextStateAddress();
 				self.PlayFinalAnimation = true;
 			end
@@ -252,7 +252,8 @@ UICamera.Update = function(self, dt, owner)
 	if(self.WindowResizeEnabled == true) then
 		self.WindowResizeEnabled = false;
 		self.BaseWidth = self.Width;
-	self.BaseHeight = self.Height;
+		self.BaseHeight = self.Height;
+		EventManager.Get():SetWindowSize(false, self.Width, self.Height);
 	end
 	
 end
@@ -278,9 +279,10 @@ UICamera.OnMouseClick = function(self, button, state)
 	end
 end
 
-UICamera.OnWindowSize = function(self, Width, Height)
+UICamera.OnWindowSize = function(self, Width, Height, xScale, yScale)
 	self.Width = Width;
 	self.Height = Height;
+	--LOG("W: " .. Width .. " H: " .. Height .. "\n")
 end
 UICamera.WindowResize = function(self, Width, Height)
 	self.Width = Width;
@@ -292,7 +294,7 @@ UICamera.OnDestruction = function(self)
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
 	OnKeyEvent():Unbind({self, self.OnKey});
-	OnWindowSizeEvent():Unbind({self, self.OnWindowSize});
+	OnWindowSize():Unbind({self, self.OnWindowSize});
 end
 
 return UICamera;

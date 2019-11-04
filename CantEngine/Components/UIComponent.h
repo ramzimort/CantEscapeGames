@@ -64,20 +64,21 @@ public:
 
 private:
 	
+	
 	// Total buttons UICamera will have
-	int totalButtons;
+	int totalButtons; // Move to UICAMERA
 	// Total objects UICamera will have
-	int totalObjects;
+	int totalObjects; // Move to UICAMERA
 	//Loading state of a the buttons
-	StringId stateAddress;
+	StringId stateAddress; // Move to UICAMERA
 	//Slider Value
-	float sliderValue;
+	float sliderValue; // REMOVE
 	//
-	int childButtonCount;
+	int childButtonCount;// REMOVE
 	//
-	int childButtonLocation;
+	int childButtonLocation; // REMOVE
 	//  Inital position of the object
-	Vector3 initialPos;
+	Vector3 initialPos; 
 	// Final position of the object
 	Vector3 finalPos;
 	// Delta time for the animation
@@ -89,9 +90,9 @@ private:
 	// Rate of Roation along Z axis
 	float rotationRate;
 	//
-	float width;
+	float width; // Move to UICAMERA
 	//
-	float height;
+	float height; // Move to UICAMERA
 
 
 	// ALL NEW STUFF

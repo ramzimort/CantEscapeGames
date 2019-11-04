@@ -15,6 +15,8 @@ Other Authors : <None>
  *			#include <SDL2/SDL_keycode.h> for key/mouse constants
  */
 
+class GameWindowSizeEvent;
+
 class InputManager
 {
 public:
@@ -46,6 +48,7 @@ public:
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit() const;
 	void Quit();
+	void OnWindowResizeRequest(const GameWindowSizeEvent* e);
 
 private:
 	void UpdateMouseClickState();
