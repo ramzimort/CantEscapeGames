@@ -7,6 +7,8 @@ Other Authors :
 
 #pragma once
 
+
+
 #include "CantDebug/CantDebug.h"
 
 namespace PhysicsUtils
@@ -55,6 +57,7 @@ namespace PhysicsUtils
 		extern bool isDrawEPAFinalTriangle;
 		extern bool isDrawConstraints;
 		extern int dynamicAabbLevelDraw;
+		extern bool Draw_Dynamic_AABB_Tree;
 	}
 
 	template <typename T>

@@ -10,6 +10,7 @@
 #include "Factory/Factory.h"
 #include "Reflection/Helpers.h"
 #include "Reflection/Serialization.h"
+#include "Physics/PhysicsUtils.h"
 
 namespace CantDebug
 {
@@ -84,6 +85,16 @@ namespace CantDebug
 		debugConfig.StepFrame = &m_config.StepFrame;
 		debugConfig.RefreshResources = &m_config.RefreshResources;
 		CantDebugAPI::EditorSetting(debugConfig);
+
+		// Physics Settings Initialization
+		CantDebugAPI::PhysicsConfig physConfig;
+		physConfig.isDrawContactPoints = &PhysicsUtils::Settings::isDrawContactPoints;
+		physConfig.isDrawGJKResult = &PhysicsUtils::Settings::isDrawGJKResult;
+		physConfig.isDrawEPAFinalTriangle = &PhysicsUtils::Settings::isDrawEPAFinalTriangle;
+		physConfig.isDrawConstraints = &PhysicsUtils::Settings::isDrawConstraints;
+		physConfig.dynamicAabbLevelDraw = &PhysicsUtils::Settings::dynamicAabbLevelDraw;
+		physConfig.Draw_Dynamic_AABB_Tree = &PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree;
+		CantDebugAPI::InitializePhysicsConfig(physConfig);
 
 		// Material Generator Initialization
 		CantDebugAPI::MaterialInfo debugInfo;

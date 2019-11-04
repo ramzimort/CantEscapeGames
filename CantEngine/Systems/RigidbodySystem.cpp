@@ -155,7 +155,7 @@ void RigidbodySystem::LateUpdate(float dt)
 		}
 
 #ifdef DEVELOPER
-		if(GraphicsSettings::Draw_Dynamic_AABB_Tree)
+		if(PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree)
 			m_broadPhase.DebugDraw(m_pAppRenderer, PhysicsUtils::Settings::dynamicAabbLevelDraw, Vector4(1, 0, 0, 1));
 		
 		for (size_t i = 0; i < results.m_results.size(); ++i)
@@ -238,7 +238,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			contact.m_supportShapeB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
 
 			Gjk gjk;
-			const float epsilon = 0.001;
+			const float epsilon = 0.001f;
 			std::vector<Gjk::CsoPoint> simplex;
 
 			Gjk::CsoPoint closestPoint;

@@ -11,6 +11,16 @@ struct SDL_Window;
 
 namespace CantDebugAPI
 {
+	struct PhysicsConfig
+	{
+		bool* isDrawContactPoints;
+		bool* isDrawGJKResult;
+		bool* isDrawEPAFinalTriangle;
+		bool* isDrawConstraints;
+		int* dynamicAabbLevelDraw;
+		bool* Draw_Dynamic_AABB_Tree;
+	};
+
 	struct DebugConfig
 	{
 		bool* SelectionTool;
@@ -91,4 +101,7 @@ namespace CantDebugAPI
 	CANTDEBUG_API void ResetResources();
 
 	CANTDEBUG_API void MaterialData(MaterialInfo info);
+
+	CANTDEBUG_API void InitializePhysicsConfig(PhysicsConfig info);
+
 }
