@@ -3,7 +3,7 @@
 		
 
   "TransformComponent": {
-    "Position": [ 0, 0, 0 ],
+    "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
 	  "Scale": [ 1, 1, 1 ]
   },
@@ -17,13 +17,18 @@
 
   },
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
+    "MaterialId": "Assets\\Materials\\SlideScrollerGreenBackGroundMaterial.json"
   },
 	
  
 	"Scripts": [
     {
 	  "Name": "Scripts\\Components\\AffineAnimation.lua"
+	  
+    }],
+	"Scripts": [
+    {
+	  "Name": "Scripts\\Components\\WindowResize.lua"
 	  
     }]
   

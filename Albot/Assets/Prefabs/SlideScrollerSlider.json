@@ -24,6 +24,11 @@
     {
 	  "Name": "Scripts\\Components\\AffineAnimation.lua"
 	  
+    }],
+	"Scripts": [
+    {
+	  "Name": "Scripts\\Components\\WindowResize.lua"
+	  
     }]
   
  }

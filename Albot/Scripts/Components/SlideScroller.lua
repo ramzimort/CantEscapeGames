@@ -2,58 +2,40 @@
 -- First approximation of a component script
 
 SlideScroller = 
-{
-	-- Component
-	uiComp;
-	uiAffineAnimationComp;
-	uiTransformComp;
-	position;
-	scale;
-
-	
+{	
+	Enabled = true;
+	-- Slider Base
+	uiCompBase;
+	uiBaseTransformComp;
 	-- Slide Scroller Button1 Component
 	Button1Obj;
 	uiCompButton1;
-	uiButton1AffineAnimationComp;
 	uiButton1TransformComp;
-	locationButton1;
-	positionButton1;
-	scaleButton1;
-	touchedScaleButton1;
-	maxPosXButton1;
-	maxPosYButton1;
+	Button1Index;
+	ScaleButton1;
+	TouchedScaleButton1;
+	TouchedButton1 = false;
+	ClickedButton1 = false;
 	
 	-- Slide Scroller Button2 Component
 	Button2Obj;
 	uiCompButton2;
-	uiButton2AffineAnimationComp;
 	uiButton2TransformComp;
-	locationButton2;
-	positionButton2;
-	scaleButton2;
-	touchedScaleButton2;
-	maxPosXButton2;
-	maxPosYButton2;
+	Button2Index;
+	ScaleButton2;
+	TouchedScaleButton2;
+	TouchedButton2 = false;
+	ClickedButton2 = false;
 	
 	-- Slide Scroller Slider Component
 	sliderObj;
 	uiCompSlider;
 	uiTransformCompSlider;
-	uiSliderAffineAnimationComp;
-	positionSlider;
-	scaleSlider;
-	noramlizedValue;
 	
 	-- Slide Scroller GreenBackGround Component
 	greenBackgroundObj;
 	uiTransformCompGreenBackGround;
-	scaleGreenBackGround;
 
-	
-	-- Data
-	touchedScale;
-	
-	
 	
 	-- MOUSE
 	MousePositionX = 0;
@@ -77,63 +59,47 @@ end
 
 --Begin called when obj has all comps
 SlideScroller.Begin = function(self, owner, goMgr)
+	
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
 	tag = owner:GetTag();
 
--- Scroll Slider
-	self.uiComp = owner:GetUiComp();
-	if (self.uiComp == nil) then 
-		OutputPrint("ERROR, UIComponent IS NIL\n");
+	-- Slider Base
+
+	self.uiCompBase = owner:GetUiComp();
+	if (self.uiCompBase == nil) then
+		OutputPrint(">>> Slider Base UI Component not found\n");
+		return;
 	end
-	
-	self.uiTransformComp = owner:GetTransformComp();
-	if (self.uiTransformComp == nil) then 
-		OutputPrint("ERROR, uiTransformComp IS NIL\n");
+
+	self.uiBaseTransformComp = owner:GetTransformComp();
+	if (self.uiBaseTransformComp == nil) then
+		OutputPrint(">>> Slider Base Transform Component not found\n");
+		return;
 	end
-	
-	self.uiAffineAnimationComp = owner:GetAffineAnimationComp();
-	if (self.uiAffineAnimationComp == nil) then 
-		OutputPrint("ERROR, Ui Affine Animation IS NIL\n");
-	end
-	self.position =  self.uiAffineAnimationComp:GetFinalPosition();
-	self.scale = Vector3.new(self.uiTransformComp:GetScale());
-	
 	-- Button 1
 	Button1Address = tag .. "Button1";
-	
 	self.Button1Obj = goMgr:FindGameObject(Button1Address);
 	if (self.Button1Obj == nil) then
 		OutputPrint(">>> GO  not found\n");
 		return;
 	end
-	
 	self.uiCompButton1 = self.Button1Obj:GetUiComp();
 	if (self.uiCompButton1 == nil) then
 		OutputPrint(">>> Button 1 UI Component not found\n");
 		return;
 	end
-	
 	self.uiButton1TransformComp = self.Button1Obj:GetTransformComp();
 	if (self.uiButton1TransformComp == nil) then
 		OutputPrint(">>> Button 1 Transform Component not found\n");
 		return;
 	end
+	self.Button1Index = self.uiCompButton1:GetButtonIndex();
+	self.ScaleButton1 = Vector3.new(self.uiButton1TransformComp:GetScale());
+	self.TouchedScaleButton1 = Vector3.new( self.uiButton1TransformComp:GetScale())*1.1;
 	
-	self.uiButton1AffineAnimationComp = self.Button1Obj:GetAffineAnimationComp();
-	if (self.uiButton1AffineAnimationComp == nil) then
-		OutputPrint(">>> Button 1 Affine Animation Component not found\n");
-		return;
-	end
-	self.locationButton1 = self.uiCompButton1:GetLocation();
-	self.positionButton1 =  self.uiButton1AffineAnimationComp:GetFinalPosition();
-	self.scaleButton1 = Vector3.new(self.uiButton1TransformComp:GetScale());
-	self.touchedScaleButton1 = Vector3.new( self.scaleButton1.x,self.scaleButton1.y,self.scaleButton1.z);
-	self.touchedScaleButton1 = self.touchedScaleButton1 * 1.1;
-	self.maxPosXButton1 = self.positionButton1.x + self.scaleButton1.x;
-	self.maxPosYButton1 = self.positionButton1.y + self.scaleButton1.y;
 	
 	-- Button 2
 	Button2Address = tag .. "Button2";
@@ -142,34 +108,21 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		OutputPrint(">>> GO  not found\n");
 		return;
 	end
-	
 	self.uiCompButton2 = self.Button2Obj:GetUiComp();
 	if (self.uiCompButton2 == nil) then
 		OutputPrint(">>> Button 2 UI Component not found\n");
 		return;
 	end
-	
 	self.uiButton2TransformComp = self.Button2Obj:GetTransformComp();
 	if (self.uiButton2TransformComp == nil) then
 		OutputPrint(">>> Button 2 Transform Component not found\n");
 		return;
 	end
-	self.uiButton2AffineAnimationComp = self.Button2Obj:GetAffineAnimationComp();
-	if (self.uiButton2AffineAnimationComp == nil) then
-		OutputPrint(">>> Button 2 Affine Animation Component not found\n");
-		return;
-	end
+	self.Button2Index = self.uiCompButton2:GetButtonIndex();
+	self.ScaleButton2 = Vector3.new(self.uiButton2TransformComp:GetScale());
+	self.TouchedScaleButton2 = Vector3.new( self.uiButton2TransformComp:GetScale())*1.1;
 	
-	self.locationButton2 = self.uiCompButton2:GetLocation();
-	self.positionButton2 =  self.uiButton2AffineAnimationComp:GetFinalPosition();
-	self.scaleButton2 = Vector3.new(self.uiButton2TransformComp:GetScale());
-	
-	self.touchedScaleButton2 = Vector3.new( self.scaleButton2.x,self.scaleButton2.y,self.scaleButton2.z);
-	self.touchedScaleButton2 = self.touchedScaleButton2 * 1.1;
-	self.maxPosXButton2 = self.positionButton2.x + self.scaleButton2.x;
-	self.maxPosYButton2 = self.positionButton2.y + self.scaleButton2.y;
-	
-	-- Slider
+	-- Slider	
 	SliderAddress = tag .. "Slider";
 	self.sliderObj = goMgr:FindGameObject(SliderAddress);
 	if (self.sliderObj == nil) then
@@ -187,22 +140,15 @@ SlideScroller.Begin = function(self, owner, goMgr)
 	if (self.uiTransformCompSlider == nil) then
 		OutputPrint(">>> Slider Transform Component not found\n");
 		return;
-	end
-	self.uiSliderAffineAnimationComp = self.sliderObj:GetAffineAnimationComp();
-	if (self.uiSliderAffineAnimationComp == nil) then
-		OutputPrint(">>> Slider Affine Animation Component not found\n");
-		return;
-	end
+	end	
 	
-	self.positionSlider = self.uiSliderAffineAnimationComp:GetFinalPosition();
-	self.scaleSlider = self.uiTransformCompSlider:GetScale();
-	
-	-- Green BackGround
+	-- Green BackGround	
 	GreenBackGroundAddress = tag .. "GreenBackGround";
 	self.greenBackgroundObj = goMgr:FindGameObject(GreenBackGroundAddress);
 	if (self.greenBackgroundObj == nil) then
 		OutputPrint(">>> GO  not found\n");
 		return;
+	
 	end
 	
 	self.uiTransformCompGreenBackGround = self.greenBackgroundObj:GetTransformComp();
@@ -210,86 +156,116 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		OutputPrint(">>> Green BackGround Transform Component not found\n");
 		return;
 	end
-	self.scaleGreenBackGround = self.uiTransformCompGreenBackGround:GetScale();
 	
 end
 
 --Update called every tick
 SlideScroller.Update = function(self, dt, owner) 
+	if(self.Enabled == false) then
+		return;
+	end
 
+-- Set green BackGround scale to be between slider position and base position
+	local greenBackGroundScale = Vector3.new(self.uiTransformCompGreenBackGround:GetScale());
+	local sliderBasePos = Vector3.new(self.uiBaseTransformComp:GetPosition());
+	local sliderPosition = Vector3.new(self.uiTransformCompSlider:GetPosition());
+	greenBackGroundScale.x = sliderPosition.x - sliderBasePos.x; 
+	self.uiTransformCompGreenBackGround:Scale(greenBackGroundScale.x,greenBackGroundScale.y,greenBackGroundScale.z);
+	local greenBackGroundPos= Vector3.new(self.uiTransformCompGreenBackGround:GetPosition());
+	
 -- Button 1------------------------
-	if(self.locationButton1 == _G.CurrentButtonTouched) then
-		self.uiButton1TransformComp:Scale(self.touchedScaleButton1.x,self.touchedScaleButton1.y,self.touchedScaleButton1.z);
-		if(self.ENTER == true) then
-			if(self.positionSlider.x > self.position.x ) then
-				self.positionSlider.x = self.positionSlider.x - 1.0;
-			else
-				self.positionSlider.x = self.position.x;
-			end
+
+	local positionButton1 = Vector3.new(self.uiButton1TransformComp:GetPosition());
+	local scaleButton1 = Vector3.new(self.uiButton1TransformComp:GetScale());
+	local maxPosXButton1 = scaleButton1.x + positionButton1.x;
+	local maxPosYButton1 = scaleButton1.y + positionButton1.y;
+	if(self.TouchedButton1 == true) then
+		self.uiButton1TransformComp:Scale(self.TouchedScaleButton1.x,self.TouchedScaleButton1.y,self.TouchedScaleButton1.z);
+	else
+		self.uiButton1TransformComp:Scale(self.ScaleButton1.x,self.ScaleButton1.y,self.ScaleButton1.z);
+	end
+	if(self.Button1Index == _G.CurrentButtonTouched) then
+		self.TouchedButton1 = true;
+		if(self.ENTER == true ) then
+			self.ENTER = false;
+			self.ClickedButton1 = true;
 		end
 	else
-		self.uiButton1TransformComp:Scale(self.scaleButton1.x,self.scaleButton1.y,self.scaleButton1.z);
+		self.TouchedButton1 = false;
+	end
+	if(self.MousePositionX < maxPosXButton1) then
+		if(self.MousePositionX > positionButton1.x) then
+			if(self.MousePositionY < maxPosYButton1) then
+				if(self.MousePositionY > positionButton1.y) then
+					self.TouchedButton1 = true;
+					_G.CurrentButtonTouched = self.Button1Index;
+					self.uiButton1TransformComp:Scale(self.TouchedScaleButton1.x,self.TouchedScaleButton1.y,self.TouchedScaleButton1.z);
+					if(self.LEFTCLICK == true) then
+						self.LEFTCLICK = false;
+						self.ClickedButton1 = true;
+					end
+				end	
+			end
+		end
+	end
+
+	
+	if(self.ClickedButton1 == true) then
+		self.ClickedButton1 = false;
+		local sliderBasePos = self.uiBaseTransformComp:GetPosition();
+		local sliderBaseScale = self.uiBaseTransformComp:GetScale();
+		local sliderPosition = Vector3.new(self.uiTransformCompSlider:GetPosition());
+		if(sliderPosition.x > sliderBasePos.x) then
+			sliderPosition.x = sliderPosition.x - 5.0;
+			self.uiTransformCompSlider:SetLocalPosition(sliderPosition);
+		end
+	end
+	-- Button 2------------------------
+
+	local positionButton2 = Vector3.new(self.uiButton2TransformComp:GetPosition());
+	local scaleButton2 = Vector3.new(self.uiButton2TransformComp:GetScale());
+	local maxPosXButton2 = scaleButton2.x + positionButton2.x;
+	local maxPosYButton2 = scaleButton2.y + positionButton2.y;
+	if(self.TouchedButton2 == true) then
+		self.uiButton2TransformComp:Scale(self.TouchedScaleButton2.x,self.TouchedScaleButton2.y,self.TouchedScaleButton2.z);
+	else
+		self.uiButton2TransformComp:Scale(self.ScaleButton2.x,self.ScaleButton2.y,self.ScaleButton2.z);
+	end
+	if(self.Button2Index == _G.CurrentButtonTouched) then
+		self.TouchedButton2 = true;
+		if(self.ENTER == true ) then
+			self.ENTER = false;
+			self.ClickedButton2 = true;
+		end
+	else
+		self.TouchedButton2 = false;
+	end
+	if(self.MousePositionX < maxPosXButton2) then
+		if(self.MousePositionX > positionButton2.x) then
+			if(self.MousePositionY < maxPosYButton2) then
+				if(self.MousePositionY > positionButton2.y) then
+					self.TouchedButton2 = true;
+					_G.CurrentButtonTouched = self.Button2Index;
+					self.uiButton2TransformComp:Scale(self.TouchedScaleButton2.x,self.TouchedScaleButton2.y,self.TouchedScaleButton2.z);
+					if(self.LEFTCLICK == true) then
+						self.LEFTCLICK = false;
+						self.ClickedButton2 = true;
+					end
+				end	
+			end
+		end
 	end
 	
-	if(self.MousePositionX < self.maxPosXButton1) then
-		if(self.MousePositionX > self.positionButton1.x) then
-			if(self.MousePositionY < self.maxPosYButton1) then
-				if(self.MousePositionY > self.positionButton1.y) then
-					_G.CurrentButtonTouched = self.locationButton1;
-					self.uiButton1TransformComp:Scale(self.touchedScaleButton1.x,self.touchedScaleButton1.y,self.touchedScaleButton1.z);
-					if(self.LEFTCLICK == true) then
-						if(self.positionSlider.x > self.position.x ) then
-							self.positionSlider.x = self.positionSlider.x - 1.0;
-						else
-							self.positionSlider.x = self.position.x;
-						end
-					end
-				end
-			end
+	if(self.ClickedButton2 == true) then
+		self.ClickedButton2 = false;
+		local sliderBasePos = self.uiBaseTransformComp:GetPosition();
+		local sliderBaseScale = self.uiBaseTransformComp:GetScale();
+		local sliderPosition = Vector3.new(self.uiTransformCompSlider:GetPosition());
+		local maxLimitX = sliderBasePos.x + sliderBaseScale.x;
+		if(sliderPosition.x < maxLimitX) then
+			sliderPosition.x = sliderPosition.x + 5.0;
+			self.uiTransformCompSlider:SetLocalPosition(sliderPosition);
 		end
-	end
--- Button 2------------------------
-	if(self.locationButton2 == _G.CurrentButtonTouched) then
-		self.uiButton2TransformComp:Scale(self.touchedScaleButton2.x,self.touchedScaleButton2.y,self.touchedScaleButton2.z);
-		if(self.ENTER == true) then
-			compare = self.position.x + self.scale.x;
-			if(self.positionSlider.x  < compare - self.scaleSlider.x- self.scaleSlider.x) then
-				self.positionSlider.x = self.positionSlider.x + 1.0;
-			else
-				self.positionSlider.x = compare - self.scaleSlider.x - self.scaleSlider.x;
-			end
-		end
-	else
-		
-		self.uiButton2TransformComp:Scale(self.scaleButton2.x,self.scaleButton2.y,self.scaleButton2.z);
-	end
-	if(self.MousePositionX < self.maxPosXButton2) then
-		if(self.MousePositionX > self.positionButton2.x) then
-			if(self.MousePositionY < self.maxPosYButton2) then
-				if(self.MousePositionY > self.positionButton2.y) then
-					_G.CurrentButtonTouched = self.locationButton2;
-					self.uiButton2TransformComp:Scale(self.touchedScaleButton2.x,self.touchedScaleButton2.y,self.touchedScaleButton2.z);
-					if(self.LEFTCLICK == true) then
-						compare = self.position.x + self.scale.x ;
-						
-						if(self.positionSlider.x  < compare - self.scaleSlider.x- self.scaleSlider.x) then
-							
-							self.positionSlider.x = self.positionSlider.x + 1.0;
-						else
-							self.positionSlider.x = compare - self.scaleSlider.x - self.scaleSlider.x;
-							
-						end
-					end
-				end
-			end
-		end
-	end
-	if (_G.PlayFinalAnimation == false) then
-		self.noramlizedValue = (self.positionSlider.x - self.position.x)/ (self.scale.x);
-		self.uiCompSlider:SetSliderValue(self.noramlizedValue);
-		self.uiTransformCompSlider:SetLocalPosition(self.positionSlider.x,self.positionSlider.y,self.positionSlider.z);
-		self.scaleGreenBackGround.x = self.positionSlider.x - self.position.x;
-		self.uiTransformCompGreenBackGround:Scale(self.scaleGreenBackGround);
 	end
 	
 end
@@ -310,5 +286,20 @@ SlideScroller.OnMouseClick = function(self, button, state)
 	elseif(button == 2) then
 		self.RIGHTCLICK = state;
 	end
+end
+SlideScroller.Disable = function(self)
+   self.Enabled = false;
+end
+SlideScroller.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
+	self.ScaleButton1.x = (self.ScaleButton1.x / BaseWidth) * Width;
+	self.ScaleButton1.y = (self.ScaleButton1.y / BaseHeight) * Height;
+	self.TouchedScaleButton1.x = (self.TouchedScaleButton1.x / BaseWidth) * Width;
+	self.TouchedScaleButton1.y = (self.TouchedScaleButton1.y / BaseHeight) * Height;
+	
+	self.ScaleButton2.x = (self.ScaleButton2.x / BaseWidth) * Width;
+	self.ScaleButton2.y = (self.ScaleButton2.y / BaseHeight) * Height;
+	self.TouchedScaleButton2.x = (self.TouchedScaleButton2.x / BaseWidth) * Width;
+	self.TouchedScaleButton2.y = (self.TouchedScaleButton2.y / BaseHeight) * Height;
+	
 end
 return SlideScroller;

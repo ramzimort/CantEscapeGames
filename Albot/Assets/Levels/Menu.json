@@ -32,10 +32,13 @@
 	  "Assets\\Prefabs\\UIEmpty.json"
     ],
     "Scripts": [
+	
       "Scripts\\States\\Menu.lua",
-      "Scripts\\Components\\UICamera.lua",
-      "Scripts\\Components\\Button.lua",
-      "Scripts\\Components\\AffineAnimation.lua"
+	  "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\Button.lua",
+      "Scripts\\Components\\AffineAnimation.lua",
+	  "Scripts\\Components\\WindowResize.lua"
+	  
     ],
     "Songs": [
 
@@ -45,29 +48,20 @@
     ]
   },
   "Objects": [
-    {
-      "tag": "UIObject1",
-      "prefab": "Assets\\Prefabs\\UIObject.json",
-      "overrides": {
-		"UIComponent": {
-			"TotalObjects": 6,
-			"TotalButtons": 4
-		}
-      }
-    },
+   
 	{
       "tag": "UIBackGround",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  0, 0, 0 ],
+          "Position": [  0.0, 0.0, -0.1 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 1280, 720, 1 ]
+          "Scale": [ 1280.0, 720.0, 1 ]
         },
 
 		"UIComponent": {
-			"InitialPosition": [ 0.0, 0.0, 0.0],
-			"FinalPosition": [ 0.0, 0.0, 0.0],
+			"InitialPosition": [ 0.0, 0.0, -0.1],
+			"FinalPosition": [ 0.0, 0.0, -0.1],
 			"DeltaTime": 1.0 
 		},
 		"RendererComponent": {
@@ -81,14 +75,14 @@
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500, 130,0 ],
+          "Position": [  -600.0, 130.0,0.09 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 520, 320, 1 ]
+          "Scale": [ 520.0, 320.0, 0.0001 ]
         },
 
 		"UIComponent": {
-			"InitialPosition": [  -500, 130,0],
-			"FinalPosition": [ 600, 160, 0],
+			"InitialPosition": [  -600, 130,0.09],
+			"FinalPosition": [ 600, 160, 0.09],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 360.0,
 			"FinalRotation" : 0.0,
@@ -105,15 +99,15 @@
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -300, 325,0 ],
+          "Position": [  -500.0, 325.0,0.08 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 350, 75, 1 ]
         },
 		"UIComponent": {
-			"State": "Assets\\Levels\\level1.json",
-			"Location": 1,
-			"InitialPosition": [ -500, 325,0],
-			"FinalPosition": [ 50, 325, 0],
+			"State": "Assets\\Levels\\Loading.json",
+			"ButtonIndex": 1,
+			"InitialPosition": [ -500.0, 325.0,0.08],
+			"FinalPosition": [ 50.0, 325.0, 0.08],
 			"DeltaTime": 15.0 			
 		},
 		"RendererComponent": {
@@ -133,7 +127,7 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Setting.json",
-			"Location": 2,
+			"ButtonIndex": 2,
 			"InitialPosition": [ -500, 425,0 ],
 			"FinalPosition": [ 50, 425, 0],
 			"DeltaTime": 15.0 
@@ -156,7 +150,7 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Credits.json",
-			"Location": 3,
+			"ButtonIndex": 3,
 			"InitialPosition": [ -500, 525,0],
 			"FinalPosition": [ 50, 525, 0],
 			"DeltaTime": 15.0 
@@ -179,7 +173,7 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Exit.json",
-			"Location": 4,
+			"ButtonIndex": 4,
 			"InitialPosition": [ -500, 625,0],
 			"FinalPosition": [ 50, 625, 0],
 			"DeltaTime": 15.0 
@@ -189,6 +183,16 @@
 			"MaterialId": "Assets\\Materials\\UI\\ExitButtonMaterial.json"
 		}				
 		
+      }
+    },
+	{
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 6,
+			"TotalButtons": 4
+		}
       }
     }
 

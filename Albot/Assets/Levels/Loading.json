@@ -14,7 +14,8 @@
       "Scripts\\States\\Loading.lua",
       "Scripts\\States\\level1.lua",
 	  "Scripts\\Components\\UICamera.lua",
-	  "Scripts\\Components\\AffineAnimation.lua"
+	  "Scripts\\Components\\AffineAnimation.lua",
+	  "Scripts\\Components\\WindowResize.lua"
     ],
     "Prefabs": [
 	"Assets\\Prefabs\\UIObject.json",
@@ -48,10 +49,10 @@
           "Scale": [ 1280, 720, 1 ]
         },
 
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [ 0, 0,0],
 			"FinalPosition": [ 0, 0, 0],
-			"DeltaTime": 1.0 
+			"DeltaTime": -1.0 
 		},
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\LoadingMaterial.json"

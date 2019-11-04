@@ -32,7 +32,8 @@
       "Scripts\\States\\Exit.lua",
       "Scripts\\Components\\UICamera.lua",
 	  "Scripts\\Components\\Button.lua",
-	  "Scripts\\Components\\AffineAnimation.lua"
+	  "Scripts\\Components\\AffineAnimation.lua",
+	  "Scripts\\Components\\WindowResize.lua"
     ],
 	"Songs": [
 
@@ -42,16 +43,7 @@
     ]
   },
   "Objects": [
-    {
-      "tag": "UIObject1",
-      "prefab": "Assets\\Prefabs\\UIObject.json",
-      "overrides": {
-		"UIComponent": {
-			"TotalObjects": 5,
-			"TotalButtons": 2
-		}
-      }
-    },
+    
 	{
       "tag": "UIBackGround",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
@@ -61,12 +53,12 @@
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 1280, 720, 1 ]
         },
-
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [ 0, 0,0],
 			"FinalPosition": [ 0, 0, 0],
 			"DeltaTime": 1.0 
 		},
+	
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
 		}		
@@ -82,15 +74,15 @@
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 765, 679, 1 ]
         },
-
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [ -1000, -1000,0],
 			"FinalPosition": [ 258, 20, 0],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 100.0,
 			"FinalRotation" : 0.0,
-			"RotationRate" : -5.0			
+			"RotationRate" : -5.0	
 		},
+		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\SettingBaseMaterial.json"
 		}		
@@ -108,15 +100,13 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Menu.json",
-			"Location": 1			
-		},
-		"AffineAnimationComponent": {
+			"ButtonIndex": 1,
 			"InitialPosition": [ -300, 200,0],
 			"FinalPosition": [ 321, 546, 0],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 300.0,
 			"FinalRotation" : 0.0,
-			"RotationRate" : -5.0			
+			"RotationRate" : -5.0				
 		},
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\YesButtonMaterial.json"
@@ -135,16 +125,15 @@
         },
 		"UIComponent": {
 			"State": "Assets\\Levels\\Menu.json",
-			"Location": 2			
-		},
-		"AffineAnimationComponent": {
+			"ButtonIndex": 2,
 			"InitialPosition": [ -300, 200,0],
 			"FinalPosition": [ 671, 546, 0],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 300.0,
 			"FinalRotation" : 0.0,
-			"RotationRate" : -5.0			
+			"RotationRate" : -5.0				
 		},
+		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\NoButtonMaterial.json"
 		}		
@@ -160,16 +149,26 @@
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 282, 230, 1 ]
         },
-
-		"AffineAnimationComponent": {
+		"UIComponent": {
 			"InitialPosition": [ 1800, 300,0],
 			"FinalPosition": [ 508, 222, 0],
-			"DeltaTime": 5.0 
+			"DeltaTime": 5.0		
 		},
+		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\ExitTextMaterial.json"
 		}		
 		
+      }
+    },
+	{
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 5,
+			"TotalButtons": 2
+		}
       }
     }
     

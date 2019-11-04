@@ -12,9 +12,10 @@ RTTR_REGISTRATION
 	rttr::registration::class_<UIComponent>("UIComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.property("State", &UIComponent::stateAddress)
+		.property("ParentName", &UIComponent::m_parentName)
 		.property("TotalObjects", &UIComponent::totalObjects)
 		.property("TotalButtons", &UIComponent::totalButtons)
-		.property("Location", &UIComponent::location)
+		.property("ButtonIndex", &UIComponent::buttonIndex)
 		.property("SliderValue", &UIComponent::sliderValue)
 		.property("ChildButtonCount", &UIComponent::childButtonCount)
 		.property("ChildButtonLocation", &UIComponent::childButtonLocation)
@@ -24,14 +25,15 @@ RTTR_REGISTRATION
 		.property("InitialRotation", &UIComponent::initailRotation)
 		.property("FinalRotation", &UIComponent::finalRotationValue)
 		.property("RotationRate", &UIComponent::rotationRate)
+		.property("Enabled", &UIComponent::m_enabled)
+		.property("Width", &UIComponent::width)
+		.property("Height", &UIComponent::height)
 		.method("Init", &UIComponent::Init);
 }
 
 UIComponent::UIComponent(GameObject* owner) : 
 	BaseComponent(owner, static_type), 
-	isTriggerd(false), 
-	isTouched(false), 
-	m_parent(nullptr), 
+	m_parent(nullptr), m_enabled(true),
 	m_children(std::vector<UIComponent*>(0))
 {
 }
@@ -80,7 +82,7 @@ const UIComponent* UIComponent::GetParent() const
 	return m_parent;
 }
 
-const UIComponent* UIComponent::GetChild(size_t index) const
+const UIComponent* UIComponent::GetChild(int index) const
 {
 	if (index < m_children.size())
 	{
@@ -89,31 +91,20 @@ const UIComponent* UIComponent::GetChild(size_t index) const
 	return nullptr;
 }
 
-const size_t UIComponent::GetNumberOfChildren(size_t index) const
+const int UIComponent::GetNumberOfChildren() const
 {
-	return m_children.size();
+	return int(m_children.size());
 }
 
-void UIComponent::IsTriggerd()
+const std::string UIComponent::GetParentName() const
 {
-	isTriggerd = true;
-}
-void UIComponent::IsNotTriggered()
-{
-	isTriggerd = false;
+	return m_parentName;
 }
 
-void UIComponent::IsTouched()
+
+int UIComponent::GetButtonIndex()
 {
-	isTouched = true;
-}
-void UIComponent::IsNotTouched()
-{
-	isTouched = false;
-}
-int UIComponent::GetLocation()
-{
-	return location;
+	return buttonIndex;
 }
 
 std::string UIComponent::GetStateAddress()
@@ -126,6 +117,16 @@ void UIComponent::SetSliderValue(float val)
 	sliderValue = val;
 }
 
+void UIComponent::SetRenderEnable(bool val)
+{
+	m_enabled = val;
+}
+
+bool UIComponent::GetRenderEnable()
+{
+	return m_enabled;
+}
+
 int UIComponent::GetChildButtonCount()
 {
 	return childButtonCount;
@@ -134,6 +135,16 @@ int UIComponent::GetChildButtonCount()
 int UIComponent::GetChildButtonLocation()
 {
 	return childButtonLocation;
+}
+
+float UIComponent::GetWidth()
+{
+	return width;
+}
+
+float UIComponent::GetHeight()
+{
+	return height;
 }
 
 int UIComponent::GetTotalObjects()
@@ -146,35 +157,7 @@ int UIComponent::GetTotalButtons()
 	return totalButtons;
 }
 
-void UIComponent::InitialAnimationEnabled()
-{
-	initialAnimationEnabled = true;
-}
 
-void UIComponent::InitialAnimationDisabled()
-{
-	initialAnimationEnabled = false;
-}
-
-void UIComponent::FinalAnimationEnabled()
-{
-	finalAnimationEnabled = true;
-}
-
-void UIComponent::FinalAnimationDisabled()
-{
-	finalAnimationEnabled = false;
-}
-
-bool UIComponent::GetInitailAnimationState()
-{
-	return initialAnimationEnabled;
-}
-
-bool UIComponent::GetFinalAnimationState()
-{
-	return finalAnimationEnabled;
-}
 Vector3 UIComponent::GetInitialPosition()
 {
 	return initialPos;
@@ -183,6 +166,26 @@ Vector3 UIComponent::GetInitialPosition()
 Vector3 UIComponent::GetFinalPosition()
 {
 	return finalPos;
+}
+Vector3 UIComponent::GetInitialPositionNormalized()
+{
+	Vector3 result = initialPos;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetFinalPositionNormalized()
+{
+	Vector3 result = finalPos;
+	result.Normalize();
+	return result;
+}
+void UIComponent::SetInitialPosition(const Vector3& val)
+{
+	initialPos = val;
+}
+void UIComponent::SetFinalPosition(const Vector3& val)
+{
+	finalPos = val;
 }
 Vector3 UIComponent::GetVelocity()
 {

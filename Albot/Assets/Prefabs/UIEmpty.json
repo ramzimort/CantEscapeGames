@@ -3,13 +3,13 @@
 		
 
   "TransformComponent": {
-    "Position": [ 0, 0, 0 ],
+    "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-	  "Scale": [ 1, 1, 1 ]
+	  "Scale": [ 1.0, 1.0, 1.0 ]
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\UIBackGroundImageMaterial.json"
+    "MaterialId": ""
   },
 	"UIComponent": {
 			"InitialPosition": [ 0.0, 0.0, 0.0],
@@ -23,6 +23,11 @@
 	"Scripts": [
     {
 	  "Name": "Scripts\\Components\\AffineAnimation.lua"
+	  
+    }],
+	"Scripts": [
+    {
+	  "Name": "Scripts\\Components\\WindowResize.lua"
 	  
     }]
   

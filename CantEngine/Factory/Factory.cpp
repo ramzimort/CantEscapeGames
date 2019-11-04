@@ -333,8 +333,6 @@ rttr::variant Factory::GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<UIComponent>();
 	else if (name == "AnimationComponent")
 		return go->AddComponent<AnimationComponent>();
-	else if (name == "AffineAnimationComponent")
-		return go->AddComponent<AffineAnimationComponent>();
 	else if (name == "SkyboxIrradianceComponent")
 		return go->AddComponent<SkyboxIrradianceComponent>();
 	
