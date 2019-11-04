@@ -389,7 +389,6 @@ void RigidbodySystem::LateUpdate(float dt)
 						}
 						else // clamp lambda for friction constraint
 						{
-							continue;
 							// not sure if this is the correct way, seems like the size of each object should matter
 							//float contactMass = (constraints[j].m_object1->m_mass + constraints[j].m_object2->m_mass) / 2.0f;
 

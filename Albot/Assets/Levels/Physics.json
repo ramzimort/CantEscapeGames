@@ -53,6 +53,7 @@
             "Assets\\Prefabs\\mono_rojo.json",
             "Assets\\Prefabs\\player.json",
             "Assets\\Prefabs\\RBTestObj.json",
+            "Assets\\Prefabs\\RBTestObjSphere.json",
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\TestGoJose.json"
         ],
@@ -66,13 +67,13 @@
       "overrides": {
         "TransformComponent": {
           "Position": [
-            -3.274186611175537,
-            1.9937593936920169,
-            11.514646530151368
+            12.948387145996094,
+            4.908591747283936,
+            9.419909477233889
           ],
           "Rotation": [
-            0.0,
-            0.0,
+            -13.520036697387696,
+            42.02993392944336,
             0.0
           ],
           "Scale": [
@@ -87,9 +88,9 @@
             "Near": 0.10000000149011612,
             "Far": 1000.0,
             "Position": [
-              -3.274186611175537,
-              1.9937593936920169,
-              11.514646530151368
+              12.948387145996094,
+              4.908591747283936,
+              9.419909477233889
             ],
             "CameraName": "Main",
             "ZOrder": 0
@@ -101,231 +102,6 @@
             "Overrides": {}
           }
         ]
-      }
-    },
-    {
-      "tag": "RGDBDYGROUND",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            0,
-            -2.0,
-            -5.0
-          ],
-          "Rotation": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            100.0,
-            1.0,
-            100.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": false,
-          "Velocity": [
-            0,
-            0,
-            0
-          ],
-          "Mass": 3.3999999521443644e38,
-          "IsAsleep": 0,
-          "CollisionMask": "STATIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "INCLINEGROUND10",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            -45.0,
-            5.0,
-            -5.0
-          ],
-          "Rotation": [
-            10.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            10.0,
-            1.0,
-            100.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": false,
-          "Velocity": [
-            9.886160665811583e-42,
-            -1.7341910171929223e-36,
-            -1.74307515977364e-41
-          ],
-          "Mass": 3.3999999521443644e38,
-          "IsAsleep": 0,
-          "CollisionMask": "STATIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "INCLINEGROUND20",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            -35.0,
-            5.0,
-            -5.0
-          ],
-          "Rotation": [
-            20.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            10.0,
-            1.0,
-            100.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": false,
-          "Velocity": [
-            9.886160665811583e-42,
-            -1.7341910171929223e-36,
-            -1.74307515977364e-41
-          ],
-          "Mass": 3.3999999521443644e38,
-          "IsAsleep": 0,
-          "CollisionMask": "STATIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "skybox",
-      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Rotation": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "SkyboxIrradianceComponent": {
-          "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-          "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
-        }
-      }
-    },
-    {
-      "tag": "RGDBDY2",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            0,
-            1,
-            0
-          ],
-          "Rotation": [
-            0,
-            0,
-            0
-          ],
-          "Scale": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Material1.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [
-            0.000003645895048975945,
-            0.0000063925981521606449,
-            0.000006250105798244476
-          ],
-          "Mass": 1.0,
-          "IsAsleep": 0,
-          "CollisionMask": "DINAMIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "directional_light01",
-      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            150.0,
-            0.0,
-            0.0
-          ],
-          "Rotation": [
-            45.0,
-            0.0,
-            0.0
-          ]
-        },
-        "LightComponent": {
-          "Light": {
-            "LightType": "Directional",
-            "Color": [
-              1.0,
-              0.800000011920929,
-              0.7360000014305115
-            ],
-            "Intensity": 1.0,
-            "CastShadow": true
-          }
-        }
       }
     },
     {
@@ -356,6 +132,663 @@
             "CastShadow": true,
             "Radius": 20.0
           }
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYGROUND",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            -2.0,
+            -5.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1000.0,
+            1.0,
+            1000.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "INCLINEGROUND10",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            -1.0,
+            -15.0
+          ],
+          "Rotation": [
+            9.999995231628418,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1.0,
+            20.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "INCLINEGROUND20",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -10.0,
+            -1.0,
+            -12.0
+          ],
+          "Rotation": [
+            19.999975204467778,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1.0,
+            20.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "INCLINEGROUND30",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -20,
+            -1.0,
+            -11.0
+          ],
+          "Rotation": [
+            30,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            10.0,
+            1.0,
+            20.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING10",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING20",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -10,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING30",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -20,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING10_HEAVY",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            3,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 100.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING20_HEAVY",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -7,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 100.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_SLIDING30_HEAVY",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            -17,
+            15,
+            -17
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 100.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "GHOST",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            0,
+            3
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            2.0,
+            2.0,
+            2.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\MaterialDarkGreen.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            0,
+            0,
+            0
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "GHOST"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            1,
+            0.000005848304681421723
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE_COLLIDING_WITH_GHOST",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0,
+            3,
+            3
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYSHERE",
+      "prefab": "Assets\\Prefabs\\RBTestObjSphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.5,
+            4,
+            0.000005848304681421723
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Sphere.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYMITSUBA",
+      "prefab": "Assets\\Prefabs\\RBTestObjSphere.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            4,
+            4,
+            0.000005848304681421723
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\mitsuba-sphere.obj"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "skybox",
+      "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "SkyboxIrradianceComponent": {
+          "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+          "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
         }
       }
     },
@@ -391,6 +824,36 @@
       }
     },
     {
+      "tag": "directional_light01",
+      "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            150.0,
+            0.0,
+            0.0
+          ],
+          "Rotation": [
+            45.0,
+            0.0,
+            0.0
+          ]
+        },
+        "LightComponent": {
+          "Light": {
+            "LightType": "Directional",
+            "Color": [
+              1.0,
+              0.800000011920929,
+              0.7360000014305115
+            ],
+            "Intensity": 1.0,
+            "CastShadow": true
+          }
+        }
+      }
+    },
+    {
       "tag": "mini_map1",
       "prefab": "Assets\\Prefabs\\mini_map.json",
       "overrides": {
@@ -418,13 +881,13 @@
             "Far": 1000.0,
             "Position": [
               0.0,
-              5.0,
+              0.0,
               0.0
             ],
             "LookDir": [
-              0.0,
-              -0.9950371980667114,
-              0.09950372576713562
+              -0.0,
+              -0.0,
+              -1.0
             ],
             "CameraName": "MiniMap",
             "OrthographicWidth": 80,

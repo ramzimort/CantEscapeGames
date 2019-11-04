@@ -57,7 +57,6 @@ public:
 	//Unique class identifier
 	static ComponentId const static_type;
 
-	//TODO - Remove before push
 	Multicast<void(GameObject*, GameObject*)> m_onCollision;
 
 private:

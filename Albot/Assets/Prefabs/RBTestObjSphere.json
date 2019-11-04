@@ -12,7 +12,7 @@
   },
 
   "MeshComponent": {
-    "ModelId": "Assets\\Models\\Cube.fbx"
+    "ModelId": "Assets\\Models\\Sphere.fbx"
   },
 
   "RigidBodyComponent": {
