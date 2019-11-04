@@ -720,7 +720,15 @@
           "Mass": 1.0,
           "IsAsleep": 0,
           "CollisionMask": "DINAMIC_OBJ"
-        }
+        },
+
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\test01Comp.lua",
+            "Overrides": {
+            }
+          }
+        ]
       }
     },
     {

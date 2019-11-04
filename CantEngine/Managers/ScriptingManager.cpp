@@ -167,6 +167,14 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
 			);
 
+	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
+		(
+			"RigidbodyMultiCast",
+			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
+			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
+			);
+
+
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
 	luaState.set_function("OnMouseMotion", &MouseMotionEvent::OnMouseMotion);
 	luaState.set_function("OnMouseScroll", &MouseScrollEvent::OnMouseScroll);
@@ -475,7 +483,9 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<RigidbodyComponent>
 	(
 		"RigidbodyComponent",
-		"GetMass", &RigidbodyComponent::GetMass
+		"GetMass", &RigidbodyComponent::GetMass,
+		"SetVelocity", &RigidbodyComponent::SetVelocity,
+		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
 	//RENDERER

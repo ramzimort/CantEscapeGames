@@ -125,7 +125,11 @@ test01Comp.Begin = function(self, owner, goMgr)
 		transform:Translate(Vector3.new(-1, -1, -1));
 		--OutputPrint(">>> transform position :  " .. pos.x .. ", " .. pos.y .. ", " .. pos.z .. " \n");
 	end
-	
+
+	local rigidbody = owner:GetRigidbodyComp();
+	if (rigidbody ~= nil) then
+		rigidbody.OnCollision:Bind({self, self.BindingExample});
+	end
 	--OutputPrint("<<-- COMP " .. self.name .. " BEGIN END -->>\n");
 end
 
@@ -150,9 +154,17 @@ test01Comp.Update = function(self, dt, owner)
 end
 
 --Method
-test01Comp.BindingExample = function(self, msg, time)
-	--OutputPrint("\n>>>>>>>> called from elsewhere -< " .. msg .. " >- at time " .. time .. "by " .. self.hashed .. "\n");
-	return 7;
+test01Comp.BindingExample = function(self, go01, go02)
+	
+	local rigidbody = go01:GetRigidbodyComp();
+	
+	if (rigidbody ~= nil) then
+
+		--local vel = Vector3.new(0,10,0);
+		--rigidbody:SetVelocity(vel);
+	end
+
+	return;
 end
 
 --Method

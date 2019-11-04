@@ -112,6 +112,8 @@ void RigidbodySystem::LateUpdate(float dt)
 #endif			
 			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
 			TransformComponent* transform = rigidbodyNode->m_transform;
+
+			rigidbody->m_isColliding = false;
 			
 			MeshComponent* mesh = rigidbodyNode->m_mesh;
 #ifdef DEVELOPER
@@ -231,6 +233,9 @@ void RigidbodySystem::LateUpdate(float dt)
 			TransformComponent* tr1 = rb1->GetOwner()->GetComponent<TransformComponent>();
 			TransformComponent* tr2 = rb2->GetOwner()->GetComponent<TransformComponent>();
 
+			MeshComponent* mesh1 = rb1->GetOwner()->GetComponent<MeshComponent>();
+			MeshComponent* mesh2 = rb2->GetOwner()->GetComponent<MeshComponent>();
+
 			Contact contact;
 			contact.m_objectA = rb1;
 			contact.m_objectB = rb2;
@@ -255,6 +260,9 @@ void RigidbodySystem::LateUpdate(float dt)
 					rb2->m_isColliding = true;
 
 					ProcessCollision(contact);
+
+					rb1->m_onCollision(rb1->GetOwner(), rb2->GetOwner());
+					rb2->m_onCollision(rb2->GetOwner(), rb1->GetOwner());
 				}
 			}
 		}

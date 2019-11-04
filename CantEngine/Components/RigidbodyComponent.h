@@ -28,6 +28,7 @@ class RigidbodyComponent : public BaseComponent
 public:
 	friend class Factory;
 	friend class RigidbodySystem;
+	friend class ScriptingManager;
 //Public interface
 public:
 	RigidbodyComponent(GameObject *owner);
