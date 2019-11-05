@@ -6,6 +6,7 @@ Primary Author: Aleksey Perfilev
 - End Header --------------------------------------------------------*/
 
 #include "Physics/SuppportShape/ObbSupportShape.h"
+#include "Physics/SuppportShape/ModelSupportShape.h"
 #include "RigidbodySystem.h"
 #include "GameObjects/GameObject.h"
 #include "Physics/PhysicsUtils.h"
@@ -239,18 +240,21 @@ void RigidbodySystem::LateUpdate(float dt)
 			Contact contact;
 			contact.m_objectA = rb1;
 			contact.m_objectB = rb2;
-			contact.m_supportShapeA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
-			contact.m_supportShapeB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
-
+			const Aabb& localAabb1 = mesh1->GetModel()->GetAABB();
+			const Aabb& localAabb2 = mesh2->GetModel()->GetAABB();
+			ObbSupportShape modelSupportA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix(), localAabb1);
+			ObbSupportShape modelSupportB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix(), localAabb2);
+			//ModelSupportShape modelSupportA(mesh1->GetModel(), tr1->GetModel());
+			//ModelSupportShape modelSupportB(mesh2->GetModel(), tr2->GetModel());
 			Gjk gjk;
 			const float epsilon = 0.001f;
 			std::vector<Gjk::CsoPoint> simplex;
 
 			Gjk::CsoPoint closestPoint;
 			
-			if (gjk.Intersect(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, closestPoint, epsilon, m_pAppRenderer, true))
+			if (gjk.Intersect(simplex, &modelSupportA, &modelSupportB, closestPoint, epsilon, m_pAppRenderer, true))
 			{
-				if (gjk.Epa(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, contact, m_pAppRenderer, epsilon))
+				if (gjk.Epa(simplex, &modelSupportA, &modelSupportB, contact, m_pAppRenderer, epsilon))
 				{
 					// collision point in local space
 					contact.m_pALocal = PhysicsUtils::WorldToModel(tr1->GetModel(), contact.m_pA);
@@ -260,9 +264,6 @@ void RigidbodySystem::LateUpdate(float dt)
 					rb2->m_isColliding = true;
 
 					ProcessCollision(contact);
-
-					rb1->m_onCollision(rb1->GetOwner(), rb2->GetOwner());
-					rb2->m_onCollision(rb2->GetOwner(), rb1->GetOwner());
 				}
 			}
 		}
@@ -335,6 +336,15 @@ void RigidbodySystem::LateUpdate(float dt)
 		// for each collision with another object
 		for (ContactManifold& contactManifold : m_contactManifolds)
 		{
+			// notifying that collision happened between two objects
+			if (contactManifold.m_contacts.size() > 0)
+			{
+				RigidbodyComponent* rb1 = contactManifold.m_object1;
+				RigidbodyComponent* rb2 = contactManifold.m_object2;
+				rb1->m_onCollision(rb1->GetOwner(), rb2->GetOwner());
+				rb2->m_onCollision(rb2->GetOwner(), rb1->GetOwner());
+			}
+
 			const int numIterations = 50;// PhysicsUtils::Consts::Constraints::numGaussSeidelIterations
 			for (int i = 0; i < numIterations; i++)
 			{
@@ -342,7 +352,6 @@ void RigidbodySystem::LateUpdate(float dt)
 				// solve for each constraint and update velocity
 				for (int k = 0; k < contacts.size(); k++)
 				{
-					// converting back to normal storage
 					if (contacts[k].m_objectA->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ &&
 						contacts[k].m_objectB->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ )
 					{

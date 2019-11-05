@@ -16,7 +16,6 @@ namespace CantDebugAPI
 		bool* isDrawContactPoints;
 		bool* isDrawGJKResult;
 		bool* isDrawEPAFinalTriangle;
-		bool* isDrawConstraints;
 		int* dynamicAabbLevelDraw;
 		bool* Draw_Dynamic_AABB_Tree;
 	};

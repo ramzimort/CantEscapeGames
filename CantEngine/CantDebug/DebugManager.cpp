@@ -91,7 +91,6 @@ namespace CantDebug
 		physConfig.isDrawContactPoints = &PhysicsUtils::Settings::isDrawContactPoints;
 		physConfig.isDrawGJKResult = &PhysicsUtils::Settings::isDrawGJKResult;
 		physConfig.isDrawEPAFinalTriangle = &PhysicsUtils::Settings::isDrawEPAFinalTriangle;
-		physConfig.isDrawConstraints = &PhysicsUtils::Settings::isDrawConstraints;
 		physConfig.dynamicAabbLevelDraw = &PhysicsUtils::Settings::dynamicAabbLevelDraw;
 		physConfig.Draw_Dynamic_AABB_Tree = &PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree;
 		CantDebugAPI::InitializePhysicsConfig(physConfig);

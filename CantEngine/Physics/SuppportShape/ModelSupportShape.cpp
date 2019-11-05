@@ -7,6 +7,11 @@ Other Authors :
 
 #include "ModelSupportShape.h"
 
+ModelSupportShape::ModelSupportShape(Model* model, const Matrix& modelToWorld) : m_model(model), m_modelToWorld(modelToWorld)
+{
+
+}
+
 Vector3 ModelSupportShape::GetCenter() const
 {
 	
@@ -16,13 +21,4 @@ Vector3 ModelSupportShape::GetCenter() const
 Vector3 ModelSupportShape::Support(const Vector3& worldDirection) const
 {
 	return SupportShape::Support(worldDirection, m_model->GetVerticesList(), m_modelToWorld);
-}
-
-void ModelSupportShape::GetFaceNormals(std::vector<Vector3>& faceNormals) const
-{
-	
-}
-void ModelSupportShape::GetEdgeDirections(std::vector<Vector3>& edge) const
-{
-	
 }

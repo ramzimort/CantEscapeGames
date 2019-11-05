@@ -30,7 +30,6 @@ Vector3 SupportShape::Support(const Vector3& worldDirection, const std::vector<V
 {
 	const Vector3 localDirection = Vector3::Transform(worldDirection, localToWorldTransform.Invert());
 
-
 	float maxProj = -FLT_MAX;
 	size_t maxIndex = 0;
 	for (unsigned int i = 0; i < localPoints.size(); ++i)

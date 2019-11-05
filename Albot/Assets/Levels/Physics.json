@@ -611,9 +611,9 @@
       "overrides": {
         "TransformComponent": {
           "Position": [
-            0,
             1,
-            0.000005848304681421723
+            4,
+            1
           ],
           "Rotation": [
             0.0,
@@ -633,6 +633,48 @@
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [
+            3.9236357001094883e-44,
+            0.000020176172256469728,
+            3.9236357001094883e-44
+          ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "RGDBDYCUBE",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            4,
+            4,
+            1
+          ],
+          "Rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\Material1.json",
+          "XTileFactor": 1.0,
+          "YTileFactor": 1.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Sphere.fbx"
         },
         "RigidBodyComponent": {
           "IsEffectedByGravity": true,
@@ -690,14 +732,14 @@
       }
     },
     {
-      "tag": "RGDBDYSHERE",
-      "prefab": "Assets\\Prefabs\\RBTestObjSphere.json",
+      "tag": "CUBEGROUND",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
       "overrides": {
         "TransformComponent": {
           "Position": [
-            0.5,
-            4,
-            0.000005848304681421723
+            0.0,
+            -1.0,
+            0.0
           ],
           "Rotation": [
             0.0,
@@ -705,79 +747,29 @@
             0.0
           ],
           "Scale": [
-            1.0,
-            1.0,
-            1.0
+            2.0,
+            2.0,
+            2.0
           ]
         },
         "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Material1.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
+          "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
         },
         "MeshComponent": {
-          "ModelId": "Assets\\Models\\Sphere.fbx"
+          "ModelId": "Assets\\Models\\Cube.fbx"
         },
         "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
+          "IsEffectedByGravity": false,
           "Velocity": [
-            3.9236357001094883e-44,
-            0.000020176172256469728,
-            3.9236357001094883e-44
-          ],
-          "Mass": 1.0,
-          "IsAsleep": 0,
-          "CollisionMask": "DINAMIC_OBJ"
-        },
-
-        "Scripts": [
-          {
-            "Name": "Scripts\\Components\\test01Comp.lua",
-            "Overrides": {
-            }
-          }
-        ]
-      }
-    },
-    {
-      "tag": "RGDBDYMITSUBA",
-      "prefab": "Assets\\Prefabs\\RBTestObjSphere.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            4,
-            4,
-            0.000005848304681421723
-          ],
-          "Rotation": [
             0.0,
             0.0,
             0.0
           ],
-          "Scale": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Material1.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\mitsuba-sphere.obj"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [
-            3.9236357001094883e-44,
-            0.000020176172256469728,
-            3.9236357001094883e-44
-          ],
-          "Mass": 1.0,
+          "Mass": 3.3999999521443644e38,
           "IsAsleep": 0,
-          "CollisionMask": "DINAMIC_OBJ"
+          "CollisionMask": "STATIC_OBJ"
         }
       }
     },
