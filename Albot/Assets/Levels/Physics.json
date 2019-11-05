@@ -21,42 +21,45 @@
             "Assets\\Models\\Sphere.fbx",
             "Assets\\Models\\TestWalk.fbx"
         ],
-        "Materials": [
-            "Assets\\Materials\\CeramicMaterial.json",
-            "Assets\\Materials\\Material1.json",
-            "Assets\\Materials\\MaterialDarkGreen.json",
-            "Assets\\Materials\\RedDieletricRoughMaterial.json",
-            "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-            "Assets\\Materials\\RedMetallicSmoothMaterial.json",
-            "Assets\\Materials\\Red_Brick_Material.json"
-        ],
-        "Scripts": [
-            "Scripts\\Components\\fpscontroller.lua",
-            "Scripts\\Components\\PlayerComp.lua",
-            "Scripts\\Components\\test01Comp.lua",
-            "Scripts\\Components\\test02Comp.lua",
-            "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\level1.lua",
-            "Scripts\\States\\Loading.lua",
-            "Scripts\\States\\Physics.lua"
-        ],
-        "Prefabs": [
-            "Assets\\Prefabs\\brick_wall.json",
-            "Assets\\Prefabs\\burning_mitsuba_sphere.json",
-            "Assets\\Prefabs\\ceramic_floor.json",
-            "Assets\\Prefabs\\Lights\\directional_light.json",
-            "Assets\\Prefabs\\Lights\\point_light.json",
-            "Assets\\Prefabs\\lvleditor.json",
-            "Assets\\Prefabs\\mini_map.json",
-            "Assets\\Prefabs\\mitsuba_sphere.json",
-            "Assets\\Prefabs\\mono_azul.json",
-            "Assets\\Prefabs\\mono_rojo.json",
-            "Assets\\Prefabs\\player.json",
-            "Assets\\Prefabs\\RBTestObj.json",
-            "Assets\\Prefabs\\RBTestObjSphere.json",
-            "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-            "Assets\\Prefabs\\TestGoJose.json"
-        ],
+      "Materials": [
+        "Assets\\Materials\\CeramicMaterial.json",
+        "Assets\\Materials\\Material1.json",
+        "Assets\\Materials\\MaterialDarkGreen.json",
+        "Assets\\Materials\\RedDieletricRoughMaterial.json",
+        "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+        "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+        "Assets\\Materials\\Red_Brick_Material.json",
+        "Assets\\Materials\\MetalCopperMaterial.json"
+      ],
+      "Scripts": [
+        "Scripts\\Components\\fpscontroller.lua",
+        "Scripts\\Components\\PlayerComp.lua",
+        "Scripts\\Components\\test01Comp.lua",
+        "Scripts\\Components\\test02Comp.lua",
+        "Scripts\\Components\\rgdbdyPlayer.lua",
+        "Scripts\\States\\DebugPause.lua",
+        "Scripts\\States\\level1.lua",
+        "Scripts\\States\\Loading.lua",
+        "Scripts\\States\\Physics.lua"
+      ],
+      "Prefabs": [
+        "Assets\\Prefabs\\brick_wall.json",
+        "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+        "Assets\\Prefabs\\ceramic_floor.json",
+        "Assets\\Prefabs\\Lights\\directional_light.json",
+        "Assets\\Prefabs\\Lights\\point_light.json",
+        "Assets\\Prefabs\\lvleditor.json",
+        "Assets\\Prefabs\\mini_map.json",
+        "Assets\\Prefabs\\mitsuba_sphere.json",
+        "Assets\\Prefabs\\mono_azul.json",
+        "Assets\\Prefabs\\mono_rojo.json",
+        "Assets\\Prefabs\\player.json",
+        "Assets\\Prefabs\\RBTestObj.json",
+        "Assets\\Prefabs\\RBTestObjSphere.json",
+        "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+        "Assets\\Prefabs\\TestGoJose.json",
+        "Assets\\Prefabs\\rgdbdyPlayer.json"
+      ],
         "Songs": [],
         "SFX": []
     },
@@ -103,6 +106,11 @@
           }
         ]
       }
+    },
+    {
+      "tag": "MainRigidBody",
+      "prefab": "Assets\\Prefabs\\rgdbdyPlayer.json",
+      "overrides": {}
     },
     {
       "tag": "point_light1",

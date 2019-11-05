@@ -18,6 +18,38 @@ namespace MathUtil
 		return (val < 0.0f) ? -1.0f : 1.0f;
 	}
 
+	inline float SquareLength(const Vector2& vec2)
+	{
+		return vec2.x * vec2.x + vec2.y * vec2.y;
+	}
+
+	inline float Length(const Vector2& vec2)
+	{
+		return sqrt(SquareLength(vec2));
+	}
+
+	inline float SquareLength(const Vector3& vec3)
+	{
+		return vec3.x * vec3.x + vec3.y * vec3.y + vec3.z * vec3.z;
+
+	}
+
+	inline float Length(const Vector3& vec3)
+	{
+		return sqrt(SquareLength(vec3));
+	}
+
+	inline float SquareLength(const Vector4& vec4)
+	{
+		return vec4.x * vec4.x + vec4.y * vec4.y + vec4.z * vec4.z + vec4.w * vec4.w;
+	}
+
+	inline float Length(const Vector4& vec4)
+	{
+		return sqrt(SquareLength(vec4));
+	}
+
+
 	inline float RandF()
 	{
 		return (float)(rand()) / (float)RAND_MAX;

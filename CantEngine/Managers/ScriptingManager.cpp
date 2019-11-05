@@ -125,7 +125,9 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 
 	luaState.set_function("Localize", &GetLString);
-	luaState.set_function("Rotate", &MathUtil::RotateVector);
+	luaState["CantMath"] = luaState.create_table_with(
+		"7", SDL_SCANCODE_7
+	);
 
 #pragma region EVENTS
 	//////////////////////////////
@@ -279,6 +281,8 @@ void ScriptingManager::ManageBindings()
 		"x", &Vector2::x,
 		"y", &Vector2::y,
 		"dot", &Vector2::Dot,
+		"len", &Vector2::Length,
+		"len2", &Vector2::LengthSquared,
 		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 		sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
@@ -294,7 +298,8 @@ void ScriptingManager::ManageBindings()
 		"y", &Vector3::y,
 		"z", &Vector3::z,
 		"dot", &Vector3::Dot,
-		"len", &Vector3::Length,
+		"len", &Vector3::Length, 
+		"len2", &Vector3::LengthSquared,
 		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 		sol::meta_function::addition, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator-),
@@ -310,6 +315,8 @@ void ScriptingManager::ManageBindings()
 			"z", &Vector4::z,
 			"w", &Vector4::w,
 			"dot", &Vector4::Dot,
+			"len", &Vector4::Length,
+			"len2", &Vector4::LengthSquared,
 			// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 			sol::meta_function::addition, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator+),
 			sol::meta_function::subtraction, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator-),
@@ -486,8 +493,13 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<RigidbodyComponent>
 	(
 		"RigidbodyComponent",
-		"GetMass", &RigidbodyComponent::GetMass,
+		"GetVelocity", &RigidbodyComponent::GetVelocity,
 		"SetVelocity", &RigidbodyComponent::SetVelocity,
+		"GetAngularVelocity", &RigidbodyComponent::GetAngularVelocity,
+		"SetAngularVelocity", &RigidbodyComponent::SetAngularVelocity,
+
+		"GetMass", &RigidbodyComponent::GetMass,
+		"SetMass", &RigidbodyComponent::SetMass,
 		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
