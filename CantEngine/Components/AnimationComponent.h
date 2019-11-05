@@ -56,6 +56,8 @@ public:
 	
 	//Animator methods
 	void SetTrigger(std::string const& trigger); 
+	AnimState *CreateState(std::string stateName, std::string animName,
+		float speed); 
 	AnimState *CreateState(std::string stateName, std::string animName);
 	void SetEntryState(AnimState *entry);
 

@@ -66,7 +66,7 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 	if (currentState->isAnimRunning)
 	{
 		Animation *animation = currentState->animation;
-		currentState->animTime += dt * animation->ticksPerSecond;
+		currentState->animTime += dt * animation->ticksPerSecond * currentState->speed;
 		float animTime = currentState->animTime;
 
 		//Anim event experiment

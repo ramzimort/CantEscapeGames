@@ -527,7 +527,11 @@ void ScriptingManager::ManageBindings()
 		"AnimationComponent",
 		//"SwitchAnimation", &AnimationComponent::SwitchAnimation,
 		//Interface for animator (state machine)
-		"CreateState", &AnimationComponent::CreateState,
+		"CreateState", sol::overload
+		(
+			sol::resolve<AnimState*(std::string, std::string)>(&AnimationComponent::CreateState),
+			sol::resolve<AnimState*(std::string, std::string, float)>(&AnimationComponent::CreateState)
+		),
 		"SetEntryState", &AnimationComponent::SetEntryState,
 		"SetTrigger", &AnimationComponent::SetTrigger,
 		"AddAnimEvent", &AnimationComponent::AddAnimEvent

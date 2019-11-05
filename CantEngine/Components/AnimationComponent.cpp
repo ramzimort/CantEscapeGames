@@ -138,6 +138,16 @@ void AnimationComponent::CheckForTransitionChanges()
 	}
 }
 
+AnimState *AnimationComponent::CreateState(std::string stateName,
+	std::string animName, float speed)
+{
+	AnimState *state = CreateState(stateName, animName);
+	if (state) 
+	{
+		state->speed = speed;
+	}
+	return state;
+}
 
 AnimState *AnimationComponent::CreateState(std::string stateName, 
 	std::string animName)

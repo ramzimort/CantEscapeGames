@@ -108,7 +108,7 @@ TestPlayerAnimComp.Begin = function(self, owner)
 	local atk01_State =		self.animComp:CreateState("atk01", "AttackAnim");
 	local atk02_State =		self.animComp:CreateState("atk02", "KickAnim");
 	local atk03_State =		self.animComp:CreateState("Upper", "UpperAnim");
-	local walk_State =		self.animComp:CreateState("walk", "WalkAnim");
+	local walk_State =		self.animComp:CreateState("walk", "WalkAnim", 1.5);
 	local jumpLoop_State =	self.animComp:CreateState("jumpLoop", "JumpLoopAnim");
 	local jumpEnd_State =	self.animComp:CreateState("jumpEnd", "JumpEndAnim");
 	local crawl_State =		self.animComp:CreateState("Crawl", "CrawlAnim");
@@ -138,9 +138,27 @@ TestPlayerAnimComp.Begin = function(self, owner)
 	--Starting state
 	self.animComp:SetEntryState(idle_State);
 
+
+
 	--Animation events
-	self.animComp:AddAnimEvent("KickAnim", 24, {self, self.OnKickTest01});
-	self.animComp:AddAnimEvent("KickAnim", 34, {self, self.OnKickTest02});
+	self.animComp:AddAnimEvent("KickAnim", 26, {self, self.OnKickTest01});
+	self.animComp:AddAnimEvent("KickAnim", 20, {self, self.OnKickWhoosh});
+	self.animComp:AddAnimEvent("KickAnim", 50, {self, self.OnKickTest02});
+	
+	self.animComp:AddAnimEvent("JumpEndAnim", 10, {self, self.OnKickTest01});
+	
+	self.animComp:AddAnimEvent("WalkAnim", 5, {self, self.OnKickTest01});
+	self.animComp:AddAnimEvent("WalkAnim", 20, {self, self.OnKickTest02});
+	self.animComp:AddAnimEvent("WalkAnim", 35, {self, self.OnKickTest01});
+	self.animComp:AddAnimEvent("WalkAnim", 40, {self, self.OnKickTest02});
+
+	self.animComp:AddAnimEvent("UpperAnim", 20, {self, self.OnKickWhoosh});
+	self.animComp:AddAnimEvent("UpperAnim", 40, {self, self.OnKickWhoosh2});
+	self.animComp:AddAnimEvent("UpperAnim", 50, {self, self.OnKickWhoosh});
+	self.animComp:AddAnimEvent("UpperAnim", 54, {self, self.OnKickWhoosh2});
+	self.animComp:AddAnimEvent("UpperAnim", 64, {self, self.OnKickWhoosh2});
+	self.animComp:AddAnimEvent("UpperAnim", 74, {self, self.OnKickWhoosh});
+	
 
 end
 
@@ -194,12 +212,21 @@ end
 
 
 TestPlayerAnimComp.OnKickTest01 = function(self)
-	--PlaySFX("Assets\\SFX\\Collision1.mp3");
-	self.transformComp:Scale(1.05, 1.05, 1.05);
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Collision1.mp3");
+	--self.transformComp:Scale(0.075, 0.075, 0.075);
 end
 
 TestPlayerAnimComp.OnKickTest02 = function(self)
-	self.transformComp:Scale(1.0);
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Block.mp3");
+	--self.transformComp:Scale(0.05, 0.05, 0.05);
+end
+
+TestPlayerAnimComp.OnKickWhoosh = function(self)
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Whoosh_01.mp3");
+end
+
+TestPlayerAnimComp.OnKickWhoosh2 = function(self)
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Whoosh_02.mp3");
 end
 
 
