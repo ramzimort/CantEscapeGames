@@ -15,11 +15,11 @@ Other Authors :
 class ModelSupportShape : public SupportShape
 {
 public:
-	ModelSupportShape(Model* model, const Matrix& modelToWorld);
+	ModelSupportShape(const Model& model, const TransformComponent& transform);
 
 	Vector3 GetCenter() const override;
 	Vector3 Support(const Vector3& worldDirection) const override;
 
-	Model* m_model;
-	const Matrix& m_modelToWorld;
+	const Model& m_model;
+	const TransformComponent& m_transform;
 };

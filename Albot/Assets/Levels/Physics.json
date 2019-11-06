@@ -29,7 +29,8 @@
         "Assets\\Materials\\RedDieletricSmoothMaterial.json",
         "Assets\\Materials\\RedMetallicSmoothMaterial.json",
         "Assets\\Materials\\Red_Brick_Material.json",
-        "Assets\\Materials\\MetalCopperMaterial.json"
+        "Assets\\Materials\\MetalCopperMaterial.json",
+        "Assets\\Materials\\MyMaterial.json"
       ],
       "Scripts": [
         "Scripts\\Components\\fpscontroller.lua",
@@ -110,7 +111,15 @@
     {
       "tag": "MainRigidBody",
       "prefab": "Assets\\Prefabs\\rgdbdyPlayer.json",
-      "overrides": {}
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            5.5,
+            5.0,
+            0.0
+          ]
+        }
+      }
     },
     {
       "tag": "point_light1",
@@ -182,6 +191,49 @@
           "Mass": 3.3999999521443644e38,
           "IsAsleep": 0,
           "CollisionMask": "STATIC_OBJ"
+        }
+      }
+    },
+    {
+      "tag": "GROUNDFRICTION04",
+      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [
+            7.5,
+            -1.0,
+            -15.0
+          ],
+          "Rotation": [
+            10,
+            0.0,
+            0.0
+          ],
+          "Scale": [
+            5.0,
+            1.0,
+            20.0
+          ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\MyMaterial.json",
+          "XTileFactor": 4.0,
+          "YTileFactor": 4.0
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [
+            9.886160665811583e-42,
+            -1.7341910171929223e-36,
+            -1.74307515977364e-41
+          ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ",
+          "FrictionCoef":  1.2
         }
       }
     },
@@ -675,48 +727,6 @@
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\Sphere.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [
-            3.9236357001094883e-44,
-            0.000020176172256469728,
-            3.9236357001094883e-44
-          ],
-          "Mass": 1.0,
-          "IsAsleep": 0,
-          "CollisionMask": "DINAMIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "RGDBDYCUBE_COLLIDING_WITH_GHOST",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            0,
-            3,
-            3
-          ],
-          "Rotation": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Material1.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
         },
         "RigidBodyComponent": {
           "IsEffectedByGravity": true,

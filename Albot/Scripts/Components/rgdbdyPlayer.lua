@@ -17,6 +17,8 @@ rgdbdyPlayer =
 	upPressed = false;
 	downPressed = false;
 	space = false;
+
+	isGrounded = false;
 }
 
 
@@ -64,20 +66,28 @@ rgdbdyPlayer.Update = function(self, dt, owner)
 	
 	--if(self.curr_velocity < self.max_velocity)
 	if (self.upPressed) then 
-		velocity.x = velocity.x + (self.move_speed.x * dt);
-		TRACE("x: " .. velocity.x .. "\n");
-		TRACE("y: " .. velocity.y .. "\n");
-		TRACE("z: " .. velocity.z .. "\n");
-	end 
-	if (self.downPressed) then 
-		velocity.x = velocity.x - (self.move_speed.x * dt);
-	end 
-	if (self.leftPressed) then 
-		velocity.z = velocity.z + (self.move_speed.z * dt);
-	end 
-	if (self.rightPressed) then 
 		velocity.z = velocity.z - (self.move_speed.z * dt);
 	end 
+	if (self.downPressed) then 
+		velocity.z = velocity.z + (self.move_speed.z * dt);
+	end 
+	if (self.leftPressed) then 
+		velocity.x = velocity.x - (self.move_speed.x * dt);
+	end 
+	if (self.rightPressed) then 
+		velocity.x = velocity.x + (self.move_speed.x * dt);
+	end 
+	--end
+
+	--if (abs(velocity.y) < 0.001) then
+	--	self.isGrounded = true;
+	--end
+
+	--if (self.space) then
+	--	if (self.isGrounded) then
+			--velocity.y = velocity.y + 4.0;
+	--		isGrounded = false;
+	--	end
 	--end
 
 	self.rgdbdyComp:SetVelocity(velocity);

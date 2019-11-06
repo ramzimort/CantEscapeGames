@@ -24,6 +24,7 @@ RTTR_REGISTRATION
 		.property("Mass", &RigidbodyComponent::m_mass)
 		.property("IsAsleep", &RigidbodyComponent::m_isAsleep)
 		.property("CollisionMask", &RigidbodyComponent::m_collisionMask)
+		.property("FrictionCoef", &RigidbodyComponent::m_frictionCoef)
 	;
 	rttr::registration::enumeration<CollisionTable::CollisionMask>("CollisionMask")(
 		#define COLLISION_MASK(ENTRY) rttr::value(#ENTRY, CollisionTable::CollisionMask::ENTRY),

@@ -81,6 +81,8 @@ private:
 	bool m_isEffectedByGravity;
 	bool m_isAsleep;
 	bool m_isColliding;
+
+	float m_frictionCoef;
 	
 	CollisionTable::CollisionMask m_collisionMask;
 

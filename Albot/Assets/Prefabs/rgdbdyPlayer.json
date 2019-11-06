@@ -20,7 +20,8 @@
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
-    "CollisionMask": "DINAMIC_OBJ"
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef": 0.2
   },
 
   "Scripts": [

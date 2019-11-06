@@ -244,8 +244,8 @@ void RigidbodySystem::LateUpdate(float dt)
 			const Aabb& localAabb2 = mesh2->GetModel()->GetAABB();
 			ObbSupportShape modelSupportA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix(), localAabb1);
 			ObbSupportShape modelSupportB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix(), localAabb2);
-			//ModelSupportShape modelSupportA(mesh1->GetModel(), tr1->GetModel());
-			//ModelSupportShape modelSupportB(mesh2->GetModel(), tr2->GetModel());
+			//ModelSupportShape modelSupportA(*(mesh1->GetModel()), *tr1);
+			//ModelSupportShape modelSupportB(*(mesh2->GetModel()), *tr2);
 			Gjk gjk;
 			const float epsilon = 0.001f;
 			std::vector<Gjk::CsoPoint> simplex;
@@ -412,7 +412,8 @@ void RigidbodySystem::LateUpdate(float dt)
 							// dot product should give us the cos of angle between normal and gravity (both should be normalized at this point)
 							//float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].m_normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
 							//lambda = MathUtil::Clamp(lambda, -PhysicsUtils::Consts::Constraints::friction * collisionWeight, PhysicsUtils::Consts::Constraints::friction * collisionWeight);
-							float maxFrictionMultiplier = PhysicsUtils::Consts::Constraints::friction * constraints[0].m_lambda;
+							float averageFrction = (constraints[j].m_object1->m_frictionCoef + constraints[j].m_object2->m_frictionCoef) * 0.5f;
+							float maxFrictionMultiplier = averageFrction * constraints[0].m_lambda;
 							lambda = MathUtil::Clamp(lambda, -maxFrictionMultiplier, maxFrictionMultiplier);
 						}
 
@@ -505,14 +506,14 @@ void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
 	static bool isRightPressedIn = false;
 	switch (keyEvent->m_scancode)
 	{
-		case SDL_SCANCODE_SPACE:
+		case SDL_SCANCODE_LEFTBRACKET:
 			isSpacePressedIn = !isSpacePressedIn;
 			if (isSpacePressedIn)
 			{
 				m_isPaused = !m_isPaused;
 			}
 			break;
-		case SDL_SCANCODE_RIGHT:
+		case SDL_SCANCODE_RIGHTBRACKET:
 			isRightPressedIn = !isRightPressedIn;
 			if (isRightPressedIn)
 			{
