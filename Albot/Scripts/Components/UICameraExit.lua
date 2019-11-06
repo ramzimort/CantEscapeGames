@@ -39,8 +39,8 @@ UICameraExit =
 	-- Camera
 	BaseWidth = 1280;
 	BaseHeight = 720;
-	Width = 1600;
-	Height = 900;
+	Width = 800;
+	Height = 600;
 	
 	-- GameObjectManager
 	GOManager;

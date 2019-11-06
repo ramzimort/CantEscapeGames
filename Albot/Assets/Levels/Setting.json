@@ -102,7 +102,7 @@
 		"UIComponent": {
 			"InitialPosition": [ 0.0, 0.0,-0.1],
 			"FinalPosition": [ 0.0, 0.0, -0.1],
-			"DeltaTime": -1.0 
+			"DeltaTime": 1.0 
 		},
 
 		"RendererComponent": {
@@ -557,18 +557,18 @@
       "prefab": "Assets\\Prefabs\\SlideScrollerSlider.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  779,110,0 ],
+          "Position": [  1500,800,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 7, 26, 1 ]
         },
 		"UIComponent": {
 			"SliderValue": 0.5,
-			"InitialPosition": [ 779,110,0],
+			"InitialPosition": [ 1500,800,0],
 			"FinalPosition": [ 779, 110, 0],
-			"DeltaTime": -15.0,
-			"InitialRotation" : 0.0,
+			"DeltaTime": 15.0,
+			"InitialRotation" : 1500.0,
 			"FinalRotation" : 0.0,
-			"RotationRate" : 0.0				
+			"RotationRate" : -25.0				
 		},
 		
 		"RendererComponent": {
