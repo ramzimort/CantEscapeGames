@@ -39,8 +39,8 @@ UICameraCredits =
 	-- Camera
 	BaseWidth = 1280;
 	BaseHeight = 720;
-	Width = 800;
-	Height = 600;
+	Width = 1600;
+	Height = 900;
 	
 	-- GameObjectManager
 	GOManager;
