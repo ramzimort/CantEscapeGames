@@ -1,19 +1,21 @@
 {
   "Resources": {
     "Textures": [
-	"Assets\\Textures\\UI\\Loading.png"
+	"Assets\\Textures\\UI\\Loading.png",
+	"Assets\\Textures\\UI\\RotatingArrow.png"
     ],
     "Models": [
 	 "Assets\\Models\\Cube.fbx",
       "Assets\\Models\\plane.fbx"
     ],
     "Materials": [
-	"Assets\\Materials\\UI\\LoadingMaterial.json"
+	"Assets\\Materials\\UI\\LoadingMaterial.json",
+	"Assets\\Materials\\UI\\RotatingArrowMaterial.json"
     ],
     "Scripts": [
       "Scripts\\States\\Loading.lua",
       "Scripts\\States\\level1.lua",
-	  "Scripts\\Components\\UICamera.lua",
+	  "Scripts\\Components\\UICameraLoading.lua",
 	  "Scripts\\Components\\AffineAnimation.lua",
 	  "Scripts\\Components\\WindowResize.lua"
     ],
@@ -32,16 +34,7 @@
     ]
   },
     "Objects": [
-	{
-      "tag": "UIObject1",
-      "prefab": "Assets\\Prefabs\\UIObject.json",
-      "overrides": {
-		"UIComponent": {
-			"TotalObjects": 1,
-			"TotalButtons": 0
-		}
-      }
-    },
+	
 	{
       "tag": "Loading",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
@@ -62,6 +55,46 @@
 		}		
 		
       }
+    },
+	{
+      "tag": "RotatingArrow",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  990.0, 490.0,0.00 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 216.0, 216.0, 0.0001 ]
+        },
+
+		"UIComponent": {
+			"InitialPosition": [  700, 350,0],
+			"FinalPosition": [ 700, 350, 0],
+			"DeltaTime": -35.0,
+			"InitialRotation" : 1720.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -0.50
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "UIObject",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 2,
+			"TotalButtons": 0
+		},
+		"Scripts": [
+			{
+				"Name": "Scripts\\Components\\UICameraLoading.lua"
+			}
+		]
+      }
     }
+	
     ]
 }

@@ -223,7 +223,9 @@ UICameraSetting.Update = function(self, dt, owner)
 		-- Get SlideScroller.lua if UI Object has it
 		local SlideScrollerLUA = gameObject:GetCustomComp("SlideScroller");
 		 if (SlideScrollerLUA ~= nil) then 
-			
+			if(gameObject:GetTag() == "VolumeSlideScroller") then
+				self.SlidderValue = SlideScrollerLUA:GetSliderValue();
+			end
 			if(self.PlayFinalAnimation == true ) then
 				SlideScrollerLUA:Disable();
 			end
