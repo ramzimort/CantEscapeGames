@@ -31,7 +31,7 @@ SlideScroller =
 	sliderObj;
 	uiCompSlider;
 	uiTransformCompSlider;
-	
+	SliderValue = 0.0;
 	-- Slide Scroller GreenBackGround Component
 	greenBackgroundObj;
 	uiTransformCompGreenBackGround;
@@ -80,7 +80,7 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		return;
 	end
 	-- Button 1
-	Button1Address = tag .. "Button1";
+	Button1Address = tag .. "ButtonLeft";
 	self.Button1Obj = goMgr:FindGameObject(Button1Address);
 	if (self.Button1Obj == nil) then
 		OutputPrint(">>> GO  not found\n");
@@ -97,12 +97,12 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		return;
 	end
 	self.Button1Index = self.uiCompButton1:GetButtonIndex();
-	self.ScaleButton1 = Vector3.new(self.uiButton1TransformComp:GetScale());
-	self.TouchedScaleButton1 = Vector3.new( self.uiButton1TransformComp:GetScale())*1.1;
-	
+	local scale = Vector3.new(self.uiButton1TransformComp:GetScale());
+	self.uiCompButton1:SetUnTouchedScale(scale);
+	self.uiCompButton1:SetTouchedScale(scale*1.1);
 	
 	-- Button 2
-	Button2Address = tag .. "Button2";
+	Button2Address = tag .. "ButtonRight";
 	self.Button2Obj = goMgr:FindGameObject(Button2Address);
 	if (self.Button2Obj == nil) then
 		OutputPrint(">>> GO  not found\n");
@@ -119,8 +119,9 @@ SlideScroller.Begin = function(self, owner, goMgr)
 		return;
 	end
 	self.Button2Index = self.uiCompButton2:GetButtonIndex();
-	self.ScaleButton2 = Vector3.new(self.uiButton2TransformComp:GetScale());
-	self.TouchedScaleButton2 = Vector3.new( self.uiButton2TransformComp:GetScale())*1.1;
+	local scale = Vector3.new(self.uiButton2TransformComp:GetScale());
+	self.uiCompButton2:SetUnTouchedScale(scale);
+	self.uiCompButton2:SetTouchedScale(scale*1.1);
 	
 	-- Slider	
 	SliderAddress = tag .. "Slider";
@@ -172,7 +173,11 @@ SlideScroller.Update = function(self, dt, owner)
 	greenBackGroundScale.x = sliderPosition.x - sliderBasePos.x; 
 	self.uiTransformCompGreenBackGround:Scale(greenBackGroundScale.x,greenBackGroundScale.y,greenBackGroundScale.z);
 	local greenBackGroundPos= Vector3.new(self.uiTransformCompGreenBackGround:GetPosition());
-	
+
+	-- Set Slider Posiiton
+	local sliderBaseScale = Vector3.new(self.uiBaseTransformComp:GetScale());
+	sliderPosition.x = sliderBasePos.x + self.SliderValue * sliderBaseScale.x;
+	self.uiTransformCompSlider:SetLocalPosition(sliderPosition);
 -- Button 1------------------------
 
 	local positionButton1 = Vector3.new(self.uiButton1TransformComp:GetPosition());
@@ -180,9 +185,11 @@ SlideScroller.Update = function(self, dt, owner)
 	local maxPosXButton1 = scaleButton1.x + positionButton1.x;
 	local maxPosYButton1 = scaleButton1.y + positionButton1.y;
 	if(self.TouchedButton1 == true) then
-		self.uiButton1TransformComp:Scale(self.TouchedScaleButton1.x,self.TouchedScaleButton1.y,self.TouchedScaleButton1.z);
+		local touchedScale = Vector3.new(self.uiCompButton1:GetTouchedScale());
+		self.uiButton1TransformComp:Scale(touchedScale);
 	else
-		self.uiButton1TransformComp:Scale(self.ScaleButton1.x,self.ScaleButton1.y,self.ScaleButton1.z);
+		local unTouchedScale = Vector3.new(self.uiCompButton1:GetUnTouchedScale());
+		self.uiButton1TransformComp:Scale(unTouchedScale);
 	end
 	if(self.Button1Index == _G.CurrentButtonTouched) then
 		self.TouchedButton1 = true;
@@ -199,7 +206,6 @@ SlideScroller.Update = function(self, dt, owner)
 				if(self.MousePositionY > positionButton1.y) then
 					self.TouchedButton1 = true;
 					_G.CurrentButtonTouched = self.Button1Index;
-					self.uiButton1TransformComp:Scale(self.TouchedScaleButton1.x,self.TouchedScaleButton1.y,self.TouchedScaleButton1.z);
 					if(self.LEFTCLICK == true) then
 						self.LEFTCLICK = false;
 						self.ClickedButton1 = true;
@@ -212,12 +218,9 @@ SlideScroller.Update = function(self, dt, owner)
 	
 	if(self.ClickedButton1 == true) then
 		self.ClickedButton1 = false;
-		local sliderBasePos = self.uiBaseTransformComp:GetPosition();
-		local sliderBaseScale = self.uiBaseTransformComp:GetScale();
-		local sliderPosition = Vector3.new(self.uiTransformCompSlider:GetPosition());
-		if(sliderPosition.x > sliderBasePos.x) then
-			sliderPosition.x = sliderPosition.x - 5.0;
-			self.uiTransformCompSlider:SetLocalPosition(sliderPosition);
+		if(self.SliderValue > 0.1) then
+			self.SliderValue = self.SliderValue - 0.1;
+			
 		end
 	end
 	-- Button 2------------------------
@@ -227,9 +230,11 @@ SlideScroller.Update = function(self, dt, owner)
 	local maxPosXButton2 = scaleButton2.x + positionButton2.x;
 	local maxPosYButton2 = scaleButton2.y + positionButton2.y;
 	if(self.TouchedButton2 == true) then
-		self.uiButton2TransformComp:Scale(self.TouchedScaleButton2.x,self.TouchedScaleButton2.y,self.TouchedScaleButton2.z);
+		local touchedScale = Vector3.new(self.uiCompButton2:GetTouchedScale());
+		self.uiButton2TransformComp:Scale(touchedScale);
 	else
-		self.uiButton2TransformComp:Scale(self.ScaleButton2.x,self.ScaleButton2.y,self.ScaleButton2.z);
+		local unTouchedScale = Vector3.new(self.uiCompButton2:GetUnTouchedScale());
+		self.uiButton2TransformComp:Scale(unTouchedScale);
 	end
 	if(self.Button2Index == _G.CurrentButtonTouched) then
 		self.TouchedButton2 = true;
@@ -246,7 +251,6 @@ SlideScroller.Update = function(self, dt, owner)
 				if(self.MousePositionY > positionButton2.y) then
 					self.TouchedButton2 = true;
 					_G.CurrentButtonTouched = self.Button2Index;
-					self.uiButton2TransformComp:Scale(self.TouchedScaleButton2.x,self.TouchedScaleButton2.y,self.TouchedScaleButton2.z);
 					if(self.LEFTCLICK == true) then
 						self.LEFTCLICK = false;
 						self.ClickedButton2 = true;
@@ -258,13 +262,9 @@ SlideScroller.Update = function(self, dt, owner)
 	
 	if(self.ClickedButton2 == true) then
 		self.ClickedButton2 = false;
-		local sliderBasePos = self.uiBaseTransformComp:GetPosition();
-		local sliderBaseScale = self.uiBaseTransformComp:GetScale();
-		local sliderPosition = Vector3.new(self.uiTransformCompSlider:GetPosition());
-		local maxLimitX = sliderBasePos.x + sliderBaseScale.x;
-		if(sliderPosition.x < maxLimitX) then
-			sliderPosition.x = sliderPosition.x + 5.0;
-			self.uiTransformCompSlider:SetLocalPosition(sliderPosition);
+		if(self.SliderValue < 0.9) then
+			self.SliderValue = self.SliderValue + 0.1;
+			
 		end
 	end
 	
@@ -290,16 +290,10 @@ end
 SlideScroller.Disable = function(self)
    self.Enabled = false;
 end
-SlideScroller.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
-	self.ScaleButton1.x = (self.ScaleButton1.x / BaseWidth) * Width;
-	self.ScaleButton1.y = (self.ScaleButton1.y / BaseHeight) * Height;
-	self.TouchedScaleButton1.x = (self.TouchedScaleButton1.x / BaseWidth) * Width;
-	self.TouchedScaleButton1.y = (self.TouchedScaleButton1.y / BaseHeight) * Height;
-	
-	self.ScaleButton2.x = (self.ScaleButton2.x / BaseWidth) * Width;
-	self.ScaleButton2.y = (self.ScaleButton2.y / BaseHeight) * Height;
-	self.TouchedScaleButton2.x = (self.TouchedScaleButton2.x / BaseWidth) * Width;
-	self.TouchedScaleButton2.y = (self.TouchedScaleButton2.y / BaseHeight) * Height;
-	
+SlideScroller.GetSliderValue = function(self)
+   return self.SliderValue;
+end
+SlideScroller.SetSliderValue = function(self, val)
+   self.SliderValue = val;
 end
 return SlideScroller;

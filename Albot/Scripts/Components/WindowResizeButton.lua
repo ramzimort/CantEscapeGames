@@ -1,7 +1,7 @@
 
 -- First approximation of a component script
 
-ButtonWindowResize = 
+WindowResizeButton = 
 {
 
 	-- Component
@@ -13,8 +13,6 @@ ButtonWindowResize =
 	Height;
 	ButtonIndex;
 	Enabled = false;
-	Scale;
-	TouchedScale;
 	enableButton = false;
 	PositionOnEnabled = false;
 	
@@ -40,14 +38,14 @@ ButtonWindowResize =
 }
 
 --Init called when comp is created
-ButtonWindowResize.Init = function(self)
+WindowResizeButton.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
 end
 
 --Begin called when obj has all comps
-ButtonWindowResize.Begin = function(self, owner, goMgr)
+WindowResizeButton.Begin = function(self, owner, goMgr)
 	
 	self.GoManager = goMgr;
 	if (owner == nil) then
@@ -64,16 +62,14 @@ ButtonWindowResize.Begin = function(self, owner, goMgr)
 	end
 	self.ButtonIndex = self.uiComp:GetButtonIndex();
 	
-	self.Scale = Vector3.new(self.uiTransform:GetScale());
-	self.TouchedScale = Vector3.new( self.uiTransform:GetScale())*1.1;
-	self.Width = self.uiComp:GetWidth();
-	self.Height = self.uiComp:GetHeight();
-	OutputPrint("\n" .. self.Width);
+	local scale = Vector3.new(self.uiTransform:GetScale());
+	self.uiComp:SetUnTouchedScale(scale);
+	self.uiComp:SetTouchedScale(scale*1.1);
 	
 end
 
 --Update called every tick
-ButtonWindowResize.Update = function(self, dt, owner) 
+WindowResizeButton.Update = function(self, dt, owner) 
 	
 	local parentName = self.uiComp:GetParentName();
 	
@@ -87,14 +83,15 @@ ButtonWindowResize.Update = function(self, dt, owner)
 	if (DropDownComponent == nil) then 
 			OutputPrint("ERROR, DropDown.lua not Found\n");
 	end
-	
+
 	if(self.uiComp:GetRenderEnable() == true) then
 		if(DropDownComponent:GetArrowClick() == true) then
 		
 			local ArrowButtonIndex = DropDownComponent:GetButtonArrowIndex();
 			local NewPosition = Vector3.new(parentTransform:GetPosition());
+			local scale = Vector3.new(self.uiComp:GetTouchedScale());
 			local increment = self.ButtonIndex - ArrowButtonIndex;
-			NewPosition.y = NewPosition.y + self.Scale.y * ( increment);
+			NewPosition.y = NewPosition.y + scale.y * ( increment );
 			self.uiTransform:SetLocalPosition(NewPosition); 
 			self.Enabled = true;
 		else
@@ -102,10 +99,13 @@ ButtonWindowResize.Update = function(self, dt, owner)
 				local parentPosition = Vector3.new(parentTransform:GetPosition());
 				local position = Vector3.new(self.uiTransform:GetPosition());
 				position.y = parentPosition.y;
-				
 				self.uiTransform:SetLocalPosition(position);
 				self.uiComp:SetRenderEnable(true);
-				
+				return;
+			else
+				-- local parentPosition = Vector3.new(parentTransform:GetPosition());
+				-- parentPosition.y = -100;
+				-- self.uiTransform:SetLocalPosition(parentPosition);
 				return;
 			end
 		end
@@ -118,20 +118,33 @@ ButtonWindowResize.Update = function(self, dt, owner)
 		return;
 	end
 		
+		if(self.Clicked == true) then
+			--self.Clicked = false;
+		end
+		
 		local position = Vector3.new(self.uiTransform:GetPosition());
-		local scale = Vector3.new(self.uiTransform:GetScale());
-		local maxPosX = scale.x + position.x;
-		local maxPosY = scale.y + position.y;
+		local scale = Vector3.new(self.uiComp:GetUnTouchedScale());
+		local NewPosition = Vector3.new(parentTransform:GetPosition());
+		local scale = Vector3.new(self.uiComp:GetTouchedScale());
+		local ArrowButtonIndex = DropDownComponent:GetButtonArrowIndex();
+		local increment = self.ButtonIndex - ArrowButtonIndex;
+		NewPosition.y = NewPosition.y + scale.y * ( increment );
+		local maxPosX = scale.x + NewPosition.x;
+		local maxPosY = scale.y + NewPosition.y;
 		if(self.Touched == true) then
-			self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
+			local touchedScale = Vector3.new(self.uiComp:GetTouchedScale());
+			self.uiTransform:Scale(touchedScale);
 		else
-			self.uiTransform:Scale(self.Scale.x,self.Scale.y,self.Scale.z);
+			local unTouchedScale = Vector3.new(self.uiComp:GetUnTouchedScale());
+			self.uiTransform:Scale(unTouchedScale);
 		end
 		if(self.ButtonIndex == _G.CurrentButtonTouched) then
 			self.Touched = true;
 			if(self.ENTER == true ) then
 				self.ENTER = false;
 				self.Clicked = true;
+				DropDownComponent:SetArrowClick(true);
+				DropDownComponent:SetCurrentChildButtonSelect(self.ButtonIndex);
 			end
 		else
 			self.Touched = false;
@@ -142,50 +155,37 @@ ButtonWindowResize.Update = function(self, dt, owner)
 					if(self.MousePositionY > position.y) then
 						self.Touched = true;
 						_G.CurrentButtonTouched = self.ButtonIndex;
-						self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
 						if(self.LEFTCLICK == true) then
 							self.LEFTCLICK = false;
 							self.Clicked = true;
-							
+							if (DropDownComponent ~= nil) then 
+								DropDownComponent:SetArrowClick(true);
+								DropDownComponent:SetCurrentChildButtonSelect(self.ButtonIndex);
+								OutputPrint("\n" .. position.y);
+							end
 							
 						end
 					end	
 				end
 			end
 		end
-	if(self.Clicked == true) then
-		self.Clicked = false;
-		
-		  if (DropDownComponent ~= nil) then 
-			  DropDownComponent:SetArrowClick(true);
-			  local parentNameUIObject = DropDownComponent:GetParentName();
-			
-			  local parentGameObject = self.GoManager:FindGameObject(parentNameUIObject);
-			  DropDownComponent:SetCurrentChildButtonSelect(self.ButtonIndex);
-			  local UICameraComponent = parentGameObject:GetCustomComp("UICamera");
-			  if (UICameraComponent == nil) then 
-				  OutputPrint("ERROR, UICamera.lua not Found\n");
-			  end
-			  UICameraComponent:WindowResize(self.Width,self.Height);
-		  end
-		
-	end
+
 	
 	
 end
 --Method
-ButtonWindowResize.OnKey = function(self, key, state)
+WindowResizeButton.OnKey = function(self, key, state)
 	if(SCANCODE.ENTER == key) then
 		self.ENTER = state;
 	end
 end
 
-ButtonWindowResize.OnMouseMotion = function(self, position, deltaposition)
+WindowResizeButton.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
 end
 
-ButtonWindowResize.OnMouseClick = function(self, button, state)
+WindowResizeButton.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
 	elseif(button == 2) then
@@ -193,19 +193,19 @@ ButtonWindowResize.OnMouseClick = function(self, button, state)
 	end
 end
 
-ButtonWindowResize.OnDestruction = function(self)
+WindowResizeButton.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnMouseMotion});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
 end
-
-ButtonWindowResize.Disable = function(self)
+WindowResizeButton.ReturnClicked = function(self)
+   return self.Clicked;
+end
+WindowResizeButton.SetClicked = function(self, val)
+    self.Clicked = false;
+end
+WindowResizeButton.Disable = function(self)
    self.Enabled = false;
 end
-ButtonWindowResize.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
-	self.Scale.x = (self.Scale.x / BaseWidth) * Width;
-	self.Scale.y = (self.Scale.y / BaseHeight) * Height;
-	self.TouchedScale.x = (self.TouchedScale.x / BaseWidth) * Width;
-	self.TouchedScale.y = (self.TouchedScale.y / BaseHeight) * Height;
-end
-return ButtonWindowResize;
+
+return WindowResizeButton;

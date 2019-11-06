@@ -53,39 +53,57 @@ WindowResize.Update = function(self, dt, owner)
 end
 WindowResize.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
 	
-	self.Width = Width;
-	self.Height = Height;
+		self.Width = Width;
+		self.Height = Height;
 	
-	local normalizeFinalPosition = Vector3.new(self.uiComp:GetFinalPosition());
-		normalizeFinalPosition.x = normalizeFinalPosition.x/BaseWidth;
-		normalizeFinalPosition.x = normalizeFinalPosition.x * self.Width;
-		normalizeFinalPosition.y = normalizeFinalPosition.y/BaseHeight;
-		normalizeFinalPosition.y = normalizeFinalPosition.y * self.Height;
+		local FinalPosition = Vector3.new(self.uiComp:GetFinalPosition());
+		FinalPosition.x = FinalPosition.x/BaseWidth;
+		FinalPosition.x = FinalPosition.x * self.Width;
+		FinalPosition.y = FinalPosition.y/BaseHeight;
+		FinalPosition.y = FinalPosition.y * self.Height;
 		
-		self.uiComp:SetFinalPosition(normalizeFinalPosition);
+		self.uiComp:SetFinalPosition(FinalPosition);
 	
 	----------------------------------------------------------------------------
-		local normalizeInitialPosition = Vector3.new(self.uiComp:GetInitialPosition());
-		normalizeInitialPosition.x = normalizeInitialPosition.x/BaseWidth;
-		normalizeInitialPosition.x = normalizeInitialPosition.x * self.Width;
-		normalizeInitialPosition.y = normalizeInitialPosition.y / BaseHeight;
-		normalizeInitialPosition.y = normalizeInitialPosition.y * self.Height;
+		local InitialPosition = Vector3.new(self.uiComp:GetInitialPosition());
+		InitialPosition.x = InitialPosition.x/BaseWidth;
+		InitialPosition.x = InitialPosition.x * self.Width;
+		InitialPosition.y = InitialPosition.y / BaseHeight;
+		InitialPosition.y = InitialPosition.y * self.Height;
 		
-		self.uiComp:SetInitialPosition(normalizeInitialPosition);
+		self.uiComp:SetInitialPosition(InitialPosition);
 	----------------------------------------------------------------------------
-		local normalizeScale = Vector3.new(self.uiTransform:GetScale());
-		normalizeScale.x = normalizeScale.x/BaseWidth;
-		normalizeScale.x = normalizeScale.x * self.Width;
-		normalizeScale.y = normalizeScale.y/BaseHeight;
-		normalizeScale.y = normalizeScale.y * self.Height;
-		self.uiTransform:Scale(normalizeScale);
+		local Scale = Vector3.new(self.uiTransform:GetScale());
+		Scale.x = Scale.x/BaseWidth;
+		Scale.x = Scale.x * self.Width;
+		Scale.y = Scale.y/BaseHeight;
+		Scale.y = Scale.y * self.Height;
+		self.uiTransform:Scale(Scale);
 	----------------------------------------------------------------------------
-		local normalizePosition = Vector3.new(self.uiTransform:GetPosition());
-		normalizePosition.x = normalizePosition.x  /BaseWidth;
-		normalizePosition.x = normalizePosition.x * self.Width;
-		normalizePosition.y = normalizePosition.y / BaseHeight;
-		normalizePosition.y = normalizePosition.y * self.Height;
-		self.uiTransform:SetLocalPosition(normalizePosition);
+		local Position = Vector3.new(self.uiTransform:GetPosition());
+		Position.x = Position.x  /BaseWidth;
+		Position.x = Position.x * self.Width;
+		Position.y = Position.y / BaseHeight;
+		Position.y = Position.y * self.Height;
+		self.uiTransform:SetLocalPosition(Position);
+		
+	----------------------------------------------------------------------------
+		local TouchedScale = Vector3.new(self.uiComp:GetTouchedScale());
+		TouchedScale.x = TouchedScale.x  /BaseWidth;
+		TouchedScale.x = TouchedScale.x * self.Width;
+		TouchedScale.y = TouchedScale.y / BaseHeight;
+		TouchedScale.y = TouchedScale.y * self.Height;
+		self.uiComp:SetTouchedScale(TouchedScale);
+		
+	----------------------------------------------------------------------------
+		local UnTouchedScale = Vector3.new(self.uiComp:GetUnTouchedScale());
+		UnTouchedScale.x = UnTouchedScale.x  /BaseWidth;
+		UnTouchedScale.x = UnTouchedScale.x * self.Width;
+		UnTouchedScale.y = UnTouchedScale.y / BaseHeight;
+		UnTouchedScale.y = UnTouchedScale.y * self.Height;
+		self.uiComp:SetUnTouchedScale(UnTouchedScale);
+		
+		
 	
 end
 

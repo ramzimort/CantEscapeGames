@@ -102,6 +102,11 @@ AffineAnimation.Update = function(self, dt, owner)
 	if(self.deltaTime < 0.0) then
 		self.InitailAnimationEnabled = false;
 		self.FinalAnimationEnd = true;
+		if(self.rotation > 0.0) then
+			self.rotation = self.rotation - self.rotationRate ;
+			self.uiTransform:SetLocalRotation(0.0,0.0,self.rotation);
+		end
+		
 		return;
 	end
 	
@@ -201,10 +206,12 @@ AffineAnimation.Update = function(self, dt, owner)
 		self.xTranslateInitial = false;
 		self.yTranslateInitial = false;
 		self.InitailAnimationEnabled = false;
-		
+		self.uiTransform:SetLocalPosition(self.finalPosition.x, self.finalPosition.y, self.finalPosition.z);
+		self.uiTransform:SetLocalRotation(0.0,0.0,0.0);
 	end
 	if(self.xTranslateFinal == true and self.yTranslateFinal == true and self.rotateFinal == true) then
 		self.FinalAnimationEnd = true;
+		self.uiTransform:SetLocalPosition(self.initialPosition.x, self.initialPosition.y, self.initialPosition.z);
 	end
 	--------------------------------------------------------------------------
 	
@@ -233,10 +240,5 @@ end
 AffineAnimation.GetRotateFinal = function(self)
   return self.rotateFinal;
 end
-AffineAnimation.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
-	self.initialPosition.x = (self.initialPosition.x / BaseWidth) * Width;
-	self.initialPosition.y = (self.initialPosition.y / BaseHeight) * Height;
-	self.finalPosition.x = (self.finalPosition.x / BaseWidth) * Width;
-	self.finalPosition.y = (self.finalPosition.y / BaseHeight) * Height;
-end
+
 return AffineAnimation;

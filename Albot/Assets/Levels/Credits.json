@@ -28,7 +28,7 @@
     ],
     "Scripts": [
       "Scripts\\States\\Credits.lua",
-      "Scripts\\Components\\UICamera.lua",
+      "Scripts\\Components\\UICameraCredits.lua",
 	  "Scripts\\Components\\Button.lua",
 	  "Scripts\\Components\\AffineAnimation.lua",
 	  "Scripts\\Components\\WindowResize.lua"
@@ -89,7 +89,7 @@
       }
     },
     {
-      "tag": "CloseButton1",
+      "tag": "CloseButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -116,15 +116,15 @@
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  1800, 300,0 ],
+          "Position": [  -1000, -1000,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 509, 241, 1 ]
         },
 
 		"UIComponent": {
-			"InitialPosition": [ 1800, 300,0],
+			"InitialPosition": [ -1000, -1000,0],
 			"FinalPosition": [ 397, 222, 0],
-			"DeltaTime": 5.0 
+			"DeltaTime": 22.0 
 		},
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\CreditsTextMaterial.json"
@@ -139,7 +139,12 @@
 		"UIComponent": {
 			"TotalObjects": 4,
 			"TotalButtons": 1
-		}
+		},
+		"Scripts": [
+			{
+				"Name": "Scripts\\Components\\UICameraCredits.lua"
+			}
+		]
       }
     }
     

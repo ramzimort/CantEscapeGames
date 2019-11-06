@@ -30,7 +30,7 @@
     ],
     "Scripts": [
       "Scripts\\States\\Exit.lua",
-      "Scripts\\Components\\UICamera.lua",
+      "Scripts\\Components\\UICameraExit.lua",
 	  "Scripts\\Components\\Button.lua",
 	  "Scripts\\Components\\AffineAnimation.lua",
 	  "Scripts\\Components\\WindowResize.lua"
@@ -77,7 +77,7 @@
 		"UIComponent": {
 			"InitialPosition": [ -1000, -1000,0],
 			"FinalPosition": [ 258, 20, 0],
-			"DeltaTime": 15.0,
+			"DeltaTime": 20.0,
 			"InitialRotation" : 100.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : -5.0	
@@ -90,7 +90,7 @@
       }
     },
     {
-      "tag": "YesButton1",
+      "tag": "YesButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -103,8 +103,8 @@
 			"ButtonIndex": 1,
 			"InitialPosition": [ -300, 200,0],
 			"FinalPosition": [ 321, 546, 0],
-			"DeltaTime": 15.0,
-			"InitialRotation" : 300.0,
+			"DeltaTime": 8.0,
+			"InitialRotation" : 500.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : -5.0				
 		},
@@ -115,7 +115,7 @@
       }
     },
 	{
-      "tag": "NoButton1",
+      "tag": "NoButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -128,8 +128,8 @@
 			"ButtonIndex": 2,
 			"InitialPosition": [ -300, 200,0],
 			"FinalPosition": [ 671, 546, 0],
-			"DeltaTime": 15.0,
-			"InitialRotation" : 300.0,
+			"DeltaTime": 8.0,
+			"InitialRotation" : 600.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : -5.0				
 		},
@@ -145,14 +145,17 @@
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  1800, 300,0 ],
+          "Position": [  -1000, -1000,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 282, 230, 1 ]
         },
 		"UIComponent": {
-			"InitialPosition": [ 1800, 300,0],
+			"InitialPosition": [ -1000, -1000,0],
 			"FinalPosition": [ 508, 222, 0],
-			"DeltaTime": 5.0		
+			"DeltaTime": 24.0,
+			"InitialRotation" : 650.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -8.0			
 		},
 		
 		"RendererComponent": {
@@ -168,7 +171,12 @@
 		"UIComponent": {
 			"TotalObjects": 5,
 			"TotalButtons": 2
-		}
+		},
+		"Scripts": [
+			{
+				"Name": "Scripts\\Components\\UICameraExit.lua"
+			}
+		]
       }
     }
     

@@ -3,9 +3,6 @@
 
 Button = 
 {
-	-- States
-	NextStatePath;
-	
 	-- Component
 	uiComp;
 	uiTransform;
@@ -13,10 +10,7 @@ Button =
 	-- Data
 	ButtonIndex;
 	Enabled = true;
-	Scale;
-	TouchedScale;
-	enableButton = false;
-	
+
 	-- Trigger/Touch
 	Touched = false;
 	Clicked = false;
@@ -57,11 +51,11 @@ Button.Begin = function(self, owner, goMgr)
 	if (self.uiTransform == nil) then 
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
-	self.ButtonIndex = self.uiComp:GetButtonIndex();
-	self.NextStatePath = self.uiComp:GetStateAddress();
-	self.Scale = Vector3.new(self.uiTransform:GetScale());
-	self.TouchedScale = Vector3.new( self.uiTransform:GetScale())*1.1;
 	
+	self.ButtonIndex = self.uiComp:GetButtonIndex();
+	local scale = Vector3.new(self.uiTransform:GetScale());
+	self.uiComp:SetUnTouchedScale(scale);
+	self.uiComp:SetTouchedScale(scale*1.1);
 end
 
 --Update called every tick
@@ -75,9 +69,11 @@ Button.Update = function(self, dt, owner)
 	local maxPosX = scale.x + position.x;
 	local maxPosY = scale.y + position.y;
 	if(self.Touched == true) then
-		self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
+		local touchedScale = Vector3.new(self.uiComp:GetTouchedScale());
+		self.uiTransform:Scale(touchedScale);
 	else
-		self.uiTransform:Scale(self.Scale.x,self.Scale.y,self.Scale.z);
+		local unTouchedScale = Vector3.new(self.uiComp:GetUnTouchedScale());
+		self.uiTransform:Scale(unTouchedScale);
 	end
 	if(self.ButtonIndex == _G.CurrentButtonTouched) then
 		self.Touched = true;
@@ -94,10 +90,8 @@ Button.Update = function(self, dt, owner)
 				if(self.MousePositionY > position.y) then
 					self.Touched = true;
 					_G.CurrentButtonTouched = self.ButtonIndex;
-					self.uiTransform:Scale(self.TouchedScale.x,self.TouchedScale.y,self.TouchedScale.z);
 					if(self.LEFTCLICK == true) then
 						self.LEFTCLICK = false;
-						
 						self.Clicked = true;
 					end
 				end	
@@ -134,21 +128,13 @@ end
 Button.ReturnClicked = function(self)
    return self.Clicked;
 end
-Button.ReturnTouched= function(self)
-   return self.Touched;
+Button.SetClicked = function(self, val)
+    self.Clicked = val;
 end
-Button.GetNextStateAddress = function(self)
-	
-   return self.NextStatePath;
-end
-
 Button.Disable = function(self)
    self.Enabled = false;
 end
-Button.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
-	self.Scale.x = (self.Scale.x / BaseWidth) * Width;
-	self.Scale.y = (self.Scale.y / BaseHeight) * Height;
-	self.TouchedScale.x = (self.TouchedScale.x / BaseWidth) * Width;
-	self.TouchedScale.y = (self.TouchedScale.y / BaseHeight) * Height;
+Button.Enabled = function(self)
+   self.Enabled = true;
 end
 return Button;
