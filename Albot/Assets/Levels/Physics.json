@@ -166,8 +166,8 @@
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
+          "XTileFactor": 60.0,
+          "YTileFactor": 60.0
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\Cube.fbx"

@@ -995,7 +995,7 @@ bool DXRenderer::init_d3d11(uint32_t swap_chain_sample_count)
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.SampleDesc.Count = swap_chain_sample_count;
 	swap_chain_desc.SampleDesc.Quality = 0;
-	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
 	swap_chain_desc.Flags = 0;
 	swap_chain_desc.Scaling = DXGI_SCALING_STRETCH;
 
