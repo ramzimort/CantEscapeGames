@@ -441,16 +441,12 @@ void ScriptingManager::ManageBindings()
 			"GetParentName", &UIComponent::GetParentName,
 			"GetChild", &UIComponent::GetChild,
 			"GetNumberOfChildren", &UIComponent::GetNumberOfChildren,
-			"GetTotalObjects", &UIComponent::GetTotalObjects,
-			"GetTotalButtons", &UIComponent::GetTotalButtons,
-			"GetStateAddress", &UIComponent::GetStateAddress,
+
+
 			"GetRenderEnable", &UIComponent::GetRenderEnable,
-			"SetSliderValue", sol::overload(
-				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
 			"SetRenderEnable", sol::overload(
 				sol::resolve<void(bool)>(&UIComponent::SetRenderEnable)),
 			"GetChild", &UIComponent::GetChild,
-			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation,
 			"GetInitialPosition", &UIComponent::GetInitialPosition,
 			"GetFinalPosition", &UIComponent::GetFinalPosition,
 			"GetInitialPositionNormalized", &UIComponent::GetInitialPositionNormalized,
@@ -459,13 +455,19 @@ void ScriptingManager::ManageBindings()
 				sol::resolve<void(Vector3 const&)>(&UIComponent::SetInitialPosition)),
 			"SetFinalPosition", sol::overload(
 				sol::resolve<void(Vector3 const&)>(&UIComponent::SetFinalPosition)),
+			"SetTouchedScale", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetTouchedScale)),
+			"SetUnTouchedScale", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetUnTouchedScale)),
+			"GetTouchedScale", &UIComponent::GetTouchedScale,
+			"GetUnTouchedScale", &UIComponent::GetUnTouchedScale,
+			"GetUnTouchedScaleNormalized", &UIComponent::GetUnTouchedScaleNormalized,
+			"GetTouchedScaleNormalized", &UIComponent::GetTouchedScaleNormalized,
 			"GetDeltaTime", &UIComponent::GetDeltaTime,
 			"GetVelocity", &UIComponent::GetVelocity,
 			"GetInitialRotation", &UIComponent::GetInitialRotation,
 			"GetFinalRotation", &UIComponent::GetFinalRotation,
-			"GetRotationRate", &UIComponent::GetRotationRate,
-			"GetWidth", &UIComponent::GetWidth,
-			"GetHeight", &UIComponent::GetHeight
+			"GetRotationRate", &UIComponent::GetRotationRate
 			);
 
 

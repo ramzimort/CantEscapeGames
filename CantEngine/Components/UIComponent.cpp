@@ -11,14 +11,8 @@ RTTR_REGISTRATION
 {
 	rttr::registration::class_<UIComponent>("UIComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-		.property("State", &UIComponent::stateAddress)
 		.property("ParentName", &UIComponent::m_parentName)
-		.property("TotalObjects", &UIComponent::totalObjects)
-		.property("TotalButtons", &UIComponent::totalButtons)
 		.property("ButtonIndex", &UIComponent::buttonIndex)
-		.property("SliderValue", &UIComponent::sliderValue)
-		.property("ChildButtonCount", &UIComponent::childButtonCount)
-		.property("ChildButtonLocation", &UIComponent::childButtonLocation)
 		.property("InitialPosition", &UIComponent::initialPos)
 		.property("FinalPosition", &UIComponent::finalPos)
 		.property("DeltaTime", &UIComponent::deltaTime)
@@ -26,8 +20,6 @@ RTTR_REGISTRATION
 		.property("FinalRotation", &UIComponent::finalRotationValue)
 		.property("RotationRate", &UIComponent::rotationRate)
 		.property("Enabled", &UIComponent::m_enabled)
-		.property("Width", &UIComponent::width)
-		.property("Height", &UIComponent::height)
 		.method("Init", &UIComponent::Init);
 }
 
@@ -107,15 +99,6 @@ int UIComponent::GetButtonIndex()
 	return buttonIndex;
 }
 
-std::string UIComponent::GetStateAddress()
-{
-	return stateAddress.getName();
-}
-
-void UIComponent::SetSliderValue(float val)
-{
-	sliderValue = val;
-}
 
 void UIComponent::SetRenderEnable(bool val)
 {
@@ -127,35 +110,29 @@ bool UIComponent::GetRenderEnable()
 	return m_enabled;
 }
 
-int UIComponent::GetChildButtonCount()
+Vector3 UIComponent::GetUnTouchedScale()
 {
-	return childButtonCount;
+	return unTouchedScale;
 }
 
-int UIComponent::GetChildButtonLocation()
+void UIComponent::SetUnTouchedScale(const Vector3 & val)
 {
-	return childButtonLocation;
+	unTouchedScale = val;
 }
 
-float UIComponent::GetWidth()
+Vector3 UIComponent::GetTouchedScale()
 {
-	return width;
+	return touchedScale;
 }
 
-float UIComponent::GetHeight()
+void UIComponent::SetTouchedScale(const Vector3 & val)
 {
-	return height;
+	touchedScale = val;
 }
 
-int UIComponent::GetTotalObjects()
-{
-	return totalObjects;
-}
 
-int UIComponent::GetTotalButtons()
-{
-	return totalButtons;
-}
+
+
 
 
 Vector3 UIComponent::GetInitialPosition()
@@ -176,6 +153,18 @@ Vector3 UIComponent::GetInitialPositionNormalized()
 Vector3 UIComponent::GetFinalPositionNormalized()
 {
 	Vector3 result = finalPos;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetUnTouchedScaleNormalized()
+{
+	Vector3 result = unTouchedScale;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetTouchedScaleNormalized()
+{
+	Vector3 result = touchedScale;
 	result.Normalize();
 	return result;
 }

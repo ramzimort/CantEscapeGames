@@ -31,10 +31,10 @@
 	  
     }],
 	"Scripts": [
-    {
-	  "Name": "Scripts\\Components\\ButtonWindowResize.lua"
+	{
+			"Name": "Scripts\\Components\\WindowResizeButton.lua"
 	  
-    }],
+	}],
 	"Scripts": [
     {
 	  "Name": "Scripts\\Components\\WindowResize.lua"

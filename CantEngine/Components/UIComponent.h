@@ -29,21 +29,19 @@ public:
 
 
 	int GetButtonIndex();
-	int GetTotalObjects();
-	int GetTotalButtons();
 
-	std::string GetStateAddress();
-
-	void SetSliderValue(float val);
 	void SetRenderEnable(bool val);
 	bool GetRenderEnable();
 
-	int GetChildButtonCount();
-	int GetChildButtonLocation();
 
-	float GetWidth();
-	float GetHeight();
 
+	Vector3 GetUnTouchedScale();
+	Vector3 GetUnTouchedScaleNormalized();
+	void SetUnTouchedScale(const Vector3& val);
+
+	Vector3 GetTouchedScale();
+	Vector3 GetTouchedScaleNormalized();
+	void SetTouchedScale(const Vector3& val);
 	// Animation  Function
 	Vector3 GetInitialPosition();
 	Vector3 GetFinalPosition();
@@ -64,23 +62,15 @@ public:
 
 private:
 	
-	
-	// Total buttons UICamera will have
-	int totalButtons; // Move to UICAMERA
-	// Total objects UICamera will have
-	int totalObjects; // Move to UICAMERA
-	//Loading state of a the buttons
-	StringId stateAddress; // Move to UICAMERA
-	//Slider Value
-	float sliderValue; // REMOVE
-	//
-	int childButtonCount;// REMOVE
-	//
-	int childButtonLocation; // REMOVE
+
 	//  Inital position of the object
 	Vector3 initialPos; 
 	// Final position of the object
 	Vector3 finalPos;
+	//
+	Vector3 unTouchedScale;
+	//
+	Vector3 touchedScale;
 	// Delta time for the animation
 	float deltaTime;
 	// Inital Roation Value
@@ -89,10 +79,7 @@ private:
 	float finalRotationValue;
 	// Rate of Roation along Z axis
 	float rotationRate;
-	//
-	float width; // Move to UICAMERA
-	//
-	float height; // Move to UICAMERA
+
 
 
 	// ALL NEW STUFF

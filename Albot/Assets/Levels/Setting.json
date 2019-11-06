@@ -77,9 +77,9 @@
 	  "Scripts\\Components\\SlideScroller.lua",
 	  "Scripts\\Components\\AffineAnimation.lua",
 	  "Scripts\\Components\\DropDown.lua",
-	  "Scripts\\Components\\ButtonWindowResize.lua",
+	  "Scripts\\Components\\WindowResizeButton.lua",
 	  "Scripts\\Components\\WindowResize.lua",
-	  "Scripts\\Components\\UICamera.lua"
+	  "Scripts\\Components\\UICameraSetting.lua"
     ],
 	"Songs": [
 
@@ -123,7 +123,7 @@
 		"UIComponent": {
 			"InitialPosition": [ -1000, -1000,0],
 			"FinalPosition": [ 258, 20, 0],
-			"DeltaTime": 15.0,
+			"DeltaTime": 45.0,
 			"InitialRotation" : 100.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : -5.0
@@ -136,7 +136,7 @@
       }
     },
     {
-      "tag": "ApplyButton1",
+      "tag": "ApplyButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -160,7 +160,7 @@
       }
     },
 	{
-      "tag": "CloseButton2",
+      "tag": "CloseButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -174,6 +174,9 @@
 			"InitialPosition": [ -300, 300,0],
 			"FinalPosition": [ 954, 12, 0],
 			"DeltaTime": 15.0,
+			"InitialRotation" : 500.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0,
 			"ButtonIndex": 2  
 		},
 	
@@ -187,7 +190,7 @@
 	
 	
 	{
-      "tag": "ResolutionDropDown1",
+      "tag": "ResolutionDropDown",
       "prefab": "Assets\\Prefabs\\DropDown.json",
       "overrides": {
         "TransformComponent": {
@@ -202,8 +205,7 @@
 			"DeltaTime": 15.0,
 			"InitialRotation" : 100.0,
 			"FinalRotation" : 0.0,
-			"RotationRate" : -5.0,
-			"ParentName": "UIObject1"
+			"RotationRate" : -5.0
 		},
 		
 		"RendererComponent": {
@@ -213,7 +215,7 @@
       }
     },
 	{
-      "tag": "ResolutionDropDown1ButtonArrow",
+      "tag": "ResolutionDropDownButtonArrow",
       "prefab": "Assets\\Prefabs\\DropDownButton.json",
       "overrides": {
         "TransformComponent": {
@@ -223,7 +225,7 @@
         },
 		"UIComponent": {
 			"InitialPosition": [  1500, 400,0],
-			"FinalPosition": [ 877, 265, 0],
+			"FinalPosition": [ 877, 275, 0],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 500.0,
 			"FinalRotation" : 0.0,
@@ -239,24 +241,24 @@
       }
     },
 	{
-      "tag": "ResolutionDropDown1ChildButton1",
+      "tag": "800x600Button",
       "prefab": "Assets\\Prefabs\\DropDownChildButton.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  593.0, 315.0, 0.0 ],
+          "Position": [  593.0, -315.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 259, 44, 1 ]
         },
 		"UIComponent": {
 			"ChildButtonLocation": 1,
-			"InitialPosition": [ 593.0, 315.0, 0.0],
-			"FinalPosition": [ 593.0, 315.0, 0.0],
+			"InitialPosition": [ 593.0, -315.0, 0.0],
+			"FinalPosition": [ 593.0, -315.0, 0.0],
 			"DeltaTime": -1.0,
 			"InitialRotation" : 0.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : 0.0,
 			"ButtonIndex": 6,
-			"ParentName": "ResolutionDropDown1",
+			"ParentName": "ResolutionDropDown",
 			"Enabled": false,
 			"Width": 800,
 			"Height": 600
@@ -271,7 +273,7 @@
     },
 	
 	{
-      "tag": "ResolutionDropDown1ChildButton2",
+      "tag": "1024x768Button",
       "prefab": "Assets\\Prefabs\\DropDownChildButton.json",
       "overrides": {
         "TransformComponent": {
@@ -288,7 +290,7 @@
 			"FinalRotation" : 0.0,
 			"RotationRate" : 0.0,
 			"ButtonIndex": 7,
-			"ParentName": "ResolutionDropDown1",
+			"ParentName": "ResolutionDropDown",
 			"Width": 1024,
 			"Height": 768,
 			"Enabled": false
@@ -305,13 +307,13 @@
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  1000, 1000,0 ],
+          "Position": [  -1000, 1000,0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 138, 27, 1 ]
         },
 		"UIComponent": {
-			"InitialPosition": [ 1000, 1000,0],
-			"FinalPosition": [ 1000, 1000, 0],
+			"InitialPosition": [ -1000, 1000,0],
+			"FinalPosition": [ -1000, 1000, 0],
 			"DeltaTime": -1.0,
 			"InitialRotation" : 0.0,
 			"FinalRotation" : 0.0,
@@ -325,7 +327,7 @@
       }
     },
 	{
-      "tag": "ResolutionDropDown1ChildButton3",
+      "tag": "1280x720Button",
       "prefab": "Assets\\Prefabs\\DropDownChildButton.json",
       "overrides": {
         "TransformComponent": {
@@ -342,7 +344,7 @@
 			"FinalRotation" : 0.0,
 			"RotationRate" : 0.0,
 			"ButtonIndex": 8,
-			"ParentName": "ResolutionDropDown1",
+			"ParentName": "ResolutionDropDown",
 			"Width": 1280,
 			"Height": 720,
 			"Enabled": false
@@ -350,12 +352,17 @@
 		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\1280x720Material.json"
-		}		
+		},
+		"Scripts": [
+		{
+			"Name": "Scripts\\Components\\AffineAnimation.lua"
+	  
+		}]			
 		
       }
     },
 	{
-      "tag": "ResolutionDropDown1ChildButton4",
+      "tag": "1280x960Button",
       "prefab": "Assets\\Prefabs\\DropDownChildButton.json",
       "overrides": {
         "TransformComponent": {
@@ -372,7 +379,7 @@
 			"FinalRotation" : 0.0,
 			"RotationRate" : 0.0,
 			"ButtonIndex": 9,
-			"ParentName": "ResolutionDropDown1",
+			"ParentName": "ResolutionDropDown",
 			"Width": 1280,
 			"Height": 960,
 			"Enabled": false
@@ -380,7 +387,7 @@
 		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\1280x960Material.json"
-		}		
+		}
 		
       }
     },
@@ -396,7 +403,7 @@
 		"UIComponent": {
 			"InitialPosition": [ 1800, 300,0],
 			"FinalPosition": [ 371, 281, 0],
-			"DeltaTime": 10.0 ,
+			"DeltaTime": 25.0 ,
 			"InitialRotation" : 500.0,
 			"FinalRotation" : 0.0,
 			"RotationRate" : -10.0
@@ -408,7 +415,7 @@
       }
     },
 	{
-      "tag": "VolumeSlideScroller1",
+      "tag": "VolumeSlideScroller",
       "prefab": "Assets\\Prefabs\\SlideScroller.json",
       "overrides": {
         "TransformComponent": {
@@ -432,6 +439,30 @@
       }
     },
 	{
+      "tag": "VolumeText",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  1000, 1000,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 138, 27, 1 ]
+        },
+		"UIComponent": {
+			"InitialPosition": [ 1000, 1000,0],
+			"FinalPosition": [ 371, 112, 0],
+			"DeltaTime": 25.0,
+			"InitialRotation" : 200.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0			
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\VolumeTextMaterial.json"
+		}		
+		
+      }
+    },
+	{
       "tag": "VolumeSlideScrollerForeGround",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
@@ -442,7 +473,7 @@
         },
 		"UIComponent": {
 			"InitialPosition": [ 1800, 300,0],
-			"FinalPosition": [ 643, 117, 0],
+			"FinalPosition": [ 640, 117, 0],
 			"DeltaTime": 10.0 	
 		},
 		"RendererComponent": {
@@ -452,7 +483,7 @@
       }
     },
 	{
-      "tag": "VolumeSlideScroller1Button1",
+      "tag": "VolumeSlideScrollerButtonLeft",
       "prefab": "Assets\\Prefabs\\SlideScrollerButton.json",
       "overrides": {
         "TransformComponent": {
@@ -463,7 +494,7 @@
 		"UIComponent": {
 			"Location": 3,
 			"InitialPosition": [ -300, 400,0],
-			"FinalPosition": [ 601, 101, 0],
+			"FinalPosition": [ 595, 101, 0],
 			"DeltaTime": 15.0,
 			"ButtonIndex": 3 
 		},
@@ -475,7 +506,7 @@
     },
 
 	{
-      "tag": "VolumeSlideScroller1Button2",
+      "tag": "VolumeSlideScrollerButtonRight",
       "prefab": "Assets\\Prefabs\\SlideScrollerButton.json",
       "overrides": {
         "TransformComponent": {
@@ -486,7 +517,7 @@
 		"UIComponent": {
 			"Location": 4,
 			"InitialPosition": [ -500, -400,0],
-			"FinalPosition": [ 903, 101, 0],
+			"FinalPosition": [ 900, 101, 0],
 			"DeltaTime": 15.0,
 			"ButtonIndex": 4  
 		},
@@ -498,7 +529,7 @@
       }
     },
 	{
-      "tag": "VolumeSlideScroller1GreenBackGround",
+      "tag": "VolumeSlideScrollerGreenBackGround",
       "prefab": "Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
       "overrides": {
         "TransformComponent": {
@@ -522,7 +553,7 @@
       }
     },	
 	{
-      "tag": "VolumeSlideScroller1Slider",
+      "tag": "VolumeSlideScrollerSlider",
       "prefab": "Assets\\Prefabs\\SlideScrollerSlider.json",
       "overrides": {
         "TransformComponent": {
@@ -533,7 +564,7 @@
 		"UIComponent": {
 			"SliderValue": 0.5,
 			"InitialPosition": [ 1500,800,0],
-			"FinalPosition": [ 779, 106, 0],
+			"FinalPosition": [ 779, 110, 0],
 			"DeltaTime": 15.0,
 			"InitialRotation" : 1500.0,
 			"FinalRotation" : 0.0,
@@ -547,38 +578,20 @@
       }
     },
 	
+	
 	{
-      "tag": "VolumeText",
-      "prefab": "Assets\\Prefabs\\UIEmpty.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [  1000, 1000,0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 138, 27, 1 ]
-        },
-		"UIComponent": {
-			"InitialPosition": [ 1000, 1000,0],
-			"FinalPosition": [ 371, 112, 0],
-			"DeltaTime": 15.0,
-			"InitialRotation" : 100.0,
-			"FinalRotation" : 0.0,
-			"RotationRate" : -5.0			
-		},
-		
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\VolumeTextMaterial.json"
-		}		
-		
-      }
-    },
-	{
-      "tag": "UIObject1",
+      "tag": "UIObject",
       "prefab": "Assets\\Prefabs\\UIObject.json",
       "overrides": {
 		"UIComponent": {
 			"TotalObjects": 19,
 			"TotalButtons": 5
-		}
+		},
+		"Scripts": [
+			{
+				"Name": "Scripts\\Components\\UICameraSetting.lua"
+			}
+		]
       }
     }
     

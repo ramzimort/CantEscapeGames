@@ -62,7 +62,7 @@ DropDown.Begin = function(self, owner, goMgr)
 		OutputPrint(">>>  Transform Component not found\n");
 		return;
 	end
-	-- Button 1
+	-- Button Arrow
 	ButtonArrowAddress = tag .. "ButtonArrow";
 	self.ButtonArrowObj = goMgr:FindGameObject(ButtonArrowAddress);
 	if (self.ButtonArrowObj == nil) then
@@ -80,11 +80,12 @@ DropDown.Begin = function(self, owner, goMgr)
 		return;
 	end
 	self.ButtonArrowIndex = self.uiCompButtonArrow:GetButtonIndex();
-	self.ScaleButtonArrow = Vector3.new(self.uiButtonArrowTransformComp:GetScale());
-	self.TouchedScaleButtonArrow = Vector3.new( self.uiButtonArrowTransformComp:GetScale())*1.1;
+	local scale = Vector3.new(self.uiButtonArrowTransformComp:GetScale());
+	self.uiCompButtonArrow:SetUnTouchedScale(scale);
+	self.uiCompButtonArrow:SetTouchedScale(scale*1.1);
 	
 	self.ParentName = self.uiComp:GetParentName();
-	OutputPrint("\n Reached\n" .. self.ParentName);
+
 	--  todo: We will set the last button Index from the source file
 	self.CurrentSelectedChildButtonIndex = self.ButtonArrowIndex +1;
 	--
@@ -101,24 +102,28 @@ DropDown.Update = function(self, dt, owner)
 	
 	-- Button Arrow
 	local positionButtonArrow = Vector3.new(self.uiButtonArrowTransformComp:GetPosition());
-	local maxPosXButtonArrow = self.ScaleButtonArrow.x + positionButtonArrow.x;
+	local scaleButtonArrow = Vector3.new(self.uiButtonArrowTransformComp:GetScale());
+	local maxPosXButtonArrow = scaleButtonArrow.x + positionButtonArrow.x;
 	local maxPosYButtonArrow = 0.0;
 	local minPosYButtonArrow = 0.0;
 	if(self.ButtonArrowSelected == true) then
 		 maxPosYButtonArrow = positionButtonArrow.y;
-		 minPosYButtonArrow = self.ScaleButtonArrow.y + positionButtonArrow.y
+		 minPosYButtonArrow = scaleButtonArrow.y + positionButtonArrow.y
 	else
-		 maxPosYButtonArrow = self.ScaleButtonArrow.y + positionButtonArrow.y;
+		 maxPosYButtonArrow = scaleButtonArrow.y + positionButtonArrow.y;
 		 minPosYButtonArrow = positionButtonArrow.y;
 	end
 	
 	if(self.TouchedButtonArrow == true) then
-		self.uiButtonArrowTransformComp:Scale(self.TouchedScaleButtonArrow.x,self.TouchedScaleButtonArrow.y,self.TouchedScaleButtonArrow.z);
+		local touchedScale = Vector3.new(self.uiCompButtonArrow:GetTouchedScale());
+		self.uiButtonArrowTransformComp:Scale(touchedScale);
 	else
-		self.uiButtonArrowTransformComp:Scale(self.ScaleButtonArrow.x,self.ScaleButtonArrow.y,self.ScaleButtonArrow.z);
+		local unTouchedScale = Vector3.new(self.uiCompButtonArrow:GetUnTouchedScale());
+		self.uiButtonArrowTransformComp:Scale(unTouchedScale);
 	end
 	if(self.ButtonArrowIndex == _G.CurrentButtonTouched) then
 		self.TouchedButtonArrow = true;
+		
 		if(self.ENTER == true ) then
 			self.ENTER = false;
 			self.ClickedButtonArrow = true;
@@ -133,7 +138,6 @@ DropDown.Update = function(self, dt, owner)
 				if(self.MousePositionY > minPosYButtonArrow) then
 					self.TouchedButtonArrow = true;
 					_G.CurrentButtonTouched = self.ButtonArrowIndex;
-					self.uiButtonArrowTransformComp:Scale(self.TouchedScaleButtonArrow.x,self.TouchedScaleButtonArrow.y,self.TouchedScaleButtonArrow.z);
 					if(self.LEFTCLICK == true) then
 						self.LEFTCLICK = false;
 						self.ClickedButtonArrow = true;
@@ -149,29 +153,37 @@ DropDown.Update = function(self, dt, owner)
 		self.ClickedButtonArrow = false;
 		if(self.ButtonArrowSelected == true) then
 			self.ButtonArrowSelected = false;
-			positionButtonArrow.y = positionButtonArrow.y + self.ScaleButtonArrow.y;
-			
-			self.TouchedScaleButtonArrow.y = -self.TouchedScaleButtonArrow.y ;
-			self.ScaleButtonArrow.y = -self.ScaleButtonArrow.y ;
-			self.uiButtonArrowTransformComp:Scale(self.ScaleButtonArrow);
+			positionButtonArrow = Vector3.new(self.uiCompButtonArrow:GetFinalPosition());
+			local touchedScale = Vector3.new(self.uiCompButtonArrow:GetTouchedScale());
+			local unTouchedScale = Vector3.new(self.uiCompButtonArrow:GetUnTouchedScale());
+			touchedScale.y = -touchedScale.y;
+			unTouchedScale.y = -unTouchedScale.y;
+			scaleButtonArrow.y = -scaleButtonArrow.y ;
+			self.uiButtonArrowTransformComp:Scale(scaleButtonArrow);
 			self.uiButtonArrowTransformComp:SetLocalPosition(positionButtonArrow);
+			self.uiCompButtonArrow:SetTouchedScale(touchedScale);
+			self.uiCompButtonArrow:SetUnTouchedScale(unTouchedScale);
 			
 		else
 			self.ButtonArrowSelected = true;
-			positionButtonArrow.y = positionButtonArrow.y + self.ScaleButtonArrow.y;
-			
-			self.TouchedScaleButtonArrow.y = -self.TouchedScaleButtonArrow.y ;
-			self.ScaleButtonArrow.y = -self.ScaleButtonArrow.y ;
-			self.uiButtonArrowTransformComp:Scale(self.ScaleButtonArrow);
+			positionButtonArrow.y = positionButtonArrow.y + scaleButtonArrow.y;
+			local touchedScale = Vector3.new(self.uiCompButtonArrow:GetTouchedScale());
+			local unTouchedScale = Vector3.new(self.uiCompButtonArrow:GetUnTouchedScale());
+			touchedScale.y = -touchedScale.y;
+			unTouchedScale.y = -unTouchedScale.y;
+			scaleButtonArrow.y = -scaleButtonArrow.y ;
+			self.uiButtonArrowTransformComp:Scale(scaleButtonArrow);
 			self.uiButtonArrowTransformComp:SetLocalPosition(positionButtonArrow);
+			self.uiCompButtonArrow:SetTouchedScale(touchedScale);
+			self.uiCompButtonArrow:SetUnTouchedScale(unTouchedScale);
 			
 		end
-		local position = self.uiTransformComp:GetPosition();
-		local scale = self.uiTransformComp:GetScale();
+		
 		local uiCompoent = self.uiComp:GetChild(0);
 		self.StartButtonCount = uiCompoent:GetButtonIndex();
 		uiCompoent = self.uiComp:GetChild(self.TotalChildren-1);
 		self.EndButtonCount = uiCompoent:GetButtonIndex();
+		
 		for i =0,self.TotalChildren-1, 1
 		do
 			local childUICompoent = self.uiComp:GetChild(i);
@@ -183,10 +195,11 @@ DropDown.Update = function(self, dt, owner)
 			if(renderEnable == true) then
 				local buttonIndex = childUICompoent:GetButtonIndex();
 				if(buttonIndex ~= self.CurrentSelectedChildButtonIndex) then
+				
 					childUICompoent:SetRenderEnable(false);
 				end
 			else
-			
+				
 				childUICompoent:SetRenderEnable(true);
 			end
 			
@@ -252,10 +265,5 @@ end
 DropDown.GetParentName = function(self)
    return self.ParentName;
 end
-DropDown.WindowResize = function(self, Width, Height, BaseWidth, BaseHeight)
-	self.ScaleButtonArrow.x = (self.ScaleButtonArrow.x / BaseWidth) * Width;
-	self.ScaleButtonArrow.y = (self.ScaleButtonArrow.y / BaseHeight) * Height;
-	self.TouchedScaleButtonArrow.x = (self.TouchedScaleButtonArrow.x / BaseWidth) * Width;
-	self.TouchedScaleButtonArrow.y = (self.TouchedScaleButtonArrow.y / BaseHeight) * Height;	
-end
+
 return DropDown;
