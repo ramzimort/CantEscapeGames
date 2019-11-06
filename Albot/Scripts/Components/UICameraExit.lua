@@ -75,6 +75,15 @@ UICameraExit.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
+	local Camera = owner:GetCameraComp():GetCamera();
+	if (Camera == nil) then 
+		OutputPrint("ERROR, Camera is NIll NIL\n");
+	end
+	local widthHeight = Camera:GetWidthHeight();
+	LOG("Width: " .. widthHeight.x .. "Height: " .. widthHeight.y .. "\n");
+	self.Width = widthHeight.x;
+	self.Height= widthHeight.y;
+	
 	self.TotalObjects = 5;
 	self.TotalButtons = 2;
 	

@@ -50,7 +50,7 @@ public:
 	void SetCameraPosition(float x, float y, float z);
 	void SetCameraPosition(const Vector3& new_position);
 	void SetCameraRotation(const Matrix& new_position);
-
+	 Vector2 GetWidthHeight() const;
 
 	Vector3 GetCameraPosition() const;
 	const Vector3& GetForward() const;

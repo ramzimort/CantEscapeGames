@@ -197,6 +197,11 @@ const Vector3& Camera::GetRight() const
 {
 	return m_rightDir;
 }
+ Vector2 Camera::GetWidthHeight() const
+{
+	Vector2 value = Vector2(float(m_screenWidth), float(m_screenHeight));
+	return value;
+}
 
 
 void Camera::Reset()

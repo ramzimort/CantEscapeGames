@@ -571,6 +571,7 @@ void ScriptingManager::ManageBindings()
 	(
 		"Camera",
 		"SetFOV", &Camera::SetFOV,
+		"GetWidthHeight", &Camera::GetWidthHeight,
 		"IncreaseFOV", &Camera::IncreaseFOV,
 		"DecreaseFOV", &Camera::DecreaseFOV,
 		"GetFOV", &Camera::GetFOV,

@@ -65,6 +65,7 @@ UICameraMenu.Begin = function(self, owner, goMgr)
 
 	self.GameObject = owner;
 	self.GOManager = goMgr;
+
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
@@ -74,7 +75,16 @@ UICameraMenu.Begin = function(self, owner, goMgr)
 	if (self.uiComp == nil) then 
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
-	
+	-- Get 
+	local Camera = owner:GetCameraComp():GetCamera();
+	if (Camera == nil) then 
+		OutputPrint("ERROR, Camera is NIll NIL\n");
+	end
+	local widthHeight = Camera:GetWidthHeight();
+	LOG("Width: " .. widthHeight.x .. "Height: " .. widthHeight.y .. "\n");
+	self.Width = widthHeight.x;
+	self.Height= widthHeight.y;
+
 	self.TotalObjects = 10;
 	self.TotalButtons = 6;
 	
