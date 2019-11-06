@@ -7,16 +7,10 @@ rgdbdyPlayer =
 	--Custom stuff
 	rgdbdyComp = nil;
 	transformComp = nil;
+	MovementEnabled = false;
 
-	move_speed = Vector3.new(10,0,10); --m/s
-	curr_velocity = 0; -- m/s
-	max_velocity = 2; -- m/s
-	
-	rightPressed = false;
-	leftPressed = false;
-	upPressed = false;
-	downPressed = false;
-	space = false;
+	Acceleration = Vector3.new(0.0); --m/s
+	AccelerationMultiplier = 10;
 
 	isGrounded = false;
 }
@@ -24,27 +18,47 @@ rgdbdyPlayer =
 
 --Method
 rgdbdyPlayer.OnKeyPressed = function(self, key, state)
+	local delta = 0.0;
+	if(state) then
+		delta = 1.0;
+	end
 	if(SCANCODE.UP == key) then
-		self.upPressed = state;
-	end
-	if(SCANCODE.DOWN == key) then
-		self.downPressed = state;
-	end
-	if(SCANCODE.LEFT == key) then
-		self.leftPressed = state;
-	end	
-	if(SCANCODE.RIGHT == key) then
-		self.rightPressed = state;
-	end
-	if (SCANCODE.SPACE == key) then 
-		self.space = state;
+		self.Acceleration.z = -1.0*delta;
+	elseif(SCANCODE.DOWN == key) then
+		self.Acceleration.z = delta;
+	elseif(SCANCODE.LEFT == key) then
+		self.Acceleration.x = -1.0*delta;
+	elseif(SCANCODE.RIGHT == key) then
+		self.Acceleration.x = delta;
 	end
 
+end
+
+rgdbdyPlayer.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.LB and state) then
+		self.MovementEnabled = not self.MovementEnabled;
+	end
+end
+
+rgdbdyPlayer.OnJoystickMotion = function(self, joystickId, axis, value)
+	if(value < 0.2 and value > -0.2) then
+		value = 0.0;
+	end
+	if(self.MovementEnabled) then
+	if(axis == 3) then
+		self.Acceleration.x = 1*value;
+	end
+	if(axis == 4) then
+		self.Acceleration.z = 1*value;
+	end
+	end
 end
 
 --Init called when comp is created
 rgdbdyPlayer.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKeyPressed});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
 end
 
 
@@ -65,38 +79,16 @@ rgdbdyPlayer.Update = function(self, dt, owner)
 	--self.curr_velocity = velocity:len2();
 	
 	--if(self.curr_velocity < self.max_velocity)
-	if (self.upPressed) then 
-		velocity.z = velocity.z - (self.move_speed.z * dt);
-	end 
-	if (self.downPressed) then 
-		velocity.z = velocity.z + (self.move_speed.z * dt);
-	end 
-	if (self.leftPressed) then 
-		velocity.x = velocity.x - (self.move_speed.x * dt);
-	end 
-	if (self.rightPressed) then 
-		velocity.x = velocity.x + (self.move_speed.x * dt);
-	end 
-	--end
 
-	--if (abs(velocity.y) < 0.001) then
-	--	self.isGrounded = true;
-	--end
-
-	--if (self.space) then
-	--	if (self.isGrounded) then
-			--velocity.y = velocity.y + 4.0;
-	--		isGrounded = false;
-	--	end
-	--end
+	velocity = velocity + (self.Acceleration * self.AccelerationMultiplier * dt);
 
 	self.rgdbdyComp:SetVelocity(velocity);
-
-
 end
 
 rgdbdyPlayer.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 

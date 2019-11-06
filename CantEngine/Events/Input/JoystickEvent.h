@@ -5,25 +5,22 @@
 class JoystickEvent : public Event<JoystickEvent>
 {
 public:
-	JoystickEvent(SDL_JoystickID ID, bool connected) : m_ID(ID), m_connected(connected)
+	JoystickEvent(uint32_t ID, bool connected) : m_ID(ID), m_connected(connected)
 	{
 		//DEBUG_LOG("Joystick: %d, Connected: %b\n", ID, connected);
 	};
 	
-	virtual void operator()() override
-	{
-
-	}
 	virtual ~JoystickEvent() { }
+	virtual void operator()() override { }
 
-	uint32_t m_ID;
-	bool m_connected;
+	const uint32_t m_ID;
+	const bool m_connected;
 };
 
 class JoystickMotionEvent : public Event<JoystickMotionEvent>
 {
 public:
-	JoystickMotionEvent(int32_t ID, uint8_t motionBallId, float motion) : 
+	JoystickMotionEvent(uint32_t ID, uint32_t motionBallId, float motion) :
 		m_ID(ID), m_motionBallId(motionBallId), m_motion(motion)
 	{
 		//DEBUG_LOG("Joystick: %d, Connected: %b\n", ID, connected);
@@ -36,21 +33,21 @@ public:
 		//DEBUG_LOG("Motion: %f,\n", m_motion);
 	}
 
-	static Multicast<void(int32_t, uint8_t, float)>& OnJoyMotionEvent()
+	static Multicast<void(const uint32_t, const uint32_t, const float)>& OnJoyMotionEvent()
 	{
-		static Multicast<void(int32_t, uint8_t, float)> m;
+		static Multicast<void(const uint32_t, const uint32_t, const float)> m;
 		return m;
 	}
 
-	const int32_t m_ID;
-	const uint8_t m_motionBallId;
+	const uint32_t m_ID;
+	const uint32_t m_motionBallId;
 	const float m_motion;
 };
 
 class JoystickHatEvent : public Event<JoystickHatEvent>
 {
 public:
-	JoystickHatEvent(int32_t ID, uint32_t hat) :
+	JoystickHatEvent(uint32_t ID, uint32_t hat) :
 		m_ID(ID), m_hat(hat)
 	{
 		//DEBUG_LOG("Joystick: %d, Connected: %b\n", ID, connected);
@@ -62,9 +59,9 @@ public:
 		//DEBUG_LOG("Button: %d, %d\n", m_hat);
 	}
 
-	static Multicast<void(uint32_t, int32_t)>& OnJoystickHatEvent()
+	static Multicast<void(const uint32_t, const uint32_t)>& OnJoystickHatEvent()
 	{
-		static Multicast<void(uint32_t, int32_t)> m;
+		static Multicast<void(const uint32_t, const uint32_t)> m;
 		return m;
 	}
 
@@ -81,8 +78,8 @@ public:
 		//DEBUG_LOG("Joystick: %d, Connected: %b\n", ID, connected);
 	};
 	virtual ~JoystickBallEvent() { }
-	virtual void operator()() override { } 
-
+	virtual void operator()() override { }
+	
 	const uint32_t m_ID;
 	const uint32_t m_ball;
 };
@@ -90,7 +87,7 @@ public:
 class JoystickButtonEvent : public Event<JoystickButtonEvent>
 {
 public:
-	JoystickButtonEvent(uint32_t ID, int32_t joyButton, bool state) :
+	JoystickButtonEvent(uint32_t ID, uint32_t joyButton, bool state) :
 		m_ID(ID), m_button(joyButton), m_state(state)
 	{
 		//DEBUG_LOG("Joystick: %d, Connected: %b\n", ID, connected);
@@ -99,12 +96,12 @@ public:
 	virtual void operator()() override
 	{
 		OnJoystickButtonEvent()(m_ID, m_button, m_state);
-		DEBUG_LOG("Button: %d, %d\n", m_button, m_state);
+		//DEBUG_LOG("Button: %d, %d\n", m_button, m_state);
 	}
 
-	static Multicast<void(uint32_t, int32_t, bool)>& OnJoystickButtonEvent()
+	static Multicast<void(const uint32_t, const uint32_t, const bool)>& OnJoystickButtonEvent()
 	{
-		static Multicast<void(uint32_t, int32_t, bool)> m;
+		static Multicast<void(const uint32_t, const uint32_t, const bool)> m;
 		return m;
 	}
 

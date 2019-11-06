@@ -174,7 +174,27 @@ void ScriptingManager::ManageBindings()
 			"RigidbodyMultiCast",
 			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
 			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
+		);
+
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const float)>>
+		(
+			"JoystickMotionMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t, const float)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const float)>::UnbindLuaFunction
 			);
+
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t)>>
+		(
+			"JoystickHatMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const  uint32_t)>::UnbindLuaFunction
+		);
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t,const bool)>>
+		(
+			"JoystickButtonMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::UnbindLuaFunction
+		);
 
 
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
@@ -183,31 +203,48 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
 	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
 	luaState.set_function("OnResourcesLoaded", &ResourcesLoadedEvent::OnResourcesLoaded);
+	luaState.set_function("OnJoystickMotion", &JoystickMotionEvent::OnJoyMotionEvent);
+	luaState.set_function("OnJoystickHat", &JoystickHatEvent::OnJoystickHatEvent);
+	luaState.set_function("OnJoystickButton", &JoystickButtonEvent::OnJoystickButtonEvent);
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
-	(
-		"EventManager",
-		"Get", &EventManager::Get,
-		// Resize Window Event
-		"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
-		
+		(
+			"EventManager",
+			"Get", &EventManager::Get,
+			// Resize Window Event
+			"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
 
-		// State Events
-		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-		"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-		"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-		"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
-			
-		//Audio Events
-		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
-	);
+
+			// State Events
+			"PushState", & EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+			"PopState", & EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", & EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+			"PushLoadedState", & EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+
+			//Audio Events
+			"PlaySong", & EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", & EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+			);
 
 
 
 #pragma endregion
 
+#pragma region CONTROLLER
+	luaState["CONTROLLER"] =  luaState.create_table_with(
+	"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
+	"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
+	"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
+	"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
+	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER,
+	"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
+	"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
+	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
+	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK
+	);
+#pragma endregion
 #pragma region SCANCODE
 	luaState["SCANCODE"] = luaState.create_table_with(
 		"A", SDL_SCANCODE_A,

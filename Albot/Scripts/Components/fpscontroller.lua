@@ -3,22 +3,20 @@
 
 fpscontroller = 
 {
-	-- MOUSE
+	-- Rotation (Mouse/Joystick)
 	MousePositionX = 0;
 	MousePositionY = 0;
 	DeltaPositionX = 0;
 	DeltaPositionY = 0;
+	Rotation = Vector3.new(0.0);
+	RotationMultiplier = 10.0;
+	RotationSpeed = 10.0;
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
-	Test = false;
-	-- KEYBOARD
-	Forward = false;
-	Backward = false;
-	Left = false;
-	Right = false;
-
+	RotationEnabled = true;
+	
+	movement_amount = Vector2.new(0.0);
 	MoveSpeed = 10.0;
-	RotationSpeed = 10.0;
 
 	Transform = nil;
 	Camera = nil;
@@ -29,6 +27,8 @@ fpscontroller.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
 end
 
 --Begin called when obj has all comps
@@ -45,57 +45,43 @@ end
 
 --Update called every tick
 fpscontroller.Update = function(self, dt, owner) 
-	
-	local movement_amount = Vector2.new(0);
-	if (self.Forward) then
-		movement_amount.y = 1.0;
-	end
-	if (self.Backward) then
-		movement_amount.y = -1.0;
-	end
-	if (self.Left) then
-		movement_amount.x = -1.0;
-	end
-	if (self.Right) then
-		movement_amount.x = 1.0;
-	end
-
 	local position = self.Transform:GetPosition();
-	local movement = movement_amount * self.MoveSpeed * dt;
+	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
 	local forward = self.Camera:GetForward() * movement.y;
 	position = position + strafe + forward;
 
+	local rotation = self.Rotation;
 	if (self.LEFTCLICK) then
-
-		local rotationX = self.DeltaPositionX * dt * self.RotationSpeed;
-		local rotationY = self.DeltaPositionY * dt * self.RotationSpeed;
-		
-		self.Transform:Rotate(-rotationY, -rotationX, 0.0);
+		rotation.x = -1.0*self.DeltaPositionY;
+		rotation.y = -1.0*self.DeltaPositionX;
+		self.DeltaPositionX = 0.0;
+		self.DeltaPositionY = 0.0;
 	end
 
+	rotation = rotation * dt * self.RotationSpeed;
 	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	self.Transform:Rotate(rotation.x, rotation.y, 0.0);
+
 	--TRACE("a" .. position.x .. " " .. position.y .. " " .. position.z .. "\n");
-	
-	self.DeltaPositionX = 0.0;
-	self.DeltaPositionY = 0.0;
+
 end
 
 --Method
 fpscontroller.OnKey = function(self, key, state)
+	local delta = 0.0;
+	if(state) then
+		delta = 1.0;
+	end
+	
 	if(SCANCODE.W == key) then
-		self.Forward = state;
+		self.movement_amount.y = delta;
 	elseif(SCANCODE.S == key) then
-		self.Backward = state;
+		self.movement_amount.y = -1.0*delta;
 	elseif(SCANCODE.A == key) then
-		self.Left = state;
+		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
-		self.Right = state;
-	elseif(SCANCODE.L == key) then
-		self.Test = state;
-		
-		--LOG("World: " .. World .. "\n");
-		--test:PlaySong(false, "Assets\\Songs\\Techno_1.mp3");
+		self.movement_amount.x = delta;
 	end
 end
 
@@ -114,10 +100,39 @@ fpscontroller.OnMouseClick = function(self, button, state)
 	end
 end
 
+fpscontroller.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.LB and state) then
+		self.RotationEnabled = not self.RotationEnabled;
+	end
+end
+
+fpscontroller.OnJoystickMotion = function(self, joystickId, axis, value)
+	if(value < 0.2 and value > -0.2) then
+		value = 0.0;
+	end;
+	if(axis == 0) then
+		self.movement_amount.x = value;
+	end
+	if(axis == 1) then
+		self.movement_amount.y = -1.0*value;
+	end
+	if(self.RotationEnabled) then
+	if(axis == 3) then
+		self.Rotation.y = -1.0*self.RotationMultiplier*value;
+	end
+	if(axis == 4) then
+		self.Rotation.x = -1.0*self.RotationMultiplier*value;
+		--LOG("xRotation: " .. self.Rotation.x .. "\n");
+	end
+	end
+end
+
 fpscontroller.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 return fpscontroller;
