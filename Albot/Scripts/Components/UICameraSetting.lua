@@ -39,8 +39,8 @@ UICameraSetting =
 	-- Camera
 	BaseWidth = 1280;
 	BaseHeight = 720;
-	Width = 800;
-	Height = 600;
+	Width = 1600;
+	Height = 900;
 	
 	WindowResizeEnabled = false;
 	
@@ -82,7 +82,7 @@ UICameraSetting.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
-	self.TotalObjects = 18;
+	self.TotalObjects = 19;
 	
 	
 	self.TotalButtons = 5;

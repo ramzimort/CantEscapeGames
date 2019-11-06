@@ -12,5 +12,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
 	CantEngineAPI::InitializeUserSettings("Albot");
-	CantEngineAPI::InitializeEngine("Assets/Levels/Menu.json", false, 800, 600);
+	CantEngineAPI::InitializeEngine("Assets/Levels/Menu.json", false, 1600, 900);
 }
