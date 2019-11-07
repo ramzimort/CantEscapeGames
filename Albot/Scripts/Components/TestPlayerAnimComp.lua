@@ -263,16 +263,17 @@ TestPlayerAnimComp.UpdateRotation = function(self)
 	--Make the calculations
 	local PI = 3.14159;
 	local dot = currFwd:dot(tgtFwd);
+	
 	local absdot = dot
 	if (dot < 0.0) then
 		absdot = -dot;
 	end
-	---[[
+
 	if (1.0 - absdot > 0.01) then --math.abs() 
 
 		local rad_angle = Acos(dot);
 		local yRot = (rad_angle  * 180.0) / PI;
-		local thressholdAngle = 3.0;
+		local thressholdAngle = 0.01;
 		if ((yRot) > thressholdAngle or yRot < -thressholdAngle) then --math.abs()
 		
 			local right = self.transformComp:GetRight();
