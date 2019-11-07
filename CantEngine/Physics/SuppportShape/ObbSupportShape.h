@@ -13,14 +13,12 @@ class ObbSupportShape : public SupportShape
 {
 public:
 	ObbSupportShape();
-	ObbSupportShape(const Vector3& position, const Vector3& scale, const Matrix& rotation);
-	void BuildFromTransform(const Vector3& position, const Vector3& scale, const Matrix& rotation);
+	ObbSupportShape(const Vector3& position, const Vector3& scale, const Matrix& rotation, const Aabb& localAabb);
 	Vector3 GetCenter() const override;
 	Vector3 Support(const Vector3& worldDirection) const override;
 	
 	Vector3 m_translation;
 	Vector3 m_scale;
+	Vector3 m_scaleLocal;
 	Matrix m_rotation;
-
-	
 };

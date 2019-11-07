@@ -28,7 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation\AnimatorController.cpp" />
-    <ClCompile Include="Components\AffineAnimationComponent.cpp" />
     <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
@@ -94,6 +93,7 @@
     <ClCompile Include="Graphics\RenderTarget.cpp" />
     <ClCompile Include="Graphics\Sampler.cpp" />
     <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp" />
     <ClCompile Include="Managers\AudioManager.cpp" />
@@ -149,7 +149,6 @@
     <ClCompile Include="Systems\UISystem.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRendering.cpp" />
     <ClCompile Include="Graphics\TextRendering\TextRendering.cpp" />
-    <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation\AnimatorController.h" />
@@ -243,6 +242,7 @@
     <ClInclude Include="Graphics\RenderTarget.h" />
     <ClInclude Include="Graphics\Sampler.h" />
     <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\TextRendering\TextRenderingInstance.h" />
     <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Graphics\UI_Rendering\UIObjectRenderingInstance.h" />
     <ClInclude Include="Graphics\VertexLayout.h" />
@@ -303,7 +303,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Graphics\UI_Rendering\UIObjectRendering.h" />
     <ClInclude Include="Graphics\TextRendering\TextRendering.h" />
-    <ClInclude Include="Graphics\TextRendering\TextRenderingInstance.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

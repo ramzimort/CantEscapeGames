@@ -11,22 +11,31 @@ RTTR_REGISTRATION
 {
 	rttr::registration::class_<UIComponent>("UIComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-		.property("State", &UIComponent::stateAddress)
-		.property("TotalObjects", &UIComponent::totalObjects)
-		.property("TotalButtons", &UIComponent::totalButtons)
-		.property("Location", &UIComponent::location)
-		.property("SliderValue", &UIComponent::sliderValue)
-		.property("ChildButtonCount", &UIComponent::childButtonCount)
-		.property("ChildButtonLocation", &UIComponent::childButtonLocation)
+		.property("ParentName", &UIComponent::m_parentName)
+		.property("ButtonIndex", &UIComponent::buttonIndex)
+		.property("InitialPosition", &UIComponent::initialPos)
+		.property("FinalPosition", &UIComponent::finalPos)
+		.property("DeltaTime", &UIComponent::deltaTime)
+		.property("InitialRotation", &UIComponent::initailRotation)
+		.property("FinalRotation", &UIComponent::finalRotationValue)
+		.property("RotationRate", &UIComponent::rotationRate)
+		.property("Enabled", &UIComponent::m_enabled)
 		.method("Init", &UIComponent::Init);
 }
 
-UIComponent::UIComponent(GameObject *owner) :BaseComponent(owner, static_type), isTriggerd(false), isTouched(false)
+UIComponent::UIComponent(GameObject* owner) : 
+	BaseComponent(owner, static_type), 
+	m_parent(nullptr), m_enabled(true),
+	m_children(std::vector<UIComponent*>(0))
 {
-
 }
+
 UIComponent::~UIComponent()
 {
+	if (m_parent != nullptr)
+	{
+		UnregisterChild(this);
+	}
 }
 
 void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
@@ -35,89 +44,162 @@ void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 
 void UIComponent::Begin(GameObjectManager *goMgr)
 {
-
+	GameObject* go = goMgr->FindGameObject(m_parentName);
+	if (go)
+	{
+		m_parent = go->GetComponent<UIComponent>();
+		m_parent->RegisterChild(this);
+	}
 }
 
-void UIComponent::IsTriggerd()
+void UIComponent::RegisterChild(UIComponent* child)
 {
-	isTriggerd = true;
-}
-void UIComponent::IsNotTriggered()
-{
-	isTriggerd = false;
+	m_children.push_back(child);
 }
 
-void UIComponent::IsTouched()
+void UIComponent::UnregisterChild(UIComponent* child)
 {
-	isTouched = true;
-}
-void UIComponent::IsNotTouched()
-{
-	isTouched = false;
-}
-int UIComponent::GetLocation()
-{
-	return location;
-}
-
-std::string UIComponent::GetStateAddress()
-{
-	return stateAddress.getName();
+	for (auto it = m_children.begin(); it != m_children.end(); ++it)
+	{
+		if (*it == child)
+		{
+			m_children.erase(it);
+			break;
+		}
+	}
 }
 
-void UIComponent::SetSliderValue(float val)
+const UIComponent* UIComponent::GetParent() const
 {
-	sliderValue = val;
+	return m_parent;
 }
 
-int UIComponent::GetChildButtonCount()
+const UIComponent* UIComponent::GetChild(int index) const
 {
-	return childButtonCount;
+	if (index < m_children.size())
+	{
+		return m_children[index];
+	}
+	return nullptr;
 }
 
-int UIComponent::GetChildButtonLocation()
+const int UIComponent::GetNumberOfChildren() const
 {
-	return childButtonLocation;
+	return int(m_children.size());
 }
 
-int UIComponent::GetTotalObjects()
+const std::string UIComponent::GetParentName() const
 {
-	return totalObjects;
+	return m_parentName;
 }
 
-int UIComponent::GetTotalButtons()
+
+int UIComponent::GetButtonIndex()
 {
-	return totalButtons;
+	return buttonIndex;
 }
 
-void UIComponent::InitialAnimationEnabled()
+
+void UIComponent::SetRenderEnable(bool val)
 {
-	initialAnimationEnabled = true;
+	m_enabled = val;
 }
 
-void UIComponent::InitialAnimationDisabled()
+bool UIComponent::GetRenderEnable()
 {
-	initialAnimationEnabled = false;
+	return m_enabled;
 }
 
-void UIComponent::FinalAnimationEnabled()
+Vector3 UIComponent::GetUnTouchedScale()
 {
-	finalAnimationEnabled = true;
+	return unTouchedScale;
 }
 
-void UIComponent::FinalAnimationDisabled()
+void UIComponent::SetUnTouchedScale(const Vector3 & val)
 {
-	finalAnimationEnabled = false;
+	unTouchedScale = val;
 }
 
-bool UIComponent::GetInitailAnimationState()
+Vector3 UIComponent::GetTouchedScale()
 {
-	return initialAnimationEnabled;
+	return touchedScale;
 }
 
-bool UIComponent::GetFinalAnimationState()
+void UIComponent::SetTouchedScale(const Vector3 & val)
 {
-	return finalAnimationEnabled;
+	touchedScale = val;
+}
+
+
+
+
+
+
+Vector3 UIComponent::GetInitialPosition()
+{
+	return initialPos;
+}
+
+Vector3 UIComponent::GetFinalPosition()
+{
+	return finalPos;
+}
+Vector3 UIComponent::GetInitialPositionNormalized()
+{
+	Vector3 result = initialPos;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetFinalPositionNormalized()
+{
+	Vector3 result = finalPos;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetUnTouchedScaleNormalized()
+{
+	Vector3 result = unTouchedScale;
+	result.Normalize();
+	return result;
+}
+Vector3 UIComponent::GetTouchedScaleNormalized()
+{
+	Vector3 result = touchedScale;
+	result.Normalize();
+	return result;
+}
+void UIComponent::SetInitialPosition(const Vector3& val)
+{
+	initialPos = val;
+}
+void UIComponent::SetFinalPosition(const Vector3& val)
+{
+	finalPos = val;
+}
+Vector3 UIComponent::GetVelocity()
+{
+	Vector3 result = finalPos - initialPos;
+	result.Normalize();
+	return result;
+}
+float UIComponent::GetDeltaTime()
+{
+	return deltaTime;
+}
+
+float UIComponent::GetInitialRotation()
+{
+	return initailRotation;
+}
+
+float UIComponent::GetFinalRotation()
+{
+	return finalRotationValue;
+}
+
+float UIComponent::GetRotationRate()
+{
+	return rotationRate;
 }
 
 

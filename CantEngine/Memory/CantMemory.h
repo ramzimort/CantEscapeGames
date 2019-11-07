@@ -3,7 +3,7 @@
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
 
-#define PAGESIZE 8192
+#define PAGESIZE 4096
 
 namespace CantMemory
 {

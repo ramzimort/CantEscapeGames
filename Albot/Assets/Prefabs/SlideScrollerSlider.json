@@ -8,24 +8,26 @@
 	 "Scale": [ 1, 1, 1 ]
   },
 	"UIComponent": {
-	"SliderValue": 0.5
-  },
-  "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
-  },
-	
-  
-  "AffineAnimationComponent": {
-    "InitialPosition": [ 0.0, 0.0, 0.0],
+	"SliderValue": 0.5,
+	"InitialPosition": [ 0.0, 0.0, 0.0],
 	"FinalPosition": [ 0.0, 0.0, 0.0],
 	"DeltaTime": 0.0,
 	"InitialRotation" : 0.0,
 	"FinalRotation" : 0.0,
 	"RotationRate" : 0.0	
   },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
+  },
+
 	"Scripts": [
     {
 	  "Name": "Scripts\\Components\\AffineAnimation.lua"
+	  
+    }],
+	"Scripts": [
+    {
+	  "Name": "Scripts\\Components\\WindowResize.lua"
 	  
     }]
   

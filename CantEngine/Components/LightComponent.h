@@ -19,11 +19,8 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 
-	//TODO: temp function to set light from lambda
-	//light data should be serliaized
-	void SetLight(const Light& light) { m_light = light; }
 	const Light* GetLight() const;
-
+	Light* GetLight() { return &m_light; }
 public:
 	static ComponentId const static_type;
 

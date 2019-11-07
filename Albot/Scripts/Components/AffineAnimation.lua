@@ -3,13 +3,15 @@
 
 AffineAnimation = 
 {
-
-	
+	Enabled = true;
+	-- Animation Data
+	InitailAnimationEnabled = false;
+	FinalAnimationEnabled = false;
+	FinalAnimationEnd = false;
 	-- Component
 	uiComp;
 	uiTransform;
-	uiAffineAnimation;
-	cameraComp;
+
 	
 	-- Data
 	position;
@@ -25,10 +27,7 @@ AffineAnimation =
 	touchedScale;
 	location;
 	deltaTime;
-	positveVelocity;
-	negativeVelocity;
-	initialAnimationEnable = false;
-	finalAnimationEnable = false;
+	Velocity;
 
 	-- Bool Values
 	xTranslateInitial = false;
@@ -39,13 +38,6 @@ AffineAnimation =
 	rotateInitial = false;
 	rotateFinal = false;
 	
-	--UI Camera
-	cameraObj;
-	screenWidth;
-	screenHeight;
-	
-	-- Death
-	ComponentDeath = false;
 	
 }
 
@@ -72,169 +64,181 @@ AffineAnimation.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
-	self.cameraObj = goMgr:FindGameObject("UIObject1");
-	if (self.cameraObj == nil) then
-		OutputPrint(">>> GO with tag UIObject1 not found\n");
-		return;
-	end
-	
-	self.cameraComp = self.cameraObj:GetCameraComp();
-	if (self.cameraComp == nil) then
-		OutputPrint(">>> Camera Component not found\n");
-		return;
-	end
 
-	self.camera = self.cameraComp:GetCamera();
-	if (self.camera == nil) then
-		OutputPrint(">>> Camera  not found\n");
-		return;
-	end
-	
-	
-	
 	
 	self.uiTransform = owner:GetTransformComp();
 	if (self.uiTransform == nil) then 
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
 	
-	self.uiAffineAnimation = owner:GetAffineAnimationComp();
-	if (self.uiAffineAnimation == nil) then 
-		OutputPrint("ERROR, Ui Affine Animation IS NIL\n");
-	end
 	
 	
-	self.initialPosition = Vector3.new(self.uiAffineAnimation:GetInitialPosition());
+
+	self.deltaTime = self.uiComp:GetDeltaTime();
 	
-	self.position = Vector3.new(self.uiAffineAnimation:GetInitialPosition());
-	self.finalPosition = Vector3.new(self.uiAffineAnimation:GetFinalPosition());
 	
-	self.deltaTime = self.uiAffineAnimation:GetDeltaTime();
-	self.positveVelocity = Vector3.new(self.uiAffineAnimation:GetVelocity());
+	self.initialPosition = Vector3.new(self.uiComp:GetInitialPosition());
+	self.finalPosition = Vector3.new(self.uiComp:GetFinalPosition());
 	
-	self.negativeVelocity = self.uiAffineAnimation:GetVelocity();
-	self.negativeVelocity = self.negativeVelocity * (-1);
-	self.initialAnimationEnable = true;
 	
-	self.scale = Vector3.new(self.uiTransform:GetScale());
-	self.uiComp:InitialAnimationEnabled();
+	--self.uiComp:InitialAnimationEnabled();
 	
-	self.rotation = self.uiAffineAnimation:GetInitialRotation();
-	self.initialRotation = self.uiAffineAnimation:GetInitialRotation();
-	self.finalRotation = self.uiAffineAnimation:GetFinalRotation();
-	self.rotationRate = self.uiAffineAnimation:GetRotationRate();
+	self.rotation = self.uiComp:GetInitialRotation();
+	self.initialRotation = self.uiComp:GetInitialRotation();
+	self.finalRotation = self.uiComp:GetFinalRotation();
+	self.rotationRate = self.uiComp:GetRotationRate();
 	
+
+	self.InitailAnimationEnabled = true;
 end
 
 --Update called every tick
 AffineAnimation.Update = function(self, dt, owner) 
-	
-	if(self.ComponentDeath == true) then
+	if(self.Enabled == false) then
+		--return;
+	end
+	self.initialPosition = Vector3.new(self.uiComp:GetInitialPosition());
+	self.finalPosition = Vector3.new(self.uiComp:GetFinalPosition());
+	if(self.deltaTime < 0.0) then
+		self.InitailAnimationEnabled = false;
+		self.FinalAnimationEnd = true;
+		if(self.rotation > 0.0) then
+			self.rotation = self.rotation - self.rotationRate ;
+			self.uiTransform:SetLocalRotation(0.0,0.0,self.rotation);
+		end
+		
 		return;
 	end
 	
+	local position = Vector3.new(self.uiTransform:GetPosition());
+	local rotation = Vector3.new(self.uiTransform:GetRotation());
+	local velocity = Vector3.new(self.uiComp:GetVelocity());
+	self.Velocity = velocity;
 	-- Animation code
 	--------------------------
-	if(self.uiComp:GetInitailAnimationState() == true) then
+	if(self.InitailAnimationEnabled == true) then
+		
 		
 		-- X axis Compare
-		compare = self.position.x - self.finalPosition.x;
-		if(compare < 0) then
-			compare = compare * (-1);
+		if(self.xTranslateInitial == false) then
+			local compare = position.x - self.finalPosition.x;
+			if(compare < 0) then
+				compare = -compare ;
+			end
+		
+			if(compare < self.deltaTime) then
+			
+				position.x = self.finalPosition.x;	
+				self.xTranslateInitial = true;	
+			
+			else
+				position.x = position.x + velocity.x * self.deltaTime;	
+			end	
 		end
 		
-		if(compare < self.deltaTime) then
-			
-			self.position.x = self.finalPosition.x;	
-			self.xTranslateInitial = true;	
-			
-		else
-			self.position.x = self.position.x + self.positveVelocity.x * self.deltaTime;	
-		end	
 		-- Y axis Compare
-		compare = self.position.y - self.finalPosition.y;
-		if(compare < 0) then
-			compare = compare * (-1);
-		end
-		if(compare < self.deltaTime) then
-			self.position.y = self.finalPosition.y;	
-			self.yTranslateInitial = true;	
-		else
-			self.position.y = self.position.y + self.positveVelocity.y * self.deltaTime;	
+		if(self.yTranslateInitial == false) then
+			local compare = position.y - self.finalPosition.y;
+			if(compare < 0) then
+				compare = -compare ;
+			end
+			if(compare < self.deltaTime) then
+				position.y = self.finalPosition.y;	
+				self.yTranslateInitial = true;	
+			else
+				position.y = position.y + velocity.y * self.deltaTime;	
+			end
 		end
 		-- Rotation
-		if( self.rotation <= 0.0) then
-			self.rotation = 0.0;	
-			self.rotateInitial = true;	
-		else
-			self.rotation = self.rotation + self.rotationRate ;
-			
+		if(self.rotateInitial == false) then
+			if( self.rotation <= 0.0) then
+				self.rotation = 0.0;	
+				self.rotateInitial = true;	
+			else
+				self.rotation = self.rotation + self.rotationRate ;
+			end
 		end
 	end
 ---------------------------------------------------------------	
-	if(self.uiComp:GetFinalAnimationState() == true or _G.PlayFinalAnimation == true) then
+	if(self.FinalAnimationEnabled == true and self.FinalAnimationEnd == false ) then
 		
 		
 		-- X axis Compare
-		compare = self.position.x - self.initialPosition.x;
-		
-		if(compare < 0) then
-			compare = compare * (-1);
-		end
-
-		if(compare <= self.deltaTime) then
-			
-			self.position.x = self.initialPosition.x;
-			if (self.xTranslateFinal == false)	then		
-				self.xTranslateFinal = true;
+		if(self.xTranslateFinal == false) then
+			local compare = position.x - self.initialPosition.x;
+			if(compare < 0) then
+				compare = -compare ;
 			end
-		else
-			
-			self.position.x = self.position.x - self.positveVelocity.x * self.deltaTime;	
-		end	
-		-- Y axis Compare
-		compare = self.position.y - self.initialPosition.y;
-		if(compare < 0) then
-			compare = compare * (-1);
+			if(compare <= self.deltaTime) then
+				position.x = self.initialPosition.x;
+				self.xTranslateFinal = true;
+			else
+				position.x = position.x - velocity.x * self.deltaTime;	
+			end	
 		end
-		if(compare <= self.deltaTime) then
-			self.position.y = self.initialPosition.y;
-			if (self.yTranslateFinal == false)	then		
+		-- Y axis Compare
+		if(self.yTranslateFinal == false) then
+			local compare = position.y - self.initialPosition.y;
+			if(compare < 0) then
+				compare = -compare ;
+			end
+			if(compare <= self.deltaTime) then
+				position.y = self.initialPosition.y;		
 				self.yTranslateFinal = true;
-			end			
 			
-			
-		else
-			self.position.y = self.position.y - self.positveVelocity.y * self.deltaTime;	
+			else
+				position.y = position.y - velocity.y * self.deltaTime;	
+			end
 		end
 		-- Rotation
-		if( self.rotation >= self.initialRotation) then
-			self.rotation = 0.0;	
-			self.rotateFinal = true;	
-		else
-			self.rotation = self.rotation - self.rotationRate ;
+		if(self.rotateFinal == false) then
+			if( self.rotation >= self.initialRotation) then
+				self.rotation = 0.0;	
+				self.rotateFinal = true;	
+			else
+				self.rotation = self.rotation - self.rotationRate ;
 			
+			end
 		end
 	end
 -------------------------------------------------------------------------------	
 	if(self.xTranslateInitial == true and self.yTranslateInitial == true and self.rotateInitial == true) then
-		self.uiComp:InitialAnimationDisabled();
 		self.xTranslateInitial = false;
 		self.yTranslateInitial = false;
-		
+		self.InitailAnimationEnabled = false;
+		self.uiTransform:SetLocalPosition(self.finalPosition.x, self.finalPosition.y, self.finalPosition.z);
+		self.uiTransform:SetLocalRotation(0.0,0.0,0.0);
 	end
 	if(self.xTranslateFinal == true and self.yTranslateFinal == true and self.rotateFinal == true) then
-		self.uiComp:FinalAnimationDisabled();
-		self.ComponentDeath = true;
-		
-		_G.FinalAnimationCount =  _G.FinalAnimationCount + 1;
+		self.FinalAnimationEnd = true;
+		self.uiTransform:SetLocalPosition(self.initialPosition.x, self.initialPosition.y, self.initialPosition.z);
 	end
 	--------------------------------------------------------------------------
 	
-	if(self.uiComp:GetInitailAnimationState() == true or self.uiComp:GetFinalAnimationState() == true or _G.PlayFinalAnimation == true) then
+	if(self.InitailAnimationEnabled == true or self.FinalAnimationEnabled == true ) then
 		self.uiTransform:SetLocalRotation(0.0,0.0,self.rotation);
-		self.uiTransform:SetLocalPosition(self.position.x, self.position.y, self.position.z);
+		self.uiTransform:SetLocalPosition(position.x, position.y, position.z);
 	end
+end
+
+AffineAnimation.SetFinalAnimation = function(self)
+   self.FinalAnimationEnabled = true;
+   self.InitailAnimationEnabled = false;
+end
+AffineAnimation.GetFinalAnimationState = function(self)
+   return self.FinalAnimationEnd;
+end
+AffineAnimation.Disable = function(self)
+   self.Enabled = false;
+end
+AffineAnimation.GetxTranslateFinal = function(self)
+  return self.xTranslateFinal;
+end
+AffineAnimation.GetyTranslateFinal = function(self)
+  return self.yTranslateFinal;
+end
+AffineAnimation.GetRotateFinal = function(self)
+  return self.rotateFinal;
 end
 
 return AffineAnimation;

@@ -4,6 +4,7 @@ RTTR_REGISTRATION
 {
 	rttr::registration::class_<Light>("Light")
 		.property("LightType", &Light::m_light_type)
+		.property("Position", &Light::m_position)
 		.property("Color", &Light::m_color)
 		.property("Intensity", &Light::m_intensity)
 		.property("CastShadow", &Light::m_cast_shadow)
@@ -25,7 +26,8 @@ Light::Light()
 	m_cast_shadow(true),
 	m_enabled(true),
 	m_radius(1.f),
-	m_shadow_intensity(1.f)
+	m_shadow_intensity(1.f),
+	m_position(0.f)
 {
 }
 
@@ -44,7 +46,7 @@ float Light::GetIntensity() const
 	return m_intensity;
 }
 
-ELightType Light::get_light_type() const
+ELightType Light::GetLightType() const
 {
 	return m_light_type;
 }

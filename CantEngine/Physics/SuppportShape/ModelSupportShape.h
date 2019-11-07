@@ -15,12 +15,11 @@ Other Authors :
 class ModelSupportShape : public SupportShape
 {
 public:
+	ModelSupportShape(const Model& model, const TransformComponent& transform);
+
 	Vector3 GetCenter() const override;
 	Vector3 Support(const Vector3& worldDirection) const override;
 
-	void GetFaceNormals(std::vector<Vector3>& faceNormals) const;
-	void GetEdgeDirections(std::vector<Vector3>& edge) const;
-
-	Model* m_model;
-	Matrix m_modelToWorld;
+	const Model& m_model;
+	const TransformComponent& m_transform;
 };

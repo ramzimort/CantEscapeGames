@@ -4,7 +4,6 @@
 extern bool PhysicsUtils::Settings::isDrawContactPoints = false;
 extern bool PhysicsUtils::Settings::isDrawGJKResult = false;
 extern bool PhysicsUtils::Settings::isDrawEPAFinalTriangle = false;
-extern bool PhysicsUtils::Settings::isDrawConstraints = false;
 extern bool PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree = false;
 extern int PhysicsUtils::Settings::dynamicAabbLevelDraw = -1;
 

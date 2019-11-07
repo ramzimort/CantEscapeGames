@@ -47,6 +47,8 @@ public:
 	Matrix const& GetRotationMatrix() const;
 	Matrix const& GetScaleMatrix() const;
 
+	Vector3  GetPositionNormalized() const;
+	Vector3  GetScaleNormalized() const;
 	//Setters
 	void SetLocalPosition(float x, float y, float z);
 	void SetLocalPosition(const Vector3& position);

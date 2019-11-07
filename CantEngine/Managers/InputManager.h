@@ -15,6 +15,20 @@ Other Authors : <None>
  *			#include <SDL2/SDL_keycode.h> for key/mouse constants
  */
 
+class GameWindowSizeEvent;
+
+struct ControllerData
+{
+	ControllerData() : 
+		m_pGameController(nullptr), m_currentState({ false }) { }
+	ControllerData(SDL_GameController* pCtrlr) :
+		m_pGameController(pCtrlr) , m_currentState({ false })
+	{
+	}
+	SDL_GameController* m_pGameController;
+	std::array<bool, SDL_CONTROLLER_BUTTON_MAX> m_currentState;
+};
+
 class InputManager
 {
 public:
@@ -46,18 +60,27 @@ public:
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit() const;
 	void Quit();
+	void OnWindowResizeRequest(const GameWindowSizeEvent* e);
 
 private:
 	void UpdateMouseClickState();
 private:
 	SDL_Window* m_pWindow;
+	// Keyboard
 	std::array<bool, 512> m_keyboardState;
+	// Mouse
 	Uint8 m_mouseStateCurrent;
 	Uint8 m_mouseStatePrevious;
 	int m_mousePositionCurrent[2];
 	int m_mousePositionPrevious[2];
 	Sint32 m_mouseWheelY;
+	
+	// Joystick
+	std::unordered_map<int32_t, ControllerData> m_controllerData;
+
+	// Main Event
 	SDL_Event m_event;
 	bool m_quit;
 };
+
 

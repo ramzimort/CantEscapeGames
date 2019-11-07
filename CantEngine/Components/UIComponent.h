@@ -18,59 +18,78 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	void Begin(GameObjectManager *goMgr) override;
 
-	void IsTriggerd();
-	void IsNotTriggered();
+	void RegisterChild(UIComponent* child);
+	void UnregisterChild(UIComponent* child);
 
-	void IsTouched();
-	void IsNotTouched();
-	int GetLocation();
-	int GetTotalObjects();
-	int GetTotalButtons();
+	const UIComponent* GetParent() const;
+	const UIComponent* GetChild(int index) const;
+	const int GetNumberOfChildren() const;
+	const std::string GetParentName() const;
 
-	void InitialAnimationEnabled();
-	void InitialAnimationDisabled();
 
-	void FinalAnimationEnabled();
-	void FinalAnimationDisabled();
 
-	bool GetInitailAnimationState();
-	bool GetFinalAnimationState();
+	int GetButtonIndex();
 
-	std::string GetStateAddress();
+	void SetRenderEnable(bool val);
+	bool GetRenderEnable();
 
-	void SetSliderValue(float val);
 
-	int GetChildButtonCount();
-	int GetChildButtonLocation();
+
+	Vector3 GetUnTouchedScale();
+	Vector3 GetUnTouchedScaleNormalized();
+	void SetUnTouchedScale(const Vector3& val);
+
+	Vector3 GetTouchedScale();
+	Vector3 GetTouchedScaleNormalized();
+	void SetTouchedScale(const Vector3& val);
+	// Animation  Function
+	Vector3 GetInitialPosition();
+	Vector3 GetFinalPosition();
+	Vector3 GetInitialPositionNormalized();
+	Vector3 GetFinalPositionNormalized();
+	void SetInitialPosition(const Vector3& val);
+	void SetFinalPosition(const Vector3& val);
+	Vector3 GetVelocity();
+	float GetDeltaTime();
+	float GetInitialRotation();
+	float GetFinalRotation();
+	float GetRotationRate();
+
 
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
 
 private:
-	//Initial animation executed
-	bool initialAnimationEnabled = false;
 	
-	bool finalAnimationEnabled = false;
 
-	//Component count in state, (used when we want highlight a button when mouse cursor on it)
-	int location;
-	//if mouse on ui object
-	bool isTouched;
-	//if mouse on ui object
-	bool isTriggerd;
-	// Total buttons UICamera will have
-	int totalButtons;
-	// Total objects UICamera will have
-	int totalObjects;
-	//Loading state of a the buttons
-	StringId stateAddress;
-	//Slider Value
-	float sliderValue;
+	//  Inital position of the object
+	Vector3 initialPos; 
+	// Final position of the object
+	Vector3 finalPos;
 	//
-	int childButtonCount;
+	Vector3 unTouchedScale;
 	//
-	int childButtonLocation;
+	Vector3 touchedScale;
+	// Delta time for the animation
+	float deltaTime;
+	// Inital Roation Value
+	float initailRotation;
+	// Final Rotation Value
+	float finalRotationValue;
+	// Rate of Roation along Z axis
+	float rotationRate;
+
+
+
+	// ALL NEW STUFF
+	int buttonIndex;
+	bool m_clicked;
+	bool m_enabled;
+	std::string m_parentName;
+	UIComponent* m_parent;
+	std::vector<UIComponent*> m_children;
+
 
 
 	RTTR_ENABLE(BaseComponent);

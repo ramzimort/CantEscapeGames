@@ -8,6 +8,7 @@ Primary Author: Aleksey Perfilev
 
 #include "Physics/Gjk/CollisionManifold.h"
 #include "Physics/SuppportShape/ObbSupportShape.h"
+#include "Physics/SuppportShape/ModelSupportShape.h"
 #include "Physics/Gjk/Gjk.h"
 
 class RigidbodyComponent;
@@ -97,8 +98,6 @@ public:
 
 	RigidbodyComponent* m_objectA;
 	RigidbodyComponent* m_objectB;
-	ObbSupportShape m_supportShapeA;
-	ObbSupportShape m_supportShapeB;
 	Vector3 m_pALocal;				 // object space coords
 	Vector3 m_pBLocal;				 // object space coords
 	Vector3 m_pA;					 // world coords

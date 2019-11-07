@@ -38,6 +38,8 @@ GameObjectManager::~GameObjectManager()
 		if (it != m_taggedGameObjs.end())
 			m_taggedGameObjs.erase(it);
 
+		EventManager::Get()->EnqueueEvent<GameObjectDestroyed>(true, node.first, node.second);
+
 		CantMemory::PoolResource<GameObject>::Free(node.second);
 	}
 	m_gameObjects.clear();
@@ -82,7 +84,9 @@ void GameObjectManager::Instantiate_Queued_GameObjects(AppRenderer *pRenderer, R
 		GameObjectDesc& descriptor = m_instantiationQueue.front();
 
 		//Create the new GameObject and handle tag
-		GameObject *go = (descriptor.tag == "") ? new GameObject(this, descriptor.prefabName) : new GameObject(this, descriptor.prefabName, descriptor.tag);
+		GameObject *go = (descriptor.tag == "") ? 
+			CantMemory::PoolResource<GameObject>::Allocate(this, descriptor.prefabName) : 
+			CantMemory::PoolResource<GameObject>::Allocate(this, descriptor.prefabName, descriptor.tag);
 		if (go) 
 		{
 			//Lambda call

@@ -2,7 +2,7 @@
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-    "Scale": [1.0, 1.0, 1.0]
+    "Scale": [ 1.0, 1.0, 1.0 ]
   },
 
   "RendererComponent": {
@@ -20,7 +20,8 @@
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
-    "CollisionMask": "DINAMIC_OBJ"
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef":  0.2
   }
 
 }

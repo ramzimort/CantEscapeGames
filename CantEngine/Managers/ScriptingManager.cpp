@@ -125,7 +125,9 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 
 	luaState.set_function("Localize", &GetLString);
-	luaState.set_function("Rotate", &MathUtil::RotateVector);
+	luaState["CantMath"] = luaState.create_table_with(
+		"7", SDL_SCANCODE_7
+	);
 
 #pragma region EVENTS
 	//////////////////////////////
@@ -156,15 +158,43 @@ void ScriptingManager::ManageBindings()
 		(
 			"MouseScrollMulticast",
 			"Bind", &Multicast<void(Sint32, Sint32)>::BindLuaFunction,
+
 			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
 			);
 
-	luaState.new_usertype<Multicast<void(int, int)>>
+	luaState.new_usertype<Multicast<void(int, int, float, float)>>
 		(
 			"WindowSizeMulticast",
-			"Bind", &Multicast<void(int, int)>::BindLuaFunction,
-			"Unbind", &Multicast<void(int, int)>::UnbindLuaFunction
+			"Bind", &Multicast<void(int, int, float, float)>::BindLuaFunction,
+			"Unbind", &Multicast<void(int, int, float, float)>::UnbindLuaFunction
 			);
+
+	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
+		(
+			"RigidbodyMultiCast",
+			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
+			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
+		);
+
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const float)>>
+		(
+			"JoystickMotionMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t, const float)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const float)>::UnbindLuaFunction
+			);
+
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t)>>
+		(
+			"JoystickHatMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const  uint32_t)>::UnbindLuaFunction
+		);
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t,const bool)>>
+		(
+			"JoystickButtonMulticast",
+			"Bind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::BindLuaFunction,
+			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::UnbindLuaFunction
+		);
 
 
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
@@ -173,28 +203,53 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnMouseClick", &MouseClickEvent::OnMouseClick);
 	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
 	luaState.set_function("OnResourcesLoaded", &ResourcesLoadedEvent::OnResourcesLoaded);
+	luaState.set_function("OnJoystickMotion", &JoystickMotionEvent::OnJoyMotionEvent);
+	luaState.set_function("OnJoystickHat", &JoystickHatEvent::OnJoystickHatEvent);
+	luaState.set_function("OnJoystickButton", &JoystickButtonEvent::OnJoystickButtonEvent);
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
-	(
-		"EventManager",
-		"Get", &EventManager::Get,
+		(
+			"EventManager",
+			"Get", &EventManager::Get,
+			"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
+			// Resize Window Event
+			"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
 
-		// State Events
-		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-		"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-		"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-		"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
-			
-		//Audio Events
-		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
-	);
+
+			// State Events
+			"PushState", & EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+			"PopState", & EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", & EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+			"PushLoadedState", & EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+
+			//Audio Events
+			"PlaySong", & EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", & EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+			);
 
 
 
 #pragma endregion
 
+#pragma region CONTROLLER
+	luaState["CONTROLLER"] =  luaState.create_table_with(
+	"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
+	"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
+	"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
+	"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
+	"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
+	"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
+	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
+	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
+	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
+	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+	"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
+	"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
+	"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
+	"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	);
+#pragma endregion
 #pragma region SCANCODE
 	luaState["SCANCODE"] = luaState.create_table_with(
 		"A", SDL_SCANCODE_A,
@@ -268,6 +323,8 @@ void ScriptingManager::ManageBindings()
 		"x", &Vector2::x,
 		"y", &Vector2::y,
 		"dot", &Vector2::Dot,
+		"len", &Vector2::Length,
+		"len2", &Vector2::LengthSquared,
 		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 		sol::meta_function::addition, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Vector2(Vector2 const&, Vector2 const&)>(operator-),
@@ -283,7 +340,8 @@ void ScriptingManager::ManageBindings()
 		"y", &Vector3::y,
 		"z", &Vector3::z,
 		"dot", &Vector3::Dot,
-		"len", &Vector3::Length,
+		"len", &Vector3::Length, 
+		"len2", &Vector3::LengthSquared,
 		// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 		sol::meta_function::addition, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Vector3(Vector3 const&, Vector3 const&)>(operator-),
@@ -299,6 +357,8 @@ void ScriptingManager::ManageBindings()
 			"z", &Vector4::z,
 			"w", &Vector4::w,
 			"dot", &Vector4::Dot,
+			"len", &Vector4::Length,
+			"len2", &Vector4::LengthSquared,
 			// we use 'sol::resolve' cause other operator+ can exist in the (global) namespace
 			sol::meta_function::addition, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator+),
 			sol::meta_function::subtraction, sol::resolve<Vector4(Vector4 const&, Vector4 const&)>(operator-),
@@ -373,7 +433,7 @@ void ScriptingManager::ManageBindings()
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
-		"GetAffineAnimationComp", &GameObject::GetComponent<AffineAnimationComponent>,
+		
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
@@ -410,6 +470,8 @@ void ScriptingManager::ManageBindings()
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,
 		"GetScale", &TransformComponent::GetScale,
+		"GetPositionNormalized", &TransformComponent::GetPositionNormalized,
+		"GetScaleNormalized", &TransformComponent::GetScaleNormalized,
 		"GetModel", &TransformComponent::GetModel,
 		"GetRotationMatrix", &TransformComponent::GetRotationMatrix,
 		"GetScaleMatrix", &TransformComponent::GetScaleMatrix,
@@ -423,33 +485,41 @@ void ScriptingManager::ManageBindings()
 	// UIComponent
 	luaState.new_usertype<UIComponent>
 		("UIComponent",
-			"GetLocation", &UIComponent::GetLocation,
-			"GetTotalObjects", &UIComponent::GetTotalObjects,
-			"GetTotalButtons", &UIComponent::GetTotalButtons,
-			"GetStateAddress", &UIComponent::GetStateAddress,
-			"InitialAnimationEnabled", &UIComponent::InitialAnimationEnabled,
-			"InitialAnimationDisabled", &UIComponent::InitialAnimationDisabled,
-			"FinalAnimationEnabled", &UIComponent::FinalAnimationEnabled,
-			"FinalAnimationDisabled", &UIComponent::FinalAnimationDisabled,
-			"GetInitailAnimationState", &UIComponent::GetInitailAnimationState,
-			"GetFinalAnimationState", &UIComponent::GetFinalAnimationState,
-			"SetSliderValue", sol::overload(
-				sol::resolve<void(float)>(&UIComponent::SetSliderValue)),
-			"GetChildButtonCount", &UIComponent::GetChildButtonCount,
-			"GetChildButtonLocation", &UIComponent::GetChildButtonLocation
+			"GetButtonIndex", &UIComponent::GetButtonIndex,
+			"GetParent", &UIComponent::GetParent,
+			"GetParentName", &UIComponent::GetParentName,
+			"GetChild", &UIComponent::GetChild,
+			"GetNumberOfChildren", &UIComponent::GetNumberOfChildren,
+
+
+			"GetRenderEnable", &UIComponent::GetRenderEnable,
+			"SetRenderEnable", sol::overload(
+				sol::resolve<void(bool)>(&UIComponent::SetRenderEnable)),
+			"GetChild", &UIComponent::GetChild,
+			"GetInitialPosition", &UIComponent::GetInitialPosition,
+			"GetFinalPosition", &UIComponent::GetFinalPosition,
+			"GetInitialPositionNormalized", &UIComponent::GetInitialPositionNormalized,
+			"GetFinalPositionNormalized", &UIComponent::GetFinalPositionNormalized,
+			"SetInitialPosition", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetInitialPosition)),
+			"SetFinalPosition", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetFinalPosition)),
+			"SetTouchedScale", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetTouchedScale)),
+			"SetUnTouchedScale", sol::overload(
+				sol::resolve<void(Vector3 const&)>(&UIComponent::SetUnTouchedScale)),
+			"GetTouchedScale", &UIComponent::GetTouchedScale,
+			"GetUnTouchedScale", &UIComponent::GetUnTouchedScale,
+			"GetUnTouchedScaleNormalized", &UIComponent::GetUnTouchedScaleNormalized,
+			"GetTouchedScaleNormalized", &UIComponent::GetTouchedScaleNormalized,
+			"GetDeltaTime", &UIComponent::GetDeltaTime,
+			"GetVelocity", &UIComponent::GetVelocity,
+			"GetInitialRotation", &UIComponent::GetInitialRotation,
+			"GetFinalRotation", &UIComponent::GetFinalRotation,
+			"GetRotationRate", &UIComponent::GetRotationRate
 			);
 
-	// AffineAnimationComponent
-	luaState.new_usertype<AffineAnimationComponent>
-		("AffineAnimationComponent",
-			"GetInitialPosition", &AffineAnimationComponent::GetInitialPosition,
-			"GetFinalPosition", &AffineAnimationComponent::GetFinalPosition,
-			"GetDeltaTime", &AffineAnimationComponent::GetDeltaTime,
-			"GetVelocity", &AffineAnimationComponent::GetVelocity,
-			"GetInitialRotation", &AffineAnimationComponent::GetInitialRotation,
-			"GetFinalRotation", &AffineAnimationComponent::GetFinalRotation,
-			"GetRotationRate", &AffineAnimationComponent::GetRotationRate
-				);
+
 
 	//ANIMATION
 	luaState.new_usertype<AnimationComponent>
@@ -467,7 +537,14 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<RigidbodyComponent>
 	(
 		"RigidbodyComponent",
-		"GetMass", &RigidbodyComponent::GetMass
+		"GetVelocity", &RigidbodyComponent::GetVelocity,
+		"SetVelocity", &RigidbodyComponent::SetVelocity,
+		"GetAngularVelocity", &RigidbodyComponent::GetAngularVelocity,
+		"SetAngularVelocity", &RigidbodyComponent::SetAngularVelocity,
+
+		"GetMass", &RigidbodyComponent::GetMass,
+		"SetMass", &RigidbodyComponent::SetMass,
+		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
 	//RENDERER
@@ -498,6 +575,11 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Camera>
 	(
 		"Camera",
+		"SetFOV", &Camera::SetFOV,
+		"GetWidthHeight", &Camera::GetWidthHeight,
+		"IncreaseFOV", &Camera::IncreaseFOV,
+		"DecreaseFOV", &Camera::DecreaseFOV,
+		"GetFOV", &Camera::GetFOV,
 		"GetForward", &Camera::GetForward,
 		"GetViewMatrix", &Camera::GetViewMatrix,
 		"GetViewProjectionMatrix", &Camera::GetViewProjectionMatrix,
@@ -509,6 +591,14 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
 			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition))
 	);
+
+	luaState.new_usertype<ParticleEmitterComponent>
+		(
+			"ParticleEmitterComponent",
+			"Emit", &ParticleEmitterComponent::Emit,
+			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
+			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
+			);
 
 	//PARTICLE_EMITTER
 	luaState.new_usertype<ParticleEmitterComponent>

@@ -6,6 +6,7 @@ Primary Author: Aleksey Perfilev
 - End Header --------------------------------------------------------*/
 
 #include "Physics/SuppportShape/ObbSupportShape.h"
+#include "Physics/SuppportShape/ModelSupportShape.h"
 #include "RigidbodySystem.h"
 #include "GameObjects/GameObject.h"
 #include "Physics/PhysicsUtils.h"
@@ -112,6 +113,8 @@ void RigidbodySystem::LateUpdate(float dt)
 #endif			
 			RigidbodyComponent* rigidbody = rigidbodyNode->m_rigidbody;
 			TransformComponent* transform = rigidbodyNode->m_transform;
+
+			rigidbody->m_isColliding = false;
 			
 			MeshComponent* mesh = rigidbodyNode->m_mesh;
 #ifdef DEVELOPER
@@ -231,21 +234,27 @@ void RigidbodySystem::LateUpdate(float dt)
 			TransformComponent* tr1 = rb1->GetOwner()->GetComponent<TransformComponent>();
 			TransformComponent* tr2 = rb2->GetOwner()->GetComponent<TransformComponent>();
 
+			MeshComponent* mesh1 = rb1->GetOwner()->GetComponent<MeshComponent>();
+			MeshComponent* mesh2 = rb2->GetOwner()->GetComponent<MeshComponent>();
+
 			Contact contact;
 			contact.m_objectA = rb1;
 			contact.m_objectB = rb2;
-			contact.m_supportShapeA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix());
-			contact.m_supportShapeB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix());
-
+			const Aabb& localAabb1 = mesh1->GetModel()->GetAABB();
+			const Aabb& localAabb2 = mesh2->GetModel()->GetAABB();
+			ObbSupportShape modelSupportA = ObbSupportShape(tr1->GetPosition(), tr1->GetScale(), tr1->GetRotationMatrix(), localAabb1);
+			ObbSupportShape modelSupportB = ObbSupportShape(tr2->GetPosition(), tr2->GetScale(), tr2->GetRotationMatrix(), localAabb2);
+			//ModelSupportShape modelSupportA(*(mesh1->GetModel()), *tr1);
+			//ModelSupportShape modelSupportB(*(mesh2->GetModel()), *tr2);
 			Gjk gjk;
 			const float epsilon = 0.001f;
 			std::vector<Gjk::CsoPoint> simplex;
 
 			Gjk::CsoPoint closestPoint;
 			
-			if (gjk.Intersect(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, closestPoint, epsilon, m_pAppRenderer, true))
+			if (gjk.Intersect(simplex, &modelSupportA, &modelSupportB, closestPoint, epsilon, m_pAppRenderer, true))
 			{
-				if (gjk.Epa(simplex, &contact.m_supportShapeA, &contact.m_supportShapeB, contact, m_pAppRenderer, epsilon))
+				if (gjk.Epa(simplex, &modelSupportA, &modelSupportB, contact, m_pAppRenderer, epsilon))
 				{
 					// collision point in local space
 					contact.m_pALocal = PhysicsUtils::WorldToModel(tr1->GetModel(), contact.m_pA);
@@ -327,6 +336,15 @@ void RigidbodySystem::LateUpdate(float dt)
 		// for each collision with another object
 		for (ContactManifold& contactManifold : m_contactManifolds)
 		{
+			// notifying that collision happened between two objects
+			if (contactManifold.m_contacts.size() > 0)
+			{
+				RigidbodyComponent* rb1 = contactManifold.m_object1;
+				RigidbodyComponent* rb2 = contactManifold.m_object2;
+				rb1->m_onCollision(rb1->GetOwner(), rb2->GetOwner());
+				rb2->m_onCollision(rb2->GetOwner(), rb1->GetOwner());
+			}
+
 			const int numIterations = 50;// PhysicsUtils::Consts::Constraints::numGaussSeidelIterations
 			for (int i = 0; i < numIterations; i++)
 			{
@@ -334,7 +352,6 @@ void RigidbodySystem::LateUpdate(float dt)
 				// solve for each constraint and update velocity
 				for (int k = 0; k < contacts.size(); k++)
 				{
-					// converting back to normal storage
 					if (contacts[k].m_objectA->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ &&
 						contacts[k].m_objectB->m_collisionMask == CollisionTable::CollisionMask::STATIC_OBJ )
 					{
@@ -395,7 +412,8 @@ void RigidbodySystem::LateUpdate(float dt)
 							// dot product should give us the cos of angle between normal and gravity (both should be normalized at this point)
 							//float collisionWeight = PhysicsUtils::Consts::gravity * constraints[j].m_normal.Dot(Vector3(0.0f, 1.0f, 0.0f));
 							//lambda = MathUtil::Clamp(lambda, -PhysicsUtils::Consts::Constraints::friction * collisionWeight, PhysicsUtils::Consts::Constraints::friction * collisionWeight);
-							float maxFrictionMultiplier = PhysicsUtils::Consts::Constraints::friction * constraints[0].m_lambda;
+							float averageFrction = (constraints[j].m_object1->m_frictionCoef + constraints[j].m_object2->m_frictionCoef) * 0.5f;
+							float maxFrictionMultiplier = averageFrction * constraints[0].m_lambda;
 							lambda = MathUtil::Clamp(lambda, -maxFrictionMultiplier, maxFrictionMultiplier);
 						}
 
@@ -488,14 +506,14 @@ void RigidbodySystem::OnKeyDown(const KeyEvent* keyEvent)
 	static bool isRightPressedIn = false;
 	switch (keyEvent->m_scancode)
 	{
-		case SDL_SCANCODE_SPACE:
+		case SDL_SCANCODE_LEFTBRACKET:
 			isSpacePressedIn = !isSpacePressedIn;
 			if (isSpacePressedIn)
 			{
 				m_isPaused = !m_isPaused;
 			}
 			break;
-		case SDL_SCANCODE_RIGHT:
+		case SDL_SCANCODE_RIGHTBRACKET:
 			isRightPressedIn = !isRightPressedIn;
 			if (isRightPressedIn)
 			{

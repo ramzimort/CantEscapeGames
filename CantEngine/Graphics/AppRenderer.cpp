@@ -23,7 +23,7 @@ m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
 m_particleRendering(this),
-m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
+m_momentShadowMapRendering(this, MomentShadowMapData{1024u, 1024u}),
 m_toSkyboxRender(this),
 m_iblFilterEnvMapPass(this),
 m_brdfLookupTexturePass(this),
@@ -153,9 +153,9 @@ void AppRenderer::InnerLoadContent()
 	uiTransparencyBlendingDesc.m_blendOperator[0] = BO_ADD;
 	uiTransparencyBlendingDesc.m_blendAlphaOperator[0] = BO_ADD;
 	uiTransparencyBlendingDesc.m_srcFactors[0] = BF_SRC_ALPHA;
-	uiTransparencyBlendingDesc.m_dstFactors[0] = BF_DST_ALPHA;
+	uiTransparencyBlendingDesc.m_dstFactors[0] = BF_ONE_MINUS_SRC_ALPHA;
 	uiTransparencyBlendingDesc.m_srcAlphaFactors[0] = BF_ONE_MINUS_DST_ALPHA;
-	uiTransparencyBlendingDesc.m_dstAlphaFactors[0] = BF_ONE_MINUS_DST_ALPHA;
+	uiTransparencyBlendingDesc.m_dstAlphaFactors[0] = BF_ZERO;
 	uiTransparencyBlendingDesc.m_blendStateTarget = BLEND_STATE_RT_0;
 	uiTransparencyBlendingDesc.m_individualBlend = false;
 	uiTransparencyBlendingDesc.m_enableAlphaCoverage = false;

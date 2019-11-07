@@ -25,20 +25,18 @@ void UISystem::Register_GameObject(GameObject *go)
 	BaseSystemCompNode *component_node = new UICompNode(transform, uiComp);
 	component_node->m_goID = go->GetId();
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
+
 }
 void UISystem::EarlyUpdate(float dt)
 {
-	//for (auto& node : m_ObjComponentsMap)
-	//{
-	//	UICompNode* uiNode = static_cast<UICompNode*>(node.second);
-	//	UIComponent* uiComponent = uiNode->uiComp;
-	//	TransformComponent* transformComponent = uiNode->m_transform;
+	for (auto& node : m_ObjComponentsMap)
+	{
+		UICompNode* uiNode = static_cast<UICompNode*>(node.second);
+		UIComponent* uiComponent = uiNode->uiComp;
+		TransformComponent* transformComponent = uiNode->m_transform;
 
-	//	if (uiComponent->isTriggerd == true)
-	//	{
-	//		int test = 0;
-	//	}
-	//}
+		
+	}
 }
 
 void UISystem::RegisterAppRenderer(AppRenderer* appRenderer)
@@ -49,7 +47,11 @@ void UISystem::RegisterAppRenderer(AppRenderer* appRenderer)
 void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 {
 	UICompNode* uiNode = static_cast<UICompNode*>(compNode);
-
+	UIComponent* uiComponent = uiNode->uiComp;
+	if (uiComponent->m_enabled == false)
+	{
+		return;
+	}
 	RendererComponent* rendererComponent = uiNode->m_transform->GetOwner()->GetComponent<RendererComponent>();
 
 	if (!rendererComponent)
@@ -61,8 +63,8 @@ void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 	Vector3 scale = uiNode->m_transform->GetScale();
 
 	UIObjectInstanceRenderData uiObjectInstanceRenderData = {};
-	uiObjectInstanceRenderData.m_windowSpacePosition = Vector2(position.x, position.y);
-	uiObjectInstanceRenderData.m_windowSpaceSize = Vector2(scale.x, scale.y);
+	uiObjectInstanceRenderData.m_windowSpacePosition = Vector3(position.x, position.y, position.z);
+	uiObjectInstanceRenderData.m_windowSpaceSize = Vector3(scale.x, scale.y, 0.01f);
 	uiObjectInstanceRenderData.m_pUIMaterial = rendererComponent->m_pMaterial;
 	uiObjectInstanceRenderData.m_rotationMatrix = &uiNode->m_transform->GetRotationMatrix();
 

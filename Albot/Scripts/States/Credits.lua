@@ -8,9 +8,8 @@ Credits =
 
 --OnCreate, called when creating this state
 Credits.OnCreateState = function(self)
-	
-	OutputPrint("Created " .. self.name .. " state");
-
+	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 

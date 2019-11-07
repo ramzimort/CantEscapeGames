@@ -31,6 +31,7 @@ static Editor*					g_Editor = NULL;
 static MaterialMaker*			g_materialMaker = NULL;
 static PhysicsConfig*			g_physConfig = NULL;
 std::mutex*						g_mutex = NULL;
+std::mutex						g_gMutex;
 
 // Our State
 bool _update = true;
@@ -108,14 +109,17 @@ namespace CantDebugAPI
 
 	void Log(const char* data)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_logQueue->Push(data);
 	}
 	void Trace(const char* data)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_traceQueue->Push(data);
 	}
 	void MemoryLog(const char* pool, const void* address)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_memoryProfiler->AddElement(pool, address);
 	}
 	void MemoryFree(const char* pool, const void* address)
@@ -212,7 +216,6 @@ namespace CantDebugAPI
 	{
 		g_physConfig->Draw_Dynamic_AABB_Tree = info.Draw_Dynamic_AABB_Tree;
 		g_physConfig->dynamicAabbLevelDraw = info.dynamicAabbLevelDraw;
-		g_physConfig->isDrawConstraints = info.isDrawConstraints;
 		g_physConfig->isDrawContactPoints = info.isDrawContactPoints;
 		g_physConfig->isDrawEPAFinalTriangle = info.isDrawEPAFinalTriangle;
 		g_physConfig->isDrawGJKResult = info.isDrawGJKResult;
@@ -246,7 +249,6 @@ void UpdateWindow()
 				ImGui::Checkbox("Draw Dynamic AABB Tree", g_physConfig->Draw_Dynamic_AABB_Tree);
 				ImGui::SameLine();
 				ImGui::SliderInt("AABB Tree Level", g_physConfig->dynamicAabbLevelDraw, -1, 10);
-				ImGui::Checkbox("Draw Constraints", g_physConfig->isDrawConstraints);
 				ImGui::Checkbox("Draw Contact Points", g_physConfig->isDrawContactPoints);
 				ImGui::Checkbox("Draw EPA Final Triangle", g_physConfig->isDrawEPAFinalTriangle);
 				ImGui::Checkbox("Draw GJK Result", g_physConfig->isDrawGJKResult);

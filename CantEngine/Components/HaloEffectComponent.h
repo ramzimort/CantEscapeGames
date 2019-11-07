@@ -13,7 +13,8 @@ public:
 
 	void Begin(GameObjectManager *goMgr) override;
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
-
+	const HaloEffect& GetHaloEffect() const;
+	HaloEffect& GetHaloEffect();
 public:
 	static ComponentId const static_type;
 private:

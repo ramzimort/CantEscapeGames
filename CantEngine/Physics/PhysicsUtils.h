@@ -55,7 +55,6 @@ namespace PhysicsUtils
 		extern bool isDrawContactPoints;
 		extern bool isDrawGJKResult;
 		extern bool isDrawEPAFinalTriangle;
-		extern bool isDrawConstraints;
 		extern int dynamicAabbLevelDraw;
 		extern bool Draw_Dynamic_AABB_Tree;
 	}

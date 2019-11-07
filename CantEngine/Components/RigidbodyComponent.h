@@ -28,6 +28,7 @@ class RigidbodyComponent : public BaseComponent
 public:
 	friend class Factory;
 	friend class RigidbodySystem;
+	friend class ScriptingManager;
 //Public interface
 public:
 	RigidbodyComponent(GameObject *owner);
@@ -80,6 +81,8 @@ private:
 	bool m_isEffectedByGravity;
 	bool m_isAsleep;
 	bool m_isColliding;
+
+	float m_frictionCoef;
 	
 	CollisionTable::CollisionMask m_collisionMask;
 

@@ -43,17 +43,14 @@ void LightSystem::Draw(float dt, BaseSystemCompNode *compNode)
 
 	const Light* light = lightComp->GetLight();
 
-	if (light->get_light_type() == ELightType::POINT_LIGHT)
+	if (light->GetLightType() == ELightType::POINT_LIGHT)
 	{
 		PointLightInstanceData light_inst_data = {};
-
 		light_inst_data.light = light;
-		light_inst_data.light_position = transformComp->GetWorldPosition();
-
-
+		light_inst_data.light_position = transformComp->GetWorldPosition() + light->GetPosition();
 		m_pAppRenderer->RegisterPointLightInstance(light_inst_data);
 	}
-	else if (light->get_light_type() == ELightType::DIRECTIONAL_LIGHT)
+	else if (light->GetLightType() == ELightType::DIRECTIONAL_LIGHT)
 	{
 		DirectionalLightInstanceData direction_light_inst_data = {};
 		direction_light_inst_data.light = light;

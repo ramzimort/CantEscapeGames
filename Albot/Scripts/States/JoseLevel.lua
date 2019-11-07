@@ -8,15 +8,13 @@ JoseLevel =
 
 --OnCreate, called when creating this state
 JoseLevel.OnCreateState = function(self)
-	LOG("Created " .. self.name .. " state\n");
+	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 JoseLevel.OnExitState = function(self) 
-
-	LOG("Exiting (destroying) " .. self.name .. " state\n");
-
 end
 
 

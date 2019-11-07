@@ -20,8 +20,8 @@ InputManager::InputManager(bool fullscreen, int w, int h) :
 	assert(error >= 0);
 
 	Uint32 flags = fullscreen ?
-		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE | SDL_WINDOW_FULLSCREEN_DESKTOP :
-		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_RESIZABLE;
+		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_FULLSCREEN_DESKTOP :
+		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS;
 
 	m_pWindow = SDL_CreateWindow("CantEscapeGames",
 			SDL_WINDOWPOS_CENTERED,
@@ -37,10 +37,24 @@ InputManager::InputManager(bool fullscreen, int w, int h) :
 	m_mouseStatePrevious = 0;
 	m_mouseWheelY = 0;
 	m_quit = false;
+
+	EventManager::Get()->SubscribeEvent<GameWindowSizeEvent>(this, std::bind(&InputManager::OnWindowResizeRequest, this, std::placeholders::_1));
+}
+
+void InputManager::OnWindowResizeRequest(const GameWindowSizeEvent* e)
+{
+	SetWindowSize(e->m_width, e->m_height);
 }
 
 InputManager::~InputManager()
 {
+	auto it = m_controllerData.begin();
+	while (!m_controllerData.empty())
+	{
+		SDL_GameControllerClose(it->second.m_pGameController);
+		EventManager::Get()->EnqueueEvent<JoystickEvent>(false, it->first, false);
+		it = m_controllerData.erase(it);
+	}
 }
 
 void InputManager::UpdateMouseClickState()
@@ -53,7 +67,6 @@ void InputManager::UpdateMouseClickState()
 void InputManager::Update()
 {
 	using namespace std::chrono_literals;
-	m_mouseWheelY = 0;
 	while (SDL_WaitEvent(&m_event) && !m_quit)
 	{
 		DEBUG_PROCESSIO(m_event, m_quit);
@@ -89,12 +102,77 @@ void InputManager::Update()
 			}
 			break;
 		}
+		/* JOYSTICK EVENTS */
 		case SDL_JOYDEVICEADDED:
+			m_controllerData.insert(std::make_pair(m_event.jdevice.which, ControllerData(SDL_GameControllerOpen(m_event.jdevice.which))));
 			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, true);
 			break;
 		case SDL_JOYDEVICEREMOVED:
-			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jdevice.which, false);
+			SDL_GameControllerClose(m_controllerData[m_event.jdevice.which].m_pGameController);
+			m_controllerData.erase(m_event.jdevice.which);
+			EventManager::Get()->EnqueueEvent<JoystickEvent>(false, m_event.jaxis.which, false);
 			break;
+		case SDL_JOYAXISMOTION: 
+			EventManager::Get()->EnqueueEvent<JoystickMotionEvent>(false, m_event.jaxis.which, m_event.jaxis.axis, (float)m_event.jaxis.value / 32768.f);
+			break;
+		case SDL_JOYBALLMOTION:  
+			EventManager::Get()->EnqueueEvent<JoystickBallEvent>(false, m_event.jball.which, m_event.jball.ball);
+			break;
+		case SDL_JOYHATMOTION:
+		{
+			uint32_t buttonId = 0;
+			bool state = false;
+			switch (m_event.jhat.value)
+			{
+			case 0:
+				if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_UP])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_RIGHT])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_DOWN])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_LEFT])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+				state = false;
+				break;
+			case 1:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP;
+				state = true;
+				break;
+			case 2:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+				state = true;
+				break;
+			case 4:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+				state = true;
+				break;
+			case 8:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+				state = true;
+				break;
+			default:
+				break;
+			}
+			EventManager::Get()->EnqueueEvent<JoystickButtonEvent>(false, m_event.jhat.which, buttonId, state);
+			m_controllerData[m_event.jbutton.which].m_currentState[buttonId] = state;
+			break;
+		}
+		case SDL_JOYBUTTONDOWN: 
+			if (!m_controllerData[m_event.jbutton.which].m_currentState[m_event.jbutton.button])
+			{
+				m_controllerData[m_event.jbutton.which].m_currentState[m_event.jbutton.button] = true;
+				EventManager::Get()->EnqueueEvent<JoystickButtonEvent>(false, m_event.jbutton.which, m_event.jbutton.button, true);
+			}
+			break;
+		case SDL_JOYBUTTONUP: 
+			if (m_controllerData[m_event.jbutton.which].m_currentState[m_event.jbutton.button])
+			{
+				m_controllerData[m_event.jbutton.which].m_currentState[m_event.jbutton.button] = false;
+				EventManager::Get()->EnqueueEvent<JoystickButtonEvent>(false, m_event.jhat.which, m_event.jbutton.button, false);
+			}
+			break;
+		/* MOUSE EVENTS */
 		case SDL_MOUSEWHEEL:
 			EventManager::Get()->EnqueueEvent<MouseScrollEvent>(false, m_event.wheel.x, m_event.wheel.y);
 			break;
@@ -121,6 +199,8 @@ void InputManager::Update()
 				UpdateMouseClickState();
 			}
 			break;
+
+		/* KEYBOARD EVENTS */
 		case SDL_KEYDOWN:
 			if (m_event.key.windowID == SDL_GetWindowID(m_pWindow) &&
 				m_event.key.keysym.scancode < 512 &&
@@ -207,8 +287,12 @@ void InputManager::ToggleFullscreenMode()
 
 void InputManager::SetWindowSize(int w, int h)
 {
+	int prevWidth, prevHeight;
+	SDL_GetWindowSize(m_pWindow, &prevWidth, &prevHeight);
+	float xScale = (float)w / (float)prevWidth;
+	float yScale = (float)h / (float)prevHeight;
 	SDL_SetWindowSize(m_pWindow, w, h);
-	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(false, w, h);
+	EventManager::Get()->EnqueueEvent<WindowSizeEvent>(false, w, h, xScale, yScale);
 }
 
 

@@ -1,0 +1,7 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\Campfire\\campfire_wood.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Roughness_Value": 0.9,
+  "Metallic_Value": 0.1
+}

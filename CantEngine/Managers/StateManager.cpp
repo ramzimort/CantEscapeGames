@@ -68,6 +68,7 @@ void StateManager::LoadState(const std::string& levelPath)
 
 void StateManager::PushLoadedState()
 {
+	PopState();
 	m_stateStack.push_back(m_stateQueue.front());
 	m_stateQueue.pop();
 }

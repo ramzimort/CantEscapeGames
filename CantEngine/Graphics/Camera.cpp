@@ -104,6 +104,40 @@ size_t Camera::GetId()
 	return m_id;
 }
 
+void Camera::SetFOV(float fov)
+{
+	m_fov = fov;
+	CalibrateFOV();
+}
+
+void Camera::IncreaseFOV(float fov)
+{
+	m_fov += fov;
+	CalibrateFOV();
+}
+
+void Camera::DecreaseFOV(float fov)
+{
+	m_fov -= fov;
+	CalibrateFOV();
+}
+
+float Camera::GetFOV() const
+{
+	return m_fov;
+}
+
+void Camera::CalibrateFOV()
+{
+	if (m_fov > 180.f)
+	{
+		m_fov = 180.f;
+	}
+	if (m_fov < 1.f)
+	{
+		m_fov = 1.f;
+	}
+}
 
 void Camera::SetAspectRatio(size_t width, size_t height)
 {
@@ -162,6 +196,11 @@ const Vector3& Camera::GetForward() const
 const Vector3& Camera::GetRight() const
 {
 	return m_rightDir;
+}
+ Vector2 Camera::GetWidthHeight() const
+{
+	Vector2 value = Vector2(float(m_screenWidth), float(m_screenHeight));
+	return value;
 }
 
 
