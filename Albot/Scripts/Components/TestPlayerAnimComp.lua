@@ -89,22 +89,42 @@ TestPlayerAnimComp.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.A == key) then
 		self.walking = false;
 		self.animComp:SetTrigger("Punch");
+		self.rightPressed = false;
+		self.leftPressed = false;
+		self.upPressed = false;
+		self.downPressed = false;
 	
 	elseif(CONTROLLER.B == key) then
 		self.walking = false;
 		self.animComp:SetTrigger("Kick");
+		self.rightPressed = false;
+		self.leftPressed = false;
+		self.upPressed = false;
+		self.downPressed = false;
 		
 	elseif(CONTROLLER.X == key) then
 		self.walking = false;
 		self.animComp:SetTrigger("Upper");
+		self.rightPressed = false;
+		self.leftPressed = false;
+		self.upPressed = false;
+		self.downPressed = false;
 
 	elseif(CONTROLLER.Y == key) then
 		if (not self.jumping) then
 			self.jumping = true;
 			self.animComp:SetTrigger("Jump");
+			self.rightPressed = false;
+			self.leftPressed = false;
+			self.upPressed = false;
+			self.downPressed = false;
 		else 
 			self.jumping = false;
 			self.animComp:SetTrigger("Land");
+			self.rightPressed = false;
+			self.leftPressed = false;
+			self.upPressed = false;
+			self.downPressed = false;
 		end
 	end
 
@@ -113,18 +133,18 @@ TestPlayerAnimComp.OnJoystickButton = function(self, ID, key, state)
 		self.upPressed = not self.upPressed;
 		self.targetFwd.x = 0.0;
 		self.targetFwd.z = 1.0;
-	end
-	if(CONTROLLER.DDOWN == key) then
+	--end
+	elseif(CONTROLLER.DDOWN == key) then
 		self.downPressed = not self.downPressed;
 		self.targetFwd.x = 0.0;
 		self.targetFwd.z = -1.0;
-	end		
-	if(CONTROLLER.DRIGHT == key) then
+	--end		
+	elseif(CONTROLLER.DRIGHT == key) then
 		self.rightPressed = not self.rightPressed;
 		self.targetFwd.x = 1.0;
 		self.targetFwd.z = 0.0;
-	end
-	if(CONTROLLER.DLEFT == key) then
+	--end
+	elseif(CONTROLLER.DLEFT == key) then
 		self.leftPressed = not self.leftPressed;
 		self.targetFwd.x = -1.0;
 		self.targetFwd.z = 0.0;
@@ -136,6 +156,20 @@ end
 TestPlayerAnimComp.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKeyPressed});
 	OnJoystickButton():Bind({self, self.OnJoystickButton});
+end
+
+
+local normalizeVec3 = function(vec)
+	
+	local normalized = Vector3.new(vec);
+	local len = vec:len();
+	
+	normalized.x = normalized.x / len;
+	normalized.y = normalized.y / len;
+	normalized.z = normalized.z / len;
+
+	return normalized;
+
 end
 
 
@@ -259,6 +293,9 @@ TestPlayerAnimComp.UpdateRotation = function(self)
 	--Get current forward and target forward
 	local currFwd = self.transformComp:GetForward();
 	local tgtFwd = self.targetFwd;
+	
+	currFwd = normalizeVec3(currFwd);
+	tgtFwd = normalizeVec3(tgtFwd);
 
 	--Make the calculations
 	local PI = 3.14159;
