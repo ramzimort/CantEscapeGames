@@ -37,22 +37,6 @@ end
 --Update called every tick
 PresentationParticleEmitOnce.Update = function(self, dt, owner) 
 
-	self.timeElapsed = self.timeElapsed + dt;
-
-	if (self.timeElapsed >= self.emitTimePeriod) then
-		self.timeElapsed = self.timeElapsed - self.emitTimePeriod;
-		local particleEmitterComp = owner:GetParticleEmitterComp();
-		if(self.firstSet) then
-			particleEmitterComp:SetEmitterSpreadAngleYaw(self.firstSetAngleYaw);
-			particleEmitterComp:SetEmitterSpreadAngleYaw(self.firstSetAnglePitch);
-			self.firstSet  = false;
-		else
-			particleEmitterComp:SetEmitterSpreadAngleYaw(self.secondSetAngleYaw);
-			particleEmitterComp:SetEmitterSpreadAngleYaw(self.secondSetAnglePitch);
-			self.firstSet  = true;
-		end
-		
-	end
 	--]]
 
 end
