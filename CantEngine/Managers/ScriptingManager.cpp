@@ -36,6 +36,11 @@ void ScriptOutput(const std::string& msg)
 	//DEBUG_LOG(msg.c_str());
 }
 
+float MathAcos(float dot) 
+{
+	return acosf(dot);
+}
+
 void ScriptLog(const std::string& msg)
 {
 	DEBUG_LOG(msg.c_str());
@@ -65,6 +70,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		sol::lib::base,
 		sol::lib::coroutine,
 		sol::lib::string,
+		sol::lib::math,
 		sol::lib::io
 	);
 
@@ -78,7 +84,10 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		luaState["OutputPrint"] = &ScriptOutput;
 		luaState["LOG"] = &ScriptLog;
 		luaState["TRACE"] = &ScriptTrace;
+		luaState["Acos"] = &MathAcos;
+		
 		luaState.script_file("Scripts/LuaGlobalSetups.lua");
+
 	}
 	catch (const sol::error & e)
 	{
@@ -466,6 +475,8 @@ void ScriptingManager::ManageBindings()
 			sol::resolve<void(float, float, float)>(&TransformComponent::Scale),
 			sol::resolve<void(float)>(&TransformComponent::Scale)),
 		//Getters
+		"GetForward", &TransformComponent::GetForward,
+		"GetRight", &TransformComponent::GetRight,
 		"GetWorldPosition", &TransformComponent::GetWorldPosition,
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,

@@ -46,6 +46,8 @@ public:
 	Matrix const& GetModel() const;
 	Matrix const& GetRotationMatrix() const;
 	Matrix const& GetScaleMatrix() const;
+	Vector3 GetForward() const;
+	Vector3 GetRight() const;
 
 	Vector3  GetPositionNormalized() const;
 	Vector3  GetScaleNormalized() const;

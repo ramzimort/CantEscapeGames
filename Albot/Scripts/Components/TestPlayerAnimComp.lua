@@ -13,6 +13,7 @@ TestPlayerAnimComp =
 
 	accel = Vector3.new(0,0,0);
 	velocity = Vector3.new(0,0,0);
+	targetFwd = Vector3.new(0,0,0);
 	
 	rightPressed = false;
 	leftPressed = false;
@@ -57,15 +58,23 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 	
 	if(SCANCODE.UP == key) then
 		self.upPressed = not self.upPressed;
+		self.targetFwd.x = 0.0;
+		self.targetFwd.z = 1.0;
 	end
 	if(SCANCODE.DOWN == key) then
 		self.downPressed = not self.downPressed;
+		self.targetFwd.x = 0.0;
+		self.targetFwd.z = -1.0;
 	end		
 	if(SCANCODE.RIGHT == key) then
 		self.rightPressed = not self.rightPressed;
+		self.targetFwd.x = 1.0;
+		self.targetFwd.z = 0.0;
 	end
 	if(SCANCODE.LEFT == key) then
 		self.leftPressed = not self.leftPressed;
+		self.targetFwd.x = -1.0;
+		self.targetFwd.z = 0.0;
 	end
 
 end
@@ -73,17 +82,52 @@ end
 TestPlayerAnimComp.OnJoystickButton = function(self, ID, key, state)
 	if (self.animComp == nil) then return end
 
+	if (self.animComp == nil) then 
+		return 
+	end
+
+	if(CONTROLLER.A == key) then
+		self.walking = false;
+		self.animComp:SetTrigger("Punch");
+	
+	elseif(CONTROLLER.B == key) then
+		self.walking = false;
+		self.animComp:SetTrigger("Kick");
+		
+	elseif(CONTROLLER.X == key) then
+		self.walking = false;
+		self.animComp:SetTrigger("Upper");
+
+	elseif(CONTROLLER.Y == key) then
+		if (not self.jumping) then
+			self.jumping = true;
+			self.animComp:SetTrigger("Jump");
+		else 
+			self.jumping = false;
+			self.animComp:SetTrigger("Land");
+		end
+	end
+
+	
 	if(CONTROLLER.DUP == key) then
-		self.upPressed = state;
+		self.upPressed = not self.upPressed;
+		self.targetFwd.x = 0.0;
+		self.targetFwd.z = 1.0;
 	end
 	if(CONTROLLER.DDOWN == key) then
-		self.downPressed = state;
+		self.downPressed = not self.downPressed;
+		self.targetFwd.x = 0.0;
+		self.targetFwd.z = -1.0;
+	end		
+	if(CONTROLLER.DRIGHT == key) then
+		self.rightPressed = not self.rightPressed;
+		self.targetFwd.x = 1.0;
+		self.targetFwd.z = 0.0;
 	end
 	if(CONTROLLER.DLEFT == key) then
-		self.leftPressed = state;
-	end	
-	if(CONTROLLER.DRIGHT == key) then
-		self.rightPressed = state;
+		self.leftPressed = not self.leftPressed;
+		self.targetFwd.x = -1.0;
+		self.targetFwd.z = 0.0;
 	end
 end
 
@@ -102,6 +146,8 @@ TestPlayerAnimComp.Begin = function(self, owner)
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
 
+	--Set the forward Vec initial val
+	self.targetFwd = self.transformComp:GetForward();
 
 	-- Create states
 	local idle_State =		self.animComp:CreateState("idle", "IdleAnim");
@@ -183,6 +229,9 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		self.accel.x = 7;
 	end 
 
+	--Update rotation
+	self:UpdateRotation();
+
 	--Physics calcs
 	self.velocity = self.accel * dt;
 	local accelSub = self.accel * 0.125;
@@ -202,6 +251,45 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 
 	--Movement
 	self.transformComp:Translate(self.velocity);
+end
+
+
+TestPlayerAnimComp.UpdateRotation = function(self)
+	
+	--Get current forward and target forward
+	local currFwd = self.transformComp:GetForward();
+	local tgtFwd = self.targetFwd;
+
+	--Make the calculations
+	local PI = 3.14159;
+	local dot = currFwd:dot(tgtFwd);
+	local absdot = dot
+	if (dot < 0.0) then
+		absdot = -dot;
+	end
+	---[[
+	if (1.0 - absdot > 0.01) then --math.abs() 
+
+		local rad_angle = Acos(dot);
+		local yRot = (rad_angle  * 180.0) / PI;
+		local thressholdAngle = 3.0;
+		if ((yRot) > thressholdAngle or yRot < -thressholdAngle) then --math.abs()
+		
+			local right = self.transformComp:GetRight();
+			local rightdot = right:dot(tgtFwd);
+			if ( rightdot < 0.0) then
+				yRot = -yRot;
+			end
+
+			if (yRot > 0.0) then
+				self.transformComp:Rotate(0, 3.0, 0);
+			elseif (yRot < 0.0) then
+				self.transformComp:Rotate(0, -3.0, 0);
+			end
+
+		end
+	end
+	--]]
 end
 
 

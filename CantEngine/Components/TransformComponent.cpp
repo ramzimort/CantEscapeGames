@@ -145,6 +145,23 @@ void TransformComponent::SetLocalPosition(float x, float y, float z)
 ///////////////////////////////////////////////////////
 ////           GETTERS METHODS                     ////
 ///////////////////////////////////////////////////////
+Vector3 TransformComponent::GetForward() const
+{
+	Vector3 forward;
+	forward.x = m_rotMatrix._13;
+	forward.y = m_rotMatrix._23;
+	forward.z = m_rotMatrix._33;
+	return forward;
+}
+
+Vector3 TransformComponent::GetRight() const
+{
+	Vector3 right;
+	right.x = m_rotMatrix._11;
+	right.y = m_rotMatrix._21;
+	right.z = m_rotMatrix._31;
+	return right;
+}
 
 Vector3 const& TransformComponent::GetWorldPosition() const
 {
