@@ -119,8 +119,45 @@ void InputManager::Update()
 			EventManager::Get()->EnqueueEvent<JoystickBallEvent>(false, m_event.jball.which, m_event.jball.ball);
 			break;
 		case SDL_JOYHATMOTION:
-			EventManager::Get()->EnqueueEvent<JoystickHatEvent>(false, m_event.jhat.which, m_event.jhat.value);
+		{
+			uint32_t buttonId = 0;
+			bool state = false;
+			switch (m_event.jhat.value)
+			{
+			case 0:
+				if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_UP])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_RIGHT])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_DOWN])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+				else if (m_controllerData[m_event.jbutton.which].m_currentState[SDL_CONTROLLER_BUTTON_DPAD_LEFT])
+					buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+				state = false;
+				break;
+			case 1:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP;
+				state = true;
+				break;
+			case 2:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+				state = true;
+				break;
+			case 4:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+				state = true;
+				break;
+			case 8:
+				buttonId = SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+				state = true;
+				break;
+			default:
+				break;
+			}
+			EventManager::Get()->EnqueueEvent<JoystickButtonEvent>(false, m_event.jhat.which, buttonId, state);
+			m_controllerData[m_event.jbutton.which].m_currentState[buttonId] = state;
 			break;
+		}
 		case SDL_JOYBUTTONDOWN: 
 			if (!m_controllerData[m_event.jbutton.which].m_currentState[m_event.jbutton.button])
 			{

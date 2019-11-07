@@ -99,13 +99,18 @@ public:
 		this->lua_suscribers.push_back(entry);
 	}
 
-	//Removing the entry
+	//Removing the entry (not sure if right fix but does the job)
 	void UnbindLuaFunction(sol::table entry)
 	{
-		for (auto& table : this->lua_suscribers) 
+		for (std::list<sol::table>::const_iterator it = lua_suscribers.begin(); it != lua_suscribers.end(); ++it ) 
 		{
-			if (entry == table)
-				this->lua_suscribers.remove(table);
+			const sol::function& func1 = (*it)[2];
+			const sol::function& func2 = entry[2];
+			if (func1 == func2)
+			{
+				lua_suscribers.erase(it);
+				break;
+			}
 		}
 	}
 

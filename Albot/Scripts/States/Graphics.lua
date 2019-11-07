@@ -8,8 +8,8 @@ Graphics =
 
 --OnCreate, called when creating this state
 Graphics.OnCreateState = function(self)
-	
-
+	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 

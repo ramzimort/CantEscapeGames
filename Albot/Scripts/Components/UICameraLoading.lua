@@ -52,17 +52,11 @@ UICameraLoading =
 
 
 --Init called when comp is created
-UICameraLoading.Init = function(self)
-	OnKeyEvent():Bind({self, self.OnKey});
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	OnWindowSize():Bind({self, self.OnWindowSize});
-	
+UICameraLoading.Init = function(self)	
 end
 
 --Begin called when obj has all comps
 UICameraLoading.Begin = function(self, owner, goMgr)
-
 	self.GameObject = owner;
 	self.GOManager = goMgr;
 
@@ -110,14 +104,11 @@ end
 
 --Update called every tick
 UICameraLoading.Update = function(self, dt, owner) 
-
 	if(self.Enabled == false) then
 		return;
 	end
 	
 -----------------------------------------------------------------------------------------------------------------------	
-	
-	
 end
 
 --Method
@@ -148,10 +139,6 @@ UICameraLoading.OnWindowSize = function(self, Width, Height, xScale, yScale)
 end
 
 UICameraLoading.OnDestruction = function(self)
-	OnMouseMotion():Unbind({self, self.OnMouseMotion});
-	OnMouseClick():Unbind({self, self.OnMouseClick});
-	OnKeyEvent():Unbind({self, self.OnKey});
-	OnWindowSize():Unbind({self, self.OnWindowSize});
 end
 
 return UICameraLoading;

@@ -212,6 +212,7 @@ void ScriptingManager::ManageBindings()
 		(
 			"EventManager",
 			"Get", &EventManager::Get,
+			"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
 			// Resize Window Event
 			"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
 
@@ -237,12 +238,16 @@ void ScriptingManager::ManageBindings()
 	"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
 	"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
 	"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
-	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
-	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSHOULDER,
 	"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
 	"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
-	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
-	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK
+	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
+	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
+	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
+	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+	"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
+	"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
+	"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
+	"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
 	);
 #pragma endregion
 #pragma region SCANCODE

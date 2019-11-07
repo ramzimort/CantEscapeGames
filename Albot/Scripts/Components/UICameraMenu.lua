@@ -57,7 +57,8 @@ UICameraMenu.Init = function(self)
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
 	OnWindowSize():Bind({self, self.OnWindowSize});
-	
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
 end
 
 --Begin called when obj has all comps
@@ -112,14 +113,14 @@ end
 
 --Update called every tick
 UICameraMenu.Update = function(self, dt, owner) 
-
 	if(self.Enabled == false) then
 		return;
 	end
 	if(self.LoadStateEnabled == true) then
+		self.LoadStateEnabled  = false;
 		self.Enabled = false;
 		local world = EventManager.Get();
-		world:PushState(false, self.loadingState);
+		world:LoadState(false, self.loadingState);
 		return;
 	end
 -----------------------------------------------------------------------------------------------------------------------	
@@ -159,17 +160,17 @@ UICameraMenu.Update = function(self, dt, owner)
 			if(ButtonLUA:ReturnClicked() == true) then
 				-- Check the tag and use it to specify 
 				if(gameObject:GetTag() == "AnimationsButton") then
-					self.loadingState = "Assets\\Levels\\Loading.json";
+					self.loadingState = "Assets\\Levels\\JoseLevel.json";
 				elseif (gameObject:GetTag() == "GraphicsButton") then
-					--self.loadingState = "Assets\\Levels\\GraphicsButton.json";
+					self.loadingState = "Assets\\Levels\\Graphics.json";
 				elseif (gameObject:GetTag() == "PhysicsButton") then
-					--self.loadingState = "Assets\\Levels\\PhysicsButton.json";
+					self.loadingState = "Assets\\Levels\\Physics.json";
 				elseif (gameObject:GetTag() == "SettingButton") then
 					self.loadingState = "Assets\\Levels\\Setting.json";
 				elseif (gameObject:GetTag() == "CreditsButton") then
 					self.loadingState = "Assets\\Levels\\Credits.json";
 				elseif (gameObject:GetTag() == "ExitButton") then
-					self.loadingState = "Assets\\Levels\\Exit.json";
+					EventManager.Get():Quit(false);
 				end
 
 				self.PlayFinalAnimation = true;
@@ -225,11 +226,35 @@ UICameraMenu.OnWindowSize = function(self, Width, Height, xScale, yScale)
 	--LOG("W: " .. Width .. " H: " .. Height .. "\n")
 end
 
+UICameraMenu.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.DUP) then
+		self.Forward = state;
+	elseif(button == CONTROLLER.DDOWN) then
+		self.Backward = state;
+	end
+end
+
+UICameraMenu.OnJoystickMotion = function(self, joystickId, axis, value)
+	if(value < 0.2 and value > -0.2) then
+		value = 0.0;
+	end;
+	if(axis == 1 and value > 0.9) then
+		self.Backward = true;
+	elseif(axis == 1 and value < -0.9) then
+		self.Forward = true;
+	else
+		self.Forward = false;
+		self.Backward = false;
+	end
+end
+
 UICameraMenu.OnDestruction = function(self)
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnWindowSize():Unbind({self, self.OnWindowSize});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 return UICameraMenu;

@@ -8,17 +8,13 @@ Physics =
 
 --OnCreate, called when creating this state
 Physics.OnCreateState = function(self)
-	
-	OutputPrint("Created " .. self.name .. " state\n");
-
+	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 Physics.OnExitState = function(self) 
-
-	OutputPrint("Exiting (destroying) " .. self.name .. " state\n");
-
 end
 
 

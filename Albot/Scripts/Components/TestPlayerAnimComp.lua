@@ -70,10 +70,28 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 
 end
 
+TestPlayerAnimComp.OnJoystickButton = function(self, ID, key, state)
+	if (self.animComp == nil) then return end
+
+	if(CONTROLLER.DUP == key) then
+		self.upPressed = state;
+	end
+	if(CONTROLLER.DDOWN == key) then
+		self.downPressed = state;
+	end
+	if(CONTROLLER.DLEFT == key) then
+		self.leftPressed = state;
+	end	
+	if(CONTROLLER.DRIGHT == key) then
+		self.rightPressed = state;
+	end
+end
+
 
 --Init called when comp is created
 TestPlayerAnimComp.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKeyPressed});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
 end
 
 
@@ -171,6 +189,7 @@ end
 
 TestPlayerAnimComp.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
 end
 
 

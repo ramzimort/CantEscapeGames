@@ -118,7 +118,7 @@ UICameraCredits.Update = function(self, dt, owner)
 	if(self.LoadStateEnabled == true) then
 		self.Enabled = false;
 		local world = EventManager.Get();
-		world:PushState(false, self.loadingState);
+		world:LoadState(false, self.loadingState);
 		return;
 	end
 -----------------------------------------------------------------------------------------------------------------------	

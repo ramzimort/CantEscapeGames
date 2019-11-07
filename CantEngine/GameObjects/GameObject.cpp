@@ -167,7 +167,7 @@ CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName)//
 	std::string name = scriptName.substr(index + 1, len);
 
 	//Check first if the gameobj already has this custom component
-	CustomComponent *component = this->m_customComponents[name]; // m_customComponents is per object
+	CustomComponent *component = GetCustomComponent(name); // m_customComponents is per object
 	if (component)
 		return component;
 
@@ -187,7 +187,10 @@ CustomComponent *GameObject::AddCustomComponent(const std::string& scriptName)//
 
 CustomComponent *GameObject::GetCustomComponent(std::string scriptName)
 {
-	return this->m_customComponents[scriptName];
+	auto it = m_customComponents.find(scriptName);
+	if (it != m_customComponents.end())
+		return it->second;
+	return nullptr;
 }
 
 

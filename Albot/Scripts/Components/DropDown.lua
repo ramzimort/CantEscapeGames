@@ -40,6 +40,7 @@ DropDown.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
 end
 
 --Begin called when obj has all comps
@@ -214,6 +215,11 @@ DropDown.OnKey = function(self, key, state)
 		self.ENTER = state;
 	end
 end
+DropDown.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.A) then
+		self.ENTER = state;
+	end
+end
 DropDown.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
@@ -230,6 +236,8 @@ DropDown.OnDestruction = function(self, key, state)
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+
 end
 DropDown.SetArrowClick = function(self, val)
 	self.ClickedButtonArrow = val;

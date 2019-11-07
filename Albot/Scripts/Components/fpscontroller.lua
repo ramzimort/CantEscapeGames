@@ -103,6 +103,9 @@ end
 fpscontroller.OnJoystickButton = function(self, joystickId, button, state)
 	if(button == CONTROLLER.LB and state) then
 		self.RotationEnabled = not self.RotationEnabled;
+	elseif(button == CONTROLLER.Select and state) then
+		local EventMgr = EventManager.Get();
+		EventMgr:LoadState(false, "Assets\\Levels\\Menu.json");
 	end
 end
 
@@ -122,7 +125,6 @@ fpscontroller.OnJoystickMotion = function(self, joystickId, axis, value)
 	end
 	if(axis == 4) then
 		self.Rotation.x = -1.0*self.RotationMultiplier*value;
-		--LOG("xRotation: " .. self.Rotation.x .. "\n");
 	end
 	end
 end

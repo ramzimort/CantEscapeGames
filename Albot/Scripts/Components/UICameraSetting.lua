@@ -64,7 +64,8 @@ UICameraSetting.Init = function(self)
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
 	OnWindowSize():Bind({self, self.OnWindowSize});
-	
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
 end
 
 --Begin called when obj has all comps
@@ -141,7 +142,7 @@ UICameraSetting.Update = function(self, dt, owner)
 		self.Enabled = false;
 		
 			local world = EventManager.Get();
-			world:PushState(false, self.loadingState);
+			world:LoadState(false, self.loadingState);
 			return;
 	end
 -----------------------------------------------------------------------------------------------------------------------	
@@ -325,11 +326,35 @@ UICameraSetting.WindowResize = function(self, Width, Height)
 	self.WindowResizeEnabled = true;
 end
 
+UICameraSetting.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.DUP) then
+		self.Forward = state;
+	elseif(button == CONTROLLER.DDOWN) then
+		self.Backward = state;
+	end
+end
+
+UICameraSetting.OnJoystickMotion = function(self, joystickId, axis, value)
+	if(value < 0.2 and value > -0.2) then
+		value = 0.0;
+	end;
+	if(axis == 1 and value > 0.9) then
+		self.Backward = true;
+	elseif(axis == 1 and value < -0.9) then
+		self.Forward = true;
+	else
+		self.Forward = false;
+		self.Backward = false;
+	end
+end
+
 UICameraSetting.OnDestruction = function(self)
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnWindowSize():Unbind({self, self.OnWindowSize});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 return UICameraSetting;

@@ -8,12 +8,12 @@ Setting =
 
 --OnCreate, called when creating this state
 Setting.OnCreateState = function(self)
-	OutputPrint("Created " .. self.name .. " state");
+	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 Setting.OnExitState = function(self) 
-	OutputPrint("Exiting (destroying) " .. self.name .. " state");
 end
 
 --AT THE END, NEED TO ADD THIS LINE

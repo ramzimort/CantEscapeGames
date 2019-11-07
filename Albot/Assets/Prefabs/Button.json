@@ -21,22 +21,20 @@
   "RendererComponent": {
     "MaterialId": ""
   },
-	
- 
+
+
   "Scripts": [
     {
       "Name": "Scripts\\Components\\Button.lua"
-	  
-    }],
-	"Scripts": [
+
+    },
     {
-	  "Name": "Scripts\\Components\\AffineAnimation.lua"
-	  
-    }],
-	"Scripts": [
+      "Name": "Scripts\\Components\\WindowResize.lua"
+
+    },
     {
-	  "Name": "Scripts\\Components\\WindowResize.lua"
-	  
-    }]
-  
+      "Name": "Scripts\\Components\\AffineAnimation.lua"
+
+    }
+  ]
  }

@@ -1,7 +1,4 @@
 {
-	
-		
-
   "TransformComponent": {
     "Position": [ 0, 0, 0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
@@ -23,17 +20,15 @@
   "Scripts": [
     {
       "Name": "Scripts\\Components\\SlideScroller.lua"
-	  
-    }],
-	"Scripts": [
+
+    },
     {
-	  "Name": "Scripts\\Components\\AffineAnimation.lua"
-	  
-    }],
-	"Scripts": [
+      "Name": "Scripts\\Components\\AffineAnimation.lua"
+
+    },
     {
-	  "Name": "Scripts\\Components\\WindowResize.lua"
-	  
-    }]
-  
+      "Name": "Scripts\\Components\\WindowResize.lua"
+
+    }
+  ]
  }

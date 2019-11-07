@@ -1,24 +1,24 @@
 --TEMPLATE FOR A SCRIPTED STATE
 
 
-Loading =
+Physics =
 {
-	name = "Loading";
-	NextLevel = "Assets\\Levels\\Menu.json";
+	name = "Physics";
+	NextLevel = "Assets\\Levels\\Physics.json";
 }
 
 --OnCreate, called when creating this state
-Loading.OnCreateState = function(self)
+Physics.OnCreateState = function(self)
 	local World = EventManager.Get();
 	World:LoadState(false, self.NextLevel);
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
-Loading.OnExitState = function(self) 
+Physics.OnExitState = function(self) 
 
 end
 
 
 --AT THE END, NEED TO ADD THIS LINE
-return Loading;
+return Physics;

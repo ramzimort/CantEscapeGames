@@ -22,14 +22,6 @@
     "IsAsleep": 0,
     "CollisionMask": "DINAMIC_OBJ",
     "FrictionCoef":  0.2
-  },
-
-  "Scripts": [
-    {
-      "Name": "Scripts\\Components\\test01Comp.lua",
-      "Overrides": {
-      }
-    }
-  ]
+  }
 
 }

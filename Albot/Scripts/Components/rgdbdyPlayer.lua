@@ -11,7 +11,7 @@ rgdbdyPlayer =
 
 	Acceleration = Vector3.new(0.0); --m/s
 	AccelerationMultiplier = 10;
-
+	Jump = false;
 	isGrounded = false;
 }
 
@@ -37,6 +37,10 @@ end
 rgdbdyPlayer.OnJoystickButton = function(self, joystickId, button, state)
 	if(button == CONTROLLER.LB and state) then
 		self.MovementEnabled = not self.MovementEnabled;
+	end
+
+	if(button == CONTROLLER.A) then
+		self.Jump = state;
 	end
 end
 
@@ -76,9 +80,9 @@ rgdbdyPlayer.Update = function(self, dt, owner)
 	if (self.transformComp == nil) then return end
 
 	local velocity = self.rgdbdyComp:GetVelocity();
-	--self.curr_velocity = velocity:len2();
-	
-	--if(self.curr_velocity < self.max_velocity)
+	if(self.Jump) then
+		velocity.y = 2.0;
+	end
 
 	velocity = velocity + (self.Acceleration * self.AccelerationMultiplier * dt);
 

@@ -156,7 +156,7 @@ namespace CantDebug
 		bool editing = false;
 		for (auto& objInfo : m_objectList)
 		{
-			if (objInfo.second.DoublePressed)
+			if (objInfo.second.DoublePressed && m_pGameObjEditor != nullptr)
 			{
 				auto cam = m_pGameObjEditor->GetComponent<CameraComponent>();
 				auto transform = m_pGameObjEditor->GetComponent<TransformComponent>();

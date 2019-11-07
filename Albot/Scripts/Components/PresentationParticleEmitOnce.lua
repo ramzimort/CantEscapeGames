@@ -57,5 +57,8 @@ PresentationParticleEmitOnce.Update = function(self, dt, owner)
 
 end
 
+PresentationParticleEmitOnce.OnDestruction = function(self)
+end
+
 
 return PresentationParticleEmitOnce;

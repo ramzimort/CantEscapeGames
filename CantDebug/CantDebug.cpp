@@ -31,6 +31,7 @@ static Editor*					g_Editor = NULL;
 static MaterialMaker*			g_materialMaker = NULL;
 static PhysicsConfig*			g_physConfig = NULL;
 std::mutex*						g_mutex = NULL;
+std::mutex						g_gMutex;
 
 // Our State
 bool _update = true;
@@ -108,14 +109,17 @@ namespace CantDebugAPI
 
 	void Log(const char* data)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_logQueue->Push(data);
 	}
 	void Trace(const char* data)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_traceQueue->Push(data);
 	}
 	void MemoryLog(const char* pool, const void* address)
 	{
+		std::lock_guard<std::mutex> lock(g_gMutex);
 		g_memoryProfiler->AddElement(pool, address);
 	}
 	void MemoryFree(const char* pool, const void* address)

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "TextRenderingInstance.h"
 #include "Graphics/GraphicsSettings.h"
 #include "Graphics/AppRenderer.h"

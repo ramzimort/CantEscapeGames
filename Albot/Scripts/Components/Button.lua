@@ -34,6 +34,7 @@ Button.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
 end
 
 --Begin called when obj has all comps
@@ -105,7 +106,11 @@ Button.OnKey = function(self, key, state)
 		self.ENTER = state;
 	end
 end
-
+Button.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.A) then
+		self.ENTER = state;
+	end
+end
 Button.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
@@ -123,6 +128,7 @@ Button.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnMouseMotion});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
 end
 
 Button.ReturnClicked = function(self)

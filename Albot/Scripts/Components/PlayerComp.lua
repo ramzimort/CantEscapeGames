@@ -44,8 +44,9 @@ PlayerComp.OnKeyPressed = function(self, key, state)
 	if (SCANCODE.SPACE == key) then 
 		self.animComp:SwitchAnimation("AttackAnim", 5.0);
 	end
-
 end
+
+
 
 --Init called when comp is created
 PlayerComp.Init = function(self)
@@ -110,6 +111,8 @@ end
 
 PlayerComp.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+
 end
 
 

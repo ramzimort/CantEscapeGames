@@ -43,7 +43,6 @@ end
 
 --Init called when comp is created
 test02Comp.Init = function(self)
-	OnKeyEvent():Bind({self, self.OnKey});
 end
 
 
@@ -53,6 +52,7 @@ test02Comp.Begin = function(self, owner)
 	self.animComp = owner:GetAnimationComp();
 
 end
+
 
 
 --Update called every tick
@@ -100,7 +100,6 @@ test02Comp.ReturnWeirdString02 = function(self)
 end
 
 test02Comp.OnDestruction = function(self)
-	OnKeyEvent():Unbind({self, self.OnKey});
 end
 
 
