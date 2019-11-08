@@ -559,8 +559,7 @@ void ScriptingManager::ManageBindings()
 
 		"GetMass", &RigidbodyComponent::GetMass,
 		"SetMass", &RigidbodyComponent::SetMass,
-		"OnCollision", &RigidbodyComponent::m_onCollision,
-		"CollisionMask", & RigidbodyComponent::m_collisionMask
+		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
 	//RENDERER
@@ -636,15 +635,4 @@ void ScriptingManager::ManageBindings()
 		"AnimState",
 		"SetTransition", &AnimState::SetTransition
 	);
-
-	//////////////////////////
-	////   PHYSICS        ////
-	//////////////////////////
-#define COLLISION_MASK(ENTRY) #ENTRY, CollisionTable::CollisionMask::ENTRY,
-	luaState["COLLISION_MASK"] = luaState.create_table_with(
-#include "Physics/CollisionMaskTypes.def"
-		"NUM", CollisionTable::CollisionMask::NUM
-#undef COLLISION_MASK
-	);
-
 }

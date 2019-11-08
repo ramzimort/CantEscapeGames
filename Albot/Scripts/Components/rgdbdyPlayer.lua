@@ -81,7 +81,7 @@ rgdbdyPlayer.Update = function(self, dt, owner)
 
 	local velocity = self.rgdbdyComp:GetVelocity();
 	if(self.Jump) then
-		velocity.y = 10.0;
+		velocity.y = 2.0;
 	end
 
 	velocity = velocity + (self.Acceleration * self.AccelerationMultiplier * dt);

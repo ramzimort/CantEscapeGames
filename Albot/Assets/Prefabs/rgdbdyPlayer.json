@@ -20,7 +20,7 @@
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
-    "CollisionMask": "PLAYER",
+    "CollisionMask": "DINAMIC_OBJ",
     "FrictionCoef": 0.2
   },
 

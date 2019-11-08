@@ -24,13 +24,11 @@
         "Scripts\\Components\\AffineAnimation.lua",
         "Scripts\\Components\\WindowResize.lua",
         "Scripts\\Components\\UICameraLoading.lua",
-        "Scripts\\States\\Loading.lua",
-        "Scripts\\Components\\jumping.lua"
+        "Scripts\\States\\Loading.lua"
       ],
       "Prefabs": [
         "Assets\\Prefabs\\UIObject.json",
-        "Assets\\Prefabs\\UIEmpty.json",
-        "Assets\\Prefabs\\RBTestObjScripted.json"
+        "Assets\\Prefabs\\UIEmpty.json"
       ],
         "Songs": [],
         "SFX": []
