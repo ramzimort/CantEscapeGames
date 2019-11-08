@@ -44,7 +44,7 @@
       }
     },
     {
-      "tag": "MainRigidBody",
+      "tag": "Player",
       "prefab": "Assets\\Prefabs\\rgdbdyPlayer.json",
       "overrides": {
         "TransformComponent": {
@@ -53,6 +53,14 @@
             5.0,
             0.0
           ]
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": true,
+          "Velocity": [ 0.0, 0.0, 0.0 ],
+          "Mass": 1.0,
+          "IsAsleep": 0,
+          "CollisionMask": "PLAYER",
+          "FrictionCoef": 0.2
         }
       }
     },
@@ -167,8 +175,8 @@
           ],
           "Mass": 3.3999999521443644e38,
           "IsAsleep": 0,
-          "CollisionMask": "STATIC_OBJ",
-          "FrictionCoef":  1.2
+          "CollisionMask": "DINAMIC_OBJ",
+          "FrictionCoef": 1.2
         }
       }
     },
@@ -552,7 +560,7 @@
     },
     {
       "tag": "GHOST",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
+      "prefab": "Assets\\Prefabs\\RBTestObjScripted.json",
       "overrides": {
         "TransformComponent": {
           "Position": [
@@ -586,9 +594,9 @@
             0,
             0
           ],
-          "Mass": 3.3999999521443644e38,
+          "Mass": 1,
           "IsAsleep": 0,
-          "CollisionMask": "GHOST"
+          "CollisionMask": "ENEMY"
         }
       }
     },
