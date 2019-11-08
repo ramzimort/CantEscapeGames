@@ -29,8 +29,6 @@ end
 --Begin called when obj has all comps
 PresentationParticleEmitOnce.Begin = function(self, owner)
 
-	self.animComp = owner:GetAnimationComp();
-
 end
 
 
