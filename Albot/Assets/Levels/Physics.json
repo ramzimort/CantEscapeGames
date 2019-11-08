@@ -551,48 +551,6 @@
       }
     },
     {
-      "tag": "GHOST",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            0,
-            0,
-            3
-          ],
-          "Rotation": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            2.0,
-            2.0,
-            2.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\MaterialDarkGreen.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [
-            0,
-            0,
-            0
-          ],
-          "Mass": 3.3999999521443644e38,
-          "IsAsleep": 0,
-          "CollisionMask": "GHOST"
-        }
-      }
-    },
-    {
       "tag": "RGDBDYCUBE",
       "prefab": "Assets\\Prefabs\\RBTestObj.json",
       "overrides": {
