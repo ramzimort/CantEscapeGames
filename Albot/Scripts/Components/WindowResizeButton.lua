@@ -42,6 +42,7 @@ WindowResizeButton.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
 end
 
 --Begin called when obj has all comps
@@ -180,6 +181,12 @@ WindowResizeButton.OnKey = function(self, key, state)
 	end
 end
 
+WindowResizeButton.OnJoystickButton = function(self, joystickId, button, state)
+	if(button == CONTROLLER.A) then
+		self.ENTER = state;
+	end
+end
+
 WindowResizeButton.OnMouseMotion = function(self, position, deltaposition)
 	self.MousePositionX = position.x;
 	self.MousePositionY = position.y;
@@ -197,6 +204,7 @@ WindowResizeButton.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnMouseMotion});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
 end
 WindowResizeButton.ReturnClicked = function(self)
    return self.Clicked;

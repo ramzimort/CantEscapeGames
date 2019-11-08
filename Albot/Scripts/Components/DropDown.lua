@@ -88,7 +88,7 @@ DropDown.Begin = function(self, owner, goMgr)
 	self.ParentName = self.uiComp:GetParentName();
 
 	--  todo: We will set the last button Index from the source file
-	self.CurrentSelectedChildButtonIndex = self.ButtonArrowIndex +1;
+	self.CurrentSelectedChildButtonIndex = self.ButtonArrowIndex +3;
 	--
 	
 	
