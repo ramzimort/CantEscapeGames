@@ -99,25 +99,7 @@
 		"Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
       ],
       "Scripts": [
-		"Scripts\\Components\\TestPlayerAnimComp.lua",
-		"Scripts\\Components\\JoseController.lua",
-		"Scripts\\Components\\fpscontroller.lua",
-		"Scripts\\Components\\editor.lua",
-        "Scripts\\Components\\PlayerComp.lua",
-        "Scripts\\Components\\test01Comp.lua",
-        "Scripts\\Components\\test02Comp.lua",
-        "Scripts\\Components\\rgdbdyPlayer.lua",
-        "Scripts\\Components\\UICameraMenu.lua",
-        "Scripts\\Components\\Button.lua",
-        "Scripts\\Components\\AffineAnimation.lua",
-        "Scripts\\Components\\WindowResize.lua",
-		"Scripts\\Components\\UICameraLoading.lua",
-		"Scripts\\Components\\PresentationParticleEmitOnce.lua",
-		"Scripts\\States\\DebugPause.lua",
-		"Scripts\\States\\Graphics.lua",
-        "Scripts\\States\\Physics.lua",
-		"Scripts\\States\\Menu.lua",
-		"Scripts\\States\\JoseLevel.lua"
+		
       ],
       "Prefabs": [
         "Assets\\Prefabs\\brick_wall.json",
