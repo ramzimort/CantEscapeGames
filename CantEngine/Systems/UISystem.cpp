@@ -59,7 +59,7 @@ void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 		return;
 	}
 
-	Vector3 position = uiNode->m_transform->GetWorldPosition();
+	Vector3 position = uiNode->m_transform->GetPosition();
 	Vector3 scale = uiNode->m_transform->GetScale();
 
 	UIObjectInstanceRenderData uiObjectInstanceRenderData = {};

@@ -7,7 +7,10 @@ Other Authors: <None>
 
 #pragma once
 
-
+/**
+ * @brief Audio Categories
+ * 
+ */
 enum Category { 
 	CATEGORY_SFX, 
 	CATEGORY_SONG, 

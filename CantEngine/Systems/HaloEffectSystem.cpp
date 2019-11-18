@@ -45,7 +45,7 @@ void HaloEffectSystem::Draw(float dt, BaseSystemCompNode *compNode)
 
 	HaloEffectInstanceData haloEffectInstanceData = {};
 	haloEffectInstanceData.haloEffect = &haloComp->m_haloEffect;
-	haloEffectInstanceData.m_haloPosition = transformComp->GetWorldPosition() + haloComp->m_haloEffect.m_position;
+	haloEffectInstanceData.m_haloPosition = transformComp->GetPosition() + haloComp->m_haloEffect.m_position;
 
 	m_pAppRenderer->RegisterHaloEffectInstance(haloEffectInstanceData);
 }
