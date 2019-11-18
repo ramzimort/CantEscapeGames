@@ -34,15 +34,32 @@ class InputManager
 public:
 	InputManager(bool Fullscreen, int w, int h);
 	~InputManager();
+	/**
+	 * @brief Thread wait until any input event. On event, the event info is dispatched to be caught at the end of this frame.
+	 * 
+	 */
 	void Update();
-	bool IsKeyPressed(unsigned int KeyScanCode) const; 
 	
-	/** Get mouse position in screen space as int[2] array (depends on window width/height) */
-	const int* GetPointerLocation() const;
-	/** Get mouse position in screen space as vec2 (depends on window width/height) */
+	/**
+	 * @brief Get the Pointer's location in screen coordinates
+	 * 
+	 * @return const int* (const Array Pointer of size 2)
+	 */
+	const int* GetPointerLocation() const;	
+	/**
+	 * @brief Get mouse position in screen space as vec2
+	 * 
+	 * @return Vector2 
+	 */
 	Vector2 GetPointerLocVec2() const;
-	/** Get mouse position change b/w frames as vec2 (depends on window width/height) */
+	/**
+	 * @brief Get mouse position change b/w frames as vec2
+	 * 
+	 * @return Vector2 
+	 */
 	Vector2 GetPointerDeltaVec2() const;
+
+	bool IsKeyPressed(unsigned int KeyScanCode) const; 
 
 	/** Check mouse button press */
 	bool IsMousePressed(unsigned int MouseScanCode) const;
