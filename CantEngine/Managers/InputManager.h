@@ -54,8 +54,7 @@ public:
 	Vector2 GetPointerLocVec2() const;
 	/**
 	 * @brief Get mouse position change b/w frames as vec2
-	 * 
-	 * @return Vector2 
+	 asdasda	 * @return Vector2 
 	 */
 	Vector2 GetPointerDeltaVec2() const;
 
