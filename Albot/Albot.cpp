@@ -11,6 +11,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-	CantEngineAPI::InitializeUserSettings("Albot");
-	CantEngineAPI::InitializeEngine("Assets/Levels/Loading.json", false, 1280, 720);
+	CantEngineAPI::InitializeEngine("Cant Escape Games", "Assets/Levels/Loading.json", false, 1280, 720);
 }

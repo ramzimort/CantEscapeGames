@@ -32,7 +32,7 @@ struct ControllerData
 class InputManager
 {
 public:
-	InputManager(bool Fullscreen, int w, int h);
+	InputManager(const std::string& gameName, bool Fullscreen, int w, int h);
 	~InputManager();
 	void Update();
 	bool IsKeyPressed(unsigned int KeyScanCode) const; 

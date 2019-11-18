@@ -1,21 +1,29 @@
 #pragma once
 
-namespace CantDirectory
+class UserManager
 {
-	const std::string Path();
-	void FindOrCreateUserDataFolder(const std::string& name);
+public:
+	UserManager() = delete;
+	UserManager(const std::string& gameName);
+	~UserManager() = default;
+	const std::string& UserDirectoryPath() const { return m_userDirPath; }
+	const std::string& SettingsPath() const { return m_userSettingsPath; }
+	void SaveSettingsToDisk() const;
 
-	//class UserDirectory
-	//{
-	//public:
-	//	UserDirectory(const std::string& dirName);
-	//	~UserDirectory() = default;
-	//	static const std::string& Path();
-	//	static void FindOrCreateUserDataFolder(const std::string& name);
+	bool HasSetting(const std::string& parent, const std::string& setting) const;
 
-	//private:
-	//	static std::string m_userDirName;
-	//	UserDirectory() = delete;
-	//	UserDirectory(const UserDirectory& rhs) = delete;
-	//};
-}
+	const bool GetSettingBool			(const std::string& parent, const std::string& setting);
+	const int GetSettingInt				(const std::string& parent, const std::string& setting);
+	const double GetSettingDouble		(const std::string& parent, const std::string& setting);
+	const std::string GetSettingString	(const std::string& parent, const std::string& setting);
+
+	void SetSettingBool					(const std::string& parent, const std::string& setting, const bool value);
+	void SetSettingInt					(const std::string& parent, const std::string& setting, const int& value);
+	void SetSettingDouble				(const std::string& parent, const std::string& setting, const double& value);
+	void SetSettingString				(const std::string& parent, const std::string& setting, const std::string& value);
+
+private:
+	const std::string m_userDirPath;
+	const std::string m_userSettingsPath;
+	rapidjson::Document m_settings;
+};

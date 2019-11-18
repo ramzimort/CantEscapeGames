@@ -24,6 +24,7 @@ EventManager::EventManager()
 
 EventManager::~EventManager()
 {
+	delete m_pUserManager;
 	delete m_pStateManager;
 	delete m_pResourceManager;
 	delete m_pAppRenderer;
@@ -37,17 +38,18 @@ EventManager::~EventManager()
 #endif // DEVELOPER
 }
 
-void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int width, int height)
+void EventManager::Initialize(const std::string& gameName, const std::string& levelPath, bool fullscreen, int width, int height)
 {
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
-	m_pInputManager = new InputManager(fullscreen, width, height);
+	m_pInputManager = new InputManager(gameName, fullscreen, width, height);
 	m_pAudioManager = new AudioManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
+	m_pUserManager = new UserManager(gameName);
 
 	DEBUG_INIT(
-		CantDirectory::Path(),
+		m_pUserManager->UserDirectoryPath(),
 		m_pInputManager->GetWindow(), 
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
 		m_pAppRenderer->GetDXRenderer()->get_device_context(),
