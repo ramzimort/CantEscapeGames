@@ -5,6 +5,13 @@
 #include "Events/State/StateEvents.h"
 #include "CantDebug/DebugManager.h"
 
+/**
+ * @file EventManager.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Main singleton class for Event Communication and Thread-Safety
+ */
+
 class BaseEvent;
 class WindowManager;
 class CameraManager;
@@ -17,6 +24,10 @@ class EventBus;
 class DebugManager;
 class AudioManager;
 
+/**
+ * @brief Main singleton class for Event Communication and Thread-Safety
+ * 
+ */
 class EventManager
 {
 public:
@@ -25,19 +36,66 @@ public:
 public:
 	EventManager();
 	~EventManager();
+	/**
+	 * @brief Returns the EventManager singleton
+	 * 
+	 * @return EventManager* 
+	 */
 	static EventManager* Get();
-	void OnQuit(const QuitEvent* e);
+	/**
+	 * @brief Initialize the engine with startup level and window parameters
+	 * 
+	 * @param levelName 
+	 * @param fullscreen 
+	 * @param width 
+	 * @param height 
+	 */
 	void Initialize(const std::string& levelName, bool fullscreen, int width, int height);
+	/**
+	 * @brief Runs the input wait event loop on its own thread
+	 * 
+	 */
 	void RunInputThread();
+	/**
+	 * @brief Runs the game loop on its own thread and updates on a frame time basis
+	 * 
+	 */
 	void RunGameThread();
+	/**
+	 * @brief Check if end condition requested
+	 * 
+	 * @return true 
+	 * @return false 
+	 */
 	bool IsQuit();
+	/**
+	 * @brief Subscribe and execute callback whenever event is called. 
+	 * 
+	 * @tparam T 
+	 * @tparam Args 
+	 * @param args 
+	 */
 	template<typename T, typename ...Args>
 	void SubscribeEvent(Args... args);
+	/**
+	 * @brief Unsubscribe object pointer from event callback.
+	 * 
+	 * @tparam T 
+	 * @param objPtr 
+	 */
 	template<typename T>
 	void UnsubscribeEvent(void* objPtr);
+	/**
+	 * @brief Preferable to set immediate call to false for thread safety
+	 * 
+	 * @tparam T 
+	 * @tparam Args (bool immediateCall, event constructor args)
+	 */
 	template<typename T,typename ...Args>
 	void EnqueueEvent(Args&&...);
 
+private:
+	void OnQuit(const QuitEvent* e);
 private:
 	AudioManager* m_pAudioManager;
 	ScriptingManager *m_pScriptingManager;

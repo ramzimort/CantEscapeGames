@@ -1,20 +1,53 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Ramzi Mourtada
-- End Header --------------------------------------------------------*/
-
 #pragma once
+
+/**
+ * @file FrameManager.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Frame time checker
+ */
+
+/**
+ * @brief Checks if frame time exceeded to allow for new frame
+ * 
+ */
 class FrameManager
 {
 public:
+	/**
+	 * @brief Construct a new Frame Manager object
+	 * 
+	 * @param maxFrameRate 
+	 */
 	FrameManager(unsigned int maxFrameRate = 144);
 	~FrameManager();
-
+	/**
+	 * @brief Call at the start of the frame to begin timing
+	 * 
+	 */
 	void StartFrame();
+	/**
+	 * @brief Call at the end of the frame to wait until the min frame time is complete
+	 * 
+	 */
 	void EndFrame();
+	/**
+	 * @brief Get the current time within frame
+	 * 
+	 * @return unsigned int 
+	 */
 	unsigned int GetFrameTime();
+	/**
+	 * @brief Get the current time within frame
+	 * 
+	 * @return float 
+	 */
 	float GetFloatFrameTime() const;
+	/**
+	 * @brief Set the Frame Rate
+	 * 
+	 * @param maxFrameRate 
+	 */
 	void SetFrameRate(unsigned int maxFrameRate);
 
 private:

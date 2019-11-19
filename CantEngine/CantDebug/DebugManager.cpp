@@ -11,6 +11,7 @@
 #include "Reflection/Helpers.h"
 #include "Reflection/Serialization.h"
 #include "Physics/PhysicsUtils.h"
+#include "Events/GameObject/GameObjectEvents.h"
 
 namespace CantDebug
 {

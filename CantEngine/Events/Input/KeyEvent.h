@@ -3,9 +3,19 @@
 #include "Events/Event.h"
 #include "Events/Multicast.h"
 
+/**
+ * @brief Keyboard event
+ * 
+ */
 class KeyEvent : public Event<KeyEvent>
 {
 public:
+	/**
+	 * @brief Keyboard event
+	 * 
+	 * @param key_scancode 
+	 * @param press 
+	 */
 	KeyEvent(SDL_Scancode key_scancode, bool press) :
 		m_scancode(key_scancode),
 		m_press(press)
@@ -23,7 +33,14 @@ public:
 		static Multicast<void(int, bool)> m;
 		return m;
 	}
-
+	/**
+	 * @brief Key Scancode
+	 * 
+	 */
 	SDL_Scancode m_scancode;
+	/**
+	 * @brief Key Current State
+	 * 
+	 */
 	bool m_press;
 };

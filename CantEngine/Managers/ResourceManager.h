@@ -1,10 +1,15 @@
 #pragma once
-
-
 #include "Helper/Hash.h"
 #include "Audio/AudioTypes.h"
 #include "AudioManager.h"
 #include <DirectXTK/SpriteFont.h>
+
+/**
+ * @file ResourceManager.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Responsible for storing resource pointer table and respective memory management
+ */
 
 class Model;
 class Texture;
@@ -12,7 +17,10 @@ class Material;
 class DXRenderer;
 class AudioManager;
 
-
+/**
+ * @brief Represents type of resource pointer being stored
+ * 
+ */
 enum ResType
 {
 	SFX,
@@ -25,6 +33,10 @@ enum ResType
 	FONT,
 };
 
+/**
+ * @brief Union class that can store different pointer types
+ * 
+ */
 union ResPtr
 {
 	Model* p_model;
@@ -36,34 +48,30 @@ union ResPtr
 	DirectX::SpriteFont* p_spriteFont;
 };
 
+/**
+ * @brief Resource table object containing type and pointer
+ * 
+ */
 struct Resource
 {
 	Resource() = default;
 	~Resource() = default;
+	/**
+	 * @brief Construct a new Resource object containing type and pointer
+	 * 
+	 * @param t 
+	 * @param p 
+	 */
 	Resource(ResType t, ResPtr p) :
 		type(t), res(p) { }
 	ResType type;
 	ResPtr res;
 };
 
-//template <>
-//struct std::hash<std::wstring>
-//{
-//	std::size_t operator()(const std::wstring& k) const
-//	{
-//		using std::size_t;
-//		using std::hash;
-//		using std::wstring;
-//
-//		// Compute individual hash values for first,
-//		// second and third and combine them using XOR
-//		// and bit shifting:
-//
-//		return ((hash<wstring>()(k)
-//	}
-//};
-
-
+/**
+ * @brief  Responsible for storing resource pointer table and respective memory management
+ * 
+ */
 class ResourceManager
 {
 	friend class Factory;
@@ -73,17 +81,80 @@ class ResourceManager
 public:
 	ResourceManager();
 	~ResourceManager();
-
+	/**
+	 * @brief Initialize resource related managers
+	 * 
+	 * @param dxrenderer 
+	 * @param pSolState 
+	 * @param pAudioManager 
+	 */
 	void Initialize(DXRenderer* dxrenderer, sol::state* pSolState, AudioManager* pAudioManager);
+	/**
+	 * @brief Get Localized String from table
+	 * 
+	 * @return const std::wstring& 
+	 */
 	const std::wstring& GetLString(const std::string&);
+	/**
+	 * @brief Get the Model object
+	 * 
+	 * @param modelId 
+	 * @return Model* 
+	 */
 	Model* GetModel(StringId modelId);
+	/**
+	 * @brief Get the Material object
+	 * 
+	 * @param materialId 
+	 * @return Material* 
+	 */
 	Material* GetMaterial(StringId materialId);
+	/**
+	 * @brief Get the Texture object
+	 * 
+	 * @param textureId 
+	 * @return Texture* 
+	 */
 	Texture* GetTexture(StringId textureId);
+	/**
+	 * @brief Get the Font object
+	 * 
+	 * @param fontId 
+	 * @return DirectX::SpriteFont* 
+	 */
 	DirectX::SpriteFont* GetFont(StringId fontId);
+	/**
+	 * @brief Get the Prefab string (JSON format)
+	 * 
+	 * @param prefabId 
+	 * @return std::string& 
+	 */
 	std::string& GetPrefab(StringId prefabId);
+	/**
+	 * @brief Get the LUA Script object file
+	 * 
+	 * @param scriptId 
+	 * @return sol::table& 
+	 */
 	sol::table& GetScript(StringId scriptId);
+	/**
+	 * @brief Check if resource with given ID (path) has been loaded
+	 * 
+	 * @param id 
+	 * @return true 
+	 * @return false 
+	 */
 	bool HasResource(StringId id);
+	/**
+	 * @brief Free Resource with given ID if it exists
+	 * 
+	 * @param id 
+	 */
 	void FreeResource(StringId id);
+	/**
+	 * @brief Free All loaded resources
+	 * 
+	 */
 	void FreeAll();
 
 private:

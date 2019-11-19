@@ -115,9 +115,6 @@ void InputManager::Update()
 		case SDL_JOYAXISMOTION: 
 			EventManager::Get()->EnqueueEvent<JoystickMotionEvent>(false, m_event.jaxis.which, m_event.jaxis.axis, (float)m_event.jaxis.value / 32768.f);
 			break;
-		case SDL_JOYBALLMOTION:  
-			EventManager::Get()->EnqueueEvent<JoystickBallEvent>(false, m_event.jball.which, m_event.jball.ball);
-			break;
 		case SDL_JOYHATMOTION:
 		{
 			uint32_t buttonId = 0;

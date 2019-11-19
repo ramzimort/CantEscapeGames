@@ -1,21 +1,18 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
-- End Header --------------------------------------------------------*/
-
-///HEADER STUFF
-
 #pragma once
-
-///INCLUDES
 #include "BaseComponent.h"
-
-
 class GameObjectManager;
 
+/**
+ * @file TransformComponent.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Stores and updates all position related data
+ */
 
+/**
+ * @brief Stores and updates all position related data
+ * 
+ */
 class TransformComponent : public BaseComponent
 {
 
@@ -23,13 +20,9 @@ class TransformComponent : public BaseComponent
 public:
 	friend class Factory;
 	friend class TransformSystem;
-//METHODS
 public:
-	//ctor and dtor
 	TransformComponent(GameObject *owner);
 	virtual ~TransformComponent();
-
-	//Interface
 	/**
 	 * @brief Translate in world space
 	 * 
@@ -78,23 +71,77 @@ public:
 	 * @param scale 
 	 */
 	void Scale(Vector3 const &scale);
-
-	//getters
-	Vector3 const& GetWorldPosition() const;
+	/**
+	 * @brief Get the object's world space position
+	 * 
+	 * @return Vector3 const& 
+	 */
 	Vector3 const& GetPosition() const;
+	/**
+	 * @brief Get the object's rotation euler angles (in degrees)
+	 * 
+	 * @return Vector3 const& 
+	 */
 	Vector3 const& GetRotation() const;
+	/**
+	 * @brief Get the object's scale factors
+	 * 
+	 * @return Vector3 const& 
+	 */
 	Vector3 const& GetScale() const;
+	/**
+	 * @brief Get the obejct's model Matrix (computed per frame)
+	 * 
+	 * @return Matrix const& 
+	 */
 	Matrix const& GetModel() const;
+	/**
+	 * @brief Get the object's rotation matrix (computed per frame)
+	 * 
+	 * @return Matrix const& 
+	 */
 	Matrix const& GetRotationMatrix() const;
+	/**
+	 * @brief Get the object's scale matrix (computed every frame)
+	 * 
+	 * @return Matrix const& 
+	 */
 	Matrix const& GetScaleMatrix() const;
+	/**
+	 * @brief Gets the forward vector based on current orientation
+	 * 
+	 * @return Vector3 
+	 */
 	Vector3 GetForward() const;
+	/**
+	 * @brief Get the right vector based on current orientation
+	 * 
+	 * @return Vector3 
+	 */
 	Vector3 GetRight() const;
-
 	Vector3  GetPositionNormalized() const;
 	Vector3  GetScaleNormalized() const;
-	//Setters
+	/**
+	 * @brief Set the position of the object in world space
+	 * 
+	 * @param x 
+	 * @param y 
+	 * @param z 
+	 */
 	void SetLocalPosition(float x, float y, float z);
+	/**
+	 * @brief Set the position of the object in world space
+	 * 
+	 * @param position 
+	 */
 	void SetLocalPosition(const Vector3& position);
+	/**
+	 * @brief Set the rotation directly with euler angles
+	 * 
+	 * @param eulerX 
+	 * @param eulerY 
+	 * @param eulerZ 
+	 */
 	void SetLocalRotation(float eulerX, float eulerY, float eulerZ); 
 
 private:

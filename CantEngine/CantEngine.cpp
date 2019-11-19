@@ -23,6 +23,8 @@ namespace CantEngineAPI
 		World->RunInputThread();
 		th1.join();
 	}
+	
+	
 	void InitializeUserSettings(const std::string& gameName)
 	{
 		CantDirectory::FindOrCreateUserDataFolder("Albot");

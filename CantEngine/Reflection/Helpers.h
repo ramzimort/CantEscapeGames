@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ * @file Helpers.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief  Reflection Helpers for converting different data types from JSON to class properties
+ */
+
 namespace CantReflect
 {
 	// Write Helpers
@@ -9,7 +16,6 @@ namespace CantReflect
 	void WriteRecursive(const rttr::instance& obj2, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 	bool WriteVariant(const rttr::variant& var, rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer);
 
-	// Read Helpers
 	rttr::variant ReadBaseType(rapidjson::Value& json_value, const rttr::type& t);
 	void ReadArray(rttr::variant_sequential_view& view, rapidjson::Value& json_array_value);
 	void ReadMap(rttr::variant_associative_view& view, rapidjson::Value& json_array_value);

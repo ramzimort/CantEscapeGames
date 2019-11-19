@@ -192,12 +192,6 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const float)>::UnbindLuaFunction
 			);
 
-	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t)>>
-		(
-			"JoystickHatMulticast",
-			"Bind", &Multicast<void(const uint32_t, const uint32_t)>::BindLuaFunction,
-			"Unbind", &Multicast<void(const uint32_t, const  uint32_t)>::UnbindLuaFunction
-		);
 	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t,const bool)>>
 		(
 			"JoystickButtonMulticast",
@@ -213,7 +207,6 @@ void ScriptingManager::ManageBindings()
 	luaState.set_function("OnWindowSize", &WindowSizeEvent::OnWindowSizeEvent);
 	luaState.set_function("OnResourcesLoaded", &ResourcesLoadedEvent::OnResourcesLoaded);
 	luaState.set_function("OnJoystickMotion", &JoystickMotionEvent::OnJoyMotionEvent);
-	luaState.set_function("OnJoystickHat", &JoystickHatEvent::OnJoystickHatEvent);
 	luaState.set_function("OnJoystickButton", &JoystickButtonEvent::OnJoystickButtonEvent);
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant

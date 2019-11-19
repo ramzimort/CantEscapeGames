@@ -295,23 +295,3 @@ float AudioManager::Change_Semitone(float freq, float pitch)
 	static float semitone_ratio = pow(2.0f, 1.0f / 12.0f);
 	return freq * pow(semitone_ratio, pitch);
 }
-
-void AudioManager::Save_Settings()
-{
-	//std::string path = User_Data_Generator::Get_User_Settings_Path();
-	//CSimpleIniA ini;
-	//ini.SetUnicode();
-	//auto err = ini.LoadFile(path.c_str());
-	//assert(err == SI_Error::SI_OK);
-
-	//float volume;
-	//mp_master_channel->getVolume(&volume);
-	//ini.SetDoubleValue("Audio_Settings", "Master", volume);
-
-	//groups[CATEGORY_SONG]->getVolume(&volume);
-	//ini.SetDoubleValue("Audio_Settings", "Music", volume);
-
-	//groups[CATEGORY_SFX]->getVolume(&volume);
-	//ini.SetDoubleValue("Audio_Settings", "SFX", volume);
-	//ini.SaveFile(path.c_str());
-}
