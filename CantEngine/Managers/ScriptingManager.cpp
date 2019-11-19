@@ -477,7 +477,6 @@ void ScriptingManager::ManageBindings()
 		//Getters
 		"GetForward", &TransformComponent::GetForward,
 		"GetRight", &TransformComponent::GetRight,
-		"GetWorldPosition", &TransformComponent::GetWorldPosition,
 		"GetPosition", &TransformComponent::GetPosition,
 		"GetRotation", &TransformComponent::GetRotation,
 		"GetScale", &TransformComponent::GetScale,

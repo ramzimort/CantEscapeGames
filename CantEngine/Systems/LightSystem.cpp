@@ -47,7 +47,7 @@ void LightSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	{
 		PointLightInstanceData light_inst_data = {};
 		light_inst_data.light = light;
-		light_inst_data.light_position = transformComp->GetWorldPosition() + light->GetPosition();
+		light_inst_data.light_position = transformComp->GetPosition() + light->GetPosition();
 		m_pAppRenderer->RegisterPointLightInstance(light_inst_data);
 	}
 	else if (light->GetLightType() == ELightType::DIRECTIONAL_LIGHT)
