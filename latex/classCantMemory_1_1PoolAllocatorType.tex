@@ -1,0 +1,72 @@
+\hypertarget{classCantMemory_1_1PoolAllocatorType}{}\section{Cant\+Memory\+:\+:Pool\+Allocator\+Type$<$ T $>$ Class Template Reference}
+\label{classCantMemory_1_1PoolAllocatorType}\index{Cant\+Memory\+::\+Pool\+Allocator\+Type$<$ T $>$@{Cant\+Memory\+::\+Pool\+Allocator\+Type$<$ T $>$}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structCantMemory_1_1PoolAllocatorType_1_1rebind}{rebind}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a2fca89ed5b9f11f357e05947b59f6374}\label{classCantMemory_1_1PoolAllocatorType_a2fca89ed5b9f11f357e05947b59f6374}} 
+typedef size\+\_\+t {\bfseries size\+\_\+type}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a8d5ac515cd39942b244c1bd98195b079}\label{classCantMemory_1_1PoolAllocatorType_a8d5ac515cd39942b244c1bd98195b079}} 
+typedef ptrdiff\+\_\+t {\bfseries difference\+\_\+type}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_aa0ea1542c3f28df46d70ab764e6a0828}\label{classCantMemory_1_1PoolAllocatorType_aa0ea1542c3f28df46d70ab764e6a0828}} 
+typedef T $\ast$ {\bfseries pointer}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_af972a11887913a449ad30e0d07984c09}\label{classCantMemory_1_1PoolAllocatorType_af972a11887913a449ad30e0d07984c09}} 
+typedef const T $\ast$ {\bfseries const\+\_\+pointer}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a85a15198deb2805e5532e630ec6ec447}\label{classCantMemory_1_1PoolAllocatorType_a85a15198deb2805e5532e630ec6ec447}} 
+typedef T \& {\bfseries reference}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a4e06116c8efbadca7b5812e22d915232}\label{classCantMemory_1_1PoolAllocatorType_a4e06116c8efbadca7b5812e22d915232}} 
+typedef const T \& {\bfseries const\+\_\+reference}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_af5e29f860104304e7c58d16b5b10ad78}\label{classCantMemory_1_1PoolAllocatorType_af5e29f860104304e7c58d16b5b10ad78}} 
+typedef T {\bfseries value\+\_\+type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_ad46c4bdf479e9c023d466cd3540b9749}\label{classCantMemory_1_1PoolAllocatorType_ad46c4bdf479e9c023d466cd3540b9749}} 
+{\bfseries Pool\+Allocator\+Type} (const \hyperlink{classCantMemory_1_1PoolAllocatorType}{Pool\+Allocator\+Type} \&)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a3da540cbeb4d07b99e3ac4b4933aaf36}\label{classCantMemory_1_1PoolAllocatorType_a3da540cbeb4d07b99e3ac4b4933aaf36}} 
+pointer {\bfseries allocate} (size\+\_\+type n, const void $\ast$=0)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a3e8d9bb571d899dc0697da8a63fdca7c}\label{classCantMemory_1_1PoolAllocatorType_a3e8d9bb571d899dc0697da8a63fdca7c}} 
+void {\bfseries deallocate} (void $\ast$p, size\+\_\+type)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a021d80ad67ca529171e5e2143a103956}\label{classCantMemory_1_1PoolAllocatorType_a021d80ad67ca529171e5e2143a103956}} 
+pointer {\bfseries address} (reference x) const
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a66aa05e2dc248182dbbaaa02bd98c949}\label{classCantMemory_1_1PoolAllocatorType_a66aa05e2dc248182dbbaaa02bd98c949}} 
+const\+\_\+pointer {\bfseries address} (const\+\_\+reference x) const
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_aef13da61f8e7b65c56731fed19a0d225}\label{classCantMemory_1_1PoolAllocatorType_aef13da61f8e7b65c56731fed19a0d225}} 
+\hyperlink{classCantMemory_1_1PoolAllocatorType}{Pool\+Allocator\+Type}$<$ T $>$ \& {\bfseries operator=} (const \hyperlink{classCantMemory_1_1PoolAllocatorType}{Pool\+Allocator\+Type} \&)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a905bf076c0bf136f21ddf2465e4372b2}\label{classCantMemory_1_1PoolAllocatorType_a905bf076c0bf136f21ddf2465e4372b2}} 
+void {\bfseries construct} (pointer p, const T \&val)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a9cf6829291189ca44d7e2a5115530969}\label{classCantMemory_1_1PoolAllocatorType_a9cf6829291189ca44d7e2a5115530969}} 
+void {\bfseries destroy} (pointer p)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a387d605927d35a2b57b4d3c889b20ccb}\label{classCantMemory_1_1PoolAllocatorType_a387d605927d35a2b57b4d3c889b20ccb}} 
+size\+\_\+type {\bfseries max\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_ac9d76c2707d174d6d567a66043214b76}\label{classCantMemory_1_1PoolAllocatorType_ac9d76c2707d174d6d567a66043214b76}} 
+{\footnotesize template$<$class U $>$ }\\{\bfseries Pool\+Allocator\+Type} (const \hyperlink{classCantMemory_1_1PoolAllocatorType}{Pool\+Allocator\+Type}$<$ U $>$ \&)
+\item 
+\mbox{\Hypertarget{classCantMemory_1_1PoolAllocatorType_a753332db4fd0323f53f8cebf9d113ca9}\label{classCantMemory_1_1PoolAllocatorType_a753332db4fd0323f53f8cebf9d113ca9}} 
+{\footnotesize template$<$class U $>$ }\\\hyperlink{classCantMemory_1_1PoolAllocatorType}{Pool\+Allocator\+Type}$<$ T $>$ \& {\bfseries operator=} (const \hyperlink{classCantMemory_1_1StackAllocatorType}{Stack\+Allocator\+Type}$<$ U $>$ \&)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Memory/Allocator\+Types.\+h\end{DoxyCompactItemize}

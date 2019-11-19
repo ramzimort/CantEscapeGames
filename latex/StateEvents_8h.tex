@@ -1,0 +1,49 @@
+\hypertarget{StateEvents_8h}{}\section{Events/\+State/\+State\+Events.h File Reference}
+\label{StateEvents_8h}\index{Events/\+State/\+State\+Events.\+h@{Events/\+State/\+State\+Events.\+h}}
+
+
+\hyperlink{classState}{State} Events.  
+
+
+{\ttfamily \#include \char`\"{}Events/\+Event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Events/\+Multicast.\+h\char`\"{}}\newline
+Include dependency graph for State\+Events.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{StateEvents_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{StateEvents_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classLoadStateEvent}{Load\+State\+Event}
+\begin{DoxyCompactList}\small\item\em Request state get loaded in the background. \hyperlink{classState}{State} is stored in temporary load buffer. \end{DoxyCompactList}\item 
+class \hyperlink{classPushLoadedStateEvent}{Push\+Loaded\+State\+Event}
+\begin{DoxyCompactList}\small\item\em Pushes loaded state if there is one. \end{DoxyCompactList}\item 
+class \hyperlink{classResourcesLoadedEvent}{Resources\+Loaded\+Event}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classState}{State} Manage broadcasts this when a state is finished loading. \end{DoxyCompactList}\item 
+class \hyperlink{classQuitEvent}{Quit\+Event}
+\begin{DoxyCompactList}\small\item\em Broadcast to safely shut down the engine. \end{DoxyCompactList}\item 
+class \hyperlink{classPushStateEvent}{Push\+State\+Event}
+\begin{DoxyCompactList}\small\item\em Pushes a new state. \end{DoxyCompactList}\item 
+class \hyperlink{classPopStateEvent}{Pop\+State\+Event}
+\begin{DoxyCompactList}\small\item\em Pops current state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classState}{State} Events. 
+
+\begin{DoxyAuthor}{Author}
+Ramzi Mourtada 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}

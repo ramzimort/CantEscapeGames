@@ -1,0 +1,100 @@
+\hypertarget{namespaceMathUtil}{}\section{Math\+Util Namespace Reference}
+\label{namespaceMathUtil}\index{Math\+Util@{Math\+Util}}
+
+
+H\+E\+A\+D\+ER.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a4220678ebc92311d8425d3e3cf810395}\label{namespaceMathUtil_a4220678ebc92311d8425d3e3cf810395}} 
+Vector3 {\bfseries Lerp} (Vector3 const \&origin, Vector3 const \&destination, float alpha)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a9a30d05c4b375601bc4d0ef27e11a24e}\label{namespaceMathUtil_a9a30d05c4b375601bc4d0ef27e11a24e}} 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} {\bfseries Slerp} (\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&origin, \hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&destination, float alpha)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a2c4a89f7c2c21d947eea7fd055c4dd51}\label{namespaceMathUtil_a2c4a89f7c2c21d947eea7fd055c4dd51}} 
+Matrix {\bfseries Gen\+V\+Q\+S\+Matrix} (Vector3 const \&v, \hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&q, Vector3 const \&s)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a1234b5a0ee62ff87185262dc6145329a}\label{namespaceMathUtil_a1234b5a0ee62ff87185262dc6145329a}} 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} {\bfseries operator$\ast$} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs, float f)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_aaee8f1e4099944bff98c5f4232fe8def}\label{namespaceMathUtil_aaee8f1e4099944bff98c5f4232fe8def}} 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} {\bfseries operator$\ast$} (float f, \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a2cdfdf977e158316d59ffc5d80996842}\label{namespaceMathUtil_a2cdfdf977e158316d59ffc5d80996842}} 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} {\bfseries operator/} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs, float f)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a713f41b345f7bd17833669d4b75bdb81}\label{namespaceMathUtil_a713f41b345f7bd17833669d4b75bdb81}} 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} {\bfseries operator/} (float f, \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a497f6c0ebc45c602ef213c5bcc5c2585}\label{namespaceMathUtil_a497f6c0ebc45c602ef213c5bcc5c2585}} 
+Vector4 {\bfseries v3\+\_\+to\+\_\+v4} (const Vector3 \&v3, float w=1.\+0)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a456cbe03beb8b4cb74c00da0672c9907}\label{namespaceMathUtil_a456cbe03beb8b4cb74c00da0672c9907}} 
+Vector3 {\bfseries v4\+\_\+to\+\_\+v3} (const Vector4 \&v4)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_abddda875766cfd0e5d5a1def0e37cfde}\label{namespaceMathUtil_abddda875766cfd0e5d5a1def0e37cfde}} 
+float {\bfseries Get\+Sign} (float val)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_ab8d3d918034fe0e5dd1cd328bc0efe2d}\label{namespaceMathUtil_ab8d3d918034fe0e5dd1cd328bc0efe2d}} 
+float {\bfseries Square\+Length} (const Vector2 \&vec2)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_ae9f35b16298278dbf26052295b59c3a1}\label{namespaceMathUtil_ae9f35b16298278dbf26052295b59c3a1}} 
+float {\bfseries Length} (const Vector2 \&vec2)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a8a7197e9559a243aee16ebff4d86eed4}\label{namespaceMathUtil_a8a7197e9559a243aee16ebff4d86eed4}} 
+float {\bfseries Square\+Length} (const Vector3 \&vec3)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a9b64265d155d634c84b8f1918f6e4449}\label{namespaceMathUtil_a9b64265d155d634c84b8f1918f6e4449}} 
+float {\bfseries Length} (const Vector3 \&vec3)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_aac2941dd4c47ceeb2e1dfc6177c00209}\label{namespaceMathUtil_aac2941dd4c47ceeb2e1dfc6177c00209}} 
+float {\bfseries Square\+Length} (const Vector4 \&vec4)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a171f640e02eefb587934fd13dae9be2f}\label{namespaceMathUtil_a171f640e02eefb587934fd13dae9be2f}} 
+float {\bfseries Length} (const Vector4 \&vec4)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a43b348cc14a31eae1e79fb1abf57b71b}\label{namespaceMathUtil_a43b348cc14a31eae1e79fb1abf57b71b}} 
+float {\bfseries RandF} ()
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a1e80fe559e9f4a0d72f15349cb37a7d7}\label{namespaceMathUtil_a1e80fe559e9f4a0d72f15349cb37a7d7}} 
+float {\bfseries RandF} (float a, float b)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a21a92d70cd3776ed7c07e9eee8bcab3f}\label{namespaceMathUtil_a21a92d70cd3776ed7c07e9eee8bcab3f}} 
+void {\bfseries Build\+Tangent\+Bitangent} (const Vector3 \&vector, Vector3 \&tangent, Vector3 \&bitangent)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a1a1efd5809a063ea299d7744072f66eb}\label{namespaceMathUtil_a1a1efd5809a063ea299d7744072f66eb}} 
+float {\bfseries Clamp} (float input, float min, float max)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_af5453baa31b395918534a490030e2774}\label{namespaceMathUtil_af5453baa31b395918534a490030e2774}} 
+float {\bfseries Positive\+Max} ()
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_afd73f68c1e5b898c7fe2bdafb38c1d10}\label{namespaceMathUtil_afd73f68c1e5b898c7fe2bdafb38c1d10}} 
+float {\bfseries Negative\+Min} ()
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a2e91846f784bbe315eefa21a9ddbe255}\label{namespaceMathUtil_a2e91846f784bbe315eefa21a9ddbe255}} 
+Vector3 {\bfseries To\+Euler\+Angles} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} q)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a22625ffcee253816dc713e25ff712137}\label{namespaceMathUtil_a22625ffcee253816dc713e25ff712137}} 
+unsigned {\bfseries Least\+Significant\+Component} (const Vector3 \&vec)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_a133a83e16c84261f8d01b8246ec2d2fa}\label{namespaceMathUtil_a133a83e16c84261f8d01b8246ec2d2fa}} 
+Matrix {\bfseries Get\+Rotation\+Matrix} (const Vector3 \&right, const Vector2 \&rotation)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_af55c8072a12d6f24e8684e50415b4680}\label{namespaceMathUtil_af55c8072a12d6f24e8684e50415b4680}} 
+Vector3 {\bfseries Rotate\+Vector} (const Vector3 \&v, float roll, float yaw, float pitch)
+\item 
+\mbox{\Hypertarget{namespaceMathUtil_acd7c6998fc267fa6221e9530925b443c}\label{namespaceMathUtil_acd7c6998fc267fa6221e9530925b443c}} 
+void {\bfseries Radians\+To\+Degree} (Vector3 \&degrees)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+H\+E\+A\+D\+ER. 

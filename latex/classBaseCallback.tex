@@ -1,0 +1,102 @@
+\hypertarget{classBaseCallback}{}\section{Base\+Callback Class Reference}
+\label{classBaseCallback}\index{Base\+Callback@{Base\+Callback}}
+
+
+Base \hyperlink{classEvent}{Event} Callback Class that is mirrored for Base\+Events. Carries function callback pointer.  
+
+
+
+
+{\ttfamily \#include $<$Event\+Callback.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Callback\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{classBaseCallback__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseCallback_a20c1623e166841cea02948e54122690a}\label{classBaseCallback_a20c1623e166841cea02948e54122690a}} 
+typedef std\+::unique\+\_\+ptr$<$ \hyperlink{classBaseCallback}{Base\+Callback} $>$ {\bfseries Ptr}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBaseCallback_a9071b9dda8d9a997937670f7ec4edcea}{Base\+Callback} (const void $\ast$\+\_\+owner)
+\begin{DoxyCompactList}\small\item\em Construct a new Base Callback object. \end{DoxyCompactList}\item 
+const void $\ast$ \hyperlink{classBaseCallback_ad9ea4e795a92a1c91b38596dbca29da3}{Get\+Owner} () const
+\begin{DoxyCompactList}\small\item\em Get the owner\textquotesingle{}s pointer (used for book-\/keeping) \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBaseCallback_af87d16a88aaf3c429e5f020798f97a8b}{Call} (const void $\ast$event)=0
+\begin{DoxyCompactList}\small\item\em Call bound function passing inherited event in non abstract function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseCallback_a9f44b039af4ffe1c7bcdeaddd10e2bbd}\label{classBaseCallback_a9f44b039af4ffe1c7bcdeaddd10e2bbd}} 
+const void $\ast$ {\bfseries m\+\_\+owner}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base \hyperlink{classEvent}{Event} Callback Class that is mirrored for Base\+Events. Carries function callback pointer. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBaseCallback_a9071b9dda8d9a997937670f7ec4edcea}\label{classBaseCallback_a9071b9dda8d9a997937670f7ec4edcea}} 
+\index{Base\+Callback@{Base\+Callback}!Base\+Callback@{Base\+Callback}}
+\index{Base\+Callback@{Base\+Callback}!Base\+Callback@{Base\+Callback}}
+\subsubsection{\texorpdfstring{Base\+Callback()}{BaseCallback()}}
+{\footnotesize\ttfamily Base\+Callback\+::\+Base\+Callback (\begin{DoxyParamCaption}\item[{const void $\ast$}]{\+\_\+owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new Base Callback object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+owner} & Pointer to owning object\textquotesingle{}s pointer in memory (used for book-\/keeping) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBaseCallback_af87d16a88aaf3c429e5f020798f97a8b}\label{classBaseCallback_af87d16a88aaf3c429e5f020798f97a8b}} 
+\index{Base\+Callback@{Base\+Callback}!Call@{Call}}
+\index{Call@{Call}!Base\+Callback@{Base\+Callback}}
+\subsubsection{\texorpdfstring{Call()}{Call()}}
+{\footnotesize\ttfamily virtual void Base\+Callback\+::\+Call (\begin{DoxyParamCaption}\item[{const void $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Call bound function passing inherited event in non abstract function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classEventCallback_ad34e4a69e56733e07342d0c56cd15dfc}{Event\+Callback$<$ T $>$}.
+
+\mbox{\Hypertarget{classBaseCallback_ad9ea4e795a92a1c91b38596dbca29da3}\label{classBaseCallback_ad9ea4e795a92a1c91b38596dbca29da3}} 
+\index{Base\+Callback@{Base\+Callback}!Get\+Owner@{Get\+Owner}}
+\index{Get\+Owner@{Get\+Owner}!Base\+Callback@{Base\+Callback}}
+\subsubsection{\texorpdfstring{Get\+Owner()}{GetOwner()}}
+{\footnotesize\ttfamily const void$\ast$ Base\+Callback\+::\+Get\+Owner (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the owner\textquotesingle{}s pointer (used for book-\/keeping) 
+
+\begin{DoxyReturn}{Returns}
+const void$\ast$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Events/\hyperlink{EventCallback_8h}{Event\+Callback.\+h}\end{DoxyCompactItemize}

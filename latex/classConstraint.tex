@@ -1,0 +1,59 @@
+\hypertarget{classConstraint}{}\section{Constraint Class Reference}
+\label{classConstraint}\index{Constraint@{Constraint}}
+
+
+Collaboration diagram for Constraint\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classConstraint__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classConstraint_a395b6ff4b983af67254c5dfe9fdf6bb9}\label{classConstraint_a395b6ff4b983af67254c5dfe9fdf6bb9}} 
+{\bfseries Constraint} (\hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$obj1, \hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$obj2, float depth=0.\+0f)
+\item 
+\mbox{\Hypertarget{classConstraint_a4b19008d8d9a6965bfc90111e5cc4efd}\label{classConstraint_a4b19008d8d9a6965bfc90111e5cc4efd}} 
+void {\bfseries Calculate\+Normal\+Jacobian} (const Vector3 \&normal, const Vector3 \&pointA, const Vector3 \&pointB)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classConstraint_ad59276ed90da13e5169f411a0b51329d}\label{classConstraint_ad59276ed90da13e5169f411a0b51329d}} 
+static void {\bfseries Calculate\+Friction\+Jacobians} (const Vector3 \&normal, const Vector3 \&pointA, const Vector3 \&pointB, \hyperlink{classConstraint}{Constraint} \&constraint\+Friction1, \hyperlink{classConstraint}{Constraint} \&constraint\+Friction2)
+\item 
+\mbox{\Hypertarget{classConstraint_ae458b57a23e5c4f49654ac8fbb37b3e8}\label{classConstraint_ae458b57a23e5c4f49654ac8fbb37b3e8}} 
+static void {\bfseries To\+Matrix4} (Matrix \&result, const \hyperlink{classJacobian}{Jacobian} \&jacobian)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classConstraint_a81be9de1b027d83afc88075cac8b5b4b}\label{classConstraint_a81be9de1b027d83afc88075cac8b5b4b}} 
+\hyperlink{classJacobian}{Jacobian} {\bfseries m\+\_\+jacobian}
+\item 
+\mbox{\Hypertarget{classConstraint_a9bbea2866cb6f593f7be5422357ef43f}\label{classConstraint_a9bbea2866cb6f593f7be5422357ef43f}} 
+\hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$ {\bfseries m\+\_\+object1}
+\item 
+\mbox{\Hypertarget{classConstraint_a927b633621d426d3d049fe9e44b8bae1}\label{classConstraint_a927b633621d426d3d049fe9e44b8bae1}} 
+\hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$ {\bfseries m\+\_\+object2}
+\item 
+\mbox{\Hypertarget{classConstraint_aaabf19e98bae7a66b87d8a726316b20a}\label{classConstraint_aaabf19e98bae7a66b87d8a726316b20a}} 
+Vector3 {\bfseries m\+\_\+normal}
+\item 
+\mbox{\Hypertarget{classConstraint_a4f7dae1972c717b15fa22a255bcb12f6}\label{classConstraint_a4f7dae1972c717b15fa22a255bcb12f6}} 
+float {\bfseries m\+\_\+bias}
+\item 
+\mbox{\Hypertarget{classConstraint_a4e856baff516350a810ea3bf0a840450}\label{classConstraint_a4e856baff516350a810ea3bf0a840450}} 
+float {\bfseries m\+\_\+lambda}
+\item 
+\mbox{\Hypertarget{classConstraint_ac3fdb5d9607837f03830b1874649a1cf}\label{classConstraint_ac3fdb5d9607837f03830b1874649a1cf}} 
+float {\bfseries m\+\_\+depth\+Pen}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/Constraint.\+h\item 
+Physics/Constraint.\+cpp\end{DoxyCompactItemize}

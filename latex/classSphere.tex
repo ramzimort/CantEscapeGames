@@ -1,0 +1,68 @@
+\hypertarget{classSphere}{}\section{Sphere Class Reference}
+\label{classSphere}\index{Sphere@{Sphere}}
+
+
+Inheritance diagram for Sphere\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{classSphere__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sphere\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{classSphere__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSphere_aca7691f5e4744113f60a5e1ba643c207}\label{classSphere_aca7691f5e4744113f60a5e1ba643c207}} 
+{\bfseries Sphere} (const Vector3 \&center, float radius)
+\item 
+\mbox{\Hypertarget{classSphere_a2c39cbaee2f92e62c09f2d4efed61d4b}\label{classSphere_a2c39cbaee2f92e62c09f2d4efed61d4b}} 
+void {\bfseries Compute\+Centroid} (const std\+::vector$<$ Vector3 $>$ \&points)
+\item 
+\mbox{\Hypertarget{classSphere_a059e05ff35c11f73e5cef4ce44940c8c}\label{classSphere_a059e05ff35c11f73e5cef4ce44940c8c}} 
+void {\bfseries Compute\+Ritter} (const std\+::vector$<$ Vector3 $>$ \&points)
+\item 
+\mbox{\Hypertarget{classSphere_add8256dbb8bad21d6495d2547c7cb8b9}\label{classSphere_add8256dbb8bad21d6495d2547c7cb8b9}} 
+void {\bfseries Compute\+P\+CA} (const std\+::vector$<$ Vector3 $>$ \&points, int max\+Iterations=50)
+\item 
+\mbox{\Hypertarget{classSphere_aea1571e835842f502a64e4ddb30847e4}\label{classSphere_aea1571e835842f502a64e4ddb30847e4}} 
+virtual bool {\bfseries Is\+Intersect} (const \hyperlink{classAabb}{Aabb} \&aabb) const override
+\item 
+\mbox{\Hypertarget{classSphere_aa97baa4e07d8b042f99150df0757d623}\label{classSphere_aa97baa4e07d8b042f99150df0757d623}} 
+virtual bool {\bfseries Is\+Intersect} (const \hyperlink{classSphere}{Sphere} \&sphere) const override
+\item 
+\mbox{\Hypertarget{classSphere_afb32becb53288c8be90572047e996042}\label{classSphere_afb32becb53288c8be90572047e996042}} 
+bool {\bfseries Contains\+Point} (const Vector3 \&point)
+\item 
+\mbox{\Hypertarget{classSphere_ab0d5d17030115760a276545a1362ce93}\label{classSphere_ab0d5d17030115760a276545a1362ce93}} 
+Vector3 {\bfseries Get\+Center} () const
+\item 
+\mbox{\Hypertarget{classSphere_a1be9f865028172ade600ed25ca0aee4f}\label{classSphere_a1be9f865028172ade600ed25ca0aee4f}} 
+float {\bfseries Get\+Radius} () const
+\item 
+\mbox{\Hypertarget{classSphere_adf99590b58fce09c26fa79041efa0b65}\label{classSphere_adf99590b58fce09c26fa79041efa0b65}} 
+bool {\bfseries Compare} (const \hyperlink{classSphere}{Sphere} \&rhs, float epsilon) const
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSphere_a246d1e074e26dab165c5e7847618649c}\label{classSphere_a246d1e074e26dab165c5e7847618649c}} 
+Vector3 {\bfseries m\+\_\+\+Center}
+\item 
+\mbox{\Hypertarget{classSphere_a013e6356f37b24bddda33ff36bfdcd76}\label{classSphere_a013e6356f37b24bddda33ff36bfdcd76}} 
+float {\bfseries m\+\_\+\+Radius}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Geometry/Sphere.\+h\item 
+Physics/\+Geometry/Sphere.\+cpp\end{DoxyCompactItemize}

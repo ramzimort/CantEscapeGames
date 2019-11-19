@@ -1,0 +1,61 @@
+\hypertarget{structAnimation}{}\section{Animation Struct Reference}
+\label{structAnimation}\index{Animation@{Animation}}
+
+
+Collaboration diagram for Animation\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{structAnimation__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_ac07104f8333840b8c2fca7fe620ace19}\label{structAnimation_ac07104f8333840b8c2fca7fe620ace19}} 
+typedef \hyperlink{classMulticast}{Multicast}$<$ void(void)$>$ {\bfseries Anim\+Multicast}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_ae4eef1e6d0194258f4bf2a6bbcc874f5}\label{structAnimation_ae4eef1e6d0194258f4bf2a6bbcc874f5}} 
+void {\bfseries Events\+Setup} ()
+\item 
+\mbox{\Hypertarget{structAnimation_a0b4ff938810fc4f137b004b2a04d3c1d}\label{structAnimation_a0b4ff938810fc4f137b004b2a04d3c1d}} 
+void {\bfseries Add\+Anim\+Event} (int tick, sol\+::table entry)
+\item 
+\mbox{\Hypertarget{structAnimation_a4bfa0e66492903e4435233193ad4979a}\label{structAnimation_a4bfa0e66492903e4435233193ad4979a}} 
+void {\bfseries Call\+Event} (float anim\+Time)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_a0447169235a9232787743cd944752b3f}\label{structAnimation_a0447169235a9232787743cd944752b3f}} 
+std\+::string {\bfseries anim\+Name}
+\item 
+\mbox{\Hypertarget{structAnimation_a66cc7333638f071b0401072ba95c55fd}\label{structAnimation_a66cc7333638f071b0401072ba95c55fd}} 
+float {\bfseries duration}
+\item 
+\mbox{\Hypertarget{structAnimation_a929555773b65c756af1519fc39317560}\label{structAnimation_a929555773b65c756af1519fc39317560}} 
+float {\bfseries ticks\+Per\+Second}
+\item 
+\mbox{\Hypertarget{structAnimation_aad5027023051d9891c36539a27e2df3d}\label{structAnimation_aad5027023051d9891c36539a27e2df3d}} 
+bool {\bfseries loops}
+\item 
+\mbox{\Hypertarget{structAnimation_a20f3a503b821838808d517a2230c4b94}\label{structAnimation_a20f3a503b821838808d517a2230c4b94}} 
+std\+::vector$<$ \hyperlink{classMulticast}{Anim\+Multicast} $>$ {\bfseries animation\+Events}
+\item 
+\mbox{\Hypertarget{structAnimation_aa5cccbaad84b1541e823c2f4ef88c15b}\label{structAnimation_aa5cccbaad84b1541e823c2f4ef88c15b}} 
+\hyperlink{classMulticast}{Anim\+Multicast} {\bfseries On\+Animation\+End}
+\item 
+\mbox{\Hypertarget{structAnimation_a929158d26b6d71f1d297820625e46fc7}\label{structAnimation_a929158d26b6d71f1d297820625e46fc7}} 
+std\+::vector$<$ \hyperlink{structAnimChannel}{Anim\+Channel} $>$ {\bfseries channels}
+\item 
+\mbox{\Hypertarget{structAnimation_ab0ec7a6ccca71fc844b62e2309a7a539}\label{structAnimation_ab0ec7a6ccca71fc844b62e2309a7a539}} 
+std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimChannel}{Anim\+Channel} $>$ {\bfseries bone\+Channel\+Map}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Animation/Animation.\+h\end{DoxyCompactItemize}

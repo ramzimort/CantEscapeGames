@@ -1,0 +1,70 @@
+\hypertarget{Hash_8h}{}\section{Helper/\+Hash.h File Reference}
+\label{Hash_8h}\index{Helper/\+Hash.\+h@{Helper/\+Hash.\+h}}
+
+
+64 bit based string hashing functions for paths  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Hash_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classStringId}{String\+Id}
+\begin{DoxyCompactList}\small\item\em Hashed version of string. (Contains both size\+\_\+t and string in D\+E\+V\+E\+L\+O\+P\+ER) \end{DoxyCompactList}\item 
+class \hyperlink{classStringIdHash}{String\+Id\+Hash}
+\begin{DoxyCompactList}\small\item\em Hashing Function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{Hash_8h_a4579a0386df402aaeeb0e0bccf8cf9ab}\label{Hash_8h_a4579a0386df402aaeeb0e0bccf8cf9ab}} 
+\#define {\bfseries M\+A\+G\+I\+C\+\_\+\+P\+R\+I\+ME}~((uint64\+\_\+t)0x100000001b3\+U\+L\+L)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr uint64\+\_\+t \hyperlink{Hash_8h_a5927fc6c24d579cc7e15138821de7b59}{F\+N\+V\+Hash} (const char $\ast$str, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em 64 bit string F\+NV Hash function \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{Hash_8h_a81987f9f66158355fec20d9df44173da}\label{Hash_8h_a81987f9f66158355fec20d9df44173da}} 
+constexpr size\+\_\+t {\bfseries operator\char`\"{}\char`\"{} \+\_\+sid} (const char $\ast$name, size\+\_\+t len)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+64 bit based string hashing functions for paths 
+
+\begin{DoxyAuthor}{Author}
+Ramzi Mourtada 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{Hash_8h_a5927fc6c24d579cc7e15138821de7b59}\label{Hash_8h_a5927fc6c24d579cc7e15138821de7b59}} 
+\index{Hash.\+h@{Hash.\+h}!F\+N\+V\+Hash@{F\+N\+V\+Hash}}
+\index{F\+N\+V\+Hash@{F\+N\+V\+Hash}!Hash.\+h@{Hash.\+h}}
+\subsubsection{\texorpdfstring{F\+N\+V\+Hash()}{FNVHash()}}
+{\footnotesize\ttfamily constexpr uint64\+\_\+t F\+N\+V\+Hash (\begin{DoxyParamCaption}\item[{const char $\ast$}]{str,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+64 bit string F\+NV Hash function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \\
+\hline
+{\em len} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+constexpr uint64\+\_\+t 
+\end{DoxyReturn}

@@ -1,0 +1,50 @@
+\hypertarget{structDescriptorData}{}\section{Descriptor\+Data Struct Reference}
+\label{structDescriptorData}\index{Descriptor\+Data@{Descriptor\+Data}}
+
+
+Collaboration diagram for Descriptor\+Data\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{structDescriptorData__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structDescriptorData_a174833a0ae32827f8a4e5ba1f01516d8}\label{structDescriptorData_a174833a0ae32827f8a4e5ba1f01516d8}} 
+uint32\+\_\+t {\bfseries m\+\_\+var\+\_\+count}
+\item 
+\mbox{\Hypertarget{structDescriptorData_acc1977530e41127569b175af155eea7e}\label{structDescriptorData_acc1977530e41127569b175af155eea7e}} 
+uint32\+\_\+t {\bfseries m\+\_\+binding\+\_\+location}
+\item 
+\mbox{\Hypertarget{structDescriptorData_a762b44303b179700554a9fb66a3b1fdd}\label{structDescriptorData_a762b44303b179700554a9fb66a3b1fdd}} 
+uint32\+\_\+t {\bfseries m\+\_\+shader\+\_\+stages}
+\item 
+\mbox{\Hypertarget{structDescriptorData_a58819f33f89d39a357274098650090d6}\label{structDescriptorData_a58819f33f89d39a357274098650090d6}} 
+Descriptor\+Type {\bfseries m\+\_\+descriptor\+\_\+type}
+\item 
+\mbox{\Hypertarget{structDescriptorData_aac75035b5bc3ab79c6affb65e247071f}\label{structDescriptorData_aac75035b5bc3ab79c6affb65e247071f}} 
+std\+::array$<$ uint32\+\_\+t, M\+A\+X\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+O\+R\+\_\+\+V\+A\+R\+I\+A\+B\+L\+E\+\_\+\+C\+O\+U\+NT $>$ {\bfseries p\+\_\+offsets}
+\item 
+\mbox{\Hypertarget{structDescriptorData_aa201349c0c226a2ab8d7327becc04a3a}\label{structDescriptorData_aa201349c0c226a2ab8d7327becc04a3a}} 
+std\+::array$<$ uint32\+\_\+t, M\+A\+X\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+O\+R\+\_\+\+V\+A\+R\+I\+A\+B\+L\+E\+\_\+\+C\+O\+U\+NT $>$ {\bfseries p\+\_\+sizes}
+\item 
+\mbox{\Hypertarget{structDescriptorData_a8de8b3c487bd09200b816e63b6c7ea92}\label{structDescriptorData_a8de8b3c487bd09200b816e63b6c7ea92}} 
+uint32\+\_\+t {\bfseries m\+\_\+uav\+\_\+mip\+\_\+slice}
+\item 
+\mbox{\Hypertarget{structDescriptorData_a5289b918a0ddcd3255c9f482963993cf}\label{structDescriptorData_a5289b918a0ddcd3255c9f482963993cf}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{classBuffer}{Buffer} $\ast$$\ast$ {\bfseries m\_buffers}\\
+\>\hyperlink{classTexture}{Texture} $\ast$$\ast$ {\bfseries m\_textures}\\
+\>\hyperlink{classSampler}{Sampler} $\ast$$\ast$ {\bfseries m\_samplers}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Descriptor\+Data.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,50 @@
+\hypertarget{classGjk}{}\section{Gjk Class Reference}
+\label{classGjk}\index{Gjk@{Gjk}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGjk_1_1CsoEdge}{Cso\+Edge}
+\item 
+struct \hyperlink{structGjk_1_1CsoPoint}{Cso\+Point}
+\item 
+struct \hyperlink{structGjk_1_1CsoTriangle}{Cso\+Triangle}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGjk_af73bc5ca3bab4249ff1fa648d8bef8fd}\label{classGjk_af73bc5ca3bab4249ff1fa648d8bef8fd}} 
+bool {\bfseries Intersect} (std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&simplex, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, \hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} \&closest\+Point, float epsilon, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+App\+Renderer, bool is\+Debug\+Draw=false)
+\item 
+\mbox{\Hypertarget{classGjk_a5d71f197f9410cb4fcd39f75dbf76d05}\label{classGjk_a5d71f197f9410cb4fcd39f75dbf76d05}} 
+\hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} {\bfseries Compute\+Support} (const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, const Vector3 \&direction)
+\item 
+\mbox{\Hypertarget{classGjk_a6dde80e2d8016f11750cabf5072e5bd8}\label{classGjk_a6dde80e2d8016f11750cabf5072e5bd8}} 
+bool {\bfseries Epa} (std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&simplex, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, \hyperlink{classContact}{Contact} \&contact, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+App\+Renderer, float epsilon)
+\item 
+\mbox{\Hypertarget{classGjk_ac0bc8a75db8a2dad4f23aa4a9626ba2b}\label{classGjk_ac0bc8a75db8a2dad4f23aa4a9626ba2b}} 
+void {\bfseries Find\+Closest\+Face} (\hyperlink{classTriangle}{Triangle} \&result, std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&simplex)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGjk_a9de69ef0925e1afc43236df1d9be865b}\label{classGjk_a9de69ef0925e1afc43236df1d9be865b}} 
+static Voronoi\+Region\+::\+Type {\bfseries Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\item 
+\mbox{\Hypertarget{classGjk_a5bb6c28096a505d3fce43747309c87da}\label{classGjk_a5bb6c28096a505d3fce43747309c87da}} 
+static Voronoi\+Region\+::\+Type {\bfseries Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\item 
+\mbox{\Hypertarget{classGjk_aaf0caa32680b0c5bf0b00fa03ec360af}\label{classGjk_aaf0caa32680b0c5bf0b00fa03ec360af}} 
+static Voronoi\+Region\+::\+Type {\bfseries Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\item 
+\mbox{\Hypertarget{classGjk_afe728560c0bba41c025d04e34a3147b2}\label{classGjk_afe728560c0bba41c025d04e34a3147b2}} 
+static Voronoi\+Region\+::\+Type {\bfseries Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, const Vector3 \&p3, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\item 
+\mbox{\Hypertarget{classGjk_a6a1b3d304d20bc6c762e84dd926f0219}\label{classGjk_a6a1b3d304d20bc6c762e84dd926f0219}} 
+static float {\bfseries Triangle\+Side\+Check} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, const Vector3 \&p3)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Gjk/\hyperlink{Gjk_8h}{Gjk.\+h}\item 
+Physics/\+Gjk/Gjk.\+cpp\end{DoxyCompactItemize}

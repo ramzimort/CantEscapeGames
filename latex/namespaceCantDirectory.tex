@@ -1,0 +1,158 @@
+\hypertarget{namespaceCantDirectory}{}\section{Cant\+Directory Namespace Reference}
+\label{namespaceCantDirectory}\index{Cant\+Directory@{Cant\+Directory}}
+
+
+Directory Related Helper Functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceCantDirectory_a767d0a23dd8fbbd289bf99fa9b2e6b2c}{File\+Exists} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if path exists and is a file. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceCantDirectory_a3fc8037d0d488b6ebd001aae47b474a8}{Folder\+Exists} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if path exists and is a folder. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ \hyperlink{namespaceCantDirectory_a60226f9192495eadf59bb646d5df9322}{Get\+All\+Objects\+Recursive} (const std\+::string \&dir\+\_\+path, const std\+::vector$<$ std\+::string $>$ \&file\+\_\+extensions=\{\})
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespaceCantDirectory_a8a0cb619ba4ccb459785ea1394b63983}{Get\+All\+Objects} (const std\+::string \&dir\+\_\+path, const std\+::vector$<$ std\+::string $>$ \&file\+\_\+extensions=\{ \})
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespaceCantDirectory_a6b53cda775608f26f9798c40b81f13ef}{Get\+Objects\+In} (const std\+::string \&dir\+\_\+path, const std\+::string \&file\+\_\+extension)
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory non-\/recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceCantDirectory_ab1cf2a41c7f33a747d65f2c200724e61}{Find\+Or\+Create\+User\+Data\+Folder} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Initializes the user data folder for any required storage. \end{DoxyCompactList}\item 
+const std\+::string \hyperlink{namespaceCantDirectory_aada0c40e37a1b59290f3558e3afb4af0}{Path} ()
+\begin{DoxyCompactList}\small\item\em Returns path to user directory in My Documents. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Directory Related Helper Functions. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCantDirectory_a767d0a23dd8fbbd289bf99fa9b2e6b2c}\label{namespaceCantDirectory_a767d0a23dd8fbbd289bf99fa9b2e6b2c}} 
+\index{Cant\+Directory@{Cant\+Directory}!File\+Exists@{File\+Exists}}
+\index{File\+Exists@{File\+Exists}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{File\+Exists()}{FileExists()}}
+{\footnotesize\ttfamily bool Cant\+Directory\+::\+File\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Checks if path exists and is a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantDirectory_ab1cf2a41c7f33a747d65f2c200724e61}\label{namespaceCantDirectory_ab1cf2a41c7f33a747d65f2c200724e61}} 
+\index{Cant\+Directory@{Cant\+Directory}!Find\+Or\+Create\+User\+Data\+Folder@{Find\+Or\+Create\+User\+Data\+Folder}}
+\index{Find\+Or\+Create\+User\+Data\+Folder@{Find\+Or\+Create\+User\+Data\+Folder}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Find\+Or\+Create\+User\+Data\+Folder()}{FindOrCreateUserDataFolder()}}
+{\footnotesize\ttfamily void Cant\+Directory\+::\+Find\+Or\+Create\+User\+Data\+Folder (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Initializes the user data folder for any required storage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceCantDirectory_a3fc8037d0d488b6ebd001aae47b474a8}\label{namespaceCantDirectory_a3fc8037d0d488b6ebd001aae47b474a8}} 
+\index{Cant\+Directory@{Cant\+Directory}!Folder\+Exists@{Folder\+Exists}}
+\index{Folder\+Exists@{Folder\+Exists}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Folder\+Exists()}{FolderExists()}}
+{\footnotesize\ttfamily bool Cant\+Directory\+::\+Folder\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})}
+
+
+
+Checks if path exists and is a folder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantDirectory_a8a0cb619ba4ccb459785ea1394b63983}\label{namespaceCantDirectory_a8a0cb619ba4ccb459785ea1394b63983}} 
+\index{Cant\+Directory@{Cant\+Directory}!Get\+All\+Objects@{Get\+All\+Objects}}
+\index{Get\+All\+Objects@{Get\+All\+Objects}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Get\+All\+Objects()}{GetAllObjects()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ Cant\+Directory\+::\+Get\+All\+Objects (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+path,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{file\+\_\+extensions = {\ttfamily \{~\}} }\end{DoxyParamCaption})}
+
+
+
+Gets all files in a directory recursively. Can specify optional list of file extensions to filter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+\_\+path} & \\
+\hline
+{\em file\+\_\+extensions} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::string$>$ Returns all files 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantDirectory_a60226f9192495eadf59bb646d5df9322}\label{namespaceCantDirectory_a60226f9192495eadf59bb646d5df9322}} 
+\index{Cant\+Directory@{Cant\+Directory}!Get\+All\+Objects\+Recursive@{Get\+All\+Objects\+Recursive}}
+\index{Get\+All\+Objects\+Recursive@{Get\+All\+Objects\+Recursive}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Get\+All\+Objects\+Recursive()}{GetAllObjectsRecursive()}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ Cant\+Directory\+::\+Get\+All\+Objects\+Recursive (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+path,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{file\+\_\+extensions = {\ttfamily \{\}} }\end{DoxyParamCaption})}
+
+
+
+Gets all files in a directory recursively. Can specify optional list of file extensions to filter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+\_\+path} & \\
+\hline
+{\em file\+\_\+extensions} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::map$<$std\+::string, std\+::vector$<$std\+::string$>$$>$ Map of parent folder to list of items 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantDirectory_a6b53cda775608f26f9798c40b81f13ef}\label{namespaceCantDirectory_a6b53cda775608f26f9798c40b81f13ef}} 
+\index{Cant\+Directory@{Cant\+Directory}!Get\+Objects\+In@{Get\+Objects\+In}}
+\index{Get\+Objects\+In@{Get\+Objects\+In}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Get\+Objects\+In()}{GetObjectsIn()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ Cant\+Directory\+::\+Get\+Objects\+In (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+path,  }\item[{const std\+::string \&}]{file\+\_\+extension }\end{DoxyParamCaption})}
+
+
+
+Gets all files in a directory non-\/recursively. Can specify optional list of file extensions to filter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+\_\+path} & \\
+\hline
+{\em file\+\_\+extension} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::string$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantDirectory_aada0c40e37a1b59290f3558e3afb4af0}\label{namespaceCantDirectory_aada0c40e37a1b59290f3558e3afb4af0}} 
+\index{Cant\+Directory@{Cant\+Directory}!Path@{Path}}
+\index{Path@{Path}!Cant\+Directory@{Cant\+Directory}}
+\subsubsection{\texorpdfstring{Path()}{Path()}}
+{\footnotesize\ttfamily const std\+::string Cant\+Directory\+::\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns path to user directory in My Documents. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::string 
+\end{DoxyReturn}

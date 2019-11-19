@@ -1,0 +1,62 @@
+\hypertarget{classDebugRendering}{}\section{Debug\+Rendering Class Reference}
+\label{classDebugRendering}\index{Debug\+Rendering@{Debug\+Rendering}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDebugRendering_ae09e1ad33f1ba1575544cf3c70769ecc}\label{classDebugRendering_ae09e1ad33f1ba1575544cf3c70769ecc}} 
+typedef std\+::vector$<$ \hyperlink{structDebugAABBInstance}{Debug\+A\+A\+B\+B\+Instance} $>$ {\bfseries Debug\+A\+A\+B\+B\+Instance\+List}
+\item 
+\mbox{\Hypertarget{classDebugRendering_a0dabb4da850186ab6f981b00723834e7}\label{classDebugRendering_a0dabb4da850186ab6f981b00723834e7}} 
+typedef std\+::vector$<$ \hyperlink{structDebugSphereInstance}{Debug\+Sphere\+Instance} $>$ {\bfseries Debug\+Sphere\+Instance\+List}
+\item 
+\mbox{\Hypertarget{classDebugRendering_a45d525d5ab2cde6b7bceaf070dd6326a}\label{classDebugRendering_a45d525d5ab2cde6b7bceaf070dd6326a}} 
+typedef std\+::vector$<$ \hyperlink{structDebugLineInstance}{Debug\+Line\+Instance} $>$ {\bfseries Debug\+Line\+Instance\+List}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDebugRendering_a04ef1665968e635ed878172cd43cd2ed}\label{classDebugRendering_a04ef1665968e635ed878172cd43cd2ed}} 
+{\bfseries Debug\+Rendering} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+\_\+renderer, \hyperlink{classResourceManager}{Resource\+Manager} $\ast$resource\+Manager)
+\item 
+\mbox{\Hypertarget{classDebugRendering_ab45f169c9f87018d13765d9949bba9c3}\label{classDebugRendering_ab45f169c9f87018d13765d9949bba9c3}} 
+void {\bfseries Update\+Debug\+Uniform\+Buffer} ()
+\item 
+\mbox{\Hypertarget{classDebugRendering_a121f9a3ae8857077638c8f8030fc075c}\label{classDebugRendering_a121f9a3ae8857077638c8f8030fc075c}} 
+void {\bfseries Render\+Debug\+Scene} ()
+\item 
+\mbox{\Hypertarget{classDebugRendering_ac6297a659a130d3e430c403faa608407}\label{classDebugRendering_ac6297a659a130d3e430c403faa608407}} 
+void {\bfseries Release} ()
+\item 
+\mbox{\Hypertarget{classDebugRendering_a4d86a142ed880456dbc732d213cc93e1}\label{classDebugRendering_a4d86a142ed880456dbc732d213cc93e1}} 
+void {\bfseries Register\+Debug\+Line\+Instance} (const Vector3 \&start\+\_\+pos, const Vector3 \&end\+\_\+pos, const Vector3 \&color)
+\item 
+\mbox{\Hypertarget{classDebugRendering_a9e23739719cbe569a0afefa6bb203330}\label{classDebugRendering_a9e23739719cbe569a0afefa6bb203330}} 
+void {\bfseries Register\+Debug\+Line\+Instance} (const \hyperlink{structDebugLineInstance}{Debug\+Line\+Instance} \&line\+\_\+instance)
+\item 
+\mbox{\Hypertarget{classDebugRendering_a19e4cb443e7b0959dfd427431009acc4}\label{classDebugRendering_a19e4cb443e7b0959dfd427431009acc4}} 
+void {\bfseries Register\+Debug\+A\+A\+BB} (const \hyperlink{structDebugAABBInstance}{Debug\+A\+A\+B\+B\+Instance} \&debug\+\_\+aabb\+\_\+instance)
+\item 
+\mbox{\Hypertarget{classDebugRendering_a43b18f36eff07b60f7dcace9549c126b}\label{classDebugRendering_a43b18f36eff07b60f7dcace9549c126b}} 
+void {\bfseries Register\+Debug\+Sphere} (const \hyperlink{structDebugSphereInstance}{Debug\+Sphere\+Instance} \&debug\+\_\+sphere\+\_\+instance)
+\item 
+\mbox{\Hypertarget{classDebugRendering_acdce8201c1a8f304b70bf278fd7b9cdb}\label{classDebugRendering_acdce8201c1a8f304b70bf278fd7b9cdb}} 
+void {\bfseries Update} (float dt)
+\item 
+\mbox{\Hypertarget{classDebugRendering_a2b3fd46f7880bcf6a57eb1b3af5dbc6d}\label{classDebugRendering_a2b3fd46f7880bcf6a57eb1b3af5dbc6d}} 
+void {\bfseries Load\+Content} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\item 
+\mbox{\Hypertarget{classDebugRendering_a9251ff1132aa73c074d369ddb6d7ab03}\label{classDebugRendering_a9251ff1132aa73c074d369ddb6d7ab03}} 
+void {\bfseries Clear\+Instances} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDebugRendering_aa2fce3a4ae64b69f01e0fd64ba26023a}\label{classDebugRendering_aa2fce3a4ae64b69f01e0fd64ba26023a}} 
+class {\bfseries Debug\+Rendering\+Instance}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\+Debug\+Rendering/Debug\+Rendering.\+h\item 
+Graphics/\+Debug\+Rendering/Debug\+Rendering.\+cpp\end{DoxyCompactItemize}

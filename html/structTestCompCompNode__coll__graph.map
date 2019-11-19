@@ -1,0 +1,7 @@
+<map id="TestCompCompNode" name="TestCompCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="BaseSystemCompNode" alt="" coords="5,199,180,225"/>
+<area shape="rect" id="node3" href="$classTestComp.html" title="TestComp" alt="" coords="204,199,291,225"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="BaseComponent" alt="" coords="71,102,200,129"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="GameObject" alt="" coords="84,5,187,32"/>
+<area shape="rect" id="node6" href="$classMulticast.html" title="Multicast\&lt; void(std\l::string, float)\&gt;" alt="" coords="225,95,374,136"/>
+</map>

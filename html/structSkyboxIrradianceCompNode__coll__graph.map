@@ -1,0 +1,7 @@
+<map id="SkyboxIrradianceCompNode" name="SkyboxIrradianceCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="BaseSystemCompNode" alt="" coords="5,171,180,197"/>
+<area shape="rect" id="node3" href="$classSkyboxIrradianceComponent.html" title="SkyboxIrradianceComponent" alt="" coords="205,171,415,197"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="BaseComponent" alt="" coords="349,95,479,121"/>
+<area shape="rect" id="node6" href="$classTransformComponent.html" title="Stores and updates all position related data. " alt="" coords="439,171,602,197"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="GameObject" alt="" coords="363,5,465,32"/>
+</map>
