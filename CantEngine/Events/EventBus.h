@@ -5,6 +5,17 @@
 #include "EventCallback.h"
 #include "Input/Input.h"
 
+/**
+ * @file EventBus.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Event Callback Queue with Subsriber architecture
+ */
+
+/**
+ * @brief Event Callback Queue with Subsriber architecture class interface
+ * 
+ */
 class EventBus
 {
 	typedef std::map<const void*, BaseCallback::Ptr> BaseCallbackList;
@@ -13,11 +24,38 @@ class EventBus
 public:
 	EventBus();
 	~EventBus();
+	/**
+	 * @brief Update Call for event bus will go over all enqueued events and perform their respective bound callbacks
+	 * This is done at the end of the frame
+	 * 
+	 * @param dt 
+	 */
 	void Update(float dt);
+	/**
+	 * @brief Enqueue Event
+	 * 
+	 * @tparam T 
+	 * @tparam Args 
+	 * @param direct_call Allows for synchronous call (Setting this to true may not be thread-safe)
+	 * @param args Event Constructor Args
+	 */
 	template <typename T, typename ... Args>
 	void QueueEvent(bool direct_call = false, Args&& ... args);
+	/**
+	 * @brief Add Object's function cb to Event's subscription list. 
+	 * 
+	 * @tparam T 
+	 * @param ptr 
+	 */
 	template<typename T> 
 	void AddSubscriber(const EventCallback<T>& ptr);
+	/**
+	 * @brief Remove object's function cb from Event's subscription list
+	 * Note: Must be done on deletion if subscribed on initialization
+	 * 
+	 * @tparam T 
+	 * @param objPtr 
+	 */
 	template<typename T>
 	void DeleteSubscriber(void* objPtr);
 private:

@@ -10,8 +10,7 @@
 #include "Managers/EventManager.h"
 #include "Graphics/Deferred/DeferredRenderingInstance.h"
 #include "Graphics/DebugRendering/DebugRendering.h"
-#include "Events/Camera/CameraRegistrationEvent.h"
-#include "Events/Camera/CameraDestructionEvent.h"
+#include "Events/Camera/CameraEvents.h"
 
 
 AppRenderer::AppRenderer(SDL_Window& sdl_window, ResourceManager* resourceManager,

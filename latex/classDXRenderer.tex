@@ -1,0 +1,122 @@
+\hypertarget{classDXRenderer}{}\section{D\+X\+Renderer Class Reference}
+\label{classDXRenderer}\index{D\+X\+Renderer@{D\+X\+Renderer}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDXRenderer_a523a1ab5a6f1031bda1242fb105241b7}\label{classDXRenderer_a523a1ab5a6f1031bda1242fb105241b7}} 
+{\bfseries D\+X\+Renderer} (H\+W\+ND window\+\_\+handle, bool enable\+\_\+vsync)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a93e38bbc88225a3244e336974674774b}\label{classDXRenderer_a93e38bbc88225a3244e336974674774b}} 
+I\+D3\+D11\+Device $\ast$ {\bfseries get\+\_\+device} () const
+\item 
+\mbox{\Hypertarget{classDXRenderer_ada893f000ff5b8bd2b0f24539f6be420}\label{classDXRenderer_ada893f000ff5b8bd2b0f24539f6be420}} 
+I\+D3\+D11\+Device\+Context $\ast$ {\bfseries get\+\_\+device\+\_\+context} () const
+\item 
+\mbox{\Hypertarget{classDXRenderer_a668f61d8e8ccad71f0f623c4fe05bb4e}\label{classDXRenderer_a668f61d8e8ccad71f0f623c4fe05bb4e}} 
+void {\bfseries cmd\+\_\+bind\+\_\+render\+\_\+targets} (\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$color\+\_\+rts, uint32\+\_\+t color\+\_\+rts\+\_\+count, \hyperlink{classRenderTarget}{Render\+Target} $\ast$depth\+\_\+stencil\+\_\+rt, const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} \&load\+\_\+actions\+\_\+desc)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a42a9e7def6fac47bbd405ea3c539d759}\label{classDXRenderer_a42a9e7def6fac47bbd405ea3c539d759}} 
+void {\bfseries cmd\+\_\+bind\+\_\+render\+\_\+targets} (\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$color\+\_\+rts, uint32\+\_\+t color\+\_\+rts\+\_\+count, \hyperlink{classRenderTarget}{Render\+Target} $\ast$depth\+\_\+stencil\+\_\+rt, const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} $\ast$load\+\_\+actions\+\_\+desc)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a0196dde6384481e256d7b3d253a1520d}\label{classDXRenderer_a0196dde6384481e256d7b3d253a1520d}} 
+void {\bfseries cmd\+\_\+bind\+\_\+pipeline} (\hyperlink{classPipeline}{Pipeline} $\ast$pipeline)
+\item 
+\mbox{\Hypertarget{classDXRenderer_aeed80317a026c96ee333451550d45707}\label{classDXRenderer_aeed80317a026c96ee333451550d45707}} 
+void {\bfseries cmd\+\_\+bind\+\_\+descriptor} (\hyperlink{classPipeline}{Pipeline} $\ast$pipeline, uint32\+\_\+t descriptor\+\_\+count, \hyperlink{structDescriptorData}{Descriptor\+Data} $\ast$descriptor\+\_\+data)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a2030153a259929cd36f4750a60ea3a59}\label{classDXRenderer_a2030153a259929cd36f4750a60ea3a59}} 
+void {\bfseries cmd\+\_\+bind\+\_\+vertex\+\_\+buffer} (\hyperlink{classBuffer}{Buffer} $\ast$buffer)
+\item 
+\mbox{\Hypertarget{classDXRenderer_ad166d9f9ddd4d32921ec240b729c2955}\label{classDXRenderer_ad166d9f9ddd4d32921ec240b729c2955}} 
+void {\bfseries cmd\+\_\+bind\+\_\+index\+\_\+buffer} (\hyperlink{classBuffer}{Buffer} $\ast$buffer)
+\item 
+\mbox{\Hypertarget{classDXRenderer_af9ad82aae86ba75516b264dc144e23c7}\label{classDXRenderer_af9ad82aae86ba75516b264dc144e23c7}} 
+void {\bfseries cmd\+\_\+set\+\_\+viewport} (uint32\+\_\+t x, uint32\+\_\+t y, uint32\+\_\+t width, uint32\+\_\+t height)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a46c26e36f9ec86763113f135423584a5}\label{classDXRenderer_a46c26e36f9ec86763113f135423584a5}} 
+void {\bfseries cmd\+\_\+draw} (uint32\+\_\+t vertex\+\_\+count, uint32\+\_\+t first\+\_\+vertex)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a6b826fbcfd25fcbe3d2996a4c4023e8a}\label{classDXRenderer_a6b826fbcfd25fcbe3d2996a4c4023e8a}} 
+void {\bfseries cmd\+\_\+draw\+\_\+index} (uint32\+\_\+t indices\+\_\+count, uint32\+\_\+t first\+\_\+index, uint32\+\_\+t first\+\_\+vertex)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a10c5015e326cef27739116f1a1d18e32}\label{classDXRenderer_a10c5015e326cef27739116f1a1d18e32}} 
+void {\bfseries cmd\+\_\+draw\+\_\+index\+\_\+instanced} (uint32\+\_\+t instance\+\_\+count, uint32\+\_\+t first\+\_\+instance, uint32\+\_\+t indices\+\_\+count, uint32\+\_\+t first\+\_\+index, uint32\+\_\+t first\+\_\+vertex)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a477f9b9bec26bde95a0aeae3dd8b7395}\label{classDXRenderer_a477f9b9bec26bde95a0aeae3dd8b7395}} 
+void {\bfseries cmd\+\_\+dispatch} (uint32\+\_\+t thread\+\_\+group\+\_\+x, uint32\+\_\+t thread\+\_\+group\+\_\+y, uint32\+\_\+t thread\+\_\+group\+\_\+z)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a8fdbb3e30aeeb14d719b6afcc086fe8d}\label{classDXRenderer_a8fdbb3e30aeeb14d719b6afcc086fe8d}} 
+void {\bfseries cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets} (\hyperlink{classBuffer}{Buffer} $\ast$streamout\+Vertex\+Buffer, uint32\+\_\+t offsets)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a55c751afe6f80a0b39dbad2d65d75184}\label{classDXRenderer_a55c751afe6f80a0b39dbad2d65d75184}} 
+void {\bfseries cmd\+\_\+draw\+\_\+auto} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a94f294bbd65dc04cc373d19325f1649e}\label{classDXRenderer_a94f294bbd65dc04cc373d19325f1649e}} 
+void {\bfseries cmd\+\_\+spritebatch\+\_\+begin} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a711b4dc330c2e3054519d9c0321a97f8}\label{classDXRenderer_a711b4dc330c2e3054519d9c0321a97f8}} 
+void {\bfseries cmd\+\_\+spritebatch\+\_\+end} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a420c3dc3e945dac848986668f13b3715}\label{classDXRenderer_a420c3dc3e945dac848986668f13b3715}} 
+void {\bfseries cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch, const std\+::wstring \&text, Direct\+X\+::\+Sprite\+Font $\ast$p\+Font, const Vector2 \&position, const Vector3 \&color, const Vector3 \&scale)
+\item 
+\mbox{\Hypertarget{classDXRenderer_ab3e0561b3419a6583505514eb979edba}\label{classDXRenderer_ab3e0561b3419a6583505514eb979edba}} 
+void {\bfseries cmd\+\_\+update\+\_\+buffer} (const \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&buffer\+\_\+update\+\_\+desc)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a75fab54cd588ea681f1ac515a487ee36}\label{classDXRenderer_a75fab54cd588ea681f1ac515a487ee36}} 
+void {\bfseries instant\+\_\+update\+\_\+buffer} (const \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&buffer\+\_\+update\+\_\+desc)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a9c8fd9abd296101a41ae021057810428}\label{classDXRenderer_a9c8fd9abd296101a41ae021057810428}} 
+void {\bfseries present\+\_\+swap\+\_\+chain} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a32e5bf490798b8135bdd3b9011c47a65}\label{classDXRenderer_a32e5bf490798b8135bdd3b9011c47a65}} 
+void {\bfseries execute\+\_\+queued\+\_\+cmd} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a9678630e33b952041223b960453a70d6}\label{classDXRenderer_a9678630e33b952041223b960453a70d6}} 
+void {\bfseries Release} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a3ac6805cd3b999b5a8546c36e0cb7e2c}\label{classDXRenderer_a3ac6805cd3b999b5a8546c36e0cb7e2c}} 
+bool {\bfseries init} (uint32\+\_\+t swap\+\_\+chain\+\_\+sample\+\_\+count)
+\item 
+\mbox{\Hypertarget{classDXRenderer_ac907448e814751eb71f3a06e8c011d23}\label{classDXRenderer_ac907448e814751eb71f3a06e8c011d23}} 
+void {\bfseries init\+\_\+default\+\_\+resources} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a0d570933d5a913a98993ea7cd5bc657f}\label{classDXRenderer_a0d570933d5a913a98993ea7cd5bc657f}} 
+void {\bfseries init\+\_\+transient\+\_\+buffer} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a17b919b6970a81fb3f1ddc62d368d0bb}\label{classDXRenderer_a17b919b6970a81fb3f1ddc62d368d0bb}} 
+const \hyperlink{structSwapChain}{Swap\+Chain} $\ast$ {\bfseries Get\+Swap\+Chain} () const
+\item 
+\mbox{\Hypertarget{classDXRenderer_a570a2b13bad1619410193226a2ae933b}\label{classDXRenderer_a570a2b13bad1619410193226a2ae933b}} 
+\hyperlink{structSwapChain}{Swap\+Chain} $\ast$ {\bfseries Get\+Swap\+Chain} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_ab75c4ead239b0c31ff8b0b6d826d35af}\label{classDXRenderer_ab75c4ead239b0c31ff8b0b6d826d35af}} 
+\hyperlink{structSwapChain}{Swap\+Chain} \& {\bfseries Get\+Ref\+Swap\+Chain} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a28d203f9cd99268797fbd869f996e1a8}\label{classDXRenderer_a28d203f9cd99268797fbd869f996e1a8}} 
+const \hyperlink{structSwapChain}{Swap\+Chain} \& {\bfseries Get\+Ref\+Swap\+Chain} () const
+\item 
+\mbox{\Hypertarget{classDXRenderer_a42ba6c03505ed59104538abfcd554d15}\label{classDXRenderer_a42ba6c03505ed59104538abfcd554d15}} 
+H\+W\+ND {\bfseries get\+\_\+window\+\_\+handle} () const
+\item 
+\mbox{\Hypertarget{classDXRenderer_ad11199cdf6b72ffdcaff80e92e88d128}\label{classDXRenderer_ad11199cdf6b72ffdcaff80e92e88d128}} 
+std\+::string {\bfseries get\+\_\+selected\+\_\+gpu\+\_\+name} () const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDXRenderer_a871268c492209c5a9db9dc2db99f4d04}\label{classDXRenderer_a871268c492209c5a9db9dc2db99f4d04}} 
+class {\bfseries D\+X\+Resource\+Loader}
+\item 
+\mbox{\Hypertarget{classDXRenderer_aba45a46c615e2683daffdae82e2d3b8f}\label{classDXRenderer_aba45a46c615e2683daffdae82e2d3b8f}} 
+class {\bfseries Event\+Manager}
+\item 
+\mbox{\Hypertarget{classDXRenderer_a54c1252abc87a78a301e6b6984470408}\label{classDXRenderer_a54c1252abc87a78a301e6b6984470408}} 
+class {\bfseries Resource\+Manager}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/D3\+D11\+\_\+\+Renderer.\+h\item 
+Graphics/D3\+D11\+\_\+\+Renderer.\+cpp\end{DoxyCompactItemize}

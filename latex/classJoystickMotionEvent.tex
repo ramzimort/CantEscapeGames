@@ -1,0 +1,86 @@
+\hypertarget{classJoystickMotionEvent}{}\section{Joystick\+Motion\+Event Class Reference}
+\label{classJoystickMotionEvent}\index{Joystick\+Motion\+Event@{Joystick\+Motion\+Event}}
+
+
+Joystick axis moved. Motion is normalized.  
+
+
+
+
+{\ttfamily \#include $<$Joystick\+Event.\+h$>$}
+
+
+
+Inheritance diagram for Joystick\+Motion\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classJoystickMotionEvent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Joystick\+Motion\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{classJoystickMotionEvent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classJoystickMotionEvent_a877bb7736b43358c51e37e88f9670bcc}{Joystick\+Motion\+Event} (uint32\+\_\+t ID, uint32\+\_\+t motion\+Ball\+Id, float motion)
+\begin{DoxyCompactList}\small\item\em Joystick axis moved. Motion is normalized. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classJoystickMotionEvent_a9fe57cf10954a47116c5488f5ce82dbc}\label{classJoystickMotionEvent_a9fe57cf10954a47116c5488f5ce82dbc}} 
+virtual void \hyperlink{classJoystickMotionEvent_a9fe57cf10954a47116c5488f5ce82dbc}{operator()} () override
+\begin{DoxyCompactList}\small\item\em Virtual function for mirror multicast invoke when event is invoked This is useful with some events for script delegate binds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classJoystickMotionEvent_a6a1b6f573bea444c187b8654c33e010b}\label{classJoystickMotionEvent_a6a1b6f573bea444c187b8654c33e010b}} 
+static \hyperlink{classMulticast}{Multicast}$<$ void(const uint32\+\_\+t, const uint32\+\_\+t, const float)$>$ \& {\bfseries On\+Joy\+Motion\+Event} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classJoystickMotionEvent_a1255cfd9f72310fd2b4d15dca960b6e9}\label{classJoystickMotionEvent_a1255cfd9f72310fd2b4d15dca960b6e9}} 
+const uint32\+\_\+t \hyperlink{classJoystickMotionEvent_a1255cfd9f72310fd2b4d15dca960b6e9}{m\+\_\+\+ID}
+\begin{DoxyCompactList}\small\item\em Joystick ID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classJoystickMotionEvent_af523852b7652322e5d930026bff0a414}\label{classJoystickMotionEvent_af523852b7652322e5d930026bff0a414}} 
+const uint32\+\_\+t \hyperlink{classJoystickMotionEvent_af523852b7652322e5d930026bff0a414}{m\+\_\+motion\+Ball\+Id}
+\begin{DoxyCompactList}\small\item\em Axis ID. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classJoystickMotionEvent_aa8f668fc452c9ffa5c6e8bbeb98465d3}\label{classJoystickMotionEvent_aa8f668fc452c9ffa5c6e8bbeb98465d3}} 
+const float \hyperlink{classJoystickMotionEvent_aa8f668fc452c9ffa5c6e8bbeb98465d3}{m\+\_\+motion}
+\begin{DoxyCompactList}\small\item\em Axis Value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Joystick axis moved. Motion is normalized. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classJoystickMotionEvent_a877bb7736b43358c51e37e88f9670bcc}\label{classJoystickMotionEvent_a877bb7736b43358c51e37e88f9670bcc}} 
+\index{Joystick\+Motion\+Event@{Joystick\+Motion\+Event}!Joystick\+Motion\+Event@{Joystick\+Motion\+Event}}
+\index{Joystick\+Motion\+Event@{Joystick\+Motion\+Event}!Joystick\+Motion\+Event@{Joystick\+Motion\+Event}}
+\subsubsection{\texorpdfstring{Joystick\+Motion\+Event()}{JoystickMotionEvent()}}
+{\footnotesize\ttfamily Joystick\+Motion\+Event\+::\+Joystick\+Motion\+Event (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{ID,  }\item[{uint32\+\_\+t}]{motion\+Ball\+Id,  }\item[{float}]{motion }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Joystick axis moved. Motion is normalized. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ID} & \\
+\hline
+{\em motion\+Ball\+Id} & \\
+\hline
+{\em motion} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Events/\+Input/Joystick\+Event.\+h\end{DoxyCompactItemize}

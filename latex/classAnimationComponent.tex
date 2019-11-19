@@ -1,0 +1,72 @@
+\hypertarget{classAnimationComponent}{}\section{Animation\+Component Class Reference}
+\label{classAnimationComponent}\index{Animation\+Component@{Animation\+Component}}
+
+
+Inheritance diagram for Animation\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{classAnimationComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Animation\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=203pt]{classAnimationComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAnimationComponent_a2759aea8d6d3e70f7b4f0f91eb68dbf2}\label{classAnimationComponent_a2759aea8d6d3e70f7b4f0f91eb68dbf2}} 
+{\bfseries Animation\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_a7847ca35ed87a7d2156081ad41822de4}\label{classAnimationComponent_a7847ca35ed87a7d2156081ad41822de4}} 
+virtual void {\bfseries Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_ab079696aad04351fa60a12040aeffe58}\label{classAnimationComponent_ab079696aad04351fa60a12040aeffe58}} 
+virtual void {\bfseries Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_a03636b1eaab7e1a4aaf05d6321ad2478}\label{classAnimationComponent_a03636b1eaab7e1a4aaf05d6321ad2478}} 
+void \hyperlink{classAnimationComponent_a03636b1eaab7e1a4aaf05d6321ad2478}{Animation\+End} (\hyperlink{structAnimState}{Anim\+State} $\ast$anim)
+\begin{DoxyCompactList}\small\item\em void Switch\+Animation(std\+::string const\& anim\+Name, float trans\+Duration); \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimationComponent_af826696c15c75e727360009e1ebd4d8d}\label{classAnimationComponent_af826696c15c75e727360009e1ebd4d8d}} 
+void {\bfseries Set\+Trigger} (std\+::string const \&trigger)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_afd02daaa324cf1a038aed3736c579f81}\label{classAnimationComponent_afd02daaa324cf1a038aed3736c579f81}} 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ {\bfseries Create\+State} (std\+::string state\+Name, std\+::string anim\+Name, float speed)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_ad19e6c6a3b266d7987391be6d3ece4ea}\label{classAnimationComponent_ad19e6c6a3b266d7987391be6d3ece4ea}} 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ {\bfseries Create\+State} (std\+::string state\+Name, std\+::string anim\+Name)
+\item 
+\mbox{\Hypertarget{classAnimationComponent_ae63c07831f76d1c69a8be6dbd03f54a2}\label{classAnimationComponent_ae63c07831f76d1c69a8be6dbd03f54a2}} 
+void {\bfseries Set\+Entry\+State} (\hyperlink{structAnimState}{Anim\+State} $\ast$entry)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAnimationComponent_afd0771d0bf533c347cb80f0343ec747b}\label{classAnimationComponent_afd0771d0bf533c347cb80f0343ec747b}} 
+static Component\+Id const {\bfseries static\+\_\+type} = Base\+Component\+::number\+Of\+Types++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAnimationComponent_a328c093d609680cca505905c6d49901a}\label{classAnimationComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classAnimationComponent_ab3d6fafb2064bace492fd6b503d044f4}\label{classAnimationComponent_ab3d6fafb2064bace492fd6b503d044f4}} 
+class {\bfseries Scripting\+Manager}
+\item 
+\mbox{\Hypertarget{classAnimationComponent_a4c8fb761c777f1a874c5d97e052686ad}\label{classAnimationComponent_a4c8fb761c777f1a874c5d97e052686ad}} 
+class {\bfseries Animation\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Animation\+Component.\+h\item 
+Components/Animation\+Component.\+cpp\end{DoxyCompactItemize}

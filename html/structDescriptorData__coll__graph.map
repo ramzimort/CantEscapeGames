@@ -1,0 +1,5 @@
+<map id="DescriptorData" name="DescriptorData">
+<area shape="rect" id="node2" href="$classTexture.html" title="Texture" alt="" coords="5,5,76,32"/>
+<area shape="rect" id="node3" href="$classSampler.html" title="Sampler" alt="" coords="112,5,188,32"/>
+<area shape="rect" id="node4" href="$classBuffer.html" title="Buffer" alt="" coords="235,5,297,32"/>
+</map>

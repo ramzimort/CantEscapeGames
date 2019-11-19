@@ -1,10 +1,19 @@
 #pragma once
 
+/**
+ * @file CantMemory.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Pool and Stack Resource Allocation functions
+ */
+
 #include "StackAllocator.h"
 #include "PoolAllocator.h"
-
 #define PAGESIZE 4096
-
+/**
+ * @brief Pool and Stack Resource Allocation functions
+ * 
+ */
 namespace CantMemory
 {
 

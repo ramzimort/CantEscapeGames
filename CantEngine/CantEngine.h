@@ -10,7 +10,15 @@
 namespace CantEngineAPI
 {
 	CANTENGINE_API 	void InitializeUserSettings(const std::string& gameName);
-	CANTENGINE_API void InitializeEngine(const std::string& levelPath, bool fullscreen, int w, int h);
 
-	//CANTENGINE_API void InitializeUserSystem();
+	/**
+	 * @brief Initialize the engine with startup level and window parameters
+	 * 
+	 * @param levelPath 
+	 * @param fullscreen 
+	 * @param w 
+	 * @param h 
+	 * @return CANTENGINE_API InitializeEngine 
+	 */
+	CANTENGINE_API void InitializeEngine(const std::string& levelPath, bool fullscreen, int w, int h);
 }

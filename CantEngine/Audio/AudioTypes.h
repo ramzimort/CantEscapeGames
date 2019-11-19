@@ -1,11 +1,12 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Ramzi Mourtada
-Other Authors: <None>
-- End Header --------------------------------------------------------*/
-
 #pragma once
+
+/**
+ * @file AudioTypes.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Audio Enum
+ */
+
 
 /**
  * @brief Audio Categories

@@ -1,0 +1,78 @@
+\hypertarget{classParticleEmitterComponent}{}\section{Particle\+Emitter\+Component Class Reference}
+\label{classParticleEmitterComponent}\index{Particle\+Emitter\+Component@{Particle\+Emitter\+Component}}
+
+
+Inheritance diagram for Particle\+Emitter\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classParticleEmitterComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Particle\+Emitter\+Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classParticleEmitterComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a86231997dc231c5575116784ea6aaaa3}\label{classParticleEmitterComponent_a86231997dc231c5575116784ea6aaaa3}} 
+{\bfseries Particle\+Emitter\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_ace8b753108a862794dacc0455707d791}\label{classParticleEmitterComponent_ace8b753108a862794dacc0455707d791}} 
+void {\bfseries Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$resource\+Manager, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a67e362d6c3791ded19c4011f2fe12c19}\label{classParticleEmitterComponent_a67e362d6c3791ded19c4011f2fe12c19}} 
+void {\bfseries Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_afc4bb362afd3a8ca0617dc718290dcf8}\label{classParticleEmitterComponent_afc4bb362afd3a8ca0617dc718290dcf8}} 
+void {\bfseries Emit} ()
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a4d91b32c053338e691b371aafbdd9436}\label{classParticleEmitterComponent_a4d91b32c053338e691b371aafbdd9436}} 
+bool {\bfseries Finished\+Emitting} () const
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_af3b8d001c86a67fb09cf955c1a735af5}\label{classParticleEmitterComponent_af3b8d001c86a67fb09cf955c1a735af5}} 
+void {\bfseries Set\+Particle\+Emitter} (Particle\+Emitter\+Type particle\+Emitter\+Type)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_ad600125d3f9a5989c60a7726dea2dec2}\label{classParticleEmitterComponent_ad600125d3f9a5989c60a7726dea2dec2}} 
+void {\bfseries Set\+Emitter\+Direction} (const Vector3 \&dir)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a4e0615191415af6d3534e66b1cfa3b1c}\label{classParticleEmitterComponent_a4e0615191415af6d3534e66b1cfa3b1c}} 
+void {\bfseries Set\+Emitter\+Spread\+Angle\+Yaw} (float degree)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a9ca65ff05b2dfe29d99af163b67d84e9}\label{classParticleEmitterComponent_a9ca65ff05b2dfe29d99af163b67d84e9}} 
+void {\bfseries Set\+Emitter\+Spread\+Angle\+Pitch} (float degree)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a162492a203be9765f0d0e893d8dc26f9}\label{classParticleEmitterComponent_a162492a203be9765f0d0e893d8dc26f9}} 
+void {\bfseries Set\+Emitter\+Rate} (float rate)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a91972e2829066cc0bdddae9af191ec26}\label{classParticleEmitterComponent_a91972e2829066cc0bdddae9af191ec26}} 
+void {\bfseries Set\+Emitter\+Lifetime} (float lifetime)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_af4f1eb7736e98bc8cc74a51e62517549}\label{classParticleEmitterComponent_af4f1eb7736e98bc8cc74a51e62517549}} 
+void {\bfseries Set\+Emit\+Particles\+Count} (uint32\+\_\+t emit\+Count)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a2a53fbaf367f600cf660daa875af0efd}\label{classParticleEmitterComponent_a2a53fbaf367f600cf660daa875af0efd}} 
+static Component\+Id const {\bfseries static\+\_\+type} = Base\+Component\+::number\+Of\+Types++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a7a7b1382ea68c94bf040783d1e68bfaf}\label{classParticleEmitterComponent_a7a7b1382ea68c94bf040783d1e68bfaf}} 
+class {\bfseries Particle\+Emitter\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Particle\+Emitter\+Component.\+h\item 
+Components/Particle\+Emitter\+Component.\+cpp\end{DoxyCompactItemize}

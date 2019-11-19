@@ -1,9 +1,19 @@
 #pragma once
 #include "Events/Event.h"
 
+/**
+ * @brief Broadcasted by Input Manager when mouse moves
+ * 
+ */
 class MouseMotionEvent : public Event<MouseMotionEvent>
 {
 public:
+	/**
+	 * @brief Broadcasted by Input Manager when mouse moves
+	 * 
+	 * @param pos 
+	 * @param delta 
+	 */
 	MouseMotionEvent(const Vector2 pos, const Vector2 delta) :
 		m_position(pos),
 		m_deltaPosition(delta)
@@ -26,9 +36,19 @@ public:
 	Vector2 m_deltaPosition;
 };
 
+/**
+ * @brief Braodcasted by Input Manager when mouse scrolls
+ * 
+ */
 class MouseScrollEvent : public Event<MouseScrollEvent>
 {
 public:
+	/**
+	 * @brief Braodcasted by Input Manager when mouse scrolls
+	 * 
+	 * @param x 
+	 * @param y 
+	 */
 	MouseScrollEvent(Sint32 x, Sint32 y) :
 		m_xScroll(x), m_yScroll(y)
 	{
@@ -44,13 +64,31 @@ public:
 		static Multicast<void(Sint32, Sint32)> m;
 		return m;
 	}
+	/**
+	 * @brief Scroll in X (uncommon)
+	 * 
+	 */
 	Sint32 m_xScroll;
+	/**
+	 * @brief Scroll in Y
+	 * 
+	 */
 	Sint32 m_yScroll;
 };
 
+/**
+ * @brief Broadcast by Input Manager when Mouse is clicked
+ * 
+ */
 class MouseClickEvent : public Event<MouseClickEvent>
 {
 public:
+	/**
+	 * @brief Broadcast by Input Manager when Mouse is clicked
+	 * 
+	 * @param button 
+	 * @param state 
+	 */
 	MouseClickEvent(Uint8 button, bool state) :
 		m_button(button),
 		m_state(state)
@@ -68,7 +106,14 @@ public:
 		static Multicast<void(Uint8, bool)> m;
 		return m;
 	}
-
+	/**
+	 * @brief Mouse Clicked Button (Check SDLBUTTON)
+	 * 
+	 */
 	Uint8 m_button;
+	/**
+	 * @brief Button Current State
+	 * 
+	 */
 	bool m_state;
 };

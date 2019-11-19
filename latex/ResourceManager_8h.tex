@@ -1,0 +1,63 @@
+\hypertarget{ResourceManager_8h}{}\section{Managers/\+Resource\+Manager.h File Reference}
+\label{ResourceManager_8h}\index{Managers/\+Resource\+Manager.\+h@{Managers/\+Resource\+Manager.\+h}}
+
+
+Responsible for storing resource pointer table and respective memory management.  
+
+
+{\ttfamily \#include \char`\"{}Helper/\+Hash.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Audio/\+Audio\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Audio\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Direct\+X\+T\+K/\+Sprite\+Font.\+h$>$}\newline
+Include dependency graph for Resource\+Manager.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ResourceManager_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{ResourceManager_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{unionResPtr}{Res\+Ptr}
+\begin{DoxyCompactList}\small\item\em Union class that can store different pointer types. \end{DoxyCompactList}\item 
+struct \hyperlink{structResource}{Resource}
+\begin{DoxyCompactList}\small\item\em \hyperlink{structResource}{Resource} table object containing type and pointer. \end{DoxyCompactList}\item 
+class \hyperlink{classResourceManager}{Resource\+Manager}
+\begin{DoxyCompactList}\small\item\em Responsible for storing resource pointer table and respective memory management. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ResourceManager_8h_af056974bdbbf81e99a9d58e34c88c7fa}\label{ResourceManager_8h_af056974bdbbf81e99a9d58e34c88c7fa}} 
+enum \hyperlink{ResourceManager_8h_af056974bdbbf81e99a9d58e34c88c7fa}{Res\+Type} \{ \newline
+{\bfseries S\+FX}, 
+{\bfseries S\+O\+N\+GS}, 
+{\bfseries T\+E\+X\+T\+U\+RE}, 
+{\bfseries M\+O\+D\+EL}, 
+\newline
+{\bfseries M\+A\+T\+E\+R\+I\+AL}, 
+{\bfseries P\+R\+E\+F\+AB}, 
+{\bfseries S\+C\+R\+I\+PT}, 
+{\bfseries F\+O\+NT}
+ \}\begin{DoxyCompactList}\small\item\em Represents type of resource pointer being stored. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Responsible for storing resource pointer table and respective memory management. 
+
+\begin{DoxyAuthor}{Author}
+Ramzi Mourtada 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}

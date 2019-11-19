@@ -59,7 +59,6 @@
     <ClCompile Include="Components\UIComponent.cpp" />
     <ClCompile Include="Directory\Directory.cpp" />
     <ClCompile Include="Directory\User.cpp" />
-    <ClCompile Include="Events\GameObject\GameObjectDestroyed.h" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Events\BaseEvent.cpp" />
     <ClCompile Include="Events\EventBus.cpp" />
@@ -157,7 +156,6 @@
     <ClInclude Include="Audio\AudioTypes.h" />
     <ClInclude Include="Events\Audio\AudioEvents.h" />
     <ClInclude Include="Components\SkyboxIrradianceComponent.h" />
-    <ClInclude Include="Events\GameObject\DestroyGameObject.h" />
     <ClInclude Include="Events\GameObject\GameObjectEvents.h" />
     <ClInclude Include="Animation\Animation.h" />
     <ClInclude Include="Animation\AnimModel.h" />
@@ -190,7 +188,6 @@
     <ClInclude Include="Components\UIComponent.h" />
     <ClInclude Include="Directory\Directory.h" />
     <ClInclude Include="Directory\User.h" />
-    <ClInclude Include="Events\GameObject\GameObjectCreated.h" />
     <ClInclude Include="Events\Input\MouseClickEvent.h" />
     <ClInclude Include="Graphics\PostEffects\BlurImagePass.h" />
     <ClInclude Include="Graphics\Deferred\DeferredRenderingInstance.h" />

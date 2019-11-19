@@ -1,0 +1,63 @@
+\hypertarget{classBaseEvent}{}\section{Base\+Event Class Reference}
+\label{classBaseEvent}\index{Base\+Event@{Base\+Event}}
+
+
+Base \hyperlink{classEvent}{Event} Class that is mirrored for event callbacks.  
+
+
+
+
+{\ttfamily \#include $<$Base\+Event.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Event\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBaseEvent__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseEvent_a67cfea4f5876d7644ffe71c460b77e62}\label{classBaseEvent_a67cfea4f5876d7644ffe71c460b77e62}} 
+typedef std\+::size\+\_\+t {\bfseries Event\+Id}
+\item 
+\mbox{\Hypertarget{classBaseEvent_adcd2734dcd54d458c8a6a2cbdac14d19}\label{classBaseEvent_adcd2734dcd54d458c8a6a2cbdac14d19}} 
+typedef std\+::unique\+\_\+ptr$<$ \hyperlink{classBaseEvent}{Base\+Event} $>$ {\bfseries Ptr}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseEvent_afa6860ba23bb43a7e158d238939c265f}\label{classBaseEvent_afa6860ba23bb43a7e158d238939c265f}} 
+virtual void \hyperlink{classBaseEvent_afa6860ba23bb43a7e158d238939c265f}{operator()} ()=0
+\begin{DoxyCompactList}\small\item\em Virtual function for mirror multicast invoke when event is invoked This is useful with some events for script delegate binds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseEvent_afb79121ea0c7c6de301353e5e2fe3a34}\label{classBaseEvent_afb79121ea0c7c6de301353e5e2fe3a34}} 
+float \hyperlink{classBaseEvent_afb79121ea0c7c6de301353e5e2fe3a34}{m\+\_\+delay}
+\begin{DoxyCompactList}\small\item\em Time Delay before executing event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseEvent_a4e5bcc9ddaf500a7093357a00be5aa02}\label{classBaseEvent_a4e5bcc9ddaf500a7093357a00be5aa02}} 
+static Event\+Id {\bfseries m\+\_\+event\+Id}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseEvent_aba45a46c615e2683daffdae82e2d3b8f}\label{classBaseEvent_aba45a46c615e2683daffdae82e2d3b8f}} 
+class {\bfseries Event\+Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base \hyperlink{classEvent}{Event} Class that is mirrored for event callbacks. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Events/\hyperlink{BaseEvent_8h}{Base\+Event.\+h}\item 
+Events/Base\+Event.\+cpp\end{DoxyCompactItemize}

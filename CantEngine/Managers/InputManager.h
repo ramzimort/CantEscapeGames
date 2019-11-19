@@ -1,18 +1,11 @@
-/* Start Header------------------------------------------------------ -
-Copyright(C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author : Ramzi Mourtada
-Other Authors : <None>
--End Header--------------------------------------------------------*/
-
 #pragma once
 
 /**
  * @file InputManager.h
  * @author Ramzi Mourtada
- * @date 1/20/2019
- * @brief	Contains functions for checking mouse/keyboard press/trigger/release \n
- *			#include <SDL2/SDL_keycode.h> for key/mouse constants
+ * @date 12/4/2019
+ * @brief Runs on a separate thread. 
+ * Responsible for injecting input events into the game event queue
  */
 
 class GameWindowSizeEvent;

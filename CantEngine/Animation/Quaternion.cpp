@@ -1,4 +1,4 @@
-///HEADER
+//HEADER
 
 #include "Quaternion.h"
 

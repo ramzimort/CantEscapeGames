@@ -1,0 +1,81 @@
+\hypertarget{classKeyEvent}{}\section{Key\+Event Class Reference}
+\label{classKeyEvent}\index{Key\+Event@{Key\+Event}}
+
+
+Keyboard event.  
+
+
+
+
+{\ttfamily \#include $<$Key\+Event.\+h$>$}
+
+
+
+Inheritance diagram for Key\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classKeyEvent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Key\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classKeyEvent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classKeyEvent_ac4916846f8db231e87b912a3c15efb93}{Key\+Event} (S\+D\+L\+\_\+\+Scancode key\+\_\+scancode, bool press)
+\begin{DoxyCompactList}\small\item\em Keyboard event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyEvent_ae9ca60ae540185f25a329fcecee15bd2}\label{classKeyEvent_ae9ca60ae540185f25a329fcecee15bd2}} 
+virtual void \hyperlink{classKeyEvent_ae9ca60ae540185f25a329fcecee15bd2}{operator()} () override
+\begin{DoxyCompactList}\small\item\em Virtual function for mirror multicast invoke when event is invoked This is useful with some events for script delegate binds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classKeyEvent_af3334ba23b50d17be327199b7d45c23c}\label{classKeyEvent_af3334ba23b50d17be327199b7d45c23c}} 
+static \hyperlink{classMulticast}{Multicast}$<$ void(int, bool)$>$ \& {\bfseries On\+Key\+Event} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classKeyEvent_a355a05af666b7b6813a029be8d779eb3}\label{classKeyEvent_a355a05af666b7b6813a029be8d779eb3}} 
+S\+D\+L\+\_\+\+Scancode \hyperlink{classKeyEvent_a355a05af666b7b6813a029be8d779eb3}{m\+\_\+scancode}
+\begin{DoxyCompactList}\small\item\em Key Scancode. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classKeyEvent_ac18e27df9b82af8999125d253c0730c9}\label{classKeyEvent_ac18e27df9b82af8999125d253c0730c9}} 
+bool \hyperlink{classKeyEvent_ac18e27df9b82af8999125d253c0730c9}{m\+\_\+press}
+\begin{DoxyCompactList}\small\item\em Key Current \hyperlink{classState}{State}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Keyboard event. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classKeyEvent_ac4916846f8db231e87b912a3c15efb93}\label{classKeyEvent_ac4916846f8db231e87b912a3c15efb93}} 
+\index{Key\+Event@{Key\+Event}!Key\+Event@{Key\+Event}}
+\index{Key\+Event@{Key\+Event}!Key\+Event@{Key\+Event}}
+\subsubsection{\texorpdfstring{Key\+Event()}{KeyEvent()}}
+{\footnotesize\ttfamily Key\+Event\+::\+Key\+Event (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Scancode}]{key\+\_\+scancode,  }\item[{bool}]{press }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Keyboard event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+\_\+scancode} & \\
+\hline
+{\em press} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Events/\+Input/Key\+Event.\+h\end{DoxyCompactItemize}

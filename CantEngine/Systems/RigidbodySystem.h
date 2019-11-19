@@ -15,7 +15,7 @@ Primary Author: Jose Rosenbluth
 #include "Physics/Gjk/CollisionManifold.h"
 #include "Managers/EventManager.h"
 #include"Events/Input/KeyEvent.h"
-#include "Events/GameObject/GameObjectDestroyed.h"
+#include "Events/GameObject/GameObjectEvents.h"
 
 class TransformComponent;
 class RigidbodyComponent;

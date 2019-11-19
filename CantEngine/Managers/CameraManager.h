@@ -1,45 +1,80 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
-- End Header --------------------------------------------------------*/
-
 #pragma once
+
+/**
+ * @file CameraManager.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Registers any created camera's data
+ */
 
 class Camera;
 class CameraRegistrationEvent;
 class CameraDestructionEvent;
 class WindowSizeEvent;
 
-//This is what the map will store. 
+/**
+ * @brief Camera Information
+ * 
+ */
 struct CameraInfo 
 {
-	//Camera should have the width height info
+	/**
+	 * @brief Camera Object Reference
+	 * 
+	 */
 	Camera& m_camera;
 
-	//This is in viewport coords
+	/**
+	 * @brief Screen Left Bottom x-value
+	 * 
+	 */
 	size_t m_leftBottomX;
+	/**
+	 * @brief Screen Right Bottom y-value
+	 * 
+	 */
 	size_t m_leftBottomY;
 
-	//For now not used?
+	/**
+	 * @brief Z order
+	 * 
+	 */
 	int m_zOrder;
-
+	/**
+	 * @brief Construct a new Camera Info object
+	 * 
+	 * @param cam 
+	 * @param x 
+	 * @param y 
+	 */
 	CameraInfo(Camera& cam, size_t x, size_t y) :
 		m_camera(cam), m_leftBottomX(x), 
 		m_leftBottomY(y), m_zOrder(0)
 	{}
 };
 
-
+/**
+ * @brief Registers any created camera's data
+ * This is important for any screen size or info change, the event must be passed to all cameras to update aspect ratios...
+ * 
+ */
 class CameraManager
 {
 	typedef std::list<CameraInfo> Cameras;
 public:
 	CameraManager();
 	~CameraManager();
-
+	/**
+	 * @brief Not used
+	 * 
+	 * @param dt 
+	 */
 	void Update(float dt);
+	/**
+	 * @brief Get the Main Camera object (index 0)
+	 * 
+	 * @return const CameraInfo& 
+	 */
 	const CameraInfo& GetMainCamera() const;
 
 private:
@@ -47,7 +82,6 @@ private:
 	void OnCameraRegistration(const CameraRegistrationEvent* event);
 	void OnCameraDestruction(const CameraDestructionEvent* event);
 	void OnWindowSize(const WindowSizeEvent* event);
-
 
 private:
 	size_t m_scrWidth, m_scrHeight;

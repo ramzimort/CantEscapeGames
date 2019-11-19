@@ -1,0 +1,36 @@
+\hypertarget{Directory_8h}{}\section{Directory/\+Directory.h File Reference}
+\label{Directory_8h}\index{Directory/\+Directory.\+h@{Directory/\+Directory.\+h}}
+
+
+Directory and File helper functions.  
+
+
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceCantDirectory}{Cant\+Directory}
+\begin{DoxyCompactList}\small\item\em Directory Related Helper Functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceCantDirectory_a767d0a23dd8fbbd289bf99fa9b2e6b2c}{Cant\+Directory\+::\+File\+Exists} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if path exists and is a file. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceCantDirectory_a3fc8037d0d488b6ebd001aae47b474a8}{Cant\+Directory\+::\+Folder\+Exists} (const std\+::string \&path)
+\begin{DoxyCompactList}\small\item\em Checks if path exists and is a folder. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, std\+::vector$<$ std\+::string $>$ $>$ \hyperlink{namespaceCantDirectory_a60226f9192495eadf59bb646d5df9322}{Cant\+Directory\+::\+Get\+All\+Objects\+Recursive} (const std\+::string \&dir\+\_\+path, const std\+::vector$<$ std\+::string $>$ \&file\+\_\+extensions=\{\})
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespaceCantDirectory_a8a0cb619ba4ccb459785ea1394b63983}{Cant\+Directory\+::\+Get\+All\+Objects} (const std\+::string \&dir\+\_\+path, const std\+::vector$<$ std\+::string $>$ \&file\+\_\+extensions=\{ \})
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespaceCantDirectory_a6b53cda775608f26f9798c40b81f13ef}{Cant\+Directory\+::\+Get\+Objects\+In} (const std\+::string \&dir\+\_\+path, const std\+::string \&file\+\_\+extension)
+\begin{DoxyCompactList}\small\item\em Gets all files in a directory non-\/recursively. Can specify optional list of file extensions to filter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Directory and File helper functions. 
+
+\begin{DoxyAuthor}{Author}
+Ramzi Mourtada 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}

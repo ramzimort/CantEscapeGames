@@ -1,0 +1,81 @@
+\hypertarget{classMouseMotionEvent}{}\section{Mouse\+Motion\+Event Class Reference}
+\label{classMouseMotionEvent}\index{Mouse\+Motion\+Event@{Mouse\+Motion\+Event}}
+
+
+Broadcasted by Input Manager when mouse moves.  
+
+
+
+
+{\ttfamily \#include $<$Mouse\+Click\+Event.\+h$>$}
+
+
+
+Inheritance diagram for Mouse\+Motion\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classMouseMotionEvent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Mouse\+Motion\+Event\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classMouseMotionEvent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMouseMotionEvent_ae80aaa461c66ce8796d4ad3930bcc6e2}{Mouse\+Motion\+Event} (const Vector2 pos, const Vector2 delta)
+\begin{DoxyCompactList}\small\item\em Broadcasted by Input Manager when mouse moves. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMouseMotionEvent_a79c07f84b0ac5948eb44046db7c420c6}\label{classMouseMotionEvent_a79c07f84b0ac5948eb44046db7c420c6}} 
+virtual void \hyperlink{classMouseMotionEvent_a79c07f84b0ac5948eb44046db7c420c6}{operator()} () override
+\begin{DoxyCompactList}\small\item\em Virtual function for mirror multicast invoke when event is invoked This is useful with some events for script delegate binds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMouseMotionEvent_a6f99922309ff3384c4192767d368a88b}\label{classMouseMotionEvent_a6f99922309ff3384c4192767d368a88b}} 
+static \hyperlink{classMulticast}{Multicast}$<$ void(Vector2, Vector2)$>$ \& {\bfseries On\+Mouse\+Motion} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMouseMotionEvent_a8a442de20c51f283248e1100ff027380}\label{classMouseMotionEvent_a8a442de20c51f283248e1100ff027380}} 
+Vector2 {\bfseries m\+\_\+position}
+\item 
+\mbox{\Hypertarget{classMouseMotionEvent_a3ba0e3af15d3a592a66eb354372aebe2}\label{classMouseMotionEvent_a3ba0e3af15d3a592a66eb354372aebe2}} 
+Vector2 {\bfseries m\+\_\+delta\+Position}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Broadcasted by Input Manager when mouse moves. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMouseMotionEvent_ae80aaa461c66ce8796d4ad3930bcc6e2}\label{classMouseMotionEvent_ae80aaa461c66ce8796d4ad3930bcc6e2}} 
+\index{Mouse\+Motion\+Event@{Mouse\+Motion\+Event}!Mouse\+Motion\+Event@{Mouse\+Motion\+Event}}
+\index{Mouse\+Motion\+Event@{Mouse\+Motion\+Event}!Mouse\+Motion\+Event@{Mouse\+Motion\+Event}}
+\subsubsection{\texorpdfstring{Mouse\+Motion\+Event()}{MouseMotionEvent()}}
+{\footnotesize\ttfamily Mouse\+Motion\+Event\+::\+Mouse\+Motion\+Event (\begin{DoxyParamCaption}\item[{const Vector2}]{pos,  }\item[{const Vector2}]{delta }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Broadcasted by Input Manager when mouse moves. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em delta} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Events/\+Input/Mouse\+Click\+Event.\+h\end{DoxyCompactItemize}

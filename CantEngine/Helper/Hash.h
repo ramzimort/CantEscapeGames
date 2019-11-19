@@ -1,8 +1,22 @@
 #pragma once
 
+/**
+ * @file Hash.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief 64 bit based string hashing functions for paths 
+ */
+
 #define MAGIC_PRIME ((uint64_t)0x100000001b3ULL)
 class StringId;
 
+/**
+ * @brief 64 bit string FNV Hash function
+ * 
+ * @param str 
+ * @param len 
+ * @return constexpr uint64_t 
+ */
 inline constexpr uint64_t FNVHash(const char* str, size_t len)
 {
 	size_t hash = 0;
@@ -22,6 +36,10 @@ inline constexpr size_t operator "" _sid(const char* name, size_t len)
 	return FNVHash(name, len);
 }
 
+/**
+ * @brief Hashed version of string. (Contains both size_t and string in DEVELOPER)
+ * 
+ */
 class StringId
 {
 	friend class StringIdHash;
@@ -61,6 +79,10 @@ private:
 	RTTR_REGISTRATION_FRIEND;
 };
 
+/**
+ * @brief Hashing Function
+ * 
+ */
 class StringIdHash {
 public:
 	uint64_t operator()(const StringId& p) const

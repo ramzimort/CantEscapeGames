@@ -1,5 +1,13 @@
 #pragma once
 
+
+/**
+ * @file PoolAllocator.h
+ * @author Ramzi Mourtada
+ * @date 12/4/2019
+ * @brief Pool Memory Management by class type definition
+ */
+
 /**
  * @brief Memory Pool class
  * 
