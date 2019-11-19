@@ -163,11 +163,6 @@ Vector3 TransformComponent::GetRight() const
 	return right;
 }
 
-Vector3 const& TransformComponent::GetWorldPosition() const
-{
-	return m_position;
-}
-
 Vector3 const& TransformComponent::GetPosition() const
 {
 	return m_position;

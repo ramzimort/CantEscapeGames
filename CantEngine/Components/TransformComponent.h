@@ -30,12 +30,53 @@ public:
 	virtual ~TransformComponent();
 
 	//Interface
+	/**
+	 * @brief Translate in world space
+	 * 
+	 * @param dx 
+	 * @param dy 
+	 * @param dz 
+	 */
 	void Translate(float dx, float dy, float dz);
+	/**
+	 * @brief Translate in world space
+	 * 
+	 * @param translate 
+	 */
 	void Translate(Vector3 const &translate);
+	/**
+	 * @brief Rotate with pitch, yaw, roll in degrees
+	 * 
+	 * @param pitch 
+	 * @param yaw 
+	 * @param roll 
+	 */
 	void Rotate(float pitch, float yaw, float roll);
+	/**
+	 * @brief Rotate with pitch, yaw, roll in degrees
+	 * 
+	 * @param rotation 
+	 */
 	void Rotate(Vector3 const& rotation);
+	/**
+	 * @brief Uniform scale
+	 * 
+	 * @param val 
+	 */
 	void Scale(float val);
+	/**
+	 * @brief Non-uniform scale
+	 * 
+	 * @param x 
+	 * @param y 
+	 * @param z 
+	 */
 	void Scale(float x, float y, float z);
+	/**
+	 * @brief Non-uniform scale
+	 * 
+	 * @param scale 
+	 */
 	void Scale(Vector3 const &scale);
 
 	//getters

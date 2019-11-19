@@ -7,6 +7,7 @@
 
 namespace CantMemory
 {
+
 	class StackResource
 	{
 		typedef size_t Marker;
@@ -32,18 +33,40 @@ namespace CantMemory
 		static StackAllocator m_stackAllocator;
 	};
 
+	/**
+	 * @brief MemoryPool static class. 
+	 * Creates aligned memory for any data type in pools of PAGESIZE (4K bytes)
+	 * Use this allocator for any dynamically allocated class set
+	 * Uses free list method
+	 * Additional performance benefit is made when iterating through pool objects
+	 * 
+	 * 
+	 * @tparam T 
+	 */
 	template<typename T>
 	class PoolResource
 	{
 	public:
 		PoolResource<T>() : m_pPool(new Pool<T>(PAGESIZE)) { };
 		~PoolResource<T>() { delete m_pPool; }
-
+		/**
+		 * @brief Use this instead of new to call constructor 
+		 * Can take any constructor arguments
+		 * 
+		 * @tparam Args 
+		 * @param args 
+		 * @return T* 
+		 */
 		template <typename... Args>
 		static T* Allocate(Args &&... args)
 		{
 			return m_pPool->Allocate(std::forward<Args>(args)...);
 		}
+		/**
+		 * @brief Use this instead of delete to call destructor (just pass pointer )
+		 * 
+		 * @param ptr 
+		 */
 		static void Free(T* ptr)
 		{
 			m_pPool->Free(ptr);
