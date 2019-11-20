@@ -42,7 +42,7 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 		self.walking = false;
 		self.animComp:SetTrigger("Upper");
 		
-	elseif(SCANCODE_ENTER == key) then
+	elseif(SCANCODE.ENTER == key) then
 		self.animComp:SetTrigger("Crawl");
 
 	elseif(SCANCODE.SPACE == key) then

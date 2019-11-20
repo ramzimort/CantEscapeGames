@@ -88,28 +88,98 @@ public:
 		//Copy ctor (from ref, new heap obj)
 		delegate<RET(PARAMS...)> *d = new delegate<RET(PARAMS...)>(rhs);
 
-		suscribers.push_back(d);
+		for (auto *dlgte : suscribers)
+			if (dlgte == d)
+				return *this;
 
+		suscribers.push_back(d);
 		return *this;
 	}
 
 	//First attempt, a table which has a self and a function
 	void BindLuaFunction(sol::table entry)
 	{
-		this->lua_suscribers.push_back(entry);
+		for (std::list<sol::table>::const_iterator iter = lua_suscribers.begin();
+			iter != lua_suscribers.end();
+			++iter)
+		{
+			try
+			{
+				//Case of method
+				if (entry[1] != sol::nil && entry[2] != sol::nil)
+				{
+					sol::table const self = (*iter)[1];
+					sol::function const funct = (*iter)[2];
+					sol::table const EntrySelf = entry[1];
+					sol::function const EntryFunct = entry[2];
+					if (self == EntrySelf && funct == EntryFunct)
+						return;
+				}
+				//Case of function
+				else if (entry[2] != sol::nil)
+				{
+					sol::function const funct = (*iter)[2];
+					sol::function const EntryFunct = entry[2];
+					if (funct == EntryFunct)
+						return;
+				}
+				else
+				{
+					OutputDebugString("\nERROR RUNNING LUA CODE BOUND TO MULTICAST!\n");
+				}
+			}
+			catch (const sol::error& e)
+			{
+				const char *errorName = e.what();
+				DEBUG_LOG(errorName); //TODO - erase this
+			}
+		}
+
+		lua_suscribers.push_back(entry);
 	}
 
-	//Removing the entry (not sure if right fix but does the job)
+	//Removing the entry
 	void UnbindLuaFunction(sol::table entry)
 	{
-		for (std::list<sol::table>::const_iterator it = lua_suscribers.begin(); it != lua_suscribers.end(); ++it ) 
+		for (std::list<sol::table>::const_iterator iter = lua_suscribers.begin();
+			iter != lua_suscribers.end();
+			++iter)
 		{
-			const sol::function& func1 = (*it)[2];
-			const sol::function& func2 = entry[2];
-			if (func1 == func2)
+			try
 			{
-				lua_suscribers.erase(it);
-				break;
+				//Case of method
+				if (entry[1] != sol::nil && entry[2] != sol::nil)
+				{
+					sol::table const self = (*iter)[1];
+					sol::function const funct = (*iter)[2];
+					sol::table const EntrySelf = entry[1];
+					sol::function const EntryFunct = entry[2];
+					if (self == EntrySelf && funct == EntryFunct)
+					{
+						lua_suscribers.erase(iter);
+						return;
+					}
+				}
+				//Case of function
+				else if (entry[2] != sol::nil)
+				{
+					sol::function const funct = (*iter)[2];
+					sol::function const EntryFunct = entry[2];
+					if (funct == EntryFunct)
+					{
+						lua_suscribers.erase(iter);
+						return;
+					}
+				}
+				else
+				{
+					OutputDebugString("\nERROR RUNNING LUA CODE BOUND TO MULTICAST!\n");
+				}
+			}
+			catch (const sol::error& e)
+			{
+				const char *errorName = e.what();
+				DEBUG_LOG(errorName); //TODO - erase this
 			}
 		}
 	}
