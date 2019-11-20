@@ -207,7 +207,6 @@ void AppRendererInstance::Render()
 	m_dxrenderer->cmd_update_buffer(update_camera_desc);
 
 	uint32_t cameraRenderObjectType = thisCamera.GetCameraRenderObjectType();
-
 	if ((cameraRenderObjectType & CAMERA_RENDER_MESHES) != 0)
 	{
 		LoadActionsDesc load_actions_desc = {};
