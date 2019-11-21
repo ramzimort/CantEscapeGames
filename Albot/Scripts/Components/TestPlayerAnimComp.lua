@@ -145,6 +145,11 @@ TestPlayerAnimComp.Begin = function(self, owner)
 
 end
 
+	--Physics integration and movement
+	self.velocity = self.accel * dt;
+	local accelSub = self.accel * 0.125;
+	self.accel = self.accel - accelSub;
+	self.transformComp:Translate(self.velocity);
 
 --Update called every tick
 TestPlayerAnimComp.Update = function(self, dt, owner) 
