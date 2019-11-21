@@ -868,14 +868,14 @@ void AppRenderer::RegisterTextFontInstance(const TextFontInstanceRenderData& tex
 }
 
 void AppRenderer::RegisterTextFontInstance(const std::string& text, uint32_t fontType,
-	const Vector2& position, const Vector3& color, const Vector3& scale)
+	const Vector2& position, const Vector3& color, const Vector3& scale, float rotation)
 {
 	std::wstring windowString(text.begin(), text.end());
-	RegisterTextFontInstance(windowString, (FontType)fontType, position, color, scale);
+	RegisterTextFontInstance(windowString, (FontType)fontType, position, color, scale, rotation);
 }
 
 void AppRenderer::RegisterTextFontInstance(const std::wstring& text, FontType fontType,
-	const Vector2& position, const Vector3& color, const Vector3& scale)
+	const Vector2& position, const Vector3& color, const Vector3& scale, float rotation)
 {
 	TextFontInstanceRenderData textInstanceRenderData = {};
 	textInstanceRenderData.m_text = text;
@@ -883,6 +883,7 @@ void AppRenderer::RegisterTextFontInstance(const std::wstring& text, FontType fo
 	textInstanceRenderData.m_position = position;
 	textInstanceRenderData.m_color = color;
 	textInstanceRenderData.m_scale = scale;
+	textInstanceRenderData.m_rotation = rotation;
 	RegisterTextFontInstance(textInstanceRenderData);
 }
 
