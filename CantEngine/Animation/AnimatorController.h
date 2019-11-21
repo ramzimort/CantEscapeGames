@@ -27,20 +27,48 @@ struct AnimTransition
 	{}
 
 	//Checks and "logical and"'s the conditions
-	bool CheckCondition(std::unordered_map<std::string, int> const& triggers)
+	bool CheckCondition(std::unordered_map<std::string, int>& triggers,
+		int& dirtyFlag, bool animEnd = false)
 	{
 		//If there are conditions, "logical and" them all
-		bool result = true;
-		for (AnimCondition& condition : conditions)
+		if (conditions.size() > 0)
 		{
-			int found = 0;
-			auto iter = triggers.find(condition.trigger);
-			if (iter != triggers.end()) 
-				found = iter->second;
+			bool result = true;
+			for (AnimCondition& condition : conditions)
+			{
+				int found = 0;
+				auto iter = triggers.find(condition.trigger);
+				if (iter != triggers.end())
+				{
+					found = iter->second;
+					if (found)
+					{
+						triggers[condition.trigger] = 0;
+
+						///OutputDebugString("Dirtyflag-- cause of using trigger. -PrevVal: " + dirtyFlag);  //////
+						--dirtyFlag;	
+						//int a = 132;
+						///OutputDebugString(" -NewVal: " + dirtyFlag);									  //////
+						///OutputDebugString("\n");														  //////
+					}
+				}
 			
-			result = result && found;
+				result = result && found;
+			}
+			return result;
 		}
-		return result;
+		//If there are no conditions, then this is a animation ending. 
+		//Return true, and decrease dirty flag
+		else 
+		{
+			if (animEnd)
+			{
+				dirtyFlag--;
+				return true;
+			}
+			else
+				return false; //It was not an animEnd signal
+		}
 	}
 };
 
@@ -66,10 +94,6 @@ struct AnimState
 	{
 		animTime = 0.0f;
 		isAnimRunning = false;
-
-		// Each state should bind their animEnd handler to the 
-		// multicast of the animation they hold
-		this->animation->OnAnimationEnd += delegate<void(void)>::Create<AnimState, &AnimState::AnimationEndHandler>(this);
 	}
 
 	~AnimState()
@@ -92,19 +116,22 @@ struct AnimState
 	}
 
 	//Check for all transitions and enter the first one it can
-	void CheckAllTransitions(std::unordered_map<std::string, int> const& triggers)
+	bool CheckAllTransitions(std::unordered_map<std::string, int>& triggers, 
+		int& dirtyFlag, bool animEnd = false)
 	{
 		for (AnimTransition *transition : transitions)
 		{
 			//Check condition
-			bool result = transition->CheckCondition(triggers);
-			if (result) 
+			bool result = transition->CheckCondition(triggers, dirtyFlag, animEnd);
+			if (result)
 			{
 				//Jump to that transition, stop this loop
 				EnterTransition(transition);
-				return;
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	//When entering a transition
@@ -123,13 +150,6 @@ struct AnimState
 		currentTransition->transitionTime = 0.0f;
 		currentTransition = nullptr;
 
-	}
-
-	//This will be binded to the animation, and called when it ends. If this 
-	//happens, it will loop through the transitions and jump at the first one it can
-	void AnimationEndHandler() 
-	{
-		CheckAllTransitions({}); //TODO - Change to make it more ordered
 	}
 };
 
@@ -163,7 +183,7 @@ public:
 private:
 	AnimState *entry;
 	AnimState *current;
-	bool dirtyFlag;
+	int dirtyFlag;
 
 	std::unordered_map<std::string, AnimState*> states;
 

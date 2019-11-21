@@ -47,9 +47,6 @@ struct Animation
 	//Animation events (TBD)
 	std::vector<AnimMulticast> animationEvents;
 
-	//Animation end multicast
-	AnimMulticast OnAnimationEnd;
-
 	std::vector<AnimChannel> channels;
 	std::unordered_map<std::string, AnimChannel> boneChannelMap;
 

@@ -94,6 +94,11 @@ void AnimationComponent::Begin(GameObjectManager *goMgr)
 }
 
 
+
+
+//////////////////////////////////////////////////////
+////              ANIMATOR CONTROLLER             ////
+//////////////////////////////////////////////////////
 void AnimationComponent::AnimationEnd(AnimState *anim)
 {
 	if (anim->animation->loops) 
@@ -102,39 +107,40 @@ void AnimationComponent::AnimationEnd(AnimState *anim)
 	}
 	else 
 	{
+		///OutputDebugString("Dirtyflag++ cause of animation end. -PrevVal: " + controller->dirtyFlag);  //////
+		this->controller->dirtyFlag++;																  //////
+		///OutputDebugString(" -NewVal: " + controller->dirtyFlag);									  //////
+		///OutputDebugString("\n");																	  //////
+		this->CheckForTransitionChanges(true);
 		anim->isAnimRunning = false;
-		anim->animation->OnAnimationEnd();
+		///anim->animation->OnAnimationEnd();
 	}
 }
 
-
-
-
-//////////////////////////////////////////////////////
-////              ANIMATOR CONTROLLER             ////
-//////////////////////////////////////////////////////
 void AnimationComponent::FrameEndCleanUp()
 {
 	this->controller->ResetTriggers();
+
+	this->controller->dirtyFlag = 0;
 }
 
 
-void AnimationComponent::CheckForTransitionChanges() 
+//EVERY TRANSITION CHECK WILL GO THROUGH HERE
+//FOR CURRENT ANIMATION STATE, CHECK ALL ITS TRANSITIONS
+void AnimationComponent::CheckForTransitionChanges(bool animEnd) 
 {
 	//If no dirty flag, no need to check
-	if (controller->dirtyFlag) 
+	if (controller->dirtyFlag > 0)
 	{
+		//Get current animator state (node of state machine)
 		AnimState *current = controller->GetCurrentState();
 
-		//Dirty flag to zero
-		controller->dirtyFlag = false;
-
-		//If in a transition, skip this
+		//If already in a transition, skip
 		if (current->isInTransition)
 			return;
 
 		//Check all transitions against the controller's triggers
-		current->CheckAllTransitions(controller->triggers);
+		current->CheckAllTransitions(controller->triggers, controller->dirtyFlag, animEnd);
 	}
 }
 
@@ -143,9 +149,7 @@ AnimState *AnimationComponent::CreateState(std::string stateName,
 {
 	AnimState *state = CreateState(stateName, animName);
 	if (state) 
-	{
 		state->speed = speed;
-	}
 	return state;
 }
 
@@ -178,7 +182,7 @@ void AnimationComponent::SetEntryState(AnimState *entry)
 
 void AnimationComponent::SetTrigger(std::string const& trigger)
 {
-	this->controller->SetTrigger(trigger);
+	controller->SetTrigger(trigger);
 }
 
 void AnimationComponent::AddAnimEvent(std::string const& animName, int tick, sol::table entry)

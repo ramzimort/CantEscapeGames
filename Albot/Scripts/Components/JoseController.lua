@@ -53,25 +53,22 @@ JoseController.Update = function(self, dt, owner)
 
 	local rotation = self.Rotation;
 	if (self.LEFTCLICK) then
-		rotation.x = 1.0*self.DeltaPositionY;
-		rotation.y = 1.0*self.DeltaPositionX;
+		rotation.x = 1.0 * self.DeltaPositionY;
+		rotation.y = 1.0 * self.DeltaPositionX;
 		self.DeltaPositionX = 0.0;
 		self.DeltaPositionY = 0.0;
+		rotation = rotation * dt * self.RotationSpeed;
+		self.Transform:Rotate(rotation.x, rotation.y, 0.0);
 	end
 
-	rotation = rotation * dt * self.RotationSpeed;
 	self.Transform:SetLocalPosition(position.x, position.y, position.z);
-	self.Transform:Rotate(rotation.x, rotation.y, 0.0);
-
-	--TRACE("a" .. position.x .. " " .. position.y .. " " .. position.z .. "\n");
-
 end
 
 --Method
 JoseController.OnKey = function(self, key, state)
 	local delta = 0.0;
 	if(state) then
-		delta = 1.0;
+		delta = 3.0;
 	end
 	
 	if(SCANCODE.W == key) then

@@ -33,13 +33,6 @@
             "Assets\\Materials\\UI\\LoadingMaterial.json"
         ],
       "Scripts": [
-            "Scripts\\Components\\TestPlayerAnimComp.lua",
-            "Scripts\\Components\\PlayerComp.lua",
-            "Scripts\\Components\\editor.lua",
-            "Scripts\\Components\\JoseController.lua",
-            "Scripts\\Components\\UICamera.lua",
-            "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\JoseLevel.lua"
       ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -67,7 +60,9 @@
         "Assets\\SFX\\Whoosh_01.mp3",
         "Assets\\SFX\\Whoosh_02.mp3",
         "Assets\\SFX\\Jab.mp3",
-        "Assets\\SFX\\Block.mp3"
+        "Assets\\SFX\\Block.mp3",
+        "Assets\\SFX\\Step.mp3",
+        "Assets\\SFX\\Jump.mp3"
       ]
     },
   "Objects": [
@@ -91,20 +86,6 @@
             1.0,
             1.0
           ]
-        },
-        "CameraComponent": {
-          "Camera": {
-            "FOV": 45.0,
-            "Near": 0.10000000149011612,
-            "Far": 1000.0,
-            "Position": [
-              2.5368568897247316,
-              10.291299819946289,
-              21.91090965270996
-            ],
-            "CameraName": "Main",
-            "ZOrder": 0
-          }
         },
         "Scripts": [
           {
