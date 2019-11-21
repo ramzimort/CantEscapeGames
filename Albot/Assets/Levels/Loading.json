@@ -50,11 +50,7 @@
         "Assets\\Prefabs\\UIEmpty.json"
       ],
         "Songs": [],
-      "SFX": [],
-      "Fonts": [
-        "Assets\\Fonts\\courier_new.spritefont",
-        "Assets\\Fonts\\courier_new_bold.spritefont"
-      ]
+        "SFX": []
     },
     "Objects": [
       {

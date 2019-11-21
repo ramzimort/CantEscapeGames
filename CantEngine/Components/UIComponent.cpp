@@ -9,11 +9,6 @@ unsigned const UIComponent::static_type = BaseComponent::numberOfTypes++;
 
 RTTR_REGISTRATION
 {
-	rttr::registration::enumeration<FontType>("FontType")(
-		rttr::value("Courier_New", FontType::COURIER_NEW),
-		rttr::value("Courier_New_Bold", FontType::COURIER_NEW_BOLD)
-		);
-
 	rttr::registration::class_<UIComponent>("UIComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.property("ParentName", &UIComponent::m_parentName)
@@ -25,25 +20,13 @@ RTTR_REGISTRATION
 		.property("FinalRotation", &UIComponent::finalRotationValue)
 		.property("RotationRate", &UIComponent::rotationRate)
 		.property("Enabled", &UIComponent::m_enabled)
-		.property("TextInternalUI", &UIComponent::m_internalTextUI)
-		.property("TextFontType", &UIComponent::m_textFontType)
-		.property("TextPosition", &UIComponent::m_textPosition)
-		.property("TextRotation", &UIComponent::m_textRotation)
-		.property("TextScale", &UIComponent::m_textScale)
-		.property("TextColor", &UIComponent::m_textColor)
 		.method("Init", &UIComponent::Init);
 }
 
 UIComponent::UIComponent(GameObject* owner) : 
 	BaseComponent(owner, static_type), 
 	m_parent(nullptr), m_enabled(true),
-	m_children(std::vector<UIComponent*>(0)),
-	m_textUI(L""),
-	m_textFontType(FontType::COURIER_NEW),
-	m_textPosition(0.f),
-	m_textRotation(0.f),
-	m_textScale(1.f),
-	m_textColor(1.f, 1.f, 1.f)
+	m_children(std::vector<UIComponent*>(0))
 {
 }
 
@@ -57,7 +40,6 @@ UIComponent::~UIComponent()
 
 void UIComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
-	m_textUI = std::wstring(m_internalTextUI.begin(), m_internalTextUI.end());
 }
 
 void UIComponent::Begin(GameObjectManager *goMgr)

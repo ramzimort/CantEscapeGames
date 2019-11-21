@@ -58,7 +58,7 @@ public:
 	void cmd_spritebatch_begin(DirectX::SpriteBatch* pSpriteBatch);
 	void cmd_spritebatch_end(DirectX::SpriteBatch* pSpriteBatch);
 	void cmd_draw_font_text_string(DirectX::SpriteBatch* pSpriteBatch, const std::wstring& text, DirectX::SpriteFont* pFont,
-		const Vector2& position, const Vector3& color, const Vector3& scale, float rotation);
+		const Vector2& position, const Vector3& color, const Vector3& scale);
 
 	//TODO: temmp function / cmd, should use staging buffer way to update gpu buffer
 	void cmd_update_buffer(const BufferUpdateDesc& buffer_update_desc);

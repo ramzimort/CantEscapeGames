@@ -34,8 +34,7 @@ void TextRenderingInstance::Render(const AppRendererContext& appRendererContext)
 		DirectX::SpriteFont* curFont = m_appRenderer->m_resourceManager->GetFont(fontID);
 		Vector2 finalPosition(textFontInstanceRenderData.m_position.x * (float)rt_width, textFontInstanceRenderData.m_position.y * (float)rt_height);
 		m_dxrenderer->cmd_draw_font_text_string(m_spriteBatch, textFontInstanceRenderData.m_text, 
-			curFont, finalPosition, textFontInstanceRenderData.m_color, textFontInstanceRenderData.m_scale, 
-			textFontInstanceRenderData.m_rotation);
+			curFont, finalPosition, textFontInstanceRenderData.m_color, textFontInstanceRenderData.m_scale);
 	}
 	m_dxrenderer->cmd_spritebatch_end(m_spriteBatch);
 }
