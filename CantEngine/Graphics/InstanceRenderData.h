@@ -101,6 +101,7 @@ struct TextFontInstanceRenderData
 	Vector2 m_position;
 	Vector3 m_color; 
 	Vector3 m_scale;
+	float m_rotation;
 };
 
 

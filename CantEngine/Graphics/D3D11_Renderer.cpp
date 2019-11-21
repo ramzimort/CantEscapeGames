@@ -371,7 +371,7 @@ void DXRenderer::cmd_spritebatch_end(DirectX::SpriteBatch* pSpriteBatch)
 }
 
 void DXRenderer::cmd_draw_font_text_string(DirectX::SpriteBatch* pSpriteBatch, const std::wstring& text, DirectX::SpriteFont* pFont,
-	const Vector2& position, const Vector3& color, const Vector3& scale)
+	const Vector2& position, const Vector3& color, const Vector3& scale, float rotation)
 {
 	DXCMD_DrawFontTextStringReference referenceCmd = {};
 	referenceCmd.m_text = text;
@@ -380,6 +380,7 @@ void DXRenderer::cmd_draw_font_text_string(DirectX::SpriteBatch* pSpriteBatch, c
 	referenceCmd.m_scale = scale;
 	referenceCmd.m_pSpriteFont = pFont;
 	referenceCmd.m_pSpriteBatch = pSpriteBatch;
+	referenceCmd.m_rotation = rotation;
 	m_drawFontTextStringReferenceList.push_back(referenceCmd);
 
 	DXCMD cmd = {};
@@ -788,7 +789,7 @@ void DXRenderer::execute_queued_cmd()
 			const DXCMD_DrawFontTextString& drawFontTextStringCmd = cmd.m_cmdDrawFontTextString;
 			DXCMD_DrawFontTextStringReference* pReference = drawFontTextStringCmd.m_pReference;
 			pReference->m_pSpriteFont->DrawString(pReference->m_pSpriteBatch, pReference->m_text.c_str(),
-				pReference->m_position, pReference->m_color, 0.f, Vector3(0.f), pReference->m_scale);
+				pReference->m_position, pReference->m_color, pReference->m_rotation, Vector3(0.f), pReference->m_scale);
 			break;
 		}
 		}

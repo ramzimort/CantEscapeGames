@@ -3,6 +3,7 @@
 #include "BaseComponent.h"
 #include "../Events/Multicast.h"
 #include "Helper/Hash.h"
+#include "Graphics/InstanceRenderData.h"
 
 
 class UIComponent :	public BaseComponent
@@ -90,7 +91,14 @@ private:
 	UIComponent* m_parent;
 	std::vector<UIComponent*> m_children;
 
-
+	std::string m_internalTextUI;
+	std::wstring m_textUI;
+	FontType m_textFontType;
+	//position should be defined from 0 to 1 (origin is top left of windows coordinate)
+	Vector2 m_textPosition;
+	Vector3 m_textColor;
+	Vector3 m_textScale;
+	float m_textRotation;
 
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;

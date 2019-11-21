@@ -10,7 +10,7 @@ Menu =
 Menu.OnCreateState = function(self)
 	local EventMgr = EventManager.Get();
 	EventMgr:PushLoadedState(false);
-	EventMgr:PlaySong(false, "Assets\\Songs\\Main_Menu_2.mp3")
+	--EventMgr:PlaySong(false, "Assets\\Songs\\Main_Menu_2.mp3")
 end
 
 
