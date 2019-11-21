@@ -61,12 +61,26 @@ void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 
 	Vector3 position = uiNode->m_transform->GetPosition();
 	Vector3 scale = uiNode->m_transform->GetScale();
+	
 
 	UIObjectInstanceRenderData uiObjectInstanceRenderData = {};
 	uiObjectInstanceRenderData.m_windowSpacePosition = Vector3(position.x, position.y, position.z);
 	uiObjectInstanceRenderData.m_windowSpaceSize = Vector3(scale.x, scale.y, 0.01f);
 	uiObjectInstanceRenderData.m_pUIMaterial = rendererComponent->m_pMaterial;
 	uiObjectInstanceRenderData.m_rotationMatrix = &uiNode->m_transform->GetRotationMatrix();
-
 	m_pAppRenderer->RegisterUIObjectInstance(uiObjectInstanceRenderData);
+	
+	
+	m_pAppRenderer->GetSDLWindow();
+
+	if (uiComponent->m_textUI != L"")
+	{
+		Vector2 ui_2d_position(position.x, position.y);
+		int width, height;
+		SDL_GetWindowSize(&m_pAppRenderer->GetSDLWindow(), &width, &height);
+		ui_2d_position.x /= (float)width;
+		ui_2d_position.y /= (float)height;
+		m_pAppRenderer->RegisterTextFontInstance(uiComponent->m_textUI, uiComponent->m_textFontType, uiComponent->m_textPosition + ui_2d_position,
+			uiComponent->m_textColor, uiComponent->m_textScale, uiComponent->m_textRotation);
+	}
 }
