@@ -257,8 +257,9 @@ void DynamicAabbTree::UpdateData(unsigned int& key, const SpatialPartitionData& 
 
 	DynamicAabbTreeNode* nodeToCheck = m_Data.at(key);
 
-	if (nodeToCheck->m_Aabb.Contains(data.m_Aabb))
-		return;
+	//Commenting this code fixed the bug with ray casting into scaled down model
+	/*if (nodeToCheck->m_Aabb.Contains(data.m_Aabb))
+		return;*/
 
 	RemoveData(key);
 	InsertData(key, data);

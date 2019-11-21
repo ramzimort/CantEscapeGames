@@ -413,7 +413,7 @@ namespace CantDebug
 		// Register dynamic AABB for raycast
 		static unsigned int key = 0;
 		MeshComponent* mesh = go->GetComponent<MeshComponent>();
-		if (mesh == nullptr || go->HasComponent<AnimationComponent>())
+		if (mesh == nullptr /*|| go->HasComponent<AnimationComponent>()*/)
 			return;
 		SpatialPartitionData data1;
 		Aabb aabb = mesh->GetModel()->GetAABB();
