@@ -69,9 +69,6 @@ void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 	uiObjectInstanceRenderData.m_pUIMaterial = rendererComponent->m_pMaterial;
 	uiObjectInstanceRenderData.m_rotationMatrix = &uiNode->m_transform->GetRotationMatrix();
 	m_pAppRenderer->RegisterUIObjectInstance(uiObjectInstanceRenderData);
-	
-	
-	m_pAppRenderer->GetSDLWindow();
 
 	if (uiComponent->m_textUI != L"")
 	{
@@ -81,6 +78,6 @@ void UISystem::Draw(float dt, BaseSystemCompNode *compNode)
 		ui_2d_position.x /= (float)width;
 		ui_2d_position.y /= (float)height;
 		m_pAppRenderer->RegisterTextFontInstance(uiComponent->m_textUI, uiComponent->m_textFontType, uiComponent->m_textPosition + ui_2d_position,
-			uiComponent->m_textColor, uiComponent->m_textScale, uiComponent->m_textRotation);
+			uiComponent->m_textColor, uiComponent->m_textScale, uiComponent->m_textRotation + uiNode->m_transform->GetRotation().z);
 	}
 }
