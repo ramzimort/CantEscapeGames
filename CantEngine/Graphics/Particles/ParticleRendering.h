@@ -3,6 +3,14 @@
 #include "Shaders/Shading.h"
 #include "Graphics/InstanceRenderData.h"
 
+/**
+ * @file ParticleRendering.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief The public high level interface particle rendering available for users to use
+ */
+
+
 struct Particle
 {
 	Vector3 m_position;
@@ -14,6 +22,10 @@ struct Particle
 
 class AppRenderer;
 
+/**
+ * @brief Contains all the interface for rendering particle
+ * 
+ */
 class ParticleRendering
 {
 public:
@@ -23,23 +35,41 @@ public:
 	ParticleRendering(AppRenderer* appRenderer);
 	~ParticleRendering();
 
+	/**
+	 * @brief Load all of the high level resources for particle rendering
+	 * 
+	 * @param dxrenderer 
+	 */
 	void LoadContent(DXRenderer* dxrenderer);
+	/**
+	 * @brief Render the render info list related to particle rendering
+	 * 
+	 */
 	void Render();
+	/**
+	 * @brief Release all the graphic resources related for Particle Rendering
+	 * 
+	 */
 	void Release();
 	void Update(float dt, float gameTime);
 
-
+	/**
+	 * @brief Pass render info request for particle rendering
+	 * 
+	 * @param particleEmmiterInstanceData 
+	 */
 	void RegisterParticleEmitterInstance(const ParticleEmitterInstanceData& particleEmmiterInstanceData);
 
+	/**
+	 * @brief Clear all of the render info request related to particle rendering
+	 * 
+	 */
 	void ClearInstances();
 private:
 	void RenderStreamoutProcess();
 	void RenderParticles();
-
 	void AddParticleStreamOutUniformBuffer();
 private:
-	//ParticleEmitterInstanceList m_particleEmitterInstanceList;
-
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 
@@ -52,23 +82,5 @@ private:
 	std::vector<ParticleEmitterStreamOutUniformData> m_particleEmitterStreamOutUniformList;
 	ParticleEmitterInstanceList m_particleEmitterInstanceList;
 	std::vector<Buffer*> m_particleEmitterStreamOutUniformBufferList;
-
-
-	//Buffer* m_particleStreamOutUniformBuffer;
-	//ParticleEmitterStreamOutUniformData m_particleStreamOutUniformData;
-
-	//Buffer* m_initVB;
-	//Buffer* m_streamOutVB;
-	//Buffer* m_drawStreamOutVB;
-
-	//uint32_t m_maxParticlesCount;
-
-	//bool m_firstTime;
-
-
-	////TODO: need to be removed, only for testing purpose
-	//Texture* m_flareTexture;
-
-	
 };
 

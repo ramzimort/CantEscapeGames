@@ -4,8 +4,17 @@
 #include "Physics/Geometry/Aabb.h"
 #include "Helper/Hash.h"
 
+/**
+ * @file Model.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief Defines 3D Model data
+ */
 
-
+/**
+ * @brief VertexData defines the data required to render primitive 3D meshes
+ * 
+ */
 struct VertexData
 {
 	VertexData(const Vector3& pos, const Vector3& normal, const Vector3& tangent, const Vector3& bitangent, const Vector2& uv)
@@ -27,13 +36,16 @@ class LoadedMesh;
 class Texture;
 class DXRenderer;
 
+
+/**
+ * @brief Contains all the interface for getting Model's graphic data
+ * 
+ */
 class Model 
 {
 public:
 	friend class ModelLoader;
 	friend class ResourceManager;
-	//TODO: temp way
-	friend class Factory;
 	typedef std::vector<Mesh> MeshesList;
 	typedef std::vector<VertexData> VerticesList;
 public:
@@ -46,16 +58,55 @@ public:
 public:
 	Model();
 	virtual ~Model();
-
+	/**
+	 * @brief Get the Model's Vertex Buffer object
+	 * 
+	 * @return Buffer* 
+	 */
 	Buffer* GetVertexBuffer();
+
+	/**
+	 * @brief Get the Model's Index Buffer object
+	 * 
+	 * @return Buffer* 
+	 */
 	Buffer* GetIndexBuffer();
+	/**
+	 * @brief Get the Model's Index Total Count
+	 * 
+	 * @return uint32_t 
+	 */
 	uint32_t GetIndexTotalCount() const;
 
+	/**
+	 * @brief Release all graphics resources related to Model
+	 * 
+	 */
 	void Release();
 
+	/**
+	 * @brief Get the Meshes List of the Model
+	 * 
+	 * @return const MeshesList& 
+	 */
 	const MeshesList& GetMeshesList() const;
+	/**
+	 * @brief Get the Vertices List of the Model
+	 * 
+	 * @return const VerticesList& 
+	 */
 	const VerticesList& GetVerticesList() const;
+	/**
+	 * @brief Get the Triangle List of the Model
+	 * 
+	 * @return const std::vector<Triangle>& 
+	 */
 	const std::vector<Triangle>& GetTriangleList() const;
+	/**
+	 * @brief Get the bounding boxes of the Model in object space
+	 * 
+	 * @return const Aabb& 
+	 */
 	const Aabb& GetAABB() const;
 protected:
 	std::vector<Triangle> m_triangle_indices;

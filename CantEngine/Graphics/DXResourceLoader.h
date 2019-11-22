@@ -9,34 +9,105 @@
 #include "DepthState.h"
 #include "BlendState.h"
 #include "Sampler.h"
-
 #include <vector>
+
+
+/**
+ * @file DXResourceLoader.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief The public middle level interface for loading DirectX 11 graphic resources
+ */
 
 class DXRenderer;
 
-
+/**
+ * @brief The public middle level interface for loading DirectX 11 graphic resources
+ * 
+ */
 class DXResourceLoader{
 public:
 	DXResourceLoader();
 	~DXResourceLoader();
 
+	/**
+	 * @brief Create Buffer
+	 * 
+	 * @param renderer 
+	 * @param load_desc 
+	 * @return Buffer* 
+	 */
 	static Buffer* Create_Buffer(DXRenderer* renderer, BufferLoadDesc& load_desc);
 	static void Update_Buffer(DXRenderer* renderer, BufferUpdateDesc& buffer_update_desc);
+	/**
+	 * @brief Create Render Target
+	 * 
+	 * @param renderer 
+	 * @param render_target_desc 
+	 * @return RenderTarget* 
+	 */
 	static RenderTarget* Create_RenderTarget(DXRenderer* renderer, RenderTargetDesc& render_target_desc);
 
+	/**
+	 * @brief Create Texture either from hard disk, internal raw memory(raw pointer), or create empty texture for render target or straight up normal empty texture
+	 * 
+	 * @param renderer 
+	 * @param load_desc 
+	 * @return Texture* 
+	 */
 	static Texture* Create_Texture(DXRenderer* renderer, TextureLoadDesc& load_desc);
+	/**
+	 * @brief Create Shader
+	 * 
+	 * @param renderer 
+	 * @param shader_load_desc 
+	 * @return Shader* 
+	 */
 	static Shader* Create_Shader(DXRenderer* renderer, const ShaderLoadDesc& shader_load_desc);
-
+	/**
+	 * @brief Create Pipeline. DX11 input layout is initialized here as well
+	 * 
+	 * @param renderer 
+	 * @param pipeline_desc 
+	 * @return Pipeline* 
+	 */
 	static Pipeline* Create_Pipeline(DXRenderer* renderer, 
 		const PipelineDesc& pipeline_desc);
+	/**
+	 * @brief Create RasterizerState
+	 * 
+	 * @param renderer 
+	 * @param rasterizer_desc 
+	 * @return RasterizerState* 
+	 */
 	static RasterizerState* Create_RasterizerState(DXRenderer* renderer,
 		const RasterizerStateDesc& rasterizer_desc);
+	/**
+	 * @brief Create DepthState
+	 * 
+	 * @param renderer 
+	 * @param depth_state_desc 
+	 * @return DepthState* 
+	 */
 	static DepthState* Create_DepthState(DXRenderer* renderer,
 		const DepthStateDesc& depth_state_desc);
 
+	/**
+	 * @brief Create BlendState
+	 * 
+	 * @param dxrenderer 
+	 * @param blend_state_desc 
+	 * @return BlendState* 
+	 */
 	static BlendState* Create_BlendState(DXRenderer* dxrenderer,
 		const BlendStateDesc& blend_state_desc);
-
+	/**
+	 * @brief Create Sampler
+	 * 
+	 * @param renderer 
+	 * @param sampler_desc 
+	 * @return Sampler* 
+	 */
 	static Sampler* Create_Sampler(DXRenderer* renderer,
 		const SamplerDesc& sampler_desc);
 

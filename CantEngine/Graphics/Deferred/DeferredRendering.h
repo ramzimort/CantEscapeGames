@@ -33,7 +33,6 @@ public:
 	void Update(float dt);
 	void Release();
 	void UpdateUniformBuffer();
-	void RenderDeferredScene();
 	void LoadContent(DXRenderer* dxrenderer);
 private:
 	DXRenderer* m_dxrenderer;
@@ -41,14 +40,11 @@ private:
 
 	Pipeline* m_deferred_pass_pipeline;
 	Shader* m_deferred_pass_shader;
-	//RenderTarget* m_deferred_rts[DEFERRED_TOTAL_COUNT];
-
 	Shader* m_deferredBonePassShader;
 	Pipeline* m_deferredBonePassPipeline;
 
 	Pipeline* m_deferred_shade_pipeline;
 	Shader* m_deferred_shade_shader;
-
 	Pipeline* m_deferredShadeIrradiancePipeline;
 	Shader* m_deferredShadeIrradianceShader;
 
@@ -57,7 +53,6 @@ private:
 	Shader* m_deferred_shade_pointlight_shader;
 	Buffer* m_point_light_buffer;
 	ConstantPointLightData m_constant_point_light_data[MAX_DEFERRED_POINT_LIGHT];
-
 
 	Pipeline* m_shadeHaloEffectPipeline;
 	Shader* m_shadeHaloEffectShader;
