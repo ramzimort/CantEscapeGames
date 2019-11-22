@@ -62,7 +62,8 @@
         "Assets\\SFX\\Jab.mp3",
         "Assets\\SFX\\Block.mp3",
         "Assets\\SFX\\Step.mp3",
-        "Assets\\SFX\\Jump.mp3"
+        "Assets\\SFX\\Jump.mp3",
+        "Assets\\SFX\\Crawl.mp3"
       ]
     },
   "Objects": [

@@ -48,11 +48,12 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 	end
 		
 	if(SCANCODE.ENTER == key and state) then
+		self.isCrawling = not self.isCrawling;
 		self.animComp:SetTrigger("Crawl");
 	end
 
 	if(SCANCODE.SPACE == key and state) then
-		if (not self.jumping) then
+		if (not self.jumping and not self.isCrawling) then
 			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
 			self.jumping = true;
 			self.walking = false;
@@ -172,11 +173,13 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 
 
 	--Handle x-z displacement
-	self:HandleMovement(self.landing, self.isJumping);
+	if (not self.isCrawling) then
+		self:HandleMovement(self.landing, self.isJumping);
+	end
 
 	--Rotation to face input shit
 	if (self.targetFwd.x ~= 0 or self.targetFwd.y ~= 0 or self.targetFwd.z ~= 0) then
-		self:UpdateRotation();
+		self:UpdateRotation(self.isCrawling);
 	end
 
 	--Physics integration and movement
@@ -222,13 +225,11 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	--WALKING Animation control
 	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
 	local speed = xz_vel:len();
-	if (speed > 0 and not self.walking and not self.jumping) then
+	if (speed > 0.3 and not self.walking and not self.jumping) then
 		self.walking = true;
-		--OutputPrint("Setting trigger to 1 - walk\n");
 		self.animComp:SetTrigger("Walk");
 	elseif (speed == 0 and self.walking) then 
 		self.walking = false;
-		--OutputPrint("Setting trigger to 1 - Stopwalk\n");
 		self.animComp:SetTrigger("StopWalk");
 	end
 end
@@ -264,23 +265,29 @@ TestPlayerAnimComp.HandleMovement = function(self, isLanding, isJumping)
 	--Normalize and apply the magnitude
 	local mgt = 20.0;
 	if (isLanding or isJumping) then
-		mgt = 10.0;
+		mgt = 0.5 * mgt;
 	end
 	local xzAccel = Vector2.new(self.accel.x, self.accel.z);
 	xzAccel:normalize();
 	self.accel = Vector3.new( mgt*xzAccel.x, self.accel.y, mgt*xzAccel.y);
 end
 
-TestPlayerAnimComp.UpdateRotation = function(self)
+
+
+TestPlayerAnimComp.UpdateRotation = function(self, isCrawling)
+	
 	--Get current forward and target forward
 	local currFwd = self.transformComp:GetForward();
 	local tgtFwd = self.targetFwd;
 	currFwd:normalize();
 	tgtFwd:normalize();
 
+	local mgt = 10.0;
+
 	--Make the calculations
 	local PI = 3.14159265;
 	local dot = currFwd:dot(tgtFwd);
+
 	if (Abs(dot) <= 1.0) then
 		local rad_angle = Acos(dot);
 		local yRot = (rad_angle  * 180.0) / PI;
@@ -294,9 +301,9 @@ TestPlayerAnimComp.UpdateRotation = function(self)
 			end
 
 			if (yRot > 0.0) then
-				self.transformComp:Rotate(0, 10.0, 0);
+				self.transformComp:Rotate(0, mgt, 0);
 			elseif (yRot < 0.0) then
-				self.transformComp:Rotate(0, -10.0, 0);
+				self.transformComp:Rotate(0, -mgt, 0);
 			end
 
 		end
@@ -306,6 +313,21 @@ end
 TestPlayerAnimComp.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});
 	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+end
+
+
+TestPlayerAnimComp.CrawlForward = function(self)
+	
+	if (self.transformComp ~= nil) then
+
+		--Normalize and apply the magnitude
+		local forward = self.transformComp:GetForward();
+		local mgt = 2.0;
+		local xzAccel = Vector2.new(forward.x, forward.z);
+		xzAccel:normalize();
+		self.accel = Vector3.new( mgt*xzAccel.x, self.accel.y, mgt*xzAccel.y);
+	
+	end
 end
 
 
@@ -330,6 +352,11 @@ TestPlayerAnimComp.OnKickWhoosh2 = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Whoosh_02.mp3");
 end
 
+TestPlayerAnimComp.OnCrawlPlaySFX = function(self)
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Crawl.mp3");
+end
+
+
 
 TestPlayerAnimComp.AnimatorSetup = function(self)
 	--STATES-------------------------------------------------------------
@@ -339,7 +366,7 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	local atk03_State =		self.animComp:CreateState("Upper", "UpperAnim");
 	local walk_State =		self.animComp:CreateState("walk", "WalkAnim", 1.0);
 	local jumpLoop_State =	self.animComp:CreateState("jumpLoop", "JumpLoopAnim");
-	local crawl_State =		self.animComp:CreateState("Crawl", "CrawlAnim");
+	local crawl_State =		self.animComp:CreateState("Crawl", "CrawlAnim", 0.5);
 
 
 	--TRANSITIONS--------------------------------------------------------
@@ -403,11 +430,40 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	self.animComp:AddAnimEvent("KickAnim", 20, {self, self.OnKickWhoosh});
 	self.animComp:AddAnimEvent("KickAnim", 54, {self, self.OnStep});
 	
+	--Animation events for kickAnim
+	--self.animComp:AddAnimEvent("CrawlAnim", 1, {self, self.OnCrawlPlaySFX});
+	self.animComp:AddAnimEvent("CrawlAnim", 2,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 4,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 6,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 8,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 10,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 12,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 14,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 16,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 18,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 20,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 22,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 24,  {self, self.CrawlForward});
+	----
+	--self.animComp:AddAnimEvent("CrawlAnim", 31, {self, self.OnCrawlPlaySFX});
+	self.animComp:AddAnimEvent("CrawlAnim", 32,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 34,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 36,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 38,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 40,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 42,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 44,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 46,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 48,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 50,  {self, self.CrawlForward});
+	self.animComp:AddAnimEvent("CrawlAnim", 52,  {self, self.CrawlForward});
+	
 	--Animation events for walk anim
 	----self.animComp:AddAnimEvent("WalkAnim", 5, {self, self.OnStep});
 	----self.animComp:AddAnimEvent("WalkAnim", 20, {self, self.OnStep});
 	----self.animComp:AddAnimEvent("WalkAnim", 35, {self, self.OnStep});
 	----self.animComp:AddAnimEvent("WalkAnim", 40, {self, self.OnStep});
+
 	--Animation eventgs for walk anim (but different from above walk anim, this is more like a run)
 	self.animComp:AddAnimEvent("WalkAnim", 8, {self, self.OnStep});
 	self.animComp:AddAnimEvent("WalkAnim", 19, {self, self.OnStep});
