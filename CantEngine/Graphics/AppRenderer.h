@@ -16,6 +16,15 @@
 #include "Graphics/TextRendering/TextRendering.h"
 #include "Shaders/Shading.h"
 
+
+
+/**
+ * @file AppRenderer.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief The public high level interface renderer available for users to use
+ */
+
 class Material;
 class Model;
 
@@ -43,9 +52,10 @@ class Camera;
 class CameraRegistrationEvent;
 class CameraDestructionEvent;
 class WindowSizeEvent;
-
-
-
+/**
+ * @brief The high level renderer interface
+ * 
+ */
 class AppRenderer{
 public:
 	friend class DeferredRendering;
@@ -66,40 +76,174 @@ public:
 	friend class TextRendering;
 	friend class TextRenderingInstance;
 public:
+	/**
+	* @brief Construct a new App Renderer object
+	* 
+	* @param sdlWindow 
+	* @param resourceManager 
+	* @param cameraManager 
+	*/
 	AppRenderer(SDL_Window& sdlWindow, ResourceManager* resourceManager, 
 		CameraManager* cameraManager);
 	~AppRenderer();
 	
+	/**
+	 * @brief Contains update logic for AppRenderer. No render api is called in this function
+	 * 
+	 * @param dt 
+	 */
 	void UpdateAppRenderer(float dt);
+
+	/**
+	 * @brief Render all queued render request info to swap chain
+	 * 
+	 */
 	void RenderApp();
+
+	/**
+	 * @brief Present rendered data to swapchain
+	 * 
+	 */
 	void PresentApp();
 
+	/**
+	 * @brief Release all graphics related resources
+	 * 
+	 */
 	void Release();
+
+	/**
+	 * @brief Get DXRenderer, a D3D11 interface renderer
+	 * 
+	 * @return DXRenderer* 
+	 */
 	DXRenderer* GetDXRenderer();
 
+	/**
+	 * @brief Get reference to SDLWindow
+	 * 
+	 * @return SDL_Window& 
+	 */
 	SDL_Window& GetSDLWindow();
+
+	/**
+	 * @brief Get the Debug Rendering object
+	 * 
+	 * @return DebugRendering& 
+	 */
 	DebugRendering& GetDebugRendering();
+
+	/**
+	 * @brief Get the Particle Rendering object
+	 * 
+	 * @return ParticleRendering& 
+	 */
 	ParticleRendering& GetParticleRendering();
 
-
+	/**
+	 * @brief Pass render info request for any primitive meshes or artist defined meshes
+	 * 
+	 * @param instanceRenderData 
+	 */
 	void RegisterBasicInstance(const InstanceRenderData& instanceRenderData);
+
+	/**
+	 * @brief Pass directional lighting info to the current scene. Used to illuminate scene globally
+	 * 
+	 * @param directionalLightInstanceData 
+	 */
 	void RegisterDirectionalLightInstance(const DirectionalLightInstanceData& directionalLightInstanceData);
+
+	/**
+	 * @brief Pass halo effect info to the current scene. Sphere-like glow effect
+	 * 
+	 * @param haloEffectData 
+	 */
 	void RegisterHaloEffectInstance(const HaloEffectInstanceData& haloEffectData);
+
+	/**
+	 * @brief Pass point lighting info to the current scene. Used to illuminate portion of the scene
+	 * 
+	 * @param pointLightInstanceData 
+	 */
 	void RegisterPointLightInstance(const PointLightInstanceData& pointLightInstanceData);
+
+	/**
+	 * @brief Pass render info request for animated skinned model.
+	 * 
+	 * @param boneMeshInstanceData 
+	 */
 	void RegisterBoneMeshInstance(const BoneMeshInstanceRenderData& boneMeshInstanceData);
 
+
+	/**
+	 * @brief Pass render info request for orthographic UI rendering
+	 * 
+	 * @param uiObjectInstanceData 
+	 */
 	void RegisterUIObjectInstance(const UIObjectInstanceRenderData& uiObjectInstanceData);
+
+	/**
+	 * @brief Pass render info request for DX11 screen space text rendering
+	 * 
+	 * @param textFontInstanceData 
+	 */
 	void RegisterTextFontInstance(const TextFontInstanceRenderData& textFontInstanceData);
+
+	/**
+	 * @brief Pass render info request for DX11 screen space text rendering
+	 * 
+	 * @param text 
+	 * @param fontType 
+	 * @param position 
+	 * @param color 
+	 * @param scale 
+	 * @param rotation 
+	 */
 	void RegisterTextFontInstance(const std::string& text, uint32_t fontType,
 		const Vector2& position, const Vector3& color, const Vector3& scale, float rotation);
+	
+	/**
+	 * @brief Pass render info request for DX11 screen space text rendering
+	 * 
+	 * @param text 
+	 * @param fontType 
+	 * @param position 
+	 * @param color 
+	 * @param scale 
+	 * @param rotation 
+	 */
 	void RegisterTextFontInstance(const std::wstring& text, FontType fontType, 
 		const Vector2& position, const Vector3& color, const Vector3& scale, float rotation);
 
+	/**
+	 * @brief Pass unbaked skybox data to the internal app renderer. App rendere bake the skybox to irradiance & specular data
+	 * 
+	 * @param processInstanceData 
+	 */
 	void RegisterProcessSkyboxIrradianceInstance(const ProcessSkyboxIrradianceInstanceData& processInstanceData);
-	void RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData);
 
+	/**
+	 * @brief Pass baked skybox irradiance data to the scene. Will illuminate the scene globally based on skybox HDR illumination
+	 * 
+	 * @param bakedInstanceData 
+	 */
+	void RegisterBakedSkyboxIrradianceInstance(const BakedSkyboxIrradianceInstanceData& bakedInstanceData);
+	/**
+	 * @brief Initialize DX11 renderer
+	 * 
+	 */
 	void InitializeRenderer();
+	/**
+	 * @brief Initialize high level resources
+	 * 
+	 */
 	void InitializeResources();
+
+	/**
+	 * @brief Load high level resources (this is set to be called for every windows resize event in the future)
+	 * 
+	 */
 	void LoadContent();
 private:
 	
