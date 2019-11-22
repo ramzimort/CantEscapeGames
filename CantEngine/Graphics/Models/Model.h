@@ -11,6 +11,10 @@
  * @brief Defines 3D Model data
  */
 
+/**
+ * @brief VertexData defines the data required to render primitive 3D meshes
+ * 
+ */
 struct VertexData
 {
 	VertexData(const Vector3& pos, const Vector3& normal, const Vector3& tangent, const Vector3& bitangent, const Vector2& uv)

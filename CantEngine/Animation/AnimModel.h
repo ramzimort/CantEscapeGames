@@ -5,6 +5,12 @@
 #include "Animation/Animation.h"
 
 
+/**
+ * @file AnimModel.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief Defines 3D Model data
+ */
 
 struct BoneVertexData
 {
@@ -21,7 +27,10 @@ struct BoneVertexData
 	}
 };
 
-
+/**
+ * @brief Define 3D mesh data for animated model with bone hierarchy
+ * 
+ */
 struct AnimVertexData
 {
 	VertexData m_vertexData;
@@ -39,26 +48,28 @@ struct AnimVertexData
 };
 
 
+/**
+ * @brief Define the interface for interacting with Animated Model
+ * 
+ */
 class AnimModel : public Model 
 {
-
 public:
 	AnimModel();
 	virtual ~AnimModel();
 
 	void ResizeBoneDataList();
-
 	void PassIndicesAndWeightsPerMesh(std::vector<std::vector<int>> const& indices, 
 		std::vector<std::vector<float>> const& weights);
-
 private:
 	void InitBuffer(DXRenderer* dxrenderer) override;
-
 public:
 	//Important data for the animations TODO - make private
+	/**
+	 * @brief Contains the list of bone with their name
+	 * 
+	 */
 	std::unordered_map<std::string, Bone> boneMap;
-
 private:
 	std::vector<BoneVertexData> m_boneDataList;
-
 };

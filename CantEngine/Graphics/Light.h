@@ -1,14 +1,22 @@
 #pragma once
-
+/**
+ * @file Light.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief Defines the 3D light illumination properties
+ */
 
 typedef enum ELightType
 {
 	DIRECTIONAL_LIGHT,
 	POINT_LIGHT,
-	SPOT_LIGHT,
 	ELIGHT_TYPE_TOTAL_COUNT
 }ELightType;
 
+/**
+ * @brief Defines the interface for light
+ * 
+ */
 class Light
 {
 public:
@@ -19,18 +27,72 @@ public:
 public:
 	Light();
 	~Light();
-
+	/**
+	 * @brief Get the Position of the Light relative to the GameObject's TransformComponent's position
+	 * 
+	 * @return const Vector3& 
+	 */
 	const Vector3& GetPosition() const { return m_position; }
+	/**
+	 * @brief Get the Color of the Light
+	 * 
+	 * @return const Vector3& 
+	 */
 	const Vector3& GetColor() const;
+	/**
+	 * @brief Get the Intensity of the Light
+	 * 
+	 * @return float 
+	 */
 	float GetIntensity() const;
+	/**
+	 * @brief Get the Light Type
+	 * 
+	 * @return ELightType 
+	 */
 	ELightType GetLightType() const;
+	/**
+	 * @brief Get the Radius of the Light. Only applicable for Point Light
+	 * 
+	 * @return float 
+	 */
 	float GetRadius() const;
+	/**
+	 * @brief Get the Attenuation Value for Point Light
+	 * 
+	 * @return Vector2 
+	 */
 	Vector2 GetAttenuationConstant() const;
+	/**
+	 * @brief Get the Shadow Intensity of the Light
+	 * 
+	 * @return float 
+	 */
 	float GetShadowIntensity() const { return m_shadow_intensity; };
 
+	/**
+	 * @brief Set the Position of the Light
+	 * 
+	 * @param position 
+	 */
 	void SetPosition(const Vector3& position) { m_position = position; }
+	/**
+	 * @brief Set the Color of the Light
+	 * 
+	 * @param color 
+	 */
 	void SetColor(const Vector3& color) { m_color = color; };
+	/**
+	 * @brief Set the Intensity of the Light
+	 * 
+	 * @param intensity 
+	 */
 	void SetIntensity(float intensity) { m_intensity = intensity; };
+	/**
+	 * @brief Set the Radius of the Light
+	 * 
+	 * @param radius 
+	 */
 	void SetRadius(float radius) { m_radius = radius; };
 private:
 	ELightType m_light_type;

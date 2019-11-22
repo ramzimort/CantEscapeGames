@@ -19,12 +19,6 @@ public:
 private:
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
-
-	Buffer* m_msaa_resolve_uniform_buffer;
-	MSAAResolveUniformData m_msaa_resolve_uniform_data;
-
-	
-
 	Pipeline* m_resolve_pipeline = nullptr;
 	Shader* m_resolve_shader = nullptr;
 };

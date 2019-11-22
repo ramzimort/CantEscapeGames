@@ -14,8 +14,7 @@ RTTR_REGISTRATION
 
 	rttr::registration::enumeration<ELightType>("LightType")(
 		rttr::value("Directional", ELightType::DIRECTIONAL_LIGHT),
-		rttr::value("Point", ELightType::POINT_LIGHT),
-		rttr::value("Spot", ELightType::SPOT_LIGHT));
+		rttr::value("Point", ELightType::POINT_LIGHT));
 }
 
 
