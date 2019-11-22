@@ -28,7 +28,8 @@ RTTR_REGISTRATION
 }
 
 MeshComponent::MeshComponent(GameObject *owner)
-	:BaseComponent(owner, static_type)
+	:BaseComponent(owner, static_type),
+	m_mesh_type(MESH_MODEL)
 {
 	BoneTransformationsForShader = std::vector<Matrix>(MAX_BONE_COUNT);
 }

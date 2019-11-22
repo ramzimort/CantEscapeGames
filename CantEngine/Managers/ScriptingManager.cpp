@@ -398,7 +398,7 @@ void ScriptingManager::ManageBindings()
 		"AppRenderer",
 		"RegisterTextFontInstance", sol::overload(
 			sol::resolve<void(const std::string& , uint32_t ,
-				const Vector2& , const Vector3& , const Vector3& )>(&AppRenderer::RegisterTextFontInstance) )
+				const Vector2& , const Vector3& , const Vector3&, float )>(&AppRenderer::RegisterTextFontInstance) )
 	);
 
 	//GAMEOBJECTMANAGER
