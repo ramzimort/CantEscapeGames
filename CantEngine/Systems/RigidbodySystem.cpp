@@ -14,12 +14,10 @@ Primary Author: Aleksey Perfilev
 #include "CantDebug/CantDebug.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/GraphicsSettings.h"
-unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
-
 #include "Components/TransformComponent.h"
 #include "Components/RigidbodyComponent.h"
 
-
+unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 
 RigidbodySystem::RigidbodySystem() : 
 	BaseSystem(), m_timeAccumulator(0.0f)

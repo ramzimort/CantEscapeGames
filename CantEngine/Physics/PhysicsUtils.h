@@ -57,6 +57,7 @@ namespace PhysicsUtils
 		extern bool isDrawEPAFinalTriangle;
 		extern int dynamicAabbLevelDraw;
 		extern bool Draw_Dynamic_AABB_Tree;
+		extern bool isDrawTriggersTree;
 	}
 
 	template <typename T>

@@ -13,6 +13,7 @@ Primary Author: Jose Rosenbluth
 #include "Systems/CustomSystem/CustomSystem.h"
 #include "Systems/RenderingSystem.h"
 #include "Systems/RigidbodySystem.h"
+#include "Systems/TriggerSystem.h"
 #include "Systems/TransformSystem.h"
 #include "Systems/TestSystem.h"
 #include "Systems/ParticleEmitterSystem.h"
@@ -29,6 +30,7 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<CustomSystem>();
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
+	this->AddSystem<TriggerSystem>();
 	this->AddSystem<CameraSystem>();
 	this->AddSystem<SkyboxIrradianceSystem>();
 	this->AddSystem<LightSystem>();
@@ -41,6 +43,7 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	static_cast<HaloEffectSystem*>(m_systems[HaloEffectSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RenderingSystem*>(m_systems[RenderingSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<RigidbodySystem*>(m_systems[RigidbodySystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<TriggerSystem*>(m_systems[TriggerSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<SkyboxIrradianceSystem*>(m_systems[SkyboxIrradianceSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<UISystem*>(m_systems[UISystem::static_type])->RegisterAppRenderer(appRenderer);
