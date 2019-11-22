@@ -1,3 +1,9 @@
+/**
+  * @file Quaternion.h
+  * @author Jose Rosenbluth
+  * @brief Quaternion math class (for dealing with animation and orientation)
+  * @date 2019-11-21
+  */
 #pragma once
 
 #define SQRT_EPSILON 0.001f
@@ -5,38 +11,112 @@
 
 namespace MathUtil
 {
+	/**
+	 * @brief Quaternion math class (for dealing with animation and orientation)
+	 * 
+	 */
 	struct Quaternion 
 	{
+		/**
+		 * @brief Override operation * for scalar multiplication
+		 * 
+		 * @param f 
+		 * @param rhs 
+		 * @return Quaternion 
+		 */
 		friend Quaternion operator*(float f, Quaternion const& rhs);
+		/**
+		 * @brief Override operator * for scalar multiplication
+		 * 
+		 * @param rhs 
+		 * @param f 
+		 * @return Quaternion 
+		 */
 		friend Quaternion operator*(Quaternion const& rhs, float f);
+		/**
+		 * @brief Override operator / for scalar division
+		 * 
+		 * @param rhs 
+		 * @param f 
+		 * @return Quaternion 
+		 */
 		friend Quaternion operator/(Quaternion const& rhs, float f);
+		/**
+		 * @brief Override operator / for scalar division
+		 * 
+		 * @param rhs 
+		 * @param f 
+		 * @return Quaternion 
+		 */
 		friend Quaternion operator/(float f, Quaternion const& rhs);
 
 		//Data
+		/**
+		 * @brief Real part of the quaternion
+		 * 
+		 */
 		float s;
+		/**
+		 * @brief Complex part of the quaternion
+		 * 
+		 */
 		float x, y, z;
 
+		/**
+		 * @brief Construct a new Quaternion object
+		 * 
+		 */
 		Quaternion() : s(0.0f), 
 			x(0.0f), y(0.0f), z(0.0f) 
 		{}
 
+		/**
+		 * @brief Construct a new Quaternion object
+		 * 
+		 * @param s 
+		 * @param x 
+		 * @param y 
+		 * @param z 
+		 */
 		Quaternion(float s, float x, 
 			float y, float z) : s(s),
 			x(x), y(y), z(z)
 		{}
 
+		/**
+		 * @brief Construct a new Quaternion object
+		 * 
+		 * @param s 
+		 * @param v 
+		 */
 		Quaternion(float s, Vector3 const& v) : s(s),
 			x(v.x), y(v.y), z(v.z)
 		{}
 
+		/**
+		 * @brief Construct a new Quaternion object
+		 * 
+		 * @param q 
+		 */
 		Quaternion(Vector4 const& q) : s(q.w),
 			x(q.x), y(q.y), z(q.z)
 		{}
 
+		/**
+		 * @brief Construct a new Quaternion object
+		 * 
+		 * @param rhs 
+		 */
 		Quaternion(Quaternion const& rhs) : s(rhs.s),
 			x(rhs.x), y(rhs.y), z(rhs.z)
 		{}
 
+		/**
+		 * @brief Assignment operator override
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator=(Quaternion const& rhs)
 		{
 			if (this != &rhs) 
@@ -49,6 +129,12 @@ namespace MathUtil
 			return *this;
 		}
 
+		/**
+		 * @brief Assignment operator override
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator=(Vector4 const& rhs)
 		{
 			this->s = rhs.w;
@@ -58,6 +144,13 @@ namespace MathUtil
 			return *this;
 		}
 
+		/**
+		 * @brief Gets a quaternion equivalent to the axis angle rotation described by angle in degrees and a 3 dimensional axis
+		 * 
+		 * @param degree 
+		 * @param axis 
+		 * @return Quaternion 
+		 */
 		static Quaternion QuaternionFromAngleAxisA(float degree, Vector3 const& axis) 
 		{
 			float radians = DirectX::XMConvertToRadians(degree);
@@ -67,9 +160,12 @@ namespace MathUtil
 			return Quaternion(cosf(temp), sinf(temp) * A);
 		}
 
-		//BOTH CASES (pending)
-		//	float a = q[2];
-		//	q[3] = 234.0f;
+		/**
+		 * @brief Override bracket operator for quaternion
+		 * 
+		 * @param index 
+		 * @return float 
+		 */
 		float operator[](unsigned int index) 
 		{
 			assert(index >= 0 && index < 4);
@@ -92,7 +188,12 @@ namespace MathUtil
 		////    Operations    ////
 		//////////////////////////
 
-		//Addition
+		/**
+		 * @brief Override plus equal operator
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator+=(Quaternion const& rhs)
 		{
 			this->s += rhs.s;
@@ -102,6 +203,12 @@ namespace MathUtil
 			return *this;
 		}
 
+		/**
+		 * @brief Override plus equal operator
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion const operator+(Quaternion const& rhs) const
 		{
 			Quaternion copy = Quaternion(*this);
@@ -109,7 +216,12 @@ namespace MathUtil
 			return copy;
 		}
 		
-		////multiplication
+		/**
+		 * @brief Override times equal operator
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator*=(Quaternion const& rhs)
 		{
 			Vector3 v1(x, y, z);
@@ -122,7 +234,12 @@ namespace MathUtil
 
 			return *this;
 		}
-		
+		/**
+		 * @brief Override times equal operator
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator*=(float scalar)
 		{
 			this->s *= scalar;
@@ -131,7 +248,12 @@ namespace MathUtil
 			this->z *= scalar;
 			return *this;
 		}
-
+		/**
+		 * @brief Override division equal operator
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion& operator/=(float scalar)
 		{
 			this->s /= scalar;
@@ -140,7 +262,13 @@ namespace MathUtil
 			this->z /= scalar;
 			return *this;
 		}
-
+		
+		/**
+		 * @brief Override unary operator - (negation of the quaternion)
+		 * 
+		 * @param rhs 
+		 * @return Quaternion& 
+		 */
 		Quaternion operator-() const
 		{
 			Quaternion q;
@@ -151,6 +279,12 @@ namespace MathUtil
 			return q;
 		}
 
+		/**
+		 * @brief Overrides operator * for quaternion on quaternion multiplication
+		 * 
+		 * @param rhs 
+		 * @return Quaternion 
+		 */
 		Quaternion operator*(Quaternion const& rhs) const
 		{
 			Quaternion copy = Quaternion(*this);
@@ -158,6 +292,12 @@ namespace MathUtil
 			return copy;
 		}
 
+		/**
+		 * @brief Overrides operator * for scalar multiplication
+		 * 
+		 * @param rhs 
+		 * @return Quaternion 
+		 */
 		Quaternion operator*(float scalar)
 		{
 			Quaternion copy = Quaternion(*this);
@@ -165,25 +305,41 @@ namespace MathUtil
 			return copy;
 		}
 
+
+		/**
+		 * @brief Overrides operator / for scalar division
+		 * 
+		 * @param rhs 
+		 * @return Quaternion 
+		 */
 		Quaternion operator/(float scalar)
 		{
 			Quaternion copy = Quaternion(*this);
 			copy /= scalar;
 			return copy;
 		}
-	
+		
 		void print(std::string name)
 		{
 			///std::cout << name << ": [" << this->s << ", " << this->x << ", " << this->y << ", " << this->z << "]" << std::endl;
 		}
 
 
-		//Inverse
+		/**
+		 * @brief Returns the conjugate of the quaternion
+		 * 
+		 * @return Quaternion 
+		 */
 		Quaternion Conjugate() const 
 		{
 			return Quaternion(s, -x, -y, -z);
 		}
 		
+		/**
+		 * @brief Returns the inverse of the quaternion
+		 * 
+		 * @return Quaternion 
+		 */
 		Quaternion Inverse() const
 		{
 			if (IsUnitQuaternion())
@@ -192,7 +348,11 @@ namespace MathUtil
 			return Conjugate() / SqrLen();
 		}
 
-
+		/**
+		 * @brief Returns the quaternion normalized
+		 * 
+		 * @return Quaternion 
+		 */
 		Quaternion Normalize() const
 		{
 			if (IsUnitQuaternion())
@@ -201,23 +361,43 @@ namespace MathUtil
 			return Quaternion(s, x, y, z) / Len();
 		}
 
-		//Length
+		/**
+		 * @brief Square length of the quaternion
+		 * 
+		 * @return float 
+		 */
 		float SqrLen() const
 		{
 			return s * s + x * x + y * y + z * z;
 		}
 		
+		/**
+		 * @brief Length of the quaternion
+		 * 
+		 * @return float 
+		 */
 		float Len() const
 		{
 			return sqrtf( this->SqrLen() );
 		}
 
+		/**
+		 * @brief Returns true if the quaternions length is one
+		 * 
+		 * @return true 
+		 * @return false 
+		 */
 		bool IsUnitQuaternion() const
 		{
 			return fabs(SqrLen() - 1.0f) <= SQRT_EPSILON;
 		}
 
-		//Dot
+		/**
+		 * @brief defined dot product for the quaternion
+		 * 
+		 * @param rhs 
+		 * @return float 
+		 */
 		float Dot(Quaternion const& rhs) const
 		{
 			return (s * rhs.s) + (x * rhs.x) + (y * rhs.y) + (z * rhs.z);
@@ -228,6 +408,12 @@ namespace MathUtil
 		/// _21, _22, _23, _24 : Second row of matrix
 		/// _31, _32, _33, _34 : Third row of matrix
 		/// _41, _42, _43, _44 : Fourth row of matrix
+		
+		/**
+		 * @brief Get the Rotation Matrix based on this quaternion object
+		 * 
+		 * @return Matrix 
+		 */
 		Matrix GetRotationMatrix() const 
 		{
 			float s2 = s * s;
@@ -271,13 +457,24 @@ namespace MathUtil
 			return matrix;
 		}
 		
-		//Rotation
+		/**
+		 * @brief Static method. Returns a the identity quaternion
+		 * 
+		 * @return Quaternion 
+		 */
 		static Quaternion Unit()
 		{
 			return Quaternion (1, 0, 0, 0);
 		}
 
-		//Rotates vector r, in degrees, around axis and returns it
+		/**
+		 * @brief Rotates vector r, in degrees, around axis and returns it
+		 * 
+		 * @param degrees 
+		 * @param axis 
+		 * @param r 
+		 * @return Vector3 
+		 */
 		static Vector3 Rotate(float degrees, Vector3 const& axis, Vector3 const& r)
 		{
 			float radians = DirectX::XMConvertToRadians(degrees);
@@ -293,7 +490,13 @@ namespace MathUtil
 			return new_r;
 		}
 
-		//Applies quaternion rotation to vector r and returns it
+		/**
+		 * @brief Applies quaternion rotation to vector r and returns it
+		 * 
+		 * @param q 
+		 * @param r 
+		 * @return Vector3 
+		 */
 		static Vector3 Rotate(Quaternion const& q, Vector3 const& r)
 		{
 			Quaternion result = q * Quaternion(0, r) * q.Conjugate();
