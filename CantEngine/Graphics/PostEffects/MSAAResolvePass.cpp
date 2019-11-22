@@ -48,7 +48,6 @@ void MSAAResolvePass::LoadContent(DXRenderer* dxrenderer)
 
 void MSAAResolvePass::Release()
 {
-	SafeReleaseDelete(m_msaa_resolve_uniform_buffer);
 	SafeReleaseDelete(m_resolve_pipeline);
 	SafeReleaseDelete(m_resolve_shader);
 }
