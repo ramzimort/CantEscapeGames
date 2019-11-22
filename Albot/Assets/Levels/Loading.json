@@ -11,7 +11,8 @@
           "Assets\\Models\\mitsuba-sphere.obj",
           "Assets\\Models\\plane.fbx",
           "Assets\\Models\\Sphere.fbx",
-          "Assets\\Models\\TestWalk.fbx"
+          "Assets\\Models\\TestWalk.fbx",
+          "Assets\\Models\\SweatBall.fbx"
         ],
       "Materials": [
         "Assets\\Materials\\UI\\StarsMaterial.json",

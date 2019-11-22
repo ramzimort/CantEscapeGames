@@ -26,9 +26,9 @@ Vector3 ObbSupportShape::Support(const Vector3& worldDirection) const
 	Vector3 result = m_translation;
 	Vector3 localDir = Vector3::Transform(worldDirection, m_rotation.Invert());
 	
-	result += MathUtil::GetSign(localDir.x) * m_scale.x * 0.5f * m_scaleLocal.x * m_rotation.Right();
-	result += MathUtil::GetSign(localDir.y) * m_scale.y * 0.5f * m_scaleLocal.y * m_rotation.Up();
-	result += MathUtil::GetSign(localDir.z) * m_scale.z * 0.5f * m_scaleLocal.z * m_rotation.Backward();
+	result += MathUtil::GetSign(localDir.x) * m_scale.x * 0.5f * m_rotation.Right();
+	result += MathUtil::GetSign(localDir.y) * m_scale.y * 0.5f * m_rotation.Up();
+	result += MathUtil::GetSign(localDir.z) * m_scale.z * 0.5f * m_rotation.Backward();
 	
 	return result;
 }

@@ -6,11 +6,11 @@ class GameObjectManager;
  * @file TransformComponent.h
  * @author Ramzi Mourtada
  * @date 12/4/2019
- * @brief Stores and updates all position related data
+ * @brief Component that contains all data related to the position, orientation, and scale of any object in the world.
  */
 
 /**
- * @brief Stores and updates all position related data
+ * @brief Stores and updates all position, orientation and scale data
  * 
  */
 class TransformComponent : public BaseComponent
@@ -153,7 +153,6 @@ private:
 	void SetModel(Matrix const& model);
 	bool NeedToRecalculate();
 	void ResetDirtyFlag();
-
 
 public:
 	//To compare when using templates
