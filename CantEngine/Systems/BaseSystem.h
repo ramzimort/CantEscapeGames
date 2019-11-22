@@ -1,27 +1,31 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
-- End Header --------------------------------------------------------*/
+/**
+ * @file BaseSystem.h
+ * @author your name (you@domain.com)
+ * @brief Base class for Systems
+ * @date 2019-11-21
+ */
 
 #pragma once
 
 ///Includes
-///#include <bitset>
-///#include <unordered_map>
 #include "../Components/BaseComponent.h"
 
 
-//Will be used to hold the node of components 
-//belonging to each GameObject suscribed
+/**
+ * @brief Base System component node. Will be used to hold pointers of 
+ components belonging to each GameObject suscribed to this system
+ * 
+ */
 struct BaseSystemCompNode
 {
 	size_t m_goID;
 };
 
 
-
+/**
+ * @brief Base class for Systems
+ * 
+ */
 class BaseSystem 
 {
 
@@ -32,11 +36,36 @@ public:
 
 //Public interface
 public:
+	/**
+	 * @brief Constructor for base class. Called by inheriting classes
+	 * 
+	 */
 	BaseSystem() { }
+	/**
+	 * @brief Destroy the Base System object
+	 * 
+	 */
 	virtual ~BaseSystem();
 	
+	/**
+	 * @brief Early update called once before main Update. When called, you have access to every 
+	 GameObject registered and can manage interaction between them
+	 * 
+	 * @param dt 
+	 */
 	virtual void EarlyUpdate(float dt) {}
+	/**
+	 * @brief Update is called once
+	 * 
+	 * @param dt 
+	 */
 	void UpdateAllNodes(float dt);
+	/**
+	 * @brief Late update called once after main Update. When called, you have access to every 
+	 GameObject registered and can manage interaction between them
+	 * 
+	 * @param dt 
+	 */
 	virtual void LateUpdate(float dt) {}
 
 	virtual void Update(float dt,

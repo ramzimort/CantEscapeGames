@@ -1,36 +1,75 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Jose Rosenbluth
-- End Header --------------------------------------------------------*/
+/**
+ * @file SystemManager.h
+ * @author Jose Rosenbluth
+ * @date 12/4/2019
+ * @brief Main class managing the systems on the ECS architecture
+ */
 
 #pragma once
-
-//#include <unordered_map>
 
 class BaseSystem;
 class GameObject;
 class AppRenderer;
 
+/**
+ * @brief Main class managing the systems on the ECS architecture
+ */
 class SystemManager
 {
 public:
+	/**
+	 * @brief Construct a new System Manager object
+	 * 
+	 * @param appRenderer 
+	 */
 	SystemManager(AppRenderer* appRenderer = nullptr);
+	/**
+	 * @brief Destroy the System Manager object
+	 */
 	~SystemManager();
 
+	/**
+	 * @brief Calls Update on every system owned by the manager
+	 * 
+	 * @param dt 
+	 */
 	void UpdateSystems(float dt);
+	/**
+	 * @brief Calls draw on every system owned by the manager
+	 * 
+	 * @param dt 
+	 */
 	void Draw(float dt);
 
+	/**
+	 * @brief Registers the go GameObject, so depending on which 
+	 components it owns, it will be updated when the relevant systems are
+	 * 
+	 * @param go 
+	 */
 	void RegisterGameObject(GameObject *go);
+	/**
+	 * @brief Unregisters a GameObject go from the systems in which it
+	 was previously registered
+	 * 
+	 * @param go_id 
+	 */
 	void Unregister_GameObject(size_t go_id);
 	
+	/**
+	 * @brief Templatized method which handles the creation of new systems
+	 * 
+	 * @tparam T 
+	 */
 	template<typename T>
 	void AddSystem();
 
 private:
 
-	//For now, this will have a vector of systems
+	/**
+	 * @brief Hash map of all the systems owned by the manager
+	 * 
+	 */
 	std::unordered_map<unsigned int, BaseSystem*> m_systems;
 };
 

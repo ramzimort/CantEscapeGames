@@ -11,6 +11,9 @@ TestPlayerAnimComp =
 	walking = false;
 	jumping = false;
 	falling = false;
+	landing = false;
+	isCrawling = false;
+	landingTime = 0.0;
 	yFloor = 0.0;
 
 	accel = Vector3.new(0,0,0);
@@ -154,11 +157,17 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	if (self.falling) then
 		self.accel.y = -20;
 	end
+	if (self.landing) then
+		self.landingTime = self.landingTime - dt;
+		if (self.landingTime < 0.0) then
+			self.landingTime = 0.0;
+			self.landing = false;
+		end
+	end
 
 
 	--Handle x-z displacement
-	self:HandleMovement();
-
+	self:HandleMovement(self.landing, self.isJumping);
 
 	--Rotation to face input shit
 	if (self.targetFwd.x ~= 0 or self.targetFwd.y ~= 0 or self.targetFwd.z ~= 0) then
@@ -170,7 +179,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	local accelSub = self.accel * 0.125;
 	self.accel = self.accel - accelSub;
 	self.transformComp:Translate(self.velocity);
-
+	--owner:GetRigidbodyComp():SetVelocity(self.velocity);
 
 	--GRAVITY FAKING-------------------------
 	if (self.jumping and not self.falling) then
@@ -181,11 +190,25 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		--Apply gravity stuff
 		local yDisp = self.transformComp:GetPosition().y - self.yFloor; 
 		if (yDisp < 0) then 
+
+			--Fire animation change and correct position
 			self.animComp:SetTrigger("Land");
 			self.transformComp:Translate(0, -yDisp, 0);
+			
+			--Dont keep falling and set flags to false
+			self.accel.y = 0;
 			self.falling = false;
 			self.jumping = false;
-			self.accel.y = 0;
+
+			--Set landing time. It wont move until stops landing
+			self.landingTime = 0.20; --Half a second
+			self.landing = true;
+
+			--Also stop moving in the xz dir until landing ends
+			self.walking = false;
+			self.accel.x = 0.0;
+			self.accel.z = 0.0;
+
 			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Step.mp3");
 		end
 	end--------------------------------------
@@ -207,7 +230,7 @@ end
 
 
 
-TestPlayerAnimComp.HandleMovement = function(self)
+TestPlayerAnimComp.HandleMovement = function(self, isLanding, isJumping)
 	
 	--Acceleration when pressed UP OR DOWN
 	if (self.upPressed) then 
@@ -234,7 +257,10 @@ TestPlayerAnimComp.HandleMovement = function(self)
 	end
 
 	--Normalize and apply the magnitude
-	local mgt = 15.0;
+	local mgt = 20.0;
+	if (isLanding or isJumping) then
+		mgt = 10.0;
+	end
 	local xzAccel = Vector2.new(self.accel.x, self.accel.z);
 	xzAccel:normalize();
 	self.accel = Vector3.new( mgt*xzAccel.x, self.accel.y, mgt*xzAccel.y);
@@ -310,7 +336,7 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	local atk01_State =		self.animComp:CreateState("atk01", "AttackAnim");
 	local atk02_State =		self.animComp:CreateState("atk02", "KickAnim");
 	local atk03_State =		self.animComp:CreateState("Upper", "UpperAnim");
-	local walk_State =		self.animComp:CreateState("walk", "WalkAnim", 1.5);
+	local walk_State =		self.animComp:CreateState("walk", "WalkAnim", 1.0);
 	local jumpLoop_State =	self.animComp:CreateState("jumpLoop", "JumpLoopAnim");
 	local crawl_State =		self.animComp:CreateState("Crawl", "CrawlAnim");
 
@@ -377,10 +403,13 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	self.animComp:AddAnimEvent("KickAnim", 54, {self, self.OnStep});
 	
 	--Animation events for walk anim
-	self.animComp:AddAnimEvent("WalkAnim", 5, {self, self.OnStep});
-	self.animComp:AddAnimEvent("WalkAnim", 20, {self, self.OnStep});
-	self.animComp:AddAnimEvent("WalkAnim", 35, {self, self.OnStep});
-	self.animComp:AddAnimEvent("WalkAnim", 40, {self, self.OnStep});
+	----self.animComp:AddAnimEvent("WalkAnim", 5, {self, self.OnStep});
+	----self.animComp:AddAnimEvent("WalkAnim", 20, {self, self.OnStep});
+	----self.animComp:AddAnimEvent("WalkAnim", 35, {self, self.OnStep});
+	----self.animComp:AddAnimEvent("WalkAnim", 40, {self, self.OnStep});
+	--Animation eventgs for walk anim (but different from above walk anim, this is more like a run)
+	self.animComp:AddAnimEvent("WalkAnim", 8, {self, self.OnStep});
+	self.animComp:AddAnimEvent("WalkAnim", 19, {self, self.OnStep});
 	
 	--Animation events for Upper anim
 	self.animComp:AddAnimEvent("UpperAnim", 20, {self, self.OnKickWhoosh});

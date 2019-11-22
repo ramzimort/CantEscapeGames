@@ -1,4 +1,9 @@
-///HEADER STUFF
+/**
+ * @file Animation.h
+ * @author Jose Rosenbluth
+ * @brief Contains classes related to keyframe animation
+ * @date 2019-11-21
+ */
 
 #pragma once
 

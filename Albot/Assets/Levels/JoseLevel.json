@@ -236,7 +236,7 @@
             },
             {
               "name": "WalkAnim",
-              "path": "Assets\\Models\\TestWalk.fbx",
+              "path": "Assets\\Models\\Running.fbx",
               "loops": true
             },
             {
