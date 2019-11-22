@@ -107,11 +107,6 @@ public:
 	 */
 	void ClearInstances();
 private:
-	void RenderDebugAABBScene();
-	void RenderDebugLineScene();
-	
-	
-private:
 	AppRenderer* m_appRenderer;
 	DXRenderer* m_dxrenderer;
 	ResourceManager* m_resourceManager;
