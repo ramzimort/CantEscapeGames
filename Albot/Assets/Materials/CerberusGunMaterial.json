@@ -1,0 +1,20 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\Cerberus\\Cerberus_A.png",
+  "Normal_Texture_Dir": "Assets\\Textures\\Cerberus\\Cerberus_N.png",
+  "Roughness_Texture_Dir": "Assets\\Textures\\Cerberus\\Cerberus_R.png",
+  "Metallic_Texture_Dir": "Assets\\Textures\\Cerberus\\Cerberus_M.png",
+  "Roughness_Value": 0.100000011920929,
+  "Metallic_Value": 0.80000000298023225,
+  "Diffuse_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "Specular_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ]
+}

@@ -96,7 +96,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		luaState["Acos"] = &MathAcos;
 		luaState["Abs"] = &Abs;
 		
-		luaState.script_file("Scripts/LuaGlobalSetups.lua");
+		luaState.script_file("Scripts\\LuaGlobalSetups.lua");
 
 	}
 	catch (const sol::error & e)
@@ -331,7 +331,35 @@ void ScriptingManager::ManageBindings()
 #pragma endregion
 
 #pragma region HELPERS
+	luaState.set_function("ConvertToDegrees", &DirectX::XMConvertToDegrees);
+	luaState.set_function("ConvertToRadians", &DirectX::XMConvertToRadians);
+	luaState.set_function("CreateTranslation", sol::overload(
+		sol::resolve<Matrix(const Vector3&)>(&Matrix::CreateTranslation),
+		sol::resolve<Matrix(float, float, float)>(&Matrix::CreateTranslation)
+		)
+	);
+	luaState.set_function("CreateRotationMatrixFromDegrees", &MathUtil::CreateRotationMatrixFromDegrees);
 	luaState.set_function("GetRotationMatrix", &MathUtil::GetRotationMatrix);
+	luaState.set_function("MatrixToRadEulerAngles", &MathUtil::MatrixToRadEulerAngles);
+	luaState.set_function("MatrixToDegreeEulerAngles", &MathUtil::MatrixToDegreeEulerAngles);
+	luaState.set_function("PiecewiseProd", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Vector2&)>(&MathUtil::PiecewiseProd),
+		sol::resolve<Vector3(const Vector3&, const Vector3&)>(&MathUtil::PiecewiseProd),
+		sol::resolve<Vector4(const Vector4&, const Vector4&)>(&MathUtil::PiecewiseProd)
+		)
+	);
+	luaState.set_function("TransformVector", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::Transform),
+		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::Transform),
+		sol::resolve<Vector4(const Vector4&, const Matrix&)>(&Vector4::Transform)
+		)
+	);
+
+	luaState.set_function("TransformVectorNormal", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::TransformNormal),
+		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::TransformNormal)
+	)
+	);
 
 #pragma endregion
 
@@ -404,6 +432,7 @@ void ScriptingManager::ManageBindings()
 		"a11", &Matrix::_21, "a12", &Matrix::_22, "a13", &Matrix::_23, "a14", &Matrix::_24,
 		"a21", &Matrix::_31, "a22", &Matrix::_32, "a23", &Matrix::_33, "a24", &Matrix::_34,
 		"a31", &Matrix::_41, "a32", &Matrix::_42, "a33", &Matrix::_43, "a34", &Matrix::_44,
+		"Translation", sol::overload(sol::resolve<void(const Vector3&)>(&Matrix::Translation), sol::resolve<Vector3()const>(&Matrix::Translation)),
 		sol::meta_function::addition, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator-),
 		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*),
@@ -510,7 +539,8 @@ void ScriptingManager::ManageBindings()
 		"SetLocalPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::SetLocalPosition),
 			sol::resolve<void(float, float, float)>(&TransformComponent::SetLocalPosition)),
-		"SetLocalRotation", &TransformComponent::SetLocalRotation
+		"SetLocalRotation", &TransformComponent::SetLocalRotation,
+		"SetLocalRotationMatrix", &TransformComponent::SetLocalRotationMatrix
 	);
 
 	// UIComponent
@@ -630,9 +660,12 @@ void ScriptingManager::ManageBindings()
 		"DecreaseFOV", &Camera::DecreaseFOV,
 		"GetFOV", &Camera::GetFOV,
 		"GetForward", &Camera::GetForward,
+		"GetUp", &Camera::GetUp,
 		"GetViewMatrix", &Camera::GetViewMatrix,
 		"GetViewProjectionMatrix", &Camera::GetViewProjectionMatrix,
 		"GetProjectionMatrix", &Camera::GetProjectionMatrix,
+		"GetInvViewMatrix", &Camera::GetInvViewMatrix,
+		"GetInvViewMatrixCopy", &Camera::GetInvViewMatrixCopy,
 		"GetScreenWidth", &Camera::GetScreenWidth,
 		"GetScreenHeight", &Camera::GetScreenHeight,
 		"GetRight", &Camera::GetRight,

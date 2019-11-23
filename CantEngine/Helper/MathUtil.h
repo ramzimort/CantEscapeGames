@@ -12,6 +12,21 @@ namespace MathUtil
 	{
 		return Vector3(v4.x, v4.y, v4.z);
 	}
+
+	inline Vector3 PiecewiseProd(const Vector3& v0, const Vector3& v1)
+	{
+		return Vector3(v0.x * v1.x, v0.y * v1.y, v0.z * v1.z);
+	}
+
+	inline Vector2 PiecewiseProd(const Vector2& v0, const Vector2& v1)
+	{
+		return Vector2(v0.x * v1.x, v0.y * v1.y);
+	}
+
+	inline Vector4 PiecewiseProd(const Vector4& v0, const Vector4& v1)
+	{
+		return Vector4(v0.x * v1.x, v0.y * v1.y, v0.z * v1.z, v0.w * v1.w);
+	}
 	
 	inline float GetSign(float val)
 	{
@@ -156,6 +171,21 @@ namespace MathUtil
 		DirectX::XMMATRIX pitch_mat = XMMatrixRotationAxis(right, DirectX::XMVectorGetY(rotation_vector));
 		DirectX::XMMATRIX yaw_mat = DirectX::XMMatrixRotationY(DirectX::XMVectorGetX(rotation_vector));
 		return DirectX::XMMatrixMultiply(pitch_mat, yaw_mat);
+	}
+
+
+	Vector3 MatrixToRadEulerAngles(const Matrix& matrix);
+	Vector3 MatrixToDegreeEulerAngles(const Matrix& matrix);
+
+	inline Matrix CreateRotationMatrixFromDegrees(float pitch, float yaw, float roll)
+	{
+		float xRad = DirectX::XMConvertToRadians(pitch);
+		float yRad = DirectX::XMConvertToRadians(yaw);
+		float zRad = DirectX::XMConvertToRadians(roll);
+		Matrix R = Matrix::CreateRotationX(xRad) *
+			Matrix::CreateRotationY(yRad) *
+			Matrix::CreateRotationZ(zRad);
+		return R;
 	}
 
 	//roll - around Z vector

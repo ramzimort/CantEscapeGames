@@ -95,6 +95,7 @@
     <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp" />
+    <ClCompile Include="Helper\MathUtil.cpp" />
     <ClCompile Include="Managers\AudioManager.cpp" />
     <ClCompile Include="Managers\CameraManager.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
