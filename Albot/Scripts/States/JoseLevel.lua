@@ -8,8 +8,8 @@ JoseLevel =
 
 --OnCreate, called when creating this state
 JoseLevel.OnCreateState = function(self)
-	local EventMgr = EventManager.Get();
-	EventMgr:PushLoadedState(false);
+	--local EventMgr = EventManager.Get();
+	--EventMgr:PushLoadedState(false);
 end
 
 
