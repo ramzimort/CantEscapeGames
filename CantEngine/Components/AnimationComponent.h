@@ -69,7 +69,7 @@ private:
 
 	//Called from the system every frame
 	void FrameEndCleanUp(); 
-	void CheckForTransitionChanges();
+	void CheckForTransitionChanges(bool animEnd = false);
 
 	//Register animation events from the scripting
 	void AddAnimEvent(std::string const& animName, int tick, sol::table entry);

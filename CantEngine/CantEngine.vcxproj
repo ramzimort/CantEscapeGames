@@ -34,7 +34,6 @@
     <ClCompile Include="Graphics\IBL\BRDFLookupTexturePass.cpp" />
     <ClCompile Include="Graphics\IBL\EquirectangularToSkyboxRender.cpp" />
     <ClCompile Include="Graphics\IBL\IBLFilterEnvMapPass.cpp" />
-    <ClCompile Include="Graphics\Models\BoneModel.cpp" />
     <ClCompile Include="Animation\Animation.cpp" />
     <ClCompile Include="Animation\AnimModel.cpp" />
     <ClCompile Include="Animation\Bone.cpp" />
@@ -168,7 +167,6 @@
     <ClInclude Include="Graphics\IBL\BRDFLookupTexturePass.h" />
     <ClInclude Include="Graphics\IBL\EquirectangularToSkyboxRender.h" />
     <ClInclude Include="Graphics\IBL\IBLFilterEnvMapPass.h" />
-    <ClInclude Include="Graphics\Models\BoneModel.h" />
     <ClInclude Include="CantDebug\CantDebug.h" />
     <ClInclude Include="CantDebug\DebugManager.h" />
     <ClInclude Include="CantEngine.h" />

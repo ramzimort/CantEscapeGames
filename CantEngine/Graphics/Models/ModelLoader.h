@@ -5,16 +5,35 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+/**
+ * @file ModelLoader.h
+ * @author Albert Harley
+ * @date 12/4/2019
+ * @brief Load Model data from hard disk to game engine
+ */
+
+
 class DXRenderer;
 class ResourceManager;
 
+/**
+ * @brief Has the public interface to import 3D model into the game engine. 
+ * 
+ */
 class ModelLoader
 {
 public:
 	ModelLoader();
 	~ModelLoader();
 	
-	
+	/**
+	 * @brief 
+	 * 
+	 * @param model 
+	 * @param scene 
+	 * @param dxrenderer 
+	 * @param resourceManager 
+	 */
 	static void LoadModel(Model* model, aiScene const *scene, DXRenderer* dxrenderer, ResourceManager* resourceManager);
 	static void CalculateModelTangents(Model& model);
 private:

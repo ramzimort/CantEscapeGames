@@ -43,15 +43,62 @@
         ]
       }
     },
+
     {
-      "tag": "MainRigidBody",
-      "prefab": "Assets\\Prefabs\\rgdbdyPlayer.json",
+      "tag": "AnimatedWith_RBdy",
+      "prefab": "Assets\\Prefabs\\TestGoJose_2.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [
-            5.5,
-            5.0,
-            0.0
+          "Position": [ 10.0, 0.0, 1.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 0.05, 0.05, 0.05 ]
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\AnimTest01.fbx"
+        },
+        "AnimationComponent": {
+          "StartingAnimation": "IdleAnim",
+          "Clips": [
+            {
+              "name": "AttackAnim",
+              "path": "Assets/Models/TestAttack.fbx",
+              "loops": false
+            },
+            {
+              "name": "WalkAnim",
+              "path": "Assets\\Models\\Running.fbx",
+              "loops": true
+            },
+            {
+              "name": "UpperAnim",
+              "path": "Assets\\Models\\UpperAnim.fbx",
+              "loops": false
+            },
+            {
+              "name": "IdleAnim",
+              "path": "Assets\\Models\\TestIdle.fbx",
+              "loops": true
+            },
+            {
+              "name": "KickAnim",
+              "path": "Assets\\Models\\Kick.fbx",
+              "loops": false
+            },
+            {
+              "name": "CrawlAnim",
+              "path": "Assets\\Models\\Crawl.fbx",
+              "loops": true
+            },
+            {
+              "name": "JumpLoopAnim",
+              "path": "Assets\\Models\\JumpLoop.fbx",
+              "loops": true
+            },
+            {
+              "name": "JumpEndAnim",
+              "path": "Assets\\Models\\JumpEnd.fbx",
+              "loops": false
+            }
           ]
         }
       }
@@ -168,7 +215,7 @@
           "Mass": 3.3999999521443644e38,
           "IsAsleep": 0,
           "CollisionMask": "STATIC_OBJ",
-          "FrictionCoef":  1.2
+          "FrictionCoef": 1.2
         }
       }
     },
@@ -316,7 +363,7 @@
           "Scale": [
             1.0,
             1.0,
-            1.0
+            0.0
           ]
         },
         "RendererComponent": {
@@ -578,48 +625,6 @@
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\Cube.fbx"
-        },
-        "RigidBodyComponent": {
-          "IsEffectedByGravity": true,
-          "Velocity": [
-            3.9236357001094883e-44,
-            0.000020176172256469728,
-            3.9236357001094883e-44
-          ],
-          "Mass": 1.0,
-          "IsAsleep": 0,
-          "CollisionMask": "DINAMIC_OBJ"
-        }
-      }
-    },
-    {
-      "tag": "RGDBDYCUBE",
-      "prefab": "Assets\\Prefabs\\RBTestObj.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [
-            4,
-            4,
-            1
-          ],
-          "Rotation": [
-            0.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            1.0,
-            1.0,
-            1.0
-          ]
-        },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Material1.json",
-          "XTileFactor": 1.0,
-          "YTileFactor": 1.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\Sphere.fbx"
         },
         "RigidBodyComponent": {
           "IsEffectedByGravity": true,

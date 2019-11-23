@@ -182,11 +182,6 @@ void DebugRendering::UpdateDebugUniformBuffer()
 #endif
 }
 
-void DebugRendering::RenderDebugScene()
-{
-
-}
-
 void DebugRendering::ClearInstances()
 {
 	m_debug_aabb_instance_list.clear();

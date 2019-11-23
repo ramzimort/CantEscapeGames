@@ -258,9 +258,6 @@
     <ClCompile Include="Directory\User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Models\BoneModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Models\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -690,9 +687,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Events\Input\MouseClickEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics\Models\BoneModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\Models\Model.h">

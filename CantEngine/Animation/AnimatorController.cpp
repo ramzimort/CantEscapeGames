@@ -79,11 +79,36 @@ void AnimatorController::AddState(AnimState *newState)
 
 void AnimatorController::SetTrigger(std::string const& trigger)
 {
-	//Modify trigger
-	this->triggers[trigger] = 1;
+	//If the trigger exists, and its zero, set to one and activate dirty flag
+	auto iter = triggers.find(trigger);
+	if (iter == triggers.end()) 
+	{
+		//Modify trigger
+		this->triggers[trigger] = 1;
 
-	//Set dirty flag
-	dirtyFlag = true;
+		//Set dirty flag
+		///OutputDebugString("Dirtyflag++ cause of setting trigger. -PrevVal: " + dirtyFlag);  //////
+		++dirtyFlag;																        //////
+		///OutputDebugString(" -NewVal: " + dirtyFlag);									    //////
+		///OutputDebugString("\n");														    //////
+	}
+	else if (iter != triggers.end() && iter->second == 0)
+	{
+		//Modify trigger
+		this->triggers[trigger] = 1;
+
+		//Set dirty flag
+		///OutputDebugString("Dirtyflag++ cause of setting trigger. -PrevVal: " + dirtyFlag);  //////
+		++dirtyFlag;																        //////
+		///OutputDebugString(" -NewVal: " + dirtyFlag);									    //////
+		//int a = 123;
+		///OutputDebugString("\n");														    //////
+	}
+	else if (iter != triggers.end() && iter->second == 1) 
+	{
+		++dirtyFlag;
+	}
+
 }
 
 

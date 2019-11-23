@@ -356,8 +356,3 @@ void DeferredRendering::UpdateUniformBuffer()
 	}
 	
 }
-
-void DeferredRendering::RenderDeferredScene()
-{
-	
-}
