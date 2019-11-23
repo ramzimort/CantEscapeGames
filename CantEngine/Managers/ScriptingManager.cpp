@@ -584,8 +584,8 @@ void ScriptingManager::ManageBindings()
 			"SetOffset", &TriggerComponent::SetOffset,
 
 			"GetCollisionMask", & TriggerComponent::GetCollisionMask,
-			"OnCollisionEnter", & TriggerComponent::m_onCollisionEnter,
-			"OnCollisionExit", & TriggerComponent::m_onCollisionExit
+			"OnEnter", & TriggerComponent::m_onEnter,
+			"OnExit", & TriggerComponent::m_onExit
 			);
 
 	//RENDERER

@@ -218,7 +218,8 @@ namespace CantDebugAPI
 		g_physConfig->dynamicAabbLevelDraw = info.dynamicAabbLevelDraw;
 		g_physConfig->isDrawContactPoints = info.isDrawContactPoints;
 		g_physConfig->isDrawEPAFinalTriangle = info.isDrawEPAFinalTriangle;
-		g_physConfig->isDrawGJKResult = info.isDrawGJKResult;
+		g_physConfig->isDrawGJKResult = info.isDrawGJKResult; 
+		g_physConfig->isDrawTriggersTree = info.isDrawTriggersTree;
 	}
 }
 
@@ -252,6 +253,7 @@ void UpdateWindow()
 				ImGui::Checkbox("Draw Contact Points", g_physConfig->isDrawContactPoints);
 				ImGui::Checkbox("Draw EPA Final Triangle", g_physConfig->isDrawEPAFinalTriangle);
 				ImGui::Checkbox("Draw GJK Result", g_physConfig->isDrawGJKResult);
+				ImGui::Checkbox("Draw Trigger Tree", g_physConfig->isDrawTriggersTree);
 				
 				ImGui::EndTabItem();
 			}

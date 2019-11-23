@@ -36,8 +36,8 @@ public:
 	// Unique class identifier
 	static ComponentId const static_type;
 
-	Multicast<void(GameObject*, GameObject*)> m_onCollisionEnter;
-	Multicast<void(GameObject*, GameObject*)> m_onCollisionExit;
+	Multicast<void(GameObject*, GameObject*)> m_onEnter;
+	Multicast<void(GameObject*, GameObject*)> m_onExit;
 private:
 	Aabb m_aabb; 
 	Vector3 m_scale;

@@ -92,8 +92,9 @@ namespace CantDebug
 		physConfig.isDrawContactPoints = &PhysicsUtils::Settings::isDrawContactPoints;
 		physConfig.isDrawGJKResult = &PhysicsUtils::Settings::isDrawGJKResult;
 		physConfig.isDrawEPAFinalTriangle = &PhysicsUtils::Settings::isDrawEPAFinalTriangle;
-		physConfig.dynamicAabbLevelDraw = &PhysicsUtils::Settings::dynamicAabbLevelDraw;
+		physConfig.dynamicAabbLevelDraw = &PhysicsUtils::Settings::dynamicAabbLevelDraw; 
 		physConfig.Draw_Dynamic_AABB_Tree = &PhysicsUtils::Settings::Draw_Dynamic_AABB_Tree;
+		physConfig.isDrawTriggersTree = &PhysicsUtils::Settings::isDrawTriggersTree;
 		CantDebugAPI::InitializePhysicsConfig(physConfig);
 
 		// Material Generator Initialization

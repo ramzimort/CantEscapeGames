@@ -307,7 +307,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prefabs\Lights\point_light.json" />
+    <None Include="Assets\Prefabs\RBTestObjSphere.json" />
     <None Include="Assets\Prefabs\Skybox\factory_skybox.json" />
+    <None Include="Scripts\Components\TriggerTest.lua" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\resolve_texture_frag.hlsl">

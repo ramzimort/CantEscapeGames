@@ -67,7 +67,11 @@ void TriggerSystem::LateUpdate(float dt)
 		Aabb aabb = trigger->GetAabb();
 		const Vector3 translationVec = transform->GetPosition() + trigger->GetOffset();
 		Matrix translation = Matrix::CreateTranslation(translationVec);
-		aabb.Transform(translation);		// reconstruct in world space
+		//aabb.Transform(translation);		// reconstruct in world space
+
+		aabb.m_Min += translationVec;
+		aabb.m_Max += translationVec;
+
 
 		// updating aabb tree
 		SpatialPartitionData data(trigger, aabb);
@@ -80,7 +84,7 @@ void TriggerSystem::LateUpdate(float dt)
 
 #ifdef DEVELOPER
 	if (PhysicsUtils::Settings::isDrawTriggersTree)
-		m_triggers.DebugDraw(m_pAppRenderer, -1, Vector4(1, 0, 0, 1));
+		m_triggers.DebugDraw(m_pAppRenderer, -1, Vector4(0, 1, 0, 1));
 #endif
 
 	// update triggers
@@ -103,8 +107,8 @@ void TriggerSystem::LateUpdate(float dt)
 			TriggerComponent* trigger1 = static_cast<TriggerComponent*>(curQuery.m_clientData0);
 			TriggerComponent* trigger2 = static_cast<TriggerComponent*>(curQuery.m_clientData1);
 
-			trigger1->m_onCollisionEnter(trigger1->GetOwner(), trigger2->GetOwner());
-			trigger2->m_onCollisionEnter(trigger2->GetOwner(), trigger1->GetOwner());
+			trigger1->m_onEnter(trigger1->GetOwner(), trigger2->GetOwner());
+			trigger2->m_onEnter(trigger2->GetOwner(), trigger1->GetOwner());
 		}
 	}
 	for (QueryResult&  prevQuery : m_lastFrameQueries.m_results)
@@ -126,8 +130,8 @@ void TriggerSystem::LateUpdate(float dt)
 			TriggerComponent* trigger1 = static_cast<TriggerComponent*>(prevQuery.m_clientData0);
 			TriggerComponent* trigger2 = static_cast<TriggerComponent*>(prevQuery.m_clientData1);
 
-			trigger1->m_onCollisionExit(trigger1->GetOwner(), trigger2->GetOwner());
-			trigger2->m_onCollisionExit(trigger2->GetOwner(), trigger1->GetOwner());
+			trigger1->m_onExit(trigger1->GetOwner(), trigger2->GetOwner());
+			trigger2->m_onExit(trigger2->GetOwner(), trigger1->GetOwner());
 		}
 	}
 
