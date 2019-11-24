@@ -25,7 +25,7 @@ struct ControllerData
 class InputManager
 {
 public:
-	InputManager(bool Fullscreen, int w, int h);
+	InputManager(const std::string& gameName, bool Fullscreen, int w, int h);
 	~InputManager();
 	/**
 	 * @brief Thread wait until any input event. On event, the event info is dispatched to be caught at the end of this frame.

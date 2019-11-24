@@ -12,7 +12,7 @@ Other Authors : <None>
 
 const int numKeys = 512;
 
-InputManager::InputManager(bool fullscreen, int w, int h) : 
+InputManager::InputManager(const std::string& gameName, bool fullscreen, int w, int h) : 
 	m_keyboardState({ false })
 {
 	int error = 0;
@@ -23,7 +23,7 @@ InputManager::InputManager(bool fullscreen, int w, int h) :
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_FULLSCREEN_DESKTOP :
 		SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MOUSE_FOCUS | SDL_WINDOW_INPUT_FOCUS;
 
-	m_pWindow = SDL_CreateWindow("CantEscapeGames",
+	m_pWindow = SDL_CreateWindow(gameName.c_str(),
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
 			w,

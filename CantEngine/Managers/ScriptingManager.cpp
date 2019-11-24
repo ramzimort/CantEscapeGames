@@ -14,6 +14,7 @@ Primary Author: Jose Rosenbluth
 #include "SystemManager.h"
 #include "StateManager.h"
 #include "ResourceManager.h"
+#include "Directory/User.h"
 
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
@@ -65,9 +66,10 @@ const std::wstring& GetLString(const std::string& key)
 
 #define SOL_CHECK_ARGUMENTS 1
 
-ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer) :
+ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer, UserManager* userManager) :
 	m_pResourceManager(pResourcemanager),
-	m_pAppRenderer(pAppRenderer)
+	m_pAppRenderer(pAppRenderer),
+	m_pUserManager(userManager)
 {
 	//We enter here
 	luaState.open_libraries
@@ -142,9 +144,15 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 
 	luaState.set_function("Localize", &GetLString);
-	luaState["CantMath"] = luaState.create_table_with(
-		"7", SDL_SCANCODE_7
-	);
+	luaState.set_function("SetSettingBool", &UserManager::SetSettingBool, m_pUserManager);
+	luaState.set_function("GetSettingBool", &UserManager::GetSettingBool, m_pUserManager);
+	luaState.set_function("SetSettingDouble", &UserManager::SetSettingDouble, m_pUserManager);
+	luaState.set_function("GetSettingDouble", &UserManager::GetSettingDouble, m_pUserManager);
+	luaState.set_function("SetSettingInt", &UserManager::SetSettingInt, m_pUserManager);
+	luaState.set_function("GetSettingInt", &UserManager::GetSettingInt, m_pUserManager);
+	luaState.set_function("SetSettingString", &UserManager::SetSettingString, m_pUserManager);
+	luaState.set_function("GetSettingString", &UserManager::GetSettingString, m_pUserManager);
+
 
 #pragma region EVENTS
 	//////////////////////////////

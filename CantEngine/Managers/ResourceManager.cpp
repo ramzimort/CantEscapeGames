@@ -267,10 +267,10 @@ void ResourceManager::FreeResource(StringId id)
 	ResPtr p = it->second.res;
 	switch (it->second.type)
 	{
-	case SONGS:
 	case FONT:
 		CantMemory::PoolResource<DirectX::SpriteFont>::Free(p.p_spriteFont);
 		break;
+	case SONGS:
 	case SFX:
 		p.p_sound->release();
 		m_pAudioManager->UnregisterSound(it->first);
@@ -294,8 +294,10 @@ void ResourceManager::FreeResource(StringId id)
 		CantMemory::PoolResource<std::string>::Free(p.p_prefab);
 		break;
 	case SCRIPT:
-		// TODO: Should we do anything when clearing this type of resource
 		CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
+		break;
+	default:
+		assert(0);
 		break;
 	}
 	m_resources.erase(it);
@@ -303,8 +305,9 @@ void ResourceManager::FreeResource(StringId id)
 
 void ResourceManager::FreeAll()
 {
-	for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
+	while(!m_resources.empty())
 	{
+		const auto& it = m_resources.begin();
 		FreeResource(it->first);
 	}
 	m_resources.clear();
