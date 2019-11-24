@@ -7,7 +7,7 @@
 
 namespace CantEngineAPI
 {
-	void InitializeEngine(const std::string& levelPath, bool fullscreen, int w, int h)
+	void InitializeEngine(const std::string& gameName, const std::string& levelPath, bool fullscreen, int w, int h)
 	{
 		//This is not dirty, it is needed to allow multi-thread DirectXTK texture loading
 		HRESULT hr = CoInitializeEx(nullptr, COINITBASE_MULTITHREADED);
@@ -17,17 +17,12 @@ namespace CantEngineAPI
 		}
 
 		EventManager* World = EventManager::Get();
-		World->Initialize(levelPath, fullscreen, w, h);
+		World->Initialize(gameName, levelPath, fullscreen, w, h);
 
 		std::thread th1(&EventManager::RunGameThread, World);
 		World->RunInputThread();
 		th1.join();
-	}
-	
-	
-	void InitializeUserSettings(const std::string& gameName)
-	{
-		CantDirectory::FindOrCreateUserDataFolder("Albot");
-	}
 
+		delete World;
+	}
 }

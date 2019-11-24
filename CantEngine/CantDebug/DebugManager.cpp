@@ -77,7 +77,7 @@ namespace CantDebug
 			CantDebugAPI::PrefabButtonList(info.Name.c_str(), &info.Pressed);
 		}
 
-		// Debug Settings Initalizer
+		// Debug m_settings Initalizer
 		CantDebugAPI::DebugConfig debugConfig;
 		debugConfig.CreateLevel = &m_config.CreateLevel;
 		debugConfig.LevelName = &m_config.LevelName;
@@ -87,7 +87,7 @@ namespace CantDebug
 		debugConfig.RefreshResources = &m_config.RefreshResources;
 		CantDebugAPI::EditorSetting(debugConfig);
 
-		// Physics Settings Initialization
+		// Physics m_settings Initialization
 		CantDebugAPI::PhysicsConfig physConfig;
 		physConfig.isDrawContactPoints = &PhysicsUtils::Settings::isDrawContactPoints;
 		physConfig.isDrawGJKResult = &PhysicsUtils::Settings::isDrawGJKResult;
