@@ -164,11 +164,12 @@ namespace CantDebugAPI
 				break;
 			case SDL_MOUSEMOTION:
 			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEWHEEL:
 			case SDL_MOUSEBUTTONUP:
 				if (io.WantCaptureMouse)
 				{
-					e = SDL_Event();
 					ImGui_ImplSDL2_ProcessEvent(&e);
+					e = SDL_Event();
 					break;
 				}
 				else

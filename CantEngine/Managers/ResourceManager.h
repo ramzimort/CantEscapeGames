@@ -3,6 +3,7 @@
 #include "Audio/AudioTypes.h"
 #include "AudioManager.h"
 #include <DirectXTK/SpriteFont.h>
+class ReloadResourcesEvent;
 
 /**
  * @file ResourceManager.h
@@ -169,12 +170,11 @@ private:
 	void LoadInternalCompressedTexture(const std::string& keyName, 
 		const unsigned char* rawData, uint32_t totalByteWidth);
 	void StoreMaterial(const std::string& keyName, Material* pMaterial);
+private:
 #ifdef DEVELOPER
 	friend class CantDebug::DebugManager;
-	void ReloadResources();
+	void ReloadResources(const ReloadResourcesEvent* e);
 #endif
-
-private:
 	ResourceMap m_resources;
 	LocStringMap m_lStrings;
 

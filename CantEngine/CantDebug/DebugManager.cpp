@@ -169,7 +169,6 @@ namespace CantDebug
 			}
 			objInfo.second.DoublePressed = false;
 
-
 			if (!m_config.SelectionTool)
 			{
 				objInfo.second.Highlighted = false;
@@ -177,18 +176,16 @@ namespace CantDebug
 				continue;
 			}
 
-			if (m_meshObjects.find(objInfo.first) == m_meshObjects.end())
-				continue;
-
-
 			if (objInfo.second.Highlighted)
 			{
-				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(0.5f, 0.f, 0.f, 0.5f));
+				if (m_meshObjects.find(objInfo.first) != m_meshObjects.end())
+					m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(0.5f, 0.f, 0.f, 0.5f));
 			}
 			if (objInfo.second.Pressed)
 			{
 				DisplayCompData(objInfo.first);
-				m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
+				if (m_meshObjects.find(objInfo.first) != m_meshObjects.end())
+					m_meshObjects[objInfo.first].m_aabb.DebugDraw(m_pAppRenderer, Vector4(1.f, 0.f, 0.f, 0.f));
 			}
 			UpdateComponents(objInfo.first);
 		}
@@ -305,7 +302,8 @@ namespace CantDebug
 
 		if (m_config.RefreshResources)
 		{
-			m_pResourceManager->ReloadResources();
+			m_pResourceManager->ReloadResources(nullptr);
+
 			for (auto& pair : m_objectList)
 			{
 				GameObject* go = pair.first;
@@ -314,9 +312,10 @@ namespace CantDebug
 					auto& scriptComp = pair2.second;
 					std::string wholePath = "Scripts\\Components\\" + pair2.first + ".lua";
 					scriptComp->ScriptSetup(wholePath, pair2.first, m_pStateManager->m_pScriptingManager);
+					scriptComp->Destroy();
 					scriptComp->Init(m_pResourceManager, m_pAppRenderer->GetDXRenderer());
+					scriptComp->Begin(m_pGameState->m_gameObjectMgr);
 				}
-
 			}
 			m_config.RefreshResources = false;
 		}
@@ -446,6 +445,9 @@ namespace CantDebug
 		if (renderer)
 		{
 			info.compName = "Renderer"; info.propName = "MaterialId"; info.strVal = renderer->m_materialId.getName(); info.type = CantDebugAPI::STRING; components.push_back(info);
+			info.compName = "Renderer"; info.propName = "xTiling"; info.data.f = renderer->m_xTileFactor; info.type = CantDebugAPI::FLOAT; components.push_back(info);
+			info.compName = "Renderer"; info.propName = "yTiling"; info.data.f = renderer->m_xTileFactor; info.type = CantDebugAPI::FLOAT; components.push_back(info);
+
 		}
 		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
 		if (haloEffectComp)
@@ -618,9 +620,20 @@ namespace CantDebug
 		if (renderer)
 		{
 			debugInfo.compName = it->compName;
+
 			renderer->m_materialId = it->strVal;
 			debugInfo.propName = it->propName;
 			debugInfo.propValString = &it->strVal; debugInfo.t = CantDebugAPI::STRING;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			renderer->m_xTileFactor = it->data.f;
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 100.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			renderer->m_yTileFactor = it->data.f;
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 100.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
 		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
@@ -701,6 +714,8 @@ namespace CantDebug
 		if (renderer)
 		{
 			it->strVal = renderer->m_materialId.getName(); ++it;
+			it->data.f = renderer->m_xTileFactor; ++it;
+			it->data.f = renderer->m_yTileFactor; ++it;
 		}
 	}
 

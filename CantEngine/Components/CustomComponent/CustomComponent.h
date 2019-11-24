@@ -55,6 +55,13 @@ public:
 	 * @param goMgr 
 	 */
 	virtual void Begin(GameObjectManager *goMgr) override;
+	/**
+	 * @brief Will do nothing on CPP other than call Init on the script
+	 *
+	 * @param resMgr
+	 * @param dxrenderer
+	 */
+	void Destroy();
 
 	/**
 	 * @brief Get the Name of this scripted component (same name as script)

@@ -10,6 +10,23 @@
  * @brief State Events
  */
 
+ /**
+  * @brief Hot swapping resources in memory (material, script, and prefabs)
+  *
+  */
+class ReloadResourcesEvent : public Event<ReloadResourcesEvent>
+{
+public:
+	/**
+	 * @brief Request state get loaded in the background. State is stored in temporary load buffer
+	 *
+	 * @param levelPath
+	 */
+	ReloadResourcesEvent() = default;
+	virtual ~ReloadResourcesEvent() { }
+	virtual void operator()() { };
+};
+
 /**
  * @brief Request state get loaded in the background. State is stored in temporary load buffer
  * 
