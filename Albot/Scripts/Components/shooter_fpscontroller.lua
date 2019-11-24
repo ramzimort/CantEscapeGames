@@ -10,7 +10,7 @@ shooter_fpscontroller =
 	DeltaPositionY = 0;
 	Rotation = Vector3.new(0.0);
 	RotationMultiplier = 10.0;
-	RotationSpeed = 10.0;
+	RotationSpeed = 20.0;
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
 	RotationEnabled = true;
@@ -91,11 +91,6 @@ end
 shooter_fpscontroller.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
-		if(state == false) then
-			OutputPrint("FPS RELEASE");
-		else
-			OutputPrint("Wtf");
-		end
 	elseif(button == 2) then
 		self.RIGHTCLICK = state;
 	end
