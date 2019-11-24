@@ -372,6 +372,12 @@
     <ClCompile Include="Components\SplineCurvesComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\FollowCurvesPathComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SplineCurvesSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Systems\TriggerSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -831,6 +837,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\SplineCurvesComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\FollowCurvesPathComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SplineCurvesSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Systems\TriggerSystem.h">

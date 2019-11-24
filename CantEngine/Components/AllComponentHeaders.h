@@ -13,4 +13,5 @@
 #include "AnimationComponent.h"
 #include "SkyboxIrradianceComponent.h"
 #include "UIComponent.h"
-
+#include "FollowCurvesPathComponent.h"
+#include "SplineCurvesComponent.h"

@@ -118,7 +118,8 @@
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\smooth_wood_plane.json",
             "Assets\\Prefabs\\Players\\shooter_player.json",
-            "Assets\\Prefabs\\Guns\\cerberus_gun.json"
+            "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+            "Assets\\Prefabs\\splinecurve.json"
         ],
         "Songs": [],
         "SFX": []

@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation\AnimatorController.cpp" />
+    <ClCompile Include="Components\FollowCurvesPathComponent.cpp" />
     <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
     <ClCompile Include="Components\SplineCurvesComponent.cpp" />
     <ClCompile Include="Components\TriggerComponent.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Systems\RenderingSystem.cpp" />
     <ClCompile Include="Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Systems\SkyboxIrradianceSystem.cpp" />
+    <ClCompile Include="Systems\SplineCurvesSystem.cpp" />
     <ClCompile Include="Systems\TestSystem.cpp" />
     <ClCompile Include="Systems\TransformSystem.cpp" />
     <ClCompile Include="Systems\TriggerSystem.cpp" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Animation\AnimConditions.h" />
     <ClInclude Include="Components\AffineAnimationComponent.h" />
     <ClInclude Include="Audio\AudioTypes.h" />
+    <ClInclude Include="Components\FollowCurvesPathComponent.h" />
     <ClInclude Include="Components\SplineCurvesComponent.h" />
     <ClInclude Include="Components\TriggerComponent.h" />
     <ClInclude Include="Events\Audio\AudioEvents.h" />
@@ -298,6 +301,7 @@
     <ClInclude Include="Systems\RenderingSystem.h" />
     <ClInclude Include="Systems\RigidbodySystem.h" />
     <ClInclude Include="Systems\SkyboxIrradianceSystem.h" />
+    <ClInclude Include="Systems\SplineCurvesSystem.h" />
     <ClInclude Include="Systems\TestSystem.h" />
     <ClInclude Include="Systems\TransformSystem.h" />
     <ClInclude Include="Systems\TriggerSystem.h" />

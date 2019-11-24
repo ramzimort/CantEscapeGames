@@ -21,6 +21,7 @@ RTTR_REGISTRATION
 		.property("MaterialId", &RendererComponent::m_materialId)
 		.property("XTileFactor", &RendererComponent::m_xTileFactor)
 		.property("YTileFactor", &RendererComponent::m_yTileFactor)
+		.property("EnableRendering", &RendererComponent::m_enableRendering)
 		.property("OverrideLoadedModelMaterial", &RendererComponent::m_overrideLoadedModelMaterial)
 		.property("MeshInstancesMaterialIDList", &RendererComponent::m_meshInstancesMaterialIDList)
 		.method("Init", &RendererComponent::Init);
@@ -30,7 +31,8 @@ RTTR_REGISTRATION
 RendererComponent::RendererComponent(GameObject *owner) :
 	BaseComponent(owner, RendererComponent::static_type),
 	m_xTileFactor(1.f),
-	m_yTileFactor(1.f)
+	m_yTileFactor(1.f),
+	m_enableRendering(true)
 {
 }
 
@@ -55,4 +57,9 @@ void RendererComponent::SetXTileFactor(float x_factor)
 void RendererComponent::SetYTileFactor(float y_factor)
 {
 	m_yTileFactor = y_factor;
+}
+
+void RendererComponent::SetEnableRendering(bool flag)
+{
+	m_enableRendering = flag;
 }
