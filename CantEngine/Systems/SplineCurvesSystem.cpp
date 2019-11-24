@@ -42,6 +42,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	auto transform_comp = splineCompNode->m_transform;
 	auto curvesComp = splineCompNode->m_splineCurvesComp;
 
+#ifdef DEVELOPER
 	float steps = 0.01f;
 	Vector3 prevPosition = curvesComp->Evaluate(0.f);
 	for (float index = steps; index <= (1.f); index += steps)
@@ -66,6 +67,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 		debugAABBInstance.m_color = Vector3(0.f, 0.f, 1.f);
 		m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(debugAABBInstance);
 	}
+#endif
 }
 
 void SplineCurvesSystem::RegisterAppRenderer(AppRenderer* appRenderer)
