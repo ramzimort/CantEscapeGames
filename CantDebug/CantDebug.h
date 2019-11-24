@@ -18,6 +18,7 @@ namespace CantDebugAPI
 		bool* isDrawEPAFinalTriangle;
 		int* dynamicAabbLevelDraw;
 		bool* Draw_Dynamic_AABB_Tree;
+		bool* isDrawTriggersTree;
 	};
 
 	struct DebugConfig

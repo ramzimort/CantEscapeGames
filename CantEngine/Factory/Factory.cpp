@@ -326,6 +326,8 @@ rttr::variant Factory::GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<TransformComponent>();
 	else if (name == "RigidBodyComponent")
 		return go->AddComponent<RigidbodyComponent>();
+	else if (name == "TriggerComponent")
+		return go->AddComponent<TriggerComponent>();
 	else if (name == "RendererComponent")
 		return go->AddComponent<RendererComponent>();
 	else if (name == "MeshComponent")

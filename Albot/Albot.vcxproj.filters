@@ -67,5 +67,7 @@
   <ItemGroup>
     <None Include="Assets\Prefabs\Lights\point_light.json" />
     <None Include="Assets\Prefabs\Skybox\factory_skybox.json" />
+    <None Include="Assets\Prefabs\RBTestObjSphere.json" />
+    <None Include="Scripts\Components\TriggerTest.lua" />
   </ItemGroup>
 </Project>

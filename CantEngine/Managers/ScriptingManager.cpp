@@ -193,6 +193,12 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
 		);
 
+	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
+		(
+			"TriggerMultiCast",
+			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
+			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
+			);
 	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const float)>>
 		(
 			"JoystickMotionMulticast",
@@ -439,6 +445,7 @@ void ScriptingManager::ManageBindings()
 		//Get scripted and engine components
 		"GetCustomComp",          &GameObject::LuaGetCustomComponent,
 		"GetRigidbodyComp",       &GameObject::GetComponent<RigidbodyComponent>,
+		"GetTriggerComp",         &GameObject::GetComponent<TriggerComponent>,
 		"GetRendererComp",        &GameObject::GetComponent<RendererComponent>,
 		"GetMeshComp",            &GameObject::GetComponent<MeshComponent>,
 		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
@@ -451,6 +458,7 @@ void ScriptingManager::ManageBindings()
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
+		"AddTriggerComp",         &GameObject::AddComponent<TriggerComponent>,
 		"AddRendererComp",        &GameObject::AddComponent<RendererComponent>,
 		"AddMeshComp",            &GameObject::AddComponent<MeshComponent>,
 		"AddLightComp",           &GameObject::AddComponent<LightComponent>,
@@ -565,6 +573,20 @@ void ScriptingManager::ManageBindings()
 		"SetMass", &RigidbodyComponent::SetMass,
 		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
+
+	//TRIGGER
+	luaState.new_usertype<TriggerComponent>
+		(
+			"TriggerComponent",
+			"GetVelocity", &TriggerComponent::GetScale,
+			"SetVelocity", &TriggerComponent::SetScale,
+			"GetOffset", &TriggerComponent::GetOffset,
+			"SetOffset", &TriggerComponent::SetOffset,
+
+			"GetCollisionMask", & TriggerComponent::GetCollisionMask,
+			"OnEnter", & TriggerComponent::m_onEnter,
+			"OnExit", & TriggerComponent::m_onExit
+			);
 
 	//RENDERER
 	luaState.new_usertype<RendererComponent>

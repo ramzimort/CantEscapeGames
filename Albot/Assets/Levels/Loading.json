@@ -34,6 +34,7 @@
         "Scripts\\Components\\test01Comp.lua",
         "Scripts\\Components\\test02Comp.lua",
         "Scripts\\Components\\rgdbdyPlayer.lua",
+        "Scripts\\Components\\TriggerTest.lua",
         "Scripts\\Components\\UICameraMenu.lua",
         "Scripts\\Components\\Button.lua",
         "Scripts\\Components\\AffineAnimation.lua",

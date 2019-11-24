@@ -70,7 +70,8 @@ namespace MathUtil
 		tangent.Normalize();
 		bitangent = vector.Cross(tangent);
 		bitangent.Normalize();
-		/*const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));
+		/* // another way of doing this
+		const Vector3 cross1 = vector.Cross(Vector3(0.0, 0.0, 1.0));
 		const Vector3 cross2 = vector.Cross(Vector3(0.0, 1.0, 0.0));
 
 		if (cross1.LengthSquared() > cross2.LengthSquared())
@@ -107,20 +108,20 @@ namespace MathUtil
 		Vector3 angles;
 
 		// roll (x-axis rotation)
-		double sinr_cosp = +2.0 * (q.w * q.x + q.y * q.z);
-		double cosr_cosp = +1.0 - 2.0 * (q.x * q.x + q.y * q.y);
+		double sinr_cosp = +2.0f * (q.w * q.x + q.y * q.z);
+		double cosr_cosp = +1.0f - 2.0f * (q.x * q.x + q.y * q.y);
 		angles.x = static_cast<float>(atan2(sinr_cosp, cosr_cosp));
 
 		// pitch (y-axis rotation)
-		double sinp = +2.0 * (q.w * q.y - q.z * q.x);
+		double sinp = +2.0f * (q.w * q.y - q.z * q.x);
 		if (fabs(sinp) >= 1)
 			angles.y = static_cast<float>(copysign(M_PI / 2, sinp)); // use 90 degrees if out of range
 		else
 			angles.y = static_cast<float>(asin(sinp));
 
 		// yaw (z-axis rotation)
-		double siny_cosp = +2.0 * (q.w * q.z + q.x * q.y);
-		double cosy_cosp = +1.0 - 2.0 * (q.y * q.y + q.z * q.z);
+		double siny_cosp = +2.0f * (q.w * q.z + q.x * q.y);
+		double cosy_cosp = +1.0f - 2.0f * (q.y * q.y + q.z * q.z);
 		angles.z = static_cast<float>(atan2(siny_cosp, cosy_cosp));
 
 		return angles;
