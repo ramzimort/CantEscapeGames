@@ -111,7 +111,7 @@ namespace CantDebug
 
 		// Helpers
 		std::vector<GameObject*> GetSelectedObjects();
-		std::vector<GameObject*> RayCast();
+		std::vector<GameObject*> RayCast(int& index);
 
 		// Gameobjects
 		void RegisterObject(const GameObjectCreated* e);

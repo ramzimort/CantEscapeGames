@@ -11,6 +11,7 @@
 #include "Reflection/Helpers.h"
 #include "Reflection/Serialization.h"
 #include "Physics/PhysicsUtils.h"
+#include "Physics/Geometry/Intersection.h"
 #include "Events/GameObject/GameObjectEvents.h"
 
 namespace CantDebug
@@ -353,7 +354,7 @@ namespace CantDebug
 		return result;
 	}
 
-	std::vector<GameObject*> DebugManager::RayCast()
+	std::vector<GameObject*> DebugManager::RayCast(int& index)
 	{
 		if (m_pGameObjEditor == nullptr)
 			return std::vector<GameObject*>();
@@ -390,6 +391,41 @@ namespace CantDebug
 			results.push_back(go);
 			//DEBUG_LOG("Key: %s\n", go->GetTag().c_str());
 		}
+
+		float t = FLT_MAX;
+		index = 0;
+		for (int i = 0; i < results.size(); i++)
+		{
+			GameObject* go = results.at(i);
+			TransformComponent* transform = go->GetComponent<TransformComponent>();
+			MeshComponent* mesh = go->GetComponent<MeshComponent>();
+			if (!mesh) 
+				continue;
+			const Matrix& modelToWorld = transform->GetModel();
+			Matrix worldToModel = modelToWorld.Invert();
+			//Vector3 rayStart = Vector3::Transform(cam.GetCameraPosition(), worldToModel);
+			//Vector3 rayDir = Vector3::TransformNormal(ray_world_dir, worldToModel);
+
+
+			Vector3 rayStart = DirectX::XMVector4Transform(cam.GetCameraPosition(), worldToModel);
+			Vector3 rayDir = DirectX::XMVector4Transform(ray_world_dir, worldToModel);
+			rayDir.Normalize();
+
+
+			const Aabb& modelAabb = mesh->GetModel()->GetAABB();
+			float currentT = FLT_MAX;
+			bool isIntersecting = Intersection::RayAabb(rayStart, rayDir, modelAabb.m_Min, modelAabb.m_Max, currentT);
+			if (isIntersecting)
+			{
+				if (currentT < t)
+				{
+					t = currentT;
+					index = i;
+				}
+			}
+			m_pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(rayStart, 1000 * rayDir, Vector3(1,0,0));
+		}
+
 		return results;
 	}
 	
@@ -489,10 +525,11 @@ namespace CantDebug
 						go.second.Pressed = false;
 				}
 
-				std::vector<GameObject*> raycast = RayCast();
+				int index;
+				std::vector<GameObject*> raycast = RayCast(index);
 				if (raycast.size() > 0)
 				{
-					auto it = m_objectList.find(*raycast.begin());
+					auto it = m_objectList.find(raycast.at(index));
 					if (it == m_objectList.end())
 						return;
 					it->second.Pressed = !it->second.Pressed;
@@ -509,10 +546,11 @@ namespace CantDebug
 			for (auto& go : m_objectList)
 				go.second.Highlighted = false;
 
-			std::vector<GameObject*> raycast = RayCast();
+			int index;
+			std::vector<GameObject*> raycast = RayCast(index);
 			if (raycast.size() > 0)
 			{
-				auto it = m_objectList.find(*raycast.begin());
+				auto it = m_objectList.find(raycast.at(index));
 				if (it == m_objectList.end())
 					return;
 				it->second.Highlighted = true;
