@@ -60,8 +60,12 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 {
 	// 5 - Get the pointer to the components, and then freely update
 	RenderingCompNode *node = static_cast<RenderingCompNode*>(compNode);
-	TransformComponent *transformComp = node->m_transform;
 	RendererComponent *rendererComp = node->m_renderer;
+	if (!rendererComp->m_enableRendering)
+	{
+		return;
+	}
+	TransformComponent *transformComp = node->m_transform;
 	MeshComponent* meshesComp = node->m_meshesComponent;
 
 	const Matrix& modelMatrix = transformComp->GetModel();
@@ -91,9 +95,6 @@ void RenderingSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	{
 		m_pAppRenderer->RegisterBasicInstance(boneMeshInstanceRenderData.m_instanceRenderData);
 	}
-
-	//DRAW CODE GOES HEREex}
-
 }
 
 void RenderingSystem::RegisterAppRenderer(AppRenderer* appRenderer)

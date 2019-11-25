@@ -83,7 +83,7 @@
             "Scripts\\Components\\PlayerComp.lua",
             "Scripts\\Components\\PresentationParticleEmitOnce.lua",
             "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\Graphics.lua"
+            "Scripts\\States\\ShooterRailPrototype.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",

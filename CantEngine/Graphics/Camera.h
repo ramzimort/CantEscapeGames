@@ -140,6 +140,13 @@ public:
 	 */
 	const Vector3& GetRight() const;
 
+	/**
+	 * @brief Get Camera Up vector
+	 *
+	 * @return const Vector3&
+	 */
+	const Vector3& GetUp() const;
+
 	void Reset();
 
 	/**
@@ -154,6 +161,12 @@ public:
 	 * @return const Matrix& 
 	 */
 	const Matrix& GetInvViewMatrix() const { return m_invViewMatrix; }
+	/**
+	 * @brief Get the copy of Inverse View Matrix
+	 *
+	 * @return const Matrix&
+	 */
+	Matrix GetInvViewMatrixCopy() const { return m_invViewMatrix; }
 	/**
 	 * @brief Get the Projection Matrix
 	 * 
