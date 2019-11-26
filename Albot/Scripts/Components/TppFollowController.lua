@@ -3,8 +3,8 @@
 
 TppFollowController = 
 {
-	MinCoordinates = Vector3.new(-5, -20, -5);
-	MaxCoordinates = Vector3.new(5, 20, 0);
+	MinCoordinates = Vector3.new(-2, -5, -2);
+	MaxCoordinates = Vector3.new(2, 5, 0);
 
 	distance = 5.0;
 

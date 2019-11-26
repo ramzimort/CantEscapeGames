@@ -141,6 +141,8 @@ namespace CantDebug
 		MaterialInfo m_materialInfo;
 
 		MeshObjectList m_meshObjects;
+		MeshObjectList m_triggerObjects;
+
 		DynamicAabbTree m_AabbTree;
 
 		State* m_pGameState;

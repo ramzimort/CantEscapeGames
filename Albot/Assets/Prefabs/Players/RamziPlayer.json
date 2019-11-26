@@ -16,7 +16,7 @@
   "RigidBodyComponent": {
     "IsEffectedByGravity": true,
     "Velocity": [ 0.0, 0.0, 0.0 ],
-    "Mass": 50000.0,
+    "Mass": 80.0,
     "IsAsleep": false,
     "CollisionMask": "DINAMIC_OBJ",
     "FrictionCoef": 0.2
