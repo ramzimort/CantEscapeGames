@@ -182,9 +182,9 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Multicast<void(int32_t, int32_t)>>
 		(
 			"MouseScrollMulticast",
-			"Bind", &Multicast<void(Sint32, Sint32)>::BindLuaFunction,
+			"Bind", &Multicast<void(int32_t, int32_t)>::BindLuaFunction,
 
-			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
+			"Unbind", &Multicast<void(int32_t, int32_t)>::UnbindLuaFunction
 			);
 
 	luaState.new_usertype<Multicast<void(int, int, float, float)>>

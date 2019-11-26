@@ -49,7 +49,7 @@ public:
 	 * @param x 
 	 * @param y 
 	 */
-	MouseScrollEvent(Sint32 x, Sint32 y) :
+	MouseScrollEvent(int32_t x, int32_t y) :
 		m_xScroll(x), m_yScroll(y)
 	{
 		//DEBUG_LOG("Position: %f,%f; Delta: %f,%f, State: %d\n", pos.x, pos.y, delta.x, delta.y, state);
@@ -59,21 +59,21 @@ public:
 	{
 		OnMouseScroll()(m_xScroll, m_yScroll);
 	}
-	static Multicast<void(Sint32, Sint32)>& OnMouseScroll()
+	static Multicast<void(int32_t, int32_t)>& OnMouseScroll()
 	{
-		static Multicast<void(Sint32, Sint32)> m;
+		static Multicast<void(int32_t, int32_t)> m;
 		return m;
 	}
 	/**
 	 * @brief Scroll in X (uncommon)
 	 * 
 	 */
-	Sint32 m_xScroll;
+	const int32_t m_xScroll;
 	/**
 	 * @brief Scroll in Y
 	 * 
 	 */
-	Sint32 m_yScroll;
+	const int32_t m_yScroll;
 };
 
 /**

@@ -484,7 +484,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			transform->SetLocalPosition(position);
 
 			MathUtil::RadiansToDegree(eularRotation);
-			transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
+			//transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
 		}
 
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;

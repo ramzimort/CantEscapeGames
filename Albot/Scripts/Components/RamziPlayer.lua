@@ -1,38 +1,48 @@
 -- First approximation of a component script
 
-TestPlayerAnimComp = 
+RamziPlayer = 
 {
-	name = "TestPlayerAnimComp";
+	name = "RamziPlayer";
 	
 	--Custom stuff
 	animComp = nil;
 	transformComp = nil;
+	rigidbodyComp = nil;
 	
 	walking = false;
 	jumping = false;
-	falling = false;
-	landing = false;
 	isCrawling = false;
-	landingTime = 0.0;
-	yFloor = 0.0;
 
-	accel = Vector3.new(0,0,0);
-	velocity = Vector3.new(0,0,0);
-	targetFwd = Vector3.new(0,0,0);
-	
-	rightPressed = false;
-	leftPressed = false;
-	upPressed = false;
-	downPressed = false;
-	spacePressed = false;
+	prevVelY = 0;
+	currVelY = 0;
+
+	-- Movement
+	analog = Vector3.new(0.0,0.0,0.0);
+	movespeed = 4;
+	jumpSpeed = 6;
+	jumpDebounceTimer = -1.0;
+	jumpDebounceTime = 0.3;
 }
 
 
 --Method
-TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
-	
-	if (self.animComp == nil) then 
-		return 
+RamziPlayer.OnKeyPressed = function(self, key, state)
+	--Up-Down Movement
+	if(SCANCODE.W == key) then
+		if(state) then self.analog.z = -1.0
+		else self.analog.z = 0.0 end
+	end
+	if(SCANCODE.S == key) then
+		if(state) then self.analog.z = 1.0
+		else self.analog.z = 0.0 end
+	end
+	if(SCANCODE.D == key) then
+		if(state) then self.analog.x = 1.0
+		else self.analog.x = 0.0 end
+	end
+	if(SCANCODE.A == key) then
+		if(state) then self.analog.x = -1.0
+		else self.analog.x = 0.0 end
 	end
 
 	if(SCANCODE.E == key and state) then
@@ -56,220 +66,135 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
 			self.jumping = true;
 			self.walking = false;
-			self.yFloor = self.transformComp:GetPosition().y;
-			self.accel.y = 60;
+			local vel = self.rigidbodyComp:GetVelocity();
+			vel.y = self.jumpSpeed;
+			self.rigidbodyComp:SetVelocity(vel);
 			self.animComp:SetTrigger("Jump");
 		end
-	end
-	
-
-	--Up-Down Movement
-	if(SCANCODE.UP == key) then
-		self.upPressed = state;
-	end
-	if(SCANCODE.DOWN == key) then
-		self.downPressed = state;
-	end
-	if(SCANCODE.RIGHT == key) then
-		self.rightPressed = state;
-	end
-	if(SCANCODE.LEFT == key) then
-		self.leftPressed = state;
 	end
 end
 
 
-TestPlayerAnimComp.OnJoystickButton = function(self, ID, key, state)
-	
-	if (self.animComp == nil) then 
-		return 
-	end
-
+RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.A == key and state) then
-		self.animComp:SetTrigger("Punch");
-	end
-	
-	if(CONTROLLER.B == key and state) then
-		self.animComp:SetTrigger("Kick");
-	end
-		
-	if(CONTROLLER.X == key and state) then
-		self.animComp:SetTrigger("Upper");
-	end
-
-	if(CONTROLLER.Y == key and state) then
 		if (not self.jumping) then
-			self.walking = false;
-			self.jumping = true;
-			self.animComp:SetTrigger("Jump");
-			self.accel.y = 60;
-			self.yFloor = self.transformComp:GetPosition().y;
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
+			local vel = self.rigidbodyComp:GetVelocity();
+			vel.y = self.jumpSpeed;
+			self.transformComp:Translate(0.0, 0.01, 0.0);
+			self.rigidbodyComp:SetVelocity(vel);
 		end
-	end
-
 	
-	if(CONTROLLER.DUP == key) then
-		self.upPressed = state;
+	elseif(CONTROLLER.B == key and state) then
+		self.animComp:SetTrigger("Crawl");
+	
+	elseif(CONTROLLER.X == key and state) then
+		self.animComp:SetTrigger("Punch");
+	elseif(CONTROLLER.Select == key and state) then 
+		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
 	end
-	if(CONTROLLER.DDOWN == key) then
-		self.downPressed = state;
+end
+
+RamziPlayer.OnJoystickMotion = function(self, ID, axis, value)
+	if(value < 0.2 and value > -0.2) -- Debouncing small values
+		then value = 0.0;
 	end
-	if(CONTROLLER.DRIGHT == key) then
-		self.rightPressed = state;
-	end
-	if(CONTROLLER.DLEFT == key) then
-		self.leftPressed = state;
+	if(axis == 0) then 
+		self.analog.x = value;
+	elseif(axis == 1) then 
+		self.analog.z = value;
 	end
 end
 
 
 --Init called when comp is created
-TestPlayerAnimComp.Init = function(self)
+RamziPlayer.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKeyPressed});
 	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
 end
 
 
 --Begin called when obj has all comps
-TestPlayerAnimComp.Begin = function(self, owner)
+RamziPlayer.Begin = function(self, owner)
 
 	-- Cache the components
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
-
-	--Set the forward Vec initial val
-	self.targetFwd = self.transformComp:GetForward();
+	self.rigidbodyComp = owner:GetRigidbodyComp();
 
 	--Setup of the state machine
 	self:AnimatorSetup();
-
 end
 
 
 --Update called every tick
-TestPlayerAnimComp.Update = function(self, dt, owner) 
+RamziPlayer.Update = function(self, dt, owner) 
 	
 	if (self.animComp == nil) then return end
 	if (self.transformComp == nil) then return end
-
-
-	--GRAVITY FAKING
-	if (self.falling) then
-		self.accel.y = -20;
-	end
-	if (self.landing) then
-		self.landingTime = self.landingTime - dt;
-		if (self.landingTime < 0.0) then
-			self.landingTime = 0.0;
-			self.landing = false;
+	if (self.rigidbodyComp == nil) then return end
+	
+	--GRAVITY (DOING THIS FOR GROUND COLLISION)
+	local vel = self.rigidbodyComp:GetVelocity();
+	local horizontalSpeed = (vel.x * vel.x) + (vel.z * vel.z);
+	local verticalSpeed = Abs(vel.y);
+	self.prevVelY = self.currVelY;
+	self.currVelY = vel.y;
+	local deltaVel = self.currVelY - self.prevVelY;
+	
+	if (self.jumpDebounceTimer > 0.0) then 
+		self.jumpDebounceTimer = self.jumpDebounceTimer - dt;
+		if(not self.jumping and vel.y > 0.1) then 
+			vel.y = 0.0;
+			self.rigidbodyComp:SetVelocity(vel);
 		end
 	end
 
-
-	--Handle x-z displacement
-	self:HandleMovement(self.landing, self.isJumping);
-
-	--Rotation to face input shit
-	if (self.targetFwd.x ~= 0 or self.targetFwd.y ~= 0 or self.targetFwd.z ~= 0) then
+	--Handle x-z displacement and rotation
+	self:HandleMovement(self);
+	if(self.analog:len2() > 0.01) then
 		self:UpdateRotation();
 	end
-
-	--Physics integration and movement
-	self.velocity = self.accel * dt;
-	local accelSub = self.accel * 0.125;
-	self.accel = self.accel - accelSub;
-	self.transformComp:Translate(self.velocity);
-	--owner:GetRigidbodyComp():SetVelocity(self.velocity);
-
-	--GRAVITY FAKING-------------------------
-	if (self.jumping and not self.falling) then
-		if (self.velocity.y <= 0.05) then
-			self.falling = true;
-		end
-	elseif(self.jumping and self.falling) then
-		--Apply gravity stuff
-		local yDisp = self.transformComp:GetPosition().y - self.yFloor; 
-		if (yDisp < 0) then 
-
-			--Fire animation change and correct position
-			self.animComp:SetTrigger("Land");
-			self.transformComp:Translate(0, -yDisp, 0);
-			
-			--Dont keep falling and set flags to false
-			self.accel.y = 0;
-			self.falling = false;
-			self.jumping = false;
-
-			--Set landing time. It wont move until stops landing
-			self.landingTime = 0.20; --Half a second
-			self.landing = true;
-
-			--Also stop moving in the xz dir until landing ends
-			self.walking = false;
-			self.accel.x = 0.0;
-			self.accel.z = 0.0;
-
-			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Step.mp3");
-		end
-	end--------------------------------------
-
 	
-	--WALKING Animation control
-	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
-	local speed = xz_vel:len();
-	if (speed > 0 and not self.walking and not self.jumping) then
-		self.walking = true;
-		--OutputPrint("Setting trigger to 1 - walk\n");
-		self.animComp:SetTrigger("Walk");
-	elseif (speed == 0 and self.walking) then 
+	-- Animation States
+	if (verticalSpeed > 1 and not self.jumping and self.jumpDebounceTimer < 0.0) then
+		self.jumping = true;
 		self.walking = false;
-		--OutputPrint("Setting trigger to 1 - Stopwalk\n");
+		self.animComp:SetTrigger("Jump");
+		self.jumpDebounceTimer = self.jumpDebounceTime;
+		LOG("JUMP: " .. verticalSpeed .. "\n");
+	elseif (deltaVel > 0.0 and self.jumping and self.jumpDebounceTimer < 0.0) then 
+		self.walking = false;
+		self.jumping = false;
+		self.jumpDebounceTimer = self.jumpDebounceTime;
+		self.animComp:SetTrigger("Land");
+		LOG("Land: " .. deltaVel .. "\n");
+	elseif (horizontalSpeed > 0.1 and not self.walking and not self.jumping) then
+		self.walking = true;
+		self.jumping = false;
+		self.animComp:SetTrigger("Walk");
+		LOG("Walk\n");
+	elseif (horizontalSpeed < 0.1 and self.walking  and not self.jumping) then 
+		self.walking = false;
+		self.jumping = false;
 		self.animComp:SetTrigger("StopWalk");
+		LOG("Stop\n");
 	end
+
 end
 
-
-
-TestPlayerAnimComp.HandleMovement = function(self, isLanding, isJumping)
-	
-	--Acceleration when pressed UP OR DOWN
-	if (self.upPressed) then 
-		self.accel.z = -1;
-		self.targetFwd.z = -1.0;
-	elseif (self.downPressed) then 
-		self.accel.z = 1;
-		self.targetFwd.z = 1.0;
-	else
-		self.accel.z = 0;
-		self.targetFwd.z = 0;
-	end
-	
-	--Acceleration when pressed RIGHT OR LEFT
-	if (self.leftPressed) then 
-		self.accel.x = -1;
-		self.targetFwd.x = -1.0;
-	elseif (self.rightPressed) then 
-		self.accel.x = 1;
-		self.targetFwd.x = 1.0;
-	else 
-		self.accel.x = 0;
-		self.targetFwd.x = 0; 
-	end
-
-	--Normalize and apply the magnitude
-	local mgt = 20.0;
-	if (isLanding or isJumping) then
-		mgt = 10.0;
-	end
-	local xzAccel = Vector2.new(self.accel.x, self.accel.z);
-	xzAccel:normalize();
-	self.accel = Vector3.new( mgt*xzAccel.x, self.accel.y, mgt*xzAccel.y);
+RamziPlayer.HandleMovement = function(self)
+	local mgt = self.movespeed;
+	local currentVelocity = self.analog * mgt;
+	currentVelocity.y = self.rigidbodyComp:GetVelocity().y;
+	self.rigidbodyComp:SetVelocity(currentVelocity);
 end
 
-TestPlayerAnimComp.UpdateRotation = function(self)
+RamziPlayer.UpdateRotation = function(self)
 	--Get current forward and target forward
 	local currFwd = self.transformComp:GetForward();
-	local tgtFwd = self.targetFwd;
+	local tgtFwd = self.analog;
 	currFwd:normalize();
 	tgtFwd:normalize();
 
@@ -287,46 +212,43 @@ TestPlayerAnimComp.UpdateRotation = function(self)
 			if ( rightdot < 0.0) then
 				yRot = -yRot;
 			end
-
 			if (yRot > 0.0) then
 				self.transformComp:Rotate(0, 10.0, 0);
 			elseif (yRot < 0.0) then
 				self.transformComp:Rotate(0, -10.0, 0);
 			end
-
 		end
 	end
 end
 
-TestPlayerAnimComp.OnDestruction = function(self)
+RamziPlayer.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});
 	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
-
 --SOUND EFFECTS (for animation events)
-TestPlayerAnimComp.OnStep = function(self)
+RamziPlayer.OnStep = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Step.mp3");
 end
 
-TestPlayerAnimComp.OnKickTest01 = function(self)
+RamziPlayer.OnKickTest01 = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Collision1.mp3");
 end
 
-TestPlayerAnimComp.OnKickTest02 = function(self)
+RamziPlayer.OnKickTest02 = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Block.mp3");
 end
 
-TestPlayerAnimComp.OnKickWhoosh = function(self)
+RamziPlayer.OnKickWhoosh = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Whoosh_01.mp3");
 end
 
-TestPlayerAnimComp.OnKickWhoosh2 = function(self)
+RamziPlayer.OnKickWhoosh2 = function(self)
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Whoosh_02.mp3");
 end
 
-
-TestPlayerAnimComp.AnimatorSetup = function(self)
+RamziPlayer.AnimatorSetup = function(self)
 	--STATES-------------------------------------------------------------
 	local idle_State =		self.animComp:CreateState("idle", "IdleAnim");
 	local atk01_State =		self.animComp:CreateState("atk01", "AttackAnim");
@@ -416,6 +338,4 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	self.animComp:AddAnimEvent("UpperAnim", 74, {self, self.OnKickWhoosh});
 end
 
-
-
-return TestPlayerAnimComp;
+return RamziPlayer;

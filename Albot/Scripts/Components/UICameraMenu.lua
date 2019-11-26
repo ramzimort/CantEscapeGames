@@ -168,11 +168,10 @@ UICameraMenu.Update = function(self, dt, owner)
 				elseif (gameObject:GetTag() == "SettingButton") then
 					self.loadingState = "Assets\\Levels\\Setting.json";
 				elseif (gameObject:GetTag() == "CreditsButton") then
-					self.loadingState = "Assets\\Levels\\Credits.json";
+					self.loadingState = "Assets\\Levels\\Ramzi.json";
 				elseif (gameObject:GetTag() == "ExitButton") then
 					EventManager.Get():Quit(false);
 				end
-
 				self.PlayFinalAnimation = true;
 			end
 		end

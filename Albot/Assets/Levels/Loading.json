@@ -1,113 +1,116 @@
 {
-    "Resources": {
-        "Textures": [
-          "Assets\\Textures\\UI\\Stars.png",
-          "Assets\\Textures\\UI\\Loading.png",
-          "Assets\\Textures\\UI\\RotatingArrow.png"
-        ],
-        "Models": [
-          "Assets\\Models\\AnimTest01.fbx",
-          "Assets\\Models\\Cube.fbx",
-          "Assets\\Models\\mitsuba-sphere.obj",
-          "Assets\\Models\\plane.fbx",
-          "Assets\\Models\\Sphere.fbx",
-          "Assets\\Models\\TestWalk.fbx",
-          "Assets\\Models\\SweatBall.fbx"
-        ],
-      "Materials": [
-        "Assets\\Materials\\UI\\StarsMaterial.json",
-        "Assets\\Materials\\UI\\LoadingMaterial.json",
-        "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
-      ],
-      "Scripts": [
-        "Scripts\\Components\\UICameraMenu.lua",
-        "Scripts\\Components\\Button.lua",
-        "Scripts\\Components\\AffineAnimation.lua",
-        "Scripts\\Components\\WindowResize.lua",
-        "Scripts\\Components\\UICameraLoading.lua",
-        "Scripts\\States\\Loading.lua",
-        "Scripts\\Components\\TestPlayerAnimComp.lua",
-        "Scripts\\Components\\JoseController.lua",
-        "Scripts\\Components\\fpscontroller.lua",
-        "Scripts\\Components\\editor.lua",
-        "Scripts\\Components\\PlayerComp.lua",
-        "Scripts\\Components\\test01Comp.lua",
-        "Scripts\\Components\\test02Comp.lua",
-        "Scripts\\Components\\rgdbdyPlayer.lua",
-        "Scripts\\Components\\TriggerTest.lua",
-        "Scripts\\Components\\UICameraMenu.lua",
-        "Scripts\\Components\\Button.lua",
-        "Scripts\\Components\\AffineAnimation.lua",
-        "Scripts\\Components\\WindowResize.lua",
-        "Scripts\\Components\\UICameraLoading.lua",
-        "Scripts\\Components\\PresentationParticleEmitOnce.lua",
-        "Scripts\\States\\DebugPause.lua",
-        "Scripts\\States\\Graphics.lua",
-        "Scripts\\States\\Physics.lua",
-        "Scripts\\States\\Menu.lua",
-        "Scripts\\States\\JoseLevel.lua"
-      ],
-      "Prefabs": [
-        "Assets\\Prefabs\\UIObject.json",
-        "Assets\\Prefabs\\UIEmpty.json"
-      ],
-        "Songs": [],
-      "SFX": [],
-      "Fonts": [
-        "Assets\\Fonts\\courier_new.spritefont",
-        "Assets\\Fonts\\courier_new_bold.spritefont"
-      ]
-    },
-    "Objects": [
-      {
-          "tag": "Loading",
-          "prefab": "Assets\\Prefabs\\UIEmpty.json",
-          "overrides": {
-            "TransformComponent": {
-              "Position": [  0, 0,0 ],
-              "Rotation": [ 0.0, 0.0, 0.0 ],
-              "Scale": [ 1280, 720, 1 ]
-            },
-    
+  "Language": "Assets\\Strings\\en.csv",
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\UI\\Stars.png",
+      "Assets\\Textures\\UI\\Loading.png",
+      "Assets\\Textures\\UI\\RotatingArrow.png"
+    ],
+    "Models": [
+      "Assets\\Models\\AnimTest01.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\Sphere.fbx",
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\SweatBall.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\UI\\StarsMaterial.json",
+      "Assets\\Materials\\UI\\LoadingMaterial.json",
+      "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
+    ],
+    "Scripts": [
+      "Scripts\\Components\\UICameraMenu.lua",
+      "Scripts\\Components\\Button.lua",
+      "Scripts\\Components\\AffineAnimation.lua",
+      "Scripts\\Components\\WindowResize.lua",
+      "Scripts\\Components\\UICameraLoading.lua",
+      "Scripts\\Components\\TriggerTest.lua",
+      "Scripts\\Components\\TestPlayerAnimComp.lua",
+      "Scripts\\Components\\JoseController.lua",
+      "Scripts\\Components\\fpscontroller.lua",
+      "Scripts\\Components\\editor.lua",
+      "Scripts\\Components\\PlayerComp.lua",
+      "Scripts\\Components\\test01Comp.lua",
+      "Scripts\\Components\\test02Comp.lua",
+      "Scripts\\Components\\rgdbdyPlayer.lua",
+      "Scripts\\Components\\UICameraMenu.lua",
+      "Scripts\\Components\\Button.lua",
+      "Scripts\\Components\\AffineAnimation.lua",
+      "Scripts\\Components\\WindowResize.lua",
+      "Scripts\\Components\\UICameraLoading.lua",
+      "Scripts\\Components\\PresentationParticleEmitOnce.lua",
+      "Scripts\\States\\Loading.lua",
+      "Scripts\\States\\DebugPause.lua",
+      "Scripts\\States\\Graphics.lua",
+      "Scripts\\States\\Physics.lua",
+      "Scripts\\States\\Menu.lua",
+      "Scripts\\States\\JoseLevel.lua",
+      "Scripts\\States\\Ramzi.lua",
+      "Scripts\\Components\\TppFollowController.lua",
+      "Scripts\\Components\\RamziPlayer.lua"
+    ],
+    "Prefabs": [
+      "Assets\\Prefabs\\UIObject.json",
+      "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",
+      "Assets\\Prefabs\\Players\\RamziPlayer.json"
+    ],
+    "Songs": [],
+    "SFX": [],
+    "Fonts": [
+      "Assets\\Fonts\\courier_new.spritefont",
+      "Assets\\Fonts\\courier_new_bold.spritefont"
+    ]
+  },
+  "Objects": [
+    {
+      "tag": "Loading",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0, 0, 0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
         "UIComponent": {
-          "InitialPosition": [ 0, 0,0],
-          "FinalPosition": [ 0, 0, 0],
-          "DeltaTime": -1.0 
+          "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\UI\\LoadingMaterial.json"
-        }		
-        
-          }
+        }
+      }
+    },
+    {
+      "tag": "RotatingArrow",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 990.0, 490.0, 0.00 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 216.0, 216.0, 0.0001 ]
         },
-      {
-          "tag": "RotatingArrow",
-          "prefab": "Assets\\Prefabs\\UIEmpty.json",
-          "overrides": {
-            "TransformComponent": {
-              "Position": [  990.0, 490.0,0.00 ],
-              "Rotation": [ 0.0, 0.0, 0.0 ],
-              "Scale": [ 216.0, 216.0, 0.0001 ]
-            },
-    
+
         "UIComponent": {
-          "InitialPosition": [  700, 350,0],
-          "FinalPosition": [ 700, 350, 0],
+          "InitialPosition": [ 700, 350, 0 ],
+          "FinalPosition": [ 700, 350, 0 ],
           "DeltaTime": -35.0,
-          "InitialRotation" : 1720.0,
-          "FinalRotation" : 0.0,
-          "RotationRate" : -0.50
+          "InitialRotation": 1720.0,
+          "FinalRotation": 0.0,
+          "RotationRate": -0.50
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
-        }		
-        
-          }
-        },
-      {
-          "tag": "UIObject",
-          "prefab": "Assets\\Prefabs\\UIObject.json",
-          "overrides": {
+        }
+      }
+    },
+    {
+      "tag": "UIObject",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
         "UIComponent": {
           "TotalObjects": 2,
           "TotalButtons": 0
@@ -117,7 +120,7 @@
             "Name": "Scripts\\Components\\UICameraLoading.lua"
           }
         ]
-          }
-        }
-        ]
+      }
+    }
+  ]
 }

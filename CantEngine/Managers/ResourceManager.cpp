@@ -12,11 +12,14 @@
 #include "Reflection/Serialization.h"
 #include "CantDebug/CantDebug.h"
 #include "Memory/CantMemory.h"
+#include "EventManager.h"
+#include "Events/State/StateEvents.h"
 
 ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 {
 	m_lStrings.clear();
 	m_lStrings.insert(std::make_pair("", L"___"));
+	EventManager::Get()->SubscribeEvent<ReloadResourcesEvent>(this, std::bind(&ResourceManager::ReloadResources, this, std::placeholders::_1));
 }
 
 ResourceManager::~ResourceManager()
@@ -419,7 +422,7 @@ void ResourceManager::LoadScript(const std::string& filePath)
 }
 
 #ifdef  DEVELOPER
-void ResourceManager::ReloadResources()
+void ResourceManager::ReloadResources(const ReloadResourcesEvent* e)
 {
 	auto it = m_resources.begin();
 	while (it != m_resources.end())
@@ -450,8 +453,8 @@ void ResourceManager::ReloadResources()
 			LoadTexture(path);
 			break;
 		}*/
-		case MODEL:
-		{
+		//case MODEL:
+		//{
 			//p.p_model->Release();
 			//CantMemory::PoolResource<Model>::Free(p.p_model);
 
@@ -488,7 +491,7 @@ void ResourceManager::ReloadResources()
 			////Finally, init buffer for renderer
 			//model->InitBuffer(m_dxrenderer);
 			//break;
-		}
+		//}
 		case MATERIAL:
 		{
 			CantMemory::PoolResource<Material>::Free(p.p_material);
@@ -533,6 +536,8 @@ void ResourceManager::ReloadResources()
 		case SCRIPT:
 		{
 			// TODO: Should we do anything when clearing this type of resource
+			if (path.find("States\\") != std::string::npos)
+				break;
 			CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
 			sol::table* pLuaTable = CantMemory::PoolResource<sol::table>::Allocate();
 
@@ -552,7 +557,10 @@ void ResourceManager::ReloadResources()
 				}
 			}
 			break;
+
 		}
+		default:
+			break;
 		}
 		++it;
 	}
