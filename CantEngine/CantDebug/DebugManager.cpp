@@ -434,6 +434,12 @@ namespace CantDebug
 			info.compName = "Transform"; info.propName = "Rotation"; info.data.vec3 = transform->GetRotation();  info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "Transform"; info.propName = "Scale";	 info.data.vec3 = transform->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
 		}
+		auto trigger = go->GetComponent<TriggerComponent>();
+		if (trigger)
+		{
+			info.compName = "Trigger"; info.propName = "Offset"; info.data.vec3 = trigger->GetOffset();  info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "Trigger"; info.propName = "TriggerScale";	 info.data.vec3 = trigger->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
+		}
 		auto rigidbdy = go->GetComponent<RigidbodyComponent>();
 		if (rigidbdy)
 		{
@@ -596,6 +602,21 @@ namespace CantDebug
 			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 0.f; debugInfo.max = 50.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
+		TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
+		if (trigger)
+		{
+			debugInfo.compName = it->compName;
+
+			trigger->SetOffset(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -10.f; debugInfo.max = 10.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			trigger->SetScale(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 1.0f; debugInfo.max = 10.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
 		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
 		if (rigidBody)
 		{
@@ -702,6 +723,12 @@ namespace CantDebug
 			it->data.vec3 = transform->GetPosition(); ++it;
 			it->data.vec3 = transform->GetRotation(); ++it;
 			it->data.vec3 = transform->GetScale(); ++it;
+		}
+		TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
+		if (trigger)
+		{
+			it->data.vec3 = trigger->GetOffset(); ++it;
+			it->data.vec3 = trigger->GetScale(); ++it;
 		}
 		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
 		if (rigidBody)
@@ -826,6 +853,8 @@ namespace CantDebug
 		writer.StartObject();
 		if (go->HasComponent<TransformComponent>())
 			WriteComponentOverride(go->GetComponent<TransformComponent>(), writer);
+		if (go->HasComponent<TriggerComponent>())
+			WriteComponentOverride(go->GetComponent<TriggerComponent>(), writer);
 		if (go->HasComponent<RigidbodyComponent>())
 			WriteComponentOverride(go->GetComponent<RigidbodyComponent>(), writer);
 		if (go->HasComponent<RendererComponent>())

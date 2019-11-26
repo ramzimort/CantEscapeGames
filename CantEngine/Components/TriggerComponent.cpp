@@ -50,6 +50,7 @@ const Vector3& TriggerComponent::GetScale()
 void TriggerComponent::SetScale(const Vector3& scale)
 {
 	m_scale = scale;
+	UpdateAabb();
 }
 
 const Vector3& TriggerComponent::GetOffset()
