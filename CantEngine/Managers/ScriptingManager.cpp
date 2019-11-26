@@ -199,7 +199,7 @@ void ScriptingManager::ManageBindings()
 			"RigidbodyMultiCast",
 			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
 			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
-		);
+			);
 
 	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
 		(
@@ -214,12 +214,12 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const float)>::UnbindLuaFunction
 			);
 
-	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t,const bool)>>
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const bool)>>
 		(
 			"JoystickButtonMulticast",
 			"Bind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::BindLuaFunction,
 			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::UnbindLuaFunction
-		);
+			);
 
 
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
@@ -242,14 +242,14 @@ void ScriptingManager::ManageBindings()
 
 
 			// State Events
-			"PushState", & EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-			"PopState", & EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", & EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-			"PushLoadedState", & EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
 
 			//Audio Events
-			"PlaySong", & EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", & EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
 			);
 
 
@@ -257,21 +257,21 @@ void ScriptingManager::ManageBindings()
 #pragma endregion
 
 #pragma region CONTROLLER
-	luaState["CONTROLLER"] =  luaState.create_table_with(
-	"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
-	"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
-	"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
-	"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
-	"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
-	"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
-	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
-	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
-	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
-	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
-	"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
-	"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
-	"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
-	"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	luaState["CONTROLLER"] = luaState.create_table_with(
+		"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
+		"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
+		"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
+		"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
+		"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
+		"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
+		"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
+		"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
+		"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
+		"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+		"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
+		"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
+		"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
+		"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
 	);
 #pragma endregion
 #pragma region SCANCODE
@@ -327,7 +327,15 @@ void ScriptingManager::ManageBindings()
 		"RIGHTBRACKET", SDL_SCANCODE_RIGHTBRACKET,
 		"BLACKSLASH", SDL_SCANCODE_BACKSLASH,
 		"ENTER", SDL_SCANCODE_RETURN
-		);
+	);
+#pragma endregion
+#pragma region CollisionMaskEnum
+#define COLLISION_MASK(ENTRY) #ENTRY, CollisionTable::CollisionMask::ENTRY,
+	luaState["CollisionMask"] = luaState.create_table_with(
+		#include "Physics\CollisionMaskTypes.def"
+		"NUM", CollisionTable::CollisionMask::NUM
+	);
+#undef COLLISION_MASK
 #pragma endregion
 
 #pragma region HELPERS

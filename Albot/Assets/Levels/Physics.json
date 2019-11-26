@@ -16,9 +16,9 @@
             0.0
           ],
           "Scale": [
-            1.0,
-            1.0,
-            1.0
+            0.05,
+            0.05,
+            0.05
           ]
         },
         "CameraComponent": {
@@ -51,11 +51,18 @@
         "TransformComponent": {
           "Position": [ 10.0, 0.0, 1.0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 0.05, 0.05, 0.05 ]
+          "Scale": [ 0.01, 0.01, 0.01 ]
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\AnimTest01.fbx"
         },
+
+        "TriggerComponent": {
+          "Scale": [ 1.0, 1.0, 1.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "CollisionMask": "PLAYER"
+        },
+
         "AnimationComponent": {
           "StartingAnimation": "IdleAnim",
           "Clips": [
@@ -682,7 +689,7 @@
 
         "TriggerComponent": {
           "Scale": [ 5.0, 5.0, 5.0 ],
-          "Offset": [ 0.0, 3.0, 0.0 ],
+          "Offset": [ 0.0, 2.0, 0.0 ],
           "CollisionMask": "DINAMIC_OBJ"
         }
       }
