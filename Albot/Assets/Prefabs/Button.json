@@ -41,6 +41,10 @@
     {
       "Name": "Scripts\\Components\\AffineAnimation.lua"
 
+    },
+	{
+      "Name": "Scripts\\Components\\Text.lua"
+
     }
   ]
  }

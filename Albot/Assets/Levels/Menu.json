@@ -19,6 +19,7 @@
             "Assets\\Textures\\UI\\Level1Button.png",
 			"Assets\\Textures\\UI\\SettingsButton.png",
 			"Assets\\Textures\\UI\\MainMenu.png",
+			"Assets\\Textures\\UI\\Button.png",
 			"Assets\\Textures\\UI\\AnimationsButton.png",
 			"Assets\\Textures\\UI\\GraphicsButton.png",
 			"Assets\\Textures\\UI\\PhysicsButton.png",
@@ -74,6 +75,7 @@
       "Materials": [
         "Assets\\Materials\\CeramicMaterial.json",
         "Assets\\Materials\\Material1.json",
+		"Assets\\Materials\\UI\\ButtonMaterial.json",
         "Assets\\Materials\\MaterialDarkGreen.json",
         "Assets\\Materials\\RedDieletricRoughMaterial.json",
         "Assets\\Materials\\RedDieletricSmoothMaterial.json",
@@ -217,7 +219,7 @@
     },
 	
 	 {
-      "tag": "AnimationsButton",
+      "tag": "Prototype1Button",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -230,16 +232,22 @@
 			"ButtonIndex": 1,
 			"InitialPosition": [ -500.0, 125.0,0.08],
 			"FinalPosition": [ 50.0, 125.0, 0.08],
-			"DeltaTime": 15.0 			
+			"DeltaTime": 15.0,
+			"Text": "Prototype 1",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.04, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 			
 		},
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\AnimationsButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}		
 		
       }
     },
 	 {
-      "tag": "GraphicsButton",
+      "tag": "Prototype2Button",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -252,16 +260,22 @@
 			"ButtonIndex": 2,
 			"InitialPosition": [ -500.0, 225.0,0.08],
 			"FinalPosition": [ 50.0, 225.0, 0.08],
-			"DeltaTime": 15.0 			
+			"DeltaTime": 15.0,
+			"Text": "Prototype 2",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.04, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ]  			
 		},
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\GraphicsButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}		
 		
       }
     },
     {
-      "tag": "PhysicsButton",
+      "tag": "ProtoType3Button",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
@@ -274,10 +288,16 @@
 			"ButtonIndex": 3,
 			"InitialPosition": [ -500.0, 325.0,0.08],
 			"FinalPosition": [ 50.0, 325.0, 0.08],
-			"DeltaTime": 15.0 			
+			"DeltaTime": 15.0,
+			"Text": "Prototype 3",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.04, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		 			
 		},
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\PhysicsButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}		
 		
       }
@@ -296,11 +316,17 @@
 			"ButtonIndex": 4,
 			"InitialPosition": [ -500, 425,0 ],
 			"FinalPosition": [ 50, 425, 0],
-			"DeltaTime": 15.0 
+			"DeltaTime": 15.0,
+			"Text": "Settings",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.06, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 			
 		},
 		
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\SettingsButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}		
 		
       }
@@ -319,11 +345,17 @@
 			"ButtonIndex": 5,
 			"InitialPosition": [ -500, 525,0],
 			"FinalPosition": [ 50, 525, 0],
-			"DeltaTime": 15.0 
+			"DeltaTime": 15.0,
+			"Text": "Credits",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.07, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 					
 		},
 
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\CreditsButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}				
 		
       }
@@ -366,11 +398,17 @@
 			"ButtonIndex": 6,
 			"InitialPosition": [ -500, 625,0],
 			"FinalPosition": [ 50, 625, 0],
-			"DeltaTime": 15.0 
+			"DeltaTime": 15.0,
+			"Text": "Exit",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ 0.1, 0.025 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 				
 		},
 
 		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ExitButtonMaterial.json"
+			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
 		}				
 		
       }
