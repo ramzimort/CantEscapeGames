@@ -1,6 +1,6 @@
 {
   "TransformComponent": {
-    "Position": [ 0.0, 0.0, 0.0 ],
+    "Position": [ 0.0, 3.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
     "Scale": [ 1.0, 1.0, 1.0 ]
   },
@@ -11,6 +11,12 @@
 
   "MeshComponent": {
     "ModelId": "Assets\\Models\\AnimTest01.fbx"
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
   },
 
   "RigidBodyComponent": {

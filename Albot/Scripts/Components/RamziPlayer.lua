@@ -25,6 +25,32 @@ RamziPlayer =
 }
 
 
+--Init called when comp is created
+RamziPlayer.Init = function(self)
+	OnKeyEvent():Bind({self, self.OnKeyPressed});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
+	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
+end
+
+
+--Begin called when obj has all comps
+RamziPlayer.Begin = function(self, owner)
+
+	-- Cache the components
+	self.animComp = owner:GetAnimationComp();
+	self.transformComp = owner:GetTransformComp();
+	self.rigidbodyComp = owner:GetRigidbodyComp();
+
+	--Setup of the state machine
+	self:AnimatorSetup();
+end
+
+RamziPlayer.OnDestruction = function(self)
+	OnKeyEvent():Unbind({self, self.OnKeyPressed});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
+	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
+end
+
 --Method
 RamziPlayer.OnKeyPressed = function(self, key, state)
 	--Up-Down Movement
@@ -107,27 +133,6 @@ RamziPlayer.OnJoystickMotion = function(self, ID, axis, value)
 end
 
 
---Init called when comp is created
-RamziPlayer.Init = function(self)
-	OnKeyEvent():Bind({self, self.OnKeyPressed});
-	OnJoystickButton():Bind({self, self.OnJoystickButton});
-	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
-end
-
-
---Begin called when obj has all comps
-RamziPlayer.Begin = function(self, owner)
-
-	-- Cache the components
-	self.animComp = owner:GetAnimationComp();
-	self.transformComp = owner:GetTransformComp();
-	self.rigidbodyComp = owner:GetRigidbodyComp();
-
-	--Setup of the state machine
-	self:AnimatorSetup();
-end
-
-
 --Update called every tick
 RamziPlayer.Update = function(self, dt, owner) 
 	
@@ -169,6 +174,7 @@ RamziPlayer.Update = function(self, dt, owner)
 		self.jumping = false;
 		self.jumpDebounceTimer = self.jumpDebounceTime;
 		self.animComp:SetTrigger("Land");
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\Collision1.mp3");
 		LOG("Land: " .. deltaVel .. "\n");
 	elseif (horizontalSpeed > 0.1 and not self.walking and not self.jumping) then
 		self.walking = true;
@@ -219,12 +225,6 @@ RamziPlayer.UpdateRotation = function(self)
 			end
 		end
 	end
-end
-
-RamziPlayer.OnDestruction = function(self)
-	OnKeyEvent():Unbind({self, self.OnKeyPressed});
-	OnJoystickButton():Unbind({self, self.OnJoystickButton});
-	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 --SOUND EFFECTS (for animation events)
