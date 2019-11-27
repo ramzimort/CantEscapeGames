@@ -17,9 +17,7 @@ RamziPlayer =
 	punching = false;
 	punchWaitTimer = -1.0;
 	punchWaitTime  = 1.0;
-	isCrawling = false;
-
-	
+	isCrawling = false;	
 
 	-- Movement
 	analog = Vector3.new(0.0,0.0,0.0);
@@ -27,7 +25,6 @@ RamziPlayer =
 	currVelY = 0;
 	movespeed = 4;
 	jumpSpeed = 6;
-
 }
 
 
@@ -129,14 +126,18 @@ RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 end
 
 RamziPlayer.OnJoystickMotion = function(self, ID, axis, value)
-	if(value < 0.2 and value > -0.2) -- Debouncing small values
-		then value = 0.0;
+	if(value < 0.2 and value > -0.2) then -- Debouncing small values
+		 value = 0.0;
+	else
 	end
 	if(axis == 0) then 
 		self.analog.x = value;
 	elseif(axis == 1) then 
 		self.analog.z = value;
+	else return
 	end
+	
+
 end
 
 
@@ -168,7 +169,8 @@ RamziPlayer.Update = function(self, dt, owner)
 
 	--Handle x-z displacement and rotation
 	self:HandleMovement(self);
-	if(self.analog:len2() > 0.01) then
+	local len2 = self.analog:len2();
+	if(len2 > 0.01) then
 		self:UpdateRotation();
 	end
 	
@@ -187,16 +189,17 @@ RamziPlayer.Update = function(self, dt, owner)
 		self.landing = true;
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\Collision1.mp3");
 		--LOG("Land: " .. deltaVel .. "\n");
-	elseif (horizontalSpeed > 0.1 and not self.walking and not self.jumping) then
-		self.walking = true;
-		self.jumping = false;
-		self.animComp:SetTrigger("Walk");
-		--LOG("Walk\n");
-	elseif (horizontalSpeed < 0.1 and self.walking  and not self.jumping) then 
-		self.walking = false;
-		self.jumping = false;
+	end
+
+	local len2 = self.analog:len2();
+	if(len2 < 0.01 and self.walking) then 
+		self.walking = false; 
 		self.animComp:SetTrigger("StopWalk");
-		--LOG("Stop\n");
+		LOG("StopWalk\n");
+	elseif(len2 > 0.01 and not self.walking and not self.jumping) then
+		self.walking = true;
+		self.animComp:SetTrigger("Walk");
+		LOG("Walk\n");
 	end
 
 end
