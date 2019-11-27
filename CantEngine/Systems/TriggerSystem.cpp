@@ -63,7 +63,7 @@ void TriggerSystem::LateUpdate(float dt)
 			DEBUG_LOG("TriggerSystem::LateUpdate(): while updating aabb one or more of the following is a nullptr: trigger, mesh, transform.");
 		}
 #endif		
-
+		//trigger->UpdateAabb();
 		Aabb aabb = trigger->GetAabb();
 		const Vector3 translationVec = transform->GetPosition() + trigger->GetOffset();
 		Matrix translation = Matrix::CreateTranslation(translationVec);
@@ -73,6 +73,17 @@ void TriggerSystem::LateUpdate(float dt)
 		aabb.m_Max += translationVec;
 
 
+#ifdef DEVELOPER
+		if (PhysicsUtils::Settings::isDrawTriggersTree)
+		{
+			DebugAABBInstance debugAabb;
+			debugAabb.m_min_bound = aabb.m_Min;
+			debugAabb.m_max_bound = aabb.m_Max;
+			debugAabb.m_color = Vector3(0.0f, 1.0f, 0.0f);
+			m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(debugAabb);
+		}
+#endif
+
 		// updating aabb tree
 		SpatialPartitionData data(trigger, aabb);
 		m_triggers.UpdateData(trigger->m_dynamicAabbTreeKey, data);
@@ -81,11 +92,6 @@ void TriggerSystem::LateUpdate(float dt)
 	QueryResults results;
 	m_triggers.SelfQuery(results);
 	results.DeleteDuplicates();
-
-#ifdef DEVELOPER
-	if (PhysicsUtils::Settings::isDrawTriggersTree)
-		m_triggers.DebugDraw(m_pAppRenderer, -1, Vector4(0, 1, 0, 1));
-#endif
 
 	// update triggers
 	for (QueryResult& curQuery : results.m_results)
