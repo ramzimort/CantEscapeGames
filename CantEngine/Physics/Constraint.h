@@ -1,9 +1,10 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Aleksey Perfilev
-- End Header --------------------------------------------------------*/
+/**
+ * @file Constraint.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Everything that is related to constraints
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 #pragma once
 
 #include "Physics/Gjk/CollisionManifold.h"
@@ -22,6 +23,10 @@ class CollisionManifold;
 // where m1 and m2 just mass * identity3 for both objects
 // and I1, I2 are inertia tensors for both objects
 // so each entry is 3 by 3 matrix
+/**
+ * @brief Mass matrix 12x12, with 3x3 matrices on the diagonal and zeros everywhere else
+ * 
+ */
 class MassMatrix
 {
 public:
@@ -34,6 +39,12 @@ public:
 	MassMatrix(const Matrix& mass1, const Matrix& inertiaTensor1,
 		const Matrix& mass2, const Matrix& inertiaTensor2);
 
+	/**
+	 * @brief Multiplies each 3x3 matrix in the diagonal by each 3x1 vector in the Jacobian vector
+	 * 
+	 * @param result 
+	 * @param rhs 
+	 */
 	void MultiplyByJacobian(Jacobian& result, const Jacobian& rhs);
 };
 
@@ -42,6 +53,10 @@ public:
 //  y [                ]
 //  z [                ]
 //  0 [                ]
+/**
+ * @brief Stores 12x1 Jacobian vector where every 3 entry is a 3x1 vector
+ * 
+ */
 class Jacobian
 {
 public:
@@ -53,13 +68,33 @@ public:
 	Jacobian();
 	Jacobian(const Vector3& v1, const Vector3 w1, const Vector3 v2, const Vector3 w2);
 
-	// this is used when multiplying J and V used in constraints calculation, should only return 1 number
+	/**
+	 * @brief Dot product of two 12x1 vectors
+	 * 
+	 * @param rhs 
+	 * @return float 
+	 */
 	float operator*(const Jacobian& rhs);
+	/**
+	 * @brief Multiplication by a scalar
+	 * 
+	 * @param result 
+	 * @param rhs 
+	 */
 	void MultiplyByFloat(Jacobian& result, float rhs);
+	/**
+	 * @brief Adding another 12x1 vector to this vector
+	 * 
+	 * @param result 
+	 * @param rhs 
+	 */
 	void AddJacobian(Jacobian& result, const Jacobian& rhs);
 };
 
-// class PhysicalObject;
+/**
+ * @brief Stores and computes all the constraint information
+ * 
+ */
 class Constraint
 {
 public:
@@ -67,11 +102,30 @@ public:
 	Constraint(RigidbodyComponent* obj1, RigidbodyComponent* obj2, float depth = 0.0f);
 	~Constraint();
 
-	// calculates coefficients for the Velocity constraint for normal constraint
+	/**
+	 * @brief Calculates coefficients for the Velocity constraint for normal constraint
+	 * 
+	 * @param normal 
+	 * @param pointA 
+	 * @param pointB 
+	 */
 	void CalculateNormalJacobian(const Vector3& normal, const Vector3& pointA, const Vector3& pointB);
-
-	// calculates coefficients for the Velocity constraint for friction constraints, there are 2 of them
+	/**
+	 * @brief Calculates coefficients for the Velocity constraint for friction constraints, there are 2 of them
+	 * 
+	 * @param normal 
+	 * @param pointA 
+	 * @param pointB 
+	 * @param constraintFriction1 
+	 * @param constraintFriction2 
+	 */
 	static void CalculateFrictionJacobians(const Vector3& normal, const Vector3& pointA, const Vector3& pointB, Constraint& constraintFriction1, Constraint& constraintFriction2);
+	/**
+	 * @brief Represents of a 12x1 Jacobian vector as a 4x4 matrix
+	 * 
+	 * @param result 
+	 * @param jacobian 
+	 */
 	static void ToMatrix4(Matrix& result, const Jacobian& jacobian);
 
 	Jacobian m_jacobian;                  // coefficients for linear and angular velocity of both objects
@@ -84,14 +138,28 @@ public:
 
 
 private:
-	// helper function to buil jacobian for normal and friction constraint
+	/**
+	 * @brief helper function to buil jacobian for normal and friction constraint
+	 * 
+	 * @param direction 
+	 * @param radiusVector 
+	 * @param radiusVector2 
+	 */
 	void CalculateJacobian(const Vector3& direction, const Vector3& radiusVector, const Vector3& radiusVector2);
 };
 
+/**
+ * @brief Stores all the information relative to the contact
+ * 
+ */
 class Contact
 {
 public:
 	Contact();
+	/**
+	 * @brief Builds the 3 constraints for the contact from the previously initialized data
+	 * 
+	 */
 	void BuildConstraints();
 
 	std::vector<Constraint> m_constraints;
@@ -106,11 +174,24 @@ public:
 	Vector3 m_normal;
 };
 
+/**
+ * @brief Stores up to 4 contacts per collision between 2 rigid bodies
+ * 
+ */
 class ContactManifold
 {
 public:
 	ContactManifold(Contact& collision);
+	/**
+	 * @brief Proccesses a new contact into the manifold
+	 * 
+	 * @param collision 
+	 */
 	void ProccessCollision(Contact& collision);
+	/**
+	 * @brief Drops unnecessary contacts from the manifold
+	 * 
+	 */
 	void KeepOnlyFourContacts();
 
 	RigidbodyComponent* m_object1;		  // first object

@@ -1,4 +1,10 @@
-#include "TriggerSystem.h"
+/**
+ * @file TriggerSystem.cpp
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
+ #include "TriggerSystem.h"
 #include "../GameObjects/GameObject.h"
 #include "Components/TransformComponent.h"
 #include "Components/TriggerComponent.h"

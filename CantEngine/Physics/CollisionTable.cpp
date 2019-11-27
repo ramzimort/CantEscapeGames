@@ -1,3 +1,9 @@
+/**
+ * @file CollisionTable.cpp
+ * @author Jose Rosenbluth, Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 #include "stdafx.h"
 #include "CollisionTable.h"
 #include "PhysicsUtils.h"
