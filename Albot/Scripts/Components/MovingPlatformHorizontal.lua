@@ -1,9 +1,6 @@
-
--- First approximation of a component script
-
-MovingPlatform = 
+MovingPlatformHorizontal = 
 {
-	name = "MovingPlatform";
+	name = "MovingPlatformHorizontal";
 	
 	--Custom stuff
 	rgdbdyComp = nil;
@@ -14,15 +11,10 @@ MovingPlatform =
 	moveSpeed = 3.0;
 }
 
-
---Method
---Init called when comp is created
-MovingPlatform.Init = function(self)
+MovingPlatformHorizontal.Init = function(self)
 end
 
-
---Begin called when obj has all comps
-MovingPlatform.Begin = function(self, owner, goMgr)
+MovingPlatformHorizontal.Begin = function(self, owner, goMgr)
 	self.rgdbdyComp = owner:GetRigidbodyComp();
 	self.transformComp = owner:GetTransformComp();
 
@@ -33,9 +25,7 @@ MovingPlatform.Begin = function(self, owner, goMgr)
 	self.rgdbdyComp:SetVelocity(velocity);
 end
 
-
---Update called every tick
-MovingPlatform.Update = function(self, dt, owner) 
+MovingPlatformHorizontal.Update = function(self, dt, owner) 
 	local velocity = self.rgdbdyComp:GetVelocity();
 	local position = self.transformComp:GetPosition();
 	if(position.x > xMax) then
@@ -46,7 +36,7 @@ MovingPlatform.Update = function(self, dt, owner)
 	self.rgdbdyComp:SetVelocity(velocity);
 end
 
-MovingPlatform.OnDestruction = function(self)
+MovingPlatformHorizontal.OnDestruction = function(self)
 end
 
-return MovingPlatform;
+return MovingPlatformHorizontal;

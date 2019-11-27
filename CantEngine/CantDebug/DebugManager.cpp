@@ -484,6 +484,7 @@ namespace CantDebug
 		auto transform = go->GetComponent<TransformComponent>();
 		if (transform)
 		{
+			info.compName = "Transform"; info.propName = "Tag"; info.strVal = ""; info.type = CantDebugAPI::STRING; components.push_back(info);
 			info.compName = "Transform"; info.propName = "Position"; info.data.vec3 = transform->GetPosition();  info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "Transform"; info.propName = "Rotation"; info.data.vec3 = transform->GetRotation();  info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "Transform"; info.propName = "Scale";	 info.data.vec3 = transform->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
@@ -673,6 +674,13 @@ namespace CantDebug
 		if (transform)
 		{
 			debugInfo.compName = it->compName;
+			go->m_tag = it->strVal;
+			if (go->m_tag != m_objectList[go].Name)
+				m_objectList[go].Name = go->m_tag;
+			debugInfo.propName = it->propName;
+			debugInfo.propValString = &it->strVal; debugInfo.t = CantDebugAPI::STRING;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
 			// Transform 
 			transform->SetLocalPosition(it->data.vec3);
 			debugInfo.propName = it->propName;
@@ -840,6 +848,7 @@ namespace CantDebug
 		TransformComponent* transform = go->GetComponent<TransformComponent>();
 		if (transform)
 		{
+			it->strVal = go->GetTag(); ++it;
 			it->data.vec3 = transform->GetPosition(); ++it;
 			it->data.vec3 = transform->GetRotation(); ++it;
 			it->data.vec3 = transform->GetScale(); ++it;
