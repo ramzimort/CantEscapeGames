@@ -1,5 +1,18 @@
 -- First approximation of a component script
 
+ -- THIS IS THE ORIGINAL POSITION FOR THE PLAYER
+ --"TransformComponent": {
+ --    "Position": [
+ --        -0.029357146471738817,
+ --        -0.5030207633972168,
+ --        48.414005279541019
+ --    ],
+ --    "Rotation": [
+ --        0.0,
+ --        0.0,
+ --        0.0
+ --    ],
+
 RamziPlayer = 
 {
 	name = "RamziPlayer";
