@@ -6,6 +6,11 @@ TppFollowController =
 	MinCoordinates = Vector3.new(-2, -5, -2);
 	MaxCoordinates = Vector3.new(2, 5, 0);
 
+	zoom = 0;
+	minZoom = -2;
+	maxZoom = 0;
+	stepSize = 0.025;
+
 	distance = 5.0;
 
 	Transform = nil;
@@ -16,6 +21,7 @@ TppFollowController =
 --Init called when comp is created
 TppFollowController.Init = function(self)
 	OnMouseScroll():Bind({self, self.OnMouseScroll});
+	OnJoystickButton():Bind({self, self.OnJoystickButton});
 end
 
 TppFollowController.OnMouseScroll = function(self, x, y)
@@ -24,8 +30,18 @@ TppFollowController.OnMouseScroll = function(self, x, y)
 	self.Transform:Translate(translation);
 end
 
+TppFollowController.OnJoystickButton = function(self, ID, key, state)
+	if(CONTROLLER.Start == key and not state) then
+		local position = self.Player:GetTransformComp():GetPosition();
+		self.MinCoordinates = position + Vector3.new(-2, -5, -2);
+		self.MaxCoordinates = position + Vector3.new(2, 5, 0);
+		self.Transform:SetLocalPosition(position.x, position.y + 4, position.z + 8)
+	end
+end
+
 TppFollowController.OnDestruction = function(self)
 	OnMouseScroll():Unbind({self, self.OnMouseScroll});
+	OnJoystickButton():Unbind({self, self.OnJoystickButton});
 end
 
 --Begin called when obj has all comps
@@ -38,8 +54,9 @@ TppFollowController.Begin = function(self, owner, goMgr)
 
 	self.Player = goMgr:FindGameObject("Player");
 	local position = self.Player:GetTransformComp():GetPosition();
-	self.MinCoordinates = position + self.MinCoordinates;
-	self.MaxCoordinates = position + self.MaxCoordinates;
+	self.MinCoordinates = position + Vector3.new(-2, -5, -2);
+	self.MaxCoordinates = position + Vector3.new(2, 5, 0);
+	self.Transform:SetLocalPosition(position.x, position.y + 4, position.z + 8)
 end
 
 --Update called every tick
@@ -48,42 +65,46 @@ TppFollowController.Update = function(self, dt, owner)
 
 	-- Translate AABB Boundary as player moves towards edge
 	local deltaMin = playerPosition - self.MinCoordinates;
-	local deltaMax = playerPosition - self.MaxCoordinates;
+	local deltaMax = playerPosition - self.MaxCoordinates;	
 	if(deltaMin.x < 0.0) then 
 		self.MinCoordinates.x = self.MinCoordinates.x + deltaMin.x;
 		self.MaxCoordinates.x = self.MaxCoordinates.x + deltaMin.x;
 		self.Transform:Translate(deltaMin.x, 0.0, 0.0);
-		LOG("LEFT\n");
-	end
-	if(deltaMin.y < 0.0) then 
-		self.MinCoordinates.y = self.MinCoordinates.y + deltaMin.y;
-		self.MaxCoordinates.y = self.MaxCoordinates.y + deltaMin.y;
-		self.Transform:Translate(0.0, deltaMin.y, 0.0);
-		LOG("Down\n");
-	end
-	if(deltaMin.z < 0.0) then 
-		self.MinCoordinates.z = self.MinCoordinates.z + deltaMin.z;
-		self.MaxCoordinates.z = self.MaxCoordinates.z + deltaMin.z;
-		self.Transform:Translate(0.0, 0.0, deltaMin.z);
-		LOG("Forward\n");
 	end
 	if(deltaMax.x > 0.0) then 
 		self.MinCoordinates.x = self.MinCoordinates.x + deltaMax.x;
 		self.MaxCoordinates.x = self.MaxCoordinates.x + deltaMax.x;
 		self.Transform:Translate(deltaMax.x, 0.0, 0.0);
-		LOG("Right\n");
+	end
+	if(deltaMin.y < 0.0) then 
+		self.MinCoordinates.y = self.MinCoordinates.y + deltaMin.y;
+		self.MaxCoordinates.y = self.MaxCoordinates.y + deltaMin.y;
+		self.Transform:Translate(0.0, deltaMin.y, 0.0);
 	end
 	if(deltaMax.y > 0.0) then 
 		self.MinCoordinates.y = self.MinCoordinates.y + deltaMax.y;
 		self.MaxCoordinates.y = self.MaxCoordinates.y + deltaMax.y;
 		self.Transform:Translate(0.0, deltaMax.y, 0.0);
-		LOG("Up\n");
+	end
+	if(deltaMin.z < 0.0) then 
+		self.MinCoordinates.z = self.MinCoordinates.z + deltaMin.z;
+		self.MaxCoordinates.z = self.MaxCoordinates.z + deltaMin.z;
+		self.Transform:Translate(0.0, 0.0, deltaMin.z);
+
+		if(self.zoom > self.minZoom) then
+			self.zoom = self.zoom - self.stepSize;
+			self.Transform:Translate(0.0, -self.stepSize/4, -self.stepSize);
+		end
+
 	end
 	if(deltaMax.z > 0.0) then 
 		self.MinCoordinates.z = self.MinCoordinates.z + deltaMax.z;
 		self.MaxCoordinates.z = self.MaxCoordinates.z + deltaMax.z;
 		self.Transform:Translate(0.0, 0.0, deltaMax.z);
-		LOG("Back\n");
+		if(self.zoom < self.maxZoom) then
+			self.zoom = self.zoom + self.stepSize;
+			self.Transform:Translate(0.0, self.stepSize/4, self.stepSize);
+		end
 	end
 end
 

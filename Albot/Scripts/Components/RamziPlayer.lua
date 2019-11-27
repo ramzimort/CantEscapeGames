@@ -7,6 +7,7 @@ RamziPlayer =
 	--Custom stuff
 	animComp = nil;
 	transformComp = nil;
+	originalPosition = Vector3.new(0.0);
 	rigidbodyComp = nil;
 	
 	walking = false;
@@ -43,7 +44,9 @@ RamziPlayer.Begin = function(self, owner)
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
 	self.rigidbodyComp = owner:GetRigidbodyComp();
-
+	self.originalPosition = Vector3.new(self.transformComp:GetPosition());
+	
+	LOG("Original Position" .. self.originalPosition.x .. " " .. self.originalPosition.y .. " " .. self.originalPosition.z .. "\n");
 	--Setup of the state machine
 	self:AnimatorSetup();
 end
@@ -122,6 +125,9 @@ RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 		--self.punchWaitTimer = self.punchWaitTime;
 	elseif(CONTROLLER.Select == key and state) then 
 		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
+	elseif(CONTROLLER.Start == key and state) then
+		self.transformComp:SetLocalPosition(self.originalPosition);
+		self.rigidbodyComp:SetVelocity(Vector3.new(0.0, 0.0, 0.0));
 	end
 end
 
@@ -136,8 +142,6 @@ RamziPlayer.OnJoystickMotion = function(self, ID, axis, value)
 		self.analog.z = value;
 	else return
 	end
-	
-
 end
 
 
@@ -205,6 +209,7 @@ RamziPlayer.Update = function(self, dt, owner)
 end
 
 RamziPlayer.HandleMovement = function(self)
+	if(self.jumping) then return end
 	local mgt = self.movespeed;
 	local currentVelocity = self.analog * mgt;
 	currentVelocity.y = self.rigidbodyComp:GetVelocity().y;
@@ -213,6 +218,8 @@ end
 
 RamziPlayer.UpdateRotation = function(self)
 	--Get current forward and target forward
+	if(self.jumping) then return end
+
 	local currFwd = self.transformComp:GetForward();
 	local tgtFwd = self.analog;
 	currFwd:normalize();
