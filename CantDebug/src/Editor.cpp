@@ -20,13 +20,16 @@ void Editor::Clear()
 
 void Editor::RegisterSettings(DebugConfig config)
 {
+	m_settings.ShowTriggers = config.ShowTriggers;
 	m_settings.CreateLevel = config.CreateLevel;
 	m_settings.LevelName = config.LevelName;
 	m_settings.PauseState = config.PauseState;
 	m_settings.SelectionTool = config.SelectionTool;
 	m_settings.StepFrame = config.StepFrame;
 	m_settings.RefreshResources = config.RefreshResources;
-
+	m_settings.MasterVolume = config.MasterVolume;
+	m_settings.SongVolume = config.SongVolume;
+	m_settings.SFXVolume = config.SFXVolume;
 }
 
 void Editor::UpdateObjects(const char* id, const char* name, bool* pClicked, bool* pDoubleClicked, bool created)
@@ -83,6 +86,10 @@ void Editor::UpdateComponents(PropertyInfo info)
 void Editor::Update()
 {
 	// SETTINGS
+	ImGui::SliderFloat("Master Volume", m_settings.MasterVolume, 0.f, 100.f);
+	ImGui::SliderFloat("Song Volume", m_settings.SongVolume, 0.f, 100.f);
+	ImGui::SliderFloat("SFX Volume", m_settings.SFXVolume, 0.f, 100.f);
+
 	ImGui::Checkbox("Selection Tool", m_settings.SelectionTool);
 	ImGui::Checkbox("Pause", m_settings.PauseState);
 	ImGui::SameLine();
@@ -91,8 +98,10 @@ void Editor::Update()
 	*m_settings.CreateLevel = ImGui::Button("Create Level");
 	*m_settings.RefreshResources = ImGui::Button("Refresh Resource");
 
+
 	// Objects
 	ImGui::Separator();
+	//ImGui::Checkbox("Show Triggers", m_settings.ShowTriggers);
 	ImGui::Text("Objects");
 	bool editing = false;
 	for (auto& object : m_objects)

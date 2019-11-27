@@ -1,6 +1,6 @@
 {
   "TransformComponent": {
-    "Position": [ 0.0, 0.0, 0.0 ],
+    "Position": [ 0.0, 3.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
     "Scale": [ 1.0, 1.0, 1.0 ]
   },
@@ -13,10 +13,16 @@
     "ModelId": "Assets\\Models\\AnimTest01.fbx"
   },
 
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
   "RigidBodyComponent": {
     "IsEffectedByGravity": true,
     "Velocity": [ 0.0, 0.0, 0.0 ],
-    "Mass": 50000.0,
+    "Mass": 80.0,
     "IsAsleep": false,
     "CollisionMask": "DINAMIC_OBJ",
     "FrictionCoef": 0.2

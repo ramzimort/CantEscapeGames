@@ -19,7 +19,6 @@ ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 {
 	m_lStrings.clear();
 	m_lStrings.insert(std::make_pair("", L"___"));
-	EventManager::Get()->SubscribeEvent<ReloadResourcesEvent>(this, std::bind(&ResourceManager::ReloadResources, this, std::placeholders::_1));
 }
 
 ResourceManager::~ResourceManager()
@@ -494,6 +493,8 @@ void ResourceManager::ReloadResources(const ReloadResourcesEvent* e)
 		//}
 		case MATERIAL:
 		{
+			if (it->first.getName().find(".json") == std::string::npos)
+				break;
 			CantMemory::PoolResource<Material>::Free(p.p_material);
 			Material* material = CantMemory::PoolResource<Material>::Allocate();
 			const std::string materialObj = CantReflect::StringifyJson(path);
@@ -538,6 +539,7 @@ void ResourceManager::ReloadResources(const ReloadResourcesEvent* e)
 			// TODO: Should we do anything when clearing this type of resource
 			if (path.find("States\\") != std::string::npos)
 				break;
+			
 			CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
 			sol::table* pLuaTable = CantMemory::PoolResource<sol::table>::Allocate();
 
