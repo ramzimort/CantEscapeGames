@@ -23,12 +23,16 @@ namespace CantDebugAPI
 
 	struct DebugConfig
 	{
+		bool* ShowTriggers;
 		bool* SelectionTool;
 		bool* PauseState;
 		bool* StepFrame;
 		std::string* LevelName;
 		bool* CreateLevel;
 		bool* RefreshResources;
+		float* MasterVolume;
+		float* SongVolume;
+		float* SFXVolume;
 	};
 
 	enum type

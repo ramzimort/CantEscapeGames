@@ -43,7 +43,6 @@ void EventManager::Initialize(const std::string& gameName, const std::string& le
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
 	m_pInputManager = new InputManager(gameName, fullscreen, width, height);
-	m_pAudioManager = new AudioManager();
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
 	m_pUserManager = new UserManager(gameName);
@@ -56,6 +55,7 @@ void EventManager::Initialize(const std::string& gameName, const std::string& le
 		m_pAppRenderer->GetDXRenderer()->m_mutex);
 
 
+	m_pAudioManager = new AudioManager();
 	m_pAppRenderer->InitializeResources();
 	m_pScriptingManager = new ScriptingManager(m_pResourceManager, m_pAppRenderer, m_pUserManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState, m_pAudioManager);
@@ -63,7 +63,7 @@ void EventManager::Initialize(const std::string& gameName, const std::string& le
 		
 	m_pStateManager = new StateManager(m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
 #ifdef DEVELOPER
-	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager);
+	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager, m_pAudioManager);
 #endif
 
 	m_pStateManager->SwitchState(levelPath);

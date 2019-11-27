@@ -35,8 +35,8 @@ namespace CantDebug
 		return result;
 	}
 
-	DebugManager::DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager) :
-		m_pAppRenderer(pAppRenderer), m_pResourceManager(pResourceManager), m_pStateManager(pStateManager), m_pGameState(nullptr)
+	DebugManager::DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager, AudioManager* pAudioManager) :
+		m_pAppRenderer(pAppRenderer), m_pResourceManager(pResourceManager), m_pStateManager(pStateManager), m_pGameState(nullptr), m_pAudioManager(pAudioManager)
 	{
 		EventManager::Get()->SubscribeEvent<GameObjectCreated>(this, std::bind(&DebugManager::RegisterObject, this, std::placeholders::_1));
 		EventManager::Get()->SubscribeEvent<GameObjectDestroyed>(this, std::bind(&DebugManager::UnregisterObject, this, std::placeholders::_1));
@@ -79,12 +79,16 @@ namespace CantDebug
 
 		// Debug m_settings Initalizer
 		CantDebugAPI::DebugConfig debugConfig;
+		debugConfig.ShowTriggers = &m_config.ShowTriggers;
 		debugConfig.CreateLevel = &m_config.CreateLevel;
 		debugConfig.LevelName = &m_config.LevelName;
 		debugConfig.PauseState= &m_config.PauseState;
 		debugConfig.SelectionTool= &m_config.SelectionTool;
 		debugConfig.StepFrame = &m_config.StepFrame;
 		debugConfig.RefreshResources = &m_config.RefreshResources;
+		debugConfig.MasterVolume = &m_config.MasterVolume;
+		debugConfig.SongVolume = &m_config.SongVolume;
+		debugConfig.SFXVolume = &m_config.SFXVolume;
 		CantDebugAPI::EditorSetting(debugConfig);
 
 		// Physics m_settings Initialization
@@ -168,6 +172,14 @@ namespace CantDebug
 				transform->Translate(translation);
 			}
 			objInfo.second.DoublePressed = false;
+			if (m_config.ShowTriggers && objInfo.first->HasComponent<TriggerComponent>())
+			{
+				TriggerComponent* trigger = objInfo.first->GetComponent<TriggerComponent>();
+				Aabb aabb = trigger->GetAabb();
+				const auto& model = objInfo.first->GetComponent<TransformComponent>()->GetModel();
+				aabb.Transform(model);
+				aabb.DebugDraw(m_pAppRenderer, Vector4(0.f, 1.f, 0.f, 0.5f));
+			}
 
 			if (!m_config.SelectionTool)
 			{
@@ -249,12 +261,38 @@ namespace CantDebug
 			m_pGameState = m_pStateManager->m_stateStack[m_pStateManager->m_stateStack.size() - 1];
 	}
 
+	void DebugManager::UpdateAudio()
+	{
+		static float MasterVolume = 0.f;
+		static float SongVolume = 0.f;
+		static float SFXVolume = 0.f;
+
+		if (m_config.MasterVolume != MasterVolume)
+		{
+			m_pAudioManager->SetMasterVolume(m_config.MasterVolume);
+			MasterVolume = m_config.MasterVolume;
+		}
+
+		if (m_config.SongVolume != SongVolume)
+		{
+			m_pAudioManager->SetSongVolume(m_config.SongVolume);
+			SongVolume = m_config.SongVolume;
+		}
+
+		if (m_config.SFXVolume != SFXVolume)
+		{
+			m_pAudioManager->SetSFXVolume(m_config.SFXVolume);
+			SFXVolume = m_config.SFXVolume;
+		}
+	}
+
 	void DebugManager::Update()
 	{
 		UpdateObjects();
 		UpdateResources();
 		UpdatePrefabCreation();
 		UpdateMaterialInfo();
+		UpdateAudio();
 
 		static bool _pauseState = false;
 		static bool _selectionTool = false;
@@ -311,8 +349,8 @@ namespace CantDebug
 				{
 					auto& scriptComp = pair2.second;
 					std::string wholePath = "Scripts\\Components\\" + pair2.first + ".lua";
-					scriptComp->ScriptSetup(wholePath, pair2.first, m_pStateManager->m_pScriptingManager);
 					scriptComp->Destroy();
+					scriptComp->ScriptSetup(wholePath, pair2.first, m_pStateManager->m_pScriptingManager);
 					scriptComp->Init(m_pResourceManager, m_pAppRenderer->GetDXRenderer());
 					scriptComp->Begin(m_pGameState->m_gameObjectMgr);
 				}
@@ -322,12 +360,18 @@ namespace CantDebug
 
 		Matrix model;
 		MeshComponent* mesh;
+		TriggerComponent* trigger;
 		for (auto& go : m_meshObjects)
 		{
 			// updating aabb tree
 			mesh = go.first->GetComponent<MeshComponent>();
+			trigger = go.first->GetComponent<TriggerComponent>();
+
 			Aabb& aabb = go.second.m_aabb;
-			aabb = mesh->GetModel()->GetAABB();
+			if (mesh != nullptr)
+				aabb = mesh->GetModel()->GetAABB();
+			else if (trigger != nullptr)
+				aabb = trigger->GetAabb();
 			model = go.first->GetComponent<TransformComponent>()->GetModel();
 			aabb.Transform(model);
 			SpatialPartitionData data(go.first, aabb);
@@ -413,13 +457,23 @@ namespace CantDebug
 		// Register dynamic AABB for raycast
 		static unsigned int key = 0;
 		MeshComponent* mesh = go->GetComponent<MeshComponent>();
-		if (mesh == nullptr || go->HasComponent<AnimationComponent>())
-			return;
-		SpatialPartitionData data1;
-		Aabb aabb = mesh->GetModel()->GetAABB();
-		m_AabbTree.InsertData(key, SpatialPartitionData(go, aabb));
-		GameObjectData data(key, aabb);
-		m_meshObjects.insert(std::make_pair(e->m_pGameObject, data));
+		if (mesh != nullptr && !go->HasComponent<AnimationComponent>())
+		{
+			SpatialPartitionData data1;
+			Aabb aabb = mesh->GetModel()->GetAABB();
+			m_AabbTree.InsertData(key, SpatialPartitionData(go, aabb));
+			GameObjectData data(key, aabb);
+			m_meshObjects.insert(std::make_pair(e->m_pGameObject, data));
+		}
+		else if (go->HasComponent<TriggerComponent>())
+		{
+			TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
+			SpatialPartitionData data1;
+			Aabb aabb = trigger->GetAabb();
+			m_AabbTree.InsertData(key, SpatialPartitionData(go, aabb));
+			GameObjectData data(key, aabb);
+			m_meshObjects.insert(std::make_pair(e->m_pGameObject, data));
+		}
 	}
 
 	void DebugManager::RegisterComponents(GameObject* go)
@@ -455,6 +509,12 @@ namespace CantDebug
 			info.compName = "Renderer"; info.propName = "yTiling"; info.data.f = renderer->m_xTileFactor; info.type = CantDebugAPI::FLOAT; components.push_back(info);
 
 		}
+		auto triggerComp = go->GetComponent<TriggerComponent>();
+		if (triggerComp)
+		{
+			info.compName = "Trigger"; info.propName = "Scale2"; info.data.vec3 = triggerComp->GetScale(); info.type = CantDebugAPI::VEC3; components.push_back(info);
+			info.compName = "Trigger"; info.propName = "Offset"; info.data.vec3 = triggerComp->GetOffset(); info.type = CantDebugAPI::VEC3; components.push_back(info);
+		}
 		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
 		if (haloEffectComp)
 		{
@@ -475,7 +535,13 @@ namespace CantDebug
 
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* e)
 	{
+		
 		GameObject* go = e->m_pGameObject;
+		if (go->GetTag() == "lvleditor")
+		{
+			m_pGameObjEditor = nullptr;
+		}
+
 		if (m_objectList.find(go) != m_objectList.end())
 		{
 			CantDebugAPI::ObjectButtonList(std::to_string(m_objectList[go].ID).c_str(), m_objectList[go].Name.c_str(), &m_objectList[go].Pressed, &m_objectList[go].DoublePressed, false);
@@ -602,21 +668,6 @@ namespace CantDebug
 			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 0.f; debugInfo.max = 50.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
-		TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
-		if (trigger)
-		{
-			debugInfo.compName = it->compName;
-
-			trigger->SetOffset(it->data.vec3);
-			debugInfo.propName = it->propName;
-			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -10.f; debugInfo.max = 10.f;
-			CantDebugAPI::ComponentData(debugInfo); ++it;
-
-			trigger->SetScale(it->data.vec3);
-			debugInfo.propName = it->propName;
-			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = 1.0f; debugInfo.max = 10.f;
-			CantDebugAPI::ComponentData(debugInfo); ++it;
-		}
 		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
 		if (rigidBody)
 		{
@@ -655,6 +706,21 @@ namespace CantDebug
 			renderer->m_yTileFactor = it->data.f;
 			debugInfo.propName = it->propName;
 			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 100.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
+		auto trigger = go->GetComponent<TriggerComponent>();
+		if (trigger)
+		{
+			debugInfo.compName = it->compName;
+
+			trigger->SetScale(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -20.f; debugInfo.max = 20.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			trigger->SetOffset(it->data.vec3);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.vec3.x; debugInfo.t = CantDebugAPI::VEC3; debugInfo.min = -20.f; debugInfo.max = 20.f;
 			CantDebugAPI::ComponentData(debugInfo); ++it;
 		}
 		auto haloEffectComp = go->GetComponent<HaloEffectComponent>();
@@ -724,12 +790,6 @@ namespace CantDebug
 			it->data.vec3 = transform->GetRotation(); ++it;
 			it->data.vec3 = transform->GetScale(); ++it;
 		}
-		TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
-		if (trigger)
-		{
-			it->data.vec3 = trigger->GetOffset(); ++it;
-			it->data.vec3 = trigger->GetScale(); ++it;
-		}
 		RigidbodyComponent* rigidBody = go->GetComponent<RigidbodyComponent>();
 		if (rigidBody)
 		{
@@ -743,6 +803,12 @@ namespace CantDebug
 			it->strVal = renderer->m_materialId.getName(); ++it;
 			it->data.f = renderer->m_xTileFactor; ++it;
 			it->data.f = renderer->m_yTileFactor; ++it;
+		}
+		TriggerComponent* trigger = go->GetComponent<TriggerComponent>();
+		if (trigger)
+		{
+			it->data.vec3 = trigger->GetScale(); ++it;
+			it->data.vec3 = trigger->GetOffset(); ++it;
 		}
 	}
 

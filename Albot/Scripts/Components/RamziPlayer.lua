@@ -11,17 +11,23 @@ RamziPlayer =
 	
 	walking = false;
 	jumping = false;
+	landing = false;
+	jumpDebounceTimer = -1.0;
+	jumpDebounceTime  = 0.2;
+	punching = false;
+	punchWaitTimer = -1.0;
+	punchWaitTime  = 1.0;
 	isCrawling = false;
 
-	prevVelY = 0;
-	currVelY = 0;
+	
 
 	-- Movement
 	analog = Vector3.new(0.0,0.0,0.0);
+	prevVelY = 0;
+	currVelY = 0;
 	movespeed = 4;
 	jumpSpeed = 6;
-	jumpDebounceTimer = -1.0;
-	jumpDebounceTime = 0.3;
+
 }
 
 
@@ -103,7 +109,7 @@ end
 
 RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.A == key and state) then
-		if (not self.jumping) then
+		if (not self.jumping and not self.landing) then
 			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
 			local vel = self.rigidbodyComp:GetVelocity();
 			vel.y = self.jumpSpeed;
@@ -113,9 +119,10 @@ RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	
 	elseif(CONTROLLER.B == key and state) then
 		self.animComp:SetTrigger("Crawl");
-	
-	elseif(CONTROLLER.X == key and state) then
+	elseif(CONTROLLER.X == key and state and not self.jumping and not self.landing and not self.walking) then
 		self.animComp:SetTrigger("Punch");
+		--self.punching = true;
+		--self.punchWaitTimer = self.punchWaitTime;
 	elseif(CONTROLLER.Select == key and state) then 
 		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
 	end
@@ -148,12 +155,15 @@ RamziPlayer.Update = function(self, dt, owner)
 	self.currVelY = vel.y;
 	local deltaVel = self.currVelY - self.prevVelY;
 	
-	if (self.jumpDebounceTimer > 0.0) then 
+	if (self.landing) then 
 		self.jumpDebounceTimer = self.jumpDebounceTimer - dt;
-		if(not self.jumping and vel.y > 0.1) then 
-			vel.y = 0.0;
-			self.rigidbodyComp:SetVelocity(vel);
+		vel.y = 0.0;
+		self.rigidbodyComp:SetVelocity(vel);
+		if(self.jumpDebounceTimer < 0.0) then
+			self.landing = false;
 		end
+		return
+		--LOG("Landing Timer: " .. self.jumpDebounceTimer .. "\n");
 	end
 
 	--Handle x-z displacement and rotation
@@ -163,29 +173,30 @@ RamziPlayer.Update = function(self, dt, owner)
 	end
 	
 	-- Animation States
-	if (verticalSpeed > 1 and not self.jumping and self.jumpDebounceTimer < 0.0) then
+	if (verticalSpeed > 1 and not self.jumping and not self.landing) then
 		self.jumping = true;
 		self.walking = false;
 		self.animComp:SetTrigger("Jump");
 		self.jumpDebounceTimer = self.jumpDebounceTime;
-		LOG("JUMP: " .. verticalSpeed .. "\n");
-	elseif (deltaVel > 0.0 and self.jumping and self.jumpDebounceTimer < 0.0) then 
+		--LOG("JUMP: " .. verticalSpeed .. "\n");
+	elseif (deltaVel > 0.0 and self.jumping and not self.landing) then 
 		self.walking = false;
 		self.jumping = false;
 		self.jumpDebounceTimer = self.jumpDebounceTime;
 		self.animComp:SetTrigger("Land");
+		self.landing = true;
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\Collision1.mp3");
-		LOG("Land: " .. deltaVel .. "\n");
+		--LOG("Land: " .. deltaVel .. "\n");
 	elseif (horizontalSpeed > 0.1 and not self.walking and not self.jumping) then
 		self.walking = true;
 		self.jumping = false;
 		self.animComp:SetTrigger("Walk");
-		LOG("Walk\n");
+		--LOG("Walk\n");
 	elseif (horizontalSpeed < 0.1 and self.walking  and not self.jumping) then 
 		self.walking = false;
 		self.jumping = false;
 		self.animComp:SetTrigger("StopWalk");
-		LOG("Stop\n");
+		--LOG("Stop\n");
 	end
 
 end

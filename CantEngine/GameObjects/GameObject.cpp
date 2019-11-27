@@ -75,6 +75,15 @@ GameObject::~GameObject()
 			
 			else if (c->GetType() == SkyboxIrradianceComponent::static_type)
 				CantMemory::PoolResource<SkyboxIrradianceComponent>::Free(static_cast<SkyboxIrradianceComponent*>(c));
+
+			else if (c->GetType() == TriggerComponent::static_type)
+				CantMemory::PoolResource<TriggerComponent>::Free(static_cast<TriggerComponent*>(c));
+
+			else if (c->GetType() == FollowCurvesPathComponent::static_type)
+				CantMemory::PoolResource<FollowCurvesPathComponent>::Free(static_cast<FollowCurvesPathComponent*>(c));
+
+			else if (c->GetType() == SplineCurvesComponent::static_type)
+				CantMemory::PoolResource<SplineCurvesComponent>::Free(static_cast<SplineCurvesComponent*>(c));
 		}
 	}
 
