@@ -585,7 +585,11 @@ void ScriptingManager::ManageBindings()
 			"GetVelocity", &UIComponent::GetVelocity,
 			"GetInitialRotation", &UIComponent::GetInitialRotation,
 			"GetFinalRotation", &UIComponent::GetFinalRotation,
-			"GetRotationRate", &UIComponent::GetRotationRate
+			"GetRotationRate", &UIComponent::GetRotationRate,
+			"SetTextScale", &UIComponent::SetTextScale,
+			"GetTextScale", &UIComponent::GetTextScale,
+			"SetText", &UIComponent::SetText
+
 			);
 
 
