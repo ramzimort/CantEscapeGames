@@ -35,8 +35,8 @@ TriggerTest.Update = function(self, dt, owner)
 end
 
 TriggerTest.OnDestruction = function(self)
-	self.triggerComp.OnEnter:Unbind({self, self.OnEnter})
-	self.triggerComp.OnExit:Unbind({self, self.OnExit})
+	--self.triggerComp.OnEnter:Unbind({self, self.OnEnter})
+	--self.triggerComp.OnExit:Unbind({self, self.OnExit})
 end
 
 
