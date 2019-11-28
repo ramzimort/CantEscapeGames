@@ -38,6 +38,14 @@ GameObject::GameObject(GameObjectManager *goMgr, std::string prefabName, std::st
 
 GameObject::~GameObject()
 {
+	//Deleting custom components
+	for (auto& node : m_customComponents)
+	{
+		CantMemory::PoolResource<CustomComponent>::Free(node.second);
+	}
+	m_customComponents.clear();
+
+	//Deleting engine components
 	for (int i = 0; i < MAX_NUM_COMPONENTS; ++i) 
 	{
 		BaseComponent *c = m_components[i];
@@ -86,12 +94,6 @@ GameObject::~GameObject()
 				CantMemory::PoolResource<SplineCurvesComponent>::Free(static_cast<SplineCurvesComponent*>(c));
 		}
 	}
-
-	for (auto& node : m_customComponents) 
-	{
-		CantMemory::PoolResource<CustomComponent>::Free(node.second);
-	}
-	m_customComponents.clear();
 }
 
 size_t GameObject::GetId() const
