@@ -1,6 +1,6 @@
 /**
  * @file BaseSystem.h
- * @author your name (you@domain.com)
+ * @Jose Rosenbluth
  * @brief Base class for Systems
  * @date 2019-11-21
  */

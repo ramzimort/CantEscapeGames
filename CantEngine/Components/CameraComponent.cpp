@@ -18,13 +18,15 @@ RTTR_REGISTRATION
 		.property("Camera", &CameraComponent::m_camera)
 		.property("xViewportPos", &CameraComponent::m_xViewportPos)
 		.property("yViewportPos", &CameraComponent::m_yViewportPos)
+		.property("isTransformIndependent", &CameraComponent::m_isTransformIndependent)
 		.method("Init", &CameraComponent::Init);
 }
 
 CameraComponent::CameraComponent(GameObject *owner) : 
 	BaseComponent(owner, CameraComponent::static_type),
 	m_xViewportPos(0),
-	m_yViewportPos(0)
+	m_yViewportPos(0),
+	m_isTransformIndependent(false)
 {
 }
 
