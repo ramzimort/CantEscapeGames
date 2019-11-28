@@ -122,6 +122,11 @@ void Camera::DecreaseFOV(float fov)
 	CalibrateFOV();
 }
 
+void Camera::SetLook(Vector3 look)
+{
+	this->m_lookDir = look;
+}
+
 float Camera::GetFOV() const
 {
 	return m_fov;

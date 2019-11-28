@@ -165,7 +165,7 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 	//At the end of the frame, animator
 	//should clean up the trigger stuff
 	animator->CheckForTransitionChanges();
-	///animator->FrameEndCleanUp();
+	//animator->FrameEndCleanUp();
 }
 
 

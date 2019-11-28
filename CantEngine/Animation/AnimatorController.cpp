@@ -101,9 +101,10 @@ void AnimatorController::SetTrigger(std::string const& trigger)
 		///OutputDebugString("Dirtyflag++ cause of setting trigger. -PrevVal: " + dirtyFlag);  //////
 		++dirtyFlag;																        //////
 		///OutputDebugString(" -NewVal: " + dirtyFlag);									    //////
-		//int a = 123;
+		int a = 123;
 		///OutputDebugString("\n");														    //////
 	}
+	//What was this case for?
 	else if (iter != triggers.end() && iter->second == 1) 
 	{
 		++dirtyFlag;

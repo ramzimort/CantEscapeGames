@@ -33,7 +33,6 @@ end
 
 --Begin called when obj has all comps
 JoseController.Begin = function(self, owner, goMgr)
-
 	if (owner == nil) then
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
@@ -45,11 +44,18 @@ end
 
 --Update called every tick
 JoseController.Update = function(self, dt, owner) 
+	
 	local position = self.Transform:GetPosition();
 	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
 	local forward = self.Camera:GetForward() * movement.y;
 	position = position + strafe + forward;
+
+	--Camera offset
+	local offset = Vector3.new(0, 20.0, 40.0);
+	local camPos = position + offset;
+	local lookDir = Vector3.new(-offset.x, -offset.y, -offset.z);
+	lookDir:normalize();
 
 	local rotation = self.Rotation;
 	if (self.LEFTCLICK) then
@@ -58,14 +64,17 @@ JoseController.Update = function(self, dt, owner)
 		self.DeltaPositionX = 0.0;
 		self.DeltaPositionY = 0.0;
 		rotation = rotation * dt * self.RotationSpeed;
-		self.Transform:Rotate(rotation.x, rotation.y, 0.0);
+		--self.Transform:Rotate(rotation.x, rotation.y, 0.0);
 	end
 
-	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	--Translate the camera
+	self.Camera:SetCameraPosition(camPos.x, camPos.y, camPos.z);
+	self.Camera:SetLook(lookDir);
 end
 
 --Method
 JoseController.OnKey = function(self, key, state)
+	
 	local delta = 0.0;
 	if(state) then
 		delta = 3.0;
@@ -74,9 +83,9 @@ JoseController.OnKey = function(self, key, state)
 	if(SCANCODE.W == key) then
 		self.movement_amount.y = delta;
 	elseif(SCANCODE.S == key) then
-		self.movement_amount.y = -1.0*delta;
+		self.movement_amount.y = -delta;
 	elseif(SCANCODE.A == key) then
-		self.movement_amount.x = -1.0*delta;
+		self.movement_amount.x = -delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
 	end
@@ -98,32 +107,35 @@ JoseController.OnMouseClick = function(self, button, state)
 end
 
 JoseController.OnJoystickButton = function(self, joystickId, button, state)
-	if(button == CONTROLLER.LB and state) then
-		self.RotationEnabled = not self.RotationEnabled;
-	elseif(button == CONTROLLER.Select and state) then
-		local EventMgr = EventManager.Get();
-		EventMgr:LoadState(false, "Assets\\Levels\\Menu.json");
-	end
+	--if(button == CONTROLLER.LB and state) then
+	--	--nothing
+	--elseif(button == CONTROLLER.Select and state) then
+	--	local EventMgr = EventManager.Get();
+	--end
 end
 
 JoseController.OnJoystickMotion = function(self, joystickId, axis, value)
+	
 	if(value < 0.2 and value > -0.2) then
 		value = 0.0;
 	end;
+	
 	if(axis == 0) then
 		self.movement_amount.x = value;
 	end
+	
 	if(axis == 1) then
 		self.movement_amount.y = -1.0*value;
 	end
+	
 	if(self.RotationEnabled) then
-	if(axis == 3) then
-		self.Rotation.y = -1.0*self.RotationMultiplier*value;
-	end
-	if(axis == 4) then
-		self.Rotation.x = -1.0*self.RotationMultiplier*value;
-		--LOG("xRotation: " .. self.Rotation.x .. "\n");
-	end
+		if(axis == 3) then
+			self.Rotation.y = -1.0*self.RotationMultiplier*value;
+		end
+		if(axis == 4) then
+			self.Rotation.x = -1.0*self.RotationMultiplier*value;
+			--LOG("xRotation: " .. self.Rotation.x .. "\n");
+		end
 	end
 end
 
