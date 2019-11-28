@@ -35,8 +35,8 @@ TriggerTest.Update = function(self, dt, owner)
 end
 
 TriggerTest.OnDestruction = function(self)
-	--self.triggerComp.OnEnter:Unbind({self, self.OnEnter})
-	--self.triggerComp.OnExit:Unbind({self, self.OnExit})
+	self.triggerComp.OnEnter:Unbind({self, self.OnEnter})
+	self.triggerComp.OnExit:Unbind({self, self.OnExit})
 end
 
 
@@ -68,7 +68,7 @@ TriggerTest.OnEnter = function(self, gameObj1, gameObj2)
 end
 
 TriggerTest.OnExit = function(self, gameObj1, gameObj2)
-	OutputPrint("OnExit");
+	OutputPrint("OnExit\n");
 
 end
 
