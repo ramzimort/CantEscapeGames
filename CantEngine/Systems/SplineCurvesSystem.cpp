@@ -5,6 +5,7 @@
 #include "Components/SplineCurvesComponent.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/DebugRendering/DebugRendering.h"
+#include "Graphics/GraphicsSettings.h"
 
 
 unsigned const SplineCurvesSystem::static_type = BaseSystem::numberOfTypes++;
@@ -33,7 +34,10 @@ void SplineCurvesSystem::Register_GameObject(GameObject *go)
 
 void SplineCurvesSystem::Update(float dt, BaseSystemCompNode *compNode)
 {
-
+	auto splineCompNode = static_cast<SplineCurvesCompNode*>(compNode);
+	auto transform_comp = splineCompNode->m_transform;
+	auto curvesComp = splineCompNode->m_splineCurvesComp;
+	curvesComp->TransformAlternatePointsToControlPoints();
 }
 
 void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
@@ -43,6 +47,10 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	auto curvesComp = splineCompNode->m_splineCurvesComp;
 
 #ifdef DEVELOPER
+	if (!GraphicsSettings::Draw_Spline_Curve)
+	{
+		return;
+	}
 	float steps = 0.01f;
 	Vector3 prevPosition = curvesComp->Evaluate(0.f);
 	for (float index = steps; index <= (1.f); index += steps)
@@ -57,7 +65,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	}
 	std::vector<Vector3> splineWorldControlPoints;
 	curvesComp->GetWorldControlPoints(splineWorldControlPoints);
-	for (size_t index = 0; index < splineWorldControlPoints.size(); ++index)
+	for (int32_t index = 0; index < curvesComp->m_splineControlPointsNum; ++index)
 	{
 		Vector3 position = splineWorldControlPoints[index];
 		Vector3 half_size(0.01f);
