@@ -109,6 +109,14 @@ public:
 	 * @param new_position 
 	 */
 	void SetCameraPosition(const Vector3& new_position);
+	
+	/**
+	 * @brief Set the Camera look direction
+	 *
+	 * @param look
+	 */
+	void SetLook(Vector3 look);
+
 	/**
 	 * @brief Set the Camera Rotation
 	 * 

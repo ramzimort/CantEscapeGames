@@ -51,6 +51,12 @@ JoseController.Update = function(self, dt, owner)
 	local forward = self.Camera:GetForward() * movement.y;
 	position = position + strafe + forward;
 
+	--Camera offset
+	local offset = Vector3.new(0, 20.0, 40.0);
+	local camPos = position + offset;
+	local lookDir = Vector3.new(-offset.x, -offset.y, -offset.z);
+	lookDir:normalize();
+
 	local rotation = self.Rotation;
 	if (self.LEFTCLICK) then
 		rotation.x = 1.0 * self.DeltaPositionY;
@@ -58,10 +64,12 @@ JoseController.Update = function(self, dt, owner)
 		self.DeltaPositionX = 0.0;
 		self.DeltaPositionY = 0.0;
 		rotation = rotation * dt * self.RotationSpeed;
-		self.Transform:Rotate(rotation.x, rotation.y, 0.0);
+		--self.Transform:Rotate(rotation.x, rotation.y, 0.0);
 	end
 
-	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	--Translate the camera
+	self.Camera:SetCameraPosition(camPos.x, camPos.y, camPos.z);
+	self.Camera:SetLook(lookDir);
 end
 
 --Method

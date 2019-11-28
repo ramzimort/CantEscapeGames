@@ -25,6 +25,10 @@ private:
 	size_t m_yViewportPos;
 	Camera m_camera;
 
+	//This flag determines wether the camera component positions 
+	//its camera WRT the transform component every frame
+	bool m_isTransformIndependent;
+
 	RTTR_ENABLE(BaseComponent);
 	RTTR_REGISTRATION_FRIEND;	
 };

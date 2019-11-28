@@ -677,6 +677,7 @@ void ScriptingManager::ManageBindings()
 		"GetScreenWidth", &Camera::GetScreenWidth,
 		"GetScreenHeight", &Camera::GetScreenHeight,
 		"GetRight", &Camera::GetRight,
+		"SetLook", &Camera::SetLook,
 		"SetCameraPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
 			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition))

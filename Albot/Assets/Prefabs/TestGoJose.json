@@ -10,6 +10,7 @@
   },
 
   "CameraComponent": {
+    "isTransformIndependent": true,
     "Camera": {
       "FOV": 45.0,
       "Near": 0.1,

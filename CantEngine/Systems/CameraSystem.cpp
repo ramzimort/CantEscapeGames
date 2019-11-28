@@ -30,6 +30,7 @@ void CameraSystem::Register_GameObject(GameObject *go)
 	this->m_ObjComponentsMap[go->GetId()] = component_node;
 }
 
+
 void CameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 {
 	CameraCompNode *node = static_cast<CameraCompNode*>(compNode);
@@ -38,8 +39,13 @@ void CameraSystem::Update(float dt, BaseSystemCompNode *compNode)
 	CameraComponent* cameraComp = node->m_pCameraComponent;
 	Camera& camera = cameraComp->GetCamera();
 
-	camera.SetCameraPosition(transformComp->GetPosition());
-	camera.SetCameraRotation(transformComp->GetRotationMatrix());
+	//UPDATE CODE
+	if (!cameraComp->m_isTransformIndependent) 
+	{
+		camera.SetCameraPosition(transformComp->GetPosition());
+		camera.SetCameraRotation(transformComp->GetRotationMatrix());
+	}
+
 	camera.UpdateViewMatrix();
 	camera.UpdateProjectionMatrix();
 	camera.UpdateViewProjectionMatrix();

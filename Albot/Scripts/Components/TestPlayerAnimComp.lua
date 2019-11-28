@@ -48,8 +48,10 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 	end
 		
 	if(SCANCODE.ENTER == key and state) then
-		self.isCrawling = not self.isCrawling;
-		self.animComp:SetTrigger("Crawl");
+		if (self.isCrawling or (not self.walking and not self.jumping)) then
+			self.isCrawling = not self.isCrawling;
+			self.animComp:SetTrigger("Crawl");
+		end
 	end
 
 	if(SCANCODE.SPACE == key and state) then
