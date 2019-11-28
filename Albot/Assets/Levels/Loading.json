@@ -50,6 +50,7 @@
       "Scripts\\Components\\UICameraSetting.lua",
       "Scripts\\Components\\WindowResize.lua",
       "Scripts\\Components\\WindowResizeButton.lua",
+      "Scripts\\Components\\CrouchObstacle.lua",
       "Scripts\\Examples\\ExampleComp.lua",
       "Scripts\\Helper\\ShooterRailPrototype_Common.lua",
       "Scripts\\LuaGlobalSetups.lua",

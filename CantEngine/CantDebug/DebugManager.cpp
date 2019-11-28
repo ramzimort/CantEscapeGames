@@ -489,12 +489,6 @@ namespace CantDebug
 			info.compName = "Transform"; info.propName = "Rotation"; info.data.vec3 = transform->GetRotation();  info.type = CantDebugAPI::VEC3; components.push_back(info);
 			info.compName = "Transform"; info.propName = "Scale";	 info.data.vec3 = transform->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
 		}
-		auto trigger = go->GetComponent<TriggerComponent>();
-		if (trigger)
-		{
-			info.compName = "Trigger"; info.propName = "Offset"; info.data.vec3 = trigger->GetOffset();  info.type = CantDebugAPI::VEC3; components.push_back(info);
-			info.compName = "Trigger"; info.propName = "TriggerScale";	 info.data.vec3 = trigger->GetScale();	 info.type = CantDebugAPI::VEC3; components.push_back(info);
-		}
 		auto rigidbdy = go->GetComponent<RigidbodyComponent>();
 		if (rigidbdy)
 		{

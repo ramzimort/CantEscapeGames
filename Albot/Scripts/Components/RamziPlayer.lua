@@ -27,6 +27,7 @@ RamziPlayer =
 	jumping = false;
 	landing = false;
 	falling = false;
+	nearCrouch = false;
 
 	jumpDebounceTimer = -1.0;
 	jumpDebounceTime  = 0.2;
@@ -170,6 +171,8 @@ RamziPlayer.Update = function(self, dt, owner)
 	if (self.transformComp == nil) then return end
 	if (self.rigidbodyComp == nil) then return end
 	
+	if(self.nearCrouch) then LOG("NEARCROUCH\n") end
+
 	--GRAVITY (DOING THIS FOR GROUND COLLISION)
 	local vel = self.rigidbodyComp:GetVelocity();
 	local horizontalSpeed = (vel.x * vel.x) + (vel.z * vel.z);
@@ -202,7 +205,7 @@ RamziPlayer.Update = function(self, dt, owner)
 		self.walking = false;
 		self.animComp:SetTrigger("Jump");
 		self.jumpDebounceTimer = self.jumpDebounceTime;
-		LOG("JUMP: " .. verticalSpeed .. "\n");
+		--LOG("JUMP: " .. verticalSpeed .. "\n");
 	elseif(self.jumping) then 
 		self.jumping = false;
 		self.falling = true;
@@ -220,11 +223,11 @@ RamziPlayer.Update = function(self, dt, owner)
 	if(len2 < 0.01 and self.walking) then 
 		self.walking = false; 
 		self.animComp:SetTrigger("StopWalk");
-		LOG("StopWalk\n");
+		--LOG("StopWalk\n");
 	elseif(len2 > 0.01 and not self.walking and not self.falling) then
 		self.walking = true;
 		self.animComp:SetTrigger("Walk");
-		LOG("Walk\n");
+		--LOG("Walk\n");
 	end
 
 end
