@@ -39,6 +39,7 @@ public:
 	
 	void SetXTileFactor(float x_factor);
 	void SetYTileFactor(float y_factor);
+	void SetEnableRendering(bool flag);
 public:
 	//Unique class identifier
 	static ComponentId const static_type;
@@ -51,6 +52,7 @@ private:
 	Material* m_pMeshInstancesMaterialList[MAX_RENDERER_MATERIAL_COUNT] = {NULL};
 	bool m_overrideLoadedModelMaterial;
 
+	bool m_enableRendering;
 	float m_xTileFactor;
 	float m_yTileFactor;
 

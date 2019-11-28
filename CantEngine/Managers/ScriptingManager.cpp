@@ -14,6 +14,7 @@ Primary Author: Jose Rosenbluth
 #include "SystemManager.h"
 #include "StateManager.h"
 #include "ResourceManager.h"
+#include "Directory/User.h"
 
 #include "GameObjects/GameObject.h"
 #include "Components/AllComponentHeaders.h"
@@ -65,9 +66,10 @@ const std::wstring& GetLString(const std::string& key)
 
 #define SOL_CHECK_ARGUMENTS 1
 
-ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer) :
+ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer, UserManager* userManager) :
 	m_pResourceManager(pResourcemanager),
-	m_pAppRenderer(pAppRenderer)
+	m_pAppRenderer(pAppRenderer),
+	m_pUserManager(userManager)
 {
 	//We enter here
 	luaState.open_libraries
@@ -94,7 +96,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		luaState["Acos"] = &MathAcos;
 		luaState["Abs"] = &Abs;
 		
-		luaState.script_file("Scripts/LuaGlobalSetups.lua");
+		luaState.script_file("Scripts\\LuaGlobalSetups.lua");
 
 	}
 	catch (const sol::error & e)
@@ -142,9 +144,15 @@ void ScriptingManager::ManageBindings()
 	//////////////////////////////
 
 	luaState.set_function("Localize", &GetLString);
-	luaState["CantMath"] = luaState.create_table_with(
-		"7", SDL_SCANCODE_7
-	);
+	luaState.set_function("SetSettingBool", &UserManager::SetSettingBool, m_pUserManager);
+	luaState.set_function("GetSettingBool", &UserManager::GetSettingBool, m_pUserManager);
+	luaState.set_function("SetSettingDouble", &UserManager::SetSettingDouble, m_pUserManager);
+	luaState.set_function("GetSettingDouble", &UserManager::GetSettingDouble, m_pUserManager);
+	luaState.set_function("SetSettingInt", &UserManager::SetSettingInt, m_pUserManager);
+	luaState.set_function("GetSettingInt", &UserManager::GetSettingInt, m_pUserManager);
+	luaState.set_function("SetSettingString", &UserManager::SetSettingString, m_pUserManager);
+	luaState.set_function("GetSettingString", &UserManager::GetSettingString, m_pUserManager);
+
 
 #pragma region EVENTS
 	//////////////////////////////
@@ -174,9 +182,9 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Multicast<void(int32_t, int32_t)>>
 		(
 			"MouseScrollMulticast",
-			"Bind", &Multicast<void(Sint32, Sint32)>::BindLuaFunction,
+			"Bind", &Multicast<void(int32_t, int32_t)>::BindLuaFunction,
 
-			"Unbind", &Multicast<void(Sint32, Sint32)>::UnbindLuaFunction
+			"Unbind", &Multicast<void(int32_t, int32_t)>::UnbindLuaFunction
 			);
 
 	luaState.new_usertype<Multicast<void(int, int, float, float)>>
@@ -191,8 +199,14 @@ void ScriptingManager::ManageBindings()
 			"RigidbodyMultiCast",
 			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
 			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
-		);
+			);
 
+	luaState.new_usertype<Multicast<void(GameObject*, GameObject*)>>
+		(
+			"TriggerMultiCast",
+			"Bind", &Multicast<void(GameObject*, GameObject*)>::BindLuaFunction,
+			"Unbind", &Multicast<void(GameObject*, GameObject*)>::UnbindLuaFunction
+			);
 	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const float)>>
 		(
 			"JoystickMotionMulticast",
@@ -200,12 +214,12 @@ void ScriptingManager::ManageBindings()
 			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const float)>::UnbindLuaFunction
 			);
 
-	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t,const bool)>>
+	luaState.new_usertype<Multicast<void(const uint32_t, const uint32_t, const bool)>>
 		(
 			"JoystickButtonMulticast",
 			"Bind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::BindLuaFunction,
 			"Unbind", &Multicast<void(const uint32_t, const uint32_t, const bool)>::UnbindLuaFunction
-		);
+			);
 
 
 	luaState.set_function("OnKeyEvent", &KeyEvent::OnKeyEvent);
@@ -228,14 +242,14 @@ void ScriptingManager::ManageBindings()
 
 
 			// State Events
-			"PushState", & EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-			"PopState", & EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", & EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-			"PushLoadedState", & EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
 
 			//Audio Events
-			"PlaySong", & EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", & EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
+			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
 			);
 
 
@@ -243,21 +257,21 @@ void ScriptingManager::ManageBindings()
 #pragma endregion
 
 #pragma region CONTROLLER
-	luaState["CONTROLLER"] =  luaState.create_table_with(
-	"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
-	"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
-	"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
-	"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
-	"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
-	"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
-	"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
-	"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
-	"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
-	"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
-	"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
-	"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
-	"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
-	"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	luaState["CONTROLLER"] = luaState.create_table_with(
+		"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
+		"B", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_B,
+		"X", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_X,
+		"Y", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_Y,
+		"LB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_BACK,
+		"RB", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_GUIDE,
+		"Select", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_START,
+		"Start", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSTICK,
+		"LS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_RIGHTSTICK,
+		"RS", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_LEFTSHOULDER,
+		"DUP", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_UP,
+		"DDOWN", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_DOWN,
+		"DLEFT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_LEFT,
+		"DRIGHT", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_DPAD_RIGHT
 	);
 #pragma endregion
 #pragma region SCANCODE
@@ -313,11 +327,47 @@ void ScriptingManager::ManageBindings()
 		"RIGHTBRACKET", SDL_SCANCODE_RIGHTBRACKET,
 		"BLACKSLASH", SDL_SCANCODE_BACKSLASH,
 		"ENTER", SDL_SCANCODE_RETURN
-		);
+	);
+#pragma endregion
+#pragma region CollisionMaskEnum
+#define COLLISION_MASK(ENTRY) #ENTRY, CollisionTable::CollisionMask::ENTRY,
+	luaState["CollisionMask"] = luaState.create_table_with(
+		#include "Physics\CollisionMaskTypes.def"
+		"NUM", CollisionTable::CollisionMask::NUM
+	);
+#undef COLLISION_MASK
 #pragma endregion
 
 #pragma region HELPERS
+	luaState.set_function("ConvertToDegrees", &DirectX::XMConvertToDegrees);
+	luaState.set_function("ConvertToRadians", &DirectX::XMConvertToRadians);
+	luaState.set_function("CreateTranslation", sol::overload(
+		sol::resolve<Matrix(const Vector3&)>(&Matrix::CreateTranslation),
+		sol::resolve<Matrix(float, float, float)>(&Matrix::CreateTranslation)
+		)
+	);
+	luaState.set_function("CreateRotationMatrixFromDegrees", &MathUtil::CreateRotationMatrixFromDegrees);
 	luaState.set_function("GetRotationMatrix", &MathUtil::GetRotationMatrix);
+	luaState.set_function("MatrixToRadEulerAngles", &MathUtil::MatrixToRadEulerAngles);
+	luaState.set_function("MatrixToDegreeEulerAngles", &MathUtil::MatrixToDegreeEulerAngles);
+	luaState.set_function("PiecewiseProd", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Vector2&)>(&MathUtil::PiecewiseProd),
+		sol::resolve<Vector3(const Vector3&, const Vector3&)>(&MathUtil::PiecewiseProd),
+		sol::resolve<Vector4(const Vector4&, const Vector4&)>(&MathUtil::PiecewiseProd)
+		)
+	);
+	luaState.set_function("TransformVector", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::Transform),
+		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::Transform),
+		sol::resolve<Vector4(const Vector4&, const Matrix&)>(&Vector4::Transform)
+		)
+	);
+
+	luaState.set_function("TransformVectorNormal", sol::overload(
+		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::TransformNormal),
+		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::TransformNormal)
+	)
+	);
 
 #pragma endregion
 
@@ -390,6 +440,7 @@ void ScriptingManager::ManageBindings()
 		"a11", &Matrix::_21, "a12", &Matrix::_22, "a13", &Matrix::_23, "a14", &Matrix::_24,
 		"a21", &Matrix::_31, "a22", &Matrix::_32, "a23", &Matrix::_33, "a24", &Matrix::_34,
 		"a31", &Matrix::_41, "a32", &Matrix::_42, "a33", &Matrix::_43, "a34", &Matrix::_44,
+		"Translation", sol::overload(sol::resolve<void(const Vector3&)>(&Matrix::Translation), sol::resolve<Vector3()const>(&Matrix::Translation)),
 		sol::meta_function::addition, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator+),
 		sol::meta_function::subtraction, sol::resolve<Matrix(Matrix const&, Matrix const&)>(operator-),
 		sol::meta_function::multiplication, sol::resolve<Matrix(float, Matrix const&)>(operator*),
@@ -439,6 +490,7 @@ void ScriptingManager::ManageBindings()
 		//Get scripted and engine components
 		"GetCustomComp",          &GameObject::LuaGetCustomComponent,
 		"GetRigidbodyComp",       &GameObject::GetComponent<RigidbodyComponent>,
+		"GetTriggerComp",         &GameObject::GetComponent<TriggerComponent>,
 		"GetRendererComp",        &GameObject::GetComponent<RendererComponent>,
 		"GetMeshComp",            &GameObject::GetComponent<MeshComponent>,
 		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
@@ -451,6 +503,7 @@ void ScriptingManager::ManageBindings()
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
 		"AddRigidbodyComp",       &GameObject::AddComponent<RigidbodyComponent>,
+		"AddTriggerComp",         &GameObject::AddComponent<TriggerComponent>,
 		"AddRendererComp",        &GameObject::AddComponent<RendererComponent>,
 		"AddMeshComp",            &GameObject::AddComponent<MeshComponent>,
 		"AddLightComp",           &GameObject::AddComponent<LightComponent>,
@@ -494,7 +547,8 @@ void ScriptingManager::ManageBindings()
 		"SetLocalPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&TransformComponent::SetLocalPosition),
 			sol::resolve<void(float, float, float)>(&TransformComponent::SetLocalPosition)),
-		"SetLocalRotation", &TransformComponent::SetLocalRotation
+		"SetLocalRotation", &TransformComponent::SetLocalRotation,
+		"SetLocalRotationMatrix", &TransformComponent::SetLocalRotationMatrix
 	);
 
 	// UIComponent
@@ -566,6 +620,20 @@ void ScriptingManager::ManageBindings()
 		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
+	//TRIGGER
+	luaState.new_usertype<TriggerComponent>
+		(
+			"TriggerComponent",
+			"GetVelocity", &TriggerComponent::GetScale,
+			"SetVelocity", &TriggerComponent::SetScale,
+			"GetOffset", &TriggerComponent::GetOffset,
+			"SetOffset", &TriggerComponent::SetOffset,
+
+			"GetCollisionMask", & TriggerComponent::GetCollisionMask,
+			"OnEnter", & TriggerComponent::m_onEnter,
+			"OnExit", & TriggerComponent::m_onExit
+			);
+
 	//RENDERER
 	luaState.new_usertype<RendererComponent>
 	(
@@ -600,9 +668,12 @@ void ScriptingManager::ManageBindings()
 		"DecreaseFOV", &Camera::DecreaseFOV,
 		"GetFOV", &Camera::GetFOV,
 		"GetForward", &Camera::GetForward,
+		"GetUp", &Camera::GetUp,
 		"GetViewMatrix", &Camera::GetViewMatrix,
 		"GetViewProjectionMatrix", &Camera::GetViewProjectionMatrix,
 		"GetProjectionMatrix", &Camera::GetProjectionMatrix,
+		"GetInvViewMatrix", &Camera::GetInvViewMatrix,
+		"GetInvViewMatrixCopy", &Camera::GetInvViewMatrixCopy,
 		"GetScreenWidth", &Camera::GetScreenWidth,
 		"GetScreenHeight", &Camera::GetScreenHeight,
 		"GetRight", &Camera::GetRight,

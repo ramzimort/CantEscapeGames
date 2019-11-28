@@ -13,7 +13,6 @@
  */
 
 class BaseEvent;
-class WindowManager;
 class CameraManager;
 class AppRenderer;
 class InputManager;
@@ -23,6 +22,7 @@ class ScriptingManager;
 class EventBus;
 class DebugManager;
 class AudioManager;
+class UserManager;
 
 /**
  * @brief Main singleton class for Event Communication and Thread-Safety
@@ -44,13 +44,14 @@ public:
 	static EventManager* Get();
 	/**
 	 * @brief Initialize the engine with startup level and window parameters
-	 * 
-	 * @param levelName 
-	 * @param fullscreen 
-	 * @param width 
-	 * @param height 
+	 *
+	 * @param gameName
+	 * @param levelName
+	 * @param fullscreen
+	 * @param width
+	 * @param height
 	 */
-	void Initialize(const std::string& levelName, bool fullscreen, int width, int height);
+	void Initialize(const std::string& gameName, const std::string& levelName, bool fullscreen, int width, int height);
 	/**
 	 * @brief Runs the input wait event loop on its own thread
 	 * 
@@ -99,13 +100,14 @@ private:
 private:
 	AudioManager* m_pAudioManager;
 	ScriptingManager *m_pScriptingManager;
-	WindowManager* m_pWindowManager;
 	CameraManager* m_pCameraManager;
 	AppRenderer* m_pAppRenderer;
 	InputManager* m_pInputManager;
 	ResourceManager* m_pResourceManager;
 	StateManager* m_pStateManager;
 	EventBus* m_pEventBus;
+	UserManager* m_pUserManager;
+
 	static EventManager* m_EventManager;
 
 	std::mutex m_mutex;

@@ -21,7 +21,8 @@ TransformComponent::TransformComponent(GameObject *owner) :
 	m_needToRecalculateModel(1),
 	m_position(0.f),
 	m_rotation(0.f),
-	m_scale(1.f)
+	m_scale(1.f),
+	m_rotMatrixAutomaticCalc(true)
 {
 }
 
@@ -118,6 +119,13 @@ void TransformComponent::SetLocalRotation(float eulerX, float eulerY, float eule
 	m_rotation.x = eulerX;
 	m_rotation.y = eulerY;
 	m_rotation.z = eulerZ;
+}
+
+void TransformComponent::SetLocalRotationMatrix(const Matrix& rotationMatrix)
+{
+	m_needToRecalculateModel = 1;
+	m_rotMatrix = rotationMatrix;
+	m_rotMatrixAutomaticCalc = false;
 }
 
 void TransformComponent::SetLocalPosition(const Vector3& position)

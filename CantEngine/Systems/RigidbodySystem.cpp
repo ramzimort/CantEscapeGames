@@ -14,12 +14,10 @@ Primary Author: Aleksey Perfilev
 #include "CantDebug/CantDebug.h"
 #include "Graphics/AppRenderer.h"
 #include "Graphics/GraphicsSettings.h"
-unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
-
 #include "Components/TransformComponent.h"
 #include "Components/RigidbodyComponent.h"
 
-
+unsigned const RigidbodySystem::static_type = BaseSystem::numberOfTypes++;
 
 RigidbodySystem::RigidbodySystem() : 
 	BaseSystem(), m_timeAccumulator(0.0f)
@@ -486,7 +484,7 @@ void RigidbodySystem::LateUpdate(float dt)
 			transform->SetLocalPosition(position);
 
 			MathUtil::RadiansToDegree(eularRotation);
-			transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
+			//transform->SetLocalRotation(eularRotation.x, eularRotation.y, eularRotation.z);
 		}
 
 		m_timeAccumulator -= PhysicsUtils::Consts::fixedTimeStep;

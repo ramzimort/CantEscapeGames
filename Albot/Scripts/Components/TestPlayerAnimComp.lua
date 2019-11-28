@@ -266,10 +266,7 @@ TestPlayerAnimComp.HandleMovement = function(self, isLanding, isJumping)
 	self.accel = Vector3.new( mgt*xzAccel.x, self.accel.y, mgt*xzAccel.y);
 end
 
-
-
 TestPlayerAnimComp.UpdateRotation = function(self)
-	
 	--Get current forward and target forward
 	local currFwd = self.transformComp:GetForward();
 	local tgtFwd = self.targetFwd;
@@ -300,7 +297,6 @@ TestPlayerAnimComp.UpdateRotation = function(self)
 		end
 	end
 end
-
 
 TestPlayerAnimComp.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKeyPressed});

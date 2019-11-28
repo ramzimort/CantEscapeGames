@@ -5,8 +5,6 @@
 	  "Assets\\Textures\\UI\\SettingBase.png",
 	  "Assets\\Textures\\UI\\CloseButton.png",
 	  "Assets\\Textures\\UI\\CreditsText.png"
-	  
-	  
     ],
     "Models": [
       "Assets\\Models\\Cube.fbx",
@@ -17,22 +15,19 @@
 	  "Assets\\Materials\\UI\\SettingBaseMaterial.json",
 	  "Assets\\Materials\\UI\\CloseButtonMaterial.json",
 	  "Assets\\Materials\\UI\\CreditsTextMaterial.json"
-	   
-	   
     ],
     
     "Prefabs": [
       "Assets\\Prefabs\\Button.json",
-	  "Assets\\Prefabs\\UIEmpty.json",
-      "Assets\\Prefabs\\UIObject.json"
+	    "Assets\\Prefabs\\UIEmpty.json",
+     "Assets\\Prefabs\\UIObject.json"
     ],
     "Scripts": [
       "Scripts\\States\\Credits.lua",
       "Scripts\\Components\\UICameraCredits.lua",
-	  "Scripts\\Components\\Button.lua",
-	  "Scripts\\Components\\AffineAnimation.lua",
-	  "Scripts\\Components\\WindowResize.lua"
-	  
+	    "Scripts\\Components\\Button.lua",
+	    "Scripts\\Components\\AffineAnimation.lua",
+	    "Scripts\\Components\\WindowResize.lua"
     ],
 	"Songs": [
 

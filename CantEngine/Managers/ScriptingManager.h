@@ -12,6 +12,7 @@
 
 class ResourceManager;
 class AppRenderer;
+class UserManager;
 
 /**
  * @brief Class that manages the scripting and the bindings from cpp to lua
@@ -27,7 +28,7 @@ public:
 	 * @param pResourcemanager 
 	 * @param pAppRenderer 
 	 */
-	ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer);
+	ScriptingManager(ResourceManager* pResourcemanager, AppRenderer* pAppRenderer, UserManager* pUserManager);
 	/**
 	 * @brief Destroy the Scripting Manager object
 	 * 
@@ -76,6 +77,7 @@ private:
 	 * 
 	 */
 	AppRenderer* m_pAppRenderer;
+	UserManager* m_pUserManager;
 	/**
 	 * @brief Hash table that holds pairs of string, table reference
 	 * 

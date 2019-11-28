@@ -192,11 +192,16 @@ const Vector3& Camera::GetForward() const
 	return m_lookDir;
 }
 
-
 const Vector3& Camera::GetRight() const
 {
 	return m_rightDir;
 }
+
+const Vector3& Camera::GetUp() const
+{
+	return m_upDir;
+}
+
  Vector2 Camera::GetWidthHeight() const
 {
 	Vector2 value = Vector2(float(m_screenWidth), float(m_screenHeight));

@@ -24,6 +24,7 @@ EventManager::EventManager()
 
 EventManager::~EventManager()
 {
+	delete m_pUserManager;
 	delete m_pStateManager;
 	delete m_pResourceManager;
 	delete m_pAppRenderer;
@@ -37,31 +38,32 @@ EventManager::~EventManager()
 #endif // DEVELOPER
 }
 
-void EventManager::Initialize(const std::string& levelPath, bool fullscreen, int width, int height)
+void EventManager::Initialize(const std::string& gameName, const std::string& levelPath, bool fullscreen, int width, int height)
 {
 	m_pEventBus = new EventBus();
 	m_pCameraManager = new CameraManager();
-	m_pInputManager = new InputManager(fullscreen, width, height);
-	m_pAudioManager = new AudioManager();
+	m_pInputManager = new InputManager(gameName, fullscreen, width, height);
 	m_pResourceManager = new ResourceManager();
 	m_pAppRenderer = new AppRenderer(*m_pInputManager->GetWindow(), m_pResourceManager, m_pCameraManager);
+	m_pUserManager = new UserManager(gameName);
 
 	DEBUG_INIT(
-		CantDirectory::Path(),
+		m_pUserManager->UserDirectoryPath(),
 		m_pInputManager->GetWindow(), 
 		m_pAppRenderer->GetDXRenderer()->get_device(), 
 		m_pAppRenderer->GetDXRenderer()->get_device_context(),
 		m_pAppRenderer->GetDXRenderer()->m_mutex);
 
 
+	m_pAudioManager = new AudioManager();
 	m_pAppRenderer->InitializeResources();
-	m_pScriptingManager = new ScriptingManager(m_pResourceManager, m_pAppRenderer);
+	m_pScriptingManager = new ScriptingManager(m_pResourceManager, m_pAppRenderer, m_pUserManager);
 	m_pResourceManager->Initialize(m_pAppRenderer->GetDXRenderer(), &m_pScriptingManager->luaState, m_pAudioManager);
 	Factory::Initialize(m_pResourceManager, m_pAppRenderer->GetDXRenderer(), m_pScriptingManager);
 		
 	m_pStateManager = new StateManager(m_pAppRenderer, m_pResourceManager, m_pScriptingManager);
 #ifdef DEVELOPER
-	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager);
+	m_pDebugManager = new CantDebug::DebugManager(m_pAppRenderer, m_pResourceManager, m_pStateManager, m_pAudioManager);
 #endif
 
 	m_pStateManager->SwitchState(levelPath);

@@ -28,7 +28,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation\AnimatorController.cpp" />
+    <ClCompile Include="Components\FollowCurvesPathComponent.cpp" />
     <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
+    <ClCompile Include="Components\SplineCurvesComponent.cpp" />
+    <ClCompile Include="Components\TriggerComponent.cpp" />
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
     <ClCompile Include="Graphics\IBL\BRDFLookupTexturePass.cpp" />
@@ -94,6 +97,7 @@
     <ClCompile Include="Graphics\TextRendering\TextRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRenderingInstance.cpp" />
+    <ClCompile Include="Helper\MathUtil.cpp" />
     <ClCompile Include="Managers\AudioManager.cpp" />
     <ClCompile Include="Managers\CameraManager.cpp" />
     <ClCompile Include="Managers\EventManager.cpp" />
@@ -142,8 +146,10 @@
     <ClCompile Include="Systems\RenderingSystem.cpp" />
     <ClCompile Include="Systems\RigidbodySystem.cpp" />
     <ClCompile Include="Systems\SkyboxIrradianceSystem.cpp" />
+    <ClCompile Include="Systems\SplineCurvesSystem.cpp" />
     <ClCompile Include="Systems\TestSystem.cpp" />
     <ClCompile Include="Systems\TransformSystem.cpp" />
+    <ClCompile Include="Systems\TriggerSystem.cpp" />
     <ClCompile Include="Systems\UISystem.cpp" />
     <ClCompile Include="Graphics\UI_Rendering\UIObjectRendering.cpp" />
     <ClCompile Include="Graphics\TextRendering\TextRendering.cpp" />
@@ -153,6 +159,9 @@
     <ClInclude Include="Animation\AnimConditions.h" />
     <ClInclude Include="Components\AffineAnimationComponent.h" />
     <ClInclude Include="Audio\AudioTypes.h" />
+    <ClInclude Include="Components\FollowCurvesPathComponent.h" />
+    <ClInclude Include="Components\SplineCurvesComponent.h" />
+    <ClInclude Include="Components\TriggerComponent.h" />
     <ClInclude Include="Events\Audio\AudioEvents.h" />
     <ClInclude Include="Components\SkyboxIrradianceComponent.h" />
     <ClInclude Include="Events\GameObject\GameObjectEvents.h" />
@@ -292,8 +301,10 @@
     <ClInclude Include="Systems\RenderingSystem.h" />
     <ClInclude Include="Systems\RigidbodySystem.h" />
     <ClInclude Include="Systems\SkyboxIrradianceSystem.h" />
+    <ClInclude Include="Systems\SplineCurvesSystem.h" />
     <ClInclude Include="Systems\TestSystem.h" />
     <ClInclude Include="Systems\TransformSystem.h" />
+    <ClInclude Include="Systems\TriggerSystem.h" />
     <ClInclude Include="Systems\UISystem.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Graphics\UI_Rendering\UIObjectRendering.h" />
@@ -489,7 +500,7 @@ COPY "$(SolutionDir)ThirdParty\DLL\Win64\*.dll" </Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lib\Win64;$(OutDir)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;assimp-vc141-mt.lib;SDL2.lib;CantDebug.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;Lua.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;assimp-vc141-mt.lib;SDL2.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;winmm.lib;DirectXTK.lib;librttr_core.lib;Lua.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
       <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>

@@ -32,6 +32,7 @@ namespace CantDebug
 
 	struct DebugConfig
 	{
+		bool ShowTriggers = false;
 		bool SelectionTool = false;
 		bool PauseState = false;
 		bool StepFrame = false;
@@ -39,6 +40,9 @@ namespace CantDebug
 		bool CreateLevel = false;
 		bool IsCtrl = false;
 		bool RefreshResources = false;
+		float MasterVolume = 0.f;
+		float SongVolume = 0.f;
+		float SFXVolume = 0.f;
 	};
 
 	union CompDataUnion
@@ -96,7 +100,7 @@ namespace CantDebug
 		//typedef std::unordered_map<std::string, 
 
 	public:
-		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager);
+		DebugManager(AppRenderer* pAppRenderer, ResourceManager* pResourceManager, StateManager* pStateManager, AudioManager* pAudioManager);
 		~DebugManager();
 
 		void Initialize();
@@ -108,6 +112,7 @@ namespace CantDebug
 		void UpdatePrefabCreation();
 		void UpdateState();
 		void UpdateMaterialInfo();
+		void UpdateAudio();
 
 		// Helpers
 		std::vector<GameObject*> GetSelectedObjects();
@@ -141,12 +146,14 @@ namespace CantDebug
 		MaterialInfo m_materialInfo;
 
 		MeshObjectList m_meshObjects;
+
 		DynamicAabbTree m_AabbTree;
 
 		State* m_pGameState;
 		AppRenderer* m_pAppRenderer;
 		ResourceManager* m_pResourceManager;
 		StateManager* m_pStateManager;
+		AudioManager* m_pAudioManager;
 	};
 }
 

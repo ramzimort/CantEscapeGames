@@ -326,6 +326,8 @@ rttr::variant Factory::GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<TransformComponent>();
 	else if (name == "RigidBodyComponent")
 		return go->AddComponent<RigidbodyComponent>();
+	else if (name == "TriggerComponent")
+		return go->AddComponent<TriggerComponent>();
 	else if (name == "RendererComponent")
 		return go->AddComponent<RendererComponent>();
 	else if (name == "MeshComponent")
@@ -344,6 +346,10 @@ rttr::variant Factory::GetComponent(GameObject* go, const std::string& name)
 		return go->AddComponent<AnimationComponent>();
 	else if (name == "SkyboxIrradianceComponent")
 		return go->AddComponent<SkyboxIrradianceComponent>();
+	else if (name == "FollowCurvesPathComponent")
+		return go->AddComponent<FollowCurvesPathComponent>();
+	else if (name == "SplineCurvesComponent")
+		return go->AddComponent<SplineCurvesComponent>();
 	
 	return rttr::variant();
 }

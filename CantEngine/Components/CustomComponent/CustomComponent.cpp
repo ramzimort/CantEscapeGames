@@ -25,6 +25,11 @@ CustomComponent::CustomComponent(GameObject *owner) :
 
 CustomComponent::~CustomComponent()
 {
+	Destroy();
+}
+
+void CustomComponent::Destroy()
+{
 	try
 	{
 		m_luaScriptTable["OnDestruction"](m_luaScriptTable);

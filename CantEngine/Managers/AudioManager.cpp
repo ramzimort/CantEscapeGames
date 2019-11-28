@@ -40,6 +40,10 @@ AudioManager::AudioManager()
 	//TODO: Load audio from previously saved settings in userdata.json
 	EventManager::Get()->SubscribeEvent<PlaySongEvent>(this, std::bind(&AudioManager::OnPlaySong, this, std::placeholders::_1));
 	EventManager::Get()->SubscribeEvent<PlaySFXEvent>(this, std::bind(&AudioManager::OnPlaySFX, this, std::placeholders::_1));
+
+	SetMasterVolume(0.f);
+	SetSFXVolume(0.f);
+	SetSongVolume(0.f);
 }
 
 AudioManager::~AudioManager()
@@ -121,9 +125,6 @@ void AudioManager::Update(float dt)
 		nextSongPath = 0;
 	}
 	mp_system->update();
-	SetMasterVolume(3.f);
-	SetSongVolume(3.f);
-	SetSFXVolume(3.f);
 	//// Cheat Code for Audio
 	//if (World::Get()->Get_Input_Manager()->is_Key_Triggered(SDL_SCANCODE_M))
 	//	Set_Song_Volume(0.f);
@@ -211,8 +212,9 @@ void AudioManager::SetMasterVolume(float volume)
 {
 	if (volume < 0.f)
 		volume = 0.f;
-	else if (volume > 3.f)
-		volume = 3.f;
+	else if (volume > 100.f)
+		volume = 100.f;
+	volume *= (0.01f);
 	mp_master_channel->setVolume(volume);
 }
 
@@ -220,49 +222,55 @@ void AudioManager::IncrementMasterVolume()
 {
 	float volume;
 	mp_master_channel->getVolume(&volume);
-	float nextVolume = volume + 0.2f;
-	SetMasterVolume(nextVolume);
+	volume += 0.05f;
+	volume *= 100.f;
+	SetMasterVolume(volume);
 }
 
 void AudioManager::DecrementSliderVolume()
 {
 	float volume;
 	mp_master_channel->getVolume(&volume);
-	float nextVolume = volume - 0.2f;
-	SetMasterVolume(nextVolume);
+	volume -= 0.05f;
+	volume *= 100.f;
+	SetMasterVolume(volume);
 }
 
 void AudioManager::SetSFXVolume(float volume)
 {
 	if (volume < 0.f)
 		volume = 0.f;
-	else if (volume > 3.f)
-		volume = 3.f;
+	else if (volume > 100.f)
+		volume = 100.f;
+	volume *= (0.01f);
 	groups[CATEGORY_SFX]->setVolume(volume);
 }
 
 void AudioManager::IncrementSFXVolume()
 {
 	float volume;
-	groups[CATEGORY_SFX]->getVolume(&volume);
-	float nextVolume = volume + 0.2f;
-	SetSFXVolume(nextVolume);
+	mp_master_channel->getVolume(&volume);
+	volume += 0.05f;
+	volume *= 100.f;
+	SetSFXVolume(volume);
 }
 
 void AudioManager::DecrementSFXVolume()
 {
 	float volume;
-	groups[CATEGORY_SFX]->getVolume(&volume);
-	float nextVolume = volume - 0.2f;
-	SetSFXVolume(nextVolume);
+	mp_master_channel->getVolume(&volume);
+	volume -= 0.05f;
+	volume *= 100.f;
+	SetSFXVolume(volume);
 }
 
 void AudioManager::SetSongVolume(float volume)
 {
 	if (volume < 0.f)
 		volume = 0.f;
-	else if (volume > 3.f)
-		volume = 3.f;
+	else if (volume > 100.f)
+		volume = 100.f;
+	volume *= (0.01f);
 	groups[CATEGORY_SONG]->setVolume(volume);
 }
 
@@ -275,18 +283,20 @@ void AudioManager::CheckError(const FMOD_RESULT result)
 void AudioManager::IncrementSongVolume()
 {
 	float volume;
-	groups[CATEGORY_SONG]->getVolume(&volume);
-	float nextVolume = volume + 0.2f;
-	SetSongVolume(nextVolume);
+	mp_master_channel->getVolume(&volume);
+	volume += 0.05f;
+	volume *= 100.f;
+	SetSongVolume(volume);
 	//std::cout << "Volume: " << nextVolume << std::endl;
 }
 
 void AudioManager::DecrementSongVolume()
 {
 	float volume;
-	groups[CATEGORY_SONG]->getVolume(&volume);
-	float nextVolume = volume - 0.2f;
-	SetSongVolume(nextVolume);
+	mp_master_channel->getVolume(&volume);
+	volume -= 0.05f;
+	volume *= 100.f;
+	SetSongVolume(volume);
 	//std::cout << "Volume: " << nextVolume << std::endl;
 }
 

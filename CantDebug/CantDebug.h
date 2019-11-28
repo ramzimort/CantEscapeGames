@@ -18,16 +18,21 @@ namespace CantDebugAPI
 		bool* isDrawEPAFinalTriangle;
 		int* dynamicAabbLevelDraw;
 		bool* Draw_Dynamic_AABB_Tree;
+		bool* isDrawTriggersTree;
 	};
 
 	struct DebugConfig
 	{
+		bool* ShowTriggers;
 		bool* SelectionTool;
 		bool* PauseState;
 		bool* StepFrame;
 		std::string* LevelName;
 		bool* CreateLevel;
 		bool* RefreshResources;
+		float* MasterVolume;
+		float* SongVolume;
+		float* SFXVolume;
 	};
 
 	enum type

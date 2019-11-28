@@ -22,7 +22,7 @@ StateManager::StateManager(AppRenderer* AppRenderer, ResourceManager* ResourceMa
 StateManager::~StateManager()
 {
 	//Clears up the stateStack
-	SwitchState(0);
+	ClearStack();
 }
 
 void StateManager::UpdateStack(float dt)

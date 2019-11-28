@@ -12,6 +12,8 @@
 #include "Reflection/Serialization.h"
 #include "CantDebug/CantDebug.h"
 #include "Memory/CantMemory.h"
+#include "EventManager.h"
+#include "Events/State/StateEvents.h"
 
 ResourceManager::ResourceManager() : m_dxrenderer(nullptr)
 {
@@ -267,10 +269,10 @@ void ResourceManager::FreeResource(StringId id)
 	ResPtr p = it->second.res;
 	switch (it->second.type)
 	{
-	case SONGS:
 	case FONT:
 		CantMemory::PoolResource<DirectX::SpriteFont>::Free(p.p_spriteFont);
 		break;
+	case SONGS:
 	case SFX:
 		p.p_sound->release();
 		m_pAudioManager->UnregisterSound(it->first);
@@ -294,8 +296,10 @@ void ResourceManager::FreeResource(StringId id)
 		CantMemory::PoolResource<std::string>::Free(p.p_prefab);
 		break;
 	case SCRIPT:
-		// TODO: Should we do anything when clearing this type of resource
 		CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
+		break;
+	default:
+		assert(0);
 		break;
 	}
 	m_resources.erase(it);
@@ -303,8 +307,9 @@ void ResourceManager::FreeResource(StringId id)
 
 void ResourceManager::FreeAll()
 {
-	for (auto it = m_resources.begin(); it != m_resources.end(); ++it)
+	while(!m_resources.empty())
 	{
+		const auto& it = m_resources.begin();
 		FreeResource(it->first);
 	}
 	m_resources.clear();
@@ -416,7 +421,7 @@ void ResourceManager::LoadScript(const std::string& filePath)
 }
 
 #ifdef  DEVELOPER
-void ResourceManager::ReloadResources()
+void ResourceManager::ReloadResources(const ReloadResourcesEvent* e)
 {
 	auto it = m_resources.begin();
 	while (it != m_resources.end())
@@ -447,8 +452,8 @@ void ResourceManager::ReloadResources()
 			LoadTexture(path);
 			break;
 		}*/
-		case MODEL:
-		{
+		//case MODEL:
+		//{
 			//p.p_model->Release();
 			//CantMemory::PoolResource<Model>::Free(p.p_model);
 
@@ -485,9 +490,11 @@ void ResourceManager::ReloadResources()
 			////Finally, init buffer for renderer
 			//model->InitBuffer(m_dxrenderer);
 			//break;
-		}
+		//}
 		case MATERIAL:
 		{
+			if (it->first.getName().find(".json") == std::string::npos)
+				break;
 			CantMemory::PoolResource<Material>::Free(p.p_material);
 			Material* material = CantMemory::PoolResource<Material>::Allocate();
 			const std::string materialObj = CantReflect::StringifyJson(path);
@@ -530,6 +537,9 @@ void ResourceManager::ReloadResources()
 		case SCRIPT:
 		{
 			// TODO: Should we do anything when clearing this type of resource
+			if (path.find("States\\") != std::string::npos)
+				break;
+			
 			CantMemory::PoolResource<sol::table>::Free(p.p_solTable);
 			sol::table* pLuaTable = CantMemory::PoolResource<sol::table>::Allocate();
 
@@ -549,7 +559,10 @@ void ResourceManager::ReloadResources()
 				}
 			}
 			break;
+
 		}
+		default:
+			break;
 		}
 		++it;
 	}

@@ -143,7 +143,10 @@ public:
 	 * @param eulerZ 
 	 */
 	void SetLocalRotation(float eulerX, float eulerY, float eulerZ); 
-
+	
+	//Only for Shooter's gameplay logic for now.
+	//Not for public interface usage
+	void SetLocalRotationMatrix(const Matrix& rotationMatrix);
 private:
 	//Setup methods
 	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
@@ -161,6 +164,9 @@ public:
 private:
 	//Flag for knowing if the object moved
 	bool m_needToRecalculateModel;
+	//Only for Shooter's gameplay logic for now.
+	//Not for public interface usage
+	bool m_rotMatrixAutomaticCalc;
 
 	Vector3 m_position;
 	Vector3 m_rotation;
