@@ -6,10 +6,18 @@
 #include "Graphics/D3D11_Renderer.h"
 #include "Managers/GameObjectManager.h"
 
+
 RTTR_REGISTRATION
 {
 	rttr::registration::class_<FollowCurvesPathComponent>("FollowCurvesPathComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
+		.property("MotionPathCurveGameobjectTagName", &FollowCurvesPathComponent::m_motionPathCurveGameobjTagName)
+		.property("ArcLengthTolerance", &FollowCurvesPathComponent::m_arcLengthTolerance)
+		.property("MotionSpeed", &FollowCurvesPathComponent::m_motionSpeed)
+		.property("EnableMotionAlongPath", &FollowCurvesPathComponent::m_enableMotionAlongPath)
+		.property("EnableMotionOrientation", &FollowCurvesPathComponent::m_enableMotionOrientation)
+		.property("EnableReverseMotion", &FollowCurvesPathComponent::m_enableReverseMotion)
+		.property("OffsetFollowPathPosition", &FollowCurvesPathComponent::m_offsetFollowPathPosition)
 		.method("Init", &FollowCurvesPathComponent::Init);
 }
 
@@ -19,8 +27,13 @@ unsigned const FollowCurvesPathComponent::static_type = BaseComponent::numberOfT
 FollowCurvesPathComponent::FollowCurvesPathComponent(GameObject* ownerGameObj)
 	:BaseComponent(ownerGameObj, static_type),
 	m_motionSpeed(1.f),
-	m_arcLengthTolerance(0.001f),
-	m_motionPathCurveGameobjTagName("")
+	m_arcLengthTolerance(0.01f),
+	m_motionPathCurveGameobjTagName(""),
+	m_curMotionTime(0.f),
+	m_enableMotionAlongPath(false),
+	m_enableMotionOrientation(true),
+	m_enableReverseMotion(false),
+	m_currentlyInReverseMotion(false)
 {
 }
 
@@ -32,7 +45,17 @@ FollowCurvesPathComponent::~FollowCurvesPathComponent()
 void FollowCurvesPathComponent::Begin(GameObjectManager *goMgr)
 {
 	m_gameObjManager = goMgr;
-	InitAdaptiveArcLengthTable();
+	GameObject* ownerGameObj = GetOwner();
+	if (m_motionPathCurveGameobjTagName == StringId(""))
+	{
+		return;
+	}
+	GameObject* curveGameobj = m_gameObjManager->FindGameObject(m_motionPathCurveGameobjTagName.getName());
+	if (!curveGameobj)
+	{
+		return;
+	}
+	InitAdaptiveArcLengthTable(curveGameobj);
 }
 
 void FollowCurvesPathComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
@@ -44,11 +67,31 @@ void FollowCurvesPathComponent::SetMotionSpeed(float motionSpeed)
 	m_motionSpeed = motionSpeed;
 }
 
+void FollowCurvesPathComponent::ResetMotionTime()
+{
+	m_curMotionTime = 0.f;
+}
+
+void FollowCurvesPathComponent::SetEnableReverseMotion(bool flag)
+{
+	m_enableReverseMotion = flag;
+}
+
 
 void FollowCurvesPathComponent::SetCurveGameObjectToFollow(const std::string& gameObjectTag)
 {
+	GameObject* ownerGameObj = GetOwner();
+	if (gameObjectTag == "")
+	{
+		return;
+	}
+	GameObject* curveGameobj = m_gameObjManager->FindGameObject(gameObjectTag);
+	if (!curveGameobj)
+	{
+		return;
+	}
 	m_motionPathCurveGameobjTagName = gameObjectTag;
-	InitAdaptiveArcLengthTable();
+	InitAdaptiveArcLengthTable(curveGameobj);
 }
 
 float FollowCurvesPathComponent::GetSplineCurvesParameterFromDistance(float distance) const
@@ -81,21 +124,11 @@ float FollowCurvesPathComponent::GetSplineCurvesParameterFromDistance(float dist
 	return finalS;
 }
 
-void FollowCurvesPathComponent::InitAdaptiveArcLengthTable()
+void FollowCurvesPathComponent::InitAdaptiveArcLengthTable(GameObject* splineCurveGameObject)
 {
-	GameObject* ownerGameObj = GetOwner();
-	if (m_motionPathCurveGameobjTagName == StringId(""))
-	{
-		return;
-	}
-	GameObject* curveGameobj = m_gameObjManager->FindGameObject(m_motionPathCurveGameobjTagName.getName());
-	if (!curveGameobj)
-	{
-		return;
-	}
-	m_motionPathCurveGameobj = curveGameobj;
+	m_motionPathCurveGameobj = splineCurveGameObject;
 	SplineCurvesComponent* splineCurveComp = m_motionPathCurveGameobj->GetComponent<SplineCurvesComponent>();
-
+	assert(splineCurveComp);
 	const std::vector<Vector3>& controlPoints = splineCurveComp->GetControlPoints();
 	struct StackData
 	{

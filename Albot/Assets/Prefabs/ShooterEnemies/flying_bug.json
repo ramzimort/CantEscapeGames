@@ -1,0 +1,23 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+  "FollowCurvesPathComponent": {
+    "MotionPathCurveGameobjectTagName": "",
+    "MotionSpeed": 5.0,
+    "ArcLengthTolerance": 0.01,
+    "EnableMotionAlongPath": false,
+    "EnableMotionOrientation": true,
+    "EnableReverseMotion": true,
+    "OffsetFollowPathPosition": [ 0.0, 0.0, 0.0 ]
+  }
+}

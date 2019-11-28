@@ -384,6 +384,9 @@
     <ClCompile Include="Components\TriggerComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Systems\FollowCurvesPathSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CantDebug\CantDebug.h">
@@ -849,6 +852,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Components\TriggerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\FollowCurvesPathSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -68,7 +68,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 	for (int32_t index = 0; index < curvesComp->m_splineControlPointsNum; ++index)
 	{
 		Vector3 position = splineWorldControlPoints[index];
-		Vector3 half_size(0.01f);
+		Vector3 half_size(0.1f);
 		DebugAABBInstance debugAABBInstance = {};
 		debugAABBInstance.m_min_bound = position - half_size;
 		debugAABBInstance.m_max_bound = position + half_size;

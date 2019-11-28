@@ -543,6 +543,15 @@ namespace CantDebug
 				info.data.vec3 = *reinterpret_cast<Vector3*>(&alternateSplineControlPoints[index]); info.type = CantDebugAPI::VEC3; components.push_back(info);
 			}
 		}
+		auto followCurvesPathComp = go->GetComponent<FollowCurvesPathComponent>();
+		if (followCurvesPathComp)
+		{
+			info.compName = "Follow Curves Path"; info.propName = "Follow: Enable Motion Along Path";
+			info.data._int = (size_t)followCurvesPathComp->IsMotionAlongPathEnabled(); info.type = CantDebugAPI::INTEGER; components.push_back(info);
+			info.compName = "Follow Curves Path"; info.propName = "Follow Motion Speed";
+			info.data.f = followCurvesPathComp->GetMotionSpeed(); info.type = CantDebugAPI::FLOAT; components.push_back(info);
+		}
+
 	}
 
 	void DebugManager::UnregisterObject(const GameObjectDestroyed* e)
@@ -807,6 +816,21 @@ namespace CantDebug
 				CantDebugAPI::ComponentData(debugInfo); ++it;
 			}
 		}
+		auto followCurvesPathComp = go->GetComponent<FollowCurvesPathComponent>();
+		if (followCurvesPathComp)
+		{
+			debugInfo.compName = it->compName;
+			followCurvesPathComp->SetEnableMotionAlongPath((bool)it->data._int);
+			debugInfo.propName = it->propName;
+			debugInfo.i = &it->data._int; debugInfo.t = CantDebugAPI::INTEGER; debugInfo.min = 0.f; debugInfo.max = 1.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+
+			debugInfo.compName = it->compName;
+			followCurvesPathComp->SetMotionSpeed(it->data.f);
+			debugInfo.propName = it->propName;
+			debugInfo.f = &it->data.f; debugInfo.t = CantDebugAPI::FLOAT; debugInfo.min = 0.f; debugInfo.max = 10.f;
+			CantDebugAPI::ComponentData(debugInfo); ++it;
+		}
 	}
 	
 	void DebugManager::UpdateComponents(GameObject* go)
@@ -969,6 +993,8 @@ namespace CantDebug
 			WriteComponentOverride(go->GetComponent<AnimationComponent>(), writer);
 		if (go->HasComponent<SplineCurvesComponent>())
 			WriteComponentOverride(go->GetComponent<SplineCurvesComponent>(), writer);
+		if (go->HasComponent<FollowCurvesPathComponent>())
+			WriteComponentOverride(go->GetComponent<FollowCurvesPathComponent>(), writer);
 		writer.EndObject();
 
 		Document overrideDoc;

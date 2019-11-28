@@ -15,6 +15,15 @@
       "ZOrder": 0
     }
   },
+  "FollowCurvesPathComponent": {
+    "MotionPathCurveGameobjectTagName": "",
+    "MotionSpeed": 1.0,
+    "ArcLengthTolerance": 0.01,
+    "EnableMotionAlongPath": false,
+    "EnableMotionOrientation": false,
+    "EnableReverseMotion": false,
+    "OffsetFollowPathPosition": [0.0, 2.0, 0.0]
+  },
   "Scripts": [
     {
       "Name": "Scripts\\Components\\shooter_fpscontroller.lua",

@@ -115,6 +115,7 @@
             "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
             "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
             "Assets\\Prefabs\\RBTestObj.json",
+            "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\smooth_wood_plane.json",
             "Assets\\Prefabs\\splinecurve.json"
@@ -123,6 +124,92 @@
         "SFX": []
     },
     "Objects": [
+        {
+            "tag": "player01",
+            "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -10.2741060256958,
+                        5.707809448242188,
+                        -0.8852677345275879
+                    ],
+                    "Rotation": [
+                        -40.179893493652347,
+                        -94.01985168457033,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "CameraComponent": {
+                    "Camera": {
+                        "FOV": 45.0,
+                        "Near": 0.10000000149011612,
+                        "Far": 1000.0,
+                        "Position": [
+                            -10.2741060256958,
+                            5.707809448242188,
+                            -0.8852677345275879
+                        ],
+                        "CameraName": "Main",
+                        "ZOrder": 0
+                    }
+                },
+                "FollowCurvesPathComponent": {
+                    "MotionPathCurveGameobjectTagName": "player_path_curve",
+                    "MotionSpeed": 2.194999933242798,
+                    "ArcLengthTolerance": 0.009999999776482582,
+                    "EnableMotionAlongPath": false
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "cerberus_gun",
+            "prefab": "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -10.2741060256958,
+                        5.707809448242188,
+                        -0.8852677345275879
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.009999999776482582,
+                        0.009999999776482582,
+                        0.009999999776482582
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Guns\\Cerberus_LP.fbx"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\CerberusGunLogicComp.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
         {
             "tag": "skybox",
             "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
@@ -184,241 +271,6 @@
                         0.0
                     ],
                     "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
-                }
-            }
-        },
-        {
-            "tag": "player01",
-            "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -5.731955528259277,
-                        7.097570419311523,
-                        4.923741340637207
-                    ],
-                    "Rotation": [
-                        -40.60002136230469,
-                        -54.05990219116211,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 45.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            -5.731955528259277,
-                            7.097570419311523,
-                            4.923741340637207
-                        ],
-                        "CameraName": "Main",
-                        "ZOrder": 0
-                    }
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "Ceramic_Floor",
-            "prefab": "Assets\\Prefabs\\ceramic_floor.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        25.0,
-                        -2.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        -90.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        25.0,
-                        25.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-                    "XTileFactor": 4.0,
-                    "YTileFactor": 4.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\plane.fbx"
-                }
-            }
-        },
-        {
-            "tag": "cerberus_gun",
-            "prefab": "Assets\\Prefabs\\Guns\\cerberus_gun.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -5.731955528259277,
-                        7.097570419311523,
-                        4.923741340637207
-                    ],
-                    "Rotation": [
-                        -90.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.009999999776482582,
-                        0.009999999776482582,
-                        0.009999999776482582
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-                    "XTileFactor": 1.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Guns\\Cerberus_LP.fbx"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\CerberusGunLogicComp.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\smooth_wood_plane.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -25.0,
-                        -2.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        -90.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        25.0,
-                        25.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\SmoothWoodMaterial.json",
-                    "XTileFactor": 4.0,
-                    "YTileFactor": 4.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\plane.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        15.0,
-                        -2.0,
-                        12.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        180.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.5,
-                        0.5,
-                        0.5
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
-                },
-                "HaloEffectComponent": {
-                    "HaloEffect": {
-                        "Position": [
-                            -2.5,
-                            9.0,
-                            0.0
-                        ],
-                        "Radius": 5.0,
-                        "Intensity": 1.0,
-                        "Color": [
-                            1.0,
-                            0.10000000149011612,
-                            0.30000001192092898
-                        ]
-                    }
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Position": [
-                            -2.5,
-                            5.0,
-                            0.0
-                        ],
-                        "Color": [
-                            1.0,
-                            0.10000000149011612,
-                            0.30000001192092898
-                        ],
-                        "Intensity": 12.282999992370606,
-                        "CastShadow": true,
-                        "Radius": 12.689000129699709
-                    }
-                }
-            }
-        },
-        {
-            "tag": "directional_light01",
-            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        45.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Directional",
-                        "Color": [
-                            1.0,
-                            0.800000011920929,
-                            0.7360000014305115
-                        ],
-                        "Intensity": 0.25,
-                        "CastShadow": true
-                    }
                 }
             }
         },
@@ -486,7 +338,162 @@
             }
         },
         {
+            "tag": "Ceramic_Floor",
+            "prefab": "Assets\\Prefabs\\ceramic_floor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        -2.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        25.0,
+                        25.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 4.0,
+                    "YTileFactor": 4.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
+        },
+        {
             "tag": "",
+            "prefab": "Assets\\Prefabs\\smooth_wood_plane.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -25.0,
+                        -2.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        25.0,
+                        25.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\SmoothWoodMaterial.json",
+                    "XTileFactor": 4.0,
+                    "YTileFactor": 4.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
+        },
+        {
+            "tag": "directional_light01",
+            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        45.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Directional",
+                        "Color": [
+                            1.0,
+                            0.800000011920929,
+                            0.7360000014305115
+                        ],
+                        "Intensity": 0.25,
+                        "CastShadow": true
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        15.0,
+                        -2.0,
+                        12.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        180.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            -2.5,
+                            9.0,
+                            0.0
+                        ],
+                        "Radius": 5.0,
+                        "Intensity": 1.0,
+                        "Color": [
+                            1.0,
+                            0.10000000149011612,
+                            0.30000001192092898
+                        ]
+                    }
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Position": [
+                            -2.5,
+                            5.0,
+                            0.0
+                        ],
+                        "Color": [
+                            1.0,
+                            0.10000000149011612,
+                            0.30000001192092898
+                        ],
+                        "Intensity": 12.282999992370606,
+                        "CastShadow": true,
+                        "Radius": 12.689000129699709
+                    }
+                }
+            }
+        },
+        {
+            "tag": "player_path_curve",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
@@ -514,7 +521,7 @@
                     "ModelId": "Assets\\Models\\Sphere.fbx"
                 },
                 "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 6,
+                    "SplineControlPointsNumber": 10,
                     "SplineAlternatePoints": [
                         {
                             "x": -5.0,
@@ -547,24 +554,24 @@
                             "z": 0.0
                         },
                         {
-                            "x": 0.0,
+                            "x": 8.571000099182129,
                             "y": 0.0,
-                            "z": 0.0
+                            "z": -22.85700035095215
                         },
                         {
-                            "x": 0.0,
+                            "x": 11.428999900817873,
                             "y": 0.0,
-                            "z": 0.0
+                            "z": -2.85700011253357
                         },
                         {
-                            "x": 0.0,
+                            "x": 40.0,
                             "y": 0.0,
-                            "z": 0.0
+                            "z": -30.0
                         },
                         {
-                            "x": 0.0,
+                            "x": 20.0,
                             "y": 0.0,
-                            "z": 0.0
+                            "z": -30.0
                         },
                         {
                             "x": 0.0,
@@ -767,6 +774,41 @@
                             "z": 0.0
                         }
                     ]
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "FollowCurvesPathComponent": {
+                    "MotionPathCurveGameobjectTagName": "player_path_curve",
+                    "MotionSpeed": 5.0,
+                    "ArcLengthTolerance": 0.009999999776482582,
+                    "EnableMotionAlongPath": false
                 }
             }
         }
