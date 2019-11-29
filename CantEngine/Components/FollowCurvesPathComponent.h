@@ -22,15 +22,22 @@ public:
 
 	void SetMotionSpeed(float motionSpeed);
 	float GetMotionSpeed()const { return m_motionSpeed; }
-	void SetCurveGameObjectToFollow(const std::string& gameObjectTag);
 	void SetEnableMotionAlongPath(bool flag) { m_enableMotionAlongPath = flag; };
 	bool IsMotionAlongPathEnabled()const { return m_enableMotionAlongPath; }
 	void SetEnableMotionOrientation(bool flag) { m_enableMotionOrientation = flag; }
-	bool GetEnableMotionOrientation() const { return m_enableMotionOrientation; }
+	bool IsMotionOrientationEnabled() const { return m_enableMotionOrientation; }
 	float GetSplineCurvesParameterFromDistance(float distance) const;
+
+	//this function is used for game object created from script before the Init function executed
+	void SetBeforeInitCurveGameObjectToFollow(const std::string& gameObjectTag);
+	void SetCurveGameObjectToFollow(const std::string& gameObjectTag);
 
 	void ResetMotionTime();
 	void SetEnableReverseMotion(bool flag);
+	void SetOffsetFollowPathPosition(float x, float y, float z) 
+	{
+		SetOffsetFollowPathPosition(Vector3(x, y, z));
+	};
 	void SetOffsetFollowPathPosition(const Vector3& pos) { m_offsetFollowPathPosition = pos; };
 	Vector3 GetOffSetFollowPathPosition() const { return m_offsetFollowPathPosition; }
 public:

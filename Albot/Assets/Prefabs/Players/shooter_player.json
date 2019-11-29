@@ -18,7 +18,7 @@
   "FollowCurvesPathComponent": {
     "MotionPathCurveGameobjectTagName": "",
     "MotionSpeed": 1.0,
-    "ArcLengthTolerance": 0.01,
+    "ArcLengthTolerance": 0.001,
     "EnableMotionAlongPath": false,
     "EnableMotionOrientation": false,
     "EnableReverseMotion": false,

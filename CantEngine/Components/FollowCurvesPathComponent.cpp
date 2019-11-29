@@ -77,6 +77,10 @@ void FollowCurvesPathComponent::SetEnableReverseMotion(bool flag)
 	m_enableReverseMotion = flag;
 }
 
+void FollowCurvesPathComponent::SetBeforeInitCurveGameObjectToFollow(const std::string& gameObjectTag)
+{
+	m_motionPathCurveGameobjTagName = gameObjectTag;
+}
 
 void FollowCurvesPathComponent::SetCurveGameObjectToFollow(const std::string& gameObjectTag)
 {

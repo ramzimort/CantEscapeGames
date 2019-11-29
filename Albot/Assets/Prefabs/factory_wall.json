@@ -1,0 +1,18 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 5.0, 5.0, 0.2 ]
+
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  }
+}

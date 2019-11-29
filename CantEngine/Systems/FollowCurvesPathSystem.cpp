@@ -36,7 +36,7 @@ void FollowCurvesPathSystem::Update(float dt, BaseSystemCompNode *compNode)
 	auto transform_comp = followCurvesPathCompNode->m_transform;
 	auto followCurvesPathComp = followCurvesPathCompNode->m_followCurvesPathComp;
 
-	if (!followCurvesPathComp->m_enableMotionAlongPath)
+	if (!followCurvesPathComp->m_enableMotionAlongPath || !followCurvesPathComp->m_motionPathCurveGameobj)
 	{
 		return;
 	}

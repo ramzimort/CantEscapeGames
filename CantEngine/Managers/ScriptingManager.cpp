@@ -499,6 +499,7 @@ void ScriptingManager::ManageBindings()
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
+		"GetFollowCurvesPathComp",&GameObject::GetComponent<FollowCurvesPathComponent>,
 		
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
@@ -691,11 +692,22 @@ void ScriptingManager::ManageBindings()
 			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
 			);
 
-	//PARTICLE_EMITTER
-	luaState.new_usertype<ParticleEmitterComponent>
-	(
-		"ParticleEmitterComponent"
-	);
+	luaState.new_usertype<FollowCurvesPathComponent>(
+			"FollowCurvesPathComponent",
+			"SetBeforeInitCurveGameObjectToFollow", &FollowCurvesPathComponent::SetBeforeInitCurveGameObjectToFollow,
+			"SetCurveGameObjectToFollow", &FollowCurvesPathComponent::SetCurveGameObjectToFollow,
+			"SetMotionSpeed", &FollowCurvesPathComponent::SetMotionSpeed,
+			"GetMotionSpeed", &FollowCurvesPathComponent::GetMotionSpeed,
+			"SetEnableMotionAlongPath", &FollowCurvesPathComponent::SetEnableMotionAlongPath,
+			"IsMotionAlongPathEnabled", &FollowCurvesPathComponent::IsMotionAlongPathEnabled,
+			"SetEnableMotionOrientation", &FollowCurvesPathComponent::SetEnableMotionOrientation,
+			"IsMotionOrientationEnabled", &FollowCurvesPathComponent::IsMotionOrientationEnabled,
+			"ResetMotionTime", &FollowCurvesPathComponent::ResetMotionTime,
+			"SetOffsetFollowPathPosition", sol::overload(
+				sol::resolve<void(float, float, float)>(&FollowCurvesPathComponent::SetOffsetFollowPathPosition),
+				sol::resolve<void(const Vector3&)>(&FollowCurvesPathComponent::SetOffsetFollowPathPosition)),
+			"GetOffSetFollowPathPosition", &FollowCurvesPathComponent::GetOffSetFollowPathPosition
+		);
 
 	///////////////////////
 	// ANIMATION HELPERS //
