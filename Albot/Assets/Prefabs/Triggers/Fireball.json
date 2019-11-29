@@ -10,10 +10,13 @@
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "STATIC_OBJ"
   },
-
+  "ParticleEmitterComponent": {
+    "Emitter_Position": [ 0.0, 0.0, 0.0 ],
+    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+  },
   "Scripts": [
     {
-      "Name": "Scripts\\Components\\TriggerTest.lua",
+      "Name": "Scripts\\Components\\Fireball.lua",
       "Overrides": {
       }
     }

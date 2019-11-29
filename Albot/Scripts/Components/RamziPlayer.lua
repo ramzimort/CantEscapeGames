@@ -34,6 +34,7 @@ RamziPlayer =
 	falling = false;
 	crouching = false;
 	nearCrouch = false;
+	dead = false;
 
 	jumpDebounceTimer = -1.0;
 	jumpDebounceTime  = 0.2;
@@ -138,17 +139,19 @@ RamziPlayer.HandleCrouchTransition = function(self)
 		self.cubeTransformComp:Translate(0.0, -0.5, 0.0);
 		self.cubeOffset.y = 0.5;
 		self.movespeed = self.movespeed / 4;
+		self.animComp:SetTrigger("Crawl");
 	else
 		self.cubeTransformComp:Scale(0.7, 2.0, 0.7);
 		self.cubeTransformComp:Translate(0.0, 0.5, 0.0);
 		self.cubeOffset.y = 1;
 		self.movespeed = self.movespeed * 4;
+		self.animComp:SetTrigger("Crawl");
 	end
 end
 
 RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.A == key and state) then
-		if (not self.falling and not self.landing) then
+		if (not self.falling and not self.landing and not self.crouching) then
 			self.jumping = true;
 			self.walking = false;
 			self.animComp:SetTrigger("Jump");
@@ -161,7 +164,6 @@ RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	elseif(CONTROLLER.B == key and state and not self.falling and not self.landing and not self.walking) then
 		if(self.nearCrouch and self.crouching) then return end;
 		self.crouching = not self.crouching;
-		self.animComp:SetTrigger("Crawl");
 		self.HandleCrouchTransition(self);
 	elseif(CONTROLLER.X == key and state and not self.falling and not self.landing and not self.walking and not self.crouching) then
 		self.animComp:SetTrigger("Punch");
@@ -192,9 +194,10 @@ RamziPlayer.HandleDeath = function(self)
 	--self.rigidbodyComp:SetVelocity(0.0, 0.0, 0.0);
 	self.cubeTransformComp:SetLocalPosition(self.originalPosition);
 	script.MinCoordinates = self.originalPosition + Vector3.new(-2, 0, -2);
-	script.MaxCoordinates = self.originalPosition + Vector3.new(2, 2, 0);
+	script.MaxCoordinates = self.originalPosition + Vector3.new(2, 1, 0);
 	script.zoom = 0;
 	script.Transform:SetLocalPosition(self.originalPosition.x, self.originalPosition.y + 4, self.originalPosition.z + 8);
+	self.dead = false;
 end
 
 
@@ -207,7 +210,7 @@ RamziPlayer.Update = function(self, dt, owner)
 
 	-- Update cube position if you die
 	local position = self.transformComp:GetPosition();
-	if(position.y < -4.0) then
+	if(position.y < -4.0 or self.dead) then
 		self:HandleDeath(self);
 	end
 
@@ -244,7 +247,7 @@ RamziPlayer.Update = function(self, dt, owner)
 	end
 	
 	-- Animation States
-	if (vel.y < -1.0 and not self.falling and not self.landing) then
+	if (vel.y < -5.0 and not self.falling and not self.landing) then
 		self.falling = true;
 		self.walking = false;
 		self.animComp:SetTrigger("Jump");

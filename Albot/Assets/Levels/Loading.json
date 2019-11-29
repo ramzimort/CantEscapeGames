@@ -28,6 +28,7 @@
       "Scripts\\Components\\CrouchObstacle.lua",
       "Scripts\\Components\\DropDown.lua",
       "Scripts\\Components\\editor.lua",
+      "Scripts\\Components\\Fireball.lua",
       "Scripts\\Components\\fpscontroller.lua",
       "Scripts\\Components\\JoseController.lua",
       "Scripts\\Components\\MovingPlatformHorizontal.lua",

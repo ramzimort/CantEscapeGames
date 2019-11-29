@@ -4,7 +4,7 @@
 TppFollowController = 
 {
 	MinCoordinates = Vector3.new(-2, 0, -2);
-	MaxCoordinates = Vector3.new(2, 2, 0);
+	MaxCoordinates = Vector3.new(2, 1, 0);
 
 	zoom = 0;
 	minZoom = -2;
@@ -34,7 +34,7 @@ TppFollowController.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.Start == key and not state) then
 		local position = self.Player:GetTransformComp():GetPosition();
 		self.MinCoordinates = position + Vector3.new(-2, 0, -2);
-		self.MaxCoordinates = position + Vector3.new(2, 2, 0);
+		self.MaxCoordinates = position + Vector3.new(2, 1, 0);
 		self.Transform:SetLocalPosition(position.x, position.y + 4, position.z + 8)
 	end
 end
@@ -55,7 +55,7 @@ TppFollowController.Begin = function(self, owner, goMgr)
 	self.Player = goMgr:FindGameObject("Player");
 	local position = self.Player:GetTransformComp():GetPosition();
 	self.MinCoordinates = position + Vector3.new(-2, 0, -2);
-	self.MaxCoordinates = position + Vector3.new(2, 2, 0);
+	self.MaxCoordinates = position + Vector3.new(2, 1, 0);
 	self.zoom = 0.0;
 	self.Transform:SetLocalPosition(position.x, position.y + 4, position.z + 8)
 end
