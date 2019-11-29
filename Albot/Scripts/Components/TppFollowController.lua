@@ -56,6 +56,7 @@ TppFollowController.Begin = function(self, owner, goMgr)
 	local position = self.Player:GetTransformComp():GetPosition();
 	self.MinCoordinates = position + Vector3.new(-2, 0, -2);
 	self.MaxCoordinates = position + Vector3.new(2, 2, 0);
+	self.zoom = 0.0;
 	self.Transform:SetLocalPosition(position.x, position.y + 4, position.z + 8)
 end
 

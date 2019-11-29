@@ -6,18 +6,19 @@ CrouchObstacle =
 	rgdbdyComp = nil;
 	transformComp = nil;
 	triggerComp = nil;
+	PlayerScript = nil;
 }
 
 CrouchObstacle.Init = function(self)
 end
 
 CrouchObstacle.Begin = function(self, owner, goMgr)
-	self.rgdbdyComp = owner:GetRigidbodyComp();
 	self.transformComp = owner:GetTransformComp();
 	self.triggerComp = owner:GetTriggerComp();
 
 	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
 	self.triggerComp.OnExit:Bind({self, self.OnExit});
+	self.Player = goMgr:FindGameObject("Player"):GetCustomComp("RamziPlayer");
 
 end
 
@@ -32,8 +33,8 @@ CrouchObstacle.OnEnter = function(self, gameObj1, gameObj2)
 		return;
 	end
 
-	if (gameObj2:GetTag() == "Player") then
-			gameObj2:GetCustomComp("RamziPlayer").nearCrouch = true;
+	if (gameObj2:GetTag() == "PlayerCube") then
+			self.Player.nearCrouch = true;
 	end
 end
 
@@ -45,8 +46,8 @@ CrouchObstacle.OnExit = function(self, gameObj1, gameObj2)
 		return;
 	end
 
-	if (gameObj2:GetTag() == "Player") then
-			gameObj2:GetCustomComp("RamziPlayer").nearCrouch = false;
+	if (gameObj2:GetTag() == "PlayerCube") then
+			self.Player.nearCrouch = false;
 	end
 end
 

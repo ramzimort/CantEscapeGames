@@ -3,9 +3,9 @@
  -- THIS IS THE ORIGINAL POSITION FOR THE PLAYER
  --"TransformComponent": {
  --    "Position": [
- --        -0.029357146471738817,
- --        -0.5030207633972168,
- --        48.414005279541019
+ --       0.0,
+ --       0.5,
+ --       48.0
  --    ],
  --    "Rotation": [
  --        0.0,
@@ -16,10 +16,15 @@
 RamziPlayer = 
 {
 	name = "RamziPlayer";
+
+	-- Camera
+	camera = nil;
 	
 	--Custom stuff
 	animComp = nil;
 	transformComp = nil;
+	cubeTransformComp = nil;
+	cubeOffset = Vector3.new(0.0, 1.0, 0.0);
 	originalPosition = Vector3.new(0.0);
 	rigidbodyComp = nil;
 	
@@ -27,6 +32,7 @@ RamziPlayer =
 	jumping = false;
 	landing = false;
 	falling = false;
+	crouching = false;
 	nearCrouch = false;
 
 	jumpDebounceTimer = -1.0;
@@ -54,15 +60,19 @@ end
 
 
 --Begin called when obj has all comps
-RamziPlayer.Begin = function(self, owner)
+RamziPlayer.Begin = function(self, owner, goMgr)
 
 	-- Cache the components
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
-	self.rigidbodyComp = owner:GetRigidbodyComp();
-	self.originalPosition = Vector3.new(self.transformComp:GetPosition());
+	self.rigidbodyComp = goMgr:FindGameObject("PlayerCube"):GetRigidbodyComp();
+	self.cubeTransformComp = goMgr:FindGameObject("PlayerCube"):GetTransformComp();
+	self.camera = goMgr:FindGameObject("lvleditor");
 	
-	LOG("Original Position" .. self.originalPosition.x .. " " .. self.originalPosition.y .. " " .. self.originalPosition.z .. "\n");
+	self.originalPosition = Vector3.new(self.transformComp:GetPosition() + self.cubeOffset);
+	self.cubeTransformComp:SetLocalPosition(self.originalPosition);
+	self.cubeTransformComp:Scale(0.7, 2.0, 0.7);
+
 	--Setup of the state machine
 	self:AnimatorSetup();
 end
@@ -122,6 +132,19 @@ RamziPlayer.OnKeyPressed = function(self, key, state)
 	--end
 end
 
+RamziPlayer.HandleCrouchTransition = function(self)
+	if(self.crouching) then
+		self.cubeTransformComp:Scale(0.7, 1.0, 2.0);
+		self.cubeTransformComp:Translate(0.0, -0.5, 0.0);
+		self.cubeOffset.y = 0.5;
+		self.movespeed = self.movespeed / 4;
+	else
+		self.cubeTransformComp:Scale(0.7, 2.0, 0.7);
+		self.cubeTransformComp:Translate(0.0, 0.5, 0.0);
+		self.cubeOffset.y = 1;
+		self.movespeed = self.movespeed * 4;
+	end
+end
 
 RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.A == key and state) then
@@ -132,21 +155,22 @@ RamziPlayer.OnJoystickButton = function(self, ID, key, state)
 			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
 			local vel = self.rigidbodyComp:GetVelocity();
 			vel.y = self.jumpSpeed;
-			self.transformComp:Translate(0.0, 0.01, 0.0);
+			self.cubeTransformComp:Translate(0.0, 0.01, 0.0);
 			self.rigidbodyComp:SetVelocity(vel);
 		end
-	
-	--elseif(CONTROLLER.B == key and state) then
-	--	self.animComp:SetTrigger("Crawl");
-	elseif(CONTROLLER.X == key and state and not self.falling and not self.landing and not self.walking) then
+	elseif(CONTROLLER.B == key and state and not self.falling and not self.landing and not self.walking) then
+		if(self.nearCrouch and self.crouching) then return end;
+		self.crouching = not self.crouching;
+		self.animComp:SetTrigger("Crawl");
+		self.HandleCrouchTransition(self);
+	elseif(CONTROLLER.X == key and state and not self.falling and not self.landing and not self.walking and not self.crouching) then
 		self.animComp:SetTrigger("Punch");
 		--self.punching = true;
 		--self.punchWaitTimer = self.punchWaitTime;
 	elseif(CONTROLLER.Select == key and state) then 
 		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
 	elseif(CONTROLLER.Start == key and state) then
-		self.transformComp:SetLocalPosition(self.originalPosition);
-		self.rigidbodyComp:SetVelocity(Vector3.new(0.0, 0.0, 0.0));
+		self:HandleDeath(self);
 	end
 end
 
@@ -163,6 +187,16 @@ RamziPlayer.OnJoystickMotion = function(self, ID, axis, value)
 	end
 end
 
+RamziPlayer.HandleDeath = function(self)
+	local script = self.camera:GetCustomComp("TppFollowController");
+	--self.rigidbodyComp:SetVelocity(0.0, 0.0, 0.0);
+	self.cubeTransformComp:SetLocalPosition(self.originalPosition);
+	script.MinCoordinates = self.originalPosition + Vector3.new(-2, 0, -2);
+	script.MaxCoordinates = self.originalPosition + Vector3.new(2, 2, 0);
+	script.zoom = 0;
+	script.Transform:SetLocalPosition(self.originalPosition.x, self.originalPosition.y + 4, self.originalPosition.z + 8);
+end
+
 
 --Update called every tick
 RamziPlayer.Update = function(self, dt, owner) 
@@ -170,8 +204,18 @@ RamziPlayer.Update = function(self, dt, owner)
 	if (self.animComp == nil) then return end
 	if (self.transformComp == nil) then return end
 	if (self.rigidbodyComp == nil) then return end
+
+	-- Update cube position if you die
+	local position = self.transformComp:GetPosition();
+	if(position.y < -4.0) then
+		self:HandleDeath(self);
+	end
+
+	-- Update to Box Position
+	local cubePosition = Vector3.new(self.cubeTransformComp:GetPosition());
+	self.transformComp:SetLocalPosition(cubePosition - self.cubeOffset);
 	
-	if(self.nearCrouch) then LOG("NEARCROUCH\n") end
+	--if(self.nearCrouch) then LOG("NEARCROUCH\n") end
 
 	--GRAVITY (DOING THIS FOR GROUND COLLISION)
 	local vel = self.rigidbodyComp:GetVelocity();
@@ -230,6 +274,7 @@ RamziPlayer.Update = function(self, dt, owner)
 		--LOG("Walk\n");
 	end
 
+
 end
 
 RamziPlayer.HandleMovement = function(self)
@@ -265,8 +310,10 @@ RamziPlayer.UpdateRotation = function(self)
 			end
 			if (yRot > 0.0) then
 				self.transformComp:Rotate(0, 10.0, 0);
+				self.cubeTransformComp:Rotate(0, 10.0, 0);
 			elseif (yRot < 0.0) then
 				self.transformComp:Rotate(0, -10.0, 0);
+				self.cubeTransformComp:Rotate(0, -10.0, 0);
 			end
 		end
 	end
