@@ -9,7 +9,7 @@
     "Camera": {
       "FOV": 45.0,
       "Near": 0.1,
-      "Far": 1000.0,
+      "Far": 500.0,
       "Position": [ 0.0, 0.0, 20.0 ],
       "CameraName": "Main",
       "ZOrder": 0

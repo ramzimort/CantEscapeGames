@@ -7,7 +7,7 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
+    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },

@@ -85,7 +85,7 @@ float CalculateShadowFactor(float3 world_position)
     
     float4 moments_value = ShadowMap_Texture.Sample(Clamp_Billinear_Sampler, float2(projected_UV.xy)).rgba;
 
-    return CalculateMSM(moments_value, projected_world_pos.z);
+    return saturate(1.f * CalculateMSM(moments_value, projected_world_pos.z));
 }
 
 
