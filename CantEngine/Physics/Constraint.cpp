@@ -1,9 +1,9 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Aleksey Perfilev
-- End Header --------------------------------------------------------*/
+/**
+ * @file Constraint.cpp
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 #include "Constraint.h"
 
 MassMatrix::MassMatrix()

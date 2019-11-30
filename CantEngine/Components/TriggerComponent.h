@@ -1,20 +1,28 @@
-#pragma once
+/**
+ * @file TriggerComponent.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Trigger component to detect non physical collisions
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
+ #pragma once
 
-///INCLUDES
 #include "BaseComponent.h"
 #include "Physics/Geometry/Aabb.h"
 #include "Events/Multicast.h"
 #include "Physics/CollisionTable.h"
 
 class GameObjectManager;
+/**
+ * @brief Trgger component
+ * 
+ */
 class TriggerComponent : public BaseComponent
 {
-	//Friend classes
 public:
 	friend class Factory;
 	friend class TriggerSystem;
 	friend class ScriptingManager;
-	//Public interface
 public:
 	TriggerComponent(GameObject* owner);
 	virtual ~TriggerComponent();
@@ -22,14 +30,41 @@ public:
 	virtual void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	virtual void Begin(GameObjectManager* goMgr) override;
 
+	/**
+	 * @brief Get the bounding box that discribes the trigger volume in the world space as if it was placed at the origin
+	 * 
+	 * @return const Aabb& 
+	 */
 	const Aabb& GetAabb() const;
-
+	/**
+	 * @brief Get the Scale of the trigger. Note that this is treated separetly from objects transform scale and used as it is in the world space
+	 * 
+	 * @return const Vector3& 
+	 */
 	const Vector3& GetScale();
+	/**
+	 * @brief Set the Scale of the trigger
+	 * 
+	 * @param scale 
+	 */
 	void SetScale(const Vector3& scale);
-
+	/**
+	 * @brief Get the Offset position of the trigger from the objects translation
+	 * 
+	 * @return const Vector3& 
+	 */
 	const Vector3& GetOffset();
+	/**
+	 * @brief Set the Offset of the trigger
+	 * 
+	 * @param offset 
+	 */
 	void SetOffset(const Vector3& offset);
-
+	/**
+	 * @brief Get the Collision Mask of the trigger. Note: this is separate from the collision mask on the rigidbody, because object does not have to have rigidbody
+	 * 
+	 * @return CollisionTable::CollisionMask 
+	 */
 	CollisionTable::CollisionMask GetCollisionMask();
 
 public:

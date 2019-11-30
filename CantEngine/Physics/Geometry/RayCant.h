@@ -1,9 +1,10 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Aleksey Perfilev
-- End Header --------------------------------------------------------*/
+/**
+ * @file RayCant.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Defenition of the ray 
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 
 #pragma once
 
@@ -20,9 +21,19 @@ public:
 	RayCant();
 	RayCant(const Vector3& start, const Vector3& dir);
 
-	// Transforms this ray to another space by the given matrix 4
+	/**
+	 * @brief Transforms this ray to another space by the given matrix
+	 * 
+	 * @param transform 
+	 * @return RayCant 
+	 */
 	RayCant Transform(const Matrix& transform) const;
-	// Returns the a point at the given t value.
+	/**
+	 * @brief Calculates a point at a given time t
+	 * 
+	 * @param t 
+	 * @return Vector3 
+	 */
 	Vector3 GetPoint(float t) const;
 
 #ifdef DEVELOPER
