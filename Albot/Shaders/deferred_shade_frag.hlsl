@@ -148,7 +148,7 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
         discard;
     }
 
-    float ambient_strength = 0.01f;
+    float ambient_strength = 0.15f;
     float2 clip_pixel = float2((ps_in.UV.x * 2.f) - 1, 1.f - (ps_in.UV.y * 2.f));
 
     float4 position = mul(CameraUniformData_Buffer.InvViewProjectionMat, float4(clip_pixel.xy, depth, 1.0));
@@ -219,7 +219,7 @@ PS_OUT main(PS_IN ps_in, uint sample_index : SV_SampleIndex)
     final_color = ambient_color + total_light_strength;
 #endif
 
-    final_color = final_color / (final_color + float3(1.f, 1.f, 1.f));
+    final_color = 0.3 * (final_color / (final_color + float3(1.f, 1.f, 1.f)));
     final_color = pow(final_color, float3(1.f / 2.2f, 1.f / 2.2f, 1.f / 2.2f));
    
     ps_out.Color = float4(final_color.rgb, 1.0);

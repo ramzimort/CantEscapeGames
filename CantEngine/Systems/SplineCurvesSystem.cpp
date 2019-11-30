@@ -59,7 +59,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 		DebugLineInstance debugLineInstance = {};
 		debugLineInstance.m_startpos = prevPosition;
 		debugLineInstance.m_endpos = curPosition;
-		debugLineInstance.m_color = Vector3(1.f, 0.f, 0.f);
+		debugLineInstance.m_color = Vector3(1.f, 0.f, 1.f);
 		m_pAppRenderer->GetDebugRendering().RegisterDebugLineInstance(debugLineInstance);
 		prevPosition = curPosition;
 	}
@@ -72,7 +72,7 @@ void SplineCurvesSystem::Draw(float dt, BaseSystemCompNode *compNode)
 		DebugAABBInstance debugAABBInstance = {};
 		debugAABBInstance.m_min_bound = position - half_size;
 		debugAABBInstance.m_max_bound = position + half_size;
-		debugAABBInstance.m_color = Vector3(0.f, 0.f, 1.f);
+		debugAABBInstance.m_color = Vector3(0.f, 1.f, 1.f);
 		m_pAppRenderer->GetDebugRendering().RegisterDebugAABB(debugAABBInstance);
 	}
 #endif
