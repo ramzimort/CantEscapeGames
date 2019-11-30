@@ -356,6 +356,9 @@ void ScriptingManager::ManageBindings()
 		sol::resolve<Vector4(const Vector4&, const Vector4&)>(&MathUtil::PiecewiseProd)
 		)
 	);
+	luaState.set_function("RandF", sol::overload(sol::resolve<float(void)> (&MathUtil::RandF), sol::resolve<float(float, float)>(&MathUtil::RandF)));
+	luaState.set_function("RandI", &MathUtil::RandI);
+	
 	luaState.set_function("TransformVector", sol::overload(
 		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::Transform),
 		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::Transform),

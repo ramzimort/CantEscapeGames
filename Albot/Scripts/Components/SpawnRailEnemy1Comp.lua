@@ -6,6 +6,7 @@ SpawnRailEnemy1Comp =
 	gameobjManager = nil;
 	spawnTimeInterval = 1.0;
 	numberOfSpawnGameObj = 5;
+	numberOfAliveGameObj = 0;
 	curTime = 0.0;
 	motionSpeed = 5.0;
 	curveGameObjTag = "enemy_rail01";
