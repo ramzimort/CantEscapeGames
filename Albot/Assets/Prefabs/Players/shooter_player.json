@@ -9,11 +9,20 @@
     "Camera": {
       "FOV": 45.0,
       "Near": 0.1,
-      "Far": 1000.0,
+      "Far": 500.0,
       "Position": [ 0.0, 0.0, 20.0 ],
       "CameraName": "Main",
       "ZOrder": 0
     }
+  },
+  "FollowCurvesPathComponent": {
+    "MotionPathCurveGameobjectTagName": "",
+    "MotionSpeed": 1.0,
+    "ArcLengthTolerance": 0.001,
+    "EnableMotionAlongPath": false,
+    "EnableMotionOrientation": false,
+    "EnableReverseMotion": false,
+    "OffsetFollowPathPosition": [0.0, 2.0, 0.0]
   },
   "Scripts": [
     {

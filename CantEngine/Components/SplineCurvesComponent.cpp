@@ -8,24 +8,23 @@
 
 RTTR_REGISTRATION
 {
-	rttr::registration::class_<SplineControlPoints>("SplineControlPoints")
-	.property("x", &SplineControlPoints::x)
-	.property("y", &SplineControlPoints::y)
-	.property("z", &SplineControlPoints::z);
-	/*.property("Point", &SplineControlPoints::m_point)
-	.property("Name", &SplineControlPoints::m_name);*/
+	rttr::registration::class_<SplineControlPoint>("SplineControlPoint")
+	.property("x", &SplineControlPoint::x)
+	.property("y", &SplineControlPoint::y)
+	.property("z", &SplineControlPoint::z);
 
 	rttr::registration::class_<SplineCurvesComponent>("SplineCurvesComponent")
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
-		.property("SplineControlPoints", &SplineCurvesComponent::m_splineControlPoints)
 		.property("SplineAlternatePoints", &SplineCurvesComponent::m_alternatePoints)
+		.property("SplineControlPointsNumber", &SplineCurvesComponent::m_splineControlPointsNum)
 		.method("Init", &SplineCurvesComponent::Init);
 }
 
 unsigned const SplineCurvesComponent::static_type = BaseComponent::numberOfTypes++;
 
 SplineCurvesComponent::SplineCurvesComponent(GameObject* owner)
-	:BaseComponent(owner, static_type)
+	:BaseComponent(owner, static_type),
+	m_splineControlPointsNum(0)
 {
 }
 
@@ -42,8 +41,9 @@ void SplineCurvesComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer
 		Vector4(-1.f, 0.f, 1.f, 0.f),
 		Vector4(0.f, 2.f, 0.f, 0.f));
 	m_splineMatrix *= (1.f / 2.f);
-	TransformAlternatePointsToControlPoints();
 	m_ownerTransformComp = GetOwner()->GetComponent<TransformComponent>();
+	m_alternatePoints.resize(MAX_SPLINE_CONTROL_POINTS);
+	TransformAlternatePointsToControlPoints();
 }
 
 void SplineCurvesComponent::Begin(GameObjectManager *goMgr)
@@ -113,9 +113,10 @@ Vector3 SplineCurvesComponent::EvaluateDerivative(float global_t) const
 void SplineCurvesComponent::TransformAlternatePointsToControlPoints()
 {
 	m_splineControlPoints.clear();
-	for (const auto& splineControl : m_alternatePoints)
+	for (int32_t index = 0; index < m_splineControlPointsNum; ++index)
 	{
-		m_splineControlPoints.push_back(Vector3(splineControl.x, splineControl.y, splineControl.z));
+		const SplineControlPoint& customSplineControlPoint = m_alternatePoints[index];
+		m_splineControlPoints.push_back(Vector3(customSplineControlPoint.x, customSplineControlPoint.y, customSplineControlPoint.z));
 	}
 }
 
@@ -127,4 +128,9 @@ void SplineCurvesComponent::GetWorldControlPoints(std::vector<Vector3>& worldPoi
 	{
 		worldPoints.push_back(ownerPosition + splineVec3Point);
 	}
+}
+
+void SplineCurvesComponent::SetSplineAlternatePoint(uint32_t index, const Vector3& p)
+{
+	m_alternatePoints[index] = SplineControlPoint{ p.x, p.y, p.z };
 }

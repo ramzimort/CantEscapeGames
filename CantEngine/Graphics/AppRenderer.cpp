@@ -604,6 +604,7 @@ void AppRenderer::UpdateAppRenderer(float dt)
 
 	DEBUG_CHECKBOX("Draw Mesh", &GraphicsSettings::Draw_Mesh_Flag);
 	DEBUG_CHECKBOX("Draw Debug Sphere", &GraphicsSettings::Draw_Debug_Mesh_Sphere_Flag);
+	DEBUG_CHECKBOX("Draw Spline Curve", &GraphicsSettings::Draw_Spline_Curve);
 
 	size_t direction_light_num = m_directionLightInstanceList.size();
 	if (direction_light_num > 0)

@@ -74,6 +74,11 @@ namespace MathUtil
 		return a + RandF() * (b - a);
 	}
 
+	inline int32_t RandI(int32_t a, int32_t b)
+	{
+		return a + static_cast<int32_t>(RandF() * (static_cast<float>(b) - static_cast<float>(a)));
+	}
+
 	inline void  BuildTangentBitangent(const Vector3& vector, Vector3& tangent, Vector3& bitangent)
 	{
 		// Catto's approach
