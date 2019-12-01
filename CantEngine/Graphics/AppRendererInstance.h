@@ -75,12 +75,10 @@ private:
 	UIObjectRenderingInstance* m_uiObjectRenderingInstance;
 	TextRenderingInstance* m_textRenderingInstance;
 
-	std::vector<ObjectUniformData> m_objectUniformDataList;
-	BufferList m_objectUniformBufferList;
-
-
-	std::vector<ObjectUniformData> m_boneMeshObjectUniformDataList;
-	BufferList m_boneMeshObjectUniformBufferList;
+	std::deque<ObjectUniformData> m_objectUniformDataList;
+	BuffersDeque m_objectUniformBufferList;
+	std::deque<ObjectUniformData> m_boneMeshObjectUniformDataList;
+	BuffersDeque m_boneMeshObjectUniformBufferList;
 
 	CameraUniformData m_camera_uniform_data;
 	Buffer* m_camera_uniform_buffer;

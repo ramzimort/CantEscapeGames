@@ -914,6 +914,22 @@ void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,
 	objectUniformDataList.push_back(ObjectUniformData());
 }
 
+void AppRenderer::AddObjectUniformBuffer(BuffersDeque& objectUniformBufferDeques,
+	std::deque <ObjectUniformData>& objectUniformDataDeque)
+{
+	BufferLoadDesc object_uniform_buffer_desc = {};
+	object_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	object_uniform_buffer_desc.m_desc.m_debugName = "Object Uniform Buffer";
+	object_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	object_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	object_uniform_buffer_desc.m_rawData = nullptr;
+	object_uniform_buffer_desc.m_size = sizeof(ObjectUniformData);
+
+	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
+	objectUniformBufferDeques.push_back(object_uniform_buffer);
+	objectUniformDataDeque.push_back(ObjectUniformData());
+}
+
 void AppRenderer::AddMaterialUniformBuffer()
 {
 	BufferLoadDesc material_uniform_buffer_desc = {};

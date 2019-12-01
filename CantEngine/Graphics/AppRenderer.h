@@ -258,6 +258,8 @@ private:
 	void AddBoneTransformBuffer();
 	void AddObjectUniformBuffer(BufferList& objectUniformBufferList,
 		std::vector<ObjectUniformData>& objectUniformDataList);
+	void AddObjectUniformBuffer(BuffersDeque& objectUniformBufferDeques,
+		std::deque <ObjectUniformData>& objectUniformDataDeque);
 	void AddMaterialUniformBuffer();
 	void UpdateMaterialUniformBuffer();
 
