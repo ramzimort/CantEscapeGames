@@ -2,6 +2,8 @@ dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
 
 CerberusGunLogicComp = 
 {
+	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json";
+	gameobjManager = nil;
 	transformComp = nil;
 	playerGameObj = nil;
 	playerTransformComp = nil;
@@ -9,9 +11,17 @@ CerberusGunLogicComp =
 	playerCamera = nil;
 	positionRelativeToPlayer = Vector3.new(0.0);
 	currentRotationVector = Vector3.new(0.0);
+	--gun variables
+	LEFTCLICK = false;
+	--RIGHTCLICK = false;
+	onCooldown = false;
+	cooldown = 0.0;
+	maxCooldown = 1.0;
+	bulletSpeed = 100.0;
 };
 --Init called when obj has all comps
 CerberusGunLogicComp.Init  = function(self)
+	OnMouseClick():Bind({self, self.OnMouseClick});
 	self.positionRelativeToPlayer.x = 0.25;
 	self.positionRelativeToPlayer.y = -0.2;
 	self.positionRelativeToPlayer.z = -0.6;
@@ -24,6 +34,7 @@ end
 
 --Begin called when on that frame all objects has been instiated
 CerberusGunLogicComp.Begin = function(self, owner, gameobjManager)
+	self.gameobjManager = gameobjManager;
 	self.transformComp = owner:GetTransformComp();
 	self.playerGameObj = gameobjManager:FindGameObject("player01");
 	if(self.playerGameObj == nil) then
@@ -54,7 +65,6 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 		self.currentRotationVector.y, self.currentRotationVector.z);
 
 
-	local finalGunPosition = playerPosition + basisUp + basisForward + basisRight;
 	self.transformComp:SetLocalPosition(playerPosition);
 
 	local invViewMatrix = self.playerCamera:GetInvViewMatrixCopy();
@@ -68,6 +78,32 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 	--[[local ownerRotationMat = self.transformComp:GetRotationMatrix();
 	local newRotationMat = ownerRotationMat * invViewMatrix;
 	self.transformComp:SetLocalRotationMatrix(newRotationMat);]]
+	if (self.onCooldown) then
+		self.cooldown = self.cooldown + dt;			
+		if (self.cooldown > self.maxCooldown) then
+			self.cooldown = 0.0
+			self.onCooldown = false
+		end
+	end
+
+	if (self.LEFTCLICK) then
+		if (not self.onCooldown) then
+			--OutputPrint("\nPEW!\n");
+			local newSpawnedProjectile = GameObject.Instantiate(self.gameobjManager, self.spawnGameobjPrefabDir);
+			local projectileTransform = newSpawnedProjectile:GetTransformComp();
+			projectileTransform:SetLocalPosition(playerPosition + cameraForward*2);
+			projectileTransform:SetLocalRotation(cameraDegRotationVector.x, cameraDegRotationVector.y, cameraDegRotationVector.z);
+			local projectileRigidbody = newSpawnedProjectile:GetRigidbodyComp();
+			local pojectileVelocity = cameraForward * self.bulletSpeed;
+			projectileRigidbody:SetVelocity(pojectileVelocity);
+			self.onCooldown = true;
+
+			--SHAKE THE GUN HERE
+
+		end
+	--else
+		--OutputPrint("\nSTILL ON COOLDOWN\n");
+	end
 end
 
 --Method
@@ -91,17 +127,17 @@ CerberusGunLogicComp.OnMouseMotion = function(self, position, deltaposition)
 end
 
 CerberusGunLogicComp.OnMouseClick = function(self, button, state)
-	--[[if(button == 1) then
+	if(button == 1) then
 		self.LEFTCLICK = state;
-	elseif(button == 2) then
-		self.RIGHTCLICK = state;
-	end]]
+	--[[elseif(button == 2) then
+		self.RIGHTCLICK = state;]]
+	end
 end
 
 CerberusGunLogicComp.OnDestruction = function(self)
 	--[[OnKeyEvent():Unbind({self, self.OnKey});
-	OnMouseMotion():Unbind({self, self.OnMouseMotion});
-	OnMouseClick():Unbind({self, self.OnMouseClick});]]
+	OnMouseMotion():Unbind({self, self.OnMouseMotion});]]
+	OnMouseClick():Unbind({self, self.OnMouseClick});
 end
 
 return CerberusGunLogicComp;

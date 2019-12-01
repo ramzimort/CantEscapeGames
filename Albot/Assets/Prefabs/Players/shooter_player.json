@@ -22,7 +22,12 @@
     "EnableMotionAlongPath": false,
     "EnableMotionOrientation": false,
     "EnableReverseMotion": false,
-    "OffsetFollowPathPosition": [0.0, 2.0, 0.0]
+    "OffsetFollowPathPosition": [ 0.0, 2.0, 0.0 ]
+  },
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "PLAYER"
   },
   "Scripts": [
     {

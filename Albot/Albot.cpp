@@ -11,5 +11,5 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-	CantEngineAPI::InitializeEngine("Cant Escape Games", "Assets/Levels/Loading.json", false, 1600, 900);
+	CantEngineAPI::InitializeEngine("Cant Escape Games", "Assets/Levels/ShooterRailPrototype.json", false, 1600, 900);
 }
