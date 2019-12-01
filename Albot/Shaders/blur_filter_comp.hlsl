@@ -40,7 +40,7 @@ void main(uint3 GroupID : SV_GroupID,
     SharedPixelData[cur_output_texel_index] = InputTexture.Load(uint3(first_input_texel_index.x, first_input_texel_index.y, 0)).rgba;
 #endif
 
-    if (cur_output_texel_index < BlurUniformData_Buffer.BlurWidth2)
+    if (cur_output_texel_index < (uint) BlurUniformData_Buffer.BlurWidth2)
     {
 #if BLUR_CHANNEL_TYPE == 0
         SharedPixelData[cur_output_texel_index + BLUR_WORKGROUP_THREAD_ID_X] = InputTexture.Load(uint3(first_input_texel_index + BLUR_WORKGROUP_THREAD_ID_X * direction, 0)).r;
@@ -55,7 +55,7 @@ void main(uint3 GroupID : SV_GroupID,
 #elif BLUR_CHANNEL_TYPE == 3
     float4 result = float4(0.f, 0.f, 0.f, 0.f);
 #endif
-    for (uint i = 0; i < BlurUniformData_Buffer.BlurWidth2; ++i)
+    for (uint i = 0; i < (uint) BlurUniformData_Buffer.BlurWidth2; ++i)
     {
 #if BLUR_CHANNEL_TYPE == 0
         result += BlurUniformData_Buffer.BlurWeight[i].x * SharedPixelData[i + cur_output_texel_index];

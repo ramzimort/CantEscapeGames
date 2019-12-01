@@ -1348,7 +1348,7 @@
             }
         },
         {
-            "tag": "enemy_rail05",
+            "tag": "enemy_rail06",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
@@ -2927,7 +2927,7 @@
             }
         },
         {
-            "tag": "",
+            "tag": "enemy_rail07a",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
@@ -3243,7 +3243,7 @@
             }
         },
         {
-            "tag": "",
+            "tag": "enemy_rail07b",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {

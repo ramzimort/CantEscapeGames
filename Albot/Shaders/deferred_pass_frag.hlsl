@@ -101,7 +101,7 @@ PS_OUT main(PS_IN ps_in)
 
     float material_roughness = MaterialUniformData_Buffer.MaterialMiscData2.x;
     float material_metallic = MaterialUniformData_Buffer.MaterialMiscData2.y;
-    float material_specular_color = MaterialUniformData_Buffer.SpecularColor.xyz;
+    float3 material_specular_color = MaterialUniformData_Buffer.SpecularColor.xyz;
 
     if ((mat_type & MAT_ID_PARALLAX_TEXTURE) != 0)
     {
