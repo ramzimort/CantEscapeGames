@@ -92,7 +92,7 @@ void FollowCurvesPathSystem::Update(float dt, BaseSystemCompNode *compNode)
 		if (followCurvesPathComp->m_enableReverseMotion)
 		{
 			followCurvesPathComp->m_currentlyInReverseMotion = !followCurvesPathComp->m_currentlyInReverseMotion;
-			followCurvesPathComp->m_curMotionTime = total_time_needed;
+			followCurvesPathComp->m_curMotionTime = total_time_needed - 0.001f;
 			total_dist = followCurvesPathComp->m_motionSpeed * followCurvesPathComp->m_curMotionTime;
 			s_val = followCurvesPathComp->GetSplineCurvesParameterFromDistance(total_dist);
 		}

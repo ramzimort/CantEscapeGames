@@ -71,7 +71,8 @@
             "Assets\\Models\\Sphere.fbx",
             "Assets\\Models\\TestWalk.fbx",
             "Assets\\Models\\torus.fbx",
-            "Assets\\Models\\warrok_w_kurniawan.fbx"
+            "Assets\\Models\\warrok_w_kurniawan.fbx",
+            "Assets\\Models\\swat_enemy.fbx"
         ],
         "Materials": [
             "Assets\\Materials\\CampfireMaterial.json",
@@ -102,6 +103,7 @@
             "Scripts\\Components\\shooter_fpscontroller.lua",
             "Scripts\\Components\\ProjectileLogic.lua",
             "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+            "Scripts\\Components\\SwatEnemyLogicComp.lua",
             "Scripts\\States\\DebugPause.lua",
             "Scripts\\States\\ShooterRailPrototype.lua"
         ],
@@ -138,6 +140,7 @@
             "Assets\\Prefabs\\rough_door.json",
             "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
             "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+            "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\smooth_wood_plane.json",
             "Assets\\Prefabs\\splinecurve.json"

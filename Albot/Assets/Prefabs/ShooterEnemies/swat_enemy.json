@@ -1,0 +1,41 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 0.03, 0.03, 0.03 ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\swat_enemy.fbx"
+  },
+  "FollowCurvesPathComponent": {
+    "MotionPathCurveGameobjectTagName": "enemy_rail05",
+    "MotionSpeed": 5.0,
+    "ArcLengthTolerance": 0.001,
+    "EnableMotionAlongPath": false,
+    "EnableMotionOrientation": false,
+    "EnableReverseMotion": true,
+    "OffsetFollowPathPosition": [ 0.0, 0.0, 0.0 ]
+  },
+  "AnimationComponent": {
+    "StartingAnimation": "ShootAnim",
+    "Clips": [
+      {
+        "name": "ShootAnim",
+        "path": "Assets\\Models\\swat_enemy.fbx",
+        "loops": true
+      }
+    ]
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\SwatEnemyLogicComp.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}

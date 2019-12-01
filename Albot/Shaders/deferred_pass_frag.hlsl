@@ -60,8 +60,8 @@ float2 CalculateParallaxUV(float2 UV, float3 view_tangent)
     float height = Height_Texture.Sample(Texture_Sampler, UV.xy).r;
     float2 scale = float2(0.0, 0.0);
 
-    scale.x = (height / (8));
-    scale.y = -1.f * (height / (8));
+    scale.x = (height / (16.0));
+    scale.y = -1.f * (height / (16.0));
 
     float2 pdir = scale * view_tangent.xy;
     for (int i = 0; i < 4; ++i)
