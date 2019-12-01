@@ -1695,62 +1695,6 @@
             }
         },
         {
-            "tag": "player01",
-            "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -31.402681350708009,
-                        56.12389373779297,
-                        29.882427215576173
-                    ],
-                    "Rotation": [
-                        -44.395660400390628,
-                        1027.6405029296876,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 45.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            -31.402681350708009,
-                            56.12389373779297,
-                            29.882427215576173
-                        ],
-                        "CameraName": "Main",
-                        "ZOrder": 0
-                    }
-                },
-                "FollowCurvesPathComponent": {
-                    "MotionPathCurveGameobjectTagName": "player_path_curve",
-                    "MotionSpeed": 5.080999851226807,
-                    "ArcLengthTolerance": 0.009999999776482582,
-                    "EnableMotionAlongPath": false,
-                    "EnableMotionOrientation": false,
-                    "EnableReverseMotion": false,
-                    "OffsetFollowPathPosition": [
-                        0.0,
-                        2.0,
-                        0.0
-                    ]
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
-        },
-        {
             "tag": "enemy_rail04b",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
