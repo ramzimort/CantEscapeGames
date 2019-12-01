@@ -1,0 +1,40 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ -90.0, 0.0, 0.0 ],
+    "Scale": [ 0.5, 0.5, 0.5 ]
+
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\MetalCopperMaterial.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1.0,
+    "IsAsleep": 0,
+    "CollisionMask": "ENEMY_PROJ",
+    "FrictionCoef": 0.2
+  },
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "ENEMY_PROJ"
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\ProjectileLogic.lua",
+      "Overrides": {
+      }
+    }
+  ]
+
+}

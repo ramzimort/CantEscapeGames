@@ -486,6 +486,7 @@ void ScriptingManager::ManageBindings()
 		"GetTag", &GameObject::GetTag,
 		"GetId", &GameObject::GetId,
 		"Manager", &GameObject::GetGOManager,
+		"Destroy", &GameObject::Destroy,
 		//Static Instantiation Methods
 		"Instantiate", sol::overload(
 			sol::resolve<GameObject*(GameObjectManager *)>(&GameObject::Instantiate),

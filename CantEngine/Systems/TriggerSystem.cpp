@@ -142,8 +142,12 @@ void TriggerSystem::LateUpdate(float dt)
 			TriggerComponent* trigger1 = static_cast<TriggerComponent*>(prevQuery.m_clientData0);
 			TriggerComponent* trigger2 = static_cast<TriggerComponent*>(prevQuery.m_clientData1);
 
-			trigger1->m_onExit(trigger1->GetOwner(), trigger2->GetOwner());
-			trigger2->m_onExit(trigger2->GetOwner(), trigger1->GetOwner());
+			if (trigger1)
+			{
+				trigger1->m_onExit(trigger1->GetOwner(), trigger2->GetOwner());
+			}
+			if (trigger2)
+				trigger2->m_onExit(trigger2->GetOwner(), trigger1->GetOwner());
 		}
 	}
 

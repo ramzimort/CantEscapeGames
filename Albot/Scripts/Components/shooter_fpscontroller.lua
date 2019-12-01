@@ -14,11 +14,15 @@ shooter_fpscontroller =
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
 	RotationEnabled = true;
+	
+	triggerComp = nil;
 
 	movement_amount = Vector2.new(0.0);
 	MoveSpeed = 10.0;
 	Transform = nil;
 	Camera = nil;
+	
+	life = 10;
 }
 
 --Init called when comp is created
@@ -26,6 +30,7 @@ shooter_fpscontroller.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+
 end
 
 --Begin called when obj has all comps
@@ -38,10 +43,18 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
+	self.triggerComp = owner:GetTriggerComp();
+
+	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
+	self.triggerComp.OnExit:Bind({self, self.OnExit});
 end
 
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
+	if (self.life < 1.0) then
+		OutputPrint("GAME OVER!!!");
+	end
+
 	local position = self.Transform:GetPosition();
 	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
@@ -61,6 +74,30 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 		self.Rotation.z = 0.0;
 	end
 	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+end
+
+shooter_fpscontroller.OnEnter = function(self, gameObj1, gameObj2)
+	
+	local transform1 = gameObj1:GetTransformComp();
+	local transform2 = gameObj2:GetTransformComp();
+	local triggerComp1 = gameObj1:GetTriggerComp();
+	local triggerComp2 = gameObj2:GetTriggerComp();
+
+	if(transform1 == nil or transform2 == nil or triggerComp1 == nil or triggerComp2 == nil) then
+		return;
+	end
+
+	local collisionMask1 = triggerComp1:GetCollisionMask();
+	local collisionMask2 = triggerComp2:GetCollisionMask();
+	if (collisionMask2 == CollisionMask.ENEMY_PROJ) then
+		self.life = self.life - 1;
+	end
+
+	--PLAY SOUND
+	--SPAWN PARTICLES
+end
+
+shooter_fpscontroller.OnExit = function(self, gameObj1, gameObj2)
 end
 
 --Method
@@ -101,6 +138,9 @@ shooter_fpscontroller.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	
+	self.triggerComp.OnEnter:Unbind({self, self.OnEnter});
+	self.triggerComp.OnExit:Unbind({self, self.OnExit});
 end
 
 return shooter_fpscontroller;

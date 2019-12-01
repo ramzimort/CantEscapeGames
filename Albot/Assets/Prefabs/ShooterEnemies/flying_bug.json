@@ -19,5 +19,18 @@
     "EnableMotionOrientation": true,
     "EnableReverseMotion": true,
     "OffsetFollowPathPosition": [ 0.0, 0.0, 0.0 ]
-  }
+  },
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "ENEMY"
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\FlyingBugLogic.lua",
+      "Overrides": {
+      }
+    }
+  ]
 }
