@@ -163,6 +163,23 @@ void TriggerSystem::OnObjectDeleted(const GameObjectDestroyed* e)
 {
 	TriggerComponent* trigger = e->m_pGameObject->GetComponent<TriggerComponent>();
 	if (trigger)
+	{
 		m_triggers.RemoveData(trigger->m_dynamicAabbTreeKey);
+		//added by albert
+		//this fixed the crash when two objects are in trigger and all the sudden
+		//the object is destroyed
+		for (auto iter = m_lastFrameQueries.m_results.begin(); iter != m_lastFrameQueries.m_results.end();)
+		{
+			QueryResult& curQuery = *iter;
+			if (curQuery.m_clientData0 == trigger || curQuery.m_clientData1 == trigger)
+			{
+				iter = m_lastFrameQueries.m_results.erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
+		}
+	}
 }
 

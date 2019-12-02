@@ -3,13 +3,14 @@
 ProjectileLogic = 
 {
 	name = "ProjectileLogic";
-	
+	projectileOwnerName = "";
 	--Custom stuff
 	rgdbdyComp = nil;
 	transformComp = nil;
 	triggerComp = nil;
 	lifeTime = 0.0;
-	maxLifeTime = 5.0;
+	maxLifeTime = 25.0;
+	ownerGameObject = nil;
 }
 
 
@@ -27,6 +28,7 @@ ProjectileLogic.Begin = function(self, owner, goMgr)
 
 	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
 	self.triggerComp.OnExit:Bind({self, self.OnExit});
+	self.ownerGameObject = owner;
 
 end
 
@@ -58,11 +60,23 @@ ProjectileLogic.OnEnter = function(self, gameObj1, gameObj2)
 
 	local collisionMask1 = triggerComp1:GetCollisionMask();
 	local collisionMask2 = triggerComp2:GetCollisionMask();
-	
-	if (collisionMask2 == CollisionMask.ENEMY or collisionMask2 == CollisionMask.PLAYER) then
+
+	if( (self.projectileOwnerName == "Enemy" and (collisionMask2 == CollisionMask.PLAYER or collisionMask2 == CollisionMask.PLAYER_PROJ) ) or 
+		(self.projectileOwnerName == "Player" and (collisionMask2 == CollisionMask.ENEMY or collisionMask2 == CollisionMask.ENEMY_PROJ) )
+	) then
 		local farAway1 = Vector3.new(1000000, -1000000, 1000000);
 		transform1:SetLocalPosition(farAway1);
+		self.ownerGameObject:Destroy();
+		local rigidBodyComp1 = gameObj1:GetRigidbodyComp();
+		if(rigidBodyComp1 ~= nil) then
+			rigidBodyComp1:SetVelocity(Vector3.new(1000.0, 100.0, 100.0));
+		end
 	end
+	
+	--[[if (collisionMask2 == CollisionMask.ENEMY or collisionMask2 == CollisionMask.PLAYER) then
+		local farAway1 = Vector3.new(1000000, -1000000, 1000000);
+		transform1:SetLocalPosition(farAway1);
+	end]]
 
 	--PLAY SOUND
 	--SPAWN PARTICLES

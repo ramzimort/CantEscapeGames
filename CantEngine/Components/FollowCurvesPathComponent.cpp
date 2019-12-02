@@ -33,7 +33,8 @@ FollowCurvesPathComponent::FollowCurvesPathComponent(GameObject* ownerGameObj)
 	m_enableMotionAlongPath(false),
 	m_enableMotionOrientation(true),
 	m_enableReverseMotion(false),
-	m_currentlyInReverseMotion(false)
+	m_currentlyInReverseMotion(false),
+	m_motionPathCurveGameobj(nullptr)
 {
 }
 

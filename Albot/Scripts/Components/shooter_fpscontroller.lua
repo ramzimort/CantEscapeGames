@@ -21,7 +21,8 @@ shooter_fpscontroller =
 	MoveSpeed = 10.0;
 	Transform = nil;
 	Camera = nil;
-	
+	runGame = -1;
+	ownerGameObj = nil;
 	life = 10;
 }
 
@@ -40,7 +41,7 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-
+	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
 	self.triggerComp = owner:GetTriggerComp();
@@ -62,7 +63,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	position = position + strafe + forward;
 
 	local rotation = self.Rotation;
-	if (self.LEFTCLICK) then
+	if (self.RIGHTCLICK) then
 		rotation.x = -1.0*self.DeltaPositionY;
 		rotation.y = -1.0*self.DeltaPositionX;
 		self.DeltaPositionX = 0.0;
@@ -73,7 +74,9 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 		self.Rotation.y = 0.0;
 		self.Rotation.z = 0.0;
 	end
-	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	if(self.runGame ~= 1) then
+		self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	end
 end
 
 shooter_fpscontroller.OnEnter = function(self, gameObj1, gameObj2)
@@ -115,7 +118,16 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
+	elseif(SCANCODE.Z == key and state ~= true) then
+		self.runGame = self.runGame * -1;
+		local followPathCurvesComp = self.ownerGameObj:GetFollowCurvesPathComp();
+		if(self.runGame == 1) then
+			followPathCurvesComp:SetEnableMotionAlongPath(true);
+		else
+			followPathCurvesComp:SetEnableMotionAlongPath(false);
+		end
 	end
+
 end
 
 shooter_fpscontroller.OnMouseMotion = function(self, position, deltaposition)
@@ -128,7 +140,7 @@ end
 shooter_fpscontroller.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
-	elseif(button == 2) then
+	elseif(button == 3) then
 		self.RIGHTCLICK = state;
 	end
 end

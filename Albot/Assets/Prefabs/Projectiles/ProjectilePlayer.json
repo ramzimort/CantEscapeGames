@@ -1,22 +1,22 @@
 {
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
-    "Rotation": [ -90.0, 0.0, 0.0 ],
-    "Scale": [ 0.1, 0.1, 1.1 ]
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 0.07, 0.07, 0.07 ]
 
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\MetalCopperMaterial.json",
+    "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },
 
   "MeshComponent": {
-    "ModelId": "Assets\\Models\\Cube.fbx"
+    "ModelId": "Assets\\Models\\bullet.fbx"
   },
   "RigidBodyComponent": {
-    "IsEffectedByGravity": true,
+    "IsEffectedByGravity": false,
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
@@ -24,7 +24,7 @@
     "FrictionCoef": 0.2
   },
   "TriggerComponent": {
-    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Scale": [ 0.2, 0.2, 0.4 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "PLAYER_PROJ"
   },
@@ -33,6 +33,7 @@
     {
       "Name": "Scripts\\Components\\ProjectileLogic.lua",
       "Overrides": {
+        "projectileOwnerName": "Player"
       }
     }
   ]

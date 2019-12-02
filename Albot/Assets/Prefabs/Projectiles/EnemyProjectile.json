@@ -1,8 +1,8 @@
 {
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
-    "Rotation": [ -90.0, 0.0, 0.0 ],
-    "Scale": [ 0.5, 0.5, 0.5 ]
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 0.1, 0.1, 0.1 ]
 
   },
 
@@ -13,18 +13,18 @@
   },
 
   "MeshComponent": {
-    "ModelId": "Assets\\Models\\Cube.fbx"
+    "ModelId": "Assets\\Models\\Sphere.fbx"
   },
   "RigidBodyComponent": {
     "IsEffectedByGravity": false,
     "Velocity": [ 0.0, 0.0, 0.0 ],
-    "Mass": 1.0,
+    "Mass": 30.0,
     "IsAsleep": 0,
     "CollisionMask": "ENEMY_PROJ",
     "FrictionCoef": 0.2
   },
   "TriggerComponent": {
-    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Scale": [ 0.2, 0.2, 0.2 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "ENEMY_PROJ"
   },
@@ -33,6 +33,7 @@
     {
       "Name": "Scripts\\Components\\ProjectileLogic.lua",
       "Overrides": {
+        "projectileOwnerName": "Enemy"
       }
     }
   ]
