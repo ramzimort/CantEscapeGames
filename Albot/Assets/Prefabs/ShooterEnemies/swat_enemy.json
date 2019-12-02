@@ -32,9 +32,13 @@
   },
 
   "Scripts": [
-    {
-      "Name": "Scripts\\Components\\SwatEnemyLogicComp.lua",
+     {
+      "Name": "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Overrides": {
+        "maxCooldown": 5.0,
+        "bulletSpeed": 2.0,
+        "curHealth": 3.0,
+        "spawnGameobjPrefabDir":"Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json"
       }
     }
   ]

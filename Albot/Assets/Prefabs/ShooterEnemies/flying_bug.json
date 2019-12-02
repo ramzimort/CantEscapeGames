@@ -39,14 +39,15 @@
     {
       "Name": "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Overrides": {
+        "maxCooldown": 5.0,
+        "bulletSpeed": 1.0,
+        "curHealth": 2.0
       }
     },
     {
       "Name": "Scripts\\Components\\SpawnedEnemyComp.lua",
       "Overrides": {
-        "maxCooldown": 5.0,
-        "bulletSpeed": 1.5,
-        "curHealth": 2.0
+       
       }
     }
   ]

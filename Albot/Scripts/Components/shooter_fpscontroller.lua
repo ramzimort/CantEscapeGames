@@ -156,8 +156,9 @@ shooter_fpscontroller.OnDestruction = function(self)
 end
 
 shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
-	appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
-		Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);
+	--how to draw text, if this fail that means no Fonts resource is loaded
+	--appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
+		--Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);
 end
 
 return shooter_fpscontroller;

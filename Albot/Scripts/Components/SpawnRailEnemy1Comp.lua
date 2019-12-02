@@ -48,12 +48,17 @@ end
 
 --Update called every tick
 SpawnRailEnemy1Comp.Update = function(self, dt, owner)
-	if(self.beginSpawningFlag ~= true or self.numberOfSpawnGameObj <= 0) then
+	if(self.beginSpawningFlag ~= true) then
 		return;
 	end
-	
-	self.curTime = self.curTime + dt;
+	local playerCurvesPathComp = self.playerGameObj:GetFollowCurvesPathComp();
+	playerCurvesPathComp:SetEnableMotionAlongPath(false);
 
+	if(self.numberOfSpawnGameObj <= 0) then
+		return;
+	end
+
+	self.curTime = self.curTime + dt;
 	while self.curTime >= self.spawnTimeInterval do
 		self.curTime = self.curTime - self.spawnTimeInterval;
 		self.numberOfSpawnGameObj = self.numberOfSpawnGameObj - 1;
@@ -71,7 +76,7 @@ SpawnRailEnemy1Comp.Update = function(self, dt, owner)
 		local newRelativeX = RandF(self.minRelativeX, self.maxRelativeX);
 		local newRelativeY = RandF(self.minRelativeY, self.maxRelativeY);
 		local newRelativeZ = RandF(self.minRelativeZ, self.maxRelativeZ);
-
+		OutputPrint(self.curveGameObjTag .. "Hehehe\n");
 		followCurvesPathComp:SetOffsetFollowPathPosition(newRelativeX, newRelativeY, newRelativeZ);
 		followCurvesPathComp:SetEnableMotionAlongPath(true);
 		followCurvesPathComp:SetMotionSpeed(newMotionSpeed);

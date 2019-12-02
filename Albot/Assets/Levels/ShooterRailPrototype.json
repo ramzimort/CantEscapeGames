@@ -149,6 +149,8 @@
             "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
             "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
             "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
+            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
+            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
             "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
             "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
             "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
@@ -157,13 +159,568 @@
             "Assets\\Prefabs\\splinecurve.json"
         ],
         "Songs": [],
-        "SFX": [],
-    "Fonts": [
-      "Assets\\Fonts\\courier_new.spritefont",
-      "Assets\\Fonts\\courier_new_bold.spritefont"
-    ]
+        "SFX": []
     },
     "Objects": [
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        15.0,
+                        5.0,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        65.0,
+                        10.0,
+                        2.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 30.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        7.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        15.0,
+                        3.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "skybox",
+            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "SkyboxIrradianceComponent": {
+                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        32.0,
+                        1.0,
+                        -14.5
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50.0,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -25.0,
+                        5.0,
+                        -5.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        60.0,
+                        10.0,
+                        2.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_floor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        12.5,
+                        0.0,
+                        -12.5
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        75.0,
+                        0.20000000298023225,
+                        75.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 25.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_floor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        10.0,
+                        0.0,
+                        35.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        15.0,
+                        0.20000000298023225,
+                        15.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\SmoothMetalMaterial.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "enemy_rail04b",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -2.0,
+                        5.0,
+                        8.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 8,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 3.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -3.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -4.0,
+                            "y": 5.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 7.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -14.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "tag": "directional_light01",
+            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        45.0,
+                        5.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Directional",
+                        "Color": [
+                            1.0,
+                            0.800000011920929,
+                            0.7360000014305115
+                        ],
+                        "Intensity": 0.25,
+                        "CastShadow": true
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        5.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50.0,
+                        10.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 35.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
         {
             "tag": "",
             "prefab": "Assets\\Prefabs\\factory_wall2.json",
@@ -189,6 +746,100 @@
                     "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
                     "XTileFactor": 7.0,
                     "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -5.0,
+                        2.0,
+                        -9.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        6.0,
+                        6.0,
+                        6.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+                            "curveGameObjTag": "enemy_rail04a",
+                            "spawnTimeInterval": 0.3,
+                            "numberOfSpawnGameObj": 3,
+                            "minMotionSpeed": 6.0,
+                            "maxMotionSpeed": 8.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.4,
+                            "minRelativeZ": -0.1,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.4,
+                            "maxRelativeZ": 0.1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -15.0,
+                        5.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        50.0,
+                        10.0,
+                        2.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 5.0
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
@@ -481,6 +1132,100 @@
             }
         },
         {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -22.85700035095215,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            2.5,
+                            9.0,
+                            0.0
+                        ],
+                        "Radius": 5.0,
+                        "Intensity": 1.0,
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ]
+                    }
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Position": [
+                            2.5,
+                            5.0,
+                            0.0
+                        ],
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 0.9120000004768372,
+                        "CastShadow": true,
+                        "Radius": 15.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        50.0,
+                        5.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        70.0,
+                        10.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 35.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
             "tag": "enemy_rail04a",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
@@ -762,33 +1507,6 @@
                             "z": 0.0
                         }
                     ]
-                }
-            }
-        },
-        {
-            "tag": "skybox",
-            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "SkyboxIrradianceComponent": {
-                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
                 }
             }
         },
@@ -1124,68 +1842,6 @@
                         "Overrides": {}
                     }
                 ]
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_floor.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        12.5,
-                        0.0,
-                        -12.5
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        75.0,
-                        0.20000000298023225,
-                        75.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 25.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        50.0,
-                        5.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        70.0,
-                        10.0,
-                        3.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 35.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
             }
         },
         {
@@ -1759,74 +2415,12 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "tag": "player_path_curve",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        15.0,
-                        5.0,
-                        -15.0
-                    ],
-                    "Rotation": [
                         0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        65.0,
-                        10.0,
-                        2.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 30.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        32.0,
-                        1.0,
-                        -14.5
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        50.0,
-                        2.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -22.85700035095215,
                         0.0,
                         0.0
                     ],
@@ -1836,50 +2430,272 @@
                         0.0
                     ],
                     "Scale": [
-                        0.5,
-                        0.5,
-                        0.5
+                        0.0,
+                        0.0,
+                        0.0
                     ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
                 },
                 "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
                 },
-                "HaloEffectComponent": {
-                    "HaloEffect": {
-                        "Position": [
-                            2.5,
-                            9.0,
-                            0.0
-                        ],
-                        "Radius": 5.0,
-                        "Intensity": 1.0,
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ]
-                    }
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Position": [
-                            2.5,
-                            5.0,
-                            0.0
-                        ],
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 0.9120000004768372,
-                        "CastShadow": true,
-                        "Radius": 15.0
-                    }
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 23,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": 15.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": -10.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": -20.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": -30.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": -30.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": -20.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": -10.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": -5.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": 10.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 15.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 10.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 5.0
+                        },
+                        {
+                            "x": 10.0,
+                            "y": 0.0,
+                            "z": 15.0
+                        },
+                        {
+                            "x": 10.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 15.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 20.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 25.0,
+                            "y": 0.0,
+                            "z": 20.0
+                        },
+                        {
+                            "x": 30.0,
+                            "y": 0.0,
+                            "z": 15.0
+                        },
+                        {
+                            "x": 30.0,
+                            "y": 0.0,
+                            "z": 15.0
+                        },
+                        {
+                            "x": 30.0,
+                            "y": 0.0,
+                            "z": 10.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
                 }
             }
         },
@@ -2174,37 +2990,6 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        0.0,
-                        5.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        50.0,
-                        10.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 35.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
                         12.0,
                         5.0,
                         -35.0
@@ -2228,6 +3013,75 @@
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
                 }
+            }
+        },
+        {
+            "tag": "player01",
+            "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        6.541108131408691,
+                        55.749847412109378,
+                        -49.5953254699707
+                    ],
+                    "Rotation": [
+                        -52.85564422607422,
+                        905.3268432617188,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "CameraComponent": {
+                    "Camera": {
+                        "FOV": 45.0,
+                        "Near": 0.10000000149011612,
+                        "Far": 1000.0,
+                        "Position": [
+                            6.541108131408691,
+                            55.749847412109378,
+                            -49.5953254699707
+                        ],
+                        "CameraName": "Main",
+                        "ZOrder": 0
+                    }
+                },
+                "FollowCurvesPathComponent": {
+                    "MotionPathCurveGameobjectTagName": "player_path_curve",
+                    "MotionSpeed": 5.080999851226807,
+                    "ArcLengthTolerance": 0.009999999776482582,
+                    "EnableMotionAlongPath": false,
+                    "EnableMotionOrientation": false,
+                    "EnableReverseMotion": false,
+                    "OffsetFollowPathPosition": [
+                        0.0,
+                        4.0,
+                        0.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "PLAYER"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
+                        "Overrides": {}
+                    }
+                ]
             }
         },
         {
@@ -2262,14 +3116,14 @@
             }
         },
         {
-            "tag": "enemy_rail04b",
+            "tag": "enemy_rail07b",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -2.0,
-                        5.0,
-                        8.0
+                        40.0,
+                        0.0,
+                        0.0
                     ],
                     "Rotation": [
                         0.0,
@@ -2290,443 +3144,127 @@
                     "ModelId": "Assets\\Models\\Sphere.fbx"
                 },
                 "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 8,
+                    "SplineControlPointsNumber": 14,
                     "SplineAlternatePoints": [
                         {
-                            "x": 5.0,
+                            "x": -8.0,
                             "y": 0.0,
                             "z": 0.0
                         },
                         {
-                            "x": 3.0,
+                            "x": -7.0,
                             "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -3.0,
-                            "y": 3.0,
-                            "z": 0.0
+                            "z": -0.5
                         },
                         {
                             "x": -4.0,
-                            "y": 5.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 7.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 3.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -14.0,
-                            "y": 1.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_floor.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        10.0,
-                        0.0,
-                        35.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        15.0,
-                        0.20000000298023225,
-                        15.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\SmoothMetalMaterial.json",
-                    "XTileFactor": 1.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "player_path_curve",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 23,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": 20.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": 15.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": -10.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": -20.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": -30.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 0.0,
-                            "z": -30.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 0.0,
-                            "z": -20.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 0.0,
-                            "z": -10.0
-                        },
-                        {
-                            "x": -5.0,
                             "y": 0.0,
                             "z": -5.0
                         },
                         {
-                            "x": -5.0,
+                            "x": -4.0,
                             "y": 0.0,
-                            "z": 10.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 0.0,
-                            "z": 20.0
+                            "z": -8.0
                         },
                         {
                             "x": 0.0,
                             "y": 0.0,
-                            "z": 20.0
+                            "z": -15.0
+                        },
+                        {
+                            "x": 3.0,
+                            "y": 0.0,
+                            "z": -17.0
+                        },
+                        {
+                            "x": 4.0,
+                            "y": 0.0,
+                            "z": -20.0
                         },
                         {
                             "x": 5.0,
                             "y": 0.0,
-                            "z": 15.0
+                            "z": -19.0
                         },
                         {
-                            "x": 5.0,
+                            "x": 4.0,
                             "y": 0.0,
-                            "z": 10.0
+                            "z": -12.0
                         },
                         {
-                            "x": 5.0,
+                            "x": 3.0,
                             "y": 0.0,
-                            "z": 5.0
+                            "z": -9.0
                         },
                         {
-                            "x": 10.0,
+                            "x": 8.0,
                             "y": 0.0,
-                            "z": 15.0
+                            "z": -5.0
                         },
                         {
-                            "x": 10.0,
+                            "x": 6.0,
                             "y": 0.0,
-                            "z": 20.0
+                            "z": -2.0
                         },
                         {
-                            "x": 15.0,
+                            "x": 4.0,
                             "y": 0.0,
-                            "z": 20.0
+                            "z": 0.0
                         },
                         {
-                            "x": 20.0,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": 20.0
+                            "z": 0.0
                         },
                         {
-                            "x": 25.0,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": 20.0
+                            "z": 0.0
                         },
                         {
-                            "x": 30.0,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": 15.0
+                            "z": 0.0
                         },
                         {
-                            "x": 30.0,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": 15.0
+                            "z": 0.0
                         },
                         {
-                            "x": 30.0,
+                            "x": 0.0,
                             "y": 0.0,
-                            "z": 10.0
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
                         },
                         {
                             "x": 0.0,
@@ -3433,34 +3971,66 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "tag": "spawner3a",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -15.0,
-                        5.0,
-                        0.0
+                        -4.5,
+                        2.0,
+                        -25.0
                     ],
                     "Rotation": [
                         0.0,
-                        90.0,
+                        0.0,
                         0.0
                     ],
                     "Scale": [
-                        50.0,
-                        10.0,
-                        2.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 5.0
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
                 },
                 "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        6.0,
+                        6.0,
+                        6.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+                            "curveGameObjTag": "enemy_rail03a",
+                            "spawnTimeInterval": 0.3,
+                            "numberOfSpawnGameObj": 4,
+                            "minMotionSpeed": 4.0,
+                            "maxMotionSpeed": 8.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.1,
+                            "minRelativeZ": -0.1,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.1,
+                            "maxRelativeZ": 0.1
+                        }
+                    }
+                ]
             }
         },
         {
@@ -3479,7 +4049,7 @@
                         0.0
                     ],
                     "Scale": [
-                        38.0,
+                        35.0,
                         2.0,
                         1.0
                     ]
@@ -3500,9 +4070,9 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -15.003811836242676,
-                        26.30508613586426,
-                        -38.049034118652347
+                        6.541108131408691,
+                        55.749847412109378,
+                        -49.5953254699707
                     ],
                     "Rotation": [
                         -90.0,
@@ -3560,452 +4130,6 @@
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
                 }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        7.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        15.0,
-                        3.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 5.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "directional_light01",
-            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        45.0,
-                        5.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Directional",
-                        "Color": [
-                            1.0,
-                            0.800000011920929,
-                            0.7360000014305115
-                        ],
-                        "Intensity": 0.25,
-                        "CastShadow": true
-                    }
-                }
-            }
-        },
-        {
-            "tag": "enemy_rail07b",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        40.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 14,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": -8.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -7.0,
-                            "y": 0.0,
-                            "z": -0.5
-                        },
-                        {
-                            "x": -4.0,
-                            "y": 0.0,
-                            "z": -5.0
-                        },
-                        {
-                            "x": -4.0,
-                            "y": 0.0,
-                            "z": -8.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": -15.0
-                        },
-                        {
-                            "x": 3.0,
-                            "y": 0.0,
-                            "z": -17.0
-                        },
-                        {
-                            "x": 4.0,
-                            "y": 0.0,
-                            "z": -20.0
-                        },
-                        {
-                            "x": 5.0,
-                            "y": 0.0,
-                            "z": -19.0
-                        },
-                        {
-                            "x": 4.0,
-                            "y": 0.0,
-                            "z": -12.0
-                        },
-                        {
-                            "x": 3.0,
-                            "y": 0.0,
-                            "z": -9.0
-                        },
-                        {
-                            "x": 8.0,
-                            "y": 0.0,
-                            "z": -5.0
-                        },
-                        {
-                            "x": 6.0,
-                            "y": 0.0,
-                            "z": -2.0
-                        },
-                        {
-                            "x": 4.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -25.0,
-                        5.0,
-                        -5.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        60.0,
-                        10.0,
-                        2.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "player01",
-            "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -15.003811836242676,
-                        26.30508613586426,
-                        -38.049034118652347
-                    ],
-                    "Rotation": [
-                        -55.01567840576172,
-                        929.9908447265624,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 45.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            -15.003811836242676,
-                            26.30508613586426,
-                            -38.049034118652347
-                        ],
-                        "CameraName": "Main",
-                        "ZOrder": 0
-                    }
-                },
-                "FollowCurvesPathComponent": {
-                    "MotionPathCurveGameobjectTagName": "player_path_curve",
-                    "MotionSpeed": 5.080999851226807,
-                    "ArcLengthTolerance": 0.009999999776482582,
-                    "EnableMotionAlongPath": false,
-                    "EnableMotionOrientation": false,
-                    "EnableReverseMotion": false,
-                    "OffsetFollowPathPosition": [
-                        0.0,
-                        4.0,
-                        0.0
-                    ]
-                },
-                "TriggerComponent": {
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ],
-                    "Offset": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "CollisionMask": "PLAYER"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
-                        "Overrides": {}
-                    }
-                ]
             }
         },
         {
@@ -4072,70 +4196,7 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -4.5,
-                        2.0,
-                        -25.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "TriggerComponent": {
-                    "Scale": [
-                        6.0,
-                        6.0,
-                        6.0
-                    ],
-                    "Offset": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "CollisionMask": "DINAMIC_OBJ"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
-                        "Overrides": {
-                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
-                            "curveGameObjTag": "enemy_rail03a",
-                            "spawnTimeInterval": 0.3,
-                            "numberOfSpawnGameObj": 4,
-                            "minMotionSpeed": 4.0,
-                            "maxMotionSpeed": 8.0,
-                            "enableMotionOrientation": false,
-                            "minRelativeX": -0.1,
-                            "minRelativeY": -0.1,
-                            "minRelativeZ": -0.1,
-                            "maxRelativeX": 0.1,
-                            "maxRelativeY": 0.1,
-                            "maxRelativeZ": 0.1
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "",
+            "tag": "spawner3b",
             "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
             "overrides": {
                 "TransformComponent": {
@@ -4192,6 +4253,69 @@
                             "maxRelativeX": 0.1,
                             "maxRelativeY": 0.1,
                             "maxRelativeZ": 0.1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -5.0,
+                        2.0,
+                        -9.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        6.0,
+                        6.0,
+                        6.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+                            "curveGameObjTag": "enemy_rail04b",
+                            "spawnTimeInterval": 0.5,
+                            "numberOfSpawnGameObj": 4,
+                            "minMotionSpeed": 3.0,
+                            "maxMotionSpeed": 5.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.4,
+                            "minRelativeZ": -0.4,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.4,
+                            "maxRelativeZ": 0.4
                         }
                     }
                 ]
