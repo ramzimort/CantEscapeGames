@@ -155,4 +155,9 @@ shooter_fpscontroller.OnDestruction = function(self)
 	self.triggerComp.OnExit:Unbind({self, self.OnExit});
 end
 
+shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
+	appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
+		Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);
+end
+
 return shooter_fpscontroller;

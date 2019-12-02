@@ -245,6 +245,13 @@ public:
 	 * 
 	 */
 	void LoadContent();
+
+	/**
+	 * @brief Get the Moment Shadow Map Rendering object
+	 *
+	 * @return MomentShadowMapRendering&
+	 */
+	MomentShadowMapRendering& GetMomentShadowMap();
 private:
 	
 	void InitializeDefaultIBLData();

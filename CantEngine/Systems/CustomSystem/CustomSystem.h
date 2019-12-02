@@ -10,7 +10,7 @@
 #include "../BaseSystem.h"
 
 class CustomComponent;
-
+class AppRenderer;
 
 /**
  * @brief CustomSystem will only update CustomComponent. 
@@ -78,10 +78,24 @@ public:
 	 */
 	virtual void Update(float dt, BaseSystemCompNode *compNode);
 
+	/**
+	 * @brief Calls draw on all the scripts of the GameObjects registered with this system
+	 *
+	 * 
+	 * @param compNode
+	 */
+	virtual void Draw(float dt, BaseSystemCompNode *compNode) override;
+
+
+	void RegisterAppRenderer(AppRenderer* appRenderer);
 public:
 	/**
 	 * @brief To compare when using templates
 	 * 
 	 */
 	static unsigned int const static_type;
+
+private:
+	AppRenderer* m_appRenderer;
+
 };

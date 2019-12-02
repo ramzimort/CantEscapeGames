@@ -83,7 +83,7 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 		end
 	end
 
-	if (self.LEFTCLICK) then
+	--[[if (self.LEFTCLICK) then
 		if (not self.onCooldown) then
 			--OutputPrint("\nPEW!\n");
 			local newSpawnedProjectile = GameObject.Instantiate(self.gameobjManager, self.spawnGameobjPrefabDir);
@@ -100,7 +100,7 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 		end
 	--else
 		--OutputPrint("\nSTILL ON COOLDOWN\n");
-	end
+	end]]
 end
 
 --Method

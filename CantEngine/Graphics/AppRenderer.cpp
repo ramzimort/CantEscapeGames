@@ -598,6 +598,11 @@ ParticleRendering& AppRenderer::GetParticleRendering()
 	return m_particleRendering;
 }
 
+MomentShadowMapRendering& AppRenderer::GetMomentShadowMap()
+{
+	return m_momentShadowMapRendering;
+}
+
 void AppRenderer::UpdateAppRenderer(float dt)
 {
 	m_gameTime += dt;

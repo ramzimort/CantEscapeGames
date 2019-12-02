@@ -22,12 +22,12 @@
     {
       "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
       "Overrides": {
-        "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
-        "curveGameObjTag": "enemy_rail02",
-        "spawnTimeInterval": 0.5,
-        "numberOfSpawnGameObj": 4,
-        "minMotionSpeed": 4.0,
-        "maxMotionSpeed": 10.0,
+        "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+        "curveGameObjTag": "enemy_rail03b",
+        "spawnTimeInterval": 0.1,
+        "numberOfSpawnGameObj": 2,
+        "minMotionSpeed": 6.0,
+        "maxMotionSpeed": 8.0,
         "enableMotionOrientation": false,
         "minRelativeX": -0.1,
         "minRelativeY": -0.1,
