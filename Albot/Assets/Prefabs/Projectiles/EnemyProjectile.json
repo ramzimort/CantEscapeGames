@@ -17,6 +17,7 @@
   },
   "RigidBodyComponent": {
     "IsEffectedByGravity": false,
+    "IsEffectedByDragForce": false,
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
@@ -27,13 +28,6 @@
     "Scale": [ 0.2, 0.2, 0.2 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "ENEMY_PROJ"
-  },
-  "ParticleEmitterComponent": {
-    "Emitter_Position": [ 0.0, 0.0, 0.0 ],
-    "Emitter_Spread_Angle_Yaw": 180,
-    "Emitter_Spread_Angle_Pitch": 90,
-    "Particle_Size": [1.0, 1.0],
-    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
   },
   "Scripts": [
     {

@@ -1,37 +1,46 @@
 -- First approximation of a component script
 
-FlyingBugLogic = 
+ShootingPlayerLogic = 
 {
-	name = "FlyingBugLogic";
+	name = "ShootingPlayerLogic";
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json";
-	
+	maxCooldown = 5.0;
+	bulletSpeed = 1.0;
+	curHealth = 1.0;
+
+
 	--Custom stuff
 	rgdbdyComp = nil;
 	transformComp = nil;
 	triggerComp = nil;
 	gameobjManager = nil;
 	animComp = nil;
+	rendererComp = nil;
 	ownerGameObj = nil;
 	--gun variables
 	onCooldown = false;
 	cooldown = 0.0;
-	maxCooldown = 1.0;
-	bulletSpeed = 10.0;
-	curHealth = 1;
+	
+
+	blinkingTime = 1.0;
+	curBlinkingTime = 0.0;
+	blinkingTimeInterval = 0.1;
+	curElapBlinkingTime = 0.0;
 }
 
 
 --Method
 --Init called when comp is created
-FlyingBugLogic.Init = function(self)
+ShootingPlayerLogic.Init = function(self)
 end
 
 
 --Begin called when obj has all comps
-FlyingBugLogic.Begin = function(self, owner, goMgr)
+ShootingPlayerLogic.Begin = function(self, owner, goMgr)
 	self.rgdbdyComp = owner:GetRigidbodyComp();
 	self.transformComp = owner:GetTransformComp();
 	self.triggerComp = owner:GetTriggerComp();
+	self.rendererComp = owner:GetRendererComp();
 
 	self.ownerGameObj = owner;
 	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
@@ -43,7 +52,20 @@ FlyingBugLogic.Begin = function(self, owner, goMgr)
 end
 
 --Update called every tick
-FlyingBugLogic.Update = function(self, dt, owner) 
+ShootingPlayerLogic.Update = function(self, dt, owner)
+	self.rendererComp:SetEnableRendering(true);
+
+	if(self.curBlinkingTime > 0) then
+		self.curBlinkingTime = self.curBlinkingTime - dt;
+		self.curElapBlinkingTime = self.curElapBlinkingTime + dt;
+		if(self.curElapBlinkingTime >= self.blinkingTimeInterval) then
+			self.rendererComp:SetEnableRendering(true);
+			self.curElapBlinkingTime = self.curElapBlinkingTime - self.blinkingTimeInterval;
+		else
+			self.rendererComp:SetEnableRendering(false);
+		end
+	end
+	
 	local followCurvesPathComp = owner:GetFollowCurvesPathComp();
 	if (followCurvesPathComp == nil) then 
 		return;
@@ -84,14 +106,14 @@ FlyingBugLogic.Update = function(self, dt, owner)
 	end
 end
 
-FlyingBugLogic.OnDestruction = function(self)
+ShootingPlayerLogic.OnDestruction = function(self)
 	self.triggerComp.OnEnter:Unbind({self, self.OnEnter})
 	self.triggerComp.OnExit:Unbind({self, self.OnExit})
 	OutputPrint("Flying bug destruction \n");
 end
 
 
-FlyingBugLogic.OnEnter = function(self, gameObj1, gameObj2)
+ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 	
 	local transform1 = gameObj1:GetTransformComp();
 	local transform2 = gameObj2:GetTransformComp();
@@ -106,11 +128,8 @@ FlyingBugLogic.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	
 	if (collisionMask2 == CollisionMask.PLAYER_PROJ) then
-		--local farAway1 = Vector3.new(1100000, -1100000, 1100000);
-		
-		--OutputPrint("Flying bug set to be destroyed \n");
-		--transform1:SetLocalPosition(farAway1);
 		self.curHealth = self.curHealth - 1;
+		self.curBlinkingTime = self.blinkingTime;
 		if(self.curHealth <= 0) then
 			self.ownerGameObj:Destroy();
 			local followCurvesPathComp = gameObj1:GetFollowCurvesPathComp();
@@ -126,10 +145,10 @@ FlyingBugLogic.OnEnter = function(self, gameObj1, gameObj2)
 
 end
 
-FlyingBugLogic.OnExit = function(self, gameObj1, gameObj2)
+ShootingPlayerLogic.OnExit = function(self, gameObj1, gameObj2)
 end
 
-FlyingBugLogic.AnimatorSetup = function(self)
+ShootingPlayerLogic.AnimatorSetup = function(self)
 	
 	--STATES-
 	local idle_State =		self.animComp:CreateState("idle", "ShootAnim");
@@ -138,4 +157,4 @@ FlyingBugLogic.AnimatorSetup = function(self)
 	self.animComp:SetEntryState(idle_State);
 end
 
-return FlyingBugLogic;
+return ShootingPlayerLogic;

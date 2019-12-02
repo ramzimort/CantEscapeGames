@@ -33,6 +33,7 @@ public:
 
 	void SetParticleSize(const Vector2& particleSize);
 	void SetParticleEmitter(ParticleEmitterType particleEmitterType);
+	void SetParticleEmitterMainDirection(const Vector3& emitterDirection);
 	
 	void SetEmitterDirection(const Vector3& dir);
 	void SetEmitterSpreadAngleYaw(float degree);

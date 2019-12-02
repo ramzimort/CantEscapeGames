@@ -140,6 +140,12 @@ void ParticleEmitterComponent::SetEmitParticlesCount(uint32_t emitCount)
 	m_emitParticleCount = std::min(emitCount, MAX_PARTICLE_EMIT_ONCE);
 }
 
+void ParticleEmitterComponent::SetParticleEmitterMainDirection(const Vector3& emitterDirection)
+{
+	m_emitterDirection = emitterDirection;
+	m_emitterDirection.Normalize();
+}
+
 
 bool ParticleEmitterComponent::FinishedEmitting() const
 {

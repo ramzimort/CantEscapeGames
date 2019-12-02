@@ -55,6 +55,7 @@
         ],
         "Models": [
             "Assets\\Models\\AnimTest01.fbx",
+            "Assets\\Models\\bullet.fbx",
             "Assets\\Models\\campfire.obj",
             "Assets\\Models\\cone.fbx",
             "Assets\\Models\\Cube.fbx",
@@ -69,48 +70,48 @@
             "Assets\\Models\\peasant_man.fbx",
             "Assets\\Models\\plane.fbx",
             "Assets\\Models\\Sphere.fbx",
+            "Assets\\Models\\Spider.fbx",
+            "Assets\\Models\\Spider_Crawl.fbx",
             "Assets\\Models\\swat_enemy.fbx",
             "Assets\\Models\\TestWalk.fbx",
             "Assets\\Models\\torus.fbx",
-            "Assets\\Models\\warrok_w_kurniawan.fbx",
-            "Assets\\Models\\Spider.fbx",
-            "Assets\\Models\\Spider_Crawl.fbx",
-            "Assets\\Models\\bullet.fbx"
+            "Assets\\Models\\warrok_w_kurniawan.fbx"
         ],
-      "Materials": [
-        "Assets\\Materials\\CampfireMaterial.json",
-        "Assets\\Materials\\HexagonTilesMaterial.json",
-        "Assets\\Materials\\Material1.json",
-        "Assets\\Materials\\MaterialDarkGreen.json",
-        "Assets\\Materials\\MetalCopperMaterial.json",
-        "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-        "Assets\\Materials\\NoReflectionMetalMaterial.json",
-        "Assets\\Materials\\OldLanternMaterial.json",
-        "Assets\\Materials\\RedDieletricRoughMaterial.json",
-        "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-        "Assets\\Materials\\RedMetallicSmoothMaterial.json",
-        "Assets\\Materials\\Red_Brick_Material.json",
-        "Assets\\Materials\\RoughBrick22Material.json",
-        "Assets\\Materials\\RoughDoorMaterial.json",
-        "Assets\\Materials\\RoughMetalMaterial.json",
-        "Assets\\Materials\\SmoothMetalMaterial.json",
-        "Assets\\Materials\\SmoothWoodMaterial.json",
-        "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-        "Assets\\Materials\\SmoothWhiteDiffuseWhiteSpecular.json"
-      ],
+        "Materials": [
+            "Assets\\Materials\\CampfireMaterial.json",
+            "Assets\\Materials\\HexagonTilesMaterial.json",
+            "Assets\\Materials\\Material1.json",
+            "Assets\\Materials\\MaterialDarkGreen.json",
+            "Assets\\Materials\\MetalCopperMaterial.json",
+            "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+            "Assets\\Materials\\NoReflectionMetalMaterial.json",
+            "Assets\\Materials\\OldLanternMaterial.json",
+            "Assets\\Materials\\RedDieletricRoughMaterial.json",
+            "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+            "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+            "Assets\\Materials\\Red_Brick_Material.json",
+            "Assets\\Materials\\RoughBrick22Material.json",
+            "Assets\\Materials\\RoughDoorMaterial.json",
+            "Assets\\Materials\\RoughMetalMaterial.json",
+            "Assets\\Materials\\SmoothMetalMaterial.json",
+            "Assets\\Materials\\SmoothWhiteDiffuseWhiteSpecular.json",
+            "Assets\\Materials\\SmoothWoodMaterial.json",
+            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+            "Assets\\Materials\\YellowDiffuseYellowSpecularMaterial.json"
+        ],
         "Scripts": [
             "Scripts\\Components\\CerberusGunLogicComp.lua",
-            "Scripts\\Components\\FlyingBugLogic.lua",
             "Scripts\\Components\\fpscontroller.lua",
             "Scripts\\Components\\PlayerComp.lua",
             "Scripts\\Components\\PresentationParticleEmitOnce.lua",
             "Scripts\\Components\\ProjectileLogic.lua",
             "Scripts\\Components\\shooter_fpscontroller.lua",
+            "Scripts\\Components\\ShootingPlayerLogic.lua",
+            "Scripts\\Components\\SpawnedEnemyComp.lua",
             "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
             "Scripts\\Components\\SwatEnemyLogicComp.lua",
             "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\ShooterRailPrototype.lua",
-            "Scripts\\Components\\SpawnedEnemyComp.lua"
+            "Scripts\\States\\ShooterRailPrototype.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -139,12 +140,15 @@
             "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
             "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
             "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
+            "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json",
             "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json",
             "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json",
             "Assets\\Prefabs\\RBTestObj.json",
             "Assets\\Prefabs\\rough_door.json",
             "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
+            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
             "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+            "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
             "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\smooth_wood_plane.json",
@@ -154,6 +158,318 @@
         "SFX": []
     },
     "Objects": [
+        {
+            "tag": "enemy_rail03b",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -7.0,
+                        5.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 4,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 8.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "tag": "skybox",
+            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "SkyboxIrradianceComponent": {
+                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                }
+            }
+        },
         {
             "tag": "",
             "prefab": "Assets\\Prefabs\\factory_floor.json",
@@ -191,127 +507,6 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        15.0,
-                        5.0,
-                        -15.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        65.0,
-                        10.0,
-                        2.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 30.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -22.85700035095215,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.5,
-                        0.5,
-                        0.5
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
-                },
-                "HaloEffectComponent": {
-                    "HaloEffect": {
-                        "Position": [
-                            2.5,
-                            9.0,
-                            0.0
-                        ],
-                        "Radius": 5.0,
-                        "Intensity": 1.0,
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ]
-                    }
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Point",
-                        "Position": [
-                            2.5,
-                            5.0,
-                            0.0
-                        ],
-                        "Color": [
-                            1.0,
-                            0.8500000238418579,
-                            0.699999988079071
-                        ],
-                        "Intensity": 0.9120000004768372,
-                        "CastShadow": true,
-                        "Radius": 15.0
-                    }
-                }
-            }
-        },
-        {
-            "tag": "skybox",
-            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "SkyboxIrradianceComponent": {
-                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
                         50.0,
                         5.0,
                         -10.0
@@ -338,14 +533,14 @@
             }
         },
         {
-            "tag": "enemy_rail02",
+            "tag": "enemy_rail01",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
                         -20.0,
-                        0.0,
-                        -25.0
+                        -2.0,
+                        -5.0
                     ],
                     "Rotation": [
                         0.0,
@@ -366,36 +561,31 @@
                     "ModelId": "Assets\\Models\\Sphere.fbx"
                 },
                 "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 6,
+                    "SplineControlPointsNumber": 5,
                     "SplineAlternatePoints": [
                         {
-                            "x": -5.0,
+                            "x": -15.0,
                             "y": 0.0,
                             "z": 0.0
                         },
                         {
                             "x": -5.0,
+                            "y": 5.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
                             "y": 10.0,
                             "z": 0.0
                         },
                         {
-                            "x": 4.0,
-                            "y": 7.0,
+                            "x": 5.0,
+                            "y": 5.0,
                             "z": 0.0
                         },
                         {
-                            "x": 2.0,
-                            "y": 4.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -2.0,
-                            "y": 2.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 2.0,
+                            "x": 15.0,
+                            "y": 0.0,
                             "z": 0.0
                         },
                         {
@@ -405,6 +595,296 @@
                         },
                         {
                             "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "tag": "enemy_rail05",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        5.0,
+                        0.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 9,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": -8.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": -10.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": -15.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": -20.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": -15.0
+                        },
+                        {
+                            "x": 6.0,
+                            "y": 0.0,
+                            "z": -10.0
+                        },
+                        {
+                            "x": 3.0,
                             "y": 0.0,
                             "z": 0.0
                         },
@@ -908,6 +1388,322 @@
             }
         },
         {
+            "tag": "enemy_rail02",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -20.0,
+                        0.0,
+                        -25.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 6,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": -5.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -5.0,
+                            "y": 10.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 4.0,
+                            "y": 7.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -2.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        15.0,
+                        5.0,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        65.0,
+                        10.0,
+                        2.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 30.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
             "tag": "",
             "prefab": "Assets\\Prefabs\\factory_wall2.json",
             "overrides": {
@@ -935,6 +1731,354 @@
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -22.85700035095215,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.5,
+                        0.5,
+                        0.5
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            2.5,
+                            9.0,
+                            0.0
+                        ],
+                        "Radius": 5.0,
+                        "Intensity": 1.0,
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ]
+                    }
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Position": [
+                            2.5,
+                            5.0,
+                            0.0
+                        ],
+                        "Color": [
+                            1.0,
+                            0.8500000238418579,
+                            0.699999988079071
+                        ],
+                        "Intensity": 0.9120000004768372,
+                        "CastShadow": true,
+                        "Radius": 15.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "enemy_rail03a",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -7.0,
+                        5.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 4,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 4.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 8.0,
+                            "y": 4.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
                 }
             }
         },
@@ -997,6 +2141,322 @@
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        2.0,
+                        1.0,
+                        34.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        17.5,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "enemy_rail04b",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -2.0,
+                        5.0,
+                        8.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 8,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 3.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -3.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -4.0,
+                            "y": 5.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 7.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -8.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -14.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -20.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
                 }
             }
         },
@@ -1602,798 +3062,6 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        32.0,
-                        1.0,
-                        10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        38.0,
-                        2.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 16.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "cerberus_gun",
-            "prefab": "Assets\\Prefabs\\Guns\\cerberus_gun.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -20.131689071655278,
-                        9.679259300231934,
-                        19.88897132873535
-                    ],
-                    "Rotation": [
-                        -90.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.009999999776482582,
-                        0.009999999776482582,
-                        0.009999999776482582
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-                    "XTileFactor": 1.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Guns\\Cerberus_LP.fbx"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\CerberusGunLogicComp.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -11.0,
-                        5.0,
-                        25.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        27.5,
-                        10.0,
-                        3.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        18.0,
-                        1.0,
-                        35.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        15.0,
-                        2.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 7.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "enemy_rail05",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        5.0,
-                        0.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 9,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": -8.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": -10.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": -15.0
-                        },
-                        {
-                            "x": 5.0,
-                            "y": 0.0,
-                            "z": -20.0
-                        },
-                        {
-                            "x": 5.0,
-                            "y": 0.0,
-                            "z": -15.0
-                        },
-                        {
-                            "x": 6.0,
-                            "y": 0.0,
-                            "z": -10.0
-                        },
-                        {
-                            "x": 3.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        7.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        15.0,
-                        3.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 5.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        2.0,
-                        1.0,
-                        34.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        17.5,
-                        2.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 5.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "directional_light01",
-            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        45.0,
-                        5.0,
-                        0.0
-                    ]
-                },
-                "LightComponent": {
-                    "Light": {
-                        "LightType": "Directional",
-                        "Color": [
-                            1.0,
-                            0.800000011920929,
-                            0.7360000014305115
-                        ],
-                        "Intensity": 0.25,
-                        "CastShadow": true
-                    }
-                }
-            }
-        },
-        {
-            "tag": "enemy_rail03a",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -7.0,
-                        5.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 4,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 4.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 8.0,
-                            "y": 4.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 1.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
             "tag": "enemy_rail06",
             "prefab": "Assets\\Prefabs\\splinecurve.json",
             "overrides": {
@@ -2675,6 +3343,197 @@
                             "z": 0.0
                         }
                     ]
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        32.0,
+                        1.0,
+                        10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        38.0,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 16.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "cerberus_gun",
+            "prefab": "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -23.302947998046876,
+                        34.06856918334961,
+                        11.789287567138672
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.008999999612569809,
+                        0.008999999612569809,
+                        0.008999999612569809
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Guns\\Cerberus_LP.fbx"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\CerberusGunLogicComp.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -11.0,
+                        5.0,
+                        25.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        27.5,
+                        10.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        18.0,
+                        1.0,
+                        35.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        15.0,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 7.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        7.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        15.0,
+                        3.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "directional_light01",
+            "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        45.0,
+                        5.0,
+                        0.0
+                    ]
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Directional",
+                        "Color": [
+                            1.0,
+                            0.800000011920929,
+                            0.7360000014305115
+                        ],
+                        "Intensity": 0.25,
+                        "CastShadow": true
+                    }
                 }
             }
         },
@@ -2995,303 +3854,18 @@
             }
         },
         {
-            "tag": "enemy_rail04b",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -2.0,
-                        5.0,
-                        8.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 8,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": 5.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 3.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -3.0,
-                            "y": 3.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -4.0,
-                            "y": 5.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 7.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": 3.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -14.0,
-                            "y": 1.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -20.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
             "tag": "player01",
             "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -20.131689071655278,
-                        9.679259300231934,
-                        19.88897132873535
+                        -23.302947998046876,
+                        34.06856918334961,
+                        11.789287567138672
                     ],
                     "Rotation": [
-                        -36.69573211669922,
-                        715.3883666992188,
+                        -56.895652770996097,
+                        721.1889038085938,
                         0.0
                     ],
                     "Scale": [
@@ -3306,9 +3880,9 @@
                         "Near": 0.10000000149011612,
                         "Far": 1000.0,
                         "Position": [
-                            -20.131689071655278,
-                            9.679259300231934,
-                            19.88897132873535
+                            -23.302947998046876,
+                            34.06856918334961,
+                            11.789287567138672
                         ],
                         "CameraName": "Main",
                         "ZOrder": 0
@@ -3380,577 +3954,7 @@
             }
         },
         {
-            "tag": "enemy_rail01",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -20.0,
-                        -2.0,
-                        -5.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 5,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": -15.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -5.0,
-                            "y": 5.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 10.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 5.0,
-                            "y": 5.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 15.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "enemy_rail03b",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -7.0,
-                        5.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 4,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 8.0,
-                            "y": -2.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -8.0,
-                            "y": -2.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "",
+            "tag": "spawner1",
             "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
             "overrides": {
                 "TransformComponent": {
@@ -3994,6 +3998,69 @@
                     {
                         "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
                         "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -20.0,
+                        2.0,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        5.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+                            "curveGameObjTag": "enemy_rail02",
+                            "spawnTimeInterval": 0.5,
+                            "numberOfSpawnGameObj": 4,
+                            "minMotionSpeed": 4.0,
+                            "maxMotionSpeed": 10.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.1,
+                            "minRelativeZ": -0.1,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.1,
+                            "maxRelativeZ": 0.1
+                        }
                     }
                 ]
             }

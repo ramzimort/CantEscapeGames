@@ -647,7 +647,8 @@ void ScriptingManager::ManageBindings()
 	//RENDERER
 	luaState.new_usertype<RendererComponent>
 	(
-		"RendererComponent"
+		"RendererComponent",
+		"SetEnableRendering", &RendererComponent::SetEnableRendering
 	);
 
 	//MESH
@@ -706,7 +707,8 @@ void ScriptingManager::ManageBindings()
 			"ParticleEmitterComponent",
 			"Emit", &ParticleEmitterComponent::Emit,
 			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
-			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
+			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch,
+			"SetEmitterDirection", &ParticleEmitterComponent::SetEmitterDirection
 			);
 
 	luaState.new_usertype<FollowCurvesPathComponent>(

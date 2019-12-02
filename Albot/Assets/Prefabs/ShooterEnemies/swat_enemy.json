@@ -12,7 +12,7 @@
     "ModelId": "Assets\\Models\\swat_enemy.fbx"
   },
   "FollowCurvesPathComponent": {
-    "MotionPathCurveGameobjectTagName": "enemy_rail05",
+    "MotionPathCurveGameobjectTagName": "",
     "MotionSpeed": 5.0,
     "ArcLengthTolerance": 0.001,
     "EnableMotionAlongPath": false,

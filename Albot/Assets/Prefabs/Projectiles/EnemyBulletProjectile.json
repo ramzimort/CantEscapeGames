@@ -2,12 +2,12 @@
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-    "Scale": [ 0.07, 0.07, 0.07 ]
+    "Scale": [ 0.1, 0.1, 0.1 ]
 
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+    "MaterialId": "Assets\\Materials\\MetalCopperMaterial.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },
@@ -21,20 +21,19 @@
     "Velocity": [ 0.0, 0.0, 0.0 ],
     "Mass": 1.0,
     "IsAsleep": 0,
-    "CollisionMask": "PLAYER_PROJ",
+    "CollisionMask": "ENEMY_PROJ",
     "FrictionCoef": 0.2
   },
   "TriggerComponent": {
-    "Scale": [ 0.2, 0.2, 0.4 ],
+    "Scale": [ 0.2, 0.2, 0.2 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
-    "CollisionMask": "PLAYER_PROJ"
+    "CollisionMask": "ENEMY_PROJ"
   },
-
   "Scripts": [
     {
       "Name": "Scripts\\Components\\ProjectileLogic.lua",
       "Overrides": {
-        "projectileOwnerName": "Player"
+        "projectileOwnerName": "Enemy"
       }
     }
   ]

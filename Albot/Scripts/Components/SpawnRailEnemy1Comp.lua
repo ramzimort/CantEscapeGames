@@ -4,20 +4,30 @@ SpawnRailEnemy1Comp =
 {
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json";
 	curveGameObjTag = "enemy_rail01";
-	gameobjManager = nil;
-	ownerGameObj = nil;
 	spawnTimeInterval = 0.5;
-	numberOfSpawnGameObj = 5;
-	numberOfAliveGameObj = 0;
-	curTime = 0.0;
+	numberOfSpawnGameObj = 3;
 	minMotionSpeed = 4.0;
 	maxMotionSpeed = 8.0;
+	enableMotionOrientation = false;
+	minRelativeX = -0.1;
+	minRelativeY = -0.1;
+	minRelativeZ = -0.1;
+	maxRelativeX = 0.1;
+	maxRelativeY = 0.1;
+	maxRelativeZ = 0.1;
+
+
+	gameobjManager = nil;
+	ownerGameObj = nil;
+	
+	numberOfAliveGameObj = 0;
+	curTime = 0.0;
+	
 	motionSpeed = 5.0;
 	beginSpawningFlag = false;
 	triggerComp = nil;
 	transformComp = nil;
 	playerGameObj = nil;
-	enableMotionOrientation = false;
 };
 
 --Init called when obj has all comps
@@ -54,11 +64,15 @@ SpawnRailEnemy1Comp.Update = function(self, dt, owner)
 		spawnedEnemyScriptComp.OnDestroyedMulticast:suscribe({self, self.OnSpawnedEnemyDestroyed});
 		
 		local spawnedTransformComp = newSpawnedGameObj:GetTransformComp();
-		spawnedTransformComp:Scale(0.001, 0.001, 0.001);
 
 		local followCurvesPathComp = newSpawnedGameObj:GetFollowCurvesPathComp();
 		local newMotionSpeed = RandF(self.minMotionSpeed, self.maxMotionSpeed);
 
+		local newRelativeX = RandF(self.minRelativeX, self.maxRelativeX);
+		local newRelativeY = RandF(self.minRelativeY, self.maxRelativeY);
+		local newRelativeZ = RandF(self.minRelativeZ, self.maxRelativeZ);
+
+		followCurvesPathComp:SetOffsetFollowPathPosition(newRelativeX, newRelativeY, newRelativeZ);
 		followCurvesPathComp:SetEnableMotionAlongPath(true);
 		followCurvesPathComp:SetMotionSpeed(newMotionSpeed);
 		followCurvesPathComp:SetBeforeInitCurveGameObjectToFollow(self.curveGameObjTag);
@@ -82,6 +96,7 @@ end
 
 
 SpawnRailEnemy1Comp.OnEnter = function(self, gameObj1, gameObj2)
+	OutputPrint("Someone entered!\n");
 	if(gameObj1:GetTag() ~= "player01" and gameObj2:GetTag() ~= "player01") then
 		return;
 	end
