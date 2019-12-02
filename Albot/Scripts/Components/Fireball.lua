@@ -8,7 +8,8 @@ Fireball =
 	triggerComp = nil;
 	Player = nil;
 
-	moveSpeed = Vector3.new(0.0, 0.0, 8.0);
+	moveSpeed = Vector3.new(0.0, 0.0, 4.0);
+	enabled = false;
 }
 
 Fireball.Init = function(self)
@@ -24,13 +25,13 @@ Fireball.Begin = function(self, owner, goMgr)
 end
 
 Fireball.Update = function(self, dt, owner) 
-	local position = self.transformComp:GetPosition();
-	local newPosition = position + self.moveSpeed*dt;
-
-	if(position.z > -30) then 
-		self.transformComp:SetLocalPosition(self.startingPosition);
-	else
+	if(self.enabled) then
+		local position = self.transformComp:GetPosition();
+		local newPosition = position + self.moveSpeed*dt;
 		self.transformComp:SetLocalPosition(newPosition);
+		if(position.z > -35) then 
+			self.enabled = false;
+		end
 	end
 end
 

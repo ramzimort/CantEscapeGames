@@ -12,7 +12,11 @@ InteractiveBox3 =
 	yOffset = 0.0;
 
 	owner = nil;
-	Fireball = nil;
+	Elevator = nil;
+	Fireball1 = nil;
+	Fireball2 = nil;
+	leftLight = nil;
+	newLightColor = Vector3.new(0.0, 1.0, 0.0);
 }
 
 InteractiveBox3.Init = function(self)
@@ -22,8 +26,13 @@ end
 InteractiveBox3.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.X == key and state and self.playerNear) then
 		self.interactionComplete = true;
-		self.Fireball:GetTransformComp():SetLocalPosition(-32.5,-1.0,-70.0);
-	end                    
+		self.Fireball1:GetTransformComp():SetLocalPosition(-34.0,-3.0,-70.0);
+		self.Fireball2:GetTransformComp():SetLocalPosition(-31.0,-3.0,-70.0);
+		self.leftLight:GetLightComp():SetColor(self.newLightColor);
+		self.leftLight:GetHaloEffectComp():SetColor(self.newLightColor);
+		local elevatorScript = self.Elevator:GetCustomComp("MovingPlatformVertical"); 
+		elevatorScript.enabled2 = true;
+	end
 end
 
 InteractiveBox3.Begin = function(self, owner, goMgr)
@@ -34,19 +43,27 @@ InteractiveBox3.Begin = function(self, owner, goMgr)
 	self.triggerComp.OnExit:Bind({self, self.OnExit});
 
 	self.owner = owner;
-	self.Fireball = goMgr:FindGameObject("Fireball");
+	self.Fireball1 = goMgr:FindGameObject("Fireball1");
+	self.Fireball2 = goMgr:FindGameObject("Fireball2");
+	self.leftLight = goMgr:FindGameObject("Lantern_Left");
+	self.Elevator = goMgr:FindGameObject("Elevator");
 end
 
 InteractiveBox3.Update = function(self, dt, owner) 
 	if(self.interactionComplete and self.yOffset < 2) then
+		local delta = self.moveSpeed * dt;
 		local pos = self.transformComp:GetPosition();
-		pos.y = pos.y - self.moveSpeed * dt;
-		self.yOffset = self.yOffset + (self.moveSpeed*dt);
+		pos.y = pos.y - delta;
+		self.yOffset = self.yOffset + delta;
 		self.transformComp:SetLocalPosition(pos);
+		self.Fireball1:GetTransformComp():Translate(0.0, delta, 0.0);
+		self.Fireball2:GetTransformComp():Translate(0.0, delta, 0.0);
 	end
 	if(self.yOffset >= 2) then
-		local fireballScript = self.Fireball:GetCustomComp("Fireball"); 
-		fireballScript.enabled = true;
+		local fireballScript1 = self.Fireball1:GetCustomComp("Fireball"); 
+		fireballScript1.enabled = true;
+		local fireballScript2 = self.Fireball2:GetCustomComp("Fireball"); 
+		fireballScript2.enabled = true;
 		self.owner:Destroy();
 	end
 end

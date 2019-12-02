@@ -35,6 +35,11 @@
     "IsAsleep": false,
     "CollisionMask": "STATIC_OBJ"
   },
+  "TriggerComponent": {
+    "Scale": [ 1.2, 1.2, 1.2 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "STATIC_OBJ"
+  },
   "Scripts": [
     {
       "Name": "Scripts\\Components\\MovingPlatformVertical.lua",

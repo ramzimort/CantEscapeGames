@@ -13,6 +13,10 @@ InteractiveBox2 =
 
 	owner = nil;
 	fire = nil;
+	Elevator = nil;
+	rightLight = nil;
+	newLightColor = Vector3.new(0.0, 1.0, 0.0);
+
 }
 
 InteractiveBox2.Init = function(self)
@@ -22,6 +26,10 @@ end
 InteractiveBox2.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.X == key and state and self.playerNear) then
 		self.interactionComplete = true;
+		self.rightLight:GetLightComp():SetColor(self.newLightColor);
+		self.rightLight:GetHaloEffectComp():SetColor(self.newLightColor);
+		local elevatorScript = self.Elevator:GetCustomComp("MovingPlatformVertical"); 
+		elevatorScript.enabled1 = true;
 	end
 end
 
@@ -34,6 +42,8 @@ InteractiveBox2.Begin = function(self, owner, goMgr)
 
 	self.owner = owner;
 	self.fire = goMgr:FindGameObject("Firewall_Left");
+	self.rightLight = goMgr:FindGameObject("Lantern_Right");
+	self.Elevator = goMgr:FindGameObject("Elevator");
 end
 
 InteractiveBox2.Update = function(self, dt, owner) 

@@ -498,6 +498,7 @@ void ScriptingManager::ManageBindings()
 		"GetRendererComp",        &GameObject::GetComponent<RendererComponent>,
 		"GetMeshComp",            &GameObject::GetComponent<MeshComponent>,
 		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
+		"GetHaloEffectComp",	  &GameObject::GetComponent<HaloEffectComponent>,
 		"GetCameraComp",          &GameObject::GetComponent<CameraComponent>,
 		"GetParticleEmitterComp", &GameObject::GetComponent<ParticleEmitterComponent>,
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
@@ -658,7 +659,15 @@ void ScriptingManager::ManageBindings()
 	//LIGHT
 	luaState.new_usertype<LightComponent>
 	(
-		"LightComponent"
+		"LightComponent",
+		"SetColor", &LightComponent::SetColor
+	);
+
+	//LIGHT
+	luaState.new_usertype<HaloEffectComponent>
+	(
+		"HaloEffectComponent",
+		"SetColor", &HaloEffectComponent::SetColor
 	);
 
 	//CAMERA

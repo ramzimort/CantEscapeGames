@@ -45,3 +45,8 @@ HaloEffect& HaloEffectComponent::GetHaloEffect()
 {
 	return m_haloEffect;
 }
+
+void HaloEffectComponent::SetColor(const Vector3& color)
+{
+	m_haloEffect.SetColor(color);
+}

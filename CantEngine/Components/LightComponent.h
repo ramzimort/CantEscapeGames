@@ -21,6 +21,8 @@ public:
 
 	const Light* GetLight() const;
 	Light* GetLight() { return &m_light; }
+
+	void SetColor(const Vector3& color);
 public:
 	static ComponentId const static_type;
 
