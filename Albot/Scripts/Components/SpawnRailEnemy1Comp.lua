@@ -3,6 +3,7 @@ dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
 SpawnRailEnemy1Comp = 
 {
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json";
+	curveGameObjTag = "enemy_rail01";
 	gameobjManager = nil;
 	ownerGameObj = nil;
 	spawnTimeInterval = 0.5;
@@ -12,7 +13,6 @@ SpawnRailEnemy1Comp =
 	minMotionSpeed = 4.0;
 	maxMotionSpeed = 8.0;
 	motionSpeed = 5.0;
-	curveGameObjTag = "enemy_rail01";
 	beginSpawningFlag = false;
 	triggerComp = nil;
 	transformComp = nil;
@@ -71,6 +71,7 @@ SpawnRailEnemy1Comp.OnSpawnedEnemyDestroyed = function(self)
 	if(self.numberOfSpawnGameObj <= 0 and self.numberOfAliveGameObj <= 0) then
 		local playerCurvesPathComp = self.playerGameObj:GetFollowCurvesPathComp();
 		playerCurvesPathComp:SetEnableMotionAlongPath(true);
+		self.ownerGameObj:Destroy();
 	end
 end
 

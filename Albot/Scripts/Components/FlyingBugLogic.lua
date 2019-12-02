@@ -15,8 +15,8 @@ FlyingBugLogic =
 	--gun variables
 	onCooldown = false;
 	cooldown = 0.0;
-	maxCooldown = 4.0;
-	bulletSpeed = 1.0;
+	maxCooldown = 1.0;
+	bulletSpeed = 10.0;
 	curHealth = 1;
 }
 

@@ -31,6 +31,7 @@ public:
 
 	bool FinishedEmitting() const;
 
+	void SetParticleSize(const Vector2& particleSize);
 	void SetParticleEmitter(ParticleEmitterType particleEmitterType);
 	
 	void SetEmitterDirection(const Vector3& dir);
@@ -66,7 +67,7 @@ private:
 	//How many particles being emitted when the emitter is emitted
 	uint32_t m_emitParticleCount;
 	
-
+	Vector2 m_particleSize;
 	ParticleEmitterType m_particleEmitterType;
 
 	bool m_isEmitting;
