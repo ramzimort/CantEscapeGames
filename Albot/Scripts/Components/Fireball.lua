@@ -6,7 +6,7 @@ Fireball =
 	startingPosition = nil;
 	transformComp = nil;
 	triggerComp = nil;
-	PlayerScript = nil;
+	Player = nil;
 
 	moveSpeed = Vector3.new(0.0, 0.0, 8.0);
 }
