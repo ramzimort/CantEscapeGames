@@ -30,11 +30,10 @@ Text.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
-	
+	self.uiComp:SetText(Localize(self.uiComp:GetText()));
+
 	self.textUnTouchedScale = Vector3.new(self.uiComp:GetTextScale());
-	self.textTouchedScale = Vector3.new(self.textUnTouchedScale*1.1);
-	
-	
+	self.textTouchedScale = Vector3.new(self.textUnTouchedScale*1.1);	
 end
 
 --Update called every tick

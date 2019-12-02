@@ -57,7 +57,7 @@ public:
 	float GetRotationRate();
 	void SetTextScale(const Vector3& val);
 	Vector3 GetTextScale();
-	void SetText(const std::string& val);
+	void SetText(const std::wstring& val);
 	std::string GetText();
 
 public:

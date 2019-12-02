@@ -225,7 +225,7 @@ float UIComponent::GetRotationRate()
 	return rotationRate;
 }
 
-void UIComponent::SetText(const std::string& val)
+void UIComponent::SetText(const std::wstring& val)
 {
 	m_textUI = std::wstring(val.begin(), val.end());
 }
