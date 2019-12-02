@@ -41,8 +41,11 @@
             "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
             "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
             "Assets\\Textures\\UI\\AnimationsButton.png",
+            "Assets\\Textures\\UI\\Button.png",
             "Assets\\Textures\\UI\\CantEscapeGameLogo.png",
+            "Assets\\Textures\\UI\\CloseButton.png",
             "Assets\\Textures\\UI\\CreditsButton.png",
+            "Assets\\Textures\\UI\\CreditsText.png",
             "Assets\\Textures\\UI\\ExitButton.png",
             "Assets\\Textures\\UI\\GraphicsButton.png",
             "Assets\\Textures\\UI\\Level1Button.png",
@@ -50,6 +53,7 @@
             "Assets\\Textures\\UI\\MainMenu.png",
             "Assets\\Textures\\UI\\PhysicsButton.png",
             "Assets\\Textures\\UI\\RotatingArrow.png",
+            "Assets\\Textures\\UI\\SettingBase.png",
             "Assets\\Textures\\UI\\SettingsButton.png",
             "Assets\\Textures\\UI\\Stars.png",
             "Assets\\Textures\\UI\\UIBackGroundImage.png"
@@ -91,13 +95,17 @@
             "Assets\\Materials\\RoughMetalMaterial.json",
             "Assets\\Materials\\SmoothWoodMaterial.json",
             "Assets\\Materials\\UI\\AnimationsButtonMaterial.json",
+            "Assets\\Materials\\UI\\ButtonMaterial.json",
             "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json",
+            "Assets\\Materials\\UI\\CloseButtonMaterial.json",
             "Assets\\Materials\\UI\\CreditsButtonMaterial.json",
+            "Assets\\Materials\\UI\\CreditsTextMaterial.json",
             "Assets\\Materials\\UI\\ExitButtonMaterial.json",
             "Assets\\Materials\\UI\\GraphicsButtonMaterial.json",
             "Assets\\Materials\\UI\\LoadingMaterial.json",
             "Assets\\Materials\\UI\\PhysicsButtonMaterial.json",
             "Assets\\Materials\\UI\\RotatingArrowMaterial.json",
+            "Assets\\Materials\\UI\\SettingBaseMaterial.json",
             "Assets\\Materials\\UI\\SettingsButtonMaterial.json",
             "Assets\\Materials\\UI\\StarsMaterial.json",
             "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
@@ -106,28 +114,62 @@
         "Scripts": [
             "Scripts\\Components\\AffineAnimation.lua",
             "Scripts\\Components\\Button.lua",
+            "Scripts\\Components\\CerberusGunLogicComp.lua",
+            "Scripts\\Components\\Checkpoint.lua",
+            "Scripts\\Components\\CrouchObstacle.lua",
+            "Scripts\\Components\\DropDown.lua",
             "Scripts\\Components\\editor.lua",
+            "Scripts\\Components\\Fireball.lua",
+            "Scripts\\Components\\Firewall.lua",
+            "Scripts\\Components\\FlyingBugLogic.lua",
             "Scripts\\Components\\fpscontroller.lua",
+            "Scripts\\Components\\InteractiveBox.lua",
+            "Scripts\\Components\\InteractiveBox1.lua",
+            "Scripts\\Components\\InteractiveBox2.lua",
+            "Scripts\\Components\\InteractiveBox3.lua",
             "Scripts\\Components\\JoseController.lua",
+            "Scripts\\Components\\MovingPlatformHorizontal.lua",
+            "Scripts\\Components\\MovingPlatformUpward.lua",
+            "Scripts\\Components\\MovingPlatformVertical.lua",
             "Scripts\\Components\\PlayerComp.lua",
             "Scripts\\Components\\PresentationParticleEmitOnce.lua",
+            "Scripts\\Components\\ProjectileLogic.lua",
             "Scripts\\Components\\RamziPlayer.lua",
+            "Scripts\\Components\\RamziPlayerCube.lua",
             "Scripts\\Components\\rgdbdyPlayer.lua",
+            "Scripts\\Components\\shooter_fpscontroller.lua",
+            "Scripts\\Components\\SlideScroller.lua",
+            "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
             "Scripts\\Components\\test01Comp.lua",
             "Scripts\\Components\\test02Comp.lua",
             "Scripts\\Components\\TestPlayerAnimComp.lua",
+            "Scripts\\Components\\Text.lua",
             "Scripts\\Components\\TppFollowController.lua",
             "Scripts\\Components\\TriggerTest.lua",
+            "Scripts\\Components\\UICamera.lua",
+            "Scripts\\Components\\UICameraCredits.lua",
+            "Scripts\\Components\\UICameraExit.lua",
             "Scripts\\Components\\UICameraLoading.lua",
             "Scripts\\Components\\UICameraMenu.lua",
+            "Scripts\\Components\\UICameraSetting.lua",
             "Scripts\\Components\\WindowResize.lua",
+            "Scripts\\Components\\WindowResizeButton.lua",
+            "Scripts\\Examples\\ExampleComp.lua",
+            "Scripts\\Helper\\ShooterRailPrototype_Common.lua",
+            "Scripts\\LuaGlobalSetups.lua",
+            "Scripts\\States\\Credits.lua",
             "Scripts\\States\\DebugPause.lua",
+            "Scripts\\States\\Exit.lua",
             "Scripts\\States\\Graphics.lua",
             "Scripts\\States\\JoseLevel.lua",
+            "Scripts\\States\\level1.lua",
             "Scripts\\States\\Loading.lua",
             "Scripts\\States\\Menu.lua",
             "Scripts\\States\\Physics.lua",
-            "Scripts\\States\\Ramzi.lua"
+            "Scripts\\States\\Ramzi.lua",
+            "Scripts\\States\\Setting.lua",
+            "Scripts\\States\\ShooterRailPrototype.lua",
+            "Scripts\\States\\ThreadTest.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -150,9 +192,14 @@
             "Assets\\Prefabs\\mitsuba_sphere.json",
             "Assets\\Prefabs\\mono_azul.json",
             "Assets\\Prefabs\\mono_rojo.json",
+            "Assets\\Prefabs\\Obstacles\\CrouchObstacle.json",
             "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
             "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "Assets\\Prefabs\\Obstacles\\MovingPlatformHorizontal.json",
+            "Assets\\Prefabs\\Obstacles\\MovingPlatformUpward.json",
+            "Assets\\Prefabs\\Obstacles\\MovingPlatformVertical.json",
             "Assets\\Prefabs\\player.json",
+            "Assets\\Prefabs\\Players\\PlayerCube.json",
             "Assets\\Prefabs\\Players\\RamziPlayer.json",
             "Assets\\Prefabs\\Primitive_Shapes\\cone.json",
             "Assets\\Prefabs\\Primitive_Shapes\\cube.json",
@@ -167,6 +214,12 @@
             "Assets\\Prefabs\\TestGoJose.json",
             "Assets\\Prefabs\\TestGoJose_2.json",
             "Assets\\Prefabs\\TriggerRigidCube.json",
+            "Assets\\Prefabs\\Triggers\\Checkpoint.json",
+            "Assets\\Prefabs\\Triggers\\Fireball.json",
+            "Assets\\Prefabs\\Triggers\\Firewall.json",
+            "Assets\\Prefabs\\Triggers\\InteractiveBox1.json",
+            "Assets\\Prefabs\\Triggers\\InteractiveBox2.json",
+            "Assets\\Prefabs\\Triggers\\InteractiveBox3.json",
             "Assets\\Prefabs\\Triggers\\TriggerCube.json",
             "Assets\\Prefabs\\UIEmpty.json",
             "Assets\\Prefabs\\UIObject.json"
@@ -187,14 +240,56 @@
     },
     "Objects": [
         {
-            "tag": "skybox",
-            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
+                        30.0,
+                        3.799999952316284,
+                        -18.200000762939458
+                    ],
+                    "Rotation": [
                         0.0,
                         0.0,
-                        0.0
+                        -20.0
+                    ],
+                    "Scale": [
+                        10.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -1.2640168814563792e-34,
+                        -3.766530937519274e-34,
+                        4.748935834080467e-36
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -2.7651088508932753e-27,
+                        -3.0,
+                        -4.817138865796271e-28
                     ],
                     "Rotation": [
                         0.0,
@@ -202,14 +297,29 @@
                         0.0
                     ],
                     "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
+                        5.0,
+                        5.0,
+                        100.0
                     ]
                 },
-                "SkyboxIrradianceComponent": {
-                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 50.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -1.2195666903199273e-31,
+                        -8.478236266266193e-30,
+                        -2.2901493752130352e-32
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
                 }
             }
         },
@@ -219,9 +329,93 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
+                        23.75,
+                        0.5,
+                        -40.0
+                    ],
+                    "Rotation": [
                         0.0,
-                        -0.5,
-                        30.0
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.5,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -1.0210761645983177e-38,
+                        2.3681944047089414e-43,
+                        2.6013648639787329e-39
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground6",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -32.5,
+                        -3.0,
+                        -40.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        10.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        7.622979343811391e-37,
+                        -4.541614259898067e-34,
+                        1.909711295334027e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -32.5,
+                        4.930257028686396e-34,
+                        -40.0
                     ],
                     "Rotation": [
                         0.0,
@@ -230,7 +424,49 @@
                     ],
                     "Scale": [
                         5.0,
-                        2.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        6.076446607216004e-38,
+                        1.590900379523534e-36
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        0.0,
+                        -55.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
                         1.0
                     ]
                 },
@@ -253,6 +489,297 @@
                     "IsAsleep": false,
                     "CollisionMask": "STATIC_OBJ"
                 }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        -2.5776175472641827e-32,
+                        30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        -3.577207456065471e-36,
+                        -3.577208263213387e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Moving Platform",
+            "prefab": "Assets\\Prefabs\\Obstacles\\MovingPlatformVertical.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        6.0,
+                        4652.787109375,
+                        48.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        5.0,
+                        10.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        3.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        1.200000047683716,
+                        1.200000047683716,
+                        1.200000047683716
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\MovingPlatformVertical.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -15.0,
+                        6.3225226397048918e-34,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -6.483176625394842e-37,
+                        6.483176849602597e-38,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        -1.6368069701637185e-32,
+                        25.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        -2.3074816353397267e-36,
+                        -3.5011755573596055e-36
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "lvleditor",
+            "prefab": "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -0.3559166193008423,
+                        29.864294052124025,
+                        108.75
+                    ],
+                    "Rotation": [
+                        -20.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "CameraComponent": {
+                    "Camera": {
+                        "FOV": 40.0,
+                        "Near": 0.10000000149011612,
+                        "Far": 1000.0,
+                        "Position": [
+                            -0.3559166193008423,
+                            29.864294052124025,
+                            108.75
+                        ],
+                        "CameraName": "Main",
+                        "ZOrder": 0
+                    }
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\TppFollowController.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "CrouchObject1",
+            "prefab": "Assets\\Prefabs\\Obstacles\\CrouchObstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        2.78260701125309e-32,
+                        1.5,
+                        -1.0718722668481493e-30
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        4.6393789570232393e-36,
+                        1.7842905663359535e-34,
+                        -1.7909334869505418e-34
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.100000023841858
+                    ],
+                    "Offset": [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\CrouchObstacle.lua",
+                        "Overrides": {}
+                    }
+                ]
             }
         },
         {
@@ -286,31 +813,496 @@
             }
         },
         {
-            "tag": "Player",
-            "prefab": "Assets\\Prefabs\\Players\\RamziPlayer.json",
+            "tag": "Lantern_Right",
+            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                       0.0,
-                       0.0,
-                      45.0
+                        2.299999952316284,
+                        -0.5,
+                        -45.0
                     ],
                     "Rotation": [
                         0.0,
-                        540.0,
+                        180.0,
                         0.0
                     ],
                     "Scale": [
-                        0.009999999776482582,
-                        0.009999999776482582,
-                        0.009999999776482582
+                        0.10000000149011612,
+                        0.10000000149011612,
+                        0.10000000149011612
                     ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\Material1.json"
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
                 },
                 "MeshComponent": {
-                    "ModelId": "Assets\\Models\\AnimTest01.fbx"
+                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            -0.5,
+                            2.0,
+                            0.0
+                        ],
+                        "Radius": 2.0,
+                        "Intensity": 0.5,
+                        "Color": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Position": [
+                            -0.5,
+                            10.0,
+                            0.0
+                        ],
+                        "Color": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 20.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "InclinedRight1",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        32.0,
+                        -2.0999999046325685,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        20.0
+                    ],
+                    "Scale": [
+                        10.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        1.1276496644451567e-34,
+                        -3.885373875564888e-34,
+                        -3.1340493054288205e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground4",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        -3.0,
+                        -50.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        30.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 30.0,
+                    "YTileFactor": 7.099999904632568
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        8.573884751286171e-35,
+                        -3.975936990923611e-33,
+                        -1.734695380607681e-34
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "CrouchObject2",
+            "prefab": "Assets\\Prefabs\\Obstacles\\CrouchObstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -20.0,
+                        1.0,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -4.3318545250391507e-35,
+                        7.188661121986313e-43,
+                        -2.292049864027319e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        1.200000047683716,
+                        1.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        -1.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\CrouchObstacle.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Checkpoint2",
+            "prefab": "Assets\\Prefabs\\Triggers\\Checkpoint.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        0.5,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        2.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Checkpoint.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "JumpObject1",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        8.900749636268125e-29,
+                        -1.520085227220076e-28,
+                        40.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        4.257196054876921e-33,
+                        -2.071433957563163e-32,
+                        -2.1288971466697066e-31
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        38.0,
+                        0.30000001192092898,
+                        -25.0
+                    ],
+                    "Rotation": [
+                        -20.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        5.0,
+                        10.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        2.6587691681220925e-34,
+                        -5.212012922673922e-34,
+                        1.38342173794411e-34
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Elevator",
+            "prefab": "Assets\\Prefabs\\Obstacles\\MovingPlatformVertical.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -3.182486655408998e-36,
+                        -1.0,
+                        -53.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        2.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\MovingPlatformVertical.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "InteractiveObject3",
+            "prefab": "Assets\\Prefabs\\Triggers\\InteractiveBox3.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -32.5,
+                        0.0,
+                        -65.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        1.200000047683716,
+                        1.200000047683716,
+                        1.200000047683716
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\InteractiveBox3.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "PlayerCube",
+            "prefab": "Assets\\Prefabs\\Players\\PlayerCube.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -0.3559166193008423,
+                        0.4976100027561188,
+                        48.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        580.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.699999988079071,
+                        2.0,
+                        0.699999988079071
+                    ]
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": true,
+                    "Velocity": [
+                        -1.218728562847791e-31,
+                        0.0000044910775613971058,
+                        -2.2889680033904588e-32
+                    ],
+                    "Mass": 80.0,
+                    "IsAsleep": false,
+                    "CollisionMask": "DINAMIC_OBJ",
+                    "FrictionCoef": 0.20000000298023225
                 },
                 "TriggerComponent": {
                     "Scale": [
@@ -325,17 +1317,457 @@
                     ],
                     "CollisionMask": "DINAMIC_OBJ"
                 },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\RamziPlayerCube.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Checkpoint3",
+            "prefab": "Assets\\Prefabs\\Triggers\\Checkpoint.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -32.5,
+                        0.5,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        2.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Checkpoint.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Firewall_Left",
+            "prefab": "Assets\\Prefabs\\Triggers\\Firewall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -6.0,
+                        -1.0,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        2.0,
+                        5.0,
+                        5.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "ParticleEmitterComponent": {
+                    "Emitter_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare1.png"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Firewall.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        38.0,
+                        1.899999976158142,
+                        -18.200000762939458
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
                 "RigidBodyComponent": {
-                    "IsEffectedByGravity": true,
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -3.1384343606872629e-37,
+                        -2.23559212018103e-34,
+                        -3.641193344756492e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground2",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        10.0,
+                        -3.0,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        10.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 2.5
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        1.5882234947706456e-32,
+                        -2.019387387650492e-31,
+                        9.487026441337936e-34
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Checkpoint1",
+            "prefab": "Assets\\Prefabs\\Triggers\\Checkpoint.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.5,
+                        -8.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        2.0,
+                        1.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Checkpoint.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "x0_0",
+            "prefab": "Assets\\Prefabs\\Obstacles\\MovingPlatformHorizontal.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        8.182772663759397e-33,
+                        0.5,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.0,
+                        2.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        6.177417246535643e-36,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\MovingPlatformHorizontal.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "InteractiveBox2",
+            "prefab": "Assets\\Prefabs\\Triggers\\InteractiveBox2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        0.0,
+                        -60.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        1.200000047683716,
+                        1.200000047683716,
+                        1.200000047683716
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
                     "Velocity": [
                         0.0,
                         0.0,
                         0.0
                     ],
-                    "Mass": 50.0,
+                    "Mass": 3.3999999521443644e38,
                     "IsAsleep": false,
-                    "CollisionMask": "DINAMIC_OBJ",
-                    "FrictionCoef": 0.20000000298023225
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\InteractiveBox2.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        26.25,
+                        0.5,
+                        -45.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.5,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        7.3996464481766688e-37,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "z-30",
+            "prefab": "Assets\\Prefabs\\Obstacles\\MovingPlatformUpward.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -10.0,
+                        0.5,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        3.0,
+                        2.0,
+                        2.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\MovingPlatformUpward.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Player",
+            "prefab": "Assets\\Prefabs\\Players\\RamziPlayer.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -0.3559166193008423,
+                        -0.5023900866508484,
+                        48.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        530.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.009999999776482582,
+                        0.009999999776482582,
+                        0.009999999776482582
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\AnimTest01.fbx"
                 },
                 "AnimationComponent": {
                     "StartingAnimation": "IdleAnim",
@@ -396,9 +1828,9 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        20.0,
-                        -3.0,
-                        -30.0
+                        23.700000762939458,
+                        5.300000190734863,
+                        -18.0
                     ],
                     "Rotation": [
                         0.0,
@@ -406,15 +1838,15 @@
                         0.0
                     ],
                     "Scale": [
-                        30.0,
+                        5.0,
                         5.0,
                         5.0
                     ]
                 },
                 "RendererComponent": {
                     "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-                    "XTileFactor": 30.0,
-                    "YTileFactor": 2.5
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 5.0
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
@@ -422,9 +1854,9 @@
                 "RigidBodyComponent": {
                     "IsEffectedByGravity": false,
                     "Velocity": [
-                        1.5893487367379705e-32,
-                        -2.0192611395572135e-31,
-                        9.478707982095945e-34
+                        -3.671017236024656e-37,
+                        -1.4277122184283709e-35,
+                        -2.7569984524127505e-37
                     ],
                     "Mass": 3.3999999521443644e38,
                     "IsAsleep": false,
@@ -433,14 +1865,14 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "tag": "Fireball1",
+            "prefab": "Assets\\Prefabs\\Triggers\\Fireball.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        1.309926141731478e-30,
-                        -0.5,
-                        40.0
+                        0.0,
+                        0.0,
+                        100.0
                     ],
                     "Rotation": [
                         0.0,
@@ -448,7 +1880,107 @@
                         0.0
                     ],
                     "Scale": [
-                        5.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        3.0,
+                        4.0,
+                        1.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "ParticleEmitterComponent": {
+                    "Emitter_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Fireball.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "Fireball2",
+            "prefab": "Assets\\Prefabs\\Triggers\\Fireball.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        100.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        3.0,
+                        4.0,
+                        1.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "ParticleEmitterComponent": {
+                    "Emitter_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Fireball.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -33.75,
+                        0.5,
+                        -50.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.5,
                         2.0,
                         1.0
                     ]
@@ -464,9 +1996,174 @@
                 "RigidBodyComponent": {
                     "IsEffectedByGravity": false,
                     "Velocity": [
-                        4.257151973838765e-33,
-                        -2.0710503055944135e-32,
-                        -2.128894795681005e-31
+                        1.7023063427719595e-36,
+                        6.455271952503418e-38,
+                        -1.702306091659275e-35
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Firewall_Right",
+            "prefab": "Assets\\Prefabs\\Triggers\\Firewall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        -1.0,
+                        -37.5
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        5.0,
+                        2.0,
+                        2.5
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "STATIC_OBJ"
+                },
+                "ParticleEmitterComponent": {
+                    "Emitter_Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare1.png"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\Firewall.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "LowGround",
+            "prefab": "Assets\\Prefabs\\brick_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        -5.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        -90.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        100.0,
+                        100.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json",
+                    "XTileFactor": 8.0,
+                    "YTileFactor": 8.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\plane.fbx"
+                }
+            }
+        },
+        {
+            "tag": "Ground3",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        22.0,
+                        -3.0,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        10.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -6.887261866483277e-36,
+                        -1.36103121083146e-34,
+                        1.011428443274002e-35
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground7",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -32.5,
+                        -3.0,
+                        -57.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        20.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 10.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        -2.984922226024356e-37,
+                        -1.298356469357256e-34,
+                        5.172895837023461e-36
                     ],
                     "Mass": 3.3999999521443644e38,
                     "IsAsleep": false,
@@ -476,6 +2173,201 @@
         },
         {
             "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        23.75,
+                        0.5,
+                        -50.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.5,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "skybox",
+            "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "SkyboxIrradianceComponent": {
+                    "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+                    "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -31.25,
+                        0.5,
+                        -55.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        2.5,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        1.9295459670484569e-34,
+                        0.25,
+                        15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        1.5,
+                        4.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        2.6901968170082907e-38,
+                        -3.279259313936221e-35,
+                        -6.427129619392444e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        0.0,
+                        1.0,
+                        11.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        3.0,
+                        4.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "XTileFactor": 1.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        0.0,
+                        -1.730589343827976e-36,
+                        4.650044161162501e-37
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Ground5",
             "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
             "overrides": {
                 "TransformComponent": {
@@ -498,7 +2390,7 @@
                 "RendererComponent": {
                     "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
                     "XTileFactor": 30.0,
-                    "YTileFactor": 2.5
+                    "YTileFactor": 5.0
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
@@ -506,9 +2398,9 @@
                 "RigidBodyComponent": {
                     "IsEffectedByGravity": false,
                     "Velocity": [
-                        3.1720450570710489e-33,
-                        -5.049759161923432e-32,
-                        2.8456769025001629e-34
+                        3.176032921656214e-33,
+                        -5.177987375435706e-32,
+                        2.6425113006485025e-34
                     ],
                     "Mass": 3.3999999521443644e38,
                     "IsAsleep": false,
@@ -517,17 +2409,17 @@
             }
         },
         {
-            "tag": "lvleditor",
-            "prefab": "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",
+            "tag": "InteractiveBox1",
+            "prefab": "Assets\\Prefabs\\Triggers\\InteractiveBox1.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        -0.003700017929077149,
-                        2.0,
-                        58.48079681396485
+                        23.0,
+                        8.300000190734864,
+                        -17.600000381469728
                     ],
                     "Rotation": [
-                        -10.0,
+                        0.0,
                         0.0,
                         0.0
                     ],
@@ -537,93 +2429,21 @@
                         1.0
                     ]
                 },
-                "CameraComponent": {
-                    "Camera": {
-                        "FOV": 40.0,
-                        "Near": 0.10000000149011612,
-                        "Far": 1000.0,
-                        "Position": [
-                            -0.003700017929077149,
-                            2.0,
-                            58.48079681396485
-                        ],
-                        "CameraName": "Main",
-                        "ZOrder": 0
-                    }
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\TppFollowController.lua",
-                        "Overrides": {}
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "Ground",
-            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -2.7947032200494637e-28,
-                        -3.0,
-                        -1.9023693512464728e-29
+                "TriggerComponent": {
+                    "Scale": [
+                        1.200000047683716,
+                        1.200000047683716,
+                        1.200000047683716
                     ],
-                    "Rotation": [
+                    "Offset": [
                         0.0,
                         0.0,
                         0.0
                     ],
-                    "Scale": [
-                        5.0,
-                        5.0,
-                        100.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-                    "XTileFactor": 5.0,
-                    "YTileFactor": 50.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                },
-                "RigidBodyComponent": {
-                    "IsEffectedByGravity": false,
-                    "Velocity": [
-                        -1.2195542300798083e-31,
-                        -8.478230247735118e-30,
-                        -2.2933207120347599e-32
-                    ],
-                    "Mass": 3.3999999521443644e38,
-                    "IsAsleep": false,
                     "CollisionMask": "STATIC_OBJ"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        0.0,
-                        -0.5,
-                        25.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        5.0,
-                        2.0,
-                        1.0
-                    ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\Material1.json",
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
                     "XTileFactor": 1.0,
                     "YTileFactor": 1.0
                 },
@@ -640,6 +2460,117 @@
                     "Mass": 3.3999999521443644e38,
                     "IsAsleep": false,
                     "CollisionMask": "STATIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\InteractiveBox1.lua",
+                        "Overrides": {}
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Obstacles\\Ground.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        38.0,
+                        -0.550000011920929,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        5.0,
+                        5.0,
+                        5.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+                    "XTileFactor": 5.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                },
+                "RigidBodyComponent": {
+                    "IsEffectedByGravity": false,
+                    "Velocity": [
+                        1.0490135693555836e-34,
+                        -3.830279924709786e-34,
+                        2.912246215174872e-35
+                    ],
+                    "Mass": 3.3999999521443644e38,
+                    "IsAsleep": false,
+                    "CollisionMask": "STATIC_OBJ"
+                }
+            }
+        },
+        {
+            "tag": "Lantern_Left",
+            "prefab": "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -2.299999952316284,
+                        -0.5,
+                        -45.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.10000000149011612,
+                        0.10000000149011612,
+                        0.10000000149011612
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Lamp_Post_4.obj"
+                },
+                "HaloEffectComponent": {
+                    "HaloEffect": {
+                        "Position": [
+                            0.5,
+                            2.0,
+                            0.0
+                        ],
+                        "Radius": 2.0,
+                        "Intensity": 0.5,
+                        "Color": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Position": [
+                            0.5,
+                            10.0,
+                            0.0
+                        ],
+                        "Color": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 20.0
+                    }
                 }
             }
         }

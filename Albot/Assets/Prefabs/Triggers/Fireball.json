@@ -1,0 +1,24 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "STATIC_OBJ"
+  },
+  "ParticleEmitterComponent": {
+    "Emitter_Position": [ 0.0, 0.0, 0.0 ],
+    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare0.png"
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\Fireball.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}
