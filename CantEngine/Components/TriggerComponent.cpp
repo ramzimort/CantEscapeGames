@@ -69,6 +69,12 @@ void TriggerComponent::SetOffset(const Vector3& offset)
 }
 
 
+void TriggerComponent::SetCollisionMask(CollisionTable::CollisionMask mask)
+{
+	this->m_collisionMask = mask;
+}
+
+
 CollisionTable::CollisionMask TriggerComponent::GetCollisionMask()
 {
 	return m_collisionMask;

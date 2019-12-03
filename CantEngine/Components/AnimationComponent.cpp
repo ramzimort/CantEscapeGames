@@ -119,9 +119,11 @@ void AnimationComponent::AnimationEnd(AnimState *anim)
 
 void AnimationComponent::FrameEndCleanUp()
 {
-	this->controller->ResetTriggers();
+	//this->controller->ResetTriggers();
+	//this->controller->dirtyFlag = 0;
 
-	this->controller->dirtyFlag = 0;
+	//Dirty flag must match with the trigger count
+	this->controller->CleanDirtyFlag();
 }
 
 
@@ -192,5 +194,26 @@ void AnimationComponent::AddAnimEvent(std::string const& animName, int tick, sol
 	{
 		Animation& anim = iter->second;
 		anim.AddAnimEvent(tick, entry);
+	}
+}
+
+
+void AnimationComponent::AddAnimEndEvent(std::string const& animName, sol::table entry)
+{
+	auto iter = m_animationMap.find(animName);
+	if (iter != m_animationMap.end())
+	{
+		Animation& anim = iter->second;
+		anim.AddAnimEndEvent(entry);
+	}
+}
+
+void AnimationComponent::AddInterruptEvent(std::string const& animName, sol::table entry)
+{
+	auto iter = m_animationMap.find(animName);
+	if (iter != m_animationMap.end())
+	{
+		Animation& anim = iter->second;
+		anim.AddInterruptEvent(entry);
 	}
 }

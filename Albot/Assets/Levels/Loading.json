@@ -21,6 +21,13 @@
       "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
     ],
     "Scripts": [
+      "Scripts\\Components\\RunnerGround.lua",
+      "Scripts\\Components\\RunnerObstacle1_Comp.lua",
+      "Scripts\\Components\\JoseController.lua",
+      "Scripts\\Components\\TestPlayerAnimComp.lua",
+      "Scripts\\Components\\RunnerManagerComp.lua",
+      "Scripts\\Components\\UICameraMenu.lua",
+      "Scripts\\Components\\Button.lua",
       "Scripts\\Components\\AffineAnimation.lua",
       "Scripts\\Components\\Button.lua",
       "Scripts\\Components\\CerberusGunLogicComp.lua",
@@ -78,6 +85,15 @@
       "Scripts\\States\\ThreadTest.lua"
     ],
     "Prefabs": [
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\RunnerLevelManager.json",
+      "Assets\\Prefabs\\RunnerLevel_Ground.json",
+      "Assets\\Prefabs\\RunnerLevel_GroundBouncer.json",
+      "Assets\\Prefabs\\RunnerLevel_DeadZone.json",
+      "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
+      "Assets\\Prefabs\\RunnerLevel_GAS.json",
+      "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+
       "Assets\\Prefabs\\UIObject.json",
       "Assets\\Prefabs\\UIEmpty.json",
       "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",

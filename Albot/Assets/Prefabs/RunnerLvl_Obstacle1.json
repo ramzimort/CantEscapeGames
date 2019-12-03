@@ -1,0 +1,35 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 10.0, 60.0, 5.0 ]
+  },
+
+  "RendererComponent": {
+    "EnableRendering": true,
+    "MaterialId": "Assets\\Materials\\MaterialBlue.json"
+  },
+
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 3.3999999521443644e38,
+    "IsAsleep": 0,
+    "CollisionMask": "STATIC_OBJ",
+    "FrictionCoef": 0.2
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\RunnerObstacle1_Comp.lua",
+      "Overrides": {
+      }
+    }
+  ]
+
+}

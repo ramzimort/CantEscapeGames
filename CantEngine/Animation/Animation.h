@@ -132,6 +132,16 @@ struct Animation
 	 * 
 	 */
 	std::vector<AnimMulticast> animationEvents;
+	/**
+	 * @brief This will fire if the animation ends
+	 *
+	 */
+	AnimMulticast onAnimEndEvent;
+	/**
+	 * @brief This will fire if the animation is interrupted
+	 *
+	 */
+	AnimMulticast onAnimInterruptEvent;
 
 	/**
 	 * @brief Vector of animation channels. Each channel has information about which bone is animated and its keyframe information
@@ -161,8 +171,33 @@ struct Animation
 	 */
 	void AddAnimEvent(int tick, sol::table entry)
 	{
-		if (tick >= 0 && tick <= static_cast<int>(this->duration))
+		if (tick >= 0 && tick < static_cast<int>(this->duration))
 			animationEvents[tick].BindLuaFunction(entry);
+
+		if (tick == static_cast<int>(this->duration))
+			onAnimEndEvent.BindLuaFunction(entry);
+	}
+
+
+	/**
+	 * @brief Used for adding an animation to the end
+	 *
+	 * @param entry Table which contains the lua self reference and the method it has to run
+	 */
+	void AddAnimEndEvent(sol::table entry)
+	{
+		onAnimEndEvent.BindLuaFunction(entry);
+	}
+
+
+	/**
+	 * @brief Event that fires when a transition interrupts this animation
+	 *
+	 * @param entry Table which contains the lua self reference and the method it has to run
+	 */
+	void AddInterruptEvent(sol::table entry)
+	{
+		onAnimInterruptEvent.BindLuaFunction(entry);
 	}
 
 	/**

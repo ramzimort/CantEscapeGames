@@ -66,6 +66,7 @@ public:
 	 * @return CollisionTable::CollisionMask 
 	 */
 	CollisionTable::CollisionMask GetCollisionMask();
+	void SetCollisionMask(CollisionTable::CollisionMask mask);
 
 public:
 	// Unique class identifier

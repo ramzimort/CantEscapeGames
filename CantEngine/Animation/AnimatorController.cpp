@@ -109,7 +109,22 @@ void AnimatorController::SetTrigger(std::string const& trigger)
 	{
 		++dirtyFlag;
 	}
+}
 
+
+void AnimatorController::CleanDirtyFlag() 
+{
+	int count = 0;
+
+	//Check all triggers active
+	for (auto& node : triggers) 
+	{
+		if (node.second == 1)
+			++count;
+	}
+
+	//Set dirty flag to this value
+	this->dirtyFlag = count;
 }
 
 
