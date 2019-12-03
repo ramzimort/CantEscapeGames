@@ -10,6 +10,8 @@ RTTR_REGISTRATION
 		.property("CastShadow", &Light::m_cast_shadow)
 		.property("Enabled", &Light::m_enabled)
 		.property("Radius", &Light::m_radius)
+		.property("ShadowOrthographicSize", &Light::m_shadowOrthographicSize)
+		.property("ShadowCasterDistanceFromFocusPoint", &Light::m_shadowCasterDistanceFromFocusPoint)
 		.property("ShadowIntensity", &Light::m_shadow_intensity);
 
 	rttr::registration::enumeration<ELightType>("LightType")(
@@ -26,7 +28,9 @@ Light::Light()
 	m_enabled(true),
 	m_radius(1.f),
 	m_shadow_intensity(1.f),
-	m_position(0.f)
+	m_position(0.f),
+	m_shadowOrthographicSize(75.f, 75.f),
+	m_shadowCasterDistanceFromFocusPoint(65.f)
 {
 }
 

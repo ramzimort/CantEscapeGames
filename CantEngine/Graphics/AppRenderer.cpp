@@ -22,7 +22,7 @@ m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
 m_particleRendering(this),
-m_momentShadowMapRendering(this, MomentShadowMapData{1024u, 1024u}),
+m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
 m_toSkyboxRender(this),
 m_iblFilterEnvMapPass(this),
 m_brdfLookupTexturePass(this),
@@ -42,9 +42,6 @@ AppRenderer::~AppRenderer()
 
 void AppRenderer::InnerLoadContent()
 {
-	m_material_uniform_data_list.reserve(1000);
-	m_material_uniform_buffer_list.reserve(1000);
-
 	InitRandomTexture1D();
 
 	DepthStateDesc less_equal_depth_state_desc = {};

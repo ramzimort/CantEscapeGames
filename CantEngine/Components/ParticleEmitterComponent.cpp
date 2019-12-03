@@ -46,7 +46,7 @@ ParticleEmitterComponent::ParticleEmitterComponent(GameObject *owner)
 	m_emitParticleCount(50),
 	m_particleEmitterType(ParticleEmitterType::INFINITE_LIFETIME),
 	m_isEmitting(true),
-	m_particleSize(1.f, 1.f)
+	m_particleSize(3.f, 3.f)
 {
 }
 

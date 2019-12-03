@@ -354,11 +354,11 @@ private:
 	std::map<int32_t, AppRendererInstance*> m_appRendererInstances;
 	DirectionalLightUniformData m_directional_light_uniform_data;
 
-	std::vector<MaterialUniformData> m_material_uniform_data_list;
-	std::vector<Material*> m_materialReferenceList;
+	std::deque<MaterialUniformData> m_material_uniform_data_list;
+	std::deque<Material*> m_materialReferenceList;
 	BufferList m_material_uniform_buffer_list;
 
-	std::vector<BoneTransformsUniformData> m_boneTransformsUniformDataList;
+	std::deque<BoneTransformsUniformData> m_boneTransformsUniformDataList;
 	std::deque<Buffer*> m_boneTransformsUniformBufferList;
 
 

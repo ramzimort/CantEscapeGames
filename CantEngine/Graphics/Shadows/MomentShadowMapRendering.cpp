@@ -119,7 +119,7 @@ void MomentShadowMapRendering::RenderShadowMap()
 
 	DirectionalLightInstanceData& directional_light_inst_data = m_appRenderer->m_directionLightInstanceList[0];
 
-	Vector3 light_view_pos = m_focusPoint + (directional_light_inst_data.light_direction * -65.f);
+	Vector3 light_view_pos = m_focusPoint + (directional_light_inst_data.light_direction * -directional_light_inst_data.light->GetShadowCasterDistanceFromFocusPoint());
 	Vector3 right_dir = directional_light_inst_data.light_direction.Cross(Vector3(0.f, 1.f, 0.f));
 	Vector3 new_up_dir = right_dir.Cross(directional_light_inst_data.light_direction);
 	new_up_dir.Normalize();
@@ -127,8 +127,9 @@ void MomentShadowMapRendering::RenderShadowMap()
 	m_shadow_camera_uniform_data.ViewMat = Matrix::CreateLookAt(light_view_pos,
 		light_view_pos + directional_light_inst_data.light_direction, new_up_dir);
 
-	static const float ortho_width = 75.f;
-	static const float ortho_height = 75.f;
+	Vector2 orthoSize = directional_light_inst_data.light->GetShadowOrthographicSize();
+	const float ortho_width = orthoSize.x;
+	const float ortho_height = orthoSize.y;
 
 	Matrix shadow_orthographic_matrix = Matrix::CreateOrthographic(ortho_width, ortho_height, 0.1f, 100.f);
 

@@ -16,6 +16,9 @@ SpawnRailEnemy1Comp =
 	maxRelativeY = 0.1;
 	maxRelativeZ = 0.1;
 
+	spawnedObjRotationX = 0.0;
+	spawnedObjRotationY = 0.0;
+	spawnedObjRotationZ = 0.0;
 
 	gameobjManager = nil;
 	ownerGameObj = nil;
@@ -69,6 +72,7 @@ SpawnRailEnemy1Comp.Update = function(self, dt, owner)
 		spawnedEnemyScriptComp.OnDestroyedMulticast:suscribe({self, self.OnSpawnedEnemyDestroyed});
 		
 		local spawnedTransformComp = newSpawnedGameObj:GetTransformComp();
+		spawnedTransformComp:SetLocalRotation(self.spawnedObjRotationX, self.spawnedObjRotationY, self.spawnedObjRotationZ);
 
 		local followCurvesPathComp = newSpawnedGameObj:GetFollowCurvesPathComp();
 		local newMotionSpeed = RandF(self.minMotionSpeed, self.maxMotionSpeed);
@@ -76,7 +80,7 @@ SpawnRailEnemy1Comp.Update = function(self, dt, owner)
 		local newRelativeX = RandF(self.minRelativeX, self.maxRelativeX);
 		local newRelativeY = RandF(self.minRelativeY, self.maxRelativeY);
 		local newRelativeZ = RandF(self.minRelativeZ, self.maxRelativeZ);
-		OutputPrint(self.curveGameObjTag .. "Hehehe\n");
+
 		followCurvesPathComp:SetOffsetFollowPathPosition(newRelativeX, newRelativeY, newRelativeZ);
 		followCurvesPathComp:SetEnableMotionAlongPath(true);
 		followCurvesPathComp:SetMotionSpeed(newMotionSpeed);
@@ -101,7 +105,6 @@ end
 
 
 SpawnRailEnemy1Comp.OnEnter = function(self, gameObj1, gameObj2)
-	OutputPrint("Someone entered!\n");
 	if(gameObj1:GetTag() ~= "player01" and gameObj2:GetTag() ~= "player01") then
 		return;
 	end

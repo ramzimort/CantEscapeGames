@@ -9,7 +9,9 @@
       "LightType": "Directional",
       "Color": [ 1.0, 0.8, 0.736 ],
       "Intensity": 1.0,
-      "CastShadow": true
+      "CastShadow": true,
+      "ShadowOrthographicSize": [ 75.0, 75.0 ],
+      "ShadowCasterDistanceFromFocusPoint": 65.0
     }
   }
 }
