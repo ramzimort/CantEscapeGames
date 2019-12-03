@@ -30,7 +30,7 @@
     "Clips": [
       {
         "name": "ShootAnim",
-        "path": "Assets\\Models\\Spider_Crawl.fbx",
+        "path": "Assets\\Models\\Spider_Running_Crawl.fbx",
         "loops": true
       }
     ]

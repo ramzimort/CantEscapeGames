@@ -25,7 +25,7 @@
     "Clips": [
       {
         "name": "ShootAnim",
-        "path": "Assets\\Models\\swat_enemy.fbx",
+        "path": "Assets\\Models\\Shooting_Rifle.fbx",
         "loops": true
       }
     ]
