@@ -56,7 +56,11 @@
             "Assets\\Textures\\UI\\SettingBase.png",
             "Assets\\Textures\\UI\\SettingsButton.png",
             "Assets\\Textures\\UI\\Stars.png",
-            "Assets\\Textures\\UI\\UIBackGroundImage.png"
+            "Assets\\Textures\\UI\\UIBackGroundImage.png",
+			"Assets\\Textures\\UI\\Loading.png",
+			"Assets\\Textures\\UI\\SlideScrollerGreenBackGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerForeGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerBackGround.png"
         ],
         "Models": [
             "Assets\\Models\\AnimTest01.fbx",
@@ -109,7 +113,12 @@
             "Assets\\Materials\\UI\\SettingsButtonMaterial.json",
             "Assets\\Materials\\UI\\StarsMaterial.json",
             "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
-            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+			"Assets\\Materials\\UI\\LoadingMaterial.json",
+			"Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+			"Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+			"Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		
         ],
         "Scripts": [
             "Scripts\\Components\\AffineAnimation.lua",
@@ -169,7 +178,9 @@
             "Scripts\\States\\Ramzi.lua",
             "Scripts\\States\\Setting.lua",
             "Scripts\\States\\ShooterRailPrototype.lua",
-            "Scripts\\States\\ThreadTest.lua"
+            "Scripts\\States\\ThreadTest.lua",
+			"Scripts\\Components\\UICameraPrototype1.lua",
+			"Scripts\\Components\\Slider.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -222,7 +233,13 @@
             "Assets\\Prefabs\\Triggers\\InteractiveBox3.json",
             "Assets\\Prefabs\\Triggers\\TriggerCube.json",
             "Assets\\Prefabs\\UIEmpty.json",
-            "Assets\\Prefabs\\UIObject.json"
+            "Assets\\Prefabs\\UIObject.json",
+			"Assets\\Prefabs\\mini_map.json",
+			"Assets\\Prefabs\\UIEmpty.json",
+			"Assets\\Prefabs\\SlideScroller.json",
+			"Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
+			"Assets\\Prefabs\\Slider.json"
+			
         ],
         "Songs": [
             "Assets\\Songs\\Main_Menu_2.mp3"
@@ -2573,6 +2590,114 @@
                     }
                 }
             }
+        },
+		{
+      "tag": "UIObject",
+	   "prefab":"Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+	 
+	   "RendererComponent": {
+			"MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+		},
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraPrototype1.lua"
+          }
+        ]
+      }
+    },
+		
+	{
+      "tag": "Pic1",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0, 0, 0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 600, 300, 1 ]
+        },
+        "UIComponent": {
+          "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": false
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\LoadingMaterial.json"
         }
+      }
+    },
+	{
+      "tag": "HealthSlider",
+      "prefab": "Assets\\Prefabs\\Slider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 1400, 25,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true,
+		  "Text": "Health",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ -0.1, -0.01 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+	{
+      "tag": "HealthSliderGreenBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  1400, 25,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "HealthSliderForeGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  1390, 23,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 165, 30, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		}		
+		
+      }
+    }	
     ]
 }

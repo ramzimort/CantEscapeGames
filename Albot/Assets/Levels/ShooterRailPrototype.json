@@ -46,7 +46,10 @@
             "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
             "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
             "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg"
+            "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+				"Assets\\Textures\\UI\\SlideScrollerGreenBackGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerForeGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerBackGround.png"
         ],
         "Models": [
             "Assets\\Models\\AnimTest01.fbx",
@@ -84,7 +87,10 @@
             "Assets\\Materials\\RoughMetalMaterial.json",
             "Assets\\Materials\\SmoothMetalMaterial.json",
             "Assets\\Materials\\SmoothWoodMaterial.json",
-            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+			"Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+			"Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+			"Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
         ],
         "Scripts": [
             "Scripts\\Components\\CerberusGunLogicComp.lua",
@@ -96,7 +102,9 @@
             "Scripts\\Components\\ProjectileLogic.lua",
             "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
             "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\ShooterRailPrototype.lua"
+            "Scripts\\States\\ShooterRailPrototype.lua",
+			"Scripts\\Components\\UICameraPrototype2.lua",
+			"Scripts\\Components\\Slider.lua"
         ],
         "Prefabs": [
             "Assets\\Prefabs\\brick_wall.json",
@@ -131,7 +139,11 @@
             "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
             "Assets\\Prefabs\\Skybox\\factory_skybox.json",
             "Assets\\Prefabs\\smooth_wood_plane.json",
-            "Assets\\Prefabs\\splinecurve.json"
+            "Assets\\Prefabs\\splinecurve.json",
+			"Assets\\Prefabs\\UIEmpty.json",
+			"Assets\\Prefabs\\SlideScroller.json",
+			"Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
+			"Assets\\Prefabs\\Slider.json"
         ],
         "Songs": [],
         "SFX": []
@@ -2566,6 +2578,93 @@
                     ]
                 }
             }
-        }
+        },
+		{
+      "tag": "UIObject",
+	   "prefab":"Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+	 
+	   "RendererComponent": {
+			"MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+		},
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraPrototype2.lua"
+          }
+        ]
+      }
+    },
+		{
+      "tag": "HealthSlider",
+      "prefab": "Assets\\Prefabs\\Slider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 200, 25,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true,
+		  "Text": "Health",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ -0.1, -0.01 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+	{
+      "tag": "HealthSliderGreenBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  200, 25,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "HealthSliderForeGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 190, 23,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 165, 30, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		}		
+		
+      }
+    }
     ]
 }
