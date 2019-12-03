@@ -1,6 +1,6 @@
 {
   "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
   "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ],
-  "Roughness_Value": 0.600000011920929,
-  "Metallic_Value": 0.20000000298023225
+  "Roughness_Value": 0.900000011920929,
+  "Metallic_Value": 0.10000000298023225
 }

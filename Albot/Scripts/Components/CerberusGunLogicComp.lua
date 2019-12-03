@@ -1,5 +1,3 @@
-dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
-
 CerberusGunLogicComp = 
 {
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json";
@@ -16,14 +14,14 @@ CerberusGunLogicComp =
 	--RIGHTCLICK = false;
 	onCooldown = false;
 	cooldown = 0.0;
-	maxCooldown = 1.0;
-	bulletSpeed = 100.0;
+	maxCooldown = 0.2;
+	bulletSpeed = 50.0;
 };
 --Init called when obj has all comps
 CerberusGunLogicComp.Init  = function(self)
 	OnMouseClick():Bind({self, self.OnMouseClick});
-	self.positionRelativeToPlayer.x = 0.25;
-	self.positionRelativeToPlayer.y = -0.2;
+	self.positionRelativeToPlayer.x = 0.0;
+	self.positionRelativeToPlayer.y = -0.25;
 	self.positionRelativeToPlayer.z = -0.6;
 
 	self.currentRotationVector.x = -90.0;
@@ -36,6 +34,7 @@ end
 CerberusGunLogicComp.Begin = function(self, owner, gameobjManager)
 	self.gameobjManager = gameobjManager;
 	self.transformComp = owner:GetTransformComp();
+	self.transformComp:Scale(0.009, 0.009, 0.009);
 	self.playerGameObj = gameobjManager:FindGameObject("player01");
 	if(self.playerGameObj == nil) then
 		return;
@@ -73,11 +72,7 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 	local newRotationMatrix = ownerRotationMatrix * ownerRelativeTranslationMatrix *  invViewMatrix;
 	local cameraDegRotationVector = MatrixToDegreeEulerAngles(invViewMatrix);
 	self.transformComp:SetLocalRotationMatrix(newRotationMatrix)
-	--OutputPrint(cameraDegRotationVector.x .. " " .. cameraDegRotationVector.y .. " " .. cameraDegRotationVector.z .. "\n");
-	--self.transformComp:SetLocalRotation(cameraDegRotationVector.x - 90.0, cameraDegRotationVector.y, cameraDegRotationVector.z);
-	--[[local ownerRotationMat = self.transformComp:GetRotationMatrix();
-	local newRotationMat = ownerRotationMat * invViewMatrix;
-	self.transformComp:SetLocalRotationMatrix(newRotationMat);]]
+
 	if (self.onCooldown) then
 		self.cooldown = self.cooldown + dt;			
 		if (self.cooldown > self.maxCooldown) then
@@ -91,8 +86,8 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 			--OutputPrint("\nPEW!\n");
 			local newSpawnedProjectile = GameObject.Instantiate(self.gameobjManager, self.spawnGameobjPrefabDir);
 			local projectileTransform = newSpawnedProjectile:GetTransformComp();
-			projectileTransform:SetLocalPosition(playerPosition + cameraForward*2);
-			projectileTransform:SetLocalRotation(cameraDegRotationVector.x, cameraDegRotationVector.y, cameraDegRotationVector.z);
+			projectileTransform:SetLocalPosition(playerPosition + cameraForward);
+			projectileTransform:SetLocalRotation(cameraDegRotationVector.x + 180.0, cameraDegRotationVector.y, cameraDegRotationVector.z);
 			local projectileRigidbody = newSpawnedProjectile:GetRigidbodyComp();
 			local pojectileVelocity = cameraForward * self.bulletSpeed;
 			projectileRigidbody:SetVelocity(pojectileVelocity);

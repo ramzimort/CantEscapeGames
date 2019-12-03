@@ -128,6 +128,7 @@ private:
 	float m_inverseMass;
 
 	bool m_isEffectedByGravity;
+	bool m_isEffectedByDragForce;
 	bool m_isAsleep;
 	bool m_isColliding;
 

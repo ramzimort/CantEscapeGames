@@ -20,6 +20,7 @@ RTTR_REGISTRATION
 		.constructor<GameObject*>()(rttr::policy::ctor::as_raw_ptr)
 		.method("Init", &RigidbodyComponent::Init)
 		.property("IsEffectedByGravity", &RigidbodyComponent::m_isEffectedByGravity)
+		.property("IsEffectedByDragForce", &RigidbodyComponent::m_isEffectedByDragForce)
 		.property("Velocity", &RigidbodyComponent::m_velocity)
 		.property("Mass", &RigidbodyComponent::m_mass)
 		.property("IsAsleep", &RigidbodyComponent::m_isAsleep)
@@ -34,7 +35,9 @@ RTTR_REGISTRATION
 }
 
 RigidbodyComponent::RigidbodyComponent(GameObject *owner) :
-	BaseComponent(owner, RigidbodyComponent::static_type)
+	BaseComponent(owner, RigidbodyComponent::static_type),
+	m_isEffectedByGravity(true),
+	m_isEffectedByDragForce(true)
 {
 }
 

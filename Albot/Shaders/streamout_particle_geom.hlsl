@@ -108,7 +108,7 @@ void main(point GS_IN gs_in[1], inout PointStream<GS_IN> particle_stream)
 
                 new_particle.ParticleType = PARTICLE_TYPE_FIRE;
                 new_particle.ParticleLifetime = 0.f;
-                new_particle.ParticleSize = float2(3.f, 3.f);
+                new_particle.ParticleSize = gs_in[0].ParticleSize;
             
                 particle_stream.Append(new_particle);
 

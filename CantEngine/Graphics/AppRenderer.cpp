@@ -22,7 +22,7 @@ m_cameraManager(cameraManager),
 m_deferrredRendering(this, resourceManager),
 m_msaa_resolve_pass(this),
 m_particleRendering(this),
-m_momentShadowMapRendering(this, MomentShadowMapData{1024u, 1024u}),
+m_momentShadowMapRendering(this, MomentShadowMapData{2048u, 2048u}),
 m_toSkyboxRender(this),
 m_iblFilterEnvMapPass(this),
 m_brdfLookupTexturePass(this),
@@ -42,9 +42,6 @@ AppRenderer::~AppRenderer()
 
 void AppRenderer::InnerLoadContent()
 {
-	m_material_uniform_data_list.reserve(1000);
-	m_material_uniform_buffer_list.reserve(1000);
-
 	InitRandomTexture1D();
 
 	DepthStateDesc less_equal_depth_state_desc = {};
@@ -598,6 +595,11 @@ ParticleRendering& AppRenderer::GetParticleRendering()
 	return m_particleRendering;
 }
 
+MomentShadowMapRendering& AppRenderer::GetMomentShadowMap()
+{
+	return m_momentShadowMapRendering;
+}
+
 void AppRenderer::UpdateAppRenderer(float dt)
 {
 	m_gameTime += dt;
@@ -912,6 +914,22 @@ void AppRenderer::AddObjectUniformBuffer(BufferList& objectUniformBufferList,
 	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
 	objectUniformBufferList.push_back(object_uniform_buffer);
 	objectUniformDataList.push_back(ObjectUniformData());
+}
+
+void AppRenderer::AddObjectUniformBuffer(BuffersDeque& objectUniformBufferDeques,
+	std::deque <ObjectUniformData>& objectUniformDataDeque)
+{
+	BufferLoadDesc object_uniform_buffer_desc = {};
+	object_uniform_buffer_desc.m_desc.m_bindFlags = Bind_Flags::BIND_CONSTANT_BUFFER;
+	object_uniform_buffer_desc.m_desc.m_debugName = "Object Uniform Buffer";
+	object_uniform_buffer_desc.m_desc.m_cpuAccessType = CPU_Access_Type::ACCESS_WRITE;
+	object_uniform_buffer_desc.m_desc.m_usageType = Usage_Type::USAGE_DYNAMIC;
+	object_uniform_buffer_desc.m_rawData = nullptr;
+	object_uniform_buffer_desc.m_size = sizeof(ObjectUniformData);
+
+	Buffer* object_uniform_buffer = DXResourceLoader::Create_Buffer(m_dxrenderer, object_uniform_buffer_desc);
+	objectUniformBufferDeques.push_back(object_uniform_buffer);
+	objectUniformDataDeque.push_back(ObjectUniformData());
 }
 
 void AppRenderer::AddMaterialUniformBuffer()

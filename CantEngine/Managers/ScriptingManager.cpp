@@ -256,6 +256,13 @@ void ScriptingManager::ManageBindings()
 
 #pragma endregion
 
+#pragma region FONTTYPE
+	luaState["FONT_TYPE"] = luaState.create_table_with(
+		"COURIER_NEW", FontType::COURIER_NEW,
+		"COURIER_NEW_BOLD", FontType::COURIER_NEW_BOLD
+	);
+#pragma endregion
+
 #pragma region CONTROLLER
 	luaState["CONTROLLER"] = luaState.create_table_with(
 		"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
@@ -459,13 +466,20 @@ void ScriptingManager::ManageBindings()
 		"SystemManager"
 	);
 
+	luaState.new_usertype<MomentShadowMapRendering>
+	(
+			"MomentShadowMapRendering",
+			"SetFocusPoint", &MomentShadowMapRendering::SetFocusPoint
+		);
 	luaState.new_usertype<AppRenderer>
 	(
 		"AppRenderer",
+		"GetMomentShadowMap", &AppRenderer::GetMomentShadowMap,
 		"RegisterTextFontInstance", sol::overload(
 			sol::resolve<void(const std::string& , uint32_t ,
 				const Vector2& , const Vector3& , const Vector3&, float )>(&AppRenderer::RegisterTextFontInstance) )
 	);
+
 
 	//GAMEOBJECTMANAGER
 	luaState.new_usertype<GameObjectManager>
@@ -647,7 +661,8 @@ void ScriptingManager::ManageBindings()
 	//RENDERER
 	luaState.new_usertype<RendererComponent>
 	(
-		"RendererComponent"
+		"RendererComponent",
+		"SetEnableRendering", &RendererComponent::SetEnableRendering
 	);
 
 	//MESH
@@ -706,7 +721,8 @@ void ScriptingManager::ManageBindings()
 			"ParticleEmitterComponent",
 			"Emit", &ParticleEmitterComponent::Emit,
 			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
-			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
+			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch,
+			"SetEmitterDirection", &ParticleEmitterComponent::SetEmitterDirection
 			);
 
 	luaState.new_usertype<FollowCurvesPathComponent>(

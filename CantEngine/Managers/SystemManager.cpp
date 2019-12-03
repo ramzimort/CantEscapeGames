@@ -51,6 +51,7 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<UISystem*>(m_systems[UISystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<SplineCurvesSystem*>(m_systems[SplineCurvesSystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<CustomSystem*>(m_systems[CustomSystem::static_type])->RegisterAppRenderer(appRenderer);
 }
 
 SystemManager::~SystemManager()

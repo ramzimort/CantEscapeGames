@@ -23,7 +23,7 @@
   "LightComponent": {
     "Light": {
       "LightType": "Point",
-      "Position": [2.5, 5.0, 0.0],
+      "Position": [ 2.5, 5.0, 0.0 ],
       "Color": [ 1.0, 0.85, 0.70 ],
       "Intensity": 5.0,
       "CastShadow": true,

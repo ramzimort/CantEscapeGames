@@ -867,6 +867,12 @@ namespace CantDebug
 			it->data.vec3 = trigger->GetScale(); ++it;
 			it->data.vec3 = trigger->GetOffset(); ++it;
 		}
+		auto followCurvesPathComp = go->GetComponent<FollowCurvesPathComponent>();
+		if (followCurvesPathComp)
+		{
+			it->data._int = (size_t)followCurvesPathComp->IsMotionAlongPathEnabled(); ++it;
+			it->data.f = followCurvesPathComp->GetMotionSpeed(); ++it;
+		}
 	}
 
 	void DebugManager::LevelToJson(const std::string& levelPath)

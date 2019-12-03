@@ -2,19 +2,19 @@
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-    "Scale": [ 1.0, 1.0, 1.0 ]
+    "Scale": [ 0.001, 0.001, 0.001 ]
   },
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+    "MaterialId": "Assets\\Materials\\YellowDiffuseYellowSpecularMaterial.json"
   },
 
   "MeshComponent": {
-    "ModelId": "Assets\\Models\\Cube.fbx"
+    "ModelId": "Assets\\Models\\Spider_Crawl.fbx"
   },
   "FollowCurvesPathComponent": {
     "MotionPathCurveGameobjectTagName": "",
     "MotionSpeed": 5.0,
-    "ArcLengthTolerance": 0.001,
+    "ArcLengthTolerance": 0.01,
     "EnableMotionAlongPath": false,
     "EnableMotionOrientation": true,
     "EnableReverseMotion": true,
@@ -25,11 +25,29 @@
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "ENEMY"
   },
-
+  "AnimationComponent": {
+    "StartingAnimation": "ShootAnim",
+    "Clips": [
+      {
+        "name": "ShootAnim",
+        "path": "Assets\\Models\\Spider_Crawl.fbx",
+        "loops": true
+      }
+    ]
+  },
   "Scripts": [
     {
-      "Name": "Scripts\\Components\\FlyingBugLogic.lua",
+      "Name": "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Overrides": {
+        "maxCooldown": 5.0,
+        "bulletSpeed": 1.0,
+        "curHealth": 2.0
+      }
+    },
+    {
+      "Name": "Scripts\\Components\\SpawnedEnemyComp.lua",
+      "Overrides": {
+       
       }
     }
   ]

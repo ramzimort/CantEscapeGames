@@ -312,15 +312,18 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			if (rigidbody->m_inverseMass < PhysicsUtils::Consts::minMass)
 				continue;
-
-			// gravity
 			Vector3 force;
-			force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
+			// gravity
+			if (rigidbody->m_isEffectedByGravity)
+				force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
 			
-			// airdrag
-			float airDragForCube = 1.05f;
-			force -= airDragForCube * velocity;
-			velocity += PhysicsUtils::Consts::fixedTimeStep * rigidbody->m_inverseMass * force;
+			if (rigidbody->m_isEffectedByDragForce)
+			{
+				// airdrag
+				float airDragForCube = 1.05f;
+				force -= airDragForCube * velocity;
+				velocity += PhysicsUtils::Consts::fixedTimeStep * rigidbody->m_inverseMass * force;
+			}
 
 			Vector3 angularAcceleration;
 			Vector3 torque;// outside source FxR

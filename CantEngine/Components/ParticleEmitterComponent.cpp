@@ -22,6 +22,7 @@ RTTR_REGISTRATION
 		.property("Particle_Emit_Count", &ParticleEmitterComponent::m_emitParticleCount)
 		.property("Particle_Texture_Dir", &ParticleEmitterComponent::m_particleTextureDir)
 		.property("Particle_Emitter_Type", &ParticleEmitterComponent::m_particleEmitterType)
+		.property("Particle_Size", &ParticleEmitterComponent::m_particleSize)
 		.method("Init", &ParticleEmitterComponent::Init);
 
 	rttr::registration::enumeration<ParticleEmitterType>("ParticleEmitterType")(
@@ -44,7 +45,8 @@ ParticleEmitterComponent::ParticleEmitterComponent(GameObject *owner)
 	m_localTime(0.f),
 	m_emitParticleCount(50),
 	m_particleEmitterType(ParticleEmitterType::INFINITE_LIFETIME),
-	m_isEmitting(true)
+	m_isEmitting(true),
+	m_particleSize(3.f, 3.f)
 {
 }
 
@@ -64,7 +66,7 @@ void ParticleEmitterComponent::Init(ResourceManager* resourceManager, DXRenderer
 	Particle initParticle = {};
 	initParticle.m_lifeTime = 0.f;
 	initParticle.m_position = Vector3(0.f);
-	initParticle.m_size = Vector2(1.f, 1.f);
+	initParticle.m_size = m_particleSize;
 	initParticle.m_particleType = PARTICLE_TYPE_EMITTER;
 
 	BufferLoadDesc streamout_vb_desc = {};
@@ -102,6 +104,11 @@ void ParticleEmitterComponent::SetEmitterDirection(const Vector3& dir)
 	m_emitterDirection = localDir;
 }
 
+void ParticleEmitterComponent::SetParticleSize(const Vector2& particleSize)
+{
+	m_particleSize = particleSize;
+}
+
 void ParticleEmitterComponent::SetParticleEmitter(ParticleEmitterType particleEmitterType)
 {
 	m_particleEmitterType = particleEmitterType;
@@ -131,6 +138,12 @@ void ParticleEmitterComponent::SetEmitterLifetime(float lifetime)
 void ParticleEmitterComponent::SetEmitParticlesCount(uint32_t emitCount)
 {
 	m_emitParticleCount = std::min(emitCount, MAX_PARTICLE_EMIT_ONCE);
+}
+
+void ParticleEmitterComponent::SetParticleEmitterMainDirection(const Vector3& emitterDirection)
+{
+	m_emitterDirection = emitterDirection;
+	m_emitterDirection.Normalize();
 }
 
 

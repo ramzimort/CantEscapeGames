@@ -30,7 +30,7 @@
       "Scripts\\Components\\editor.lua",
       "Scripts\\Components\\Fireball.lua",
       "Scripts\\Components\\Firewall.lua",
-      "Scripts\\Components\\FlyingBugLogic.lua",
+      "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Scripts\\Components\\fpscontroller.lua",
       "Scripts\\Components\\InteractiveBox1.lua",
       "Scripts\\Components\\InteractiveBox2.lua",

@@ -79,8 +79,8 @@ private:
 	Pipeline* m_renderParticlesPipeline;
 	Shader* m_renderParticlesShader;
 
-	std::vector<ParticleEmitterStreamOutUniformData> m_particleEmitterStreamOutUniformList;
+	std::deque<ParticleEmitterStreamOutUniformData> m_particleEmitterStreamOutUniformList;
 	ParticleEmitterInstanceList m_particleEmitterInstanceList;
-	std::vector<Buffer*> m_particleEmitterStreamOutUniformBufferList;
+	std::deque<Buffer*> m_particleEmitterStreamOutUniformBufferList;
 };
 

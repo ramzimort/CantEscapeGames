@@ -12,10 +12,12 @@ unsigned const CustomSystem::static_type = BaseSystem::numberOfTypes++;
 
 #include "../../GameObjects/GameObject.h"
 #include "../../Components/CustomComponent/CustomComponent.h"
+#include "Graphics/AppRenderer.h"
 
 
 CustomSystem::CustomSystem() :
-	BaseSystem()
+	BaseSystem(),
+	m_appRenderer(nullptr)
 {
 }
 
@@ -55,4 +57,37 @@ void CustomSystem::Update(float dt, BaseSystemCompNode *compNode)
 			OutputDebugString(errorName);		//TODO - erase later
 		}
 	}
+}
+
+void CustomSystem::Draw(float dt, BaseSystemCompNode *compNode)
+{
+	// Get the pointer to the components, and then freely update
+	CustomCompNode *node = static_cast<CustomCompNode*>(compNode);
+
+
+	//THIS COMPONENT IS PURELY LUA CODE
+	for (CustomComponent *comp : node->n_components)
+	{
+		//Temporal, because of weird issue with maps filling with nulls
+		if (comp == nullptr) return;
+
+		try
+		{
+			sol::table self = comp->m_luaScriptTable;
+			if (self["Draw"].valid())
+			{
+				self["Draw"](self, dt, comp->GetOwner(), m_appRenderer);
+			}
+		}
+		catch (const sol::error& e)
+		{
+			const char *errorName = e.what();
+			OutputDebugString(errorName);		//TODO - erase later
+		}
+	}
+}
+
+void CustomSystem::RegisterAppRenderer(AppRenderer* appRenderer)
+{
+	m_appRenderer = appRenderer;
 }

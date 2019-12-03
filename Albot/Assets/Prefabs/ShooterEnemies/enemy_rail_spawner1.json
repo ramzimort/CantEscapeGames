@@ -4,6 +4,19 @@
     "Rotation": [ 0.0, 0.0, 0.0 ],
     "Scale": [ 1.0, 1.0, 1.0 ]
   },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+    "EnableRendering": false
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Sphere.fbx"
+  },
+  "TriggerComponent": {
+    "Scale": [ 6.0, 6.0, 6.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
 
   "Scripts": [
     {
