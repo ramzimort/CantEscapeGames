@@ -241,6 +241,10 @@ struct AnimState
 	void EnterTransition(AnimTransition *transition) 
 	{
 		isInTransition = true;
+
+		//Call the interrupt event
+		this->animation->onAnimInterruptEvent();
+		
 		isAnimRunning = false;
 		transition->transitionTime = 0.0f;
 		currentTransition = transition;
@@ -334,6 +338,11 @@ public:
 	 * 
 	 */
 	void ResetTriggers();
+	/**
+	 * @brief Makes the dirty flag match the trigger count
+	 *
+	 */
+	void CleanDirtyFlag();
 	/**
 	 * @brief Sets a trigger object to one
 	 * 

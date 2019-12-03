@@ -61,7 +61,7 @@ void CollisionTable::InitCollisionMatrix()
 
 bool CollisionTable::CheckCollisionMatrix(CollisionMask obj1, CollisionMask obj2) const
 {
-	return m_CollisionMatrix[static_cast<int>(obj1)][static_cast<int>(obj2)];
+           	return m_CollisionMatrix[static_cast<int>(obj1)][static_cast<int>(obj2)];
 }
 
 #ifdef DEVELOPER
