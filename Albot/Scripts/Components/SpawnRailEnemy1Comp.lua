@@ -1,5 +1,3 @@
-dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
-
 SpawnRailEnemy1Comp = 
 {
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json";

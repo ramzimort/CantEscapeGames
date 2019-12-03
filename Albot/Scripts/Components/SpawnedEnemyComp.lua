@@ -1,4 +1,3 @@
-dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
 
 SpawnedEnemyComp = 
 {

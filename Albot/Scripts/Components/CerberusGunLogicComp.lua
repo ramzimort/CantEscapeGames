@@ -1,5 +1,3 @@
-dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
-
 CerberusGunLogicComp = 
 {
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json";

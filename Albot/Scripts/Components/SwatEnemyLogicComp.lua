@@ -1,5 +1,3 @@
-dofile("Scripts\\Helper\\ShooterRailPrototype_Common.lua")
-
 SwatEnemyLogicComp = 
 {
 	gameobjManager = nil;
