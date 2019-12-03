@@ -2,7 +2,7 @@
   "TransformComponent": {
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ],
-    "Scale": [ 0.07, 0.07, 0.07 ]
+    "Scale": [ 0.1, 0.1, 0.1 ]
 
   },
 
@@ -25,7 +25,7 @@
     "FrictionCoef": 0.2
   },
   "TriggerComponent": {
-    "Scale": [ 0.2, 0.2, 0.4 ],
+    "Scale": [ 0.6, 0.6, 1.4 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "PLAYER_PROJ"
   },
@@ -34,7 +34,8 @@
     {
       "Name": "Scripts\\Components\\ProjectileLogic.lua",
       "Overrides": {
-        "projectileOwnerName": "Player"
+        "projectileOwnerName": "Player",
+        "maxLifeTime": 5.0
       }
     }
   ]
