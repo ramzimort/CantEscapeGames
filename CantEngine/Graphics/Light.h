@@ -94,6 +94,12 @@ public:
 	 * @param radius 
 	 */
 	void SetRadius(float radius) { m_radius = radius; };
+
+
+	void SetShadowOrthographicSize(const Vector2& orthographicSize) { m_shadowOrthographicSize = orthographicSize; }
+	Vector2 GetShadowOrthographicSize() const { return m_shadowOrthographicSize; }
+	void SetShadowCasterDistanceFromFocusPoint(float casterDistanceFromFocusPoint) { m_shadowCasterDistanceFromFocusPoint = casterDistanceFromFocusPoint; }
+	float GetShadowCasterDistanceFromFocusPoint() const { return m_shadowCasterDistanceFromFocusPoint; }
 private:
 	ELightType m_light_type;
 	Vector3 m_color;
@@ -103,6 +109,10 @@ private:
 	float m_shadow_intensity;
 	bool m_enabled;
 	bool m_cast_shadow;
+
+	//applicable only for directional light
+	Vector2 m_shadowOrthographicSize;
+	float m_shadowCasterDistanceFromFocusPoint;
 
 	RTTR_ENABLE();
 	RTTR_REGISTRATION_FRIEND;

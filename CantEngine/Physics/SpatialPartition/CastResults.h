@@ -1,12 +1,17 @@
-/* Start Header------------------------------------------------------ -
-Copyright(C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author : Aleksey Perfilev
-Other Authors :
--End Header--------------------------------------------------------*/
+/**
+ * @file CastResults.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Inteface for the ray cast results 
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 
 #pragma once
 
+/**
+ * @brief Stores information of a single collision of a ray in a ray cast - its time of collision and related user data
+ * 
+ */
 class CastResult
 {
 public:
@@ -14,7 +19,13 @@ public:
 	explicit CastResult(void* clientData);
 	CastResult(void* clientData, float time);
 
-	// Comparison function used for unit testing
+	/**
+	 * @brief Compares 2 results, first by time of collision, then resolve conflicts by client data
+	 * 
+	 * @param rhs 
+	 * @return true 
+	 * @return false 
+	 */
 	bool operator<(const CastResult& rhs) const;
 
 	// What time the object was hit in a raycast. In a frustum cast this left alone.
@@ -23,11 +34,18 @@ public:
 	void* m_ClientData;
 };
 
+/**
+ * @brief Stores ray cast results, all the collisions with the ray
+ * 
+ */
 class CastResults
 {
 public:
-	// Adds the result and sorts it based upon t so that all
-	// results are in proper lower t first order.
+	/**
+	 * @brief Adds the result and sorts it based upon t so that all results are in proper lower t first order
+	 * 
+	 * @param result 
+	 */
 	void AddResult(const CastResult& result);
 
 	typedef std::vector<CastResult> Results;

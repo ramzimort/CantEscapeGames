@@ -9,6 +9,7 @@ ShooterRailPrototype =
 --OnCreate, called when creating this state
 ShooterRailPrototype.OnCreateState = function(self)
 	local EventMgr = EventManager.Get();
+	EventMgr:PushLoadedState(false);
 end
 
 

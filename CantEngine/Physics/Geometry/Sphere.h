@@ -1,9 +1,10 @@
-/* Start Header------------------------------------------------------ -
-Copyright(C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author : Aleksey Perfilev
-Other Authors :
--End Header--------------------------------------------------------*/
+/**
+ * @file Sphere.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Defenition of the Sphere shape
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 
 #pragma once
 
@@ -22,18 +23,56 @@ public:
 	Sphere();
 	Sphere(const Vector3& center, float radius);
 
-	void ComputeCentroid(const std::vector<Vector3>& points);
-	void ComputeRitter(const std::vector<Vector3>& points);
-	void ComputePCA(const std::vector<Vector3>& points, int maxIterations = 50);
+	//void ComputeCentroid(const std::vector<Vector3>& points);
+	//void ComputeRitter(const std::vector<Vector3>& points);
+	//void ComputePCA(const std::vector<Vector3>& points, int maxIterations = 50);
 
+	/**
+	 * @brief Interseection test with an aabb
+	 * 
+	 * @param aabb 
+	 * @return true 
+	 * @return false 
+	 */
 	virtual bool IsIntersect(const Aabb& aabb) const override;
+	/**
+	 * @brief Intersection test with a sphere
+	 * 
+	 * @param sphere 
+	 * @return true 
+	 * @return false 
+	 */
 	virtual bool IsIntersect(const Sphere& sphere) const override;
-
+	/**
+	 * @brief checks if the given point is inside the sphere
+	 * 
+	 * @param point 
+	 * @return true 
+	 * @return false 
+	 */
 	bool ContainsPoint(const Vector3& point);
 
+	/**
+	 * @brief Get the Center of the sphere
+	 * 
+	 * @return Vector3 
+	 */
 	Vector3 GetCenter() const;
+	/**
+	 * @brief Get the Radius of the sphere
+	 * 
+	 * @return float 
+	 */
 	float GetRadius() const;
 
+	/**
+	 * @brief compare if spheres are close enough to be same
+	 * 
+	 * @param rhs 
+	 * @param epsilon 
+	 * @return true 
+	 * @return false 
+	 */
 	bool Compare(const Sphere& rhs, float epsilon) const;
 
 #ifdef DEVELOPER

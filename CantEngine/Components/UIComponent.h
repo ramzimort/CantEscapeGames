@@ -55,7 +55,10 @@ public:
 	float GetInitialRotation();
 	float GetFinalRotation();
 	float GetRotationRate();
-
+	void SetTextScale(const Vector3& val);
+	Vector3 GetTextScale();
+	void SetText(const std::wstring& val);
+	std::string GetText();
 
 public:
 	//Unique class identifier
@@ -98,6 +101,7 @@ private:
 	Vector2 m_textPosition;
 	Vector3 m_textColor;
 	Vector3 m_textScale;
+	Vector3 m_textTouchedScale;
 	float m_textRotation;
 
 	RTTR_ENABLE(BaseComponent);

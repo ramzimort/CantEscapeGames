@@ -3,7 +3,14 @@
     "Position": [ 0.0, 0.0, 0.0 ],
     "Rotation": [ 0.0, 0.0, 0.0 ]
   },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+    "EnableRendering": false
+  },
 
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Sphere.fbx"
+  },
   "LightComponent": {
     "Light": {
       "LightType": "Point",

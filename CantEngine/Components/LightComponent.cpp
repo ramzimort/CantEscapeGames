@@ -32,6 +32,12 @@ const Light* LightComponent::GetLight() const
 	return &m_light;
 }
 
+void LightComponent::SetColor(const Vector3& color)
+{
+	m_light.SetColor(color);
+}
+
+
 void LightComponent::Init(ResourceManager* resMgr, DXRenderer* dxrenderer)
 {
 

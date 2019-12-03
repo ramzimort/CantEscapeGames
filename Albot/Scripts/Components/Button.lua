@@ -6,6 +6,7 @@ Button =
 	-- Component
 	uiComp;
 	uiTransform;
+	textComp;
 	
 	-- Data
 	ButtonIndex;
@@ -24,8 +25,10 @@ Button =
 
 	-- KEYBOARD
 	Up = false;
-	Down = false;	
-	
+	Down = false;
+	--	Text
+	textUnTouchedScale = Vector3.new(0.0,0.0,0.0);
+	textTouchedScale = Vector3.new(0.0,0.0,0.0);
 
 }
 
@@ -53,10 +56,18 @@ Button.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UITransform IS NIL\n");
 	end
 	
+	self.textComp = owner:GetCustomComp("Text");
+	if (self.textComp == nil) then 
+		OutputPrint("ERROR, Text Component IS NIL\n");
+	end
+	
 	self.ButtonIndex = self.uiComp:GetButtonIndex();
 	local scale = Vector3.new(self.uiTransform:GetScale());
 	self.uiComp:SetUnTouchedScale(scale);
 	self.uiComp:SetTouchedScale(scale*1.1);
+	
+	self.textUnTouchedScale = Vector3.new(self.uiComp:GetTextScale());
+	self.textTouchedScale = Vector3.new(self.textUnTouchedScale*1.1);
 end
 
 --Update called every tick
@@ -72,9 +83,11 @@ Button.Update = function(self, dt, owner)
 	if(self.Touched == true) then
 		local touchedScale = Vector3.new(self.uiComp:GetTouchedScale());
 		self.uiTransform:Scale(touchedScale);
+		self.textComp:Touched();
 	else
 		local unTouchedScale = Vector3.new(self.uiComp:GetUnTouchedScale());
 		self.uiTransform:Scale(unTouchedScale);
+		self.textComp:UnTouched();
 	end
 	if(self.ButtonIndex == _G.CurrentButtonTouched) then
 		self.Touched = true;

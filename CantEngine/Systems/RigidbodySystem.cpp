@@ -1,9 +1,9 @@
-/* Start Header -------------------------------------------------------
-Copyright (C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the
-prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author: Aleksey Perfilev
-- End Header --------------------------------------------------------*/
+/**
+ * @file RigidbodySystem.cpp
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 
 #include "Physics/SuppportShape/ObbSupportShape.h"
 #include "Physics/SuppportShape/ModelSupportShape.h"
@@ -312,15 +312,18 @@ void RigidbodySystem::LateUpdate(float dt)
 
 			if (rigidbody->m_inverseMass < PhysicsUtils::Consts::minMass)
 				continue;
-
-			// gravity
 			Vector3 force;
-			force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
+			// gravity
+			if (rigidbody->m_isEffectedByGravity)
+				force += Vector3(0, PhysicsUtils::Consts::gravity, 0) * rigidbody->m_mass;
 			
-			// airdrag
-			float airDragForCube = 1.05f;
-			force -= airDragForCube * velocity;
-			velocity += PhysicsUtils::Consts::fixedTimeStep * rigidbody->m_inverseMass * force;
+			if (rigidbody->m_isEffectedByDragForce)
+			{
+				// airdrag
+				float airDragForCube = 1.05f;
+				force -= airDragForCube * velocity;
+				velocity += PhysicsUtils::Consts::fixedTimeStep * rigidbody->m_inverseMass * force;
+			}
 
 			Vector3 angularAcceleration;
 			Vector3 torque;// outside source FxR

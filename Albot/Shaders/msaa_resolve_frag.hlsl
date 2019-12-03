@@ -72,7 +72,7 @@ PS_OUT main(PS_IN ps_in)
             for (uint sample_index = 0; sample_index < SAMPLE_COUNT; ++sample_index)
             {
                 
-                offsets += MSAAResolveUniformData_Buffer.SampleOffsets[sample_index];
+                offsets += MSAAResolveUniformData_Buffer.SampleOffsets[sample_index].xy;
                 float sampler_dist = length(offsets) / (MSAAResolveUniformData_Buffer.FilterSize / 2.0);
 
                 if(sampler_dist <= 1.0f)

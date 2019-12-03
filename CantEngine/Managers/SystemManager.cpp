@@ -24,11 +24,13 @@ Primary Author: Jose Rosenbluth
 #include "Systems/SkyboxIrradianceSystem.h"
 #include "Systems/UISystem.h"
 #include "Systems/SplineCurvesSystem.h"
-
+#include "Systems/FollowCurvesPathSystem.h"
 
 SystemManager::SystemManager(AppRenderer* appRenderer)
 {
 	this->AddSystem<CustomSystem>();
+	this->AddSystem<FollowCurvesPathSystem>();
+	this->AddSystem<SplineCurvesSystem>();
 	this->AddSystem<TransformSystem>();
 	this->AddSystem<RigidbodySystem>();
 	this->AddSystem<TriggerSystem>();
@@ -38,7 +40,6 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	this->AddSystem<HaloEffectSystem>();
 	this->AddSystem<AnimationSystem>();
 	this->AddSystem<RenderingSystem>();
-	this->AddSystem<SplineCurvesSystem>();
 	this->AddSystem<ParticleEmitterSystem>();
 	this->AddSystem<UISystem>();
 	static_cast<LightSystem*>(m_systems[LightSystem::static_type])->RegisterAppRenderer(appRenderer);
@@ -50,6 +51,7 @@ SystemManager::SystemManager(AppRenderer* appRenderer)
 	static_cast<ParticleEmitterSystem*>(m_systems[ParticleEmitterSystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<UISystem*>(m_systems[UISystem::static_type])->RegisterAppRenderer(appRenderer);
 	static_cast<SplineCurvesSystem*>(m_systems[SplineCurvesSystem::static_type])->RegisterAppRenderer(appRenderer);
+	static_cast<CustomSystem*>(m_systems[CustomSystem::static_type])->RegisterAppRenderer(appRenderer);
 }
 
 SystemManager::~SystemManager()

@@ -256,6 +256,13 @@ void ScriptingManager::ManageBindings()
 
 #pragma endregion
 
+#pragma region FONTTYPE
+	luaState["FONT_TYPE"] = luaState.create_table_with(
+		"COURIER_NEW", FontType::COURIER_NEW,
+		"COURIER_NEW_BOLD", FontType::COURIER_NEW_BOLD
+	);
+#pragma endregion
+
 #pragma region CONTROLLER
 	luaState["CONTROLLER"] = luaState.create_table_with(
 		"A", SDL_GameControllerButton::SDL_CONTROLLER_BUTTON_A,
@@ -356,6 +363,9 @@ void ScriptingManager::ManageBindings()
 		sol::resolve<Vector4(const Vector4&, const Vector4&)>(&MathUtil::PiecewiseProd)
 		)
 	);
+	luaState.set_function("RandF", sol::overload(sol::resolve<float(void)> (&MathUtil::RandF), sol::resolve<float(float, float)>(&MathUtil::RandF)));
+	luaState.set_function("RandI", &MathUtil::RandI);
+	
 	luaState.set_function("TransformVector", sol::overload(
 		sol::resolve<Vector2(const Vector2&, const Matrix&)>(&Vector2::Transform),
 		sol::resolve<Vector3(const Vector3&, const Matrix&)>(&Vector3::Transform),
@@ -456,13 +466,20 @@ void ScriptingManager::ManageBindings()
 		"SystemManager"
 	);
 
+	luaState.new_usertype<MomentShadowMapRendering>
+	(
+			"MomentShadowMapRendering",
+			"SetFocusPoint", &MomentShadowMapRendering::SetFocusPoint
+		);
 	luaState.new_usertype<AppRenderer>
 	(
 		"AppRenderer",
+		"GetMomentShadowMap", &AppRenderer::GetMomentShadowMap,
 		"RegisterTextFontInstance", sol::overload(
 			sol::resolve<void(const std::string& , uint32_t ,
 				const Vector2& , const Vector3& , const Vector3&, float )>(&AppRenderer::RegisterTextFontInstance) )
 	);
+
 
 	//GAMEOBJECTMANAGER
 	luaState.new_usertype<GameObjectManager>
@@ -483,6 +500,7 @@ void ScriptingManager::ManageBindings()
 		"GetTag", &GameObject::GetTag,
 		"GetId", &GameObject::GetId,
 		"Manager", &GameObject::GetGOManager,
+		"Destroy", &GameObject::Destroy,
 		//Static Instantiation Methods
 		"Instantiate", sol::overload(
 			sol::resolve<GameObject*(GameObjectManager *)>(&GameObject::Instantiate),
@@ -494,11 +512,13 @@ void ScriptingManager::ManageBindings()
 		"GetRendererComp",        &GameObject::GetComponent<RendererComponent>,
 		"GetMeshComp",            &GameObject::GetComponent<MeshComponent>,
 		"GetLightComp",           &GameObject::GetComponent<LightComponent>,
+		"GetHaloEffectComp",	  &GameObject::GetComponent<HaloEffectComponent>,
 		"GetCameraComp",          &GameObject::GetComponent<CameraComponent>,
 		"GetParticleEmitterComp", &GameObject::GetComponent<ParticleEmitterComponent>,
 		"GetAnimationComp",		  &GameObject::GetComponent<AnimationComponent>,
 		"GetTransformComp",       &GameObject::GetComponent<TransformComponent>,
 		"GetUiComp",			  &GameObject::GetComponent<UIComponent>,
+		"GetFollowCurvesPathComp",&GameObject::GetComponent<FollowCurvesPathComponent>,
 		
 		//Add scripted and engine components
 		"AddCustomComp",          &GameObject::LuaAddCustomComponent,
@@ -585,7 +605,11 @@ void ScriptingManager::ManageBindings()
 			"GetVelocity", &UIComponent::GetVelocity,
 			"GetInitialRotation", &UIComponent::GetInitialRotation,
 			"GetFinalRotation", &UIComponent::GetFinalRotation,
-			"GetRotationRate", &UIComponent::GetRotationRate
+			"GetRotationRate", &UIComponent::GetRotationRate,
+			"SetTextScale", &UIComponent::SetTextScale,
+			"GetTextScale", &UIComponent::GetTextScale,
+			"SetText", &UIComponent::SetText,
+			"GetText", &UIComponent::GetText
 			);
 
 
@@ -637,7 +661,8 @@ void ScriptingManager::ManageBindings()
 	//RENDERER
 	luaState.new_usertype<RendererComponent>
 	(
-		"RendererComponent"
+		"RendererComponent",
+		"SetEnableRendering", &RendererComponent::SetEnableRendering
 	);
 
 	//MESH
@@ -649,7 +674,15 @@ void ScriptingManager::ManageBindings()
 	//LIGHT
 	luaState.new_usertype<LightComponent>
 	(
-		"LightComponent"
+		"LightComponent",
+		"SetColor", &LightComponent::SetColor
+	);
+
+	//LIGHT
+	luaState.new_usertype<HaloEffectComponent>
+	(
+		"HaloEffectComponent",
+		"SetColor", &HaloEffectComponent::SetColor
 	);
 
 	//CAMERA
@@ -688,14 +721,26 @@ void ScriptingManager::ManageBindings()
 			"ParticleEmitterComponent",
 			"Emit", &ParticleEmitterComponent::Emit,
 			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
-			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch
+			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch,
+			"SetEmitterDirection", &ParticleEmitterComponent::SetEmitterDirection
 			);
 
-	//PARTICLE_EMITTER
-	luaState.new_usertype<ParticleEmitterComponent>
-	(
-		"ParticleEmitterComponent"
-	);
+	luaState.new_usertype<FollowCurvesPathComponent>(
+			"FollowCurvesPathComponent",
+			"SetBeforeInitCurveGameObjectToFollow", &FollowCurvesPathComponent::SetBeforeInitCurveGameObjectToFollow,
+			"SetCurveGameObjectToFollow", &FollowCurvesPathComponent::SetCurveGameObjectToFollow,
+			"SetMotionSpeed", &FollowCurvesPathComponent::SetMotionSpeed,
+			"GetMotionSpeed", &FollowCurvesPathComponent::GetMotionSpeed,
+			"SetEnableMotionAlongPath", &FollowCurvesPathComponent::SetEnableMotionAlongPath,
+			"IsMotionAlongPathEnabled", &FollowCurvesPathComponent::IsMotionAlongPathEnabled,
+			"SetEnableMotionOrientation", &FollowCurvesPathComponent::SetEnableMotionOrientation,
+			"IsMotionOrientationEnabled", &FollowCurvesPathComponent::IsMotionOrientationEnabled,
+			"ResetMotionTime", &FollowCurvesPathComponent::ResetMotionTime,
+			"SetOffsetFollowPathPosition", sol::overload(
+				sol::resolve<void(float, float, float)>(&FollowCurvesPathComponent::SetOffsetFollowPathPosition),
+				sol::resolve<void(const Vector3&)>(&FollowCurvesPathComponent::SetOffsetFollowPathPosition)),
+			"GetOffSetFollowPathPosition", &FollowCurvesPathComponent::GetOffSetFollowPathPosition
+		);
 
 	///////////////////////
 	// ANIMATION HELPERS //

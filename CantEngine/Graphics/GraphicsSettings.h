@@ -7,6 +7,7 @@ namespace GraphicsSettings
 	extern float MSAA_Filter_Size;
 	extern bool Draw_Mesh_Flag;
 	extern bool Draw_Debug_Mesh_Sphere_Flag;
+	extern bool Draw_Spline_Curve;
 	extern int Moment_Shadow_Map_Blur_Width;
 }
 

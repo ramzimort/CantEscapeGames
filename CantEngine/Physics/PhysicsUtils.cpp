@@ -1,4 +1,10 @@
-#include "PhysicsUtils.h"
+/**
+ * @file PhysicsUtils.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
+ #include "PhysicsUtils.h"
 #include "Shaders\Shading.h"
 
 extern bool PhysicsUtils::Settings::isDrawContactPoints = false;

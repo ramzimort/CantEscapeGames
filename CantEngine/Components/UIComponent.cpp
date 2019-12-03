@@ -149,10 +149,15 @@ void UIComponent::SetTouchedScale(const Vector3 & val)
 }
 
 
+void UIComponent::SetTextScale(const Vector3 & val)
+{
+	m_textScale = val;
+}
 
-
-
-
+Vector3 UIComponent::GetTextScale()
+{
+	return m_textScale;
+}
 Vector3 UIComponent::GetInitialPosition()
 {
 	return initialPos;
@@ -220,6 +225,14 @@ float UIComponent::GetRotationRate()
 	return rotationRate;
 }
 
+void UIComponent::SetText(const std::wstring& val)
+{
+	m_textUI = std::wstring(val.begin(), val.end());
+}
+std::string UIComponent::GetText()
+{
+	return m_internalTextUI;
+}
 
 
 

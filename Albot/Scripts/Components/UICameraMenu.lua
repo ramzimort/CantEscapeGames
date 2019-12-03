@@ -159,16 +159,16 @@ UICameraMenu.Update = function(self, dt, owner)
 		if (ButtonLUA ~= nil) then 
 			if(ButtonLUA:ReturnClicked() == true) then
 				-- Check the tag and use it to specify 
-				if(gameObject:GetTag() == "AnimationsButton") then
+				if(gameObject:GetTag() == "Prototype1Button") then
+					self.loadingState = "Assets\\Levels\\Ramzi.json";
+				elseif (gameObject:GetTag() == "Prototype2Button") then
+					self.loadingState = "Assets\\Levels\\ShooterRailPrototype.json";
+				elseif (gameObject:GetTag() == "ProtoType3Button") then
 					self.loadingState = "Assets\\Levels\\JoseLevel.json";
-				elseif (gameObject:GetTag() == "GraphicsButton") then
-					self.loadingState = "Assets\\Levels\\Graphics.json";
-				elseif (gameObject:GetTag() == "PhysicsButton") then
-					self.loadingState = "Assets\\Levels\\Physics.json";
 				elseif (gameObject:GetTag() == "SettingButton") then
 					self.loadingState = "Assets\\Levels\\Setting.json";
 				elseif (gameObject:GetTag() == "CreditsButton") then
-					self.loadingState = "Assets\\Levels\\Ramzi.json";
+					self.loadingState = "Assets\\Levels\\Credits.json";
 				elseif (gameObject:GetTag() == "ExitButton") then
 					EventManager.Get():Quit(false);
 				end

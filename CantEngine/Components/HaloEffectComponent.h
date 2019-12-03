@@ -15,6 +15,8 @@ public:
 	void Init(ResourceManager* resMgr, DXRenderer* dxrenderer) override;
 	const HaloEffect& GetHaloEffect() const;
 	HaloEffect& GetHaloEffect();
+
+	void SetColor(const Vector3& color);
 public:
 	static ComponentId const static_type;
 private:

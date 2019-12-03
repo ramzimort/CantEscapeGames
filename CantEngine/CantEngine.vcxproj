@@ -32,6 +32,7 @@
     <ClCompile Include="Components\SkyboxIrradianceComponent.cpp" />
     <ClCompile Include="Components\SplineCurvesComponent.cpp" />
     <ClCompile Include="Components\TriggerComponent.cpp" />
+    <ClCompile Include="Systems\FollowCurvesPathSystem.cpp" />
     <ClCompile Include="Graphics\DebugRendering\DebugRenderingInstance.cpp" />
     <ClCompile Include="Graphics\Deferred\DeferredRenderingInstance.cpp" />
     <ClCompile Include="Graphics\IBL\BRDFLookupTexturePass.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Animation\Interpolation.h" />
     <ClInclude Include="Animation\Quaternion.h" />
     <ClInclude Include="Events\State\StateEvents.h" />
+    <ClInclude Include="Systems\FollowCurvesPathSystem.h" />
     <ClInclude Include="Graphics\DebugRendering\DebugRenderingInstance.h" />
     <ClInclude Include="Graphics\IBL\BRDFLookupTexturePass.h" />
     <ClInclude Include="Graphics\IBL\EquirectangularToSkyboxRender.h" />

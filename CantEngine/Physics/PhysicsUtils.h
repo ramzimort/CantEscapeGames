@@ -1,9 +1,10 @@
-/* Start Header------------------------------------------------------ -
-Copyright(C) 2019 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior written consent of DigiPen Institute of Technology is prohibited.
-Primary Author : Aleksey Perfilev
-Other Authors :
--End Header--------------------------------------------------------*/
+/**
+ * @file PhysicsUtils.h
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @brief Constants, settings, helper functions for physics 
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 
 #pragma once
 
@@ -13,6 +14,11 @@ Other Authors :
 
 namespace PhysicsUtils
 {
+	/**
+	 * @brief Generates uniformly distributed vectors from origin to the surface of a unit sphere
+	 * 
+	 * @return std::vector<Vector3> 
+	 */
 	std::vector<Vector3> UniformDistibutionInSphere();
 
 	namespace Consts
@@ -60,47 +66,116 @@ namespace PhysicsUtils
 		extern bool isDrawTriggersTree;
 	}
 
+	/**
+	 * @brief Minimum between two objects. Note: Objects have to have operator<
+	 * 
+	 * @tparam T 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return T 
+	 */
 	template <typename T>
 	inline T Min(const T lhs, const T rhs)
 	{
 		return lhs < rhs ? lhs : rhs;
 	}
 
+	/**
+	 * @brief Maximum between two objects. Note: Objects have to have operator<
+	 * 
+	 * @tparam T 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return T 
+	 */
 	template <typename T>
 	inline T Max(const T lhs, const T rhs)
 	{
 		return lhs < rhs ? rhs : lhs;
 	}
-
+	/**
+	 * @brief Maximum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return Vector3 
+	 */
 	inline Vector3 Max(const Vector3& lhs, const Vector3& rhs)
 	{
 		return Vector3(Max(lhs.x, rhs.x), Max(lhs.y, rhs.y), Max(lhs.z, rhs.z));
 	}
-
+	/**
+	 * @brief Minimum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return Vector3 
+	 */
 	inline Vector3 Min(const Vector3& lhs, const Vector3& rhs)
 	{
 		return Vector3(Min(lhs.x, rhs.x), Min(lhs.y, rhs.y), Min(lhs.z, rhs.z));
 	}
-
+	/**
+	 * @brief Absulute value of the two class objects. Note: Objects have to have operator< and operator- (as a unari negate operator)
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return T 
+	 */
 	template <typename  T>
 	inline T Abs(T rhs)
 	{
 		return rhs < 0 ? -rhs : rhs;
 	}
-
+	/**
+	 * @brief Calculates Square of the value. Note: has to has operator* (binary multiplication)
+	 * 
+	 * @tparam T 
+	 * @param rhs 
+	 * @return T 
+	 */
 	template <typename T>
 	inline T Sqr(T rhs)
 	{
 		return rhs * rhs;
 	}
-
-
+	/**
+	 * @brief Barrycentric coordinates of a point in respect to two points
+	 * 
+	 * @param point 
+	 * @param a 
+	 * @param b 
+	 * @param u 
+	 * @param v 
+	 * @param expansionEpsilon 
+	 * @return true 
+	 * @return false 
+	 */
 	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b,
 		float& u, float& v, float expansionEpsilon = 0.0f);
-
+	/**
+	 * @brief Barrycentric coordinates of a point in respect to three points
+	 * 
+	 * @param point 
+	 * @param a 
+	 * @param b 
+	 * @param c 
+	 * @param u 
+	 * @param v 
+	 * @param w 
+	 * @param expansionEpsilon 
+	 * @return true 
+	 * @return false 
+	 */
 	bool BarycentricCoordinates(const Vector3& point, const Vector3& a, const Vector3& b, const Vector3& c,
 		float& u, float& v, float& w, float expansionEpsilon = 0.0f);
-	
+	/**
+	 * @brief Transforms a vector in a model space to world space
+	 * 
+	 * @param modelToWorld 
+	 * @param vec 
+	 * @return Vector3 
+	 */
 	Vector3 WorldToModel(const Matrix& modelToWorld, const Vector3& vec);
 
 

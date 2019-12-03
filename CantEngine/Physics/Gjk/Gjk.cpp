@@ -1,12 +1,9 @@
-/******************************************************************************/
-/*!
-\file   Gjk.h
-\author Aleksey Perfilev
-\par    Copyright 2019, Digipen Institute of Technology
-\brief
-Narrow phase of the physics engine.
-*/
-/******************************************************************************/
+/**
+ * @file Gjk.cpp
+ * @author Aleksey Perfilev
+ * @date 12/4/2019
+ * @copyright Copyright(C) 2019 DigiPen Institute of Technology
+ */
 #include "Gjk.h"
 #include "Physics/PhysicsUtils.h"
 #include "CollisionManifold.h"
@@ -623,11 +620,6 @@ bool Gjk::Epa(std::vector<Gjk::CsoPoint>& simplex, const SupportShape* shapeA, c
 	}
 
 	return true;
-}
-
-void Gjk::FindClosestFace(Triangle& closest, std::vector<Gjk::CsoPoint>& simplex)
-{
-
 }
 
 void Gjk::AddEdge(std::list<CsoEdge>& list, const CsoPoint& a, const CsoPoint& b)

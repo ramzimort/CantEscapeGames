@@ -14,11 +14,16 @@ shooter_fpscontroller =
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
 	RotationEnabled = true;
+	
+	triggerComp = nil;
 
 	movement_amount = Vector2.new(0.0);
 	MoveSpeed = 10.0;
 	Transform = nil;
 	Camera = nil;
+	runGame = -1;
+	ownerGameObj = nil;
+	life = 10;
 }
 
 --Init called when comp is created
@@ -26,6 +31,7 @@ shooter_fpscontroller.Init = function(self)
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
+
 end
 
 --Begin called when obj has all comps
@@ -35,13 +41,21 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-
+	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
+	self.triggerComp = owner:GetTriggerComp();
+
+	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
+	self.triggerComp.OnExit:Bind({self, self.OnExit});
 end
 
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
+	if (self.life < 1.0) then
+		OutputPrint("GAME OVER!!!");
+	end
+
 	local position = self.Transform:GetPosition();
 	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
@@ -49,7 +63,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	position = position + strafe + forward;
 
 	local rotation = self.Rotation;
-	if (self.LEFTCLICK) then
+	if (self.RIGHTCLICK) then
 		rotation.x = -1.0*self.DeltaPositionY;
 		rotation.y = -1.0*self.DeltaPositionX;
 		self.DeltaPositionX = 0.0;
@@ -60,7 +74,33 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 		self.Rotation.y = 0.0;
 		self.Rotation.z = 0.0;
 	end
-	self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	if(self.runGame ~= 1) then
+		self.Transform:SetLocalPosition(position.x, position.y, position.z);
+	end
+end
+
+shooter_fpscontroller.OnEnter = function(self, gameObj1, gameObj2)
+	
+	local transform1 = gameObj1:GetTransformComp();
+	local transform2 = gameObj2:GetTransformComp();
+	local triggerComp1 = gameObj1:GetTriggerComp();
+	local triggerComp2 = gameObj2:GetTriggerComp();
+
+	if(transform1 == nil or transform2 == nil or triggerComp1 == nil or triggerComp2 == nil) then
+		return;
+	end
+
+	local collisionMask1 = triggerComp1:GetCollisionMask();
+	local collisionMask2 = triggerComp2:GetCollisionMask();
+	if (collisionMask2 == CollisionMask.ENEMY_PROJ) then
+		self.life = self.life - 1;
+	end
+
+	--PLAY SOUND
+	--SPAWN PARTICLES
+end
+
+shooter_fpscontroller.OnExit = function(self, gameObj1, gameObj2)
 end
 
 --Method
@@ -78,7 +118,16 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
+	elseif(SCANCODE.Z == key and state ~= true) then
+		self.runGame = self.runGame * -1;
+		local followPathCurvesComp = self.ownerGameObj:GetFollowCurvesPathComp();
+		if(self.runGame == 1) then
+			followPathCurvesComp:SetEnableMotionAlongPath(true);
+		else
+			followPathCurvesComp:SetEnableMotionAlongPath(false);
+		end
 	end
+
 end
 
 shooter_fpscontroller.OnMouseMotion = function(self, position, deltaposition)
@@ -91,7 +140,7 @@ end
 shooter_fpscontroller.OnMouseClick = function(self, button, state)
 	if(button == 1) then
 		self.LEFTCLICK = state;
-	elseif(button == 2) then
+	elseif(button == 3) then
 		self.RIGHTCLICK = state;
 	end
 end
@@ -101,6 +150,15 @@ shooter_fpscontroller.OnDestruction = function(self)
 	OnKeyEvent():Unbind({self, self.OnKey});
 	OnMouseMotion():Unbind({self, self.OnMouseMotion});
 	OnMouseClick():Unbind({self, self.OnMouseClick});
+	
+	self.triggerComp.OnEnter:Unbind({self, self.OnEnter});
+	self.triggerComp.OnExit:Unbind({self, self.OnExit});
+end
+
+shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
+	--how to draw text, if this fail that means no Fonts resource is loaded
+	--appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
+		--Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);
 end
 
 return shooter_fpscontroller;
