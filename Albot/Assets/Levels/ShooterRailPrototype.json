@@ -203,6 +203,37 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
+                        50.0,
+                        5.0,
+                        -10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        90.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        70.0,
+                        10.0,
+                        3.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 35.0,
+                    "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
                         15.0,
                         5.0,
                         -15.0
@@ -222,6 +253,322 @@
                     "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
                     "XTileFactor": 30.0,
                     "YTileFactor": 5.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
+            "tag": "enemy_rail07a",
+            "prefab": "Assets\\Prefabs\\splinecurve.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "SplineCurvesComponent": {
+                    "SplineControlPointsNumber": 10,
+                    "SplineAlternatePoints": [
+                        {
+                            "x": -10.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -6.0,
+                            "y": 0.0,
+                            "z": -4.0
+                        },
+                        {
+                            "x": -6.0,
+                            "y": 0.0,
+                            "z": -9.0
+                        },
+                        {
+                            "x": -4.0,
+                            "y": 0.0,
+                            "z": -11.0
+                        },
+                        {
+                            "x": -2.0,
+                            "y": 0.0,
+                            "z": -15.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": -20.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": -10.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_floor.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        12.5,
+                        0.0,
+                        -12.5
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        75.0,
+                        0.20000000298023225,
+                        75.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
+                    "XTileFactor": 25.0,
+                    "YTileFactor": 25.0
                 },
                 "MeshComponent": {
                     "ModelId": "Assets\\Models\\Cube.fbx"
@@ -283,6 +630,100 @@
                 "SkyboxIrradianceComponent": {
                     "SkyboxEquirectangularTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
                     "SkyboxEquirectangularIrradianceTextureID": "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+                }
+            }
+        },
+        {
+            "tag": "spawner3b",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -4.5,
+                        2.0,
+                        -25.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        6.0,
+                        6.0,
+                        6.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+                            "curveGameObjTag": "enemy_rail03b",
+                            "spawnTimeInterval": 0.1,
+                            "numberOfSpawnGameObj": 2,
+                            "minMotionSpeed": 6.0,
+                            "maxMotionSpeed": 8.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.1,
+                            "minRelativeZ": -0.1,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.1,
+                            "maxRelativeZ": 0.1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall2.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        32.0,
+                        1.0,
+                        10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        35.0,
+                        2.0,
+                        1.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
+                    "XTileFactor": 16.0,
+                    "YTileFactor": 1.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
                 }
             }
         },
@@ -635,45 +1076,14 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "tag": "spawner5",
+            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        50.0,
                         5.0,
-                        -10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        90.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        70.0,
-                        10.0,
-                        3.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 35.0,
-                    "YTileFactor": 5.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_floor.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        12.5,
-                        0.0,
-                        -12.5
+                        2.0,
+                        7.0
                     ],
                     "Rotation": [
                         0.0,
@@ -681,19 +1091,51 @@
                         0.0
                     ],
                     "Scale": [
-                        75.0,
-                        0.20000000298023225,
-                        75.0
+                        1.0,
+                        1.0,
+                        1.0
                     ]
                 },
                 "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\NoReflectionMetalMaterial.json",
-                    "XTileFactor": 25.0,
-                    "YTileFactor": 25.0
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
                 },
                 "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "TriggerComponent": {
+                    "Scale": [
+                        6.0,
+                        6.0,
+                        6.0
+                    ],
+                    "Offset": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "CollisionMask": "DINAMIC_OBJ"
+                },
+                "Scripts": [
+                    {
+                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+                        "Overrides": {
+                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
+                            "curveGameObjTag": "enemy_rail05",
+                            "spawnTimeInterval": 0.5,
+                            "numberOfSpawnGameObj": 3,
+                            "minMotionSpeed": 5.0,
+                            "maxMotionSpeed": 10.0,
+                            "enableMotionOrientation": false,
+                            "minRelativeX": -0.1,
+                            "minRelativeY": -0.0,
+                            "minRelativeZ": -1.5,
+                            "maxRelativeX": 0.1,
+                            "maxRelativeY": 0.0,
+                            "maxRelativeZ": 1.5
+                        }
+                    }
+                ]
             }
         },
         {
@@ -2389,6 +2831,37 @@
             }
         },
         {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\factory_wall.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        12.0,
+                        5.0,
+                        -35.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "Scale": [
+                        75.0,
+                        10.0,
+                        2.5
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+                    "XTileFactor": 50.0,
+                    "YTileFactor": 10.0
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Cube.fbx"
+                }
+            }
+        },
+        {
             "tag": "directional_light01",
             "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
             "overrides": {
@@ -2419,6 +2892,44 @@
                             75.0
                         ],
                         "ShadowCasterDistanceFromFocusPoint": 65.0
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        25.0,
+                        10.0,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            0.0,
+                            0.6859999895095825,
+                            1.0
+                        ],
+                        "Intensity": 2.536999940872193,
+                        "CastShadow": true,
+                        "Radius": 24.465999603271489
                     }
                 }
             }
@@ -2527,291 +3038,6 @@
                         },
                         {
                             "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "tag": "enemy_rail07a",
-            "prefab": "Assets\\Prefabs\\splinecurve.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        25.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "SplineCurvesComponent": {
-                    "SplineControlPointsNumber": 10,
-                    "SplineAlternatePoints": [
-                        {
-                            "x": -10.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -9.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        {
-                            "x": -6.0,
-                            "y": 0.0,
-                            "z": -4.0
-                        },
-                        {
-                            "x": -6.0,
-                            "y": 0.0,
-                            "z": -9.0
-                        },
-                        {
-                            "x": -4.0,
-                            "y": 0.0,
-                            "z": -11.0
-                        },
-                        {
-                            "x": -2.0,
-                            "y": 0.0,
-                            "z": -15.0
-                        },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": -20.0
-                        },
-                        {
-                            "x": 5.0,
-                            "y": 0.0,
-                            "z": -10.0
-                        },
-                        {
-                            "x": 5.0,
                             "y": 0.0,
                             "z": 0.0
                         },
@@ -3369,37 +3595,6 @@
                             "z": 0.0
                         }
                     ]
-                }
-            }
-        },
-        {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall2.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        32.0,
-                        1.0,
-                        10.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        35.0,
-                        2.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
-                    "XTileFactor": 16.0,
-                    "YTileFactor": 1.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
                 }
             }
         },
@@ -3974,49 +4169,18 @@
             }
         },
         {
-            "tag": "",
-            "prefab": "Assets\\Prefabs\\factory_wall.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        12.0,
-                        5.0,
-                        -35.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        75.0,
-                        10.0,
-                        2.5
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
-                    "XTileFactor": 50.0,
-                    "YTileFactor": 10.0
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Cube.fbx"
-                }
-            }
-        },
-        {
             "tag": "player01",
             "prefab": "Assets\\Prefabs\\Players\\shooter_player.json",
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        26.819883346557618,
-                        22.473045349121099,
-                        44.99219131469727
+                        0.7192075252532959,
+                        36.46175765991211,
+                        78.34234619140625
                     ],
                     "Rotation": [
-                        -40.03549575805664,
-                        724.5646362304688,
+                        -32.335548400878909,
+                        723.3967895507813,
                         0.0
                     ],
                     "Scale": [
@@ -4031,9 +4195,9 @@
                         "Near": 0.10000000149011612,
                         "Far": 1000.0,
                         "Position": [
-                            26.819883346557618,
-                            22.473045349121099,
-                            44.99219131469727
+                            0.7192075252532959,
+                            36.46175765991211,
+                            78.34234619140625
                         ],
                         "CameraName": "Main",
                         "ZOrder": 0
@@ -4173,9 +4337,9 @@
             "overrides": {
                 "TransformComponent": {
                     "Position": [
-                        26.819883346557618,
-                        22.473045349121099,
-                        44.99219131469727
+                        0.7192075252532959,
+                        36.46175765991211,
+                        78.34234619140625
                     ],
                     "Rotation": [
                         -90.0,
@@ -4262,132 +4426,6 @@
                             "maxRelativeX": 0.1,
                             "maxRelativeY": 0.1,
                             "maxRelativeZ": 0.1
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "spawner3b",
-            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        -4.5,
-                        2.0,
-                        -25.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "TriggerComponent": {
-                    "Scale": [
-                        6.0,
-                        6.0,
-                        6.0
-                    ],
-                    "Offset": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "CollisionMask": "DINAMIC_OBJ"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
-                        "Overrides": {
-                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
-                            "curveGameObjTag": "enemy_rail03b",
-                            "spawnTimeInterval": 0.1,
-                            "numberOfSpawnGameObj": 2,
-                            "minMotionSpeed": 6.0,
-                            "maxMotionSpeed": 8.0,
-                            "enableMotionOrientation": false,
-                            "minRelativeX": -0.1,
-                            "minRelativeY": -0.1,
-                            "minRelativeZ": -0.1,
-                            "maxRelativeX": 0.1,
-                            "maxRelativeY": 0.1,
-                            "maxRelativeZ": 0.1
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "tag": "spawner5",
-            "prefab": "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
-            "overrides": {
-                "TransformComponent": {
-                    "Position": [
-                        5.0,
-                        2.0,
-                        7.0
-                    ],
-                    "Rotation": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "Scale": [
-                        1.0,
-                        1.0,
-                        1.0
-                    ]
-                },
-                "RendererComponent": {
-                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-                    "EnableRendering": false
-                },
-                "MeshComponent": {
-                    "ModelId": "Assets\\Models\\Sphere.fbx"
-                },
-                "TriggerComponent": {
-                    "Scale": [
-                        6.0,
-                        6.0,
-                        6.0
-                    ],
-                    "Offset": [
-                        0.0,
-                        0.0,
-                        0.0
-                    ],
-                    "CollisionMask": "DINAMIC_OBJ"
-                },
-                "Scripts": [
-                    {
-                        "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
-                        "Overrides": {
-                            "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
-                            "curveGameObjTag": "enemy_rail05",
-                            "spawnTimeInterval": 0.5,
-                            "numberOfSpawnGameObj": 3,
-                            "minMotionSpeed": 5.0,
-                            "maxMotionSpeed": 10.0,
-                            "enableMotionOrientation": false,
-                            "minRelativeX": -0.1,
-                            "minRelativeY": -0.0,
-                            "minRelativeZ": -1.5,
-                            "maxRelativeX": 0.1,
-                            "maxRelativeY": 0.0,
-                            "maxRelativeZ": 1.5
                         }
                     }
                 ]
@@ -4583,6 +4621,196 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        8.571000099182129,
+                        5.0,
+                        35.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.6570000052452087,
+                            0.15700000524520878
+                        ],
+                        "Intensity": 5.0,
+                        "CastShadow": true,
+                        "Radius": 21.62299919128418
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        7.0,
+                        8.0,
+                        -30.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.5569999814033508,
+                            0.3140000104904175
+                        ],
+                        "Intensity": 2.943000078201294,
+                        "CastShadow": true,
+                        "Radius": 25.277999877929689
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        -6.0,
+                        5.0,
+                        -5.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            0.15700000524520878,
+                            0.0860000029206276,
+                            1.0
+                        ],
+                        "Intensity": 0.9120000004768372,
+                        "CastShadow": true,
+                        "Radius": 30.55699920654297
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        40.0,
+                        10.0,
+                        -15.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.14300000667572022,
+                            0.24300000071525577
+                        ],
+                        "Intensity": 0.9120000004768372,
+                        "CastShadow": true,
+                        "Radius": 32.5880012512207
+                    }
+                }
+            }
+        },
+        {
+            "tag": "",
+            "prefab": "Assets\\Prefabs\\Lights\\point_light.json",
+            "overrides": {
+                "TransformComponent": {
+                    "Position": [
+                        30.0,
+                        10.0,
+                        10.0
+                    ],
+                    "Rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                "RendererComponent": {
+                    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+                    "EnableRendering": false
+                },
+                "MeshComponent": {
+                    "ModelId": "Assets\\Models\\Sphere.fbx"
+                },
+                "LightComponent": {
+                    "Light": {
+                        "LightType": "Point",
+                        "Color": [
+                            1.0,
+                            0.5139999985694885,
+                            0.0
+                        ],
+                        "Intensity": 1.7239999771118165,
+                        "CastShadow": true,
+                        "Radius": 26.09000015258789
+                    }
+                }
             }
         }
     ]

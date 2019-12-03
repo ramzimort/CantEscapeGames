@@ -7,7 +7,7 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\MetalCopperMaterial.json",
+    "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },
