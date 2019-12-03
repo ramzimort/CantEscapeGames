@@ -7,6 +7,10 @@ CrouchObstacle =
 	transformComp = nil;
 	triggerComp = nil;
 	PlayerScript = nil;
+	-- Game Object Manager
+	GOManager = nil;
+	-- Image Tag Names
+	objectTag = "Pic1";
 }
 
 CrouchObstacle.Init = function(self)
@@ -19,7 +23,7 @@ CrouchObstacle.Begin = function(self, owner, goMgr)
 	self.triggerComp.OnEnter:Bind({self, self.OnEnter});
 	self.triggerComp.OnExit:Bind({self, self.OnExit});
 	self.Player = goMgr:FindGameObject("Player"):GetCustomComp("RamziPlayer");
-
+	self.GOManager = goMgr;
 end
 
 CrouchObstacle.Update = function(self, dt, owner) 
@@ -30,11 +34,26 @@ CrouchObstacle.OnEnter = function(self, gameObj1, gameObj2)
 	local triggerComp2 = gameObj2:GetTriggerComp();
 
 	if (triggerComp1 == nil or triggerComp2 == nil) then
+		local uiGO = self.GOManager:FindGameObject(self.objectTag);
+		if (uiGO == nil) then
+			OutputPrint(">>> GO with tag UiObject not found\n");
+			return;
+		end
+		local uiCompGO = uiGO:GetUiComp();
+		uiCompGO:SetRenderEnable(false);
 		return;
 	end
 
 	if (gameObj2:GetTag() == "PlayerCube") then
-			self.Player.nearCrouch = true;
+		self.Player.nearCrouch = true;
+		local uiGO = self.GOManager:FindGameObject(self.objectTag);
+		if (uiGO == nil) then
+			OutputPrint(">>> GO with tag UiObject not found\n");
+			return;
+		end
+		local uiCompGO = uiGO:GetUiComp();
+		uiCompGO:SetRenderEnable(true);
+		
 	end
 end
 

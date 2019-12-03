@@ -36,7 +36,7 @@ RTTR_REGISTRATION
 
 UIComponent::UIComponent(GameObject* owner) : 
 	BaseComponent(owner, static_type), 
-	m_parent(nullptr), m_enabled(true),
+	m_parent(nullptr),
 	m_children(std::vector<UIComponent*>(0)),
 	m_textUI(L""),
 	m_textFontType(FontType::COURIER_NEW),

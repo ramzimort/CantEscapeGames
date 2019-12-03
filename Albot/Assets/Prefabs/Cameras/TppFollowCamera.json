@@ -12,6 +12,7 @@
       "Far": 1000.0,
       "Position": [ 0.0, 0.0, 0.0 ],
       "CameraName": "PlayerFollow",
+      "RenderObjectType": "Render_UI_And_Meshes",
       "ZOrder": 0
     }
   },

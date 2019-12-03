@@ -21,5 +21,6 @@ private:
 	UIObjectRendering& m_uiObjectRendering;
 	std::deque<UIObjectUniformData> m_uiObjectUniformDataList;
 	BuffersDeque m_uiObjectUniformBufferList;
+	Matrix m_projectionMatrix;
 };
 
