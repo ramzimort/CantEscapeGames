@@ -25,7 +25,7 @@
     "Clips": [
       {
         "name": "ShootAnim",
-        "path": "Assets\\Models\\swat_enemy.fbx",
+        "path": "Assets\\Models\\Shooting_Rifle.fbx",
         "loops": true
       }
     ]
@@ -40,8 +40,9 @@
       "Name": "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Overrides": {
         "maxCooldown": 5.0,
-        "bulletSpeed": 2.0,
+        "bulletSpeed": 2.5,
         "curHealth": 3.0,
+        "offsetProjectileY": 3.5,
         "spawnGameobjPrefabDir": "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json"
       }
     },

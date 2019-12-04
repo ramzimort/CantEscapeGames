@@ -82,9 +82,6 @@ void UIObjectRenderingInstance::Render(const AppRendererContext& appRendererCont
 			* m_projectionMatrix;
 
 		Texture* pUITexture = pUIMaterial->GetDiffuseTexture();
-
-		assert(pUITexture);
-
 		BufferUpdateDesc updateUIObjectUniformDesc = {};
 		updateUIObjectUniformDesc.m_buffer = m_uiObjectUniformBufferList[index];
 		updateUIObjectUniformDesc.m_pSource = &m_uiObjectUniformDataList[index];

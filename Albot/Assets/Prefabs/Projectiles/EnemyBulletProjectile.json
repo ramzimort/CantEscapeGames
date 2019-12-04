@@ -7,13 +7,13 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+    "MaterialId": "Assets\\Materials\\HexagonTilesMaterial.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },
 
   "MeshComponent": {
-    "ModelId": "Assets\\Models\\bullet.fbx"
+    "ModelId": "Assets\\Models\\Sphere.fbx"
   },
   "RigidBodyComponent": {
     "IsEffectedByGravity": false,

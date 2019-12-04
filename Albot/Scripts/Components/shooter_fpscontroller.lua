@@ -77,7 +77,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	position = position + strafe + forward;
 
 	local rotation = self.Rotation;
-	--if (self.RIGHTCLICK) then
+	if (self.RIGHTCLICK) then
 		rotation.x = -1.0*self.DeltaPositionY;
 		rotation.y = -1.0*self.DeltaPositionX;
 		self.DeltaPositionX = 0.0;
@@ -87,7 +87,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 		self.Rotation.x = 0.0;
 		self.Rotation.y = 0.0;
 		self.Rotation.z = 0.0;
-	--end
+	end
 	if(self.runGame ~= 1) then
 		self.Transform:SetLocalPosition(position.x, position.y, position.z);
 	end
@@ -132,6 +132,8 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
+	elseif(SCANCODE.L == key) then
+		self.life = 0;
 	elseif(SCANCODE.Z == key and state ~= true) then
 		self.runGame = self.runGame * -1;
 		local followPathCurvesComp = self.ownerGameObj:GetFollowCurvesPathComp();
@@ -170,6 +172,13 @@ shooter_fpscontroller.OnDestruction = function(self)
 end
 
 shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
+	local cameraForward = self.Camera:GetForward();
+	cameraForward = Vector3.new(cameraForward.x, 0.0, cameraForward.z);
+	local offset = cameraForward * 25.0;
+	local position = self.Transform:GetPosition();
+	position = Vector3.new(position.x, 0.0, position.z);
+	local finalFocusPos = position + offset;
+	appRenderer:GetMomentShadowMap():SetFocusPoint(finalFocusPos);
 	--how to draw text, if this fail that means no Fonts resource is loaded
 	--appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
 		--Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);

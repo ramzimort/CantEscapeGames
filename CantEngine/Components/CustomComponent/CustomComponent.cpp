@@ -32,7 +32,10 @@ void CustomComponent::Destroy()
 {
 	try
 	{
-		m_luaScriptTable["OnDestruction"](m_luaScriptTable);
+		if (m_luaScriptTable["OnDestruction"].valid())
+		{
+			m_luaScriptTable["OnDestruction"](m_luaScriptTable);
+		}
 	}
 	catch (const sol::error & e)
 	{

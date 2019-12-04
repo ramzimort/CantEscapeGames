@@ -9,7 +9,7 @@
   },
 
   "RendererComponent": {
-    "MaterialId": ""
+    "MaterialId": "Assets\\Materials\\Material1.json"
   },
 	"UIComponent": {
 			"InitialPosition": [ 0.0, 0.0, 0.0],
