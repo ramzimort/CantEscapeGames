@@ -132,6 +132,8 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
+	elseif(SCANCODE.L == key) then
+		self.life = 0;
 	elseif(SCANCODE.Z == key and state ~= true) then
 		self.runGame = self.runGame * -1;
 		local followPathCurvesComp = self.ownerGameObj:GetFollowCurvesPathComp();
