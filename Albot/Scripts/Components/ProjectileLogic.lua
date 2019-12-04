@@ -71,6 +71,9 @@ ProjectileLogic.OnEnter = function(self, gameObj1, gameObj2)
 		if(rigidBodyComp1 ~= nil) then
 			rigidBodyComp1:SetVelocity(Vector3.new(1000.0, 100.0, 100.0));
 		end
+		if (collisionMask1 == CollisionMask.PLAYER_PROJ and collisionMask2 == CollisionMask.ENEMY_PROJ) then
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\BulletsCollides.ogg");
+		end
 	end
 	
 	--[[if (collisionMask2 == CollisionMask.ENEMY or collisionMask2 == CollisionMask.PLAYER) then

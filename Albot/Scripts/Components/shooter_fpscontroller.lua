@@ -24,6 +24,15 @@ shooter_fpscontroller =
 	runGame = -1;
 	ownerGameObj = nil;
 	life = 10;
+
+	isPlaySound = false;
+
+	-- Audio
+	--shootingSFX = "Assets\\SFX\\Jump.mp3"
+	--walking = "Assets\\SFX\\Step.mp3"
+	-- takingDamage =  "Assets\\SFX\\Jump.mp3"
+	--loose = "Assets\\SFX\\Jump.mp3"
+	--win = "Assets\\SFX\\Jump.mp3"
 }
 
 --Init called when comp is created
@@ -41,6 +50,9 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
+	
+	EventManager:Get():PlaySong(false, "Assets\\Songs\\ShooterMusic.wav");
+
 	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
@@ -53,9 +65,11 @@ end
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
 	if (self.life < 1.0) then
-		OutputPrint("GAME OVER!!!");
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
+		local world = EventManager.Get();
+		world:LoadState(false, "Assets\\Levels\\Menu.json");
 	end
-
+	
 	local position = self.Transform:GetPosition();
 	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
@@ -94,9 +108,9 @@ shooter_fpscontroller.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	if (collisionMask2 == CollisionMask.ENEMY_PROJ) then
 		self.life = self.life - 1;
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerTakesDamage.wav");
 	end
 
-	--PLAY SOUND
 	--SPAWN PARTICLES
 end
 

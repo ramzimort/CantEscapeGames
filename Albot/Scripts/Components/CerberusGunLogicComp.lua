@@ -92,7 +92,8 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 			local pojectileVelocity = cameraForward * self.bulletSpeed;
 			projectileRigidbody:SetVelocity(pojectileVelocity);
 			self.onCooldown = true;
-
+			
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerGunshot.wav");
 			--SHAKE THE GUN HERE
 
 		end
