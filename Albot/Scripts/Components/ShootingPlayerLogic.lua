@@ -114,13 +114,7 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 		projectileTransform:SetLocalPosition(pos + dir);
 		local projectileRigidbody = newSpawnedProjectile:GetRigidbodyComp();
 
-		--[[local xRot = ConvertToDegrees(Acos(dir:dot(self.xAxis)));
-		local yRot = ConvertToDegrees(Acos(dir:dot(self.yAxis)));
-		local zRot = ConvertToDegrees(Acos(dir:dot(self.zAxis)));
-
-		OutputPrint(xRot .. " " .. yRot .. " " .. zRot .. "\n");]]
-
-		projectileTransform:SetLocalRotation(xRot, yRot, zRot);
+		
 
 		local pojectileVelocity = dir * self.bulletSpeed;
 		projectileRigidbody:SetVelocity(pojectileVelocity);
