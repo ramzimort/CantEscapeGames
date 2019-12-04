@@ -312,6 +312,8 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		return; 
 	end
 
+	self.counter = self.counter + 1;
+
 	--knockback lag
 	if (self.knockbackElapsed > 0.0) then	
 		self.knockbackElapsed = self.knockbackElapsed - dt;
@@ -373,7 +375,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 			self.currentGas = self.maxGas;
 		end
 	end
-	
+
 	--If spacePressed, check for when the timer goes to zero
 	if (self.spacePressed and not self.knockback) then 
 		self.thressholdBeforeActivatingFlight = self.thressholdBeforeActivatingFlight - dt;
