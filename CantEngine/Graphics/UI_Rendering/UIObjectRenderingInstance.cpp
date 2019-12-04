@@ -5,6 +5,7 @@
 #include "Graphics/D3D11_Renderer.h"
 #include "Graphics/Models/Model.h"
 #include "Graphics/Material.h"
+#include "Graphics/Camera.h"
 #include "Managers/ResourceManager.h"
 
 static const std::string QuadModelDir = Constant::ModelsDir + "plane.fbx";
@@ -23,7 +24,13 @@ UIObjectRenderingInstance::~UIObjectRenderingInstance()
 
 void UIObjectRenderingInstance::Initialize(const AppRendererContext& appRendererContext)
 {
+	Vector4 viewportRenderInformation = appRendererContext.m_cameraInfo.m_camera.GetViewportRenderInformation();
+	size_t screenWidth = appRendererContext.m_cameraInfo.m_camera.GetScreenWidth();
+	size_t screenHeight = appRendererContext.m_cameraInfo.m_camera.GetScreenHeight();
 
+	float finalWidth = ((float)screenWidth * viewportRenderInformation.z);
+	float finalHeight = ((float)screenHeight * viewportRenderInformation.w);
+	m_projectionMatrix = DirectX::XMMatrixOrthographicOffCenterRH(0.f, finalWidth, finalHeight, 0.f, -1.0f, 1.0f);
 }
 
 void UIObjectRenderingInstance::LoadContent(const AppRendererContext& appRendererContext)
@@ -71,8 +78,8 @@ void UIObjectRenderingInstance::Render(const AppRendererContext& appRendererCont
 		m_uiObjectUniformDataList[index].ModelMat = Matrix::CreateScale(Vector3(finalUIScale.x, finalUIScale.y, 1.f)) * 
 			(*uiObjectInstance.m_rotationMatrix) * Matrix::CreateTranslation(Vector3(finalUIPosition.x, finalUIPosition.y, 0.f));
 
-		m_uiObjectUniformDataList[index].ModelViewProjectionMat = m_uiObjectUniformDataList[index].ModelMat * 
-			appRendererContext.m_appRendererInstance->m_camera_uniform_data.ProjectionMat;
+		m_uiObjectUniformDataList[index].ModelViewProjectionMat = m_uiObjectUniformDataList[index].ModelMat 
+			* m_projectionMatrix;
 
 		Texture* pUITexture = pUIMaterial->GetDiffuseTexture();
 

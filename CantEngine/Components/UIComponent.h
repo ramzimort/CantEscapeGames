@@ -89,7 +89,7 @@ private:
 	// ALL NEW STUFF
 	int buttonIndex;
 	bool m_clicked;
-	bool m_enabled;
+	bool m_enabled = true;
 	std::string m_parentName;
 	UIComponent* m_parent;
 	std::vector<UIComponent*> m_children;
