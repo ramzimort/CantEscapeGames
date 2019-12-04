@@ -48,7 +48,6 @@ TestPlayerAnimComp =
 	--HP data
 	maxHP = 0.0;
 	currentHP = 0.0;
-	dead = false;
 	counter = 0;
 
 	--Gas data
@@ -233,6 +232,8 @@ TestPlayerAnimComp.Begin = function(self, owner, goMgr)
 	self.rigidbodyComp = owner:GetRigidbodyComp();
 	self.triggerComp = owner:GetTriggerComp();
 	self.emitter = owner:GetParticleEmitterComp();
+	
+	self.emitter:SetEmitParticlesCount(0);
 
 	--UI stuff
 	local gassliderGO = goMgr:FindGameObject("GasSlider");
@@ -488,6 +489,7 @@ end
 
 
 TestPlayerAnimComp.BeginJump = function(self)
+	--self.animComp:ForceResetTriggersAndFlag();
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
 	self.falling = false;
 	self.walking = false;
@@ -526,7 +528,7 @@ end
 
 TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
 		
-		if (self.dead) then
+		if (self.death) then
 			return;
 		end
 
@@ -587,7 +589,7 @@ TestPlayerAnimComp.ApplyKnockback = function(self, go01, go02)
 		return; 
 	end
 	
-	if (self.dead) then 
+	if (self.death) then 
 		return; 
 	end
 	
@@ -968,7 +970,7 @@ end
 
 TestPlayerAnimComp.TakeDamage = function(self, amount) 
 	
-	if (self.invulnerable or self.dead) then 
+	if (self.invulnerable or self.death) then 
 		return; 
 	end
 
