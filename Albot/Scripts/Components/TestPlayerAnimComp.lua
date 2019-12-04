@@ -11,10 +11,12 @@ TestPlayerAnimComp =
 	transformComp = nil;
 	rigidbodyComp = nil;
 	triggerComp = nil;
-	GasSliderLUA = nil;
-	HealthSliderLUA = nil;
 	Meters = 0.0;
 	totalDist = 0.0;
+
+	--GasSliderLUA = nil;
+	--HealthSliderLUA = nil;
+	UIObject = nil;
 
 	--Stuff to avoid the game in the first couple of frames
 	frameNum = 0;
@@ -235,15 +237,6 @@ TestPlayerAnimComp.Begin = function(self, owner, goMgr)
 	
 	self.emitter:SetEmitParticlesCount(0);
 
-	--UI stuff
-	local gassliderGO = goMgr:FindGameObject("GasSlider");
-	self.GasSliderLUA = gassliderGO:GetCustomComp("Slider");
-	local healthsliderGO = goMgr:FindGameObject("HealthSlider");
-	self.HealthSliderLUA = healthsliderGO:GetCustomComp("Slider");
-	--self.HealthSliderLUA:SetSliderValue(1.0);
-	--self.GasSliderLUA:SetSliderValue(1.0);
-
-
 	--Cache owner
 	self.ownerGO = owner;
 
@@ -286,14 +279,37 @@ end
 
 --Update called every tick
 TestPlayerAnimComp.Update = function(self, dt, owner) 
-	
-	if (self.death) then
-		return; 
-	end
 
 	if (self.frameNum < 5) then 
 		self.frameNum = self.frameNum + 1;
+
+		if (self.frameNum == 3) then
+			--UI stuff
+			local uiObj = owner:Manager():FindGameObject("UIObject");
+			if(uiObj == nil) then
+				OutputPrint("Error: UIObject not found");
+			end
+			self.UIObject = uiObj:GetCustomComp("UICameraProtoType3");
+			self.UIObject.HealthSliderLUA:SetSliderValue(1.0);
+			self.UIObject.GasSliderLUA:SetSliderValue(1.0);
+		end
 		return;
+	end
+	
+	--GAS UI
+	if (self.UIObject.GasSliderLUA ~= nil) then 
+		local gasPercent = self.currentGas / self.maxGas;
+		self.UIObject.GasSliderLUA:SetSliderValue(gasPercent);--(gasPercent*20)
+	end
+	if (self.UIObject.HealthSliderLUA ~= nil) then
+		self.UIObject.HealthSliderLUA:SetSliderValue(self.currentHP/self.maxHP);
+	end
+
+	self.counter = self.counter + 1;
+
+	--From here on, no update if death
+	if (self.death) then
+		return; 
 	end
 
 	self.counter = self.counter + 1;
@@ -353,20 +369,11 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		if (self.currentGas < 0.0) then 
 			self.currentGas = 0.0;
 		end
-	elseif (not self.jumping and not self.falling) then 
+	elseif (not self.jumping and not self.falling and not self.inDash) then 
 		self.currentGas = self.currentGas + self.recoverySpeed * dt;
 		if (self.currentGas > self.maxGas) then 
 			self.currentGas = self.maxGas;
 		end
-	end
-	--GAS UI
-	if (self.GasSliderLUA ~= nil) then 
-		--local gasPercent = self.currentGas / self.maxGas;
-		--self.GasSliderLUA:SetSliderValue(gasPercent);--(gasPercent*20)
-	end
-
-	if (self.HealthSliderLUA ~= nil) then
-		--self.HealthSliderLUA:SetSliderValue(self.currentHP/self.maxHP);
 	end
 
 	--If spacePressed, check for when the timer goes to zero
@@ -535,6 +542,7 @@ TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
 		OutputPrint("ENTER Deadzone!! *******************************\n");
 		self.falling = false;
 		self.death = true;
+		self.currentHP = 0.0;
 		--EventManager:Get():StopSong(false);
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\gameover2.mp3");
 		-- TODO - add animation switch
@@ -633,6 +641,9 @@ TestPlayerAnimComp.OnGasTank = function(self, go1, go2)
 	end
 
 	self.currentGas = self.currentGas + 20;
+	if (self.currentGas > self.maxGas) then 
+		self.currentGas = self.maxGas;
+	end
 	local t = go1:GetTransformComp();
 	EventManager:Get():PlaySFX(false, "Assets\\SFX\\gastank2.mp3");
 	t:Translate(0, 0, 1000);
@@ -684,6 +695,8 @@ TestPlayerAnimComp.EndDash = function(self)
 		self.inDash = false;
 	else
 		OutputPrint("END DASH, BUT WAS FALLING ALREADY!!!!!!!!!!!!!!!!!!!!!\n")
+		self.animComp:ForceResetTriggersAndFlag();
+		self.inDash = false;
 	end
 end
 
@@ -981,6 +994,7 @@ TestPlayerAnimComp.TakeDamage = function(self, amount)
 		self.animComp:SetTrigger("Gameover");
 		self.totalDist = self.Meters;
 		
+		self.currentHP = 0.0;
 		self.emitter:SetEmitParticlesCount(0);
 
 		--EventManager:Get():StopSong(false);
