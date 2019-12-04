@@ -103,6 +103,7 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 		local pojectileVelocity = dir * self.bulletSpeed;
 		projectileRigidbody:SetVelocity(pojectileVelocity);
 		self.onCooldown = true;
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienGunshot.ogg");
 	end
 end
 
@@ -114,6 +115,7 @@ end
 
 
 ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
+	
 	
 	local transform1 = gameObj1:GetTransformComp();
 	local transform2 = gameObj2:GetTransformComp();
@@ -128,6 +130,7 @@ ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	
 	if (collisionMask2 == CollisionMask.PLAYER_PROJ) then
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienTakesDamage.wav");
 		self.curHealth = self.curHealth - 1;
 		self.curBlinkingTime = self.blinkingTime;
 		if(self.curHealth <= 0) then
@@ -137,6 +140,7 @@ ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 				followCurvesPathComp:SetEnableMotionAlongPath(false);
 			end
 		end
+		
 	end
 
 	--PLAY SOUND
