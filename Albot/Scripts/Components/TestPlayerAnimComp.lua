@@ -22,6 +22,7 @@ TestPlayerAnimComp =
 	--Joystick crap 
 	axisMovement = Vector2.new(0.0);
 	usingJoystick = false;
+	currentCoins = 0;
 
 	--Other normal flags
 	death = false;
@@ -35,6 +36,9 @@ TestPlayerAnimComp =
 	isCrawling = false;
 	readyForFlight = false;
 	triggerDash = false;
+	invulnerable = false;
+	invulnerableTime = 2.0;
+	invulnerableElapsed = 0.0;
 
 	--HP data
 	maxHP = 0.0;
@@ -268,37 +272,40 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	end
 
 	--knockback lag
-	if (self.knockback) then
-		
+	if (self.knockbackElapsed > 0.0) then	
 		self.knockbackElapsed = self.knockbackElapsed - dt;
-		self.transformComp:Rotate(30.0 * dt, 0.0, 0.0);
-		
 		if (self.knockbackElapsed < 0.0) then
-			self.knockback = false;
+			self.knockbackElapsed = -1.0;
+			---self.knockback = false;
 			self.OnTogglingScrolling();
-			self.falling = true;
-			
-			self.transformComp:SetLocalRotation(self.originalRot.x, 0.0, self.originalRot.z);
-
+			---self.falling = true;
+			---self.transformComp:SetLocalRotation(self.originalRot.x, 0.0, self.originalRot.z);
 			OutputPrint("KNOCKBACK END!\n");
-			--Weird bug, but this flag setting fixes it
-			self.spacePressed = false;
 			--if (self.readyForFlight) then OutputPrint(">>asd01\n"); end
 			--if (self.spacePressed) then OutputPrint(">>asd02\n"); end
 		end
 	end
-	--if (self.spacePressed) then OutputPrint("asd02\n"); end
+
+	--Code for invulnerability
+	if (self.invulnerable) then 
+		self.invulnerableElapsed = self.invulnerableElapsed + dt;
+		if (self.invulnerableElapsed > self.invulnerableTime) then 
+			self.invulnerable = false;
+			self.invulnerableElapsed = 0.0;
+		end
+	end
+
 
 	--If space is pressed
 	if (self.spacePressed and not self.flying and not self.falling and not self.jumping and not self.knockback) then
 		self:BeginJump();
-		self.thressholdBeforeActivatingFlight = 0.4;
+		self.thressholdBeforeActivatingFlight = 0.3;
 	elseif (self.currentGas >= (0.01*self.maxGas) and self.spacePressed and self.readyForFlight and 
 			(self.flying or self.falling or self.jumping) and not self.knockback ) then
 		self.flying = true;
 		self.falling = false;
 		self.jumping = false;
-		self.propellerForce = 300.0;
+		self.propellerForce = 500.0;
 		self.accel.y = self.propellerForce / self.fakeMass;
 		--OutputPrint("FLYING!!\n");
 	elseif(self.currentGas < (0.01*self.maxGas)) then
@@ -399,7 +406,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	self.transformComp:Translate(self.velocity);
 	--Apply constraints (in x-y-z)
 	local position = self.transformComp:GetPosition();
-	local xThresshold = 30;
+	local xThresshold = 40;
 	local zThresshold = 40;
 	if(position.x < -xThresshold) then
 		position.x = -xThresshold;
@@ -445,7 +452,7 @@ TestPlayerAnimComp.BeginJump = function(self)
 	self.falling = false;
 	self.walking = false;
 	self.yFloor = self.transformComp:GetPosition().y;
-	self.propellerForce = 1000.0;
+	self.propellerForce = 1500.0;
 	self.accel.y = self.propellerForce / self.fakeMass;
 	self.animComp:SetTrigger("Jump");
 
@@ -458,6 +465,11 @@ end
 --As you spawn them, bind to their triggers
 --When they are destroyed, no need to unbind really
 TestPlayerAnimComp.OnLeaveFloor = function(self, go01, go02)
+	
+	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
+		return; 
+	end
+	
 	OutputPrint("EXIT FLOOR!! *******************************\n");
 	if (not self.knockback and not self.jumping and not self.flying and not self.falling) then
 		self.falling = true;
@@ -473,6 +485,7 @@ end
 
 
 TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
+
 		OutputPrint("ENTER Deadzone!! *******************************\n");
 		self.falling = false;
 		self.death = true;
@@ -492,16 +505,23 @@ end
 
 TestPlayerAnimComp.ApplyKnockback = function(self, go01, go02)
 	
-	OutputPrint("KNOCKBACK********************\n");
+	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
+		return; 
+	end
+
+	--OutputPrint("KNOCKBACK********************\n");
+	LOG("KNOCKBACK**************** between " .. go01:GetTag() .. " and " .. go02:GetTag() .. "\n");
 	self.OnTogglingScrolling();
 	self.knockbackElapsed = self.knockbackTime;
+	self.invulnerable = true;
+	self.invulnerableElapsed = 0.0;
 
 	--Reset movement stuff so it doesnt move
-	self.knockback = true;
-	self.originalRot = Vector3.new(self.transformComp:GetRotation());
+	----self.knockback = true;
+	----self.originalRot = Vector3.new(self.transformComp:GetRotation());
 
 	self.jumping = false;
-	self.falling = false;
+	self.falling = true;
 	self.flying = false;
 	self.readyForFlight = false;
 
@@ -514,25 +534,30 @@ TestPlayerAnimComp.ApplyKnockback = function(self, go01, go02)
 
 	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
 	local speed = xz_vel:len();
-	local mgt = 100.0 + 200.0 * speed;
+	local mgt = 300.0 + 200.0 * speed;
 
 	local xzFwd = Vector2.new(0.0, 1.0);
 	self.accel = self.accel + Vector3.new(mgt*xzFwd.x, -1.0, mgt*xzFwd.y);
 end
 
 
+--[[
 TestPlayerAnimComp.ApplyKnockback_2 = function(self, go01, go02)
 	
+	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
+		return; 
+	end
+
 	--- OutputPrint("KNOCKBACK2********************\n");
 	self.OnTogglingScrolling();
 	self.knockbackElapsed = self.knockbackTime;
 	--- 
 	--- --Reset movement stuff so it doesnt move
-	self.knockback = true;
-	self.originalRot = Vector3.new(self.transformComp:GetRotation());
+	----self.knockback = true;
+	----self.originalRot = Vector3.new(self.transformComp:GetRotation());
 
 	self.jumping = false;
-	self.falling = false;
+	self.falling = true;
 	self.flying = false;
 	self.readyForFlight = false;
 
@@ -545,19 +570,39 @@ TestPlayerAnimComp.ApplyKnockback_2 = function(self, go01, go02)
 
 	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
 	local speed = xz_vel:len();
-	local mgt = 100.0 + 200.0 * speed;
+	local mgt = 300.0 + 200.0 * speed;
 
 	local fwd = self.transformComp:GetForward();
 	local xz_fwd = Vector2.new(-fwd.x, -fwd.z);
 	self.accel = self.accel + Vector3.new(mgt*xz_fwd.x, 0.0, mgt*xz_fwd.y);
 end
-
+--]]
 
 TestPlayerAnimComp.OnGasTank = function(self, go1, go2)
-	self.currentGas = self.currentGas + 20;
 
+	if (go2:GetTag() ~= "Player") then 
+		return; 
+	end
+
+	self.currentGas = self.currentGas + 20;
 	local t = go1:GetTransformComp();
-	t:Translate(-100, -100, 0);
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\pickup.mp3");
+	t:Translate(0, 0, 1000);
+	--go1:Destroy();
+end
+
+
+TestPlayerAnimComp.OnPickupCoin = function(self, go1, go2)
+
+	if (go2:GetTag() ~= "Player") then 
+		return; 
+	end
+
+	self.currentCoins = self.currentCoins + 1;
+	local t = go1:GetTransformComp();
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\coin.mp3");
+	t:Translate(0, 0, 1000);
+	--go1:Destroy();
 end
 
 
@@ -634,7 +679,7 @@ TestPlayerAnimComp.HandleMovement = function(self, isLanding, isflying)
 	end
 
 	--Normalize and apply the magnitude
-	local mgt = 3.4;
+	local mgt = 4.0;
 	if (isLanding or isflying) then
 		mgt = 0.5 * mgt;
 	end
@@ -646,7 +691,10 @@ end
 
 
 TestPlayerAnimComp.OnCollisionGround = function(self, go01, go02)
-	
+	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
+		return; 
+	end
+
 	local rgb2 = go02:GetRigidbodyComp();
 	
 	--When colliding against ground, stop falling
@@ -664,7 +712,6 @@ TestPlayerAnimComp.OnCollisionGround = function(self, go01, go02)
 		end
 
 		--Dont keep falling and set flags to false
-		self.accel.y = 0;
 		self.falling = false;
 		self.flying = false; --ERASE
 
@@ -674,6 +721,7 @@ TestPlayerAnimComp.OnCollisionGround = function(self, go01, go02)
 
 		--Also stop moving in the xz dir until landing ends
 		self.walking = false;
+		self.accel.y = 0;
 		self.accel.x = 0.0;
 		self.accel.z = 0.0;
 
@@ -904,6 +952,10 @@ end
 
 TestPlayerAnimComp.TakeDamage = function(self, amount) 
 	
+	if (self.invulnerable) then 
+		return; 
+	end
+
 	--Update val
 	self.currentHP = self.currentHP - amount;
 	if (self.currentHP <= 0) then

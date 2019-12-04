@@ -6,10 +6,9 @@ RunnerManagerComp =
 	--Keep track of how much the stage has moved forward
 	elapsedTime = 0.0;
 	elapsedDist = 0.0;
-	timeToSpawnFloor = 0.0;
-	nextTimeGoal = 0.0;
+	distanceSinceLastSpawn = 0.0;
 
-	scrollSpeed = 0.25;
+	scrollSpeed = 15.0;
 	objects = {};
 	scrolling = false;
 	playerGO = nil;
@@ -75,19 +74,16 @@ RunnerManagerComp.Begin = function(self, owner, goMgr)
 	--Spawn collectables
 	self:Spawn_Collectables_set(owner, -40, -400);
 	self:Spawn_Collectables_set(owner, -400, -800);
+	self:Spawn_Collectables_coins(owner, -40, -400);
+	self:Spawn_Collectables_coins(owner, -400, -800);
 
 	--Bind to the deadzone's multicast'
 	local dzone = goMgr:FindGameObject("DeadZone");
 	if (dzone ~= nil) then
 		self.deadzone = dzone;
-
 		local triggercomp = self.deadzone:GetTriggerComp();
 		triggercomp.OnEnter:Bind({self, self.CheckIfGameOver});
 	end
-
-	--Setting up some crap
-	self.timeToSpawnFloor = 30.0; -- 15 worked well also
-	self.nextTimeGoal = 35.0;	  --  5 worked well also
 end
 
 
@@ -102,19 +98,20 @@ RunnerManagerComp.Update = function(self, dt, owner)
 	--Advance elapsed time
 	self.elapsedTime = self.elapsedTime + dt;
 	self.elapsedDist = self.elapsedDist + dt * self.scrollSpeed;
-
+	self.distanceSinceLastSpawn = self.distanceSinceLastSpawn + dt * self.scrollSpeed;
 
 	--Procedural stuff-----------------------------------------
-	if (self.elapsedTime > self.nextTimeGoal) then
+	if (self.distanceSinceLastSpawn >= 400.0) then
 		
 		OutputPrint("SPAWNING FLOOR!! \n");
 		self:SpawnNewFloor(owner, -800);
 
-		self:Spawn_Obstacle_set(owner, -350, -800);
-	    self:Spawn_Collectables_set(owner, -350, -800);
+		self:Spawn_Obstacle_set(owner, -400, -800);
+	    self:Spawn_Collectables_set(owner, -400, -800);
+		self:Spawn_Collectables_coins(owner, -400, -800);
 
 		OutputPrint("elapsedDist: " .. self.elapsedDist .. "\n");
-		self.nextTimeGoal = self.elapsedTime + self.timeToSpawnFloor;
+		self.distanceSinceLastSpawn = 0.0;
 	end
 	--Procedural stuff-----------------------------------------
 
@@ -125,7 +122,7 @@ RunnerManagerComp.Update = function(self, dt, owner)
 	--Also, acceleration can be added
 	if (self.scrolling) then 
 		local moveDir = Vector3.new(0, 0, 1);
-		local vel = moveDir * self.scrollSpeed;
+		local vel = moveDir * self.scrollSpeed * dt;
 
 		--Move stage objects
 		for key,value in ipairs(self.objects) do
@@ -134,6 +131,10 @@ RunnerManagerComp.Update = function(self, dt, owner)
 			local transform = value:GetTransformComp();
 			if (transform ~= nil) then 
 				transform:Translate(vel);
+
+				--if (value:GetTag() ~= "Ground01" and transform:GetPosition().z > 100.0) then
+				--	value:Destroy();
+				--end
 			end
 		end
 
@@ -166,8 +167,7 @@ end
 
 RunnerManagerComp.CheckIfGameOver = function(self, go1, go2)
 	
-	if (go1 == self.deadzone and go2 == self.playerGO) then
-		OutputPrint("PLAYER IN DEADZONE!!!!\n");
+	if (go1 == self.deadzone and go2 == self.playerGO or (go2 == self.deadzone and go1 == self.playerGO)) then
 		local playerComp = self.playerGO:GetCustomComp("TestPlayerAnimComp");
 		playerComp:OnEnterDeadzone();
 	end
@@ -179,15 +179,13 @@ RunnerManagerComp.Spawn_Collectables_set = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
 	local num = 4;
-	local deltaDepth = ((zmin - maxStageHalfDepth) - (zmax + maxStageHalfDepth)) / num;
-
-	OutputPrint("ASDAD: " .. deltaDepth .. "\n");
+	local deltaDepth = ((zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 10)) / num;
 
 	local i = 0;
 	while (i < num) do 
 		local xr = Range(-30, 30);
 		local yr = Range(10, 30);
-		local zr = (zmin - maxStageHalfDepth) - deltaDepth * i;
+		local zr = (zmin - maxStageHalfDepth - 65) - deltaDepth * i;
 		self:Spawn_GasTank(owner, xr, yr, zr);
 		i = i+1;
 	end
@@ -202,35 +200,128 @@ RunnerManagerComp.Spawn_GasTank = function(self, owner, x, y, z)
 	transform:SetLocalPosition(spawnPos);
 	self.objects[#self.objects + 1] = go;
 	
-	local playerComp = self.playerGO:GetCustomComp("TestPlayerAnimComp");
-	trigger.OnEnter:Bind({playerComp, playerComp.OnGasTank});
+	local pickableComp = go:GetCustomComp("RunnerPickableComp");
+	pickableComp.playerGO = self.playerGO;
 end
+
+
+RunnerManagerComp.Spawn_Collectables_coins = function(self, owner, zmin, zmax)
+	
+	local maxStageHalfDepth = 65;
+	local num = 2;
+	local deltaDepth = ((zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 15)) / num;
+
+	local i = 0;
+	while (i < num) do 
+		local xr = Range(-30, 30);
+		local yr = Range(15, 30);
+		local zr = (zmin - maxStageHalfDepth - 65) - deltaDepth * i;
+		
+		local delta = 5.0;
+		--WIDTH
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr - 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr - 3*delta);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - 2*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr - 2*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr - 2*delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr - 2*delta);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr - delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr - delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr - delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr - delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr - delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr - delta);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - 0);
+		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - 0);
+		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - 0);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr - 0);
+		self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr - 0);
+		self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr - 0);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr - 0);
+		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr - 0);
+		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr - 0);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr + delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr + delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr + delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr + delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr + delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr + delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr + delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr + delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr + delta);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr + 2*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr + 2*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr + 2*delta);
+		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr + 2*delta);
+		--
+		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr + 3*delta);
+		--self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr + 3*delta);
+		
+		i = i+1;
+	end
+end
+
+
+RunnerManagerComp.Spawn_CoinSet = function(self, owner, x, y, z) 
+	local go = GameObject.Instantiate(owner:Manager(), "Assets\\Prefabs\\RunnerLevel_Coin.json");
+	local transform = go:GetTransformComp();
+	local trigger = go:GetTriggerComp();
+	local spawnPos = Vector3.new(x, y, z);
+	transform:SetLocalPosition(spawnPos);
+	self.objects[#self.objects + 1] = go;
+	
+	local pickableComp = go:GetCustomComp("RunnerCoinComp");
+	pickableComp.playerGO = self.playerGO;
+end
+
 
 
 RunnerManagerComp.Spawn_Obstacle_set = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
-	local num = 4; -- Number of depth subdivissions
-	local deltaDepth = ( (zmin - maxStageHalfDepth) - (zmax + maxStageHalfDepth) ) / num;
+	local num = 3; -- Number of depth subdivissions
+	local deltaDepth = ( (zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 15) ) / num;
 
 	local i = 0;
 	while (i < num) do 
 		local xr = Range(-50, 50);
 		local yr = Range(0, 50);
-		local zr = (zmin - maxStageHalfDepth) - deltaDepth * i;
+		local zr = (zmin - maxStageHalfDepth - 65) - deltaDepth * i;
 		self:Spawn_Obstacle1(owner, xr, yr, zr);
 		i = i+1;
 	end
-	
-	---xr = Range(-50, 50);
-	---yr = Range(0, 60);
-	---zr = zr - Range(80, 120);
-	---self:Spawn_Obstacle1(owner, xr, yr, zr);
-	---
-	---xr = Range(-50, 50);
-	---yr = Range(0, 60);
-	---zr = zr - Range(80, 120);
-	---self:Spawn_Obstacle1(owner, xr, yr, zr);
 end
 
 

@@ -7,6 +7,7 @@
       "Assets\\Textures\\UI\\RotatingArrow.png"
     ],
     "Models": [
+      "Assets\\Models\\coin.obj",
       "Assets\\Models\\AnimTest01.fbx",
       "Assets\\Models\\Cube.fbx",
       "Assets\\Models\\mitsuba-sphere.obj",
@@ -21,6 +22,8 @@
       "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
     ],
     "Scripts": [
+      "Scripts\\Components\\RunnerPickableComp.lua",
+      "Scripts\\Components\\RunnerCoinComp.lua",
       "Scripts\\Components\\RunnerGround.lua",
       "Scripts\\Components\\RunnerObstacle1_Comp.lua",
       "Scripts\\Components\\JoseController.lua",
@@ -98,6 +101,8 @@
       "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
       "Assets\\Prefabs\\RunnerLevel_GAS.json",
       "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+      "Assets\\Prefabs\\RunnerLevel_Coin.json",
+
       "Assets\\Prefabs\\UIObject.json",
 	  "Assets\\Prefabs\\Guns\\cerberus_gun.json",
 	  "Assets\\Prefabs\\Lantern\\tall_lantern.json",
