@@ -8,12 +8,16 @@ RunnerManagerComp =
 	elapsedDist = 0.0;
 	distanceSinceLastSpawn = 0.0;
 
-	scrollSpeed = 15.0;
+	scrollSpeed = 20.0;
+	spawnDistance = 400.0;
 	objects = {};
 	scrolling = false;
 	playerGO = nil;
 	deadzone = nil;
 	transformComp = nil;
+
+	spawnAmountAdditionOffset = 0;
+	counter = 0;
 	
 	--Variable made so the multicasts are set after the first frame
 	frameNum = 0;
@@ -65,17 +69,17 @@ RunnerManagerComp.Begin = function(self, owner, goMgr)
 
 	--Start level already generating the far away floor
 	--OutputPrint("SPAWNING FLOOR!! \n");
-	self:SpawnNewFloor(owner, -400);
-	self:SpawnNewFloor(owner, -800);
+	self:SpawnNewFloor(owner, -self.spawnDistance);
+	self:SpawnNewFloor(owner, -2*self.spawnDistance);
 
 	--Spawn obstacles
-	self:Spawn_Obstacle_set(owner, -400, -800);
+	self:Spawn_Obstacle_set(owner, -self.spawnDistance, -2*self.spawnDistance);
 
 	--Spawn collectables
-	self:Spawn_Collectables_set(owner, -40, -400);
-	self:Spawn_Collectables_set(owner, -400, -800);
-	self:Spawn_Collectables_coins(owner, -40, -400);
-	self:Spawn_Collectables_coins(owner, -400, -800);
+	self:Spawn_Collectables_set(owner, -40, -self.spawnDistance);
+	self:Spawn_Collectables_set(owner, -self.spawnDistance, -2*self.spawnDistance);
+	self:Spawn_Collectables_coins(owner, -40, -self.spawnDistance);
+	self:Spawn_Collectables_coins(owner, -self.spawnDistance, -2*self.spawnDistance);
 
 	--Bind to the deadzone's multicast'
 	local dzone = goMgr:FindGameObject("DeadZone");
@@ -102,16 +106,29 @@ RunnerManagerComp.Update = function(self, dt, owner)
 
 	local playerComp = self.playerGO:GetCustomComp("TestPlayerAnimComp");
 	playerComp.Meters = self.elapsedDist;
+
+
 	
 	--Procedural stuff-----------------------------------------
-	if (self.distanceSinceLastSpawn >= 400.0) then
+	if (self.distanceSinceLastSpawn >= self.spawnDistance) then
 		
-		OutputPrint("SPAWNING FLOOR!! \n");
-		self:SpawnNewFloor(owner, -800);
+		--Every 400 meters, double increase scroll speed by 50%
+		self.scrollSpeed = 1.3*self.scrollSpeed;
+		self.spawnDistance = 1.3*self.spawnDistance;
 
-		self:Spawn_Obstacle_set(owner, -400, -800);
-	    self:Spawn_Collectables_set(owner, -400, -800);
-		self:Spawn_Collectables_coins(owner, -400, -800);
+		--Augment counter. Every x of these increments, increment offset
+		local iters = 1;
+		self.counter = self.counter + 1;
+		if (self.counter % iters == 0) then 
+			self.spawnAmountAdditionOffset = self.spawnAmountAdditionOffset + 1;
+		end
+
+		OutputPrint("SPAWNING FLOOR!! \n");
+		self:SpawnNewFloor(owner, -2*self.spawnDistance);
+
+		self:Spawn_Obstacle_set(owner, -self.spawnDistance, -2*self.spawnDistance);
+	    self:Spawn_Collectables_set(owner, -self.spawnDistance, -2*self.spawnDistance);
+		self:Spawn_Collectables_coins(owner, -self.spawnDistance, -2*self.spawnDistance);
 
 		OutputPrint("elapsedDist: " .. self.elapsedDist .. "\n");
 		self.distanceSinceLastSpawn = 0.0;
@@ -178,7 +195,7 @@ end
 RunnerManagerComp.Spawn_Collectables_set = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
-	local num = 4;
+	local num = 4 + self.spawnAmountAdditionOffset;
 	local deltaDepth = ((zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 10)) / num;
 
 	local i = 0;
@@ -208,7 +225,7 @@ end
 RunnerManagerComp.Spawn_Collectables_coins = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
-	local num = 2;
+	local num = 2 + self.spawnAmountAdditionOffset / 2;
 	local deltaDepth = ((zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 15)) / num;
 
 	local i = 0;
@@ -219,16 +236,6 @@ RunnerManagerComp.Spawn_Collectables_coins = function(self, owner, zmin, zmax)
 		
 		local delta = 5.0;
 		--WIDTH
-		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr - 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr - 3*delta);
-		--
 		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr - 2*delta);
 		self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr - 2*delta);
 		self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr - 2*delta);
@@ -278,16 +285,6 @@ RunnerManagerComp.Spawn_Collectables_coins = function(self, owner, zmin, zmax)
 		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr + 2*delta);
 		self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr + 2*delta);
 		self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr + 2*delta);
-		--
-		--self:Spawn_CoinSet(owner, xr - delta, yr - delta, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr - delta, yr - 0, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr - delta, yr + delta, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr - delta, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr - 0, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr - 0, yr + delta, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr - delta, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr - 0, zr + 3*delta);
-		--self:Spawn_CoinSet(owner, xr + delta, yr + delta, zr + 3*delta);
 		
 		i = i+1;
 	end
@@ -311,7 +308,7 @@ end
 RunnerManagerComp.Spawn_Obstacle_set = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
-	local num = 3; -- Number of depth subdivissions
+	local num = 3 + self.spawnAmountAdditionOffset; -- Number of depth subdivissions
 	local deltaDepth = ( (zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 65) ) / num;
 
 	local i = 1;
