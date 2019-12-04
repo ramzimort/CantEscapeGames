@@ -29,9 +29,10 @@ UICameraProtoType1 =
 	GameObject;
 	-- list of UI Object tag
 	UITags = {};
+	UICompOfImage = {};
+	TotalImages = 0;
 	
-	-- Health Slider
-	HealthSliderLUA;
+
 	
 }
 
@@ -45,8 +46,6 @@ end
 --Begin called when obj has all comps
 UICameraProtoType1.Begin = function(self, owner, goMgr)
 	
-	-- put tag values
-	self.UITags[0] = "Pic1";
 	
 	
 	self.GameObject = owner;
@@ -61,28 +60,44 @@ UICameraProtoType1.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, UIComponent IS NIL\n");
 	end
 	
-	-- Health Slider
-	local HealthSliderTag = "HealthSlider";
-	local healthSliderObj = goMgr:FindGameObject(HealthSliderTag);
-	if (healthSliderObj == nil) then
-		OutputPrint(">>> GO  not found\n");
-		return;
 	
+	-- put tag values
+	self.UITags[0] = "UIBackgroundImage1";
+	self.UITags[1] = "UIBackgroundImage2";
+	self.UITags[2] = "UIBackgroundImage3";
+	-- Total UI Objects Count
+	self.TotalImages = 3;
+	--
+	for i = 0,self.TotalImages-1,1 
+	do 
+		local Tag = self.UITags[i];
+		local GO = goMgr:FindGameObject(Tag);
+		if (GO == nil) then
+			OutputPrint(">>> GO  not found\n");
+			return;
+		end
+		self.UICompOfImage[i] = GO:GetUiComp();
 	end
-	 -- Get SlideScroller.lua if UI Object has itq
-	self.HealthSliderLUA = healthSliderObj:GetCustomComp("Slider");
-	 if (self.HealthSliderLUA  == nil) then 
-		OutputPrint(">>> SliderComponent not found\n");
-	 end
-	OutputPrint(">>> \nReached\n");
 	
+	
+
 end
 
 --Update called every tick
 UICameraProtoType1.Update = function(self, dt, owner) 
 	
-	self.HealthSliderLUA:SetSliderValue(0.2);
+	
 	
 end
 
+UICameraProtoType1.EnableImage = function(self, val) 
+	
+	self.UICompOfImage[val]:SetRenderEnable(true);
+	
+end
+UICameraProtoType1.DisableImage = function(self, val) 
+	
+	self.UICompOfImage[val]:SetRenderEnable(false);
+	
+end
 return UICameraProtoType1;

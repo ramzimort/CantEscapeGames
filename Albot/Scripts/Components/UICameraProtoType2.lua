@@ -66,7 +66,7 @@ end
 --Update called every tick
 UICameraProtoType2.Update = function(self, dt, owner) 
 	
-	self.HealthSliderLUA:SetSliderValue(1.0);
+	self.HealthSliderLUA:SetSliderValue(0.5);
 	
 	
 end

@@ -153,7 +153,7 @@
       "Scripts\\States\\Physics.lua",
       "Scripts\\States\\Menu.lua",
       "Scripts\\States\\JoseLevel.lua",
-	  "Scripts\\Components\\UICameraPrototype3.lua",
+	  "Scripts\\Components\\UICameraProtoType3.lua",
 	  "Scripts\\Components\\Slider.lua"
 	  
     ],
@@ -417,7 +417,7 @@
 		},
         "Scripts": [
           {
-            "Name": "Scripts\\Components\\UICameraPrototype3.lua"
+            "Name": "Scripts\\Components\\UICameraProtoType3.lua"
           }
         ]
       }
