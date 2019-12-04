@@ -41,9 +41,9 @@ AudioManager::AudioManager()
 	EventManager::Get()->SubscribeEvent<PlaySongEvent>(this, std::bind(&AudioManager::OnPlaySong, this, std::placeholders::_1));
 	EventManager::Get()->SubscribeEvent<PlaySFXEvent>(this, std::bind(&AudioManager::OnPlaySFX, this, std::placeholders::_1));
 
-	SetMasterVolume(0.f);
-	SetSFXVolume(0.f);
-	SetSongVolume(0.f);
+	SetMasterVolume(50.0f);
+	SetSFXVolume(50.0f);
+	SetSongVolume(35.0f);
 }
 
 AudioManager::~AudioManager()

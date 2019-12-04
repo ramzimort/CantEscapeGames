@@ -12,11 +12,19 @@
 
   "TriggerComponent": {
     "Scale": [ 10.0, 10.0, 10.0 ],
-    "Offset": [ 0.0, 0.0, 0.0 ],
+    "Offset": [ 0.0, 5.0, 0.0 ],
     "CollisionMask": "DINAMIC_OBJ"
   },
 
   "MeshComponent": {
     "ModelId": "Assets\\Models\\gasTank.obj"
-  }
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\RunnerPickableComp.lua",
+      "Overrides": {
+      }
+    }
+  ]
 }

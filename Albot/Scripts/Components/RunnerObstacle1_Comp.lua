@@ -28,7 +28,7 @@ RunnerObstacle1_Comp.Begin = function(self, owner, goMgr)
 	--Start at random angle
 	local angle = Range(0, 360);
 	self.transformComp:Rotate(0, 0, angle);
-	self.angularSpeed = Range(10, 25);
+	self.angularSpeed = Range(15, 45);
 
 end
 
@@ -41,7 +41,7 @@ RunnerObstacle1_Comp.Update = function(self, dt, owner)
 		if (player ~= nil) then
 			self.playerGO = player;
 			local playerComp = player:GetCustomComp("TestPlayerAnimComp");
-			self.rigidbodyComp.OnCollision:Bind({playerComp, playerComp.ApplyKnockback_2});
+			self.rigidbodyComp.OnCollision:Bind({playerComp, playerComp.ApplyKnockback});
 		end
 	end
 

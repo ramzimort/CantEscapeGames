@@ -68,6 +68,8 @@
     ],
     "Models": [
       "Assets\\Models\\gasTank.obj",
+      "Assets\\Models\\coin.obj",
+      "Assets\\Models\\RunnerWall.fbx",
       "Assets\\Models\\AnimTest01.fbx",
       "Assets\\Models\\Cube.fbx",
       "Assets\\Models\\mitsuba-sphere.obj",
@@ -89,6 +91,7 @@
     ],
     "Materials": [
       "Assets\\Materials\\MaterialGreen.json",
+      "Assets\\Materials\\MaterialGold.json",
       "Assets\\Materials\\MaterialBlue.json",
       "Assets\\Materials\\CeramicMaterial.json",
       "Assets\\Materials\\Material1.json",
@@ -119,9 +122,9 @@
       "Assets\\Materials\\RoughMetalMaterial.json",
       "Assets\\Materials\\SmoothWoodMaterial.json",
       "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-	  "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
-	  "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
-	  "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+	    "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+	    "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+	    "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
     ],
     "Scripts": [
       "Scripts\\Components\\JoseController.lua",
@@ -129,6 +132,9 @@
       "Scripts\\Components\\RunnerManagerComp.lua",
       "Scripts\\Components\\RunnerObstacle1_Comp.lua",
       "Scripts\\Components\\RunnerGround.lua",
+      "Scripts\\Components\\RunnerPickableComp.lua",
+      "Scripts\\Components\\RunnerCoinComp.lua",
+	    "Scripts\\Components\\UICameraProtoType3.lua",
 
       "Scripts\\Components\\UICameraMenu.lua",
       "Scripts\\Components\\Button.lua",
@@ -153,7 +159,6 @@
       "Scripts\\States\\Physics.lua",
       "Scripts\\States\\Menu.lua",
       "Scripts\\States\\JoseLevel.lua",
-	  "Scripts\\Components\\UICameraProtoType3.lua",
 	  "Scripts\\Components\\Slider.lua"
 	  
     ],
@@ -166,8 +171,10 @@
       "Assets\\Prefabs\\RunnerLevel_GAS.json",
       "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
       "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+      "Assets\\Prefabs\\RunnerLevel_Coin.json",
 
       "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\factory_wall.json",
       "Assets\\Prefabs\\brick_wall.json",
       "Assets\\Prefabs\\burning_mitsuba_sphere.json",
       "Assets\\Prefabs\\ceramic_floor.json",
@@ -206,7 +213,8 @@
 	  "Assets\\Prefabs\\Slider.json"
     ],
     "Songs": [
-      "Assets\\Songs\\Main_Menu_2.mp3"
+      "Assets\\Songs\\Main_Menu_2.mp3",
+      "Assets\\Songs\\runner.mp3"
     ],
     "SFX": [
       "Assets\\SFX\\Collision1.mp3",
@@ -214,9 +222,17 @@
       "Assets\\SFX\\Whoosh_01.mp3",
       "Assets\\SFX\\Whoosh_02.mp3",
       "Assets\\SFX\\Jab.mp3",
+      "Assets\\SFX\\pickup.mp3",
+      "Assets\\SFX\\coin2.mp3",
       "Assets\\SFX\\Block.mp3",
       "Assets\\SFX\\Step.mp3",
+      "Assets\\SFX\\gastank2.mp3",
       "Assets\\SFX\\Jump.mp3",
+      "Assets\\SFX\\gameover2.mp3",
+      "Assets\\SFX\\jetpack.mp3",
+      "Assets\\SFX\\error.mp3",
+      "Assets\\SFX\\dash.mp3",
+      "Assets\\SFX\\punch.mp3",
       "Assets\\SFX\\Crawl.mp3"
     ],
     "Fonts": [
@@ -277,9 +293,146 @@
           "Scale": [ 200.0, 30.0, 1000.0 ]
         },
         "TriggerComponent": {
-          "Scale": [ 200.0, 30.0, 1000.0 ],
+          "Scale": [ 200.0, 22.5, 1000.0 ],
           "Offset": [ 0.0, 0.0, 0.0 ],
           "CollisionMask": "DINAMIC_OBJ"
+        }
+      }
+    },
+
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -100.0, -5.0, -50.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -100.0, -5.0, -250.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -100.0, -5.0, -450.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -100.0, -5.0, -650.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 100.0, -5.0, -50.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 100.0, -5.0, -250.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 100.0, -5.0, -450.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
+        }
+      }
+    },
+    {
+      "tag": "Wall",
+      "prefab": "Assets\\Prefabs\\factory_wall.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 100.0, -5.0, -650.0 ],
+          "Rotation": [ 90.0, 90.0, 180.0 ],
+          "Scale": [ 25.0, 10.0, 5.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\RoughBrick22Material.json"
+        },
+        "MeshComponent": {
+          "ModelId": "Assets\\Models\\RunnerWall.fbx"
         }
       }
     },
@@ -321,26 +474,15 @@
       "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [
-            150.0,
-            0.0,
-            0.0
-          ],
-          "Rotation": [
-            45.0,
-            0.0,
-            0.0
-          ]
+          "Position": [ 150.0, 0.0, 0.0 ],
+          "Rotation": [ 90.0, 0.0, 0.0 ]
         },
         "LightComponent": {
           "Light": {
             "LightType": "Directional",
-            "Color": [
-              1.0,
-              0.800000011920929,
-              0.7360000014305115
-            ],
-            "Intensity": 1.0,
+            "Color": [ 1.0, 0.800000011920929, 0.7360000014305115 ],
+            "ShadowOrthographicSize": [ 128, 512 ],
+            "Intensity": 80.0,
             "CastShadow": true
           }
         }
@@ -403,6 +545,12 @@
               "loops": false
             }
           ]
+        },
+        "ParticleEmitterComponent": {
+          "Emitter_Position": [ 0.0, 8.0, 0.0 ],
+          "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare1.png",
+          "Emitter_Lifetime": 10.0
+          
         }
       }
     },
@@ -469,10 +617,10 @@
 		
 		"RendererComponent": {
 			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
-		}		
+		  }		
 		
-      }
-    },
+    }
+  },
 	{
       "tag": "HealthSliderForeGround",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
@@ -564,17 +712,6 @@
 			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
 		}		
 		
-      }
-    },
-
-
-    {
-      "tag": "GasBar",
-      "prefab": "Assets\\Prefabs\\RunnerLevel_GAS.json",
-      "overrides": {
-        "TransformComponent": {
-          "Position": [ -40.0, 44.0, 0.0 ]
-        }
       }
     }
   ]

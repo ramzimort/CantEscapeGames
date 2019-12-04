@@ -128,6 +128,16 @@ void AnimatorController::CleanDirtyFlag()
 }
 
 
+
+
+void AnimatorController::ForceResetTriggersAndFlag()
+{
+	for (auto& node : triggers)
+		node.second = 0;
+	this->dirtyFlag = 0;
+}
+
+
 void AnimatorController::ResetTriggers()
 {
 	//Reset all triggers to zero

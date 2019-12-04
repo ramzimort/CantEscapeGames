@@ -127,6 +127,13 @@ void AnimationComponent::FrameEndCleanUp()
 }
 
 
+
+void AnimationComponent::ForceResetTriggersAndFlag()
+{
+	this->controller->ForceResetTriggersAndFlag();
+}
+
+
 //EVERY TRANSITION CHECK WILL GO THROUGH HERE
 //FOR CURRENT ANIMATION STATE, CHECK ALL ITS TRANSITIONS
 void AnimationComponent::CheckForTransitionChanges(bool animEnd) 

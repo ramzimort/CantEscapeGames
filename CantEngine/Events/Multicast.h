@@ -77,7 +77,7 @@ public:
 			{
 				const char *errorName = e.what();
   				DEBUG_LOG(errorName); //TODO - erase this
-			}
+ 			}
 		}
 	}
 
@@ -125,7 +125,7 @@ public:
 				}
 				else
 				{
-					OutputDebugString("\nERROR RUNNING LUA CODE BOUND TO MULTICAST!\n");
+					OutputDebugString("\nERROR BINDING LUA CODE BOUND TO MULTICAST!\n");
 				}
 			}
 			catch (const sol::error& e)
@@ -173,7 +173,7 @@ public:
 				}
 				else
 				{
-					OutputDebugString("\nERROR RUNNING LUA CODE BOUND TO MULTICAST!\n");
+					OutputDebugString("\nERROR UNBINDING LUA CODE BOUND TO MULTICAST!\n");
 				}
 			}
 			catch (const sol::error& e)

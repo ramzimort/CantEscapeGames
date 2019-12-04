@@ -47,6 +47,12 @@ float Abs(float val)
 	return fabs(val);
 }
 
+float Sin(float deg) 
+{
+	float rad = 3.14159265359f * deg / 180.0f;
+	return sinf(rad);
+}
+
 int random(int min, int max) 
 {
 	return min + (rand() % (max - min));
@@ -101,6 +107,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		luaState["Acos"] = &MathAcos;
 		luaState["Abs"] = &Abs;
 		luaState["Range"] = &random;
+		luaState["Sin"] = &Sin;
 		
 		luaState.script_file("Scripts\\LuaGlobalSetups.lua");
 
@@ -634,6 +641,7 @@ void ScriptingManager::ManageBindings()
 		"SetTrigger", &AnimationComponent::SetTrigger,
 		"AddAnimEvent", &AnimationComponent::AddAnimEvent,
 		"AddAnimEndEvent", &AnimationComponent::AddAnimEndEvent,
+		"ForceResetTriggersAndFlag", &AnimationComponent::ForceResetTriggersAndFlag,
 		"AddInterruptEvent", &AnimationComponent::AddInterruptEvent
 	);
 
@@ -732,7 +740,8 @@ void ScriptingManager::ManageBindings()
 			"Emit", &ParticleEmitterComponent::Emit,
 			"SetEmitterSpreadAngleYaw", &ParticleEmitterComponent::SetEmitterSpreadAngleYaw,
 			"SetEmitterSpreadAnglePitch", &ParticleEmitterComponent::SetEmitterSpreadAnglePitch,
-			"SetEmitterDirection", &ParticleEmitterComponent::SetEmitterDirection
+			"SetEmitterDirection", &ParticleEmitterComponent::SetEmitterDirection,
+			"SetEmitParticlesCount", &ParticleEmitterComponent::SetEmitParticlesCount
 			);
 
 	luaState.new_usertype<FollowCurvesPathComponent>(
