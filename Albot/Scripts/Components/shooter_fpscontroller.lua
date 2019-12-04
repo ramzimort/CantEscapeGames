@@ -50,9 +50,7 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
-	
-	EventManager:Get():PlaySong(false, "Assets\\Songs\\ShooterMusic.wav");
-
+	EventManager.Get():PlaySong(false, "Assets\\Songs\\ShooterMusic.wav");
 	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
@@ -65,9 +63,11 @@ end
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
 	if (self.life < 1.0) then
-		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
+		OutputPrint("GAME OVER!!!");
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
 		local world = EventManager.Get();
 		world:LoadState(false, "Assets\\Levels\\Menu.json");
+		self.life = 100; -- NOTE: until we restart level, REMOVE later (this is for sound not to loop over)
 	end
 	
 	local position = self.Transform:GetPosition();

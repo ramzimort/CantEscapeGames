@@ -5,7 +5,7 @@ ShootingPlayerLogic =
 	name = "ShootingPlayerLogic";
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json";
 	maxCooldown = 5.0;
-	bulletSpeed = 1.0;
+	bulletSpeed = 1.5;
 	curHealth = 1.0;
 
 
@@ -103,7 +103,7 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 		local pojectileVelocity = dir * self.bulletSpeed;
 		projectileRigidbody:SetVelocity(pojectileVelocity);
 		self.onCooldown = true;
-		EventManager:Get():PlaySFX(false, "Assets\\SFX\\AllienGunshot.ogg");
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienGunshot.ogg");
 	end
 end
 
@@ -130,7 +130,7 @@ ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	
 	if (collisionMask2 == CollisionMask.PLAYER_PROJ) then
-		EventManager:Get():PlaySFX(false, "Assets\\SFX\\AllienTakesDamage.wav");
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienTakesDamage.wav");
 		self.curHealth = self.curHealth - 1;
 		self.curBlinkingTime = self.blinkingTime;
 		if(self.curHealth <= 0) then
