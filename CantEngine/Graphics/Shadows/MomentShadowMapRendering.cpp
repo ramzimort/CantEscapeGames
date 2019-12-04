@@ -124,6 +124,7 @@ void MomentShadowMapRendering::RenderShadowMap()
 	Vector3 new_up_dir = right_dir.Cross(directional_light_inst_data.light_direction);
 	new_up_dir.Normalize();
 
+	m_focusPoint = Vector3(0.f, 0.f, 0.f);
 	m_shadow_camera_uniform_data.ViewMat = Matrix::CreateLookAt(light_view_pos,
 		light_view_pos + directional_light_inst_data.light_direction, new_up_dir);
 

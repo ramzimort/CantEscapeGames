@@ -170,6 +170,13 @@ shooter_fpscontroller.OnDestruction = function(self)
 end
 
 shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
+	local cameraForward = self.Camera:GetForward();
+	cameraForward = Vector3.new(cameraForward.x, 0.0, cameraForward.z);
+	local offset = cameraForward * 25.0;
+	local position = self.Transform:GetPosition();
+	position = Vector3.new(position.x, 0.0, position.z);
+	local finalFocusPos = position + offset;
+	appRenderer:GetMomentShadowMap():SetFocusPoint(finalFocusPos);
 	--how to draw text, if this fail that means no Fonts resource is loaded
 	--appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
 		--Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);

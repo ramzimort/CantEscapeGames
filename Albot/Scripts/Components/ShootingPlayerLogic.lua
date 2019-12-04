@@ -18,9 +18,17 @@ ShootingPlayerLogic =
 	rendererComp = nil;
 	ownerGameObj = nil;
 	--gun variables
-	onCooldown = false;
+	onCooldown = true;
 	cooldown = 0.0;
+
+	offsetProjectileY = 0.0;
+
+	xAxis = nil;
+	yAxis = nil;
+	zAxis = nil;
 	
+
+	finalOffsetProjectile = nil;
 
 	blinkingTime = 1.0;
 	curBlinkingTime = 0.0;
@@ -32,6 +40,10 @@ ShootingPlayerLogic =
 --Method
 --Init called when comp is created
 ShootingPlayerLogic.Init = function(self)
+	self.xAxis = Vector3.new(1.0, 0.0, 0.0);
+	self.yAxis = Vector3.new(0.0, 1.0, 0.0);
+	self.zAxis = Vector3.new(0.0, 0.0, 1.0);
+	self.finalOffsetProjectile = Vector3.new(0.0, self.offsetProjectileY, 0.0);
 end
 
 
@@ -83,6 +95,7 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 	local playerTransformComp = playerGameObj:GetTransformComp()
 	local playerPosition = playerTransformComp:GetPosition();
 	local pos = self.transformComp:GetPosition();
+	pos = pos + self.finalOffsetProjectile;
 
 	local dir = playerPosition - pos;
 	dir:normalize();
@@ -100,6 +113,15 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 		local projectileTransform = newSpawnedProjectile:GetTransformComp();
 		projectileTransform:SetLocalPosition(pos + dir);
 		local projectileRigidbody = newSpawnedProjectile:GetRigidbodyComp();
+
+		--[[local xRot = ConvertToDegrees(Acos(dir:dot(self.xAxis)));
+		local yRot = ConvertToDegrees(Acos(dir:dot(self.yAxis)));
+		local zRot = ConvertToDegrees(Acos(dir:dot(self.zAxis)));
+
+		OutputPrint(xRot .. " " .. yRot .. " " .. zRot .. "\n");]]
+
+		projectileTransform:SetLocalRotation(xRot, yRot, zRot);
+
 		local pojectileVelocity = dir * self.bulletSpeed;
 		projectileRigidbody:SetVelocity(pojectileVelocity);
 		self.onCooldown = true;

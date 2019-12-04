@@ -7,7 +7,7 @@
   },
 
   "RendererComponent": {
-    "MaterialId": "Assets\\Materials\\MetalCopperMaterial.json",
+    "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json",
     "XTileFactor": 1.0,
     "YTileFactor": 1.0
   },
@@ -25,7 +25,7 @@
     "FrictionCoef": 0.2
   },
   "TriggerComponent": {
-    "Scale": [ 0.2, 0.2, 0.2 ],
+    "Scale": [ 0.25, 0.25, 0.25 ],
     "Offset": [ 0.0, 0.0, 0.0 ],
     "CollisionMask": "ENEMY_PROJ"
   },
