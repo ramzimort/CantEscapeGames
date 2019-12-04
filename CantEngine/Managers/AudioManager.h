@@ -128,7 +128,7 @@ private:
 private:
 	void OnPlaySong(const PlaySongEvent* e);
 	void OnStopSong(const StopSongEvent* e) { StopSong(); }
-	void OnSetMasterVolume(const SetVolumeEvent* e) 
+	void OnSetVolume(const SetVolumeEvent* e) 
 	{ 
 		switch (e->m_channelId)
 		{

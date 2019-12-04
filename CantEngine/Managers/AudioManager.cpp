@@ -40,6 +40,8 @@ AudioManager::AudioManager()
 	//TODO: Load audio from previously saved settings in userdata.json
 	EventManager::Get()->SubscribeEvent<PlaySongEvent>(this, std::bind(&AudioManager::OnPlaySong, this, std::placeholders::_1));
 	EventManager::Get()->SubscribeEvent<PlaySFXEvent>(this, std::bind(&AudioManager::OnPlaySFX, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<StopSongEvent>(this, std::bind(&AudioManager::OnStopSong, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<SetVolumeEvent>(this, std::bind(&AudioManager::OnSetVolume, this, std::placeholders::_1));
 
 	SetMasterVolume(50.0f);
 	SetSFXVolume(50.0f);
@@ -51,6 +53,9 @@ AudioManager::~AudioManager()
 	//TODO: Load audio from previously saved settings in userdata.json
 	EventManager::Get()->UnsubscribeEvent<PlaySongEvent>(this);
 	EventManager::Get()->UnsubscribeEvent<PlaySFXEvent>(this);
+	EventManager::Get()->UnsubscribeEvent<StopSongEvent>(this);
+	EventManager::Get()->UnsubscribeEvent<SetVolumeEvent>(this);
+
 
 	SoundMap::iterator iter;
 	for (iter = m_sounds.begin(); iter != m_sounds.end(); ++iter)
