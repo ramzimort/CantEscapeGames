@@ -10,6 +10,10 @@ TestPlayerAnimComp =
 	transformComp = nil;
 	rigidbodyComp = nil;
 	triggerComp = nil;
+	GasSliderLUA = nil;
+	HealthSliderLUA = nil;
+	Meters = 0.0;
+	totalDist = 0.0;
 
 	--Stuff to avoid the game in the first couple of frames
 	frameNum = 0;
@@ -37,21 +41,24 @@ TestPlayerAnimComp =
 	readyForFlight = false;
 	triggerDash = false;
 	invulnerable = false;
-	invulnerableTime = 2.0;
+	invulnerableTime = 0.0;
 	invulnerableElapsed = 0.0;
 
 	--HP data
 	maxHP = 0.0;
 	currentHP = 0.0;
 	dead = false;
+	counter = 0;
 
 	--Gas data
-	gasBar = nil;
 	maxGas = 0.0;
 	currentGas = 0.0;
 	burnSpeed = 0.0;
 	recoverySpeed = 0.0;
-	spentThisFrame = 0.0;
+
+	--Play song for level
+	OutputPrint("Gonna play sound**********************\n");
+	--EventManager:Get():PlaySong(false, "Assets\\SFX\\runner.mp3");
 
 	--Time stuff
 	landingTime = 0.0;
@@ -93,22 +100,26 @@ TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
 		if (self.flying or self.falling or self.jumping) then
 			if (self.currentGas >= (0.3 * self.maxGas)) then
 				self.currentGas = self.currentGas - (0.3 * self.maxGas);
+				--OutputPrint("ACTIVATING DASH!!! - GRAVITY TURNED OFF\n");
+				EventManager:Get():PlaySFX(false, "Assets\\SFX\\dash.mp3");
 				self.animComp:SetTrigger("Dash");
-				self.falling = false;
 				self.inDash = true;
+				self.falling = false;
 				--self.triggerDash = true;
+			else 
+				EventManager:Get():PlaySFX(false, "Assets\\SFX\\error.mp3");
 			end
 		end
 	end
 
 	if(SCANCODE.SPACE == key) then
 		self.spacePressed = state;
-		OutputPrint("Space pressed\n");
+		--OutputPrint("A button pressed\n");
 		if (not state and self.flying and not self.inDash) then
-				self.flying = false;
-				self.falling = true;
-				self.readyForFlight = false;
-				OutputPrint("FALLING ACTIVATED\n");
+			self.flying = false;
+			self.falling = true;
+			self.readyForFlight = false;
+			--OutputPrint("FALLING ACTIVATED\n");
 		end
 	end
 	
@@ -147,23 +158,26 @@ TestPlayerAnimComp.OnJoystickButton = function(self, joystickId, button, state)
 		EventMgr:LoadState(false, "Assets\\Levels\\Menu.json");
 	end
 	
-	if(button == CONTROLLER.X and state) then
+	if((button == CONTROLLER.Y or button == CONTROLLER.X) and state) then
 		if (self.flying or self.falling or self.jumping) then
 			if (self.currentGas >= (0.3 * self.maxGas)) then
 				self.currentGas = self.currentGas - (0.3 * self.maxGas);
-				OutputPrint("ACTIVATING DASH!!! - GRAVITY TURNED OFF\n");
+				--OutputPrint("ACTIVATING DASH!!! - GRAVITY TURNED OFF\n");
+				EventManager:Get():PlaySFX(false, "Assets\\SFX\\dash.mp3");
 				self.animComp:SetTrigger("Dash");
 				self.inDash = true;
 				self.falling = false;
 				--self.triggerDash = true;
-			end	
+			else 
+				EventManager:Get():PlaySFX(false, "Assets\\SFX\\error.mp3");
+			end
 		end
 	end
 	
 	
-	if(button == CONTROLLER.Y and state) then
-		self.OnTogglingScrolling();
-	end
+	--if(button == CONTROLLER.Y and state) then
+	--	self.OnTogglingScrolling();
+	--end
 	
 	if(button == CONTROLLER.A) then
 		self.spacePressed = state;
@@ -210,13 +224,22 @@ end
 
 
 --Begin called when obj has all comps
-TestPlayerAnimComp.Begin = function(self, owner)
+TestPlayerAnimComp.Begin = function(self, owner, goMgr)
 
 	-- Cache the components
 	self.animComp = owner:GetAnimationComp();
 	self.transformComp = owner:GetTransformComp();
 	self.rigidbodyComp = owner:GetRigidbodyComp();
 	self.triggerComp = owner:GetTriggerComp();
+
+	--UI stuff
+	local gassliderGO = goMgr:FindGameObject("GasSlider");
+	self.GasSliderLUA = gassliderGO:GetCustomComp("Slider");
+	local healthsliderGO = goMgr:FindGameObject("HealthSlider");
+	self.HealthSliderLUA = healthsliderGO:GetCustomComp("Slider");
+	--self.HealthSliderLUA:SetSliderValue(1.0);
+	--self.GasSliderLUA:SetSliderValue(1.0);
+
 
 	--Cache owner
 	self.ownerGO = owner;
@@ -243,10 +266,6 @@ TestPlayerAnimComp.Begin = function(self, owner)
 	self.currentHP = self.maxHP;
 
 	--TEMPORARY - gas bar settings
-	local gasbar = owner:Manager():FindGameObject("GasBar");
-	if (gasbar ~= nil) then 
-		self.gasBar = gasbar;
-	end
 	self.maxGas = 100.0;
 	if (self.currentGas == nil) then OutputPrint("WTF-0\n"); 
 	else OutputPrint("1>> " .. self.currentGas .. "\n"); end
@@ -255,6 +274,9 @@ TestPlayerAnimComp.Begin = function(self, owner)
 	else OutputPrint("2>> " .. self.currentGas .. "\n"); end
 	self.burnSpeed = 10.0;
 	self.recoverySpeed = 5.0;
+	
+	self.invulnerableTime = 2.0;
+	self.invulnerableElapsed = 0.0;
 
 end
 
@@ -271,6 +293,8 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		return;
 	end
 
+	self.counter = self.counter + 1;
+
 	--knockback lag
 	if (self.knockbackElapsed > 0.0) then	
 		self.knockbackElapsed = self.knockbackElapsed - dt;
@@ -278,6 +302,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 			self.knockbackElapsed = -1.0;
 			---self.knockback = false;
 			self.OnTogglingScrolling();
+			self.animComp:ForceResetTriggersAndFlag();
 			---self.falling = true;
 			---self.transformComp:SetLocalRotation(self.originalRot.x, 0.0, self.originalRot.z);
 			OutputPrint("KNOCKBACK END!\n");
@@ -290,6 +315,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	if (self.invulnerable) then 
 		self.invulnerableElapsed = self.invulnerableElapsed + dt;
 		if (self.invulnerableElapsed > self.invulnerableTime) then 
+			OutputPrint("Back to being vulnerable!!\n");
 			self.invulnerable = false;
 			self.invulnerableElapsed = 0.0;
 		end
@@ -307,6 +333,9 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		self.jumping = false;
 		self.propellerForce = 500.0;
 		self.accel.y = self.propellerForce / self.fakeMass;
+		if (self.counter % 4 == 0) then
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\jetpack.mp3");
+		end
 		--OutputPrint("FLYING!!\n");
 	elseif(self.currentGas < (0.01*self.maxGas)) then
 		self.flying = false;
@@ -328,11 +357,13 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 		end
 	end
 	--GAS UI
-	if (self.gasBar ~= nil) then 
-		local gasPercent = self.currentGas / self.maxGas;
-		local t = self.gasBar:GetTransformComp();
-		t:Scale(gasPercent*20.0, 2.0, 1.0);
-		--t:Translate(self.spentThisFrame, 0, 0);
+	if (self.GasSliderLUA ~= nil) then 
+		--local gasPercent = self.currentGas / self.maxGas;
+		--self.GasSliderLUA:SetSliderValue(gasPercent);--(gasPercent*20)
+	end
+
+	if (self.HealthSliderLUA ~= nil) then
+		--self.HealthSliderLUA:SetSliderValue(self.currentHP/self.maxHP);
 	end
 
 	--If spacePressed, check for when the timer goes to zero
@@ -364,6 +395,14 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 			self.landing = false;
 			self.animComp:SetTrigger("Land");
 		end
+	end
+	
+	--Particle stuff
+	local emitter = owner:GetParticleEmitterComp();
+	if (self.flying or self.inDash) then 
+		emitter:SetEmitParticlesCount(10);
+	else
+		emitter:SetEmitParticlesCount(0);
 	end
 
 	--jumping time
@@ -406,7 +445,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	self.transformComp:Translate(self.velocity);
 	--Apply constraints (in x-y-z)
 	local position = self.transformComp:GetPosition();
-	local xThresshold = 40;
+	local xThresshold = 37;
 	local zThresshold = 40;
 	if(position.x < -xThresshold) then
 		position.x = -xThresshold;
@@ -485,13 +524,20 @@ end
 
 
 TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
+		
+		if (self.dead) then
+			return;
+		end
 
 		OutputPrint("ENTER Deadzone!! *******************************\n");
 		self.falling = false;
 		self.death = true;
+		--EventManager:Get():StopSong(false);
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\gameover2.mp3");
 		-- TODO - add animation switch
 		self.animComp:SetTrigger("Gameover");
 		self.OnTogglingScrolling();
+		self.totalDist = self.Meters;
 		
 		self.accel.x = 0.0;
 		self.accel.y = 0.0;
@@ -503,80 +549,71 @@ TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
 end
 
 
+TestPlayerAnimComp.Draw = function(self, dt, owner, renderer)
+
+	--Coins
+	local coins = "Coins: " .. self.currentCoins;
+	renderer:RegisterTextFontInstance(coins, FONT_TYPE.COURIER_NEW_BOLD, 
+		Vector2.new(0.05, 0.105), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.5, 1.5, 1.5), 0.0);
+	
+	--Distance travelled
+	local dist = "Meters: " .. (self.Meters//1);
+	renderer:RegisterTextFontInstance(dist, FONT_TYPE.COURIER_NEW_BOLD, 
+		Vector2.new(0.05, 0.14), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.5, 1.5, 1.5), 0.0);
+
+	if (self.death) then 
+		renderer:RegisterTextFontInstance("GAME OVER!", FONT_TYPE.COURIER_NEW_BOLD, 
+			Vector2.new(0.3, 0.4), Vector3.new(1.0, 0.5, 0.0), Vector3.new(5.0, 5.0, 5.0), 0.0);
+			
+		local msg = "Total distance achieved: " .. (self.totalDist//1) .. "!";
+		renderer:RegisterTextFontInstance(msg, FONT_TYPE.COURIER_NEW_BOLD, 
+			Vector2.new(0.23, 0.54), Vector3.new(1.0, 0.1, 0.0), Vector3.new(2.5, 2.5, 2.5), 0.0);
+	end
+end
+
+
 TestPlayerAnimComp.ApplyKnockback = function(self, go01, go02)
 	
 	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
 		return; 
 	end
-
-	--OutputPrint("KNOCKBACK********************\n");
-	LOG("KNOCKBACK**************** between " .. go01:GetTag() .. " and " .. go02:GetTag() .. "\n");
-	self.OnTogglingScrolling();
-	self.knockbackElapsed = self.knockbackTime;
-	self.invulnerable = true;
-	self.invulnerableElapsed = 0.0;
-
-	--Reset movement stuff so it doesnt move
-	----self.knockback = true;
-	----self.originalRot = Vector3.new(self.transformComp:GetRotation());
-
-	self.jumping = false;
-	self.falling = true;
-	self.flying = false;
-	self.readyForFlight = false;
-
-	--And reset the acceleration values so it only focuses on the new accel
+	
+	if (self.dead) then 
+		return; 
+	end
+	
 	self.accel.x = 0.0;
 	self.accel.y = 0.0;
 	self.accel.z = 0.0;
 
-	self:TakeDamage(1.0);
-
+	--Let it push you, but dont do anything else if invulnerable
 	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
 	local speed = xz_vel:len();
-	local mgt = 300.0 + 200.0 * speed;
+	local mgt = (300.0 + 200.0 * speed);
 
 	local xzFwd = Vector2.new(0.0, 1.0);
 	self.accel = self.accel + Vector3.new(mgt*xzFwd.x, -1.0, mgt*xzFwd.y);
-end
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\punch.mp3");
 
-
---[[
-TestPlayerAnimComp.ApplyKnockback_2 = function(self, go01, go02)
-	
-	if (go01:GetTag() ~= "Player" and go02:GetTag() ~= "Player") then 
-		return; 
+	--From here down, only if invulnerable
+	if (self.invulnerable) then
+		return;
 	end
 
-	--- OutputPrint("KNOCKBACK2********************\n");
+	--LOG("KNOCKBACK**************** between " .. go01:GetTag() .. " and " .. go02:GetTag() .. "\n");
 	self.OnTogglingScrolling();
 	self.knockbackElapsed = self.knockbackTime;
-	--- 
-	--- --Reset movement stuff so it doesnt move
-	----self.knockback = true;
-	----self.originalRot = Vector3.new(self.transformComp:GetRotation());
 
 	self.jumping = false;
-	self.falling = true;
+	self.falling = false;-----------------------*******************
 	self.flying = false;
 	self.readyForFlight = false;
 
 	self:TakeDamage(1.0);
-
-	--And reset the acceleration values so it only focuses on the new accel
-	self.accel.x = 0.0;
-	self.accel.y = 0.0;
-	self.accel.z = 0.0;
-
-	local xz_vel = Vector2.new(self.velocity.x, self.velocity.z);
-	local speed = xz_vel:len();
-	local mgt = 300.0 + 200.0 * speed;
-
-	local fwd = self.transformComp:GetForward();
-	local xz_fwd = Vector2.new(-fwd.x, -fwd.z);
-	self.accel = self.accel + Vector3.new(mgt*xz_fwd.x, 0.0, mgt*xz_fwd.y);
+	self.invulnerable = true;
+	self.invulnerableElapsed = 0.0;
 end
---]]
+
 
 TestPlayerAnimComp.OnGasTank = function(self, go1, go2)
 
@@ -586,7 +623,7 @@ TestPlayerAnimComp.OnGasTank = function(self, go1, go2)
 
 	self.currentGas = self.currentGas + 20;
 	local t = go1:GetTransformComp();
-	EventManager:Get():PlaySFX(false, "Assets\\SFX\\pickup.mp3");
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\gastank2.mp3");
 	t:Translate(0, 0, 1000);
 	--go1:Destroy();
 end
@@ -600,7 +637,7 @@ TestPlayerAnimComp.OnPickupCoin = function(self, go1, go2)
 
 	self.currentCoins = self.currentCoins + 1;
 	local t = go1:GetTransformComp();
-	EventManager:Get():PlaySFX(false, "Assets\\SFX\\coin.mp3");
+	EventManager:Get():PlaySFX(false, "Assets\\SFX\\coin2.mp3");
 	t:Translate(0, 0, 1000);
 	--go1:Destroy();
 end
@@ -613,7 +650,7 @@ TestPlayerAnimComp.DashForward02 = function(self)
 	local xzFwd = Vector2.new(currFwd.x, currFwd.z);
 	xzFwd:normalize();
 	self.accel = self.accel + Vector3.new(mgt*xzFwd.x, elevation, mgt*xzFwd.y);
-	OutputPrint("DASHING\n");
+	--OutputPrint("DASHING\n");
 end
 
 
@@ -624,13 +661,14 @@ TestPlayerAnimComp.DashForward03 = function(self)
 	local xzFwd = Vector2.new(currFwd.x, currFwd.z);
 	xzFwd:normalize();
 	self.accel = self.accel + Vector3.new(mgt*xzFwd.x, elevation, mgt*xzFwd.y);
-	OutputPrint("DASHING\n");
+	--OutputPrint("DASHING\n");
 end
 
 
 TestPlayerAnimComp.EndDash = function(self) 
 	if (not self.falling) then
 		OutputPrint("END DASH!!!!!!!!!!!!!!!!!!!!!\n")
+		self.animComp:ForceResetTriggersAndFlag();
 		self.falling = true;
 		self.inDash = false;
 	else
@@ -837,30 +875,24 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	idle_State:SetTransition(atk03_State, 5.0, {"Upper"});
 	idle_State:SetTransition(jumpLoop_State, 5.0, {"Jump"});
 	idle_State:SetTransition(walk_State, 5.0, {"Walk"});
-	idle_State:SetTransition(crawl_State, 5.0, {"Crawl"});
 	idle_State:SetTransition(idle_State, 5.0, {"Land"});
 	idle_State:SetTransition(idle_State, 5.0, {"StopWalk"});-------////////********
 	idle_State:SetTransition(death_state, 5.0, {"Gameover"});-------////////********
 	
 	--Transitions from dash_state
 	dash_state:SetTransition(jumpLoop_State, 2.5, {});
+	--dash_state:SetTransition(death_state, 2.5, {"Gameover"});-------////////********
 
 	--Transitions from knock_state
 	knock_state:SetTransition(jumpLoop_State, 2.5, {});
-	
-	--Transitions from atk03_state
-	atk03_State:SetTransition(idle_State, 5.0, {});
-	atk03_State:SetTransition(walk_State, 5.0, {"Walk"});
-	atk03_State:SetTransition(atk03_State, 5.0, {"Upper"});
-	atk03_State:SetTransition(atk03_State, 5.0, {"Upper"});
-	atk03_State:SetTransition(jumpLoop_State, 5.0, {"Jump"});
-	atk03_State:SetTransition(crawl_State, 5.0, {"Crawl"});
 
 	--Transitions from Jumploop_State
 	jumpLoop_State:SetTransition(idle_State, 2.5, {"Land"});
 	jumpLoop_State:SetTransition(dash_state, 2.5, {"Dash"});
 	jumpLoop_State:SetTransition(knock_state, 2.5, {"Knockback"});
 	jumpLoop_State:SetTransition(death_state, 5.0, {"Gameover"});-------////////********
+	--jumpLoop_State:SetTransition(walk_State, 5.0, {"Walk"});-------////////********
+	--jumpLoop_State:SetTransition(idle_State, 2.5, {"StopWalk"});-------////////********
 
 	--Transitions from walk_State	
 	walk_State:SetTransition(idle_State, 5.0, {"StopWalk"});
@@ -882,32 +914,6 @@ TestPlayerAnimComp.AnimatorSetup = function(self)
 	self.animComp:AddAnimEvent("KickAnim", 20, {self, self.OnKickWhoosh});
 	self.animComp:AddAnimEvent("KickAnim", 54, {self, self.OnStep});
 	
-	--Animation events for kickAnim
-	--self.animComp:AddAnimEvent("CrawlAnim", 1, {self, self.OnCrawlPlaySFX});
-	self.animComp:AddAnimEvent("CrawlAnim", 2,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 4,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 6,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 8,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 10,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 12,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 14,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 16,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 18,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 20,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 22,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 24,  {self, self.CrawlForward});
-	--self.animComp:AddAnimEvent("CrawlAnim", 31, {self, self.OnCrawlPlaySFX});
-	self.animComp:AddAnimEvent("CrawlAnim", 32,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 34,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 36,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 38,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 40,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 42,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 44,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 46,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 48,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 50,  {self, self.CrawlForward});
-	self.animComp:AddAnimEvent("CrawlAnim", 52,  {self, self.CrawlForward});
 
 	--Dash Animation
 	self.animComp:AddAnimEvent("DashAnim", 1,  {self, self.DashForward02});
@@ -952,7 +958,7 @@ end
 
 TestPlayerAnimComp.TakeDamage = function(self, amount) 
 	
-	if (self.invulnerable) then 
+	if (self.invulnerable or self.dead) then 
 		return; 
 	end
 
@@ -961,7 +967,9 @@ TestPlayerAnimComp.TakeDamage = function(self, amount)
 	if (self.currentHP <= 0) then
 		self.death = true;
 		self.animComp:SetTrigger("Gameover");
-
+		self.totalDist = self.Meters;
+		--EventManager:Get():StopSong(false);
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\gameover2.mp3");
 		self.falling = true;-------------------***
 		self.OnTogglingScrolling();------------***
 	end

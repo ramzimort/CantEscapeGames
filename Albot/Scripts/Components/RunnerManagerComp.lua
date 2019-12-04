@@ -100,6 +100,9 @@ RunnerManagerComp.Update = function(self, dt, owner)
 	self.elapsedDist = self.elapsedDist + dt * self.scrollSpeed;
 	self.distanceSinceLastSpawn = self.distanceSinceLastSpawn + dt * self.scrollSpeed;
 
+	local playerComp = self.playerGO:GetCustomComp("TestPlayerAnimComp");
+	playerComp.Meters = self.elapsedDist;
+	
 	--Procedural stuff-----------------------------------------
 	if (self.distanceSinceLastSpawn >= 400.0) then
 		
@@ -113,10 +116,8 @@ RunnerManagerComp.Update = function(self, dt, owner)
 		OutputPrint("elapsedDist: " .. self.elapsedDist .. "\n");
 		self.distanceSinceLastSpawn = 0.0;
 	end
-	--Procedural stuff-----------------------------------------
 
-
-
+	
 	--Using scroll speed and list of objs, make them all scroll towards positive z axis
 	--Later, we can add a direction of scroll (for a more dynamic look)
 	--Also, acceleration can be added
@@ -139,7 +140,6 @@ RunnerManagerComp.Update = function(self, dt, owner)
 		end
 
 		--Move player
-		local playerComp = self.playerGO:GetCustomComp("TestPlayerAnimComp");
 		if (not playerComp.jumping and not playerComp.falling and not playerComp.flying) then 
 			--Basically, if grounded, move with the stage
 			local transform = self.playerGO:GetTransformComp();
@@ -312,10 +312,10 @@ RunnerManagerComp.Spawn_Obstacle_set = function(self, owner, zmin, zmax)
 	
 	local maxStageHalfDepth = 65;
 	local num = 3; -- Number of depth subdivissions
-	local deltaDepth = ( (zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 15) ) / num;
+	local deltaDepth = ( (zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 65) ) / num;
 
-	local i = 0;
-	while (i < num) do 
+	local i = 1;
+	while (i <= num) do 
 		local xr = Range(-50, 50);
 		local yr = Range(0, 50);
 		local zr = (zmin - maxStageHalfDepth - 65) - deltaDepth * i;

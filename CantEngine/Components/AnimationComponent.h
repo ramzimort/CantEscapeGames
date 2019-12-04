@@ -76,6 +76,8 @@ private:
 	void AddAnimEndEvent(std::string const& animName, sol::table entry);
 	void AddInterruptEvent(std::string const& animName, sol::table entry);
 
+	void ForceResetTriggersAndFlag();
+
 public:
 	//To compare when using templates
 	static ComponentId const static_type;

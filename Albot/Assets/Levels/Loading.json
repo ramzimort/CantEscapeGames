@@ -87,10 +87,10 @@
       "Scripts\\States\\Setting.lua",
       "Scripts\\States\\ShooterRailPrototype.lua",
       "Scripts\\States\\ThreadTest.lua",
-	   "Scripts\\Components\\UICameraProtoType1.lua",
-	  "Scripts\\Components\\UICameraProtoType2.lua",
-	   "Scripts\\Components\\UICameraProtoType3.lua",
-	"Scripts\\Components\\Slider.lua"
+	    "Scripts\\Components\\UICameraProtoType1.lua",
+	    "Scripts\\Components\\UICameraProtoType2.lua",
+	    "Scripts\\Components\\UICameraProtoType3.lua",
+	    "Scripts\\Components\\Slider.lua"
     ],
     "Prefabs": [
       "Assets\\Prefabs\\TestGoJose.json",

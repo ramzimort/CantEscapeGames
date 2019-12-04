@@ -641,6 +641,7 @@ void ScriptingManager::ManageBindings()
 		"SetTrigger", &AnimationComponent::SetTrigger,
 		"AddAnimEvent", &AnimationComponent::AddAnimEvent,
 		"AddAnimEndEvent", &AnimationComponent::AddAnimEndEvent,
+		"ForceResetTriggersAndFlag", &AnimationComponent::ForceResetTriggersAndFlag,
 		"AddInterruptEvent", &AnimationComponent::AddInterruptEvent
 	);
 

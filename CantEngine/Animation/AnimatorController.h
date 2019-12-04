@@ -349,6 +349,7 @@ public:
 	 * @param trigger 
 	 */
 	void SetTrigger(std::string const& trigger);
+	void ForceResetTriggersAndFlag();
 
 private:
 	/**
