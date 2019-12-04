@@ -5,7 +5,7 @@ ShootingPlayerLogic =
 	name = "ShootingPlayerLogic";
 	spawnGameobjPrefabDir = "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json";
 	maxCooldown = 5.0;
-	bulletSpeed = 1.5;
+	bulletSpeed = 1.0;
 	curHealth = 1.0;
 
 

@@ -40,7 +40,7 @@
       "Name": "Scripts\\Components\\ShootingPlayerLogic.lua",
       "Overrides": {
         "maxCooldown": 5.0,
-        "bulletSpeed": 1.0,
+        "bulletSpeed": 4.0,
         "curHealth": 2.0
       }
     },

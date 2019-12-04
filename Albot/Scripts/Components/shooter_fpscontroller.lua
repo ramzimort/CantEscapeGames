@@ -77,7 +77,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	position = position + strafe + forward;
 
 	local rotation = self.Rotation;
-	if (self.RIGHTCLICK) then
+	--if (self.RIGHTCLICK) then
 		rotation.x = -1.0*self.DeltaPositionY;
 		rotation.y = -1.0*self.DeltaPositionX;
 		self.DeltaPositionX = 0.0;
@@ -87,7 +87,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 		self.Rotation.x = 0.0;
 		self.Rotation.y = 0.0;
 		self.Rotation.z = 0.0;
-	end
+	--end
 	if(self.runGame ~= 1) then
 		self.Transform:SetLocalPosition(position.x, position.y, position.z);
 	end
