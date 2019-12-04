@@ -239,27 +239,26 @@ void ScriptingManager::ManageBindings()
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
-		(
-			"EventManager",
-			"Get", &EventManager::Get,
-			"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
-			// Resize Window Event
-			"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
+	(
+		"EventManager",
+		"Get", &EventManager::Get,
+		"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
+		// Resize Window Event
+		"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
 
 
-			// State Events
-			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+		// State Events
+		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+		"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+		"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+		"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
 
-			//Audio Events
-			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
-			);
-
-
-
+		//Audio Events
+		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>,
+		"StopSong", & EventManager::EnqueueEvent<StopSongEvent, bool>,
+		"SetVolume", &EventManager::EnqueueEvent<SetVolumeEvent, bool, float, int32_t>
+	);
 #pragma endregion
 
 #pragma region FONTTYPE

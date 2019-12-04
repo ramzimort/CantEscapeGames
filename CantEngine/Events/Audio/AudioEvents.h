@@ -14,6 +14,49 @@
 #include "Events/Multicast.h"
 #include "Helper/Hash.h"
 
+ /**
+  * @brief Stops a song
+  *
+  */
+class StopSongEvent : public Event<StopSongEvent>
+{
+public:
+	/**
+	 * @brief Stops current song.
+	 */
+	StopSongEvent() = default;
+	virtual ~StopSongEvent() = default;
+	virtual void operator()() {	}
+};
+
+/**
+ * @brief Stops a song
+ *
+ */
+class SetVolumeEvent : public Event<SetVolumeEvent>
+{
+public:
+	/**
+	 * @brief Sets current volume.
+	 */
+	SetVolumeEvent(float value, uint32_t channelId) : 
+		m_value(value), m_channelId(channelId) { };
+	virtual ~SetVolumeEvent() = default;
+	virtual void operator()() {	}
+
+	/**
+	* @brief New Volume
+	*
+	*/
+	float m_value;
+
+	/**
+	* @brief Channel (0: Master, 1: Music, 2: SFX)
+	*
+	*/
+	uint32_t m_channelId;
+};
+
 /**
  * @brief Plays a song
  * 
