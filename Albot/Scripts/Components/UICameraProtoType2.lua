@@ -58,7 +58,7 @@ UICameraProtoType2.Begin = function(self, owner, goMgr)
 	 if (self.HealthSliderLUA  == nil) then 
 		OutputPrint(">>> SliderComponent not found\n");
 	 end
-	
+	self.HealthSliderLUA:SetSliderValue(0.5);
 	
 	
 end
@@ -66,7 +66,7 @@ end
 --Update called every tick
 UICameraProtoType2.Update = function(self, dt, owner) 
 	
-	self.HealthSliderLUA:SetSliderValue(0.5);
+	
 	
 	
 end

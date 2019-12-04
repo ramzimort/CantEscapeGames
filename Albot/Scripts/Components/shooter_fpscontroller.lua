@@ -23,9 +23,12 @@ shooter_fpscontroller =
 	Camera = nil;
 	runGame = -1;
 	ownerGameObj = nil;
-	life = 10;
+	life = 15;
+	maxLife = 15;
 
 	isPlaySound = false;
+	healthSliderUIGameObj = nil;
+	healthSliderUILuaComp = nil;
 
 	-- Audio
 	--shootingSFX = "Assets\\SFX\\Jump.mp3"
@@ -50,6 +53,8 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
+	self.healthSliderUIGameObj = goMgr:FindGameObject("HealthSlider");
+	self.healthSliderUILuaComp = self.healthSliderUIGameObj:GetCustomComp("Slider");
 	EventManager.Get():PlaySong(false, "Assets\\Songs\\ShooterMusic.wav");
 	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
@@ -62,9 +67,12 @@ end
 
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
+	self.healthSliderUILuaComp:SetSliderValue(self.life / self.maxLife);
+	
 	if (self.life < 1.0) then
 		OutputPrint("GAME OVER!!!");
-		EventManager.Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
+		EventManager:Get():StopSong(false);
 		local world = EventManager.Get();
 		world:LoadState(false, "Assets\\Levels\\Menu.json");
 		self.life = 100; -- NOTE: until we restart level, REMOVE later (this is for sound not to loop over)
