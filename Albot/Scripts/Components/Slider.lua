@@ -88,9 +88,6 @@ end
 
 
 SlideScroller.OnDestruction = function(self)
-   	OnKeyEvent():Unbind({self, self.OnKey});
-	OnMouseMotion():Unbind({self, self.OnMouseMotion});
-	OnMouseClick():Unbind({self, self.OnMouseClick});
-	OnJoystickButton():Unbind({self, self.OnJoystickButton});
 end
+
 return SlideScroller;

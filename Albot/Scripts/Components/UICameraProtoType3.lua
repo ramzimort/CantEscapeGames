@@ -80,8 +80,8 @@ end
 --Update called every tick
 UICameraProtoType3.Update = function(self, dt, owner) 
 	
-	self.HealthSliderLUA:SetSliderValue(0.2);
-	self.GasSliderLUA:SetSliderValue(0.8);
+	--self.HealthSliderLUA:SetSliderValue(0.2);
+	--self.GasSliderLUA:SetSliderValue(0.8);
 	
 end
 
