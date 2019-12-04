@@ -194,7 +194,7 @@ end
 
 RunnerManagerComp.Spawn_Collectables_set = function(self, owner, zmin, zmax)
 	
-	local maxStageHalfDepth = 65;
+	local maxStageHalfDepth = 10;
 	local num = 4 + self.spawnAmountAdditionOffset;
 	local deltaDepth = ((zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 10)) / num;
 
@@ -307,7 +307,7 @@ end
 
 RunnerManagerComp.Spawn_Obstacle_set = function(self, owner, zmin, zmax)
 	
-	local maxStageHalfDepth = 65;
+	local maxStageHalfDepth = 10;
 	local num = 3 + self.spawnAmountAdditionOffset; -- Number of depth subdivissions
 	local deltaDepth = ( (zmin - maxStageHalfDepth - 65) - (zmax + maxStageHalfDepth + 65) ) / num;
 
