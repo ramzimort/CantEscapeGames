@@ -6,6 +6,7 @@ TestPlayerAnimComp =
 	
 	--Custom stuff
 	ownerGO = nil;
+	emitter = nil;
 	animComp = nil;
 	transformComp = nil;
 	rigidbodyComp = nil;
@@ -231,6 +232,7 @@ TestPlayerAnimComp.Begin = function(self, owner, goMgr)
 	self.transformComp = owner:GetTransformComp();
 	self.rigidbodyComp = owner:GetRigidbodyComp();
 	self.triggerComp = owner:GetTriggerComp();
+	self.emitter = owner:GetParticleEmitterComp();
 
 	--UI stuff
 	local gassliderGO = goMgr:FindGameObject("GasSlider");
@@ -303,7 +305,7 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 			---self.knockback = false;
 			self.OnTogglingScrolling();
 			self.animComp:ForceResetTriggersAndFlag();
-			---self.falling = true;
+			self.falling = true;
 			---self.transformComp:SetLocalRotation(self.originalRot.x, 0.0, self.originalRot.z);
 			OutputPrint("KNOCKBACK END!\n");
 			--if (self.readyForFlight) then OutputPrint(">>asd01\n"); end
@@ -398,11 +400,10 @@ TestPlayerAnimComp.Update = function(self, dt, owner)
 	end
 	
 	--Particle stuff
-	local emitter = owner:GetParticleEmitterComp();
 	if (self.flying or self.inDash) then 
-		emitter:SetEmitParticlesCount(10);
+		self.emitter:SetEmitParticlesCount(10);
 	else
-		emitter:SetEmitParticlesCount(0);
+		self.emitter:SetEmitParticlesCount(0);
 	end
 
 	--jumping time
@@ -536,6 +537,9 @@ TestPlayerAnimComp.OnEnterDeadzone = function(self, go01, go02)
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\gameover2.mp3");
 		-- TODO - add animation switch
 		self.animComp:SetTrigger("Gameover");
+		
+		self.emitter:SetEmitParticlesCount(0);
+
 		self.OnTogglingScrolling();
 		self.totalDist = self.Meters;
 		
@@ -568,6 +572,11 @@ TestPlayerAnimComp.Draw = function(self, dt, owner, renderer)
 		local msg = "Total distance achieved: " .. (self.totalDist//1) .. "!";
 		renderer:RegisterTextFontInstance(msg, FONT_TYPE.COURIER_NEW_BOLD, 
 			Vector2.new(0.23, 0.54), Vector3.new(1.0, 0.1, 0.0), Vector3.new(2.5, 2.5, 2.5), 0.0);
+	end
+
+	if (self.counter < 15) then 
+		renderer:RegisterTextFontInstance("START!", FONT_TYPE.COURIER_NEW_BOLD, 
+			Vector2.new(0.3, 0.4), Vector3.new(1.0, 0.5, 0.0), Vector3.new(5.0, 5.0, 5.0), 0.0);
 	end
 end
 
@@ -951,6 +960,7 @@ end
 
 
 TestPlayerAnimComp.OnDeathAnimEnd = function(self) 
+	EventManager:Get():StopSong(false);
 	local EventMgr = EventManager.Get();
 	EventMgr:LoadState(false, "Assets\\Levels\\Menu.json");
 end
@@ -968,6 +978,9 @@ TestPlayerAnimComp.TakeDamage = function(self, amount)
 		self.death = true;
 		self.animComp:SetTrigger("Gameover");
 		self.totalDist = self.Meters;
+		
+		self.emitter:SetEmitParticlesCount(0);
+
 		--EventManager:Get():StopSong(false);
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\gameover2.mp3");
 		self.falling = true;-------------------***
