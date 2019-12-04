@@ -2,21 +2,17 @@
 -- First approximation of a component script
 
 JoseController = 
-{
-	-- Rotation (Mouse/Joystick)
-	MousePositionX = 0;
-	MousePositionY = 0;
-	DeltaPositionX = 0;
-	DeltaPositionY = 0;
-	Rotation = Vector3.new(0.0);
-	RotationMultiplier = 10.0;
-	RotationSpeed = 10.0;
-	LEFTCLICK = false;
-	RIGHTCLICK = false;
-	RotationEnabled = true;
-	
+{	
+	initialZoom = 0.0;
+	idealZoom = 0.0;
+
+	initialPosition = Vector3.new(0.0);
 	movement_amount = Vector2.new(0.0);
 	MoveSpeed = 10.0;
+
+	ZoomInEnabled = false;
+	target = nil;
+	zoomSpeed = 0.0;
 
 	Transform = nil;
 	Camera = nil;
@@ -24,127 +20,56 @@ JoseController =
 
 --Init called when comp is created
 JoseController.Init = function(self)
-	OnKeyEvent():Bind({self, self.OnKey});
-	OnMouseMotion():Bind({self, self.OnMouseMotion});
-	OnMouseClick():Bind({self, self.OnMouseClick});
-	OnJoystickButton():Bind({self, self.OnJoystickButton});
-	OnJoystickMotion():Bind({self, self.OnJoystickMotion});
+end
+
+JoseController.ActivateSlowZoom = function(self, target)
+	self.ZoomInEnabled = true;
+	self.target = Vector3.new(target);
+	self.zoomSpeed = 0.5;
 end
 
 --Begin called when obj has all comps
 JoseController.Begin = function(self, owner, goMgr)
-	if (owner == nil) then
-		OutputPrint("ERROR, OWNER IS NIL\n");
-		return;
-	end
-
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
+	
+	self.initialPosition = Vector3.new(self.Transform:GetPosition());
 end
 
 --Update called every tick
 JoseController.Update = function(self, dt, owner) 
-	
-	local position = self.Transform:GetPosition();
-	local movement = self.movement_amount * self.MoveSpeed * dt;
-	local strafe = self.Camera:GetRight() * movement.x;
-	local forward = self.Camera:GetForward() * movement.y;
-	position = position + strafe + forward;
 
-	--Camera offset
-	local offset = Vector3.new(0, 20.0, 40.0);
-	local camPos = position + offset;
-	local lookDir = Vector3.new(-offset.x, -offset.y, -offset.z);
-	lookDir:normalize();
+	if (self.ZoomInEnabled) then 
+		--Camera offset
+		--local camPos = self.Camera:GetCameraPosition();
+		--local offset = self.target - camPos;
+		--local lookDir = Vector3.new(offset.x, offset.y, offset.z);
+		--lookDir:normalize();
+		--
+		----Calculate current dis
+		--local dist = offset:len();
+		--OutputPrint("Dist: " .. dist .. "\n");
+		--dist = dist - dt * self.zoomSpeed;
+		--camPos = self.target + Vector3.new(lookDir.x * dist, lookDir.y * dist, lookDir.z * dist);
+		--
+		----Translate the camera
+		--self.Camera:SetCameraPosition(camPos.x, camPos.y, camPos.z);
+		--self.Camera:SetLook(lookDir);
+	else
+		--Camera offset
+		local offset = Vector3.new(0, 30.0, 75.0);
+		local camPos = self.initialPosition + offset;
+		local lookDir = Vector3.new(-offset.x, -offset.y, -offset.z);
+		lookDir:normalize();
 
-	local rotation = self.Rotation;
-	if (self.LEFTCLICK) then
-		rotation.x = 1.0 * self.DeltaPositionY;
-		rotation.y = 1.0 * self.DeltaPositionX;
-		self.DeltaPositionX = 0.0;
-		self.DeltaPositionY = 0.0;
-		rotation = rotation * dt * self.RotationSpeed;
-		--self.Transform:Rotate(rotation.x, rotation.y, 0.0);
-	end
-
-	--Translate the camera
-	self.Camera:SetCameraPosition(camPos.x, camPos.y, camPos.z);
-	self.Camera:SetLook(lookDir);
-end
-
---Method
-JoseController.OnKey = function(self, key, state)
-	
-	local delta = 0.0;
-	if(state) then
-		delta = 3.0;
-	end
-	
-	if(SCANCODE.W == key) then
-		self.movement_amount.y = delta;
-	elseif(SCANCODE.S == key) then
-		self.movement_amount.y = -delta;
-	elseif(SCANCODE.A == key) then
-		self.movement_amount.x = -delta;
-	elseif(SCANCODE.D == key) then
-		self.movement_amount.x = delta;
+		--Translate the camera
+		self.Camera:SetCameraPosition(camPos.x, camPos.y, camPos.z);
+		self.Camera:SetLook(lookDir);
 	end
 end
 
-JoseController.OnMouseMotion = function(self, position, deltaposition)
-	self.MousePositionX = position.x;
-	self.MousePositionY = position.y;
-	self.DeltaPositionX = deltaposition.x;
-	self.DeltaPositionY = deltaposition.y;
-end
-
-JoseController.OnMouseClick = function(self, button, state)
-	if(button == 1) then
-		self.LEFTCLICK = state;
-	elseif(button == 2) then
-		self.RIGHTCLICK = state;
-	end
-end
-
-JoseController.OnJoystickButton = function(self, joystickId, button, state)
-	--if(button == CONTROLLER.LB and state) then
-	--	--nothing
-	--elseif(button == CONTROLLER.Select and state) then
-	--	local EventMgr = EventManager.Get();
-	--end
-end
-
-JoseController.OnJoystickMotion = function(self, joystickId, axis, value)
-	
-	if(value < 0.2 and value > -0.2) then
-		value = 0.0;
-	end;
-	
-	if(axis == 0) then
-		self.movement_amount.x = value;
-	end
-	
-	if(axis == 1) then
-		self.movement_amount.y = -1.0*value;
-	end
-	
-	if(self.RotationEnabled) then
-		if(axis == 3) then
-			self.Rotation.y = -1.0*self.RotationMultiplier*value;
-		end
-		if(axis == 4) then
-			self.Rotation.x = -1.0*self.RotationMultiplier*value;
-			--LOG("xRotation: " .. self.Rotation.x .. "\n");
-		end
-	end
-end
 
 JoseController.OnDestruction = function(self)
-	OnKeyEvent():Unbind({self, self.OnKey});
-	OnMouseMotion():Unbind({self, self.OnMouseMotion});
-	OnMouseClick():Unbind({self, self.OnMouseClick});
-	OnJoystickButton():Unbind({self, self.OnJoystickButton});
-	OnJoystickMotion():Unbind({self, self.OnJoystickMotion});
 end
 
 return JoseController;

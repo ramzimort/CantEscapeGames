@@ -1,0 +1,16 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 20.0, 2.0, 1.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\MaterialGreen.json",
+    "EnableRendering": true
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  }
+}

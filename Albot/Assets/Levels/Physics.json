@@ -61,52 +61,6 @@
           "Scale": [ 1.0, 1.0, 1.0 ],
           "Offset": [ 0.0, 0.0, 0.0 ],
           "CollisionMask": "PLAYER"
-        },
-
-        "AnimationComponent": {
-          "StartingAnimation": "IdleAnim",
-          "Clips": [
-            {
-              "name": "AttackAnim",
-              "path": "Assets/Models/TestAttack.fbx",
-              "loops": false
-            },
-            {
-              "name": "WalkAnim",
-              "path": "Assets\\Models\\Running.fbx",
-              "loops": true
-            },
-            {
-              "name": "UpperAnim",
-              "path": "Assets\\Models\\UpperAnim.fbx",
-              "loops": false
-            },
-            {
-              "name": "IdleAnim",
-              "path": "Assets\\Models\\TestIdle.fbx",
-              "loops": true
-            },
-            {
-              "name": "KickAnim",
-              "path": "Assets\\Models\\Kick.fbx",
-              "loops": false
-            },
-            {
-              "name": "CrawlAnim",
-              "path": "Assets\\Models\\Crawl.fbx",
-              "loops": true
-            },
-            {
-              "name": "JumpLoopAnim",
-              "path": "Assets\\Models\\JumpLoop.fbx",
-              "loops": true
-            },
-            {
-              "name": "JumpEndAnim",
-              "path": "Assets\\Models\\JumpEnd.fbx",
-              "loops": false
-            }
-          ]
         }
       }
     },

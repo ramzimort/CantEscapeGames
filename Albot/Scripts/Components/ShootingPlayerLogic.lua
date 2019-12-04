@@ -18,9 +18,17 @@ ShootingPlayerLogic =
 	rendererComp = nil;
 	ownerGameObj = nil;
 	--gun variables
-	onCooldown = false;
+	onCooldown = true;
 	cooldown = 0.0;
+
+	offsetProjectileY = 0.0;
+
+	xAxis = nil;
+	yAxis = nil;
+	zAxis = nil;
 	
+
+	finalOffsetProjectile = nil;
 
 	blinkingTime = 1.0;
 	curBlinkingTime = 0.0;
@@ -32,6 +40,10 @@ ShootingPlayerLogic =
 --Method
 --Init called when comp is created
 ShootingPlayerLogic.Init = function(self)
+	self.xAxis = Vector3.new(1.0, 0.0, 0.0);
+	self.yAxis = Vector3.new(0.0, 1.0, 0.0);
+	self.zAxis = Vector3.new(0.0, 0.0, 1.0);
+	self.finalOffsetProjectile = Vector3.new(0.0, self.offsetProjectileY, 0.0);
 end
 
 
@@ -83,6 +95,7 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 	local playerTransformComp = playerGameObj:GetTransformComp()
 	local playerPosition = playerTransformComp:GetPosition();
 	local pos = self.transformComp:GetPosition();
+	pos = pos + self.finalOffsetProjectile;
 
 	local dir = playerPosition - pos;
 	dir:normalize();
@@ -100,9 +113,13 @@ ShootingPlayerLogic.Update = function(self, dt, owner)
 		local projectileTransform = newSpawnedProjectile:GetTransformComp();
 		projectileTransform:SetLocalPosition(pos + dir);
 		local projectileRigidbody = newSpawnedProjectile:GetRigidbodyComp();
+
+		
+
 		local pojectileVelocity = dir * self.bulletSpeed;
 		projectileRigidbody:SetVelocity(pojectileVelocity);
 		self.onCooldown = true;
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienGunshot.ogg");
 	end
 end
 
@@ -114,6 +131,7 @@ end
 
 
 ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
+	
 	
 	local transform1 = gameObj1:GetTransformComp();
 	local transform2 = gameObj2:GetTransformComp();
@@ -128,6 +146,7 @@ ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	
 	if (collisionMask2 == CollisionMask.PLAYER_PROJ) then
+		EventManager.Get():PlaySFX(false, "Assets\\SFX\\AllienTakesDamage.wav");
 		self.curHealth = self.curHealth - 1;
 		self.curBlinkingTime = self.blinkingTime;
 		if(self.curHealth <= 0) then
@@ -137,6 +156,7 @@ ShootingPlayerLogic.OnEnter = function(self, gameObj1, gameObj2)
 				followCurvesPathComp:SetEnableMotionAlongPath(false);
 			end
 		end
+		
 	end
 
 	--PLAY SOUND

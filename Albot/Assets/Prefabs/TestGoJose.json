@@ -17,8 +17,24 @@
       "Far": 1000.0,
       "Position": [ 0.0, 0.0, 20.0 ],
       "CameraName": "Main",
-      "ZOrder": 0
+      "ZOrder": 0,
+	   "RenderObjectType": "Render_UI_And_Meshes"
     }
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 3.0, 7.0, 3.0 ],
+    "Offset": [ 0.0, 3.5, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1000.0,
+    "IsAsleep": 0,
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef": 0.2
   },
 
   "MeshComponent": {
@@ -29,8 +45,8 @@
     "StartingAnimation": "IdleAnim",
     "Clips": [
       {
-        "name": "AttackAnim",
-        "path": "Assets/Models/TestAttack.fbx",
+        "name": "KnockbackAnim",
+        "path": "Assets/Models/knockback.fbx",
         "loops": false
       },
       {
@@ -49,8 +65,8 @@
         "loops": true
       },
       {
-        "name": "KickAnim",
-        "path": "Assets\\Models\\Kick.fbx",
+        "name": "deathAnim",
+        "path": "Assets\\Models\\death.fbx",
         "loops": false
       },
       {
@@ -64,8 +80,8 @@
         "loops": true
       },
       {
-        "name": "JumpEndAnim",
-        "path": "Assets\\Models\\JumpEnd.fbx",
+        "name": "DashAnim",
+        "path": "Assets\\Models\\roll.fbx",
         "loops": false
       }
     ]
@@ -78,7 +94,7 @@
       }
     },
     {
-      "Name":"Scripts\\Components\\JoseController.lua",
+      "Name": "Scripts\\Components\\JoseController.lua",
       "Overrides": {
       }
     }

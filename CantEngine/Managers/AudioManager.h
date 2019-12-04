@@ -126,18 +126,28 @@ private:
 	void UnregisterSound(StringId id);
 
 private:
-	/**
-	 * @brief Event reaction to song request
-	 * 
-	 * @param e 
-	 */
 	void OnPlaySong(const PlaySongEvent* e);
-	/**
-	 * @brief Event reaction to SFX request
-	 * 
-	 * @param e 
-	 */
+	void OnStopSong(const StopSongEvent* e) { StopSong(); }
+	void OnSetMasterVolume(const SetVolumeEvent* e) 
+	{ 
+		switch (e->m_channelId)
+		{
+		case 0:
+			SetMasterVolume(e->m_value);
+			break;
+		case 1:
+			SetSongVolume(e->m_value);
+			break;
+		case 2:
+			SetSFXVolume(e->m_value);
+			break;
+		default:
+			assert(0);
+			break;
+		}
+	}
 	void OnPlaySFX(const PlaySFXEvent* e);
+
 	float Change_Semitone(float frequency, float pitch);
 private:
 	//void Load(Category type, const std::string& path);

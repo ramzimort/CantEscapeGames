@@ -72,7 +72,7 @@ const Vector3& RigidbodyComponent::GetVelocity() const
 
 void RigidbodyComponent::SetVelocity(const Vector3& velocity)
 {
-	m_velocity = velocity;
+    m_velocity = velocity;
 }
 
 const Vector3& RigidbodyComponent::GetAngularVelocity() const

@@ -35,7 +35,7 @@ namespace PhysicsUtils
 		//physics
 		const int maxPhysicsIterationsPerFrame = 1;
 		const float fixedTimeStep = 1.0f / (60.0f * maxPhysicsIterationsPerFrame);
-		const float fatteningFactor = 1.1f;
+		const float fatteningFactor = 1.0f;
 		const float gravity = -9.8f;
 		const float minMass = 0.000001f;
 		const float penetrationEpsilon = 0.001f;

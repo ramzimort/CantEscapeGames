@@ -61,9 +61,13 @@
       "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
       "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
       "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
-      "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg"
+      "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+			"Assets\\Textures\\UI\\SlideScrollerGreenBackGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerForeGround.png",
+			"Assets\\Textures\\UI\\SlideScrollerBackGround.png"
     ],
     "Models": [
+      "Assets\\Models\\gasTank.obj",
       "Assets\\Models\\AnimTest01.fbx",
       "Assets\\Models\\Cube.fbx",
       "Assets\\Models\\mitsuba-sphere.obj",
@@ -84,6 +88,8 @@
       "Assets\\Models\\warrok_w_kurniawan.fbx"
     ],
     "Materials": [
+      "Assets\\Materials\\MaterialGreen.json",
+      "Assets\\Materials\\MaterialBlue.json",
       "Assets\\Materials\\CeramicMaterial.json",
       "Assets\\Materials\\Material1.json",
       "Assets\\Materials\\MaterialDarkGreen.json",
@@ -112,16 +118,23 @@
       "Assets\\Materials\\RoughBrick22Material.json",
       "Assets\\Materials\\RoughMetalMaterial.json",
       "Assets\\Materials\\SmoothWoodMaterial.json",
-      "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+      "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+	  "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+	  "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+	  "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
     ],
     "Scripts": [
+      "Scripts\\Components\\JoseController.lua",
+      "Scripts\\Components\\TestPlayerAnimComp.lua",
+      "Scripts\\Components\\RunnerManagerComp.lua",
+      "Scripts\\Components\\RunnerObstacle1_Comp.lua",
+      "Scripts\\Components\\RunnerGround.lua",
+
       "Scripts\\Components\\UICameraMenu.lua",
       "Scripts\\Components\\Button.lua",
       "Scripts\\Components\\AffineAnimation.lua",
       "Scripts\\Components\\WindowResize.lua",
       "Scripts\\Components\\UICameraLoading.lua",
-      "Scripts\\Components\\TestPlayerAnimComp.lua",
-      "Scripts\\Components\\JoseController.lua",
       "Scripts\\Components\\fpscontroller.lua",
       "Scripts\\Components\\editor.lua",
       "Scripts\\Components\\PlayerComp.lua",
@@ -139,9 +152,22 @@
       "Scripts\\States\\Graphics.lua",
       "Scripts\\States\\Physics.lua",
       "Scripts\\States\\Menu.lua",
-      "Scripts\\States\\JoseLevel.lua"
+      "Scripts\\States\\JoseLevel.lua",
+	  "Scripts\\Components\\UICameraProtoType3.lua",
+	  "Scripts\\Components\\Slider.lua"
+	  
     ],
     "Prefabs": [
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\RunnerLevelManager.json",
+      "Assets\\Prefabs\\RunnerLevel_Ground.json",
+      "Assets\\Prefabs\\RunnerLevel_GroundBouncer.json",
+      "Assets\\Prefabs\\RunnerLevel_DeadZone.json",
+      "Assets\\Prefabs\\RunnerLevel_GAS.json",
+      "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
+      "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+
+      "Assets\\Prefabs\\RBTestObj.json",
       "Assets\\Prefabs\\brick_wall.json",
       "Assets\\Prefabs\\burning_mitsuba_sphere.json",
       "Assets\\Prefabs\\ceramic_floor.json",
@@ -153,9 +179,7 @@
       "Assets\\Prefabs\\mono_azul.json",
       "Assets\\Prefabs\\mono_rojo.json",
       "Assets\\Prefabs\\player.json",
-      "Assets\\Prefabs\\RBTestObj.json",
       "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "Assets\\Prefabs\\TestGoJose.json",
       "Assets\\Prefabs\\UIEmpty.json",
       "Assets\\Prefabs\\UIObject.json",
       "Assets\\Prefabs\\RBTestObjSphere.json",
@@ -175,7 +199,11 @@
       "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
       "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
       "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
-      "Assets\\Prefabs\\smooth_wood_plane.json"
+      "Assets\\Prefabs\\smooth_wood_plane.json",
+	  "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\SlideScroller.json",
+      "Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
+	  "Assets\\Prefabs\\Slider.json"
     ],
     "Songs": [
       "Assets\\Songs\\Main_Menu_2.mp3"
@@ -199,6 +227,18 @@
 
 
   "Objects": [
+    {
+      "tag": "LevelController",
+      "prefab": "Assets\\Prefabs\\RunnerLevelManager.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1.0, 1.0, 1.0 ]
+        }
+      }
+    },
+
     {
       "tag": "skybox",
       "prefab": "Assets\\Prefabs\\Skybox\\factory_skybox.json",
@@ -226,68 +266,56 @@
         }
       }
     },
+
     {
-      "tag": "Brick_Floor",
-      "prefab": "Assets\\Prefabs\\brick_wall.json",
+      "tag": "DeadZone",
+      "prefab": "Assets\\Prefabs\\RunnerLevel_DeadZone.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [
-            -25.0,
-            0.0,
-            0.0
-          ],
-          "Rotation": [
-            -90.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            25.0,
-            25.0,
-            1.0
-          ]
+          "Position": [ 0.0, -20.0, -400.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 200.0, 30.0, 1000.0 ]
         },
-        "RendererComponent": {
-          "MaterialId": "Assets\\Materials\\Red_Brick_Material.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
-        },
-        "MeshComponent": {
-          "ModelId": "Assets\\Models\\plane.fbx"
+        "TriggerComponent": {
+          "Scale": [ 200.0, 30.0, 1000.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "CollisionMask": "DINAMIC_OBJ"
         }
       }
     },
+
     {
-      "tag": "Ceramic_Floor",
-      "prefab": "Assets\\Prefabs\\ceramic_floor.json",
+      "tag": "Ground01",
+      "prefab": "Assets\\Prefabs\\RunnerLevel_Ground.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [
-            25.0,
-            0.0,
-            0.0
-          ],
-          "Rotation": [
-            -90.0,
-            0.0,
-            0.0
-          ],
-          "Scale": [
-            25.0,
-            25.0,
-            1.0
-          ]
+          "Position": [ 0.0, 0.0, -5.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 75.0, 10.0, 200.0 ]
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
-          "XTileFactor": 4.0,
-          "YTileFactor": 4.0
+          "XTileFactor": 10.0,
+          "YTileFactor": 40.0
+        },
+        "TriggerComponent": {
+          "Scale": [ 75.0, 15.0, 200.0 ],
+          "Offset": [ 0.0, 0.0, 0.0 ],
+          "CollisionMask": "DINAMIC_OBJ"
         },
         "MeshComponent": {
-          "ModelId": "Assets\\Models\\plane.fbx"
+          "ModelId": "Assets\\Models\\Cube.fbx"
+        },
+        "RigidBodyComponent": {
+          "IsEffectedByGravity": false,
+          "Velocity": [ 0.0, 0.0, 0.0 ],
+          "Mass": 3.3999999521443644e38,
+          "IsAsleep": 0,
+          "CollisionMask": "STATIC_OBJ"
         }
       }
     },
+
     {
       "tag": "directional_light01",
       "prefab": "Assets\\Prefabs\\Lights\\directional_light.json",
@@ -318,14 +346,15 @@
         }
       }
     },
+
     {
-      "tag": "Go_Jose01",
+      "tag": "Player",
       "prefab": "Assets\\Prefabs\\TestGoJose.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [ -1.0, 0.0, 1.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [ 0.05, 0.05, 0.05 ]
+          "Position": [ -1.0, 15.0, 1.0 ],
+          "Rotation": [ 0.0, 180.0, 0.0 ],
+          "Scale": [ 0.075, 0.075, 0.075 ]
         },
         "MeshComponent": {
           "ModelId": "Assets\\Models\\AnimTest01.fbx"
@@ -334,8 +363,8 @@
           "StartingAnimation": "IdleAnim",
           "Clips": [
             {
-              "name": "AttackAnim",
-              "path": "Assets/Models/TestAttack.fbx",
+              "name": "KnockbackAnim",
+              "path": "Assets/Models/knockback.fbx",
               "loops": false
             },
             {
@@ -354,8 +383,8 @@
               "loops": true
             },
             {
-              "name": "KickAnim",
-              "path": "Assets\\Models\\Kick.fbx",
+              "name": "deathAnim",
+              "path": "Assets\\Models\\death.fbx",
               "loops": false
             },
             {
@@ -369,11 +398,182 @@
               "loops": true
             },
             {
-              "name": "JumpEndAnim",
-              "path": "Assets\\Models\\JumpEnd.fbx",
+              "name": "DashAnim",
+              "path": "Assets\\Models\\roll2.fbx",
               "loops": false
             }
           ]
+        }
+      }
+    },
+	
+	{
+      "tag": "UIObject",
+	   "prefab":"Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+	 
+	   "RendererComponent": {
+			"MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+		},
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraProtoType3.lua"
+          }
+        ]
+      }
+    },
+		{
+      "tag": "HealthSlider",
+      "prefab": "Assets\\Prefabs\\Slider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 200, 25,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true,
+		  "Text": "Health",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ -0.1, -0.01 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+	{
+      "tag": "HealthSliderGreenBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  200, 25,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "HealthSliderForeGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 190, 23,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 165, 30, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "GasSlider",
+      "prefab": "Assets\\Prefabs\\Slider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 200, 60,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true,
+		  "Text": "Gas",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ -0.08, -0.01 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+	{
+      "tag": "GasSliderGreenBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  200, 60,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "GasSliderForeGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 190, 58,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 165, 30, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+
+    {
+      "tag": "GasBar",
+      "prefab": "Assets\\Prefabs\\RunnerLevel_GAS.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ -40.0, 44.0, 0.0 ]
         }
       }
     }

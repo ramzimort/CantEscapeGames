@@ -76,7 +76,7 @@ public:
 			catch (const sol::error& e)
 			{
 				const char *errorName = e.what();
-				DEBUG_LOG(errorName); //TODO - erase this
+  				DEBUG_LOG(errorName); //TODO - erase this
 			}
 		}
 	}

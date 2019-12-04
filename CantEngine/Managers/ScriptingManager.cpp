@@ -47,6 +47,11 @@ float Abs(float val)
 	return fabs(val);
 }
 
+int random(int min, int max) 
+{
+	return min + (rand() % (max - min));
+}
+
 void ScriptLog(const std::string& msg)
 {
 	DEBUG_LOG(msg.c_str());
@@ -95,6 +100,7 @@ ScriptingManager::ScriptingManager(ResourceManager* pResourcemanager, AppRendere
 		//Math helpers (cause std library of lua isn't working)
 		luaState["Acos"] = &MathAcos;
 		luaState["Abs"] = &Abs;
+		luaState["Range"] = &random;
 		
 		luaState.script_file("Scripts\\LuaGlobalSetups.lua");
 
@@ -233,27 +239,26 @@ void ScriptingManager::ManageBindings()
 
 	//Solution so scripting can access stuff, even though the rest of the engine cant
 	luaState.new_usertype<EventManager>
-		(
-			"EventManager",
-			"Get", &EventManager::Get,
-			"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
-			// Resize Window Event
-			"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
+	(
+		"EventManager",
+		"Get", &EventManager::Get,
+		"Quit", &EventManager::EnqueueEvent<QuitEvent, bool>,
+		// Resize Window Event
+		"SetWindowSize", &EventManager::EnqueueEvent <GameWindowSizeEvent, bool, int, int>,
 
 
-			// State Events
-			"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
-			"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
-			"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
-			"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
+		// State Events
+		"PushState", &EventManager::EnqueueEvent <PushStateEvent, bool, const std::string>,
+		"PopState", &EventManager::EnqueueEvent <PopStateEvent, bool>,
+		"LoadState", &EventManager::EnqueueEvent <LoadStateEvent, bool, const std::string>,
+		"PushLoadedState", &EventManager::EnqueueEvent <PushLoadedStateEvent, bool>,
 
-			//Audio Events
-			"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
-			"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>
-			);
-
-
-
+		//Audio Events
+		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
+		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>,
+		"StopSong", & EventManager::EnqueueEvent<StopSongEvent, bool>,
+		"SetVolume", &EventManager::EnqueueEvent<SetVolumeEvent, bool, float, int32_t>
+	);
 #pragma endregion
 
 #pragma region FONTTYPE
@@ -627,7 +632,9 @@ void ScriptingManager::ManageBindings()
 		),
 		"SetEntryState", &AnimationComponent::SetEntryState,
 		"SetTrigger", &AnimationComponent::SetTrigger,
-		"AddAnimEvent", &AnimationComponent::AddAnimEvent
+		"AddAnimEvent", &AnimationComponent::AddAnimEvent,
+		"AddAnimEndEvent", &AnimationComponent::AddAnimEndEvent,
+		"AddInterruptEvent", &AnimationComponent::AddInterruptEvent
 	);
 
 	//RIGIDBODY
@@ -638,9 +645,10 @@ void ScriptingManager::ManageBindings()
 		"SetVelocity", &RigidbodyComponent::SetVelocity,
 		"GetAngularVelocity", &RigidbodyComponent::GetAngularVelocity,
 		"SetAngularVelocity", &RigidbodyComponent::SetAngularVelocity,
-
 		"GetMass", &RigidbodyComponent::GetMass,
 		"SetMass", &RigidbodyComponent::SetMass,
+
+		"GetCollisionMask", &RigidbodyComponent::GetCollisionMask,
 		"OnCollision", &RigidbodyComponent::m_onCollision
 	);
 
@@ -648,14 +656,15 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<TriggerComponent>
 		(
 			"TriggerComponent",
-			"GetVelocity", &TriggerComponent::GetScale,
-			"SetVelocity", &TriggerComponent::SetScale,
+			"GetScale", &TriggerComponent::GetScale,
+			"SetScale", &TriggerComponent::SetScale,
 			"GetOffset", &TriggerComponent::GetOffset,
 			"SetOffset", &TriggerComponent::SetOffset,
 
-			"GetCollisionMask", & TriggerComponent::GetCollisionMask,
-			"OnEnter", & TriggerComponent::m_onEnter,
-			"OnExit", & TriggerComponent::m_onExit
+			"SetCollisionMask", &TriggerComponent::SetCollisionMask,
+			"GetCollisionMask", &TriggerComponent::GetCollisionMask,
+			"OnEnter", &TriggerComponent::m_onEnter,
+			"OnExit", &TriggerComponent::m_onExit
 			);
 
 	//RENDERER
@@ -713,7 +722,8 @@ void ScriptingManager::ManageBindings()
 		"SetLook", &Camera::SetLook,
 		"SetCameraPosition", sol::overload(
 			sol::resolve<void(Vector3 const&)>(&Camera::SetCameraPosition),
-			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition))
+			sol::resolve<void(float, float, float)>(&Camera::SetCameraPosition)),
+		"GetCameraPosition", &Camera::GetCameraPosition
 	);
 
 	luaState.new_usertype<ParticleEmitterComponent>
@@ -748,7 +758,8 @@ void ScriptingManager::ManageBindings()
 	luaState.new_usertype<Animation>
 	(
 		"Animation",
-		"AddAnimEvent", &Animation::AddAnimEvent
+		"AddAnimEvent", &Animation::AddAnimEvent,
+		"AddAnimEndEvent", &Animation::AddAnimEndEvent
 	);
 
 	luaState.new_usertype<AnimState>

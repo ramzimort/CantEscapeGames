@@ -73,6 +73,8 @@ private:
 
 	//Register animation events from the scripting
 	void AddAnimEvent(std::string const& animName, int tick, sol::table entry);
+	void AddAnimEndEvent(std::string const& animName, sol::table entry);
+	void AddInterruptEvent(std::string const& animName, sol::table entry);
 
 public:
 	//To compare when using templates

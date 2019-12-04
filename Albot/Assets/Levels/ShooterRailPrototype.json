@@ -1,170 +1,195 @@
 {
-    "Resources": {
-        "Textures": [
-            "Assets\\Textures\\Bricks\\Bricks22_col.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg",
-            "Assets\\Textures\\Campfire\\campfire_wood.jpg",
-            "Assets\\Textures\\floor.png",
-            "Assets\\Textures\\HexagonTiles\\Tiles72_col.jpg",
-            "Assets\\Textures\\HexagonTiles\\Tiles72_disp.jpg",
-            "Assets\\Textures\\HexagonTiles\\Tiles72_nrm.jpg",
-            "Assets\\Textures\\HexagonTiles\\Tiles72_rgh.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_col.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_disp.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_met.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_nrm.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_rgh.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
-            "Assets\\Textures\\NoReflectionMetal\\Metal09_col.jpg",
-            "Assets\\Textures\\NoReflectionMetal\\Metal09_disp.jpg",
-            "Assets\\Textures\\NoReflectionMetal\\Metal09_met.jpg",
-            "Assets\\Textures\\NoReflectionMetal\\Metal09_nrm.jpg",
-            "Assets\\Textures\\NoReflectionMetal\\Metal09_rgh.jpg",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
-            "Assets\\Textures\\Particles\\flare0.png",
-            "Assets\\Textures\\Particles\\flare1.png",
-            "Assets\\Textures\\redbrick.jpg",
-            "Assets\\Textures\\redbrick_height.jpg",
-            "Assets\\Textures\\redbrick_height_invert.jpg",
-            "Assets\\Textures\\redbrick_normal.jpg",
-            "Assets\\Textures\\RoughDoor\\DoorUV.png",
-            "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
-            "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-            "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
-            "Assets\\Textures\\SmoothMetal\\Metal12_col.jpg",
-            "Assets\\Textures\\SmoothMetal\\Metal12_disp.jpg",
-            "Assets\\Textures\\SmoothMetal\\Metal12_met.jpg",
-            "Assets\\Textures\\SmoothMetal\\Metal12_nrm.jpg",
-            "Assets\\Textures\\SmoothMetal\\Metal12_rgh.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg"
-        ],
-        "Models": [
-            "Assets\\Models\\AnimTest01.fbx",
-            "Assets\\Models\\bullet.fbx",
-            "Assets\\Models\\campfire.obj",
-            "Assets\\Models\\cone.fbx",
-            "Assets\\Models\\Cube.fbx",
-            "Assets\\Models\\english_knight.fbx",
-            "Assets\\Models\\ganfaul_m_aure.fbx",
-            "Assets\\Models\\Guns\\Cerberus_LP.fbx",
-            "Assets\\Models\\Lamp_Post_4.obj",
-            "Assets\\Models\\material_sphere.fbx",
-            "Assets\\Models\\mitsuba-sphere.obj",
-            "Assets\\Models\\mutant.fbx",
-            "Assets\\Models\\old_lantern.fbx",
-            "Assets\\Models\\peasant_man.fbx",
-            "Assets\\Models\\plane.fbx",
-            "Assets\\Models\\Sphere.fbx",
-            "Assets\\Models\\Spider.fbx",
-            "Assets\\Models\\Spider_Crawl.fbx",
-            "Assets\\Models\\swat_enemy.fbx",
-            "Assets\\Models\\TestWalk.fbx",
-            "Assets\\Models\\torus.fbx",
-            "Assets\\Models\\warrok_w_kurniawan.fbx"
-        ],
-        "Materials": [
-            "Assets\\Materials\\CampfireMaterial.json",
-            "Assets\\Materials\\HexagonTilesMaterial.json",
-            "Assets\\Materials\\Material1.json",
-            "Assets\\Materials\\MaterialDarkGreen.json",
-            "Assets\\Materials\\MetalCopperMaterial.json",
-            "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-            "Assets\\Materials\\NoReflectionMetalMaterial.json",
-            "Assets\\Materials\\OldLanternMaterial.json",
-            "Assets\\Materials\\RedDieletricRoughMaterial.json",
-            "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-            "Assets\\Materials\\RedMetallicSmoothMaterial.json",
-            "Assets\\Materials\\Red_Brick_Material.json",
-            "Assets\\Materials\\RoughBrick22Material.json",
-            "Assets\\Materials\\RoughDoorMaterial.json",
-            "Assets\\Materials\\RoughMetalMaterial.json",
-            "Assets\\Materials\\SmoothMetalMaterial.json",
-            "Assets\\Materials\\SmoothWhiteDiffuseWhiteSpecular.json",
-            "Assets\\Materials\\SmoothWoodMaterial.json",
-            "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
-            "Assets\\Materials\\YellowDiffuseYellowSpecularMaterial.json"
-        ],
-        "Scripts": [
-            "Scripts\\Components\\CerberusGunLogicComp.lua",
-            "Scripts\\Components\\fpscontroller.lua",
-            "Scripts\\Components\\PlayerComp.lua",
-            "Scripts\\Components\\PresentationParticleEmitOnce.lua",
-            "Scripts\\Components\\ProjectileLogic.lua",
-            "Scripts\\Components\\shooter_fpscontroller.lua",
-            "Scripts\\Components\\ShootingPlayerLogic.lua",
-            "Scripts\\Components\\SpawnedEnemyComp.lua",
-            "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
-            "Scripts\\Components\\SwatEnemyLogicComp.lua",
-            "Scripts\\States\\DebugPause.lua",
-            "Scripts\\States\\ShooterRailPrototype.lua"
-        ],
-        "Prefabs": [
-            "Assets\\Prefabs\\brick_wall.json",
-            "Assets\\Prefabs\\campfire.json",
-            "Assets\\Prefabs\\dummy_model.json",
-            "Assets\\Prefabs\\english_knight.json",
-            "Assets\\Prefabs\\factory_floor.json",
-            "Assets\\Prefabs\\factory_wall.json",
-            "Assets\\Prefabs\\factory_wall2.json",
-            "Assets\\Prefabs\\generic_plane.json",
-            "Assets\\Prefabs\\Guns\\cerberus_gun.json",
-            "Assets\\Prefabs\\Lantern\\old_lantern.json",
-            "Assets\\Prefabs\\Lantern\\tall_lantern.json",
-            "Assets\\Prefabs\\Lights\\directional_light.json",
-            "Assets\\Prefabs\\Lights\\point_light.json",
-            "Assets\\Prefabs\\lvleditor.json",
-            "Assets\\Prefabs\\material_sphere.json",
-            "Assets\\Prefabs\\mini_map.json",
-            "Assets\\Prefabs\\mitsuba_sphere.json",
-            "Assets\\Prefabs\\mono_azul.json",
-            "Assets\\Prefabs\\mono_rojo.json",
-            "Assets\\Prefabs\\player.json",
-            "Assets\\Prefabs\\Players\\shooter_player.json",
-            "Assets\\Prefabs\\Primitive_Shapes\\cone.json",
-            "Assets\\Prefabs\\Primitive_Shapes\\cube.json",
-            "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
-            "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
-            "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
-            "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json",
-            "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json",
-            "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json",
-            "Assets\\Prefabs\\RBTestObj.json",
-            "Assets\\Prefabs\\rough_door.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner6.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7a.json",
-            "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7b.json",
-            "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
-            "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
-            "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
-            "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-            "Assets\\Prefabs\\smooth_wood_plane.json",
-            "Assets\\Prefabs\\splinecurve.json"
-        ],
-        "Songs": [],
-        "SFX": []
-    },
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\Bricks\\Bricks22_col.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg",
+      "Assets\\Textures\\Campfire\\campfire_wood.jpg",
+      "Assets\\Textures\\floor.png",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_col.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_disp.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_nrm.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_rgh.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_col.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_disp.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_met.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_nrm.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_rgh.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_col.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_disp.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_met.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_nrm.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_rgh.jpg",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
+      "Assets\\Textures\\Particles\\flare0.png",
+      "Assets\\Textures\\Particles\\flare1.png",
+      "Assets\\Textures\\redbrick.jpg",
+      "Assets\\Textures\\redbrick_height.jpg",
+      "Assets\\Textures\\redbrick_height_invert.jpg",
+      "Assets\\Textures\\redbrick_normal.jpg",
+      "Assets\\Textures\\RoughDoor\\DoorUV.png",
+      "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
+      "Assets\\Textures\\SmoothMetal\\Metal12_col.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_disp.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_met.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_nrm.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_rgh.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+      "Assets\\Textures\\UI\\SlideScrollerGreenBackGround.png",
+      "Assets\\Textures\\UI\\SlideScrollerForeGround.png",
+      "Assets\\Textures\\UI\\SlideScrollerBackGround.png"
+    ],
+    "Models": [
+      "Assets\\Models\\AnimTest01.fbx",
+      "Assets\\Models\\bullet.fbx",
+      "Assets\\Models\\campfire.obj",
+      "Assets\\Models\\cone.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\english_knight.fbx",
+      "Assets\\Models\\ganfaul_m_aure.fbx",
+      "Assets\\Models\\Guns\\Cerberus_LP.fbx",
+      "Assets\\Models\\Lamp_Post_4.obj",
+      "Assets\\Models\\material_sphere.fbx",
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\mutant.fbx",
+      "Assets\\Models\\old_lantern.fbx",
+      "Assets\\Models\\peasant_man.fbx",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\Sphere.fbx",
+      "Assets\\Models\\Spider.fbx",
+      "Assets\\Models\\Spider_Crawl.fbx",
+      "Assets\\Models\\Spider_Running_Crawl.fbx",
+      "Assets\\Models\\Shooting_Rifle.fbx",
+      "Assets\\Models\\swat_enemy.fbx",
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\torus.fbx",
+      "Assets\\Models\\warrok_w_kurniawan.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\CampfireMaterial.json",
+      "Assets\\Materials\\HexagonTilesMaterial.json",
+      "Assets\\Materials\\Material1.json",
+      "Assets\\Materials\\MaterialDarkGreen.json",
+      "Assets\\Materials\\MetalCopperMaterial.json",
+      "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+      "Assets\\Materials\\NoReflectionMetalMaterial.json",
+      "Assets\\Materials\\OldLanternMaterial.json",
+      "Assets\\Materials\\RedDieletricRoughMaterial.json",
+      "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+      "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+      "Assets\\Materials\\Red_Brick_Material.json",
+      "Assets\\Materials\\RoughBrick22Material.json",
+      "Assets\\Materials\\RoughDoorMaterial.json",
+      "Assets\\Materials\\RoughMetalMaterial.json",
+      "Assets\\Materials\\SmoothMetalMaterial.json",
+      "Assets\\Materials\\SmoothWhiteDiffuseWhiteSpecular.json",
+      "Assets\\Materials\\SmoothWoodMaterial.json",
+      "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+      "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+      "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+      "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json",
+
+      "Assets\\Materials\\YellowDiffuseYellowSpecularMaterial.json"
+    ],
+    "Scripts": [
+      "Scripts\\Components\\CerberusGunLogicComp.lua",
+      "Scripts\\Components\\fpscontroller.lua",
+      "Scripts\\Components\\PlayerComp.lua",
+      "Scripts\\Components\\PresentationParticleEmitOnce.lua",
+      "Scripts\\Components\\ProjectileLogic.lua",
+      "Scripts\\Components\\shooter_fpscontroller.lua",
+      "Scripts\\Components\\ShootingPlayerLogic.lua",
+      "Scripts\\Components\\SpawnedEnemyComp.lua",
+      "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+      "Scripts\\Components\\SwatEnemyLogicComp.lua",
+      "Scripts\\States\\DebugPause.lua",
+      "Scripts\\States\\ShooterRailPrototype.lua",
+      "Scripts\\Components\\UICameraPrototype2.lua",
+      "Scripts\\Components\\Slider.lua"
+    ],
+    "Prefabs": [
+      "Assets\\Prefabs\\brick_wall.json",
+      "Assets\\Prefabs\\campfire.json",
+      "Assets\\Prefabs\\dummy_model.json",
+      "Assets\\Prefabs\\english_knight.json",
+      "Assets\\Prefabs\\factory_floor.json",
+      "Assets\\Prefabs\\factory_wall.json",
+      "Assets\\Prefabs\\factory_wall2.json",
+      "Assets\\Prefabs\\generic_plane.json",
+      "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+      "Assets\\Prefabs\\Lantern\\old_lantern.json",
+      "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+      "Assets\\Prefabs\\Lights\\directional_light.json",
+      "Assets\\Prefabs\\Lights\\point_light.json",
+      "Assets\\Prefabs\\lvleditor.json",
+      "Assets\\Prefabs\\material_sphere.json",
+      "Assets\\Prefabs\\mini_map.json",
+      "Assets\\Prefabs\\mitsuba_sphere.json",
+      "Assets\\Prefabs\\mono_azul.json",
+      "Assets\\Prefabs\\mono_rojo.json",
+      "Assets\\Prefabs\\player.json",
+      "Assets\\Prefabs\\Players\\shooter_player.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\cone.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\cube.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
+      "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json",
+      "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\rough_door.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner6.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "Assets\\Prefabs\\smooth_wood_plane.json",
+      "Assets\\Prefabs\\splinecurve.json",
+      "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\SlideScroller.json",
+      "Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
+      "Assets\\Prefabs\\Slider.json"
+    ],
+    "Songs": [
+      "Assets\\Songs\\ShooterMusic.wav"
+    ],
+    "SFX": [
+      "Assets\\SFX\\AllienGunshot.ogg",
+      "Assets\\SFX\\AllienTakesDamage.wav",
+      "Assets\\SFX\\BulletsCollides.ogg",
+      "Assets\\SFX\\Gunshot.wav",
+      "Assets\\SFX\\PlayerDies.wav",
+      "Assets\\SFX\\PlayerGunshot.wav",
+      "Assets\\SFX\\PlayerTakesDamage.wav"
+    ]
+  },
     "Objects": [
         {
             "tag": "",
@@ -2595,11 +2620,11 @@
                             "y": 0.0,
                             "z": 0.0
                         },
-                        {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
+                      {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                      },
                         {
                             "x": 0.0,
                             "y": 0.0,
@@ -4812,6 +4837,93 @@
                     }
                 }
             }
-        }
+        },
+		{
+      "tag": "UIObject",
+	   "prefab":"Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+	 
+	   "RendererComponent": {
+			"MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
+		},
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraPrototype2.lua"
+          }
+        ]
+      }
+    },
+		{
+      "tag": "HealthSlider",
+      "prefab": "Assets\\Prefabs\\Slider.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 200, 25,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true,
+		  "Text": "Health",
+			"TextFont": "Courier_New_Bold",
+			"TextPosition": [ -0.1, -0.01 ],
+			"TextRotation": 0.0,
+			"TextScale": [ 1.7, 1.7, 1.7 ],
+			"TextColor": [ 1.0, 1.0, 0.0 ] 		
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+
+	{
+      "tag": "HealthSliderGreenBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  200, 25,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [  150, 25, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "HealthSliderForeGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 190, 23,0  ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 165, 30, 1 ]
+        },
+		"UIComponent": {
+			 "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0,
+		  "Enabled": true
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json"
+		}		
+		
+      }
+    }
     ]
 }

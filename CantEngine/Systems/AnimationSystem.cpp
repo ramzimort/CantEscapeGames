@@ -99,7 +99,10 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 
 		//ANIMATION END MANAGEMENT
 		if (animTime > animation->duration)
+		{
+			animation->onAnimEndEvent();
 			animator->AnimationEnd(currentState);
+		}
 	}
 	else if (currentState->isInTransition)
 	{
@@ -165,7 +168,7 @@ void AnimationSystem::Update(float dt, BaseSystemCompNode *compNode)
 	//At the end of the frame, animator
 	//should clean up the trigger stuff
 	animator->CheckForTransitionChanges();
-	//animator->FrameEndCleanUp();
+	animator->FrameEndCleanUp();
 }
 
 

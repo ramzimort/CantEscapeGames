@@ -16,6 +16,13 @@ CerberusGunLogicComp =
 	cooldown = 0.0;
 	maxCooldown = 0.2;
 	bulletSpeed = 50.0;
+
+	timeGoingUp = 0.1;
+	timeGoingDown = 0.1;
+	elapTimeGoingRotation = 0.0;
+
+	targetXRotationUp = -77.5;
+	targetXRotationDown = -90; 
 };
 --Init called when obj has all comps
 CerberusGunLogicComp.Init  = function(self)
@@ -55,9 +62,33 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 	local cameraForward = self.playerCamera:GetForward();
 	local cameraRight = self.playerCamera:GetRight();
 
-	local basisUp = PiecewiseProd(self.positionRelativeToPlayer, cameraUp);
-	local basisForward = PiecewiseProd(self.positionRelativeToPlayer, cameraForward);
-	local basisRight = PiecewiseProd(self.positionRelativeToPlayer, cameraRight);
+	if (self.onCooldown) then
+		local previousStuff = false;
+		if(self.elapTimeGoingRotation <= self.timeGoingUp) then
+			local diffAngle = self.targetXRotationUp - self.targetXRotationDown;
+			local angularSpeed = diffAngle / self.timeGoingUp;
+			self.currentRotationVector.x = self.currentRotationVector.x + (angularSpeed * dt);
+			previousStuff = true;
+		elseif(self.elapTimeGoingRotation <= (self.timeGoingUp + self.timeGoingDown)) then
+			local diffAngle = self.targetXRotationDown - self.targetXRotationUp;
+			local angularSpeed = diffAngle / self.timeGoingDown;
+			self.currentRotationVector.x = self.currentRotationVector.x + (angularSpeed * dt);
+		end
+		
+		self.cooldown = self.cooldown + dt;
+		self.elapTimeGoingRotation = self.elapTimeGoingRotation + dt;
+		if (self.cooldown > self.maxCooldown) then
+			self.cooldown = 0.0
+			self.onCooldown = false
+		end
+		
+		if(previousStuff == true and self.elapTimeGoingRotation >= self.timeGoingUp) then
+			self.currentRotationVector.x =self.targetXRotationUp;
+		elseif(self.elapTimeGoingRotation >= (self.timeGoingUp + self.timeGoingDown)) then
+			self.currentRotationVector.x =self.targetXRotationDown;
+		end
+
+	end
 
 	local ownerRelativeTranslationMatrix = CreateTranslation(self.positionRelativeToPlayer);
 	local ownerRotationMatrix = CreateRotationMatrixFromDegrees(self.currentRotationVector.x, 
@@ -73,13 +104,7 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 	local cameraDegRotationVector = MatrixToDegreeEulerAngles(invViewMatrix);
 	self.transformComp:SetLocalRotationMatrix(newRotationMatrix)
 
-	if (self.onCooldown) then
-		self.cooldown = self.cooldown + dt;			
-		if (self.cooldown > self.maxCooldown) then
-			self.cooldown = 0.0
-			self.onCooldown = false
-		end
-	end
+	
 
 	if (self.LEFTCLICK) then
 		if (not self.onCooldown) then
@@ -92,7 +117,9 @@ CerberusGunLogicComp.Update = function(self, dt, owner)
 			local pojectileVelocity = cameraForward * self.bulletSpeed;
 			projectileRigidbody:SetVelocity(pojectileVelocity);
 			self.onCooldown = true;
-
+			self.elapTimeGoingRotation = 0.0;
+			
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerGunshot.wav");
 			--SHAKE THE GUN HERE
 
 		end

@@ -23,7 +23,19 @@ shooter_fpscontroller =
 	Camera = nil;
 	runGame = -1;
 	ownerGameObj = nil;
-	life = 10;
+	life = 15;
+	maxLife = 15;
+
+	isPlaySound = false;
+	healthSliderUIGameObj = nil;
+	healthSliderUILuaComp = nil;
+
+	-- Audio
+	--shootingSFX = "Assets\\SFX\\Jump.mp3"
+	--walking = "Assets\\SFX\\Step.mp3"
+	-- takingDamage =  "Assets\\SFX\\Jump.mp3"
+	--loose = "Assets\\SFX\\Jump.mp3"
+	--win = "Assets\\SFX\\Jump.mp3"
 }
 
 --Init called when comp is created
@@ -41,6 +53,9 @@ shooter_fpscontroller.Begin = function(self, owner, goMgr)
 		OutputPrint("ERROR, OWNER IS NIL\n");
 		return;
 	end
+	self.healthSliderUIGameObj = goMgr:FindGameObject("HealthSlider");
+	self.healthSliderUILuaComp = self.healthSliderUIGameObj:GetCustomComp("Slider");
+	EventManager.Get():PlaySong(false, "Assets\\Songs\\ShooterMusic.wav");
 	self.ownerGameObj = owner;
 	self.Transform = owner:GetTransformComp();
 	self.Camera = owner:GetCameraComp():GetCamera();
@@ -52,10 +67,17 @@ end
 
 --Update called every tick
 shooter_fpscontroller.Update = function(self, dt, owner) 
+	self.healthSliderUILuaComp:SetSliderValue(self.life / self.maxLife);
+	
 	if (self.life < 1.0) then
 		OutputPrint("GAME OVER!!!");
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
+		EventManager:Get():StopSong(false);
+		local world = EventManager.Get();
+		world:LoadState(false, "Assets\\Levels\\Menu.json");
+		self.life = 100; -- NOTE: until we restart level, REMOVE later (this is for sound not to loop over)
 	end
-
+	
 	local position = self.Transform:GetPosition();
 	local movement = self.movement_amount * self.MoveSpeed * dt;
 	local strafe = self.Camera:GetRight() * movement.x;
@@ -94,9 +116,9 @@ shooter_fpscontroller.OnEnter = function(self, gameObj1, gameObj2)
 	local collisionMask2 = triggerComp2:GetCollisionMask();
 	if (collisionMask2 == CollisionMask.ENEMY_PROJ) then
 		self.life = self.life - 1;
+		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerTakesDamage.wav");
 	end
 
-	--PLAY SOUND
 	--SPAWN PARTICLES
 end
 
@@ -118,6 +140,8 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		self.movement_amount.x = -1.0*delta;
 	elseif(SCANCODE.D == key) then
 		self.movement_amount.x = delta;
+	elseif(SCANCODE.L == key) then
+		self.life = 0;
 	elseif(SCANCODE.Z == key and state ~= true) then
 		self.runGame = self.runGame * -1;
 		local followPathCurvesComp = self.ownerGameObj:GetFollowCurvesPathComp();
@@ -156,6 +180,13 @@ shooter_fpscontroller.OnDestruction = function(self)
 end
 
 shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)
+	local cameraForward = self.Camera:GetForward();
+	cameraForward = Vector3.new(cameraForward.x, 0.0, cameraForward.z);
+	local offset = cameraForward * 25.0;
+	local position = self.Transform:GetPosition();
+	position = Vector3.new(position.x, 0.0, position.z);
+	local finalFocusPos = position + offset;
+	appRenderer:GetMomentShadowMap():SetFocusPoint(finalFocusPos);
 	--how to draw text, if this fail that means no Fonts resource is loaded
 	--appRenderer:RegisterTextFontInstance("Shooter fps controller", FONT_TYPE.COURIER_NEW, 
 		--Vector2.new(0.0, 0.0), Vector3.new(1.0, 1.0, 0.0), Vector3.new(1.0, 1.0, 1.0), 0.0);

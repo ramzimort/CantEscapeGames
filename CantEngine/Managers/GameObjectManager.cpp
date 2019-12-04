@@ -34,6 +34,10 @@ GameObjectManager::~GameObjectManager()
 	//If the goMgr is getting destroyed, it forcefully destroys all gameObjs too
 	for (auto &node : m_gameObjects) 
 	{
+		if (node.second == nullptr)
+		{
+			continue;
+		}
 		const auto& it = m_taggedGameObjs.find(node.second->GetTag());
 		if (it != m_taggedGameObjs.end())
 			m_taggedGameObjs.erase(it);
