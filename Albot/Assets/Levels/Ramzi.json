@@ -2364,7 +2364,13 @@
           "InitialPosition": [ 0, 0, 0 ],
           "FinalPosition": [ 0, 0, 0 ],
           "DeltaTime": -1.0,
-          "Enabled": false
+          "Enabled": false,
+          "Text": "Hint: Press B to Prone",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.04, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\UI\\ProtoType1_BackgroundImage_1.json"
@@ -2384,7 +2390,13 @@
           "InitialPosition": [ 0, 0, 0 ],
           "FinalPosition": [ 0, 0, 0 ],
           "DeltaTime": -1.0,
-          "Enabled": false
+          "Enabled": false,
+          "Text": "Hint: Press X to Interact",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.04, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
         },
         "RendererComponent": {
           "MaterialId": "Assets\\Materials\\UI\\ProtoType1_BackgroundImage_2.json"

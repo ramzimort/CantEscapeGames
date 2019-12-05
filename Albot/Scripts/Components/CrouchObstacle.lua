@@ -51,7 +51,7 @@ CrouchObstacle.OnEnter = function(self, gameObj1, gameObj2)
 
 	if (gameObj2:GetTag() == "PlayerCube") then
 		self.Player.nearCrouch = true;
-		self.UIObjectLUA:EnableImage(1);
+		self.UIObjectLUA:EnableImage(0);
 	end
 end
 
@@ -65,7 +65,7 @@ CrouchObstacle.OnExit = function(self, gameObj1, gameObj2)
 
 	if (gameObj2:GetTag() == "PlayerCube") then
 		self.Player.nearCrouch = false;
-		self.UIObjectLUA:DisableImage(1);
+		self.UIObjectLUA:DisableImage(0);
 	end
 end
 
