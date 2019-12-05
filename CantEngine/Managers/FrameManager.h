@@ -19,7 +19,7 @@ public:
 	 * 
 	 * @param maxFrameRate 
 	 */
-	FrameManager(unsigned int maxFrameRate = 144);
+	FrameManager(unsigned int maxFrameRate = 60);
 	~FrameManager();
 	/**
 	 * @brief Call at the start of the frame to begin timing
