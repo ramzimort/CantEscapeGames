@@ -116,7 +116,7 @@ void AudioManager::Update(float dt)
 		{
 			currentSong->stop();
 			currentSong = 0;
-			currentSongPath = 0;
+			currentSongPath = "";
 			fade = FADE_NONE;
 		}
 		else
@@ -127,7 +127,7 @@ void AudioManager::Update(float dt)
 	else if (currentSong == 0 && !(nextSongPath == 0))
 	{
 		PlaySong(nextSongPath);
-		nextSongPath = 0;
+		nextSongPath = "";
 	}
 	mp_system->update();
 	//// Cheat Code for Audio
@@ -200,7 +200,7 @@ void AudioManager::StopSong()
 {
 	if (currentSong != 0)
 		fade = FADE_OUT;
-	nextSongPath = 0;
+	nextSongPath = "";
 }
 
 void AudioManager::PauseSong()

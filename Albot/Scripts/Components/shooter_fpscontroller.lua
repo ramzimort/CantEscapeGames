@@ -72,7 +72,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	if (self.life < 1.0) then
 		OutputPrint("GAME OVER!!!");
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
-		EventManager:Get():StopSong(false);
+		--EventManager:Get():StopSong(false);
 		local world = EventManager.Get();
 		world:LoadState(false, "Assets\\Levels\\Menu.json");
 		self.life = 100; -- NOTE: until we restart level, REMOVE later (this is for sound not to loop over)

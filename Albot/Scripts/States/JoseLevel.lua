@@ -10,14 +10,12 @@ JoseLevel =
 JoseLevel.OnCreateState = function(self)
 	local EventMgr = EventManager.Get();
 	EventMgr:PushLoadedState(false);
-	EventManager:Get():PlaySong(false, "Assets\\Songs\\runner.mp3");
+	EventMgr:PlaySong(false, "Assets\\Songs\\runner.mp3");
 end
 
 
 --YOU CAN ADD LOCAL METHODS LIKE THIS ONE
 JoseLevel.OnExitState = function(self) 
-	--Stop song for level
-	EventManager:Get():StopSong(false);
 end
 
 

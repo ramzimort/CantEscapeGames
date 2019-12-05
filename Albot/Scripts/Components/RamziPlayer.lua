@@ -76,6 +76,7 @@ RamziPlayer.Begin = function(self, owner, goMgr)
 
 	--Setup of the state machine
 	self:AnimatorSetup();
+	EventManager.Get():PlaySong(false, "Assets\\Songs\\Techno_3.mp3");
 end
 
 RamziPlayer.OnDestruction = function(self)

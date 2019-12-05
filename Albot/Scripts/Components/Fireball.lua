@@ -8,8 +8,9 @@ Fireball =
 	triggerComp = nil;
 	Player = nil;
 
-	moveSpeed = Vector3.new(0.0, 0.0, 4.0);
+	moveSpeed = Vector3.new(0.0, 0.0, 6.0);
 	enabled = false;
+	songPlayed = false;
 }
 
 Fireball.Init = function(self)
@@ -26,11 +27,15 @@ end
 
 Fireball.Update = function(self, dt, owner) 
 	if(self.enabled) then
+		if(not self.songPlayed) then
+			EventManager.Get():PlaySong(false, "Assets\\Songs\\Fight_Techno_2.mp3");
+		end
 		local position = self.transformComp:GetPosition();
 		local newPosition = position + self.moveSpeed*dt;
 		self.transformComp:SetLocalPosition(newPosition);
 		if(position.z > -35) then 
 			self.enabled = false;
+			EventManager.Get():PlaySong(false, "Assets\\Songs\\Techno_3.mp3");
 		end
 	end
 end
