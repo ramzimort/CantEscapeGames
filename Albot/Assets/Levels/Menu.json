@@ -1,278 +1,415 @@
 {
-	"Resources": {
-        "Textures": [
-            "Assets\\Textures\\ceramic_diffuse.jpg",
-            "Assets\\Textures\\ceramic_height.jpg",
-            "Assets\\Textures\\ceramic_normal.jpg",
-            "Assets\\Textures\\floor.png",
-            "Assets\\Textures\\Particles\\flare0.png",
-            "Assets\\Textures\\redbrick.jpg",
-            "Assets\\Textures\\redbrick_height.jpg",
-            "Assets\\Textures\\redbrick_height_invert.jpg",
-            "Assets\\Textures\\redbrick_normal.jpg",
-            "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
-            "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
-            "Assets\\Textures\\UI\\CantEscapeGameLogo.png",
-            "Assets\\Textures\\UI\\CreditsButton.png",
-            "Assets\\Textures\\UI\\UIBackGroundImage.png",
-            "Assets\\Textures\\UI\\ExitButton.png",
-            "Assets\\Textures\\UI\\Level1Button.png",
-			"Assets\\Textures\\UI\\SettingsButton.png",
-			"Assets\\Textures\\UI\\MainMenu.png",
-			"Assets\\Textures\\UI\\Button.png",
-			"Assets\\Textures\\UI\\AnimationsButton.png",
-			"Assets\\Textures\\UI\\GraphicsButton.png",
-			"Assets\\Textures\\UI\\PhysicsButton.png",
-			"Assets\\Textures\\Bricks\\Bricks22_col.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
-            "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg",
-            "Assets\\Textures\\Campfire\\campfire_wood.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_col.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_disp.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_met.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_nrm.jpg",
-            "Assets\\Textures\\MetalCopper\\Metal07_rgh.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
-            "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
-            "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
-            "Assets\\Textures\\Particles\\flare1.png",
-            "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
-            "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
-            "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg"
-        ],
-        "Models": [
-            "Assets\\Models\\AnimTest01.fbx",
-            "Assets\\Models\\Cube.fbx",
-            "Assets\\Models\\mitsuba-sphere.obj",
-            "Assets\\Models\\plane.fbx",
-            "Assets\\Models\\Sphere.fbx",
-            "Assets\\Models\\campfire.obj",
-            "Assets\\Models\\cone.fbx",
-            "Assets\\Models\\english_knight.fbx",
-            "Assets\\Models\\ganfaul_m_aure.fbx",
-            "Assets\\Models\\Lamp_Post_4.obj",
-            "Assets\\Models\\material_sphere.fbx",
-            "Assets\\Models\\mutant.fbx",
-            "Assets\\Models\\old_lantern.fbx",
-            "Assets\\Models\\peasant_man.fbx",
-            "Assets\\Models\\TestWalk.fbx",
-            "Assets\\Models\\tetrahedron.fbx",
-            "Assets\\Models\\torus.fbx",
-            "Assets\\Models\\warrok_w_kurniawan.fbx"
-        ],
-      "Materials": [
-        "Assets\\Materials\\CeramicMaterial.json",
-        "Assets\\Materials\\Material1.json",
-		"Assets\\Materials\\UI\\ButtonMaterial.json",
-        "Assets\\Materials\\MaterialDarkGreen.json",
-        "Assets\\Materials\\RedDieletricRoughMaterial.json",
-        "Assets\\Materials\\RedDieletricSmoothMaterial.json",
-        "Assets\\Materials\\RedMetallicSmoothMaterial.json",
-        "Assets\\Materials\\Red_Brick_Material.json",
-        "Assets\\Materials\\MetalCopperMaterial.json",
-        "Assets\\Materials\\MyMaterial.json",
-        "Assets\\Materials\\MainMenuButtonMaterial.json",
-        "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json",
-        "Assets\\Materials\\UI\\CreditsButtonMaterial.json",
-        "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
-        "Assets\\Materials\\UI\\ExitButtonMaterial.json", 
-        "Assets\\Materials\\UI\\SettingsButtonMaterial.json",
-        "Assets\\Materials\\UI\\AnimationsButtonMaterial.json",
-        "Assets\\Materials\\UI\\GraphicsButtonMaterial.json",
-		"Assets\\Materials\\UI\\PhysicsButtonMaterial.json",
-		"Assets\\Materials\\CampfireMaterial.json",
-		"Assets\\Materials\\ModerateSmoothMetalMaterial.json",
-		"Assets\\Materials\\OldLanternMaterial.json",
-		"Assets\\Materials\\RoughBrick22Material.json",
-		"Assets\\Materials\\RoughMetalMaterial.json",
-		"Assets\\Materials\\SmoothWoodMaterial.json",
-		"Assets\\Materials\\WhiteDiffuseWhiteSpecular.json"
-      ],
-      "Scripts": [
-		
-      ],
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\Bricks\\Bricks22_col.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
+      "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg",
+      "Assets\\Textures\\Campfire\\campfire_wood.jpg",
+      "Assets\\Textures\\ceramic_diffuse.jpg",
+      "Assets\\Textures\\ceramic_height.jpg",
+      "Assets\\Textures\\ceramic_normal.jpg",
+      "Assets\\Textures\\floor.png",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_col.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_disp.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_nrm.jpg",
+      "Assets\\Textures\\HexagonTiles\\Tiles72_rgh.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_col.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_disp.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_met.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_nrm.jpg",
+      "Assets\\Textures\\MetalCopper\\Metal07_rgh.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_col.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_disp.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_met.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_nrm.jpg",
+      "Assets\\Textures\\ModerateSmoothMetal\\Metal03_rgh.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_col.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_disp.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_met.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_nrm.jpg",
+      "Assets\\Textures\\NoReflectionMetal\\Metal09_rgh.jpg",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Diffuse.png",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Normal.png",
+      "Assets\\Textures\\OldLantern\\Old_lantern_UV_Specular.png",
+      "Assets\\Textures\\Particles\\flare0.png",
+      "Assets\\Textures\\Particles\\flare1.png",
+      "Assets\\Textures\\redbrick.jpg",
+      "Assets\\Textures\\redbrick_height.jpg",
+      "Assets\\Textures\\redbrick_height_invert.jpg",
+      "Assets\\Textures\\redbrick_normal.jpg",
+      "Assets\\Textures\\RoughDoor\\DoorUV.png",
+      "Assets\\Textures\\RoughMetal\\Metal23_col.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_disp.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_met.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_nrm.jpg",
+      "Assets\\Textures\\RoughMetal\\Metal23_rgh.jpg",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr",
+      "Assets\\Textures\\SmoothMetal\\Metal12_col.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_disp.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_met.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_nrm.jpg",
+      "Assets\\Textures\\SmoothMetal\\Metal12_rgh.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
+      "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+      "Assets\\Textures\\UI\\AnimationsButton.png",
+      "Assets\\Textures\\UI\\Button.png",
+      "Assets\\Textures\\UI\\CantEscapeGameLogo.png",
+      "Assets\\Textures\\UI\\CloseButton.png",
+      "Assets\\Textures\\UI\\CreditsButton.png",
+      "Assets\\Textures\\UI\\CreditsText.png",
+      "Assets\\Textures\\UI\\ExitButton.png",
+      "Assets\\Textures\\UI\\GraphicsButton.png",
+      "Assets\\Textures\\UI\\Level1Button.png",
+      "Assets\\Textures\\UI\\Loading.png",
+      "Assets\\Textures\\UI\\MainMenu.png",
+      "Assets\\Textures\\UI\\PhysicsButton.png",
+      "Assets\\Textures\\UI\\ProtoType1_BackgroundImage_1.png",
+      "Assets\\Textures\\UI\\ProtoType1_BackgroundImage_2.png",
+      "Assets\\Textures\\UI\\ProtoType1_BackgroundImage_3.png",
+      "Assets\\Textures\\UI\\ResolutionArrow.png",
+      "Assets\\Textures\\UI\\ResolutionBaseDropDown.png",
+      "Assets\\Textures\\UI\\ResolutionText.png",
+      "Assets\\Textures\\UI\\RotatingArrow.png",
+      "Assets\\Textures\\UI\\Setting.png",
+      "Assets\\Textures\\UI\\SettingBase.png",
+      "Assets\\Textures\\UI\\SettingsButton.png",
+      "Assets\\Textures\\UI\\SliderLeftArrow.png",
+      "Assets\\Textures\\UI\\SliderRightArrow.png",
+      "Assets\\Textures\\UI\\SlideScrollerBackGround.png",
+      "Assets\\Textures\\UI\\SlideScrollerForeGround.png",
+      "Assets\\Textures\\UI\\SlideScrollerGreenBackGround.png",
+      "Assets\\Textures\\UI\\SlideScrollerSlider.png",
+      "Assets\\Textures\\UI\\Stars.png",
+      "Assets\\Textures\\UI\\UIBackGroundImage.png",
+      "Assets\\Textures\\UI\\VolumeText.png",
+      "Assets\\Textures\\UI\\YesButton.png"
+    ],
+    "Models": [
+      "Assets\\Models\\AnimTest01.fbx",
+      "Assets\\Models\\bullet.fbx",
+      "Assets\\Models\\campfire.obj",
+      "Assets\\Models\\coin.obj",
+      "Assets\\Models\\cone.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\english_knight.fbx",
+      "Assets\\Models\\ganfaul_m_aure.fbx",
+      "Assets\\Models\\gasTank.obj",
+      "Assets\\Models\\Guns\\Cerberus_LP.fbx",
+      "Assets\\Models\\Lamp_Post_4.obj",
+      "Assets\\Models\\material_sphere.fbx",
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\mutant.fbx",
+      "Assets\\Models\\old_lantern.fbx",
+      "Assets\\Models\\peasant_man.fbx",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\RunnerWall.fbx",
+      "Assets\\Models\\Sphere.fbx",
+      "Assets\\Models\\Spider.fbx",
+      "Assets\\Models\\Spider_Crawl.fbx",
+      "Assets\\Models\\swat_enemy.fbx",
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\tetrahedron.FBX",
+      "Assets\\Models\\torus.fbx",
+      "Assets\\Models\\warrok_w_kurniawan.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\CampfireMaterial.json",
+      "Assets\\Materials\\CeramicMaterial.json",
+      "Assets\\Materials\\HexagonTilesMaterial.json",
+      "Assets\\Materials\\MainMenuButtonMaterial.json",
+      "Assets\\Materials\\Material1.json",
+      "Assets\\Materials\\MaterialBlue.json",
+      "Assets\\Materials\\MaterialDarkGreen.json",
+      "Assets\\Materials\\MaterialGold.json",
+      "Assets\\Materials\\MaterialGreen.json",
+      "Assets\\Materials\\MetalCopperMaterial.json",
+      "Assets\\Materials\\ModerateSmoothMetalMaterial.json",
+      "Assets\\Materials\\MyMaterial.json",
+      "Assets\\Materials\\NoReflectionMetalMaterial.json",
+      "Assets\\Materials\\OldLanternMaterial.json",
+      "Assets\\Materials\\RedDieletricRoughMaterial.json",
+      "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+      "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+      "Assets\\Materials\\Red_Brick_Material.json",
+      "Assets\\Materials\\RoughBrick22Material.json",
+      "Assets\\Materials\\RoughDoorMaterial.json",
+      "Assets\\Materials\\RoughMetalMaterial.json",
+      "Assets\\Materials\\SmoothMetalMaterial.json",
+      "Assets\\Materials\\SmoothWhiteDiffuseWhiteSpecular.json",
+      "Assets\\Materials\\SmoothWoodMaterial.json",
+      "Assets\\Materials\\UI\\AnimationsButtonMaterial.json",
+      "Assets\\Materials\\UI\\ButtonMaterial.json",
+      "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json",
+      "Assets\\Materials\\UI\\CloseButtonMaterial.json",
+      "Assets\\Materials\\UI\\CreditsButtonMaterial.json",
+      "Assets\\Materials\\UI\\CreditsTextMaterial.json",
+      "Assets\\Materials\\UI\\ExitButtonMaterial.json",
+      "Assets\\Materials\\UI\\GraphicsButtonMaterial.json",
+      "Assets\\Materials\\UI\\LoadingMaterial.json",
+      "Assets\\Materials\\UI\\PhysicsButtonMaterial.json",
+      "Assets\\Materials\\UI\\ProtoType1_BackgroundImage_1.json",
+      "Assets\\Materials\\UI\\ProtoType1_BackgroundImage_2.json",
+      "Assets\\Materials\\UI\\ProtoType1_BackgroundImage_3.json",
+      "Assets\\Materials\\UI\\RotatingArrowMaterial.json",
+      "Assets\\Materials\\UI\\SettingBaseMaterial.json",
+      "Assets\\Materials\\UI\\SettingsButtonMaterial.json",
+      "Assets\\Materials\\UI\\SlideScrollerBackGroundMaterial.json",
+      "Assets\\Materials\\UI\\SlideScrollerForeGroundMaterial.json",
+      "Assets\\Materials\\UI\\SlideScrollerGreenBackGroundMaterial.json",
+      "Assets\\Materials\\UI\\StarsMaterial.json",
+      "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
+      "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+      "Assets\\Materials\\YellowDiffuseYellowSpecularMaterial.json"
+    ],
     "Prefabs": [
       "Assets\\Prefabs\\brick_wall.json",
       "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+      "Assets\\Prefabs\\Button.json",
+      "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",
+      "Assets\\Prefabs\\campfire.json",
+      "Assets\\Prefabs\\campfire_emitonce.json",
       "Assets\\Prefabs\\ceramic_floor.json",
+      "Assets\\Prefabs\\dummy_model.json",
+      "Assets\\Prefabs\\english_knight.json",
+      "Assets\\Prefabs\\factory_floor.json",
+      "Assets\\Prefabs\\factory_wall.json",
+      "Assets\\Prefabs\\factory_wall2.json",
+      "Assets\\Prefabs\\generic_plane.json",
+      "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+      "Assets\\Prefabs\\Lantern\\old_lantern.json",
+      "Assets\\Prefabs\\Lantern\\tall_lantern.json",
       "Assets\\Prefabs\\Lights\\directional_light.json",
       "Assets\\Prefabs\\Lights\\point_light.json",
       "Assets\\Prefabs\\lvleditor.json",
+      "Assets\\Prefabs\\material_sphere.json",
       "Assets\\Prefabs\\mini_map.json",
       "Assets\\Prefabs\\mitsuba_sphere.json",
       "Assets\\Prefabs\\mono_azul.json",
       "Assets\\Prefabs\\mono_rojo.json",
+      "Assets\\Prefabs\\Obstacles\\CrouchObstacle.json",
+      "Assets\\Prefabs\\Obstacles\\Cube Obstacle.json",
+      "Assets\\Prefabs\\Obstacles\\Ground.json",
+      "Assets\\Prefabs\\Obstacles\\MovingPlatformHorizontal.json",
+      "Assets\\Prefabs\\Obstacles\\MovingPlatformUpward.json",
+      "Assets\\Prefabs\\Obstacles\\MovingPlatformVertical.json",
       "Assets\\Prefabs\\player.json",
-      "Assets\\Prefabs\\RBTestObj.json",
-      "Assets\\Prefabs\\RBTestObjSphere.json",
-      "Assets\\Prefabs\\TriggerRigidCube.json",
-      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
-      "Assets\\Prefabs\\TestGoJose.json",
-      "Assets\\Prefabs\\TestGoJose_2.json",
-      "Assets\\Prefabs\\rgdbdyPlayer.json",
-      "Assets\\Prefabs\\Button.json",
-      "Assets\\Prefabs\\UIObject.json",
-      "Assets\\Prefabs\\UIEmpty.json",
-      "Assets\\Prefabs\\campfire.json",
-      "Assets\\Prefabs\\campfire_emitonce.json",
-      "Assets\\Prefabs\\dummy_model.json",
-      "Assets\\Prefabs\\english_knight.json",
-      "Assets\\Prefabs\\generic_plane.json",
-      "Assets\\Prefabs\\Lantern\\old_lantern.json",
-      "Assets\\Prefabs\\Lantern\\tall_lantern.json",
-      "Assets\\Prefabs\\material_sphere.json",
+      "Assets\\Prefabs\\Players\\PlayerCube.json",
+      "Assets\\Prefabs\\Players\\RamziPlayer.json",
+      "Assets\\Prefabs\\Players\\shooter_player.json",
       "Assets\\Prefabs\\Primitive_Shapes\\cone.json",
       "Assets\\Prefabs\\Primitive_Shapes\\cube.json",
       "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
       "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
       "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
-      "Assets\\Prefabs\\smooth_wood_plane.json"
+      "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json",
+      "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\RBTestObjSphere.json",
+      "Assets\\Prefabs\\rgdbdyPlayer.json",
+      "Assets\\Prefabs\\rough_door.json",
+      "Assets\\Prefabs\\RunnerLevelManager.json",
+      "Assets\\Prefabs\\RunnerLevel_Coin.json",
+      "Assets\\Prefabs\\RunnerLevel_DeadZone.json",
+      "Assets\\Prefabs\\RunnerLevel_GAS.json",
+      "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+      "Assets\\Prefabs\\RunnerLevel_Ground.json",
+      "Assets\\Prefabs\\RunnerLevel_GroundBouncer.json",
+      "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner6.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "Assets\\Prefabs\\Slider.json",
+      "Assets\\Prefabs\\SlideScroller.json",
+      "Assets\\Prefabs\\SlideScrollerGreenBackGround.json",
+      "Assets\\Prefabs\\smooth_wood_plane.json",
+      "Assets\\Prefabs\\splinecurve.json",
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\TestGoJose_2.json",
+      "Assets\\Prefabs\\TriggerRigidCube.json",
+      "Assets\\Prefabs\\Triggers\\Checkpoint.json",
+      "Assets\\Prefabs\\Triggers\\Fireball.json",
+      "Assets\\Prefabs\\Triggers\\Firewall.json",
+      "Assets\\Prefabs\\Triggers\\InteractiveBox1.json",
+      "Assets\\Prefabs\\Triggers\\InteractiveBox2.json",
+      "Assets\\Prefabs\\Triggers\\InteractiveBox3.json",
+      "Assets\\Prefabs\\Triggers\\TriggerCube.json",
+      "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\UIObject.json"
     ],
     "Songs": [
-      "Assets\\Songs\\Main_Menu_2.mp3"
+      "Assets\\Songs\\Fight_Techno_2.mp3",
+      "Assets\\Songs\\Main_Menu_2.mp3",
+      "Assets\\Songs\\runner.mp3",
+      "Assets\\Songs\\ShooterMusic.wav",
+      "Assets\\Songs\\Techno_3.mp3"
     ],
     "SFX": [
+      "Assets\\SFX\\AllienGunshot.ogg",
+      "Assets\\SFX\\AllienTakesDamage.wav",
+      "Assets\\SFX\\Block.mp3",
+      "Assets\\SFX\\BulletsCollides.ogg",
+      "Assets\\SFX\\coin2.mp3",
       "Assets\\SFX\\Collision1.mp3",
-      "Assets\\SFX\\Whoosh_01.mp3"
+      "Assets\\SFX\\Collision2.mp3",
+      "Assets\\SFX\\Crawl.mp3",
+      "Assets\\SFX\\dash.mp3",
+      "Assets\\SFX\\error.mp3",
+      "Assets\\SFX\\gameover2.mp3",
+      "Assets\\SFX\\gastank2.mp3",
+      "Assets\\SFX\\Gunshot.wav",
+      "Assets\\SFX\\Jab.mp3",
+      "Assets\\SFX\\jetpack.mp3",
+      "Assets\\SFX\\Jump.mp3",
+      "Assets\\SFX\\pickup.mp3",
+      "Assets\\SFX\\PlayerDies.wav",
+      "Assets\\SFX\\PlayerGunshot.wav",
+      "Assets\\SFX\\PlayerTakesDamage.wav",
+      "Assets\\SFX\\punch.mp3",
+      "Assets\\SFX\\Step.mp3",
+      "Assets\\SFX\\Whoosh_01.mp3",
+      "Assets\\SFX\\Whoosh_02.mp3"
     ]
   },
-
   "Objects": [
-	{
+    {
       "tag": "UIBackGround",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  0.0, 0.0, -0.1 ],
+          "Position": [ 0.0, 0.0, -0.1 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 1280.0, 720.0, 1 ]
         },
 
-		"UIComponent": {
-			"InitialPosition": [ 0.0, 0.0, -0.1],
-			"FinalPosition": [ 0.0, 0.0, -0.1],
-			"DeltaTime": 1.0 
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
-		}
+        "UIComponent": {
+          "InitialPosition": [ 0.0, 0.0, -0.1 ],
+          "FinalPosition": [ 0.0, 0.0, -0.1 ],
+          "DeltaTime": 1.0
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
+        }
       }
     },
-	{
+    {
       "tag": "Stars",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  700.0, 350.0,0.00 ],
+          "Position": [ 700.0, 350.0, 0.00 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 920.0, 720.0, 0.0001 ]
         },
 
-		"UIComponent": {
-			"InitialPosition": [  700, 350,0],
-			"FinalPosition": [ 700, 350, 0],
-			"DeltaTime": -35.0,
-			"InitialRotation" : 720.0,
-			"FinalRotation" : 0.0,
-			"RotationRate" : 0.50
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\StarsMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "InitialPosition": [ 700, 350, 0 ],
+          "FinalPosition": [ 700, 350, 0 ],
+          "DeltaTime": -35.0,
+          "InitialRotation": 720.0,
+          "FinalRotation": 0.0,
+          "RotationRate": 0.50
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\StarsMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "TeamLogo",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  600.0, -530.0,0.09 ],
+          "Position": [ 600.0, -530.0, 0.09 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 520.0, 320.0, 0.0001 ]
         },
 
-		"UIComponent": {
-			"InitialPosition": [  600, -530,0.09],
-			"FinalPosition": [ 600, 160, 0.09],
-			"DeltaTime": 15.0,
-			"InitialRotation" : 720.0,
-			"FinalRotation" : 0.0,
-			"RotationRate" : -10.0
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "InitialPosition": [ 600, -530, 0.09 ],
+          "FinalPosition": [ 600, 160, 0.09 ],
+          "DeltaTime": 15.0,
+          "InitialRotation": 720.0,
+          "FinalRotation": 0.0,
+          "RotationRate": -10.0
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\CantEscapeGameLogoMaterial.json"
+        }
+
       }
     },
-	
-	 {
+
+    {
       "tag": "Prototype1Button",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500.0, 125.0,0.08 ],
+          "Position": [ -500.0, 125.0, 0.08 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Loading.json",
-			"ButtonIndex": 1,
-			"InitialPosition": [ -500.0, 125.0,0.08],
-			"FinalPosition": [ 50.0, 125.0, 0.08],
-			"DeltaTime": 15.0,
-			"Text": "Prototype 1",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.04, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ] 			
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "State": "Assets\\Levels\\Loading.json",
+          "ButtonIndex": 1,
+          "InitialPosition": [ -500.0, 125.0, 0.08 ],
+          "FinalPosition": [ 50.0, 125.0, 0.08 ],
+          "DeltaTime": 15.0,
+          "Text": "Prototype 1",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.04, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
-	 {
+    {
       "tag": "Prototype2Button",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500.0, 225.0,0.08 ],
+          "Position": [ -500.0, 225.0, 0.08 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Loading.json",
-			"ButtonIndex": 2,
-			"InitialPosition": [ -500.0, 225.0,0.08],
-			"FinalPosition": [ 50.0, 225.0, 0.08],
-			"DeltaTime": 15.0,
-			"Text": "Prototype 2",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.04, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ]  			
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "State": "Assets\\Levels\\Loading.json",
+          "ButtonIndex": 2,
+          "InitialPosition": [ -500.0, 225.0, 0.08 ],
+          "FinalPosition": [ 50.0, 225.0, 0.08 ],
+          "DeltaTime": 15.0,
+          "Text": "Prototype 2",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.04, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
     {
@@ -280,153 +417,153 @@
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500.0, 325.0,0.08 ],
+          "Position": [ -500.0, 325.0, 0.08 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Loading.json",
-			"ButtonIndex": 3,
-			"InitialPosition": [ -500.0, 325.0,0.08],
-			"FinalPosition": [ 50.0, 325.0, 0.08],
-			"DeltaTime": 15.0,
-			"Text": "Prototype 3",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.04, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ] 		 			
-		},
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "State": "Assets\\Levels\\Loading.json",
+          "ButtonIndex": 3,
+          "InitialPosition": [ -500.0, 325.0, 0.08 ],
+          "FinalPosition": [ 50.0, 325.0, 0.08 ],
+          "DeltaTime": 15.0,
+          "Text": "Prototype 3",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.04, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "SettingButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500, 425,0 ],
+          "Position": [ -500, 425, 0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [  350, 75, 1 ]
+          "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Setting.json",
-			"ButtonIndex": 4,
-			"InitialPosition": [ -500, 425,0 ],
-			"FinalPosition": [ 50, 425, 0],
-			"DeltaTime": 15.0,
-			"Text": "Settings",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.06, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ] 			
-		},
-		
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "State": "Assets\\Levels\\Setting.json",
+          "ButtonIndex": 4,
+          "InitialPosition": [ -500, 425, 0 ],
+          "FinalPosition": [ 50, 425, 0 ],
+          "DeltaTime": 15.0,
+          "Text": "Settings",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.06, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
+
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "CreditsButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500, 525,0 ],
+          "Position": [ -500, 525, 0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [  350, 75, 1 ]
+          "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Credits.json",
-			"ButtonIndex": 5,
-			"InitialPosition": [ -500, 525,0],
-			"FinalPosition": [ 50, 525, 0],
-			"DeltaTime": 15.0,
-			"Text": "Credits",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.07, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ] 					
-		},
+        "UIComponent": {
+          "State": "Assets\\Levels\\Credits.json",
+          "ButtonIndex": 5,
+          "InitialPosition": [ -500, 525, 0 ],
+          "FinalPosition": [ 50, 525, 0 ],
+          "DeltaTime": 15.0,
+          "Text": "Credits",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.07, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
 
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}				
-		
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "Dummy",
       "prefab": "Assets\\Prefabs\\UIEmpty.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -1000, 1000,0 ],
+          "Position": [ -1000, 1000, 0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
           "Scale": [ 0, 0, 1 ]
         },
-		"UIComponent": {
-			"InitialPosition": [ -1000, 1000,0],
-			"FinalPosition": [ -1000, 1000, 0],
-			"DeltaTime": -1.0,
-			"InitialRotation" : 0.0,
-			"FinalRotation" : 0.0,
-			"RotationRate" : 0.0			
-		},
-		
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\CreditsButtonMaterial.json"
-		}		
-		
+        "UIComponent": {
+          "InitialPosition": [ -1000, 1000, 0 ],
+          "FinalPosition": [ -1000, 1000, 0 ],
+          "DeltaTime": -1.0,
+          "InitialRotation": 0.0,
+          "FinalRotation": 0.0,
+          "RotationRate": 0.0
+        },
+
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\CreditsButtonMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "ExitButton",
       "prefab": "Assets\\Prefabs\\Button.json",
       "overrides": {
         "TransformComponent": {
-          "Position": [  -500, 625,0 ],
+          "Position": [ -500, 625, 0 ],
           "Rotation": [ 0.0, 0.0, 0.0 ],
-          "Scale": [  350, 75, 1 ]
+          "Scale": [ 350, 75, 1 ]
         },
-		"UIComponent": {
-			"State": "Assets\\Levels\\Exit.json",
-			"ButtonIndex": 6,
-			"InitialPosition": [ -500, 625,0],
-			"FinalPosition": [ 50, 625, 0],
-			"DeltaTime": 15.0,
-			"Text": "Exit",
-			"TextFont": "Courier_New_Bold",
-			"TextPosition": [ 0.1, 0.025 ],
-			"TextRotation": 0.0,
-			"TextScale": [ 1.7, 1.7, 1.7 ],
-			"TextColor": [ 1.0, 1.0, 0.0 ] 				
-		},
+        "UIComponent": {
+          "State": "Assets\\Levels\\Exit.json",
+          "ButtonIndex": 6,
+          "InitialPosition": [ -500, 625, 0 ],
+          "FinalPosition": [ 50, 625, 0 ],
+          "DeltaTime": 15.0,
+          "Text": "Exit",
+          "TextFont": "Courier_New_Bold",
+          "TextPosition": [ 0.1, 0.025 ],
+          "TextRotation": 0.0,
+          "TextScale": [ 1.7, 1.7, 1.7 ],
+          "TextColor": [ 1.0, 1.0, 0.0 ]
+        },
 
-		"RendererComponent": {
-			"MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
-		}				
-		
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\ButtonMaterial.json"
+        }
+
       }
     },
-	{
+    {
       "tag": "UIObject",
       "prefab": "Assets\\Prefabs\\UIObject.json",
       "overrides": {
-		"UIComponent": {
-			"TotalObjects": 6,
-			"TotalButtons": 6
-		},
-		"Scripts": [
-			{
-				"Name": "Scripts\\Components\\UICameraMenu.lua"
-			}
-		]
+        "UIComponent": {
+          "TotalObjects": 6,
+          "TotalButtons": 6
+        },
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraMenu.lua"
+          }
+        ]
       }
     }
 

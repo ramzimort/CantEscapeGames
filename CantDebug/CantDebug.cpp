@@ -145,7 +145,7 @@ namespace CantDebugAPI
 			switch (e.type)
 			{
 			case SDL_KEYUP:
-				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				if (e.key.keysym.scancode == SDL_SCANCODE_F1)
 					_update = !_update;
 				if (io.WantCaptureKeyboard && _update)
 				{

@@ -9,6 +9,7 @@
  */
 
 class GameWindowSizeEvent;
+class ToggleMouseWarpEvent;
 
 struct ControllerData
 {
@@ -70,9 +71,10 @@ public:
 	/** Check if exit button is pressed (close window) */
 	bool IsQuit() const;
 	void Quit();
-	void OnWindowResizeRequest(const GameWindowSizeEvent* e);
 
 private:
+	void OnWindowResizeRequest(const GameWindowSizeEvent* e);
+	void OnToggleMouseWarp(const ToggleMouseWarpEvent* e);
 	void UpdateMouseClickState();
 private:
 	SDL_Window* m_pWindow;
@@ -90,6 +92,7 @@ private:
 
 	// Main Event
 	SDL_Event m_event;
+	bool m_warpCursor = false;
 	bool m_quit;
 };
 

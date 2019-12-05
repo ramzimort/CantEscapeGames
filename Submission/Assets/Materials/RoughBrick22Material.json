@@ -1,0 +1,20 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\Bricks\\Bricks22_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\Bricks\\Bricks22_nrm.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\Bricks\\Bricks22_disp.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\Bricks\\Bricks22_rgh.jpg",
+  "Roughness_Value": 0.800000011920929,
+  "Metallic_Value": 0.10000000298023225,
+  "Diffuse_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "Specular_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ]
+}

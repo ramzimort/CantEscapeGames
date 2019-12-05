@@ -1,0 +1,111 @@
+{
+  "TransformComponent": {
+    "Position": [ 1.0, 1.0, 1.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\Material1.json"
+  },
+
+  "CameraComponent": {
+    "isTransformIndependent": true,
+    "Camera": {
+      "FOV": 45.0,
+      "Near": 0.1,
+      "Far": 1000.0,
+      "Position": [ 0.0, 0.0, 20.0 ],
+      "CameraName": "Main",
+      "ZOrder": 0,
+	   "RenderObjectType": "Render_UI_And_Meshes"
+    }
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 3.0, 12.0, 3.0 ],
+    "Offset": [ 0.0, 6.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1000.0,
+    "IsAsleep": 0,
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef": 0.2
+  },
+
+
+  "ParticleEmitterComponent": {
+    "Emitter_Position": [ 0.0, 6.0, 0.0 ],
+    "Particle_Texture_Dir": "Assets\\Textures\\Particles\\flare1.png",
+    "Emitter_Lifetime": 10.0,
+    "Emitter_Direction": [0.0, -1.0, 0.0],
+    "Particle_Size": [ 5.0, 5.0 ]
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\AnimTest01.fbx"
+  },
+
+  "AnimationComponent": {
+    "StartingAnimation": "IdleAnim",
+    "Clips": [
+      {
+        "name": "KnockbackAnim",
+        "path": "Assets/Models/knockback.fbx",
+        "loops": false
+      },
+      {
+        "name": "WalkAnim",
+        "path": "Assets\\Models\\TestWalk.fbx",
+        "loops": true
+      },
+      {
+        "name": "UpperAnim",
+        "path": "Assets\\Models\\UpperAnim.fbx",
+        "loops": false
+      },
+      {
+        "name": "IdleAnim",
+        "path": "Assets\\Models\\TestIdle.fbx",
+        "loops": true
+      },
+      {
+        "name": "deathAnim",
+        "path": "Assets\\Models\\death.fbx",
+        "loops": false
+      },
+      {
+        "name": "CrawlAnim",
+        "path": "Assets\\Models\\Crawl.fbx",
+        "loops": true
+      },
+      {
+        "name": "JumpLoopAnim",
+        "path": "Assets\\Models\\JumpLoop.fbx",
+        "loops": true
+      },
+      {
+        "name": "DashAnim",
+        "path": "Assets\\Models\\roll.fbx",
+        "loops": false
+      }
+    ]
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\TestPlayerAnimComp.lua",
+      "Overrides": {
+      }
+    },
+    {
+      "Name": "Scripts\\Components\\JoseController.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}

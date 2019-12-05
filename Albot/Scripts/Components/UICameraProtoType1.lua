@@ -31,9 +31,6 @@ UICameraProtoType1 =
 	UITags = {};
 	UICompOfImage = {};
 	TotalImages = 0;
-	
-
-	
 }
 
 

@@ -4,13 +4,10 @@
 shooter_fpscontroller = 
 {
 	-- Rotation (Mouse/Joystick)
-	MousePositionX = 0;
-	MousePositionY = 0;
 	DeltaPositionX = 0;
 	DeltaPositionY = 0;
 	Rotation = Vector3.new(0.0);
-	RotationMultiplier = 10.0;
-	RotationSpeed = 20.0;
+	Sensitivity = Vector3.new(0.3);
 	LEFTCLICK = false;
 	RIGHTCLICK = false;
 	RotationEnabled = true;
@@ -40,10 +37,10 @@ shooter_fpscontroller =
 
 --Init called when comp is created
 shooter_fpscontroller.Init = function(self)
+	EventManager.Get():ToggleMouseWarp(false);
 	OnKeyEvent():Bind({self, self.OnKey});
 	OnMouseMotion():Bind({self, self.OnMouseMotion});
 	OnMouseClick():Bind({self, self.OnMouseClick});
-
 end
 
 --Begin called when obj has all comps
@@ -72,7 +69,7 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	if (self.life < 1.0) then
 		OutputPrint("GAME OVER!!!");
 		EventManager:Get():PlaySFX(false, "Assets\\SFX\\PlayerDies.wav");
-		EventManager:Get():StopSong(false);
+		--EventManager:Get():StopSong(false);
 		local world = EventManager.Get();
 		world:LoadState(false, "Assets\\Levels\\Menu.json");
 		self.life = 100; -- NOTE: until we restart level, REMOVE later (this is for sound not to loop over)
@@ -84,18 +81,6 @@ shooter_fpscontroller.Update = function(self, dt, owner)
 	local forward = self.Camera:GetForward() * movement.y;
 	position = position + strafe + forward;
 
-	local rotation = self.Rotation;
-	if (self.RIGHTCLICK) then
-		rotation.x = -1.0*self.DeltaPositionY;
-		rotation.y = -1.0*self.DeltaPositionX;
-		self.DeltaPositionX = 0.0;
-		self.DeltaPositionY = 0.0;
-		rotation = rotation * dt * self.RotationSpeed;
-		self.Transform:Rotate(rotation.x, rotation.y, 0.0);
-		self.Rotation.x = 0.0;
-		self.Rotation.y = 0.0;
-		self.Rotation.z = 0.0;
-	end
 	if(self.runGame ~= 1) then
 		self.Transform:SetLocalPosition(position.x, position.y, position.z);
 	end
@@ -150,15 +135,17 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		else
 			followPathCurvesComp:SetEnableMotionAlongPath(false);
 		end
+	elseif(SCANCODE.ESCAPE == key and state) then
+		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
 	end
-
 end
 
 shooter_fpscontroller.OnMouseMotion = function(self, position, deltaposition)
-	self.MousePositionX = position.x;
-	self.MousePositionY = position.y;
-	self.DeltaPositionX = deltaposition.x;
-	self.DeltaPositionY = deltaposition.y;
+	LOG("Delta: " ..  deltaposition.x .. " " .. deltaposition.y .. "\n");
+	self.Rotation.x = -1.0*deltaposition.y * self.Sensitivity.y;
+	self.Rotation.y = -1.0*deltaposition.x * self.Sensitivity.x;
+	self.Rotation.z = 0.0;
+	self.Transform:Rotate(self.Rotation);
 end
 
 shooter_fpscontroller.OnMouseClick = function(self, button, state)
@@ -177,6 +164,7 @@ shooter_fpscontroller.OnDestruction = function(self)
 	
 	self.triggerComp.OnEnter:Unbind({self, self.OnEnter});
 	self.triggerComp.OnExit:Unbind({self, self.OnExit});
+	EventManager.Get():ToggleMouseWarp(false);
 end
 
 shooter_fpscontroller.Draw = function(self, dt, owner, appRenderer)

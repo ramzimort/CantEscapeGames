@@ -1,0 +1,34 @@
+{
+  "TransformComponent": {
+    "Position": [ 0, 0, 0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+	  "Scale": [ 1, 1, 1 ]
+  },
+	"UIComponent": {
+		"InitialPosition": [ 0.0, 0.0, 0.0],
+		"FinalPosition": [ 0.0, 0.0, 0.0],
+		"DeltaTime": 0.0,
+		"InitialRotation" : 0.0,
+		"FinalRotation" : 0.0,
+		"RotationRate" : 0.0
+
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\MainMenuButtonMaterial.json"
+  },
+	
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\SlideScroller.lua"
+
+    },
+    {
+      "Name": "Scripts\\Components\\AffineAnimation.lua"
+
+    },
+    {
+      "Name": "Scripts\\Components\\WindowResize.lua"
+
+    }
+  ]
+ }

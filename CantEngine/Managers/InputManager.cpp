@@ -39,11 +39,20 @@ InputManager::InputManager(const std::string& gameName, bool fullscreen, int w, 
 	m_quit = false;
 
 	EventManager::Get()->SubscribeEvent<GameWindowSizeEvent>(this, std::bind(&InputManager::OnWindowResizeRequest, this, std::placeholders::_1));
+	EventManager::Get()->SubscribeEvent<ToggleMouseWarpEvent>(this, std::bind(&InputManager::OnToggleMouseWarp, this, std::placeholders::_1));
 }
 
 void InputManager::OnWindowResizeRequest(const GameWindowSizeEvent* e)
 {
 	SetWindowSize(e->m_width, e->m_height);
+}
+
+void InputManager::OnToggleMouseWarp(const ToggleMouseWarpEvent* e)
+{
+	m_warpCursor = !m_warpCursor;
+	if (m_warpCursor)  	SDL_SetRelativeMouseMode(SDL_TRUE);
+	else 				SDL_SetRelativeMouseMode(SDL_FALSE);
+
 }
 
 InputManager::~InputManager()
@@ -55,6 +64,8 @@ InputManager::~InputManager()
 		EventManager::Get()->EnqueueEvent<JoystickEvent>(false, it->first, false);
 		it = m_controllerData.erase(it);
 	}
+	EventManager::Get()->UnsubscribeEvent<GameWindowSizeEvent>(this);
+	EventManager::Get()->UnsubscribeEvent<ToggleMouseWarpEvent>(this);
 }
 
 void InputManager::UpdateMouseClickState()
@@ -175,11 +186,9 @@ void InputManager::Update()
 			break;
 		case SDL_MOUSEMOTION:
 		{
-			m_mousePositionPrevious[0] = m_mousePositionCurrent[0]; m_mousePositionPrevious[1] = m_mousePositionCurrent[1];
-			m_mousePositionCurrent[0] = m_event.button.x; m_mousePositionCurrent[1] = m_event.button.y;
-			Vector2 Loc = GetPointerLocVec2();
-			Vector2 Delta = GetPointerDeltaVec2();
-			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(false, Loc, Delta);
+			EventManager::Get()->EnqueueEvent<MouseMotionEvent>(false, 
+				Vector2((float)m_event.motion.x,	(float)m_event.motion.y), 
+				Vector2((float)m_event.motion.xrel, (float)m_event.motion.yrel));
 			break;
 		}
 		case SDL_MOUSEBUTTONDOWN:

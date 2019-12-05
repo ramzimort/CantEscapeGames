@@ -1,0 +1,22 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\Material1.json",
+    "EnableRendering": true
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  }
+}

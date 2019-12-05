@@ -1,0 +1,38 @@
+{
+  "TransformComponent": {
+    "Position": [
+      0.0,
+      -10.0,
+      0.0
+    ],
+    "Rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Scale": [
+      100.0,
+      10.0,
+      100.0
+    ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\CeramicMaterial.json",
+    "XTileFactor": 60.0,
+    "YTileFactor": 60.0
+  },
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Mass": 3.3999999521443644e38,
+    "IsAsleep": false,
+    "CollisionMask": "STATIC_OBJ"
+  }
+}

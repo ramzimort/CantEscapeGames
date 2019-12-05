@@ -1,0 +1,44 @@
+{
+  "TransformComponent": {
+    "Position": [
+      0.0,
+      -0.0,
+      -5.0
+    ],
+    "Rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Scale": [
+      2.0,
+      5.0,
+      3.0
+    ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\Material1.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Mass": 3.3999999521443644e38,
+    "IsAsleep": false,
+    "CollisionMask": "STATIC_OBJ"
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\MovingPlatformUpward.lua",
+      "Overrides": {}
+    }
+  ]
+}

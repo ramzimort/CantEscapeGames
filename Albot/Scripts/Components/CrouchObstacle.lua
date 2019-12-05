@@ -11,7 +11,7 @@ CrouchObstacle =
 	GOManager = nil;
 	
 	-- UIObject LUA Component
-	UIObjectLUA;
+	UIObjectLUA = nil;
 	
 }
 
@@ -31,14 +31,10 @@ CrouchObstacle.Begin = function(self, owner, goMgr)
 	local Tag = "UIObject";
 	local GO = goMgr:FindGameObject(Tag);
 	if (GO == nil) then
-		OutputPrint(">>> GO  not found\n");
+		--OutputPrint(">>> GO  not found\n");
 		return;
 	end
 	self.UIObjectLUA = GO:GetCustomComp("UICameraProtoType1");
-	if (self.UIObjectLUA == nil) then
-		OutputPrint("\n LUA Component not found\n");
-	end
-	 OutputPrint(">>> \nReached...\n");
 end
 
 CrouchObstacle.Update = function(self, dt, owner) 
@@ -55,7 +51,7 @@ CrouchObstacle.OnEnter = function(self, gameObj1, gameObj2)
 
 	if (gameObj2:GetTag() == "PlayerCube") then
 		self.Player.nearCrouch = true;
-		self.UIObjectLUA:EnableImage(2);
+		self.UIObjectLUA:EnableImage(0);
 	end
 end
 
@@ -68,7 +64,8 @@ CrouchObstacle.OnExit = function(self, gameObj1, gameObj2)
 	end
 
 	if (gameObj2:GetTag() == "PlayerCube") then
-			self.Player.nearCrouch = false;
+		self.Player.nearCrouch = false;
+		self.UIObjectLUA:DisableImage(0);
 	end
 end
 

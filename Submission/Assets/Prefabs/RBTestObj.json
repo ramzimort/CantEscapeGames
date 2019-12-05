@@ -1,0 +1,27 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\Material1.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": true,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1.0,
+    "IsAsleep": 0,
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef":  0.2
+  }
+
+}

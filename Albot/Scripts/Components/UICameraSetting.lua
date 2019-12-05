@@ -102,7 +102,7 @@ UICameraSetting.Begin = function(self, owner, goMgr)
 	self.ButtonEndIndex = self.TotalButtons;
 	
 	-- Set Volume Slider Value
-	self.SlidderValue = 0.2;
+	self.SlidderValue = 1.0;
 	
 	-- Loop used to set position and Scale according to Window
 	local startPoint =  self.GameObject:GetId()- self.TotalObjects;
@@ -121,6 +121,7 @@ UICameraSetting.Begin = function(self, owner, goMgr)
 		if (SlideScrollerLUA ~= nil) then 
 			if(gameObject:GetTag() == "VolumeSlideScroller") then
 				SlideScrollerLUA:SetSliderValue(self.SlidderValue);
+				EventManager.Get():SetVolume(false, self.SlidderValue * 100);
 			end
 		end
 	 end
@@ -226,6 +227,7 @@ UICameraSetting.Update = function(self, dt, owner)
 		 if (SlideScrollerLUA ~= nil) then 
 			if(gameObject:GetTag() == "VolumeSlideScroller") then
 				self.SlidderValue = SlideScrollerLUA:GetSliderValue();
+				EventManager.Get():SetVolume(false, self.SlidderValue * 100);
 			end
 			if(self.PlayFinalAnimation == true ) then
 				SlideScrollerLUA:Disable();

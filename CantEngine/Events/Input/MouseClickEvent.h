@@ -1,6 +1,15 @@
 #pragma once
 #include "Events/Event.h"
 
+
+class ToggleMouseWarpEvent : public Event< ToggleMouseWarpEvent>
+{
+public:
+	ToggleMouseWarpEvent() = default;
+	~ToggleMouseWarpEvent() = default;
+	virtual void operator()() override {}
+};
+
 /**
  * @brief Broadcasted by Input Manager when mouse moves
  * 

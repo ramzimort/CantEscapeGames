@@ -76,6 +76,7 @@ RamziPlayer.Begin = function(self, owner, goMgr)
 
 	--Setup of the state machine
 	self:AnimatorSetup();
+	EventManager.Get():PlaySong(false, "Assets\\Songs\\Techno_3.mp3");
 end
 
 RamziPlayer.OnDestruction = function(self)
@@ -104,33 +105,26 @@ RamziPlayer.OnKeyPressed = function(self, key, state)
 		else self.analog.x = 0.0 end
 	end
 
-	--if(SCANCODE.E == key and state) then
-	--	self.animComp:SetTrigger("Punch");
-	--end
-	--
-	--if(SCANCODE.Q == key and state) then
-	--	self.animComp:SetTrigger("Kick");
-	--end
-	--	
-	--if(SCANCODE.R == key and state) then
-	--	self.animComp:SetTrigger("Upper");
-	--end
-	--	
-	--if(SCANCODE.ENTER == key and state) then
-	--	self.animComp:SetTrigger("Crawl");
-	--end
-	--
-	--if(SCANCODE.SPACE == key and state) then
-	--	if (not self.jumping) then
-	--		EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
-	--		self.jumping = true;
-	--		self.walking = false;
-	--		local vel = self.rigidbodyComp:GetVelocity();
-	--		vel.y = self.jumpSpeed;
-	--		self.rigidbodyComp:SetVelocity(vel);
-	--		self.animComp:SetTrigger("Jump");
-	--	end
-	--end
+	if(SCANCODE.ESCAPE == key and state) then
+		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
+	elseif(SCANCODE.SPACE == key and state) then
+		if (not self.falling and not self.landing and not self.crouching) then
+			self.jumping = true;
+			self.walking = false;
+			self.animComp:SetTrigger("Jump");
+			EventManager:Get():PlaySFX(false, "Assets\\SFX\\Jump.mp3");
+			local vel = self.rigidbodyComp:GetVelocity();
+			vel.y = self.jumpSpeed;
+			self.cubeTransformComp:Translate(0.0, 0.01, 0.0);
+			self.rigidbodyComp:SetVelocity(vel);
+		end
+	elseif(SCANCODE.B == key and state and not self.falling and not self.landing and not self.walking) then
+		if(self.nearCrouch and self.crouching) then return end;
+		self.crouching = not self.crouching;
+		self.HandleCrouchTransition(self);
+	elseif(SCANCODE.X == key and state and not self.falling and not self.landing and not self.walking and not self.crouching) then
+		self.animComp:SetTrigger("Punch");
+	end
 end
 
 RamziPlayer.HandleCrouchTransition = function(self)

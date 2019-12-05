@@ -13,7 +13,11 @@ InteractiveBox1 =
 
 	owner = nil;
 	fire = nil;
-}
+
+}	-- UIObject LUA Component
+	UIObjectLUA = nil;
+	-- Game Object Manager
+	GOManager = nil;
 
 InteractiveBox1.Init = function(self)
 	OnJoystickButton():Bind({self, self.OnJoystickButton});
@@ -22,6 +26,7 @@ end
 InteractiveBox1.OnJoystickButton = function(self, ID, key, state)
 	if(CONTROLLER.X == key and state and self.playerNear) then
 		self.interactionComplete = true;
+		self.UIObjectLUA:DisableImage(1);
 	end
 end
 
@@ -34,6 +39,16 @@ InteractiveBox1.Begin = function(self, owner, goMgr)
 
 	self.owner = owner;
 	self.fire = goMgr:FindGameObject("Firewall_Right");
+	self.GOManager = goMgr;
+
+	-- Get UICamera LUA Script
+	local Tag = "UIObject";
+	local GO = goMgr:FindGameObject(Tag);
+	if (GO == nil) then
+		--OutputPrint(">>> GO  not found\n");
+		return;
+	end
+	self.UIObjectLUA = GO:GetCustomComp("UICameraProtoType1");
 end
 
 InteractiveBox1.Update = function(self, dt, owner) 
@@ -61,6 +76,7 @@ InteractiveBox1.OnEnter = function(self, gameObj1, gameObj2)
 
 	if (gameObj2:GetTag() == "PlayerCube") then
 			self.playerNear = true;
+		self.UIObjectLUA:EnableImage(1);
 	end
 end
 
@@ -75,7 +91,7 @@ InteractiveBox1.OnExit = function(self, gameObj1, gameObj2)
 	end
 
 	if (gameObj2:GetTag() == "PlayerCube") then
-			self.playerNear = false;
+		self.playerNear = false;
 	end
 end
 

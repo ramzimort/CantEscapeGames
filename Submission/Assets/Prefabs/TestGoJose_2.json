@@ -1,0 +1,31 @@
+{
+  "TransformComponent": {
+    "Position": [ 1.0, 1.0, 1.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\Material1.json"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\AnimTest01.fbx"
+  },
+
+
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": true,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1000.0,
+    "IsAsleep": 0,
+    "CollisionMask": "DINAMIC_OBJ",
+    "FrictionCoef": 0.2
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  }
+}

@@ -354,8 +354,6 @@
   <ItemGroup>
     <None Include="Assets\Prefabs\Projectiles\EnemyProjectile.json" />
     <None Include="Assets\Prefabs\Projectiles\ProjectilePlayer.json" />
-    <None Include="Scripts\Components\ShootingPlayerLogic.lua" />
-    <None Include="Scripts\Components\ProjectileLogic.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

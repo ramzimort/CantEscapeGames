@@ -1,0 +1,41 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 0.1, 0.1, 0.1 ]
+
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\RoughMetalMaterial.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Sphere.fbx"
+  },
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "IsEffectedByDragForce": false,
+    "Velocity": [ 0.0, 0.0, 0.0 ],
+    "Mass": 1.0,
+    "IsAsleep": 0,
+    "CollisionMask": "ENEMY_PROJ",
+    "FrictionCoef": 0.2
+  },
+  "TriggerComponent": {
+    "Scale": [ 0.25, 0.25, 0.25 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "ENEMY_PROJ"
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\ProjectileLogic.lua",
+      "Overrides": {
+        "projectileOwnerName": "Enemy"
+      }
+    }
+  ]
+
+}
