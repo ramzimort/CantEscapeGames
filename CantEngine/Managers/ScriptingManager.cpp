@@ -264,7 +264,8 @@ void ScriptingManager::ManageBindings()
 		"PlaySong", &EventManager::EnqueueEvent <PlaySongEvent, bool, const std::string>,
 		"PlaySFX", &EventManager::EnqueueEvent<PlaySFXEvent, bool, const std::string>,
 		"StopSong", & EventManager::EnqueueEvent<StopSongEvent, bool>,
-		"SetVolume", &EventManager::EnqueueEvent<SetVolumeEvent, bool, float, int32_t>
+		"SetVolume", &EventManager::EnqueueEvent<SetVolumeEvent, bool, float, int32_t>,
+		"ToggleMouseWarp", &EventManager::EnqueueEvent<ToggleMouseWarpEvent, bool>
 	);
 #pragma endregion
 
