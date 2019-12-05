@@ -1,0 +1,50 @@
+{
+	
+		
+
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+	  "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+  "UIComponent": {
+    "State": "",
+    "ButtonIndex": 0,
+    "Location": 0,
+    "InitialPosition": [ 0.0, 0.0, 0.0 ],
+    "FinalPosition": [ 0.0, 0.0, 0.0 ],
+    "DeltaTime": 0.0,
+    "InitialRotation": 0.0,
+    "FinalRotation": 0.0,
+    "RotationRate": 0.0,
+    "Text": "",
+    "TextFont": "Courier_New_Bold",
+    "TextPosition": [ 0.0, 0.0 ],
+    "TextRotation": 0.0,
+    "TextScale": [ 1.0, 1.0, 1.0 ],
+    "TextColor": [ 1.0, 1.0, 1.0 ]
+  },
+  "RendererComponent": {
+    "MaterialId": ""
+  },
+
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\Button.lua"
+
+    },
+    {
+      "Name": "Scripts\\Components\\WindowResize.lua"
+
+    },
+    {
+      "Name": "Scripts\\Components\\AffineAnimation.lua"
+
+    },
+	{
+      "Name": "Scripts\\Components\\Text.lua"
+
+    }
+  ]
+ }

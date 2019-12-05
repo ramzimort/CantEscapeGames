@@ -1,0 +1,23 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+    "EnableRendering": false
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Sphere.fbx"
+  },
+  "LightComponent": {
+    "Light": {
+      "LightType": "Point",
+      "Color": [ 1.0, 0.85, 0.70 ],
+      "Intensity": 5.0,
+      "CastShadow": true,
+      "Radius": 10.0
+    }
+  }
+}

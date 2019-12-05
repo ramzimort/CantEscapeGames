@@ -1,0 +1,8 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\HexagonTiles\\Tiles72_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\HexagonTiles\\Tiles72_nrm.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\HexagonTiles\\Tiles72_rgh.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Metallic_Value": 0.4
+}

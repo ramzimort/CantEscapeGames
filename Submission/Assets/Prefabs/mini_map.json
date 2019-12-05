@@ -1,0 +1,23 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "CameraComponent": {
+    "Camera": {
+      "FOV": 75.0,
+      "Near": 0.1,
+      "Far": 1000.0,
+      "Position": [ 0.0, 0.0, 0.0 ],
+      "LookDir": [ 0.0, -1.0, 0.1 ],
+      "CameraName": "MiniMap",
+      "OrthographicWidth": 80,
+      "OrthographicHeight": 80,
+      "CameraProjectionType": "Projection_Orthographic",
+      "ZOrder": 1,
+      "ViewportRenderInfo" :  [0.0, 0.0, 0.25, 0.25]
+    }
+  }
+}

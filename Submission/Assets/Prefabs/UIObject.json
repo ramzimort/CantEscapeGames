@@ -1,0 +1,30 @@
+{
+  "TransformComponent": {
+    "Position": [0.0, 0.0, 10.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "CameraComponent": {
+    "Camera": {
+      "FOV": 45.0,
+      "Near": -1.0,
+      "Far": 1.0,
+      "Position": [ 0.0, 0.0, 0.0 ],
+      "CameraName": "Main",
+      "RenderObjectType": "Render_UI",
+      "CameraProjectionType": "Projection_Orthographic_Viewport",
+      "ZOrder": 0
+    }
+  },
+  "UIComponent": {
+			"State": "",
+			"TotalObjects": 0,
+			"TotalButtons": 0			
+	},
+  "Scripts": [
+    {
+      "Name": ""
+    }
+  ]
+}

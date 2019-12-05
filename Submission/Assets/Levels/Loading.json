@@ -1,0 +1,209 @@
+{
+  "Language": "Assets\\Strings\\en.csv",
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\UI\\Stars.png",
+      "Assets\\Textures\\UI\\Loading.png",
+      "Assets\\Textures\\UI\\RotatingArrow.png"
+    ],
+    "Models": [
+      "Assets\\Models\\coin.obj",
+      "Assets\\Models\\AnimTest01.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\Sphere.fbx",
+      "Assets\\Models\\TestWalk.fbx",
+      "Assets\\Models\\SweatBall.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\UI\\StarsMaterial.json",
+      "Assets\\Materials\\UI\\LoadingMaterial.json",
+      "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
+    ],
+    "Scripts": [
+      "Scripts\\Components\\AffineAnimation.lua",
+      "Scripts\\Components\\Button.lua",
+      "Scripts\\Components\\CerberusGunLogicComp.lua",
+      "Scripts\\Components\\Checkpoint.lua",
+      "Scripts\\Components\\CrouchObstacle.lua",
+      "Scripts\\Components\\DropDown.lua",
+      "Scripts\\Components\\editor.lua",
+      "Scripts\\Components\\Fireball.lua",
+      "Scripts\\Components\\Firewall.lua",
+      "Scripts\\Components\\fpscontroller.lua",
+      "Scripts\\Components\\InteractiveBox1.lua",
+      "Scripts\\Components\\InteractiveBox2.lua",
+      "Scripts\\Components\\InteractiveBox3.lua",
+      "Scripts\\Components\\JoseController.lua",
+      "Scripts\\Components\\MovingPlatformHorizontal.lua",
+      "Scripts\\Components\\MovingPlatformUpward.lua",
+      "Scripts\\Components\\MovingPlatformVertical.lua",
+      "Scripts\\Components\\PlayerComp.lua",
+      "Scripts\\Components\\PresentationParticleEmitOnce.lua",
+      "Scripts\\Components\\ProjectileLogic.lua",
+      "Scripts\\Components\\RamziPlayer.lua",
+      "Scripts\\Components\\RamziPlayerCube.lua",
+      "Scripts\\Components\\rgdbdyPlayer.lua",
+      "Scripts\\Components\\RunnerCoinComp.lua",
+      "Scripts\\Components\\RunnerGround.lua",
+      "Scripts\\Components\\RunnerManagerComp.lua",
+      "Scripts\\Components\\RunnerObstacle1_Comp.lua",
+      "Scripts\\Components\\RunnerPickableComp.lua",
+      "Scripts\\Components\\shooter_fpscontroller.lua",
+      "Scripts\\Components\\ShootingPlayerLogic.lua",
+      "Scripts\\Components\\Slider.lua",
+      "Scripts\\Components\\SlideScroller.lua",
+      "Scripts\\Components\\SpawnedEnemyComp.lua",
+      "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+      "Scripts\\Components\\SwatEnemyLogicComp.lua",
+      "Scripts\\Components\\test01Comp.lua",
+      "Scripts\\Components\\test02Comp.lua",
+      "Scripts\\Components\\TestPlayerAnimComp.lua",
+      "Scripts\\Components\\Text.lua",
+      "Scripts\\Components\\TppFollowController.lua",
+      "Scripts\\Components\\TriggerTest.lua",
+      "Scripts\\Components\\UICamera.lua",
+      "Scripts\\Components\\UICameraCredits.lua",
+      "Scripts\\Components\\UICameraExit.lua",
+      "Scripts\\Components\\UICameraLoading.lua",
+      "Scripts\\Components\\UICameraMenu.lua",
+      "Scripts\\Components\\UICameraProtoType1.lua",
+      "Scripts\\Components\\UICameraProtoType2.lua",
+      "Scripts\\Components\\UICameraProtoType3.lua",
+      "Scripts\\Components\\UICameraSetting.lua",
+      "Scripts\\Components\\WindowResize.lua",
+      "Scripts\\Components\\WindowResizeButton.lua",
+      "Scripts\\Examples\\ExampleComp.lua",
+      "Scripts\\States\\Credits.lua",
+      "Scripts\\States\\DebugPause.lua",
+      "Scripts\\States\\Exit.lua",
+      "Scripts\\States\\Graphics.lua",
+      "Scripts\\States\\JoseLevel.lua",
+      "Scripts\\States\\level1.lua",
+      "Scripts\\States\\Loading.lua",
+      "Scripts\\States\\Menu.lua",
+      "Scripts\\States\\Physics.lua",
+      "Scripts\\States\\Ramzi.lua",
+      "Scripts\\States\\Setting.lua",
+      "Scripts\\States\\ShooterRailPrototype.lua",
+      "Scripts\\States\\ThreadTest.lua"
+    ],
+    "Prefabs": [
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\RunnerLevelManager.json",
+      "Assets\\Prefabs\\RunnerLevel_Ground.json",
+      "Assets\\Prefabs\\RunnerLevel_GroundBouncer.json",
+      "Assets\\Prefabs\\RunnerLevel_DeadZone.json",
+      "Assets\\Prefabs\\RunnerLvl_Obstacle1.json",
+      "Assets\\Prefabs\\RunnerLevel_GAS.json",
+      "Assets\\Prefabs\\RunnerLevel_GasTank.json",
+      "Assets\\Prefabs\\RunnerLevel_Coin.json",
+      "Assets\\Prefabs\\UIObject.json",
+      "Assets\\Prefabs\\Guns\\cerberus_gun.json",
+      "Assets\\Prefabs\\Lantern\\tall_lantern.json",
+      "Assets\\Prefabs\\Lights\\directional_light.json",
+      "Assets\\Prefabs\\Lights\\point_light.json",
+      "Assets\\Prefabs\\lvleditor.json",
+      "Assets\\Prefabs\\material_sphere.json",
+      "Assets\\Prefabs\\mini_map.json",
+      "Assets\\Prefabs\\mitsuba_sphere.json",
+      "Assets\\Prefabs\\mono_azul.json",
+      "Assets\\Prefabs\\mono_rojo.json",
+      "Assets\\Prefabs\\player.json",
+      "Assets\\Prefabs\\Players\\shooter_player.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\cone.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\cube.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\sphere.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\tetrahedron.json",
+      "Assets\\Prefabs\\Primitive_Shapes\\torus.json",
+      "Assets\\Prefabs\\Projectiles\\EnemyBulletProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\EnemyProjectile.json",
+      "Assets\\Prefabs\\Projectiles\\ProjectilePlayer.json",
+      "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\rough_door.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner1.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner3b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner4b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner5.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner6.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7a.json",
+      "Assets\\Prefabs\\ShooterEnemies\\enemy_rail_spawner7b.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug.json",
+      "Assets\\Prefabs\\ShooterEnemies\\flying_bug2.json",
+      "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "Assets\\Prefabs\\smooth_wood_plane.json",
+      "Assets\\Prefabs\\splinecurve.json",
+      "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\Cameras\\TppFollowCamera.json",
+      "Assets\\Prefabs\\Players\\RamziPlayer.json"
+    ],
+    "Fonts": [
+      "Assets\\Fonts\\courier_new.spritefont",
+      "Assets\\Fonts\\courier_new_bold.spritefont"
+    ]
+  },
+  "Objects": [
+    {
+      "tag": "Loading",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 0, 0, 0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+        "UIComponent": {
+          "InitialPosition": [ 0, 0, 0 ],
+          "FinalPosition": [ 0, 0, 0 ],
+          "DeltaTime": -1.0
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\LoadingMaterial.json"
+        }
+      }
+    },
+    {
+      "tag": "RotatingArrow",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [ 990.0, 490.0, 0.00 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 216.0, 216.0, 0.0001 ]
+        },
+
+        "UIComponent": {
+          "InitialPosition": [ 700, 350, 0 ],
+          "FinalPosition": [ 700, 350, 0 ],
+          "DeltaTime": -35.0,
+          "InitialRotation": 1720.0,
+          "FinalRotation": 0.0,
+          "RotationRate": -0.50
+        },
+        "RendererComponent": {
+          "MaterialId": "Assets\\Materials\\UI\\RotatingArrowMaterial.json"
+        }
+      }
+    },
+    {
+      "tag": "UIObject",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+        "UIComponent": {
+          "TotalObjects": 2,
+          "TotalButtons": 0
+        },
+        "Scripts": [
+          {
+            "Name": "Scripts\\Components\\UICameraLoading.lua"
+          }
+        ]
+      }
+    }
+  ]
+}

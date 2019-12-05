@@ -1,0 +1,8 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\SmoothWood\\Wood24_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\SmoothWood\\Wood24_nrm.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\SmoothWood\\Wood24_disp.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\SmoothWood\\Wood24_rgh.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ]
+}

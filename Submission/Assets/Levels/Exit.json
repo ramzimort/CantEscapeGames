@@ -1,0 +1,185 @@
+{
+  "Resources": {
+    "Textures": [
+	  "Assets\\Textures\\UI\\UIBackGroundImage.png",
+	  "Assets\\Textures\\UI\\SettingBase.png",
+	  "Assets\\Textures\\UI\\YesButton.png",
+	  "Assets\\Textures\\UI\\NoButton.png",
+	  "Assets\\Textures\\UI\\ExitText.png"
+	  
+	  
+    ],
+    "Models": [
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\plane.fbx"
+    ],
+    "Materials": [
+	  "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json",
+	  "Assets\\Materials\\UI\\SettingBaseMaterial.json",
+	  "Assets\\Materials\\UI\\YesButtonMaterial.json",
+	  "Assets\\Materials\\UI\\NoButtonMaterial.json",
+	  "Assets\\Materials\\UI\\ExitTextMaterial.json"
+	   
+	   
+    ],
+    
+    "Prefabs": [
+      "Assets\\Prefabs\\Button.json",
+	  "Assets\\Prefabs\\UIEmpty.json",
+      "Assets\\Prefabs\\UIObject.json"
+    ],
+    "Scripts": [
+      "Scripts\\States\\Exit.lua",
+      "Scripts\\Components\\UICameraExit.lua",
+	  "Scripts\\Components\\Button.lua",
+	  "Scripts\\Components\\AffineAnimation.lua",
+	  "Scripts\\Components\\WindowResize.lua"
+    ],
+	"Songs": [
+
+    ],
+    "SFX": [
+
+    ]
+  },
+  "Objects": [
+    
+	{
+      "tag": "UIBackGround",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  0, 0,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 1280, 720, 1 ]
+        },
+		"UIComponent": {
+			"InitialPosition": [ 0, 0,0],
+			"FinalPosition": [ 0, 0, 0],
+			"DeltaTime": 1.0 
+		},
+	
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\UIBackGroundImageMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "SettingBase",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -1000, -1000,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 765, 679, 1 ]
+        },
+		"UIComponent": {
+			"InitialPosition": [ -1000, -1000,0],
+			"FinalPosition": [ 258, 20, 0],
+			"DeltaTime": 20.0,
+			"InitialRotation" : 100.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0	
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\SettingBaseMaterial.json"
+		}		
+		
+      }
+    },
+    {
+      "tag": "YesButton",
+      "prefab": "Assets\\Prefabs\\Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 79, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Menu.json",
+			"ButtonIndex": 1,
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 321, 546, 0],
+			"DeltaTime": 8.0,
+			"InitialRotation" : 500.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0				
+		},
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\YesButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "NoButton",
+      "prefab": "Assets\\Prefabs\\Button.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -300, 200,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 250, 79, 1 ]
+        },
+		"UIComponent": {
+			"State": "Assets\\Levels\\Menu.json",
+			"ButtonIndex": 2,
+			"InitialPosition": [ -300, 200,0],
+			"FinalPosition": [ 671, 546, 0],
+			"DeltaTime": 8.0,
+			"InitialRotation" : 600.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -5.0				
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\NoButtonMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "ExitText",
+      "prefab": "Assets\\Prefabs\\UIEmpty.json",
+      "overrides": {
+        "TransformComponent": {
+          "Position": [  -1000, -1000,0 ],
+          "Rotation": [ 0.0, 0.0, 0.0 ],
+          "Scale": [ 282, 230, 1 ]
+        },
+		"UIComponent": {
+			"InitialPosition": [ -1000, -1000,0],
+			"FinalPosition": [ 508, 222, 0],
+			"DeltaTime": 24.0,
+			"InitialRotation" : 650.0,
+			"FinalRotation" : 0.0,
+			"RotationRate" : -8.0			
+		},
+		
+		"RendererComponent": {
+			"MaterialId": "Assets\\Materials\\UI\\ExitTextMaterial.json"
+		}		
+		
+      }
+    },
+	{
+      "tag": "UIObject1",
+      "prefab": "Assets\\Prefabs\\UIObject.json",
+      "overrides": {
+		"UIComponent": {
+			"TotalObjects": 5,
+			"TotalButtons": 2
+		},
+		"Scripts": [
+			{
+				"Name": "Scripts\\Components\\UICameraExit.lua"
+			}
+		]
+      }
+    }
+    
+
+  ]
+}
