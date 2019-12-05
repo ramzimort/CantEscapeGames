@@ -150,8 +150,9 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 		else
 			followPathCurvesComp:SetEnableMotionAlongPath(false);
 		end
+	elseif(SCANCODE.ESCAPE == key and state) then
+		 EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
 	end
-
 end
 
 shooter_fpscontroller.OnMouseMotion = function(self, position, deltaposition)

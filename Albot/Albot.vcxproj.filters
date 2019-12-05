@@ -66,8 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Prefabs\Projectiles\ProjectilePlayer.json" />
-    <None Include="Scripts\Components\ProjectileLogic.lua" />
     <None Include="Assets\Prefabs\Projectiles\EnemyProjectile.json" />
-    <None Include="Scripts\Components\ShootingPlayerLogic.lua" />
   </ItemGroup>
 </Project>

@@ -92,7 +92,10 @@ TestPlayerAnimComp =
 
 --Method
 TestPlayerAnimComp.OnKeyPressed = function(self, key, state)
-	
+	if(key == SCANCODE.ESCAPE and state) then	
+		EventManager.Get():LoadState(false, "Assets\\Levels\\Menu.json");
+	end
+
 	--If being knowckedback, dont listen to input
 	if (self.knockback or self.death) then 
 		return 
