@@ -1,0 +1,18 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 10.0, 10.0, 1.0 ]
+
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\SmoothWoodMaterial.json",
+    "XTileFactor": 4.0,
+    "YTileFactor": 4.0
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\plane.fbx"
+  }
+}

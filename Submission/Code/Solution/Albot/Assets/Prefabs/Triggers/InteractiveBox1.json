@@ -1,0 +1,39 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 1.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+  "TriggerComponent": {
+    "Scale": [ 1.2, 1.2, 1.2 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "STATIC_OBJ"
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\RoughBrick22Material.json",
+    "XTileFactor": 1.0,
+    "YTileFactor": 1.0
+  },
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Cube.fbx"
+  },
+  "RigidBodyComponent": {
+    "IsEffectedByGravity": false,
+    "Velocity": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Mass": 3.3999999521443644e38,
+    "IsAsleep": false,
+    "CollisionMask": "STATIC_OBJ"
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\InteractiveBox1.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}

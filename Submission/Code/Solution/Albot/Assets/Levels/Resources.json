@@ -1,0 +1,70 @@
+{
+  "Language": "Assets\\Strings\\en.csv",
+  "Resources": {
+    "Textures": [
+      "Assets\\Textures\\floor.png",
+      "Assets\\Textures\\Particles\\flare0.png",
+      "Assets\\Textures\\redbrick.jpg",
+      "Assets\\Textures\\redbrick_normal.jpg",
+      "Assets\\Textures\\redbrick_height.jpg",
+      "Assets\\Textures\\redbrick_height_invert.jpg",
+      "Assets\\Textures\\ceramic_diffuse.jpg",
+      "Assets\\Textures\\ceramic_normal.jpg",
+      "Assets\\Textures\\ceramic_height.jpg",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_2k.hdr",
+      "Assets\\Textures\\Skybox\\Factory_Catwalk_Env.hdr"
+    ],
+    "Models": [
+      "Assets\\Models\\mitsuba-sphere.obj",
+      "Assets\\Models\\plane.fbx",
+      "Assets\\Models\\Cube.fbx",
+      "Assets\\Models\\Sphere.fbx",
+      "Assets\\Models\\AnimTest01.fbx",
+      "Assets\\Models\\TestStand.fbx",
+      "Assets\\Models\\TestWalk.fbx"
+    ],
+    "Materials": [
+      "Assets\\Materials\\Material1.json",
+      "Assets\\Materials\\Red_Brick_Material.json",
+      "Assets\\Materials\\MaterialDarkGreen.json",
+      "Assets\\Materials\\RedDieletricRoughMaterial.json",
+      "Assets\\Materials\\RedDieletricSmoothMaterial.json",
+      "Assets\\Materials\\RedMetallicSmoothMaterial.json",
+      "Assets\\Materials\\CeramicMaterial.json"
+    ],
+    "Songs": [
+
+    ],
+    "SFX": [
+
+    ],
+    "Prefabs": [
+      "Assets\\Prefabs\\lvleditor.json",
+      "Assets\\Prefabs\\mono_azul.json",
+      "Assets\\Prefabs\\mono_rojo.json",
+      "Assets\\Prefabs\\mitsuba_sphere.json",
+      "Assets\\Prefabs\\Lights\\directional_light.json",
+      "Assets\\Prefabs\\Lights\\point_light.json",
+      "Assets\\Prefabs\\RBTestObj.json",
+      "Assets\\Prefabs\\TriggerRigidCube.json",
+      "Assets\\Prefabs\\player.json",
+      "Assets\\Prefabs\\TestGoJose.json",
+      "Assets\\Prefabs\\brick_wall.json",
+      "Assets\\Prefabs\\mini_map.json",
+      "Assets\\Prefabs\\Skybox\\factory_skybox.json",
+      "Assets\\Prefabs\\burning_mitsuba_sphere.json",
+      "Assets\\Prefabs\\ceramic_floor.json"
+    ],
+    "Scripts": [
+      "Scripts\\States\\level1.lua",
+      "Scripts\\States\\DebugPause.lua",
+      "Scripts\\Components\\test01Comp.lua",
+      "Scripts\\Components\\test02Comp.lua",
+      "Scripts\\Components\\PlayerComp.lua",
+      "Scripts\\Components\\fpscontroller.lua"
+    ]
+  },
+  "Objects": [
+
+  ]
+}

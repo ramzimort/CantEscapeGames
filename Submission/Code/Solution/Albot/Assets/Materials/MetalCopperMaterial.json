@@ -1,0 +1,21 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\MetalCopper\\Metal07_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\MetalCopper\\Metal07_nrm.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\MetalCopper\\Metal07_disp.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\MetalCopper\\Metal07_rgh.jpg",
+  "Metallic_Texture_Dir": "Assets\\Textures\\MetalCopper\\Metal07_met.jpg",
+  "Roughness_Value": 0.100000011920929,
+  "Metallic_Value": 0.80000000298023225,
+  "Diffuse_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "Specular_Color": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ]
+}

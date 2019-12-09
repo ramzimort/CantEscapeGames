@@ -1,0 +1,9 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\NoReflectionMetal\\Metal09_col.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\NoReflectionMetal\\Metal09_nrm.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\NoReflectionMetal\\Metal09_disp.jpg",
+  "Metallic_Texture_Dir": "Assets\\Textures\\NoReflectionMetal\\Metal09_met.jpg",
+  "Roughness_Texture_Dir": "Assets\\Textures\\NoReflectionMetal\\Metal09_rgh.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ]
+}
