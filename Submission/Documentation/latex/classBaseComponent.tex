@@ -1,0 +1,140 @@
+\hypertarget{classBaseComponent}{}\section{Base\+Component Class Reference}
+\label{classBaseComponent}\index{Base\+Component@{Base\+Component}}
+
+
+Base class for all components (engine and scripted)  
+
+
+
+
+{\ttfamily \#include $<$Base\+Component.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBaseComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Base\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classBaseComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseComponent_a1815699cb565ac2ec254cf61174015cf}\label{classBaseComponent_a1815699cb565ac2ec254cf61174015cf}} 
+typedef unsigned int {\bfseries Component\+Id}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBaseComponent_a64d22c1f5eb72a53ed7584e24f55fcfe}{Base\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner, Component\+Id type)
+\begin{DoxyCompactList}\small\item\em Construct a new Base Component object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseComponent_ab281730e838c4cb33e96ab6d6b7fe15f}\label{classBaseComponent_ab281730e838c4cb33e96ab6d6b7fe15f}} 
+virtual \hyperlink{classBaseComponent_ab281730e838c4cb33e96ab6d6b7fe15f}{$\sim$\+Base\+Component} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Base Component object. \end{DoxyCompactList}\item 
+Component\+Id \hyperlink{classBaseComponent_a50e4481cdb27430cf4a5a10f1a06af35}{Get\+Type} () const
+\begin{DoxyCompactList}\small\item\em Get the Type object. \end{DoxyCompactList}\item 
+\hyperlink{classGameObject}{Game\+Object} $\ast$ \hyperlink{classBaseComponent_aa07f9b9c2ebdd2c314404771857e9e07}{Get\+Owner} () const
+\begin{DoxyCompactList}\small\item\em Get the Owner object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseComponent_a3fe4f92f22cd488107f2929b7545d878}\label{classBaseComponent_a3fe4f92f22cd488107f2929b7545d878}} 
+{\bfseries R\+T\+T\+R\+\_\+\+E\+N\+A\+B\+LE} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseComponent_ae4de98b70923b6c515ced3a97b2f3d32}\label{classBaseComponent_ae4de98b70923b6c515ced3a97b2f3d32}} 
+Component\+Id \hyperlink{classBaseComponent_ae4de98b70923b6c515ced3a97b2f3d32}{m\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Id unique per component type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseComponent_a0b7f35e80a5033c8ba721f40927e6e75}\label{classBaseComponent_a0b7f35e80a5033c8ba721f40927e6e75}} 
+\hyperlink{classGameObject}{Game\+Object} $\ast$ \hyperlink{classBaseComponent_a0b7f35e80a5033c8ba721f40927e6e75}{m\+\_\+owner}
+\begin{DoxyCompactList}\small\item\em Pointer to \hyperlink{classGameObject}{Game\+Object} owner of this component. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseComponent_a0d398cc5055095b7b8aa5a0f6f054ad1}\label{classBaseComponent_a0d398cc5055095b7b8aa5a0f6f054ad1}} 
+{\bfseries R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+O\+N\+\_\+\+F\+R\+I\+E\+ND}
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}\label{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}} 
+static Component\+Id \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{number\+Of\+Types} = 0
+\begin{DoxyCompactList}\small\item\em Static member, number of unique component types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseComponent_a328c093d609680cca505905c6d49901a}\label{classBaseComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classBaseComponent_a00df87c957d8f7ee0fc51f07a0542f4a}\label{classBaseComponent_a00df87c957d8f7ee0fc51f07a0542f4a}} 
+class {\bfseries Game\+Object}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for all components (engine and scripted) 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBaseComponent_a64d22c1f5eb72a53ed7584e24f55fcfe}\label{classBaseComponent_a64d22c1f5eb72a53ed7584e24f55fcfe}} 
+\index{Base\+Component@{Base\+Component}!Base\+Component@{Base\+Component}}
+\index{Base\+Component@{Base\+Component}!Base\+Component@{Base\+Component}}
+\subsubsection{\texorpdfstring{Base\+Component()}{BaseComponent()}}
+{\footnotesize\ttfamily Base\+Component\+::\+Base\+Component (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{owner,  }\item[{Component\+Id}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new Base Component object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & \\
+\hline
+{\em type} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBaseComponent_aa07f9b9c2ebdd2c314404771857e9e07}\label{classBaseComponent_aa07f9b9c2ebdd2c314404771857e9e07}} 
+\index{Base\+Component@{Base\+Component}!Get\+Owner@{Get\+Owner}}
+\index{Get\+Owner@{Get\+Owner}!Base\+Component@{Base\+Component}}
+\subsubsection{\texorpdfstring{Get\+Owner()}{GetOwner()}}
+{\footnotesize\ttfamily \hyperlink{classGameObject}{Game\+Object}$\ast$ Base\+Component\+::\+Get\+Owner (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Owner object. 
+
+\begin{DoxyReturn}{Returns}
+Game\+Object$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBaseComponent_a50e4481cdb27430cf4a5a10f1a06af35}\label{classBaseComponent_a50e4481cdb27430cf4a5a10f1a06af35}} 
+\index{Base\+Component@{Base\+Component}!Get\+Type@{Get\+Type}}
+\index{Get\+Type@{Get\+Type}!Base\+Component@{Base\+Component}}
+\subsubsection{\texorpdfstring{Get\+Type()}{GetType()}}
+{\footnotesize\ttfamily Component\+Id Base\+Component\+::\+Get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Type object. 
+
+\begin{DoxyReturn}{Returns}
+Component\+Id 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/\hyperlink{BaseComponent_8h}{Base\+Component.\+h}\item 
+Components/Base\+Component.\+cpp\end{DoxyCompactItemize}

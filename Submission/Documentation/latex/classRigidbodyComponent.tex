@@ -1,0 +1,276 @@
+\hypertarget{classRigidbodyComponent}{}\section{Rigidbody\+Component Class Reference}
+\label{classRigidbodyComponent}\index{Rigidbody\+Component@{Rigidbody\+Component}}
+
+
+Rigidbody component.  
+
+
+
+
+{\ttfamily \#include $<$Rigidbody\+Component.\+h$>$}
+
+
+
+Inheritance diagram for Rigidbody\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classRigidbodyComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rigidbody\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classRigidbodyComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_ac10d3006d0d2324280f339f8adf3c5bc}\label{classRigidbodyComponent_ac10d3006d0d2324280f339f8adf3c5bc}} 
+{\bfseries Rigidbody\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+virtual void \hyperlink{classRigidbodyComponent_a3fe46e628d20481031089e0e3e6bc6ee}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classRigidbodyComponent_af18ec4b42ca0c975e79f228fb515f2ac}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classRigidbodyComponent_a6e0c112dd206b2f4cfe90941aeab110f}{Get\+Position} () const
+\begin{DoxyCompactList}\small\item\em Get the Position of the object in the world space. \end{DoxyCompactList}\item 
+const \hyperlink{classAabb}{Aabb} \& \hyperlink{classRigidbodyComponent_a383ec958d3a98df5b7870fb582834b14}{Get\+Aabb} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classAabb}{Aabb} of the object in a world space. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classRigidbodyComponent_a11febd70a9d94963f6f7daf2f521b091}{Get\+Velocity} () const
+\begin{DoxyCompactList}\small\item\em Get current linear velocity. \end{DoxyCompactList}\item 
+void \hyperlink{classRigidbodyComponent_ab85528e62b5a1a81c5f6b9af821c6eb5}{Set\+Velocity} (const Vector3 \&velocity)
+\begin{DoxyCompactList}\small\item\em Set linear Velocity of the object. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classRigidbodyComponent_affcd899b87d83aa4147793481f17f5af}{Get\+Angular\+Velocity} () const
+\begin{DoxyCompactList}\small\item\em Get the Angular Velocity of the object. \end{DoxyCompactList}\item 
+void \hyperlink{classRigidbodyComponent_afba758ae0f34f537aa207ec405dd947e}{Set\+Angular\+Velocity} (const Vector3 \&angular\+Velocity)
+\begin{DoxyCompactList}\small\item\em Set the Angular Velocity of hte object object. \end{DoxyCompactList}\item 
+float \hyperlink{classRigidbodyComponent_acf62ca0b197641a3e536e38e5b90f0b1}{Get\+Mass} () const
+\begin{DoxyCompactList}\small\item\em Get the Mass of the object. \end{DoxyCompactList}\item 
+void \hyperlink{classRigidbodyComponent_a9e75d7dfef39fcccdd9ddf7416188d57}{Set\+Mass} (float mass)
+\begin{DoxyCompactList}\small\item\em Set the Mass of the object. \end{DoxyCompactList}\item 
+Collision\+Table\+::\+Collision\+Mask \hyperlink{classRigidbodyComponent_a6b7cc610ebeac138cddc580c746e3eb2}{Get\+Collision\+Mask} ()
+\begin{DoxyCompactList}\small\item\em Get the collision mask of the object. \end{DoxyCompactList}\item 
+bool \hyperlink{classRigidbodyComponent_a5ea94f888c37f71c6e7206b0497f1bc8}{Is\+Asleep} () const
+\begin{DoxyCompactList}\small\item\em Checks if the object is aslepe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_a0e5df88cd54f006fca8de1383a4dd1ad}\label{classRigidbodyComponent_a0e5df88cd54f006fca8de1383a4dd1ad}} 
+\hyperlink{classMulticast}{Multicast}$<$ void(\hyperlink{classGameObject}{Game\+Object} $\ast$, \hyperlink{classGameObject}{Game\+Object} $\ast$)$>$ {\bfseries m\+\_\+on\+Collision}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_af221dd26ffa3afa7eddb139cba1821f6}\label{classRigidbodyComponent_af221dd26ffa3afa7eddb139cba1821f6}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_a328c093d609680cca505905c6d49901a}\label{classRigidbodyComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_a55a81cc4c29d94c4266e29a2e459bc1e}\label{classRigidbodyComponent_a55a81cc4c29d94c4266e29a2e459bc1e}} 
+class {\bfseries Rigidbody\+System}
+\item 
+\mbox{\Hypertarget{classRigidbodyComponent_ab3d6fafb2064bace492fd6b503d044f4}\label{classRigidbodyComponent_ab3d6fafb2064bace492fd6b503d044f4}} 
+class {\bfseries Scripting\+Manager}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Rigidbody component. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRigidbodyComponent_af18ec4b42ca0c975e79f228fb515f2ac}\label{classRigidbodyComponent_af18ec4b42ca0c975e79f228fb515f2ac}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Rigidbody\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classRigidbodyComponent_a383ec958d3a98df5b7870fb582834b14}\label{classRigidbodyComponent_a383ec958d3a98df5b7870fb582834b14}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Aabb@{Get\+Aabb}}
+\index{Get\+Aabb@{Get\+Aabb}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Aabb()}{GetAabb()}}
+{\footnotesize\ttfamily const \hyperlink{classAabb}{Aabb} \& Rigidbody\+Component\+::\+Get\+Aabb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{classAabb}{Aabb} of the object in a world space. 
+
+\begin{DoxyReturn}{Returns}
+const \hyperlink{classAabb}{Aabb}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_affcd899b87d83aa4147793481f17f5af}\label{classRigidbodyComponent_affcd899b87d83aa4147793481f17f5af}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Angular\+Velocity@{Get\+Angular\+Velocity}}
+\index{Get\+Angular\+Velocity@{Get\+Angular\+Velocity}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Angular\+Velocity()}{GetAngularVelocity()}}
+{\footnotesize\ttfamily const Vector3 \& Rigidbody\+Component\+::\+Get\+Angular\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Angular Velocity of the object. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_a6b7cc610ebeac138cddc580c746e3eb2}\label{classRigidbodyComponent_a6b7cc610ebeac138cddc580c746e3eb2}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Collision\+Mask@{Get\+Collision\+Mask}}
+\index{Get\+Collision\+Mask@{Get\+Collision\+Mask}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Collision\+Mask()}{GetCollisionMask()}}
+{\footnotesize\ttfamily Collision\+Table\+::\+Collision\+Mask Rigidbody\+Component\+::\+Get\+Collision\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the collision mask of the object. 
+
+\begin{DoxyReturn}{Returns}
+Collision\+Table\+::\+Collision\+Mask 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_acf62ca0b197641a3e536e38e5b90f0b1}\label{classRigidbodyComponent_acf62ca0b197641a3e536e38e5b90f0b1}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Mass@{Get\+Mass}}
+\index{Get\+Mass@{Get\+Mass}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Mass()}{GetMass()}}
+{\footnotesize\ttfamily float Rigidbody\+Component\+::\+Get\+Mass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Mass of the object. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_a6e0c112dd206b2f4cfe90941aeab110f}\label{classRigidbodyComponent_a6e0c112dd206b2f4cfe90941aeab110f}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Position@{Get\+Position}}
+\index{Get\+Position@{Get\+Position}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Position()}{GetPosition()}}
+{\footnotesize\ttfamily const Vector3 \& Rigidbody\+Component\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Position of the object in the world space. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_a11febd70a9d94963f6f7daf2f521b091}\label{classRigidbodyComponent_a11febd70a9d94963f6f7daf2f521b091}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Get\+Velocity@{Get\+Velocity}}
+\index{Get\+Velocity@{Get\+Velocity}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Get\+Velocity()}{GetVelocity()}}
+{\footnotesize\ttfamily const Vector3 \& Rigidbody\+Component\+::\+Get\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get current linear velocity. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_a3fe46e628d20481031089e0e3e6bc6ee}\label{classRigidbodyComponent_a3fe46e628d20481031089e0e3e6bc6ee}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Init@{Init}}
+\index{Init@{Init}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Rigidbody\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classRigidbodyComponent_a5ea94f888c37f71c6e7206b0497f1bc8}\label{classRigidbodyComponent_a5ea94f888c37f71c6e7206b0497f1bc8}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Is\+Asleep@{Is\+Asleep}}
+\index{Is\+Asleep@{Is\+Asleep}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Is\+Asleep()}{IsAsleep()}}
+{\footnotesize\ttfamily bool Rigidbody\+Component\+::\+Is\+Asleep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the object is aslepe. 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodyComponent_afba758ae0f34f537aa207ec405dd947e}\label{classRigidbodyComponent_afba758ae0f34f537aa207ec405dd947e}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Set\+Angular\+Velocity@{Set\+Angular\+Velocity}}
+\index{Set\+Angular\+Velocity@{Set\+Angular\+Velocity}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Set\+Angular\+Velocity()}{SetAngularVelocity()}}
+{\footnotesize\ttfamily void Rigidbody\+Component\+::\+Set\+Angular\+Velocity (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{angular\+Velocity }\end{DoxyParamCaption})}
+
+
+
+Set the Angular Velocity of hte object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angular\+Velocity} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRigidbodyComponent_a9e75d7dfef39fcccdd9ddf7416188d57}\label{classRigidbodyComponent_a9e75d7dfef39fcccdd9ddf7416188d57}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Set\+Mass@{Set\+Mass}}
+\index{Set\+Mass@{Set\+Mass}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Set\+Mass()}{SetMass()}}
+{\footnotesize\ttfamily void Rigidbody\+Component\+::\+Set\+Mass (\begin{DoxyParamCaption}\item[{float}]{mass }\end{DoxyParamCaption})}
+
+
+
+Set the Mass of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mass} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRigidbodyComponent_ab85528e62b5a1a81c5f6b9af821c6eb5}\label{classRigidbodyComponent_ab85528e62b5a1a81c5f6b9af821c6eb5}} 
+\index{Rigidbody\+Component@{Rigidbody\+Component}!Set\+Velocity@{Set\+Velocity}}
+\index{Set\+Velocity@{Set\+Velocity}!Rigidbody\+Component@{Rigidbody\+Component}}
+\subsubsection{\texorpdfstring{Set\+Velocity()}{SetVelocity()}}
+{\footnotesize\ttfamily void Rigidbody\+Component\+::\+Set\+Velocity (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{velocity }\end{DoxyParamCaption})}
+
+
+
+Set linear Velocity of the object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em velocity} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/\hyperlink{RigidbodyComponent_8h}{Rigidbody\+Component.\+h}\item 
+Components/Rigidbody\+Component.\+cpp\end{DoxyCompactItemize}

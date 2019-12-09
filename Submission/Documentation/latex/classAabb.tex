@@ -1,0 +1,364 @@
+\hypertarget{classAabb}{}\section{Aabb Class Reference}
+\label{classAabb}\index{Aabb@{Aabb}}
+
+
+Axis alligned bounding box, represented by aposite corners min and max.  
+
+
+
+
+{\ttfamily \#include $<$Aabb.\+h$>$}
+
+
+
+Inheritance diagram for Aabb\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=127pt]{classAabb__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Aabb\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=127pt]{classAabb__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAabb_a03899715c47e17287f251dc325ebd477}\label{classAabb_a03899715c47e17287f251dc325ebd477}} 
+{\bfseries Aabb} (const Vector3 \&min, const Vector3 \&max)
+\item 
+float \hyperlink{classAabb_ad0f21e16f7be2c42839b0cb025eeed9f}{Get\+Volume} () const
+\begin{DoxyCompactList}\small\item\em Computes Volume of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+float \hyperlink{classAabb_aa5c6fea4dcb0a7f9640a72b1babfe192}{Get\+Surface\+Area} () const
+\begin{DoxyCompactList}\small\item\em Computes Surface Area of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+void \hyperlink{classAabb_a57f19da16237a3e73ba246bd9a20cb9f}{Compute} (const std\+::vector$<$ Vector3 $>$ \&points)
+\begin{DoxyCompactList}\small\item\em Initializes this \hyperlink{classAabb}{Aabb} from constructing an \hyperlink{classAabb}{Aabb} that contains all the given points. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classAabb_a98746a9bae7409bd1cf3734125b62da6}{Is\+Intersect} (const \hyperlink{classAabb}{Aabb} \&aabb) const override
+\begin{DoxyCompactList}\small\item\em check for collision with another \hyperlink{classAabb}{Aabb} \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classAabb_af08568647c234b68334892b20885084a}{Is\+Intersect} (const \hyperlink{classSphere}{Sphere} \&sphere) const override
+\begin{DoxyCompactList}\small\item\em Check for collision with a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{classAabb_ac3cca862f5ccbdf7e3aed736476fd9ea}{Contains} (const \hyperlink{classAabb}{Aabb} \&aabb) const
+\begin{DoxyCompactList}\small\item\em Check if given \hyperlink{classAabb}{Aabb} fully inside of this \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+void \hyperlink{classAabb_ac21813c88f72a56e142c984c3efde368}{Expand} (const Vector3 \&point)
+\begin{DoxyCompactList}\small\item\em Expands this \hyperlink{classAabb}{Aabb} to contain also given point. \end{DoxyCompactList}\item 
+void \hyperlink{classAabb_ace74b981085cccf12e3ff8e8640a0e07}{Transform} (const Matrix \&transform)
+\begin{DoxyCompactList}\small\item\em Compute aabb that would contain the obb of this aabb after transforming it. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classAabb_afe9a77744c815785d6b3c6fa4c3a8340}{Get\+Min} () const
+\begin{DoxyCompactList}\small\item\em Get the Min corner of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classAabb_ad221f8c84e946375de4c07bdef67e157}{Get\+Max} () const
+\begin{DoxyCompactList}\small\item\em Get the Max corner of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classAabb_a22fbf825e411bdcbf24c277f1f266d0c}{Get\+Center} () const
+\begin{DoxyCompactList}\small\item\em Get the Center of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classAabb_a06b1e4e71b018b2e5969f49b460f8ae0}{Get\+Half\+Extent} () const
+\begin{DoxyCompactList}\small\item\em Get the Half Extent of the \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classAabb}{Aabb} \hyperlink{classAabb_a97ee8719ddae080c16c206f5724b5a9f}{Build\+From\+Center\+And\+Half\+Extents} (const Vector3 \&center, const Vector3 \&half\+Extents)
+\begin{DoxyCompactList}\small\item\em Builds \hyperlink{classAabb}{Aabb} from the coordinates of the center of the aabb and the half extent vector to one of the corners. \end{DoxyCompactList}\item 
+static \hyperlink{classAabb}{Aabb} \hyperlink{classAabb_a3b8654c48a3713faebbe7490e261eb6e}{Build\+From\+Min\+Max} (const Vector3 \&min, const Vector3 \&max)
+\begin{DoxyCompactList}\small\item\em Builds \hyperlink{classAabb}{Aabb} from given aposite corners min and max. \end{DoxyCompactList}\item 
+static \hyperlink{classAabb}{Aabb} \hyperlink{classAabb_a32c65313d0c0b6f3918473340cd7c129}{Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix} (const Matrix \&model\+Matrix, const \hyperlink{classAabb}{Aabb} \&local\+A\+A\+BB)
+\begin{DoxyCompactList}\small\item\em Builds \hyperlink{classAabb}{Aabb} around transformed aabb. \end{DoxyCompactList}\item 
+static \hyperlink{classAabb}{Aabb} \hyperlink{classAabb_a7f6f3ebe0340505f04b8bf1fc81c7e5f}{Combine} (const \hyperlink{classAabb}{Aabb} \&lhs, const \hyperlink{classAabb}{Aabb} \&rhs)
+\begin{DoxyCompactList}\small\item\em Builds an \hyperlink{classAabb}{Aabb} that contains both of the provided Aabbs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAabb_ad97407c0cde4852c9d5b490c1f602302}\label{classAabb_ad97407c0cde4852c9d5b490c1f602302}} 
+Vector3 {\bfseries m\+\_\+\+Min}
+\item 
+\mbox{\Hypertarget{classAabb_a57e862b50109cbaa0e5b731060963bf9}\label{classAabb_a57e862b50109cbaa0e5b731060963bf9}} 
+Vector3 {\bfseries m\+\_\+\+Max}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Axis alligned bounding box, represented by aposite corners min and max. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classAabb_a97ee8719ddae080c16c206f5724b5a9f}\label{classAabb_a97ee8719ddae080c16c206f5724b5a9f}} 
+\index{Aabb@{Aabb}!Build\+From\+Center\+And\+Half\+Extents@{Build\+From\+Center\+And\+Half\+Extents}}
+\index{Build\+From\+Center\+And\+Half\+Extents@{Build\+From\+Center\+And\+Half\+Extents}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Build\+From\+Center\+And\+Half\+Extents()}{BuildFromCenterAndHalfExtents()}}
+{\footnotesize\ttfamily \hyperlink{classAabb}{Aabb} Aabb\+::\+Build\+From\+Center\+And\+Half\+Extents (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{center,  }\item[{const Vector3 \&}]{half\+Extents }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Builds \hyperlink{classAabb}{Aabb} from the coordinates of the center of the aabb and the half extent vector to one of the corners. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em center} & \\
+\hline
+{\em half\+Extents} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classAabb}{Aabb} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a32c65313d0c0b6f3918473340cd7c129}\label{classAabb_a32c65313d0c0b6f3918473340cd7c129}} 
+\index{Aabb@{Aabb}!Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix@{Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix}}
+\index{Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix@{Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix()}{BuildFromLocalAABBAndModelMatrix()}}
+{\footnotesize\ttfamily \hyperlink{classAabb}{Aabb} Aabb\+::\+Build\+From\+Local\+A\+A\+B\+B\+And\+Model\+Matrix (\begin{DoxyParamCaption}\item[{const Matrix \&}]{model\+Matrix,  }\item[{const \hyperlink{classAabb}{Aabb} \&}]{local\+A\+A\+BB }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Builds \hyperlink{classAabb}{Aabb} around transformed aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+Matrix} & \\
+\hline
+{\em local\+A\+A\+BB} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classAabb}{Aabb} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a3b8654c48a3713faebbe7490e261eb6e}\label{classAabb_a3b8654c48a3713faebbe7490e261eb6e}} 
+\index{Aabb@{Aabb}!Build\+From\+Min\+Max@{Build\+From\+Min\+Max}}
+\index{Build\+From\+Min\+Max@{Build\+From\+Min\+Max}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Build\+From\+Min\+Max()}{BuildFromMinMax()}}
+{\footnotesize\ttfamily \hyperlink{classAabb}{Aabb} Aabb\+::\+Build\+From\+Min\+Max (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{min,  }\item[{const Vector3 \&}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Builds \hyperlink{classAabb}{Aabb} from given aposite corners min and max. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & \\
+\hline
+{\em max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classAabb}{Aabb} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a7f6f3ebe0340505f04b8bf1fc81c7e5f}\label{classAabb_a7f6f3ebe0340505f04b8bf1fc81c7e5f}} 
+\index{Aabb@{Aabb}!Combine@{Combine}}
+\index{Combine@{Combine}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Combine()}{Combine()}}
+{\footnotesize\ttfamily \hyperlink{classAabb}{Aabb} Aabb\+::\+Combine (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{lhs,  }\item[{const \hyperlink{classAabb}{Aabb} \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Builds an \hyperlink{classAabb}{Aabb} that contains both of the provided Aabbs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classAabb}{Aabb} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a57f19da16237a3e73ba246bd9a20cb9f}\label{classAabb_a57f19da16237a3e73ba246bd9a20cb9f}} 
+\index{Aabb@{Aabb}!Compute@{Compute}}
+\index{Compute@{Compute}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Compute()}{Compute()}}
+{\footnotesize\ttfamily void Aabb\+::\+Compute (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ Vector3 $>$ \&}]{points }\end{DoxyParamCaption})}
+
+
+
+Initializes this \hyperlink{classAabb}{Aabb} from constructing an \hyperlink{classAabb}{Aabb} that contains all the given points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em points} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAabb_ac3cca862f5ccbdf7e3aed736476fd9ea}\label{classAabb_ac3cca862f5ccbdf7e3aed736476fd9ea}} 
+\index{Aabb@{Aabb}!Contains@{Contains}}
+\index{Contains@{Contains}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Contains()}{Contains()}}
+{\footnotesize\ttfamily bool Aabb\+::\+Contains (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb }\end{DoxyParamCaption}) const}
+
+
+
+Check if given \hyperlink{classAabb}{Aabb} fully inside of this \hyperlink{classAabb}{Aabb}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if this aabb contains given aabb 
+
+false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_ac21813c88f72a56e142c984c3efde368}\label{classAabb_ac21813c88f72a56e142c984c3efde368}} 
+\index{Aabb@{Aabb}!Expand@{Expand}}
+\index{Expand@{Expand}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Expand()}{Expand()}}
+{\footnotesize\ttfamily void Aabb\+::\+Expand (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point }\end{DoxyParamCaption})}
+
+
+
+Expands this \hyperlink{classAabb}{Aabb} to contain also given point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAabb_a22fbf825e411bdcbf24c277f1f266d0c}\label{classAabb_a22fbf825e411bdcbf24c277f1f266d0c}} 
+\index{Aabb@{Aabb}!Get\+Center@{Get\+Center}}
+\index{Get\+Center@{Get\+Center}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Center()}{GetCenter()}}
+{\footnotesize\ttfamily Vector3 Aabb\+::\+Get\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Center of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a06b1e4e71b018b2e5969f49b460f8ae0}\label{classAabb_a06b1e4e71b018b2e5969f49b460f8ae0}} 
+\index{Aabb@{Aabb}!Get\+Half\+Extent@{Get\+Half\+Extent}}
+\index{Get\+Half\+Extent@{Get\+Half\+Extent}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Half\+Extent()}{GetHalfExtent()}}
+{\footnotesize\ttfamily Vector3 Aabb\+::\+Get\+Half\+Extent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Half Extent of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_ad221f8c84e946375de4c07bdef67e157}\label{classAabb_ad221f8c84e946375de4c07bdef67e157}} 
+\index{Aabb@{Aabb}!Get\+Max@{Get\+Max}}
+\index{Get\+Max@{Get\+Max}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Max()}{GetMax()}}
+{\footnotesize\ttfamily Vector3 Aabb\+::\+Get\+Max (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Max corner of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_afe9a77744c815785d6b3c6fa4c3a8340}\label{classAabb_afe9a77744c815785d6b3c6fa4c3a8340}} 
+\index{Aabb@{Aabb}!Get\+Min@{Get\+Min}}
+\index{Get\+Min@{Get\+Min}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Min()}{GetMin()}}
+{\footnotesize\ttfamily Vector3 Aabb\+::\+Get\+Min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Min corner of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_aa5c6fea4dcb0a7f9640a72b1babfe192}\label{classAabb_aa5c6fea4dcb0a7f9640a72b1babfe192}} 
+\index{Aabb@{Aabb}!Get\+Surface\+Area@{Get\+Surface\+Area}}
+\index{Get\+Surface\+Area@{Get\+Surface\+Area}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Surface\+Area()}{GetSurfaceArea()}}
+{\footnotesize\ttfamily float Aabb\+::\+Get\+Surface\+Area (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Computes Surface Area of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_ad0f21e16f7be2c42839b0cb025eeed9f}\label{classAabb_ad0f21e16f7be2c42839b0cb025eeed9f}} 
+\index{Aabb@{Aabb}!Get\+Volume@{Get\+Volume}}
+\index{Get\+Volume@{Get\+Volume}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Get\+Volume()}{GetVolume()}}
+{\footnotesize\ttfamily float Aabb\+::\+Get\+Volume (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Computes Volume of the \hyperlink{classAabb}{Aabb}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAabb_a98746a9bae7409bd1cf3734125b62da6}\label{classAabb_a98746a9bae7409bd1cf3734125b62da6}} 
+\index{Aabb@{Aabb}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Aabb\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+check for collision with another \hyperlink{classAabb}{Aabb} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if intersects 
+
+false if not intersects 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classShape_a1bfc3d6c995c4326d4691b22d16d2f12}{Shape}.
+
+\mbox{\Hypertarget{classAabb_af08568647c234b68334892b20885084a}\label{classAabb_af08568647c234b68334892b20885084a}} 
+\index{Aabb@{Aabb}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Aabb\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classSphere}{Sphere} \&}]{sphere }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Check for collision with a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sphere} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if intersects 
+
+false if not intersects 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classShape_a1c942dca54e0d81f685624f33f2ce6c8}{Shape}.
+
+\mbox{\Hypertarget{classAabb_ace74b981085cccf12e3ff8e8640a0e07}\label{classAabb_ace74b981085cccf12e3ff8e8640a0e07}} 
+\index{Aabb@{Aabb}!Transform@{Transform}}
+\index{Transform@{Transform}!Aabb@{Aabb}}
+\subsubsection{\texorpdfstring{Transform()}{Transform()}}
+{\footnotesize\ttfamily void Aabb\+::\+Transform (\begin{DoxyParamCaption}\item[{const Matrix \&}]{transform }\end{DoxyParamCaption})}
+
+
+
+Compute aabb that would contain the obb of this aabb after transforming it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em transform} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Geometry/\hyperlink{Aabb_8h}{Aabb.\+h}\item 
+Physics/\+Geometry/\hyperlink{Aabb_8cpp}{Aabb.\+cpp}\end{DoxyCompactItemize}

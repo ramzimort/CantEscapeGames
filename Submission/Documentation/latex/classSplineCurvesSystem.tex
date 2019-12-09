@@ -1,0 +1,91 @@
+\hypertarget{classSplineCurvesSystem}{}\section{Spline\+Curves\+System Class Reference}
+\label{classSplineCurvesSystem}\index{Spline\+Curves\+System@{Spline\+Curves\+System}}
+
+
+Inheritance diagram for Spline\+Curves\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classSplineCurvesSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Spline\+Curves\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classSplineCurvesSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classSplineCurvesSystem_a2ac1d27cf7dd124bd88e8802fa9b3a59}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSplineCurvesSystem_acc8b36c8c85662437bc2020f29e4d4b6}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSplineCurvesSystem_a19b623db208e20a837d2347933ddc215}\label{classSplineCurvesSystem_a19b623db208e20a837d2347933ddc215}} 
+virtual void \hyperlink{classSplineCurvesSystem_a19b623db208e20a837d2347933ddc215}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSplineCurvesSystem_a15dfebd12f8638fe7d075b287c42b719}\label{classSplineCurvesSystem_a15dfebd12f8638fe7d075b287c42b719}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplineCurvesSystem_a0e7e8fc320ff5911ee24833ddc7e18ba}\label{classSplineCurvesSystem_a0e7e8fc320ff5911ee24833ddc7e18ba}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSplineCurvesSystem_a2ac1d27cf7dd124bd88e8802fa9b3a59}\label{classSplineCurvesSystem_a2ac1d27cf7dd124bd88e8802fa9b3a59}} 
+\index{Spline\+Curves\+System@{Spline\+Curves\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Spline\+Curves\+System@{Spline\+Curves\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Spline\+Curves\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classSplineCurvesSystem_acc8b36c8c85662437bc2020f29e4d4b6}\label{classSplineCurvesSystem_acc8b36c8c85662437bc2020f29e4d4b6}} 
+\index{Spline\+Curves\+System@{Spline\+Curves\+System}!Update@{Update}}
+\index{Update@{Update}!Spline\+Curves\+System@{Spline\+Curves\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Spline\+Curves\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Spline\+Curves\+System.\+h\item 
+Systems/Spline\+Curves\+System.\+cpp\end{DoxyCompactItemize}

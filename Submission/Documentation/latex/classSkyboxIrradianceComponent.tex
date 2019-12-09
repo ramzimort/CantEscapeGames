@@ -1,0 +1,94 @@
+\hypertarget{classSkyboxIrradianceComponent}{}\section{Skybox\+Irradiance\+Component Class Reference}
+\label{classSkyboxIrradianceComponent}\index{Skybox\+Irradiance\+Component@{Skybox\+Irradiance\+Component}}
+
+
+Inheritance diagram for Skybox\+Irradiance\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classSkyboxIrradianceComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Skybox\+Irradiance\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classSkyboxIrradianceComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSkyboxIrradianceComponent_ad2bccd8dec83d3e0f431ed4a7b27d981}\label{classSkyboxIrradianceComponent_ad2bccd8dec83d3e0f431ed4a7b27d981}} 
+{\bfseries Skybox\+Irradiance\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+virtual void \hyperlink{classSkyboxIrradianceComponent_acb579a9a034d27a66da83960a973ea25}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSkyboxIrradianceComponent_a39357a3138b9727a31df30f2b8f2a42d}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSkyboxIrradianceComponent_a8b75ec924103eae4f89b83d0531847ac}\label{classSkyboxIrradianceComponent_a8b75ec924103eae4f89b83d0531847ac}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSkyboxIrradianceComponent_a59dd106587626978b72dd84990bdf562}\label{classSkyboxIrradianceComponent_a59dd106587626978b72dd84990bdf562}} 
+class {\bfseries Skybox\+Irradiance\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSkyboxIrradianceComponent_a39357a3138b9727a31df30f2b8f2a42d}\label{classSkyboxIrradianceComponent_a39357a3138b9727a31df30f2b8f2a42d}} 
+\index{Skybox\+Irradiance\+Component@{Skybox\+Irradiance\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Skybox\+Irradiance\+Component@{Skybox\+Irradiance\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Skybox\+Irradiance\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classSkyboxIrradianceComponent_acb579a9a034d27a66da83960a973ea25}\label{classSkyboxIrradianceComponent_acb579a9a034d27a66da83960a973ea25}} 
+\index{Skybox\+Irradiance\+Component@{Skybox\+Irradiance\+Component}!Init@{Init}}
+\index{Init@{Init}!Skybox\+Irradiance\+Component@{Skybox\+Irradiance\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Skybox\+Irradiance\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Skybox\+Irradiance\+Component.\+h\item 
+Components/Skybox\+Irradiance\+Component.\+cpp\end{DoxyCompactItemize}

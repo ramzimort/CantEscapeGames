@@ -1,0 +1,130 @@
+\hypertarget{classRigidbodySystem}{}\section{Rigidbody\+System Class Reference}
+\label{classRigidbodySystem}\index{Rigidbody\+System@{Rigidbody\+System}}
+
+
+Controls all the rigidbodies.  
+
+
+
+
+{\ttfamily \#include $<$Rigidbody\+System.\+h$>$}
+
+
+
+Inheritance diagram for Rigidbody\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classRigidbodySystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rigidbody\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classRigidbodySystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classRigidbodySystem_adcb7612aeca5d51fa8d886cfd15de991}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classRigidbodySystem_a5235d7d991327cac42986523c5d44580}\label{classRigidbodySystem_a5235d7d991327cac42986523c5d44580}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$renderer)
+\item 
+virtual void \hyperlink{classRigidbodySystem_a3ae11c7e5a8572247fb2e01729e32af9}{Late\+Update} (float dt) override
+\begin{DoxyCompactList}\small\item\em Physics Update function. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree} \& \hyperlink{classRigidbodySystem_aadf0ff84d1e6469ca8d6281aa0f9af70}{Get\+Aabb\+Tree} ()
+\begin{DoxyCompactList}\small\item\em Get the dynamic \hyperlink{classAabb}{Aabb} tree that is used for broad phase of the collision detection. \end{DoxyCompactList}\item 
+void \hyperlink{classRigidbodySystem_adf706ab9fd20dde6f148514d76bfa982}{On\+Key\+Down} (const \hyperlink{classKeyEvent}{Key\+Event} $\ast$key\+Event)
+\begin{DoxyCompactList}\small\item\em proccesses some key presses, such as pause, step to next frame(while paused) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRigidbodySystem_a4149fa1ec0b595ce1e4d3f45ed7da797}\label{classRigidbodySystem_a4149fa1ec0b595ce1e4d3f45ed7da797}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Controls all the rigidbodies. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRigidbodySystem_aadf0ff84d1e6469ca8d6281aa0f9af70}\label{classRigidbodySystem_aadf0ff84d1e6469ca8d6281aa0f9af70}} 
+\index{Rigidbody\+System@{Rigidbody\+System}!Get\+Aabb\+Tree@{Get\+Aabb\+Tree}}
+\index{Get\+Aabb\+Tree@{Get\+Aabb\+Tree}!Rigidbody\+System@{Rigidbody\+System}}
+\subsubsection{\texorpdfstring{Get\+Aabb\+Tree()}{GetAabbTree()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree} \& Rigidbody\+System\+::\+Get\+Aabb\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the dynamic \hyperlink{classAabb}{Aabb} tree that is used for broad phase of the collision detection. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classRigidbodySystem_a3ae11c7e5a8572247fb2e01729e32af9}\label{classRigidbodySystem_a3ae11c7e5a8572247fb2e01729e32af9}} 
+\index{Rigidbody\+System@{Rigidbody\+System}!Late\+Update@{Late\+Update}}
+\index{Late\+Update@{Late\+Update}!Rigidbody\+System@{Rigidbody\+System}}
+\subsubsection{\texorpdfstring{Late\+Update()}{LateUpdate()}}
+{\footnotesize\ttfamily void Rigidbody\+System\+::\+Late\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Physics Update function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_ab6520975a6376e59005d3a40456358d4}{Base\+System}.
+
+\mbox{\Hypertarget{classRigidbodySystem_adf706ab9fd20dde6f148514d76bfa982}\label{classRigidbodySystem_adf706ab9fd20dde6f148514d76bfa982}} 
+\index{Rigidbody\+System@{Rigidbody\+System}!On\+Key\+Down@{On\+Key\+Down}}
+\index{On\+Key\+Down@{On\+Key\+Down}!Rigidbody\+System@{Rigidbody\+System}}
+\subsubsection{\texorpdfstring{On\+Key\+Down()}{OnKeyDown()}}
+{\footnotesize\ttfamily void Rigidbody\+System\+::\+On\+Key\+Down (\begin{DoxyParamCaption}\item[{const \hyperlink{classKeyEvent}{Key\+Event} $\ast$}]{key\+Event }\end{DoxyParamCaption})}
+
+
+
+proccesses some key presses, such as pause, step to next frame(while paused) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Event} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classRigidbodySystem_adcb7612aeca5d51fa8d886cfd15de991}\label{classRigidbodySystem_adcb7612aeca5d51fa8d886cfd15de991}} 
+\index{Rigidbody\+System@{Rigidbody\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Rigidbody\+System@{Rigidbody\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Rigidbody\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/\hyperlink{RigidbodySystem_8h}{Rigidbody\+System.\+h}\item 
+Systems/\hyperlink{RigidbodySystem_8cpp}{Rigidbody\+System.\+cpp}\end{DoxyCompactItemize}

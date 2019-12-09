@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classShape.html" title="Base class of the other shape classes. " alt="" coords="5,31,68,57"/>
+<area shape="rect" id="node2" href="$classAabb.html" title="Axis alligned bounding box, represented by aposite corners min and max. " alt="" coords="122,5,177,32"/>
+<area shape="rect" id="node3" href="$classSphere.html" title="Sphere" alt="" coords="116,56,183,83"/>
+</map>

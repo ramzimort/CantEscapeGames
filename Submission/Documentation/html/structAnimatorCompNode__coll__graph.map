@@ -1,0 +1,7 @@
+<map id="AnimatorCompNode" name="AnimatorCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="Includes. " alt="" coords="5,171,180,197"/>
+<area shape="rect" id="node3" href="$classMeshComponent.html" title="MeshComponent" alt="" coords="205,171,335,197"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="291,95,420,121"/>
+<area shape="rect" id="node6" href="$classAnimationComponent.html" title="AnimationComponent" alt="" coords="360,171,524,197"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="304,5,407,32"/>
+</map>

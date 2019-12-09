@@ -1,0 +1,677 @@
+\hypertarget{structMathUtil_1_1Quaternion}{}\section{Math\+Util\+:\+:Quaternion Struct Reference}
+\label{structMathUtil_1_1Quaternion}\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+
+
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} math class (for dealing with animation and orientation)  
+
+
+
+
+{\ttfamily \#include $<$Quaternion.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a907569c1017c9d6f3448e3ab1e5216e6}\label{structMathUtil_1_1Quaternion_a907569c1017c9d6f3448e3ab1e5216e6}} 
+\hyperlink{structMathUtil_1_1Quaternion_a907569c1017c9d6f3448e3ab1e5216e6}{Quaternion} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion_a3142498176c3a32c1fca7d257ec68cb1}{Quaternion} (float \hyperlink{structMathUtil_1_1Quaternion_ab31b359cfe29936ec4572e83aee9c9d4}{s}, float \hyperlink{structMathUtil_1_1Quaternion_a81f714a042bf08434cfddf71ae83ff6b}{x}, float y, float z)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion_a37a9999111f098a39f745ef55df73573}{Quaternion} (float \hyperlink{structMathUtil_1_1Quaternion_ab31b359cfe29936ec4572e83aee9c9d4}{s}, Vector3 const \&v)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion_a37216d9a4beb2dbe5a077aeba11bfca2}{Quaternion} (Vector4 const \&q)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion_ab8a51bd860dc7c4d007aa0b87861c948}{Quaternion} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_a0db72410da8c9e488a6b32694d2e56df}{operator=} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Assignment operator override. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_a1267584036a5e73bcc1b72bdee59861a}{operator=} (Vector4 const \&rhs)
+\begin{DoxyCompactList}\small\item\em Assignment operator override. \end{DoxyCompactList}\item 
+float \hyperlink{structMathUtil_1_1Quaternion_a501426c95a2a54a1cbc9cb5a7da17e70}{operator\mbox{[}$\,$\mbox{]}} (unsigned int index)
+\begin{DoxyCompactList}\small\item\em Override bracket operator for quaternion. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_aae4976a202e56ca8602c64a5d97fafb8}{operator+=} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Override plus equal operator. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \hyperlink{structMathUtil_1_1Quaternion_a339741f5707630e1914494ceb389aeeb}{operator+} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs) const
+\begin{DoxyCompactList}\small\item\em Override plus equal operator. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_afc522c18afb72f8f63178d5b55ba963a}{operator$\ast$=} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Override times equal operator. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_aa8d8617b9a2968e7731244ed983506aa}{operator$\ast$=} (float scalar)
+\begin{DoxyCompactList}\small\item\em Override times equal operator. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \& \hyperlink{structMathUtil_1_1Quaternion_ac585108f7346eb49bb379fd07035e5b9}{operator/=} (float scalar)
+\begin{DoxyCompactList}\small\item\em Override division equal operator. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a638a9680ea6bdb6fbd65d6ee5abd2708}{operator-\/} () const
+\begin{DoxyCompactList}\small\item\em Override unary operator -\/ (negation of the quaternion) \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_aab39eda1b4a6960913b0e476e1c00adc}{operator$\ast$} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs) const
+\begin{DoxyCompactList}\small\item\em Overrides operator $\ast$ for quaternion on quaternion multiplication. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_af7ed7435e597af9797b5188bba6c8dd1}{operator$\ast$} (float scalar)
+\begin{DoxyCompactList}\small\item\em Overrides operator $\ast$ for scalar multiplication. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a51b4197ad89c39f9a9e11cc25cc47331}{operator/} (float scalar)
+\begin{DoxyCompactList}\small\item\em Overrides operator / for scalar division. \end{DoxyCompactList}\item 
+void \hyperlink{structMathUtil_1_1Quaternion_abd27342d40655826b293ccfc382601d5}{print} (std\+::string name)
+\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a16e3c04798dc34eeb34d497123a15eed}{Conjugate} () const
+\begin{DoxyCompactList}\small\item\em Returns the conjugate of the quaternion. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_aa66406ea6183ad19154410b2507567c2}{Inverse} () const
+\begin{DoxyCompactList}\small\item\em Returns the inverse of the quaternion. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a305895ae4783d67d6972fe51b930eaea}{Normalize} () const
+\begin{DoxyCompactList}\small\item\em Returns the quaternion normalized. \end{DoxyCompactList}\item 
+float \hyperlink{structMathUtil_1_1Quaternion_ab497c4a543f601fda6d4bc141140cbf0}{Sqr\+Len} () const
+\begin{DoxyCompactList}\small\item\em Square length of the quaternion. \end{DoxyCompactList}\item 
+float \hyperlink{structMathUtil_1_1Quaternion_a96a16f91e1c46f84f21134e4b46f733d}{Len} () const
+\begin{DoxyCompactList}\small\item\em Length of the quaternion. \end{DoxyCompactList}\item 
+bool \hyperlink{structMathUtil_1_1Quaternion_a78501552147c626d5096ef1039a1c254}{Is\+Unit\+Quaternion} () const
+\begin{DoxyCompactList}\small\item\em Returns true if the quaternions length is one. \end{DoxyCompactList}\item 
+float \hyperlink{structMathUtil_1_1Quaternion_ae213f1160bfaf3de32d1e01681ed64c0}{Dot} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs) const
+\begin{DoxyCompactList}\small\item\em defined dot product for the quaternion \end{DoxyCompactList}\item 
+Matrix \hyperlink{structMathUtil_1_1Quaternion_a331cf32ec3767d734e0ad0ebc9e3cccb}{Get\+Rotation\+Matrix} () const
+\begin{DoxyCompactList}\small\item\em Get the Rotation Matrix based on this quaternion object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a63ef2f087b43c15a16f685d2a58aa25e}{Quaternion\+From\+Angle\+AxisA} (float degree, Vector3 const \&axis)
+\begin{DoxyCompactList}\small\item\em Gets a quaternion equivalent to the axis angle rotation described by angle in degrees and a 3 dimensional axis. \end{DoxyCompactList}\item 
+static \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_ae3460ce6b0259b013efb199bc5da32c9}{Unit} ()
+\begin{DoxyCompactList}\small\item\em Static method. Returns a the identity quaternion. \end{DoxyCompactList}\item 
+static Vector3 \hyperlink{structMathUtil_1_1Quaternion_abbc1484b797a8677a99cbe9c3947f7a9}{Rotate} (float degrees, Vector3 const \&axis, Vector3 const \&r)
+\begin{DoxyCompactList}\small\item\em Rotates vector r, in degrees, around axis and returns it. \end{DoxyCompactList}\item 
+static Vector3 \hyperlink{structMathUtil_1_1Quaternion_a0e7a75c2d2655616ddd505d0abfecb01}{Rotate} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&q, Vector3 const \&r)
+\begin{DoxyCompactList}\small\item\em Applies quaternion rotation to vector r and returns it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ab31b359cfe29936ec4572e83aee9c9d4}\label{structMathUtil_1_1Quaternion_ab31b359cfe29936ec4572e83aee9c9d4}} 
+float \hyperlink{structMathUtil_1_1Quaternion_ab31b359cfe29936ec4572e83aee9c9d4}{s}
+\begin{DoxyCompactList}\small\item\em Real part of the quaternion. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a81f714a042bf08434cfddf71ae83ff6b}\label{structMathUtil_1_1Quaternion_a81f714a042bf08434cfddf71ae83ff6b}} 
+float \hyperlink{structMathUtil_1_1Quaternion_a81f714a042bf08434cfddf71ae83ff6b}{x}
+\begin{DoxyCompactList}\small\item\em Complex part of the quaternion. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_af5e221df6b1d0673a76c5079dcd74a24}\label{structMathUtil_1_1Quaternion_af5e221df6b1d0673a76c5079dcd74a24}} 
+float {\bfseries y}
+\item 
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a2581fc91bb0438871f5e6eed0e34cd94}\label{structMathUtil_1_1Quaternion_a2581fc91bb0438871f5e6eed0e34cd94}} 
+float {\bfseries z}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a047591b16ace29c20014c06c1e3f56ee}{operator$\ast$} (float f, \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Override operation $\ast$ for scalar multiplication. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_aecdc0f848a93cfe34ca8ca7b31024e27}{operator$\ast$} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs, float f)
+\begin{DoxyCompactList}\small\item\em Override operator $\ast$ for scalar multiplication. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_af69cd135c1f4ef58d6dd242617108195}{operator/} (\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs, float f)
+\begin{DoxyCompactList}\small\item\em Override operator / for scalar division. \end{DoxyCompactList}\item 
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} \hyperlink{structMathUtil_1_1Quaternion_a241417eeb3a5c9d24697776ff3ba3dfc}{operator/} (float f, \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&rhs)
+\begin{DoxyCompactList}\small\item\em Override operator / for scalar division. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} math class (for dealing with animation and orientation) 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a3142498176c3a32c1fca7d257ec68cb1}\label{structMathUtil_1_1Quaternion_a3142498176c3a32c1fca7d257ec68cb1}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Quaternion@{Quaternion}}
+\index{Quaternion@{Quaternion}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Quaternion()}{Quaternion()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Math\+Util\+::\+Quaternion\+::\+Quaternion (\begin{DoxyParamCaption}\item[{float}]{s,  }\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em z} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a37a9999111f098a39f745ef55df73573}\label{structMathUtil_1_1Quaternion_a37a9999111f098a39f745ef55df73573}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Quaternion@{Quaternion}}
+\index{Quaternion@{Quaternion}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Quaternion()}{Quaternion()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Math\+Util\+::\+Quaternion\+::\+Quaternion (\begin{DoxyParamCaption}\item[{float}]{s,  }\item[{Vector3 const \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & \\
+\hline
+{\em v} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a37216d9a4beb2dbe5a077aeba11bfca2}\label{structMathUtil_1_1Quaternion_a37216d9a4beb2dbe5a077aeba11bfca2}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Quaternion@{Quaternion}}
+\index{Quaternion@{Quaternion}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Quaternion()}{Quaternion()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Math\+Util\+::\+Quaternion\+::\+Quaternion (\begin{DoxyParamCaption}\item[{Vector4 const \&}]{q }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ab8a51bd860dc7c4d007aa0b87861c948}\label{structMathUtil_1_1Quaternion_ab8a51bd860dc7c4d007aa0b87861c948}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Quaternion@{Quaternion}}
+\index{Quaternion@{Quaternion}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Quaternion()}{Quaternion()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Math\+Util\+::\+Quaternion\+::\+Quaternion (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a16e3c04798dc34eeb34d497123a15eed}\label{structMathUtil_1_1Quaternion_a16e3c04798dc34eeb34d497123a15eed}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Conjugate@{Conjugate}}
+\index{Conjugate@{Conjugate}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Conjugate()}{Conjugate()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::\+Conjugate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the conjugate of the quaternion. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ae213f1160bfaf3de32d1e01681ed64c0}\label{structMathUtil_1_1Quaternion_ae213f1160bfaf3de32d1e01681ed64c0}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Dot@{Dot}}
+\index{Dot@{Dot}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Dot()}{Dot()}}
+{\footnotesize\ttfamily float Math\+Util\+::\+Quaternion\+::\+Dot (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+defined dot product for the quaternion 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a331cf32ec3767d734e0ad0ebc9e3cccb}\label{structMathUtil_1_1Quaternion_a331cf32ec3767d734e0ad0ebc9e3cccb}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Get\+Rotation\+Matrix@{Get\+Rotation\+Matrix}}
+\index{Get\+Rotation\+Matrix@{Get\+Rotation\+Matrix}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Get\+Rotation\+Matrix()}{GetRotationMatrix()}}
+{\footnotesize\ttfamily Matrix Math\+Util\+::\+Quaternion\+::\+Get\+Rotation\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Rotation Matrix based on this quaternion object. 
+
+\+\_\+11, \+\_\+12, \+\_\+13, \+\_\+14 \+: First row of matrix \+\_\+21, \+\_\+22, \+\_\+23, \+\_\+24 \+: Second row of matrix \+\_\+31, \+\_\+32, \+\_\+33, \+\_\+34 \+: Third row of matrix \+\_\+41, \+\_\+42, \+\_\+43, \+\_\+44 \+: Fourth row of matrix \begin{DoxyReturn}{Returns}
+Matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_aa66406ea6183ad19154410b2507567c2}\label{structMathUtil_1_1Quaternion_aa66406ea6183ad19154410b2507567c2}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Inverse@{Inverse}}
+\index{Inverse@{Inverse}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Inverse()}{Inverse()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::\+Inverse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the inverse of the quaternion. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a78501552147c626d5096ef1039a1c254}\label{structMathUtil_1_1Quaternion_a78501552147c626d5096ef1039a1c254}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Is\+Unit\+Quaternion@{Is\+Unit\+Quaternion}}
+\index{Is\+Unit\+Quaternion@{Is\+Unit\+Quaternion}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Is\+Unit\+Quaternion()}{IsUnitQuaternion()}}
+{\footnotesize\ttfamily bool Math\+Util\+::\+Quaternion\+::\+Is\+Unit\+Quaternion (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if the quaternions length is one. 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a96a16f91e1c46f84f21134e4b46f733d}\label{structMathUtil_1_1Quaternion_a96a16f91e1c46f84f21134e4b46f733d}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Len@{Len}}
+\index{Len@{Len}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Len()}{Len()}}
+{\footnotesize\ttfamily float Math\+Util\+::\+Quaternion\+::\+Len (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Length of the quaternion. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a305895ae4783d67d6972fe51b930eaea}\label{structMathUtil_1_1Quaternion_a305895ae4783d67d6972fe51b930eaea}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Normalize@{Normalize}}
+\index{Normalize@{Normalize}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Normalize()}{Normalize()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::\+Normalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the quaternion normalized. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_aab39eda1b4a6960913b0e476e1c00adc}\label{structMathUtil_1_1Quaternion_aab39eda1b4a6960913b0e476e1c00adc}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overrides operator $\ast$ for quaternion on quaternion multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_af7ed7435e597af9797b5188bba6c8dd1}\label{structMathUtil_1_1Quaternion_af7ed7435e597af9797b5188bba6c8dd1}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::operator$\ast$ (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overrides operator $\ast$ for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_afc522c18afb72f8f63178d5b55ba963a}\label{structMathUtil_1_1Quaternion_afc522c18afb72f8f63178d5b55ba963a}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override times equal operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_aa8d8617b9a2968e7731244ed983506aa}\label{structMathUtil_1_1Quaternion_aa8d8617b9a2968e7731244ed983506aa}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override times equal operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a339741f5707630e1914494ceb389aeeb}\label{structMathUtil_1_1Quaternion_a339741f5707630e1914494ceb389aeeb}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator+@{operator+}}
+\index{operator+@{operator+}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const Math\+Util\+::\+Quaternion\+::operator+ (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override plus equal operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_aae4976a202e56ca8602c64a5d97fafb8}\label{structMathUtil_1_1Quaternion_aae4976a202e56ca8602c64a5d97fafb8}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator+= (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override plus equal operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a638a9680ea6bdb6fbd65d6ee5abd2708}\label{structMathUtil_1_1Quaternion_a638a9680ea6bdb6fbd65d6ee5abd2708}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator-\/()}{operator-()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::operator-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override unary operator -\/ (negation of the quaternion) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a51b4197ad89c39f9a9e11cc25cc47331}\label{structMathUtil_1_1Quaternion_a51b4197ad89c39f9a9e11cc25cc47331}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator/@{operator/}}
+\index{operator/@{operator/}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator/()}{operator/()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::operator/ (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overrides operator / for scalar division. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ac585108f7346eb49bb379fd07035e5b9}\label{structMathUtil_1_1Quaternion_ac585108f7346eb49bb379fd07035e5b9}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator/=@{operator/=}}
+\index{operator/=@{operator/=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator/=()}{operator/=()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator/= (\begin{DoxyParamCaption}\item[{float}]{scalar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override division equal operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a0db72410da8c9e488a6b32694d2e56df}\label{structMathUtil_1_1Quaternion_a0db72410da8c9e488a6b32694d2e56df}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator=@{operator=}}
+\index{operator=@{operator=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator= (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assignment operator override. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a1267584036a5e73bcc1b72bdee59861a}\label{structMathUtil_1_1Quaternion_a1267584036a5e73bcc1b72bdee59861a}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator=@{operator=}}
+\index{operator=@{operator=}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& Math\+Util\+::\+Quaternion\+::operator= (\begin{DoxyParamCaption}\item[{Vector4 const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assignment operator override. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a501426c95a2a54a1cbc9cb5a7da17e70}\label{structMathUtil_1_1Quaternion_a501426c95a2a54a1cbc9cb5a7da17e70}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily float Math\+Util\+::\+Quaternion\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{unsigned int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Override bracket operator for quaternion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_abd27342d40655826b293ccfc382601d5}\label{structMathUtil_1_1Quaternion_abd27342d40655826b293ccfc382601d5}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!print@{print}}
+\index{print@{print}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Math\+Util\+::\+Quaternion\+::print (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+std\+::cout $<$$<$ name $<$$<$ \char`\"{}\+: \mbox{[}\char`\"{} $<$$<$ this-\/$>$s $<$$<$ \char`\"{}, \char`\"{} $<$$<$ this-\/$>$x $<$$<$ \char`\"{}, \char`\"{} $<$$<$ this-\/$>$y $<$$<$ \char`\"{}, \char`\"{} $<$$<$ this-\/$>$z $<$$<$ \char`\"{}\mbox{]}\char`\"{} $<$$<$ std\+::endl; \mbox{\Hypertarget{structMathUtil_1_1Quaternion_a63ef2f087b43c15a16f685d2a58aa25e}\label{structMathUtil_1_1Quaternion_a63ef2f087b43c15a16f685d2a58aa25e}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Quaternion\+From\+Angle\+AxisA@{Quaternion\+From\+Angle\+AxisA}}
+\index{Quaternion\+From\+Angle\+AxisA@{Quaternion\+From\+Angle\+AxisA}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Quaternion\+From\+Angle\+Axis\+A()}{QuaternionFromAngleAxisA()}}
+{\footnotesize\ttfamily static \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::\+Quaternion\+From\+Angle\+AxisA (\begin{DoxyParamCaption}\item[{float}]{degree,  }\item[{Vector3 const \&}]{axis }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Gets a quaternion equivalent to the axis angle rotation described by angle in degrees and a 3 dimensional axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degree} & \\
+\hline
+{\em axis} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_abbc1484b797a8677a99cbe9c3947f7a9}\label{structMathUtil_1_1Quaternion_abbc1484b797a8677a99cbe9c3947f7a9}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Rotate()}{Rotate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily static Vector3 Math\+Util\+::\+Quaternion\+::\+Rotate (\begin{DoxyParamCaption}\item[{float}]{degrees,  }\item[{Vector3 const \&}]{axis,  }\item[{Vector3 const \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Rotates vector r, in degrees, around axis and returns it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em degrees} & \\
+\hline
+{\em axis} & \\
+\hline
+{\em r} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a0e7a75c2d2655616ddd505d0abfecb01}\label{structMathUtil_1_1Quaternion_a0e7a75c2d2655616ddd505d0abfecb01}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Rotate()}{Rotate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily static Vector3 Math\+Util\+::\+Quaternion\+::\+Rotate (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{q,  }\item[{Vector3 const \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Applies quaternion rotation to vector r and returns it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em r} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ab497c4a543f601fda6d4bc141140cbf0}\label{structMathUtil_1_1Quaternion_ab497c4a543f601fda6d4bc141140cbf0}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Sqr\+Len@{Sqr\+Len}}
+\index{Sqr\+Len@{Sqr\+Len}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Sqr\+Len()}{SqrLen()}}
+{\footnotesize\ttfamily float Math\+Util\+::\+Quaternion\+::\+Sqr\+Len (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Square length of the quaternion. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_ae3460ce6b0259b013efb199bc5da32c9}\label{structMathUtil_1_1Quaternion_ae3460ce6b0259b013efb199bc5da32c9}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!Unit@{Unit}}
+\index{Unit@{Unit}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{Unit()}{Unit()}}
+{\footnotesize\ttfamily static \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} Math\+Util\+::\+Quaternion\+::\+Unit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Static method. Returns a the identity quaternion. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a047591b16ace29c20014c06c1e3f56ee}\label{structMathUtil_1_1Quaternion_a047591b16ace29c20014c06c1e3f56ee}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} operator$\ast$ (\begin{DoxyParamCaption}\item[{float}]{f,  }\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Override operation $\ast$ for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_aecdc0f848a93cfe34ca8ca7b31024e27}\label{structMathUtil_1_1Quaternion_aecdc0f848a93cfe34ca8ca7b31024e27}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator$\ast$}{operator*}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} operator$\ast$ (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs,  }\item[{float}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Override operator $\ast$ for scalar multiplication. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+{\em f} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_af69cd135c1f4ef58d6dd242617108195}\label{structMathUtil_1_1Quaternion_af69cd135c1f4ef58d6dd242617108195}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator/@{operator/}}
+\index{operator/@{operator/}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} operator/ (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs,  }\item[{float}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Override operator / for scalar division. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+{\em f} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structMathUtil_1_1Quaternion_a241417eeb3a5c9d24697776ff3ba3dfc}\label{structMathUtil_1_1Quaternion_a241417eeb3a5c9d24697776ff3ba3dfc}} 
+\index{Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}!operator/@{operator/}}
+\index{operator/@{operator/}!Math\+Util\+::\+Quaternion@{Math\+Util\+::\+Quaternion}}
+\subsubsection{\texorpdfstring{operator/}{operator/}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Quaternion} operator/ (\begin{DoxyParamCaption}\item[{float}]{f,  }\item[{\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} const \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Override operator / for scalar division. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+{\em f} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Quaternion} 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Animation/\hyperlink{Quaternion_8h}{Quaternion.\+h}\end{DoxyCompactItemize}

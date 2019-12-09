@@ -1,0 +1,85 @@
+\hypertarget{classTransformSystem}{}\section{Transform\+System Class Reference}
+\label{classTransformSystem}\index{Transform\+System@{Transform\+System}}
+
+
+Inheritance diagram for Transform\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classTransformSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Transform\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classTransformSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classTransformSystem_ab9837e5e3b2aca5c5462f93dbbd71681}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go)
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classTransformSystem_a75de8bdeda1137447d575b30d16afb3b}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node)
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTransformSystem_adad3188481557394985582ef18693b4d}\label{classTransformSystem_adad3188481557394985582ef18693b4d}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTransformSystem_ab9837e5e3b2aca5c5462f93dbbd71681}\label{classTransformSystem_ab9837e5e3b2aca5c5462f93dbbd71681}} 
+\index{Transform\+System@{Transform\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Transform\+System@{Transform\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Transform\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classTransformSystem_a75de8bdeda1137447d575b30d16afb3b}\label{classTransformSystem_a75de8bdeda1137447d575b30d16afb3b}} 
+\index{Transform\+System@{Transform\+System}!Update@{Update}}
+\index{Update@{Update}!Transform\+System@{Transform\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Transform\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Transform\+System.\+h\item 
+Systems/Transform\+System.\+cpp\end{DoxyCompactItemize}

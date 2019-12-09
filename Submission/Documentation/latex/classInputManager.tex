@@ -1,0 +1,120 @@
+\hypertarget{classInputManager}{}\section{Input\+Manager Class Reference}
+\label{classInputManager}\index{Input\+Manager@{Input\+Manager}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classInputManager_a1a93d570e7e9f4b64283a20185f01e3c}\label{classInputManager_a1a93d570e7e9f4b64283a20185f01e3c}} 
+{\bfseries Input\+Manager} (const std\+::string \&game\+Name, bool Fullscreen, int w, int h)
+\item 
+\mbox{\Hypertarget{classInputManager_aa5480931dba2720e7d80dd00a53adae0}\label{classInputManager_aa5480931dba2720e7d80dd00a53adae0}} 
+void \hyperlink{classInputManager_aa5480931dba2720e7d80dd00a53adae0}{Update} ()
+\begin{DoxyCompactList}\small\item\em Thread wait until any input event. On event, the event info is dispatched to be caught at the end of this frame. \end{DoxyCompactList}\item 
+const int $\ast$ \hyperlink{classInputManager_ab8fb90f6385afb41d9d8212851c04061}{Get\+Pointer\+Location} () const
+\begin{DoxyCompactList}\small\item\em Get the Pointer\textquotesingle{}s location in screen coordinates. \end{DoxyCompactList}\item 
+Vector2 \hyperlink{classInputManager_a6d5e2b6637bb959377f218bb4b3d748e}{Get\+Pointer\+Loc\+Vec2} () const
+\begin{DoxyCompactList}\small\item\em Get mouse position in screen space as vec2. \end{DoxyCompactList}\item 
+Vector2 \hyperlink{classInputManager_a48091a18d5c514a1dc8226aa4b134b4d}{Get\+Pointer\+Delta\+Vec2} () const
+\begin{DoxyCompactList}\small\item\em Get mouse position change b/w frames as vec2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classInputManager_a5f50a09fddead4a37e194e8fa75224fc}\label{classInputManager_a5f50a09fddead4a37e194e8fa75224fc}} 
+bool {\bfseries Is\+Key\+Pressed} (unsigned int Key\+Scan\+Code) const
+\item 
+bool \hyperlink{classInputManager_a7f316cdb11213c7973a0b601a0193d8a}{Is\+Mouse\+Pressed} (unsigned int Mouse\+Scan\+Code) const
+\item 
+bool \hyperlink{classInputManager_a036f8dd3a4416c43b0c2942a3c5bb093}{Is\+Mouse\+Triggered} (unsigned int Mouse\+Scan\+Code) const
+\item 
+bool \hyperlink{classInputManager_af72d6f8ceb3219220b36a6cc447a42db}{Is\+Mouse\+Released} (unsigned int Mouse\+Scan\+Code) const
+\item 
+Sint32 \hyperlink{classInputManager_a46c6625efeeb61dbde4c21bb81837f0c}{Get\+Mouse\+Scroll} () const
+\item 
+\mbox{\Hypertarget{classInputManager_ab5626920e4495bea71dcac27bfc8483a}\label{classInputManager_ab5626920e4495bea71dcac27bfc8483a}} 
+void {\bfseries Toggle\+Fullscreen\+Mode} ()
+\item 
+\mbox{\Hypertarget{classInputManager_ade1cde5e543ad62af1730da51e3f2a5d}\label{classInputManager_ade1cde5e543ad62af1730da51e3f2a5d}} 
+void {\bfseries Set\+Window\+Size} (int width, int height)
+\item 
+\mbox{\Hypertarget{classInputManager_aba5c089cd936fd808981a22f2d3627f1}\label{classInputManager_aba5c089cd936fd808981a22f2d3627f1}} 
+S\+D\+L\+\_\+\+Window $\ast$ {\bfseries Get\+Window} ()
+\item 
+bool \hyperlink{classInputManager_a926e42475408a078ebe5395f95289df2}{Is\+Quit} () const
+\item 
+\mbox{\Hypertarget{classInputManager_a28245a4d8a06e4bcc6a4af0356f694ca}\label{classInputManager_a28245a4d8a06e4bcc6a4af0356f694ca}} 
+void {\bfseries Quit} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classInputManager_a46c6625efeeb61dbde4c21bb81837f0c}\label{classInputManager_a46c6625efeeb61dbde4c21bb81837f0c}} 
+\index{Input\+Manager@{Input\+Manager}!Get\+Mouse\+Scroll@{Get\+Mouse\+Scroll}}
+\index{Get\+Mouse\+Scroll@{Get\+Mouse\+Scroll}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Mouse\+Scroll()}{GetMouseScroll()}}
+{\footnotesize\ttfamily Sint32 Input\+Manager\+::\+Get\+Mouse\+Scroll (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns scrolling amount in y-\/direction \mbox{\Hypertarget{classInputManager_a48091a18d5c514a1dc8226aa4b134b4d}\label{classInputManager_a48091a18d5c514a1dc8226aa4b134b4d}} 
+\index{Input\+Manager@{Input\+Manager}!Get\+Pointer\+Delta\+Vec2@{Get\+Pointer\+Delta\+Vec2}}
+\index{Get\+Pointer\+Delta\+Vec2@{Get\+Pointer\+Delta\+Vec2}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Pointer\+Delta\+Vec2()}{GetPointerDeltaVec2()}}
+{\footnotesize\ttfamily Vector2 Input\+Manager\+::\+Get\+Pointer\+Delta\+Vec2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get mouse position change b/w frames as vec2. 
+
+\begin{DoxyReturn}{Returns}
+Vector2 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classInputManager_ab8fb90f6385afb41d9d8212851c04061}\label{classInputManager_ab8fb90f6385afb41d9d8212851c04061}} 
+\index{Input\+Manager@{Input\+Manager}!Get\+Pointer\+Location@{Get\+Pointer\+Location}}
+\index{Get\+Pointer\+Location@{Get\+Pointer\+Location}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Pointer\+Location()}{GetPointerLocation()}}
+{\footnotesize\ttfamily const int $\ast$ Input\+Manager\+::\+Get\+Pointer\+Location (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Pointer\textquotesingle{}s location in screen coordinates. 
+
+\begin{DoxyReturn}{Returns}
+const int$\ast$ (const Array Pointer of size 2) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classInputManager_a6d5e2b6637bb959377f218bb4b3d748e}\label{classInputManager_a6d5e2b6637bb959377f218bb4b3d748e}} 
+\index{Input\+Manager@{Input\+Manager}!Get\+Pointer\+Loc\+Vec2@{Get\+Pointer\+Loc\+Vec2}}
+\index{Get\+Pointer\+Loc\+Vec2@{Get\+Pointer\+Loc\+Vec2}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Pointer\+Loc\+Vec2()}{GetPointerLocVec2()}}
+{\footnotesize\ttfamily Vector2 Input\+Manager\+::\+Get\+Pointer\+Loc\+Vec2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get mouse position in screen space as vec2. 
+
+\begin{DoxyReturn}{Returns}
+Vector2 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classInputManager_a7f316cdb11213c7973a0b601a0193d8a}\label{classInputManager_a7f316cdb11213c7973a0b601a0193d8a}} 
+\index{Input\+Manager@{Input\+Manager}!Is\+Mouse\+Pressed@{Is\+Mouse\+Pressed}}
+\index{Is\+Mouse\+Pressed@{Is\+Mouse\+Pressed}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Is\+Mouse\+Pressed()}{IsMousePressed()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::\+Is\+Mouse\+Pressed (\begin{DoxyParamCaption}\item[{unsigned int}]{Mouse\+Scan\+Code }\end{DoxyParamCaption}) const}
+
+Check mouse button press \mbox{\Hypertarget{classInputManager_af72d6f8ceb3219220b36a6cc447a42db}\label{classInputManager_af72d6f8ceb3219220b36a6cc447a42db}} 
+\index{Input\+Manager@{Input\+Manager}!Is\+Mouse\+Released@{Is\+Mouse\+Released}}
+\index{Is\+Mouse\+Released@{Is\+Mouse\+Released}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Is\+Mouse\+Released()}{IsMouseReleased()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::\+Is\+Mouse\+Released (\begin{DoxyParamCaption}\item[{unsigned int}]{Mouse\+Scan\+Code }\end{DoxyParamCaption}) const}
+
+Check mouse button release (falling edge) \mbox{\Hypertarget{classInputManager_a036f8dd3a4416c43b0c2942a3c5bb093}\label{classInputManager_a036f8dd3a4416c43b0c2942a3c5bb093}} 
+\index{Input\+Manager@{Input\+Manager}!Is\+Mouse\+Triggered@{Is\+Mouse\+Triggered}}
+\index{Is\+Mouse\+Triggered@{Is\+Mouse\+Triggered}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Is\+Mouse\+Triggered()}{IsMouseTriggered()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::\+Is\+Mouse\+Triggered (\begin{DoxyParamCaption}\item[{unsigned int}]{Mouse\+Scan\+Code }\end{DoxyParamCaption}) const}
+
+Check mouse button trigger (rising edge) \mbox{\Hypertarget{classInputManager_a926e42475408a078ebe5395f95289df2}\label{classInputManager_a926e42475408a078ebe5395f95289df2}} 
+\index{Input\+Manager@{Input\+Manager}!Is\+Quit@{Is\+Quit}}
+\index{Is\+Quit@{Is\+Quit}!Input\+Manager@{Input\+Manager}}
+\subsubsection{\texorpdfstring{Is\+Quit()}{IsQuit()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::\+Is\+Quit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Check if exit button is pressed (close window) 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{InputManager_8h}{Input\+Manager.\+h}\item 
+Managers/Input\+Manager.\+cpp\end{DoxyCompactItemize}

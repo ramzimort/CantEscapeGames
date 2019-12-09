@@ -1,0 +1,105 @@
+\hypertarget{Interpolation_8h}{}\section{Animation/\+Interpolation.h File Reference}
+\label{Interpolation_8h}\index{Animation/\+Interpolation.\+h@{Animation/\+Interpolation.\+h}}
+
+
+Contains Math interpolation functions.  
+
+
+{\ttfamily \#include \char`\"{}Quaternion.\+h\char`\"{}}\newline
+Include dependency graph for Interpolation.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=221pt]{Interpolation_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 {\bfseries Math\+Util\+::\+Lerp} (Vector3 const  \&origin, Vector3 const  \&destination, float alpha)
+\begin{DoxyCompactList}\small\item\em Linear interpolation between two vectors. \end{DoxyCompactList}\item 
+Quaternion {\bfseries Math\+Util\+::\+Slerp} (\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const  \&origin, \hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const  \&destination, float alpha)
+\begin{DoxyCompactList}\small\item\em Spherical linear interpolation between two quaternions (orientation) \end{DoxyCompactList}\item 
+Matrix {\bfseries Math\+Util\+::\+Gen\+V\+Q\+S\+Matrix} (Vector3 const  \&v, \hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const  \&q, Vector3 const  \&s)
+\begin{DoxyCompactList}\small\item\em Generates a V\+QS matrix based on a position s, orientation q, and scale v. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains Math interpolation functions. 
+
+\begin{DoxyAuthor}{Author}
+Jose Rosenbluth 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2019-\/11-\/21 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{Interpolation_8cpp_file_ac88ffe29a8d6138ea9b9df9a2a630fd9}\label{Interpolation_8cpp_file_ac88ffe29a8d6138ea9b9df9a2a630fd9}} 
+\index{Interpolation.\+h@{Interpolation.\+h}!Gen\+V\+Q\+S\+Matrix@{Gen\+V\+Q\+S\+Matrix}}
+\index{Gen\+V\+Q\+S\+Matrix@{Gen\+V\+Q\+S\+Matrix}!Interpolation.\+h@{Interpolation.\+h}}
+\subsubsection{\texorpdfstring{Gen\+V\+Q\+S\+Matrix()}{GenVQSMatrix()}}
+{\footnotesize\ttfamily Matrix Math\+Util\+::\+Gen\+V\+Q\+S\+Matrix (\begin{DoxyParamCaption}\item[{Vector3 const \&}]{v,  }\item[{\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&}]{q,  }\item[{Vector3 const \&}]{s }\end{DoxyParamCaption})}
+
+
+
+Generates a V\+QS matrix based on a position s, orientation q, and scale v. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & Represents scale \\
+\hline
+{\em q} & Represents orientation \\
+\hline
+{\em s} & Represents position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Interpolation_8cpp_file_a20de8f5c5afcd4b9d1b2ab1bcadc8886}\label{Interpolation_8cpp_file_a20de8f5c5afcd4b9d1b2ab1bcadc8886}} 
+\index{Interpolation.\+h@{Interpolation.\+h}!Lerp@{Lerp}}
+\index{Lerp@{Lerp}!Interpolation.\+h@{Interpolation.\+h}}
+\subsubsection{\texorpdfstring{Lerp()}{Lerp()}}
+{\footnotesize\ttfamily Vector3 Math\+Util\+::\+Lerp (\begin{DoxyParamCaption}\item[{Vector3 const \&}]{origin,  }\item[{Vector3 const \&}]{destination,  }\item[{float}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Linear interpolation between two vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em origin} & \\
+\hline
+{\em destination} & \\
+\hline
+{\em alpha} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Interpolation_8cpp_file_acf250c34cc981dc486fe8f352d55432b}\label{Interpolation_8cpp_file_acf250c34cc981dc486fe8f352d55432b}} 
+\index{Interpolation.\+h@{Interpolation.\+h}!Slerp@{Slerp}}
+\index{Slerp@{Slerp}!Interpolation.\+h@{Interpolation.\+h}}
+\subsubsection{\texorpdfstring{Slerp()}{Slerp()}}
+{\footnotesize\ttfamily \hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} Math\+Util\+::\+Slerp (\begin{DoxyParamCaption}\item[{\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&}]{origin,  }\item[{\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} const \&}]{destination,  }\item[{float}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Spherical linear interpolation between two quaternions (orientation) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em origin} & \\
+\hline
+{\em destination} & \\
+\hline
+{\em alpha} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structMathUtil_1_1Quaternion}{Math\+Util\+::\+Quaternion} 
+\end{DoxyReturn}

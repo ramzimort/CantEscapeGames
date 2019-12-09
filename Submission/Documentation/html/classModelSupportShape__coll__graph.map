@@ -1,0 +1,8 @@
+<map id="ModelSupportShape" name="ModelSupportShape">
+<area shape="rect" id="node2" href="$classSupportShape.html" title="Base class for any shape. " alt="" coords="5,199,117,225"/>
+<area shape="rect" id="node3" href="$classModel.html" title="Contains all the interface for getting Model&#39;s graphic data. " alt="" coords="141,199,203,225"/>
+<area shape="rect" id="node4" href="$classBuffer.html" title="Buffer" alt="" coords="141,95,203,121"/>
+<area shape="rect" id="node5" href="$classTransformComponent.html" title="Stores and updates all position, orientation and scale data. " alt="" coords="227,199,389,225"/>
+<area shape="rect" id="node6" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="243,95,373,121"/>
+<area shape="rect" id="node7" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="257,5,359,32"/>
+</map>

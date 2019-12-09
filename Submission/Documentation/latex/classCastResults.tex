@@ -1,0 +1,55 @@
+\hypertarget{classCastResults}{}\section{Cast\+Results Class Reference}
+\label{classCastResults}\index{Cast\+Results@{Cast\+Results}}
+
+
+Stores ray cast results, all the collisions with the ray.  
+
+
+
+
+{\ttfamily \#include $<$Cast\+Results.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCastResults_a96c98918bc6f75030603ae54a470632a}\label{classCastResults_a96c98918bc6f75030603ae54a470632a}} 
+typedef std\+::vector$<$ \hyperlink{classCastResult}{Cast\+Result} $>$ {\bfseries Results}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classCastResults_a62ee1ac3a8107eb7f8be4d991e9c47c5}{Add\+Result} (const \hyperlink{classCastResult}{Cast\+Result} \&result)
+\begin{DoxyCompactList}\small\item\em Adds the result and sorts it based upon t so that all results are in proper lower t first order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCastResults_acb2777d80f4f46a8fc1954ea9fd7b431}\label{classCastResults_acb2777d80f4f46a8fc1954ea9fd7b431}} 
+Results {\bfseries m\+\_\+\+Results}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores ray cast results, all the collisions with the ray. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCastResults_a62ee1ac3a8107eb7f8be4d991e9c47c5}\label{classCastResults_a62ee1ac3a8107eb7f8be4d991e9c47c5}} 
+\index{Cast\+Results@{Cast\+Results}!Add\+Result@{Add\+Result}}
+\index{Add\+Result@{Add\+Result}!Cast\+Results@{Cast\+Results}}
+\subsubsection{\texorpdfstring{Add\+Result()}{AddResult()}}
+{\footnotesize\ttfamily void Cast\+Results\+::\+Add\+Result (\begin{DoxyParamCaption}\item[{const \hyperlink{classCastResult}{Cast\+Result} \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Adds the result and sorts it based upon t so that all results are in proper lower t first order. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em result} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Spatial\+Partition/\hyperlink{CastResults_8h}{Cast\+Results.\+h}\item 
+Physics/\+Spatial\+Partition/Cast\+Results.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,288 @@
+\hypertarget{classGjk}{}\section{Gjk Class Reference}
+\label{classGjk}\index{Gjk@{Gjk}}
+
+
+Narrow phase collision detection algorithm.  
+
+
+
+
+{\ttfamily \#include $<$Gjk.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structGjk_1_1CsoEdge}{Cso\+Edge}
+\begin{DoxyCompactList}\small\item\em Representation of an edge in a Minkowski difference space. \end{DoxyCompactList}\item 
+struct \hyperlink{structGjk_1_1CsoPoint}{Cso\+Point}
+\begin{DoxyCompactList}\small\item\em representation of a point in Minkowski difference space \end{DoxyCompactList}\item 
+struct \hyperlink{structGjk_1_1CsoTriangle}{Cso\+Triangle}
+\begin{DoxyCompactList}\small\item\em Representation of a triangle in Minkowski difference space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classGjk_af73bc5ca3bab4249ff1fa648d8bef8fd}{Intersect} (std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&simplex, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, \hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} \&closest\+Point, float epsilon, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+App\+Renderer, bool is\+Debug\+Draw=false)
+\begin{DoxyCompactList}\small\item\em Runs the G\+JK algorithm to see if two shapes are intersecting. \end{DoxyCompactList}\item 
+\hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} \hyperlink{classGjk_a5d71f197f9410cb4fcd39f75dbf76d05}{Compute\+Support} (const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, const Vector3 \&direction)
+\begin{DoxyCompactList}\small\item\em Finds the point furthest in the given direction on the C\+SO (and the relevant points from each object) \end{DoxyCompactList}\item 
+bool \hyperlink{classGjk_a6dde80e2d8016f11750cabf5072e5bd8}{Epa} (std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&simplex, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeA, const \hyperlink{classSupportShape}{Support\+Shape} $\ast$shapeB, \hyperlink{classContact}{Contact} \&contact, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+App\+Renderer, float epsilon)
+\begin{DoxyCompactList}\small\item\em Calculates collision information for the collision. This function should be called if Intersection function returns true. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Voronoi\+Region\+::\+Type \hyperlink{classGjk_a9de69ef0925e1afc43236df1d9be865b}{Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\begin{DoxyCompactList}\small\item\em Idenifies voronoi region of a point in respect to a point (this is for consistancy with the rest of the interface) \end{DoxyCompactList}\item 
+static Voronoi\+Region\+::\+Type \hyperlink{classGjk_a5bb6c28096a505d3fce43747309c87da}{Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\begin{DoxyCompactList}\small\item\em Identifies voronoi region of a point with respect to an edge. \end{DoxyCompactList}\item 
+static Voronoi\+Region\+::\+Type \hyperlink{classGjk_aaf0caa32680b0c5bf0b00fa03ec360af}{Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\begin{DoxyCompactList}\small\item\em Identifies voronoi region of a point with respect to a triangle. \end{DoxyCompactList}\item 
+static Voronoi\+Region\+::\+Type \hyperlink{classGjk_afe728560c0bba41c025d04e34a3147b2}{Identify\+Voronoi\+Region} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, const Vector3 \&p3, size\+\_\+t \&new\+Size, int new\+Indices\mbox{[}4\mbox{]}, Vector3 \&closest\+Point, Vector3 \&search\+Direction)
+\begin{DoxyCompactList}\small\item\em Identifies voronoi region of a point with respect to tetrahedron. \end{DoxyCompactList}\item 
+static float \hyperlink{classGjk_a6a1b3d304d20bc6c762e84dd926f0219}{Triangle\+Side\+Check} (const Vector3 \&q, const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2, const Vector3 \&p3)
+\begin{DoxyCompactList}\small\item\em helper function that determines on which side the point is in respect to a triangle in a tetrahedron \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Narrow phase collision detection algorithm. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGjk_a5d71f197f9410cb4fcd39f75dbf76d05}\label{classGjk_a5d71f197f9410cb4fcd39f75dbf76d05}} 
+\index{Gjk@{Gjk}!Compute\+Support@{Compute\+Support}}
+\index{Compute\+Support@{Compute\+Support}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Compute\+Support()}{ComputeSupport()}}
+{\footnotesize\ttfamily \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} Gjk\+::\+Compute\+Support (\begin{DoxyParamCaption}\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeA,  }\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeB,  }\item[{const Vector3 \&}]{direction }\end{DoxyParamCaption})}
+
+
+
+Finds the point furthest in the given direction on the C\+SO (and the relevant points from each object) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shapeA} & \\
+\hline
+{\em shapeB} & \\
+\hline
+{\em direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_a6dde80e2d8016f11750cabf5072e5bd8}\label{classGjk_a6dde80e2d8016f11750cabf5072e5bd8}} 
+\index{Gjk@{Gjk}!Epa@{Epa}}
+\index{Epa@{Epa}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Epa()}{Epa()}}
+{\footnotesize\ttfamily bool Gjk\+::\+Epa (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&}]{simplex,  }\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeA,  }\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeB,  }\item[{\hyperlink{classContact}{Contact} \&}]{contact,  }\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{p\+App\+Renderer,  }\item[{float}]{epsilon }\end{DoxyParamCaption})}
+
+
+
+Calculates collision information for the collision. This function should be called if Intersection function returns true. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em simplex} & \\
+\hline
+{\em shapeA} & \\
+\hline
+{\em shapeB} & \\
+\hline
+{\em contact} & \\
+\hline
+{\em p\+App\+Renderer} & \\
+\hline
+{\em epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_a9de69ef0925e1afc43236df1d9be865b}\label{classGjk_a9de69ef0925e1afc43236df1d9be865b}} 
+\index{Gjk@{Gjk}!Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}}
+\index{Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Identify\+Voronoi\+Region()}{IdentifyVoronoiRegion()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Voronoi\+Region\+::\+Type Gjk\+::\+Identify\+Voronoi\+Region (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{q,  }\item[{const Vector3 \&}]{p0,  }\item[{size\+\_\+t \&}]{new\+Size,  }\item[{int}]{new\+Indices\mbox{[}4\mbox{]},  }\item[{Vector3 \&}]{closest\+Point,  }\item[{Vector3 \&}]{search\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Idenifies voronoi region of a point in respect to a point (this is for consistancy with the rest of the interface) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em p0} & \\
+\hline
+{\em new\+Size} & \\
+\hline
+{\em new\+Indices} & \\
+\hline
+{\em closest\+Point} & \\
+\hline
+{\em search\+Direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Voronoi\+Region\+::\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_a5bb6c28096a505d3fce43747309c87da}\label{classGjk_a5bb6c28096a505d3fce43747309c87da}} 
+\index{Gjk@{Gjk}!Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}}
+\index{Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Identify\+Voronoi\+Region()}{IdentifyVoronoiRegion()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Voronoi\+Region\+::\+Type Gjk\+::\+Identify\+Voronoi\+Region (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{q,  }\item[{const Vector3 \&}]{p0,  }\item[{const Vector3 \&}]{p1,  }\item[{size\+\_\+t \&}]{new\+Size,  }\item[{int}]{new\+Indices\mbox{[}4\mbox{]},  }\item[{Vector3 \&}]{closest\+Point,  }\item[{Vector3 \&}]{search\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Identifies voronoi region of a point with respect to an edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em p0} & \\
+\hline
+{\em p1} & \\
+\hline
+{\em new\+Size} & \\
+\hline
+{\em new\+Indices} & \\
+\hline
+{\em closest\+Point} & \\
+\hline
+{\em search\+Direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Voronoi\+Region\+::\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_aaf0caa32680b0c5bf0b00fa03ec360af}\label{classGjk_aaf0caa32680b0c5bf0b00fa03ec360af}} 
+\index{Gjk@{Gjk}!Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}}
+\index{Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Identify\+Voronoi\+Region()}{IdentifyVoronoiRegion()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Voronoi\+Region\+::\+Type Gjk\+::\+Identify\+Voronoi\+Region (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{q,  }\item[{const Vector3 \&}]{p0,  }\item[{const Vector3 \&}]{p1,  }\item[{const Vector3 \&}]{p2,  }\item[{size\+\_\+t \&}]{new\+Size,  }\item[{int}]{new\+Indices\mbox{[}4\mbox{]},  }\item[{Vector3 \&}]{closest\+Point,  }\item[{Vector3 \&}]{search\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Identifies voronoi region of a point with respect to a triangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em p0} & \\
+\hline
+{\em p1} & \\
+\hline
+{\em p2} & \\
+\hline
+{\em new\+Size} & \\
+\hline
+{\em new\+Indices} & \\
+\hline
+{\em closest\+Point} & \\
+\hline
+{\em search\+Direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Voronoi\+Region\+::\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_afe728560c0bba41c025d04e34a3147b2}\label{classGjk_afe728560c0bba41c025d04e34a3147b2}} 
+\index{Gjk@{Gjk}!Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}}
+\index{Identify\+Voronoi\+Region@{Identify\+Voronoi\+Region}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Identify\+Voronoi\+Region()}{IdentifyVoronoiRegion()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Voronoi\+Region\+::\+Type Gjk\+::\+Identify\+Voronoi\+Region (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{q,  }\item[{const Vector3 \&}]{p0,  }\item[{const Vector3 \&}]{p1,  }\item[{const Vector3 \&}]{p2,  }\item[{const Vector3 \&}]{p3,  }\item[{size\+\_\+t \&}]{new\+Size,  }\item[{int}]{new\+Indices\mbox{[}4\mbox{]},  }\item[{Vector3 \&}]{closest\+Point,  }\item[{Vector3 \&}]{search\+Direction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Identifies voronoi region of a point with respect to tetrahedron. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em p0} & \\
+\hline
+{\em p1} & \\
+\hline
+{\em p2} & \\
+\hline
+{\em p3} & \\
+\hline
+{\em new\+Size} & \\
+\hline
+{\em new\+Indices} & \\
+\hline
+{\em closest\+Point} & \\
+\hline
+{\em search\+Direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Voronoi\+Region\+::\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_af73bc5ca3bab4249ff1fa648d8bef8fd}\label{classGjk_af73bc5ca3bab4249ff1fa648d8bef8fd}} 
+\index{Gjk@{Gjk}!Intersect@{Intersect}}
+\index{Intersect@{Intersect}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Intersect()}{Intersect()}}
+{\footnotesize\ttfamily bool Gjk\+::\+Intersect (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{structGjk_1_1CsoPoint}{Gjk\+::\+Cso\+Point} $>$ \&}]{simplex,  }\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeA,  }\item[{const \hyperlink{classSupportShape}{Support\+Shape} $\ast$}]{shapeB,  }\item[{\hyperlink{structGjk_1_1CsoPoint}{Cso\+Point} \&}]{closest\+Point,  }\item[{float}]{epsilon,  }\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{p\+App\+Renderer,  }\item[{bool}]{is\+Debug\+Draw = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Runs the G\+JK algorithm to see if two shapes are intersecting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em simplex} & \\
+\hline
+{\em shapeA} & \\
+\hline
+{\em shapeB} & \\
+\hline
+{\em closest\+Point} & \\
+\hline
+{\em epsilon} & \\
+\hline
+{\em p\+App\+Renderer} & \\
+\hline
+{\em is\+Debug\+Draw} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGjk_a6a1b3d304d20bc6c762e84dd926f0219}\label{classGjk_a6a1b3d304d20bc6c762e84dd926f0219}} 
+\index{Gjk@{Gjk}!Triangle\+Side\+Check@{Triangle\+Side\+Check}}
+\index{Triangle\+Side\+Check@{Triangle\+Side\+Check}!Gjk@{Gjk}}
+\subsubsection{\texorpdfstring{Triangle\+Side\+Check()}{TriangleSideCheck()}}
+{\footnotesize\ttfamily float Gjk\+::\+Triangle\+Side\+Check (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{q,  }\item[{const Vector3 \&}]{p0,  }\item[{const Vector3 \&}]{p1,  }\item[{const Vector3 \&}]{p2,  }\item[{const Vector3 \&}]{p3 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+helper function that determines on which side the point is in respect to a triangle in a tetrahedron 
+
+
+\begin{DoxyParams}{Parameters}
+{\em q} & \\
+\hline
+{\em p0} & \\
+\hline
+{\em p1} & \\
+\hline
+{\em p2} & \\
+\hline
+{\em p3} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Gjk/\hyperlink{Gjk_8h}{Gjk.\+h}\item 
+Physics/\+Gjk/\hyperlink{Gjk_8cpp}{Gjk.\+cpp}\end{DoxyCompactItemize}

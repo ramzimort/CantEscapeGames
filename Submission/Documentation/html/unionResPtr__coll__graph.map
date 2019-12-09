@@ -1,0 +1,6 @@
+<map id="ResPtr" name="ResPtr">
+<area shape="rect" id="node2" href="$classMaterial.html" title="Material describes how a 3D mesh should be rendered. " alt="" coords="5,109,80,136"/>
+<area shape="rect" id="node3" href="$classModel.html" title="Contains all the interface for getting Model&#39;s graphic data. " alt="" coords="117,109,179,136"/>
+<area shape="rect" id="node4" href="$classBuffer.html" title="Buffer" alt="" coords="117,5,179,32"/>
+<area shape="rect" id="node5" href="$classTexture.html" title="Texture" alt="" coords="205,109,275,136"/>
+</map>

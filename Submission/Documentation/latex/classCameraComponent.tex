@@ -1,0 +1,97 @@
+\hypertarget{classCameraComponent}{}\section{Camera\+Component Class Reference}
+\label{classCameraComponent}\index{Camera\+Component@{Camera\+Component}}
+
+
+Inheritance diagram for Camera\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{classCameraComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Camera\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{classCameraComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCameraComponent_af29667817300732b1bf533ca8d1d3dee}\label{classCameraComponent_af29667817300732b1bf533ca8d1d3dee}} 
+{\bfseries Camera\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classCameraComponent_ac1fd903a313d65bd8b7e8dcf7cab66b3}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraComponent_a5cd6dd7439bfb54edb12b45abe32967c}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr)
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCameraComponent_a47d07609d9132a2ed72a52c2bf59874c}\label{classCameraComponent_a47d07609d9132a2ed72a52c2bf59874c}} 
+\hyperlink{classCamera}{Camera} \& {\bfseries Get\+Camera} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCameraComponent_a8c3fa86b0056b2735e289e7a0d181ed7}\label{classCameraComponent_a8c3fa86b0056b2735e289e7a0d181ed7}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCameraComponent_ace0f946b921a93dd4a83518b6bc7e40e}\label{classCameraComponent_ace0f946b921a93dd4a83518b6bc7e40e}} 
+class {\bfseries Camera\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCameraComponent_a5cd6dd7439bfb54edb12b45abe32967c}\label{classCameraComponent_a5cd6dd7439bfb54edb12b45abe32967c}} 
+\index{Camera\+Component@{Camera\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Camera\+Component@{Camera\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Camera\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classCameraComponent_ac1fd903a313d65bd8b7e8dcf7cab66b3}\label{classCameraComponent_ac1fd903a313d65bd8b7e8dcf7cab66b3}} 
+\index{Camera\+Component@{Camera\+Component}!Init@{Init}}
+\index{Init@{Init}!Camera\+Component@{Camera\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Camera\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Camera\+Component.\+h\item 
+Components/Camera\+Component.\+cpp\end{DoxyCompactItemize}

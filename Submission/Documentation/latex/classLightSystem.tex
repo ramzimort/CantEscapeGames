@@ -1,0 +1,91 @@
+\hypertarget{classLightSystem}{}\section{Light\+System Class Reference}
+\label{classLightSystem}\index{Light\+System@{Light\+System}}
+
+
+Inheritance diagram for Light\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classLightSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Light\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classLightSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classLightSystem_a9f3eb997e5b2e8e4f18ca5095b6f2a61}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classLightSystem_a492572de092cdbaf76c3ca4d9806df94}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLightSystem_a56434d9d37cd418af1d4af672cde6ef4}\label{classLightSystem_a56434d9d37cd418af1d4af672cde6ef4}} 
+virtual void \hyperlink{classLightSystem_a56434d9d37cd418af1d4af672cde6ef4}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLightSystem_a26dba0f68fe41206e7559ec1cab40aef}\label{classLightSystem_a26dba0f68fe41206e7559ec1cab40aef}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLightSystem_a982aa4dde8bb5d8cea68a7d16357d49c}\label{classLightSystem_a982aa4dde8bb5d8cea68a7d16357d49c}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classLightSystem_a9f3eb997e5b2e8e4f18ca5095b6f2a61}\label{classLightSystem_a9f3eb997e5b2e8e4f18ca5095b6f2a61}} 
+\index{Light\+System@{Light\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Light\+System@{Light\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Light\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classLightSystem_a492572de092cdbaf76c3ca4d9806df94}\label{classLightSystem_a492572de092cdbaf76c3ca4d9806df94}} 
+\index{Light\+System@{Light\+System}!Update@{Update}}
+\index{Update@{Update}!Light\+System@{Light\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Light\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Light\+System.\+h\item 
+Systems/Light\+System.\+cpp\end{DoxyCompactItemize}

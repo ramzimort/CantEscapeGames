@@ -1,0 +1,99 @@
+\hypertarget{classFrameManager}{}\section{Frame\+Manager Class Reference}
+\label{classFrameManager}\index{Frame\+Manager@{Frame\+Manager}}
+
+
+Checks if frame time exceeded to allow for new frame.  
+
+
+
+
+{\ttfamily \#include $<$Frame\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classFrameManager_a717a67bb21670ce5b9916701e88fddfd}{Frame\+Manager} (unsigned int max\+Frame\+Rate=60)
+\begin{DoxyCompactList}\small\item\em Construct a new Frame Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFrameManager_a8269f9bd88d259ba6a375439d264169d}\label{classFrameManager_a8269f9bd88d259ba6a375439d264169d}} 
+void \hyperlink{classFrameManager_a8269f9bd88d259ba6a375439d264169d}{Start\+Frame} ()
+\begin{DoxyCompactList}\small\item\em Call at the start of the frame to begin timing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFrameManager_a7e5cb5d2601fcc29337f31a76c306ece}\label{classFrameManager_a7e5cb5d2601fcc29337f31a76c306ece}} 
+void \hyperlink{classFrameManager_a7e5cb5d2601fcc29337f31a76c306ece}{End\+Frame} ()
+\begin{DoxyCompactList}\small\item\em Call at the end of the frame to wait until the min frame time is complete. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classFrameManager_a18adc31d8edea896cabd539ae87a0b6d}{Get\+Frame\+Time} ()
+\begin{DoxyCompactList}\small\item\em Get the current time within frame. \end{DoxyCompactList}\item 
+float \hyperlink{classFrameManager_af8cee1b8a5061051f09d5e2623586d2e}{Get\+Float\+Frame\+Time} () const
+\begin{DoxyCompactList}\small\item\em Get the current time within frame. \end{DoxyCompactList}\item 
+void \hyperlink{classFrameManager_a449eb9187116086d6a5ee53c76c84852}{Set\+Frame\+Rate} (unsigned int max\+Frame\+Rate)
+\begin{DoxyCompactList}\small\item\em Set the Frame Rate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Checks if frame time exceeded to allow for new frame. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFrameManager_a717a67bb21670ce5b9916701e88fddfd}\label{classFrameManager_a717a67bb21670ce5b9916701e88fddfd}} 
+\index{Frame\+Manager@{Frame\+Manager}!Frame\+Manager@{Frame\+Manager}}
+\index{Frame\+Manager@{Frame\+Manager}!Frame\+Manager@{Frame\+Manager}}
+\subsubsection{\texorpdfstring{Frame\+Manager()}{FrameManager()}}
+{\footnotesize\ttfamily Frame\+Manager\+::\+Frame\+Manager (\begin{DoxyParamCaption}\item[{unsigned int}]{max\+Frame\+Rate = {\ttfamily 60} }\end{DoxyParamCaption})}
+
+
+
+Construct a new Frame Manager object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Frame\+Rate} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classFrameManager_af8cee1b8a5061051f09d5e2623586d2e}\label{classFrameManager_af8cee1b8a5061051f09d5e2623586d2e}} 
+\index{Frame\+Manager@{Frame\+Manager}!Get\+Float\+Frame\+Time@{Get\+Float\+Frame\+Time}}
+\index{Get\+Float\+Frame\+Time@{Get\+Float\+Frame\+Time}!Frame\+Manager@{Frame\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Float\+Frame\+Time()}{GetFloatFrameTime()}}
+{\footnotesize\ttfamily float Frame\+Manager\+::\+Get\+Float\+Frame\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the current time within frame. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFrameManager_a18adc31d8edea896cabd539ae87a0b6d}\label{classFrameManager_a18adc31d8edea896cabd539ae87a0b6d}} 
+\index{Frame\+Manager@{Frame\+Manager}!Get\+Frame\+Time@{Get\+Frame\+Time}}
+\index{Get\+Frame\+Time@{Get\+Frame\+Time}!Frame\+Manager@{Frame\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Frame\+Time()}{GetFrameTime()}}
+{\footnotesize\ttfamily unsigned int Frame\+Manager\+::\+Get\+Frame\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the current time within frame. 
+
+\begin{DoxyReturn}{Returns}
+unsigned int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classFrameManager_a449eb9187116086d6a5ee53c76c84852}\label{classFrameManager_a449eb9187116086d6a5ee53c76c84852}} 
+\index{Frame\+Manager@{Frame\+Manager}!Set\+Frame\+Rate@{Set\+Frame\+Rate}}
+\index{Set\+Frame\+Rate@{Set\+Frame\+Rate}!Frame\+Manager@{Frame\+Manager}}
+\subsubsection{\texorpdfstring{Set\+Frame\+Rate()}{SetFrameRate()}}
+{\footnotesize\ttfamily void Frame\+Manager\+::\+Set\+Frame\+Rate (\begin{DoxyParamCaption}\item[{unsigned int}]{max\+Frame\+Rate }\end{DoxyParamCaption})}
+
+
+
+Set the Frame Rate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+Frame\+Rate} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{FrameManager_8h}{Frame\+Manager.\+h}\item 
+Managers/Frame\+Manager.\+cpp\end{DoxyCompactItemize}

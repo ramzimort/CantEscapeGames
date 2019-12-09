@@ -1,0 +1,7 @@
+<map id="DXCMD_Bind_Descriptors" name="DXCMD_Bind_Descriptors">
+<area shape="rect" id="node2" href="$classPipeline.html" title="Pipeline" alt="" coords="8,95,83,121"/>
+<area shape="rect" id="node3" href="$structDescriptorData.html" title="DescriptorData" alt="" coords="107,95,227,121"/>
+<area shape="rect" id="node4" href="$classTexture.html" title="Texture" alt="" coords="22,5,93,32"/>
+<area shape="rect" id="node5" href="$classSampler.html" title="Sampler" alt="" coords="129,5,205,32"/>
+<area shape="rect" id="node6" href="$classBuffer.html" title="Buffer" alt="" coords="252,5,313,32"/>
+</map>

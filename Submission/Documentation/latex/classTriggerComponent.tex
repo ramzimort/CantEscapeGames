@@ -1,0 +1,218 @@
+\hypertarget{classTriggerComponent}{}\section{Trigger\+Component Class Reference}
+\label{classTriggerComponent}\index{Trigger\+Component@{Trigger\+Component}}
+
+
+Trgger component.  
+
+
+
+
+{\ttfamily \#include $<$Trigger\+Component.\+h$>$}
+
+
+
+Inheritance diagram for Trigger\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{classTriggerComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Trigger\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTriggerComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_a7a0b2f2ed3f3fd915790926cbb6ebe42}\label{classTriggerComponent_a7a0b2f2ed3f3fd915790926cbb6ebe42}} 
+{\bfseries Trigger\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+virtual void \hyperlink{classTriggerComponent_a4d843989a23752f91dfd1fe8c75c2b7c}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classTriggerComponent_a095e19d7f322e6e117bdbd5001015b8b}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+const \hyperlink{classAabb}{Aabb} \& \hyperlink{classTriggerComponent_ae88aa2832f7e3f5bd90779c9ef7ebfb9}{Get\+Aabb} () const
+\begin{DoxyCompactList}\small\item\em Get the bounding box that discribes the trigger volume in the world space as if it was placed at the origin. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classTriggerComponent_af2159e7d62a5dade58a8d5d390b8dbe4}{Get\+Scale} ()
+\begin{DoxyCompactList}\small\item\em Get the Scale of the trigger. Note that this is treated separetly from objects transform scale and used as it is in the world space. \end{DoxyCompactList}\item 
+void \hyperlink{classTriggerComponent_add3b5a16e795c2cbd20600329cefd1b6}{Set\+Scale} (const Vector3 \&scale)
+\begin{DoxyCompactList}\small\item\em Set the Scale of the trigger. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classTriggerComponent_a81caada870d7dd9b0cf665495dfcea99}{Get\+Offset} ()
+\begin{DoxyCompactList}\small\item\em Get the Offset position of the trigger from the objects translation. \end{DoxyCompactList}\item 
+void \hyperlink{classTriggerComponent_a2c4f80d4162ca6903d96fb7e88a26496}{Set\+Offset} (const Vector3 \&offset)
+\begin{DoxyCompactList}\small\item\em Set the Offset of the trigger. \end{DoxyCompactList}\item 
+Collision\+Table\+::\+Collision\+Mask \hyperlink{classTriggerComponent_ac94c9219efe3efa94cef732485115a46}{Get\+Collision\+Mask} ()
+\begin{DoxyCompactList}\small\item\em Get the Collision Mask of the trigger. Note\+: this is separate from the collision mask on the rigidbody, because object does not have to have rigidbody. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTriggerComponent_af8904c927816d997c9f3bedf853f618a}\label{classTriggerComponent_af8904c927816d997c9f3bedf853f618a}} 
+void {\bfseries Set\+Collision\+Mask} (Collision\+Table\+::\+Collision\+Mask mask)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_ab9e7fc9cdda17d7cb7e8cd8be4f935df}\label{classTriggerComponent_ab9e7fc9cdda17d7cb7e8cd8be4f935df}} 
+\hyperlink{classMulticast}{Multicast}$<$ void(\hyperlink{classGameObject}{Game\+Object} $\ast$, \hyperlink{classGameObject}{Game\+Object} $\ast$)$>$ {\bfseries m\+\_\+on\+Enter}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_a25d91357b3090fd3f4474566f485e842}\label{classTriggerComponent_a25d91357b3090fd3f4474566f485e842}} 
+\hyperlink{classMulticast}{Multicast}$<$ void(\hyperlink{classGameObject}{Game\+Object} $\ast$, \hyperlink{classGameObject}{Game\+Object} $\ast$)$>$ {\bfseries m\+\_\+on\+Exit}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_aabee18d0032cffdfc5145517db4eb2ac}\label{classTriggerComponent_aabee18d0032cffdfc5145517db4eb2ac}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_a328c093d609680cca505905c6d49901a}\label{classTriggerComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_a77e645014b1348deb41028fe9a3bf122}\label{classTriggerComponent_a77e645014b1348deb41028fe9a3bf122}} 
+class {\bfseries Trigger\+System}
+\item 
+\mbox{\Hypertarget{classTriggerComponent_ab3d6fafb2064bace492fd6b503d044f4}\label{classTriggerComponent_ab3d6fafb2064bace492fd6b503d044f4}} 
+class {\bfseries Scripting\+Manager}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Trgger component. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTriggerComponent_a095e19d7f322e6e117bdbd5001015b8b}\label{classTriggerComponent_a095e19d7f322e6e117bdbd5001015b8b}} 
+\index{Trigger\+Component@{Trigger\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Trigger\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classTriggerComponent_ae88aa2832f7e3f5bd90779c9ef7ebfb9}\label{classTriggerComponent_ae88aa2832f7e3f5bd90779c9ef7ebfb9}} 
+\index{Trigger\+Component@{Trigger\+Component}!Get\+Aabb@{Get\+Aabb}}
+\index{Get\+Aabb@{Get\+Aabb}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Get\+Aabb()}{GetAabb()}}
+{\footnotesize\ttfamily const \hyperlink{classAabb}{Aabb} \& Trigger\+Component\+::\+Get\+Aabb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the bounding box that discribes the trigger volume in the world space as if it was placed at the origin. 
+
+\begin{DoxyReturn}{Returns}
+const \hyperlink{classAabb}{Aabb}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriggerComponent_ac94c9219efe3efa94cef732485115a46}\label{classTriggerComponent_ac94c9219efe3efa94cef732485115a46}} 
+\index{Trigger\+Component@{Trigger\+Component}!Get\+Collision\+Mask@{Get\+Collision\+Mask}}
+\index{Get\+Collision\+Mask@{Get\+Collision\+Mask}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Get\+Collision\+Mask()}{GetCollisionMask()}}
+{\footnotesize\ttfamily Collision\+Table\+::\+Collision\+Mask Trigger\+Component\+::\+Get\+Collision\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Collision Mask of the trigger. Note\+: this is separate from the collision mask on the rigidbody, because object does not have to have rigidbody. 
+
+\begin{DoxyReturn}{Returns}
+Collision\+Table\+::\+Collision\+Mask 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriggerComponent_a81caada870d7dd9b0cf665495dfcea99}\label{classTriggerComponent_a81caada870d7dd9b0cf665495dfcea99}} 
+\index{Trigger\+Component@{Trigger\+Component}!Get\+Offset@{Get\+Offset}}
+\index{Get\+Offset@{Get\+Offset}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Get\+Offset()}{GetOffset()}}
+{\footnotesize\ttfamily const Vector3 \& Trigger\+Component\+::\+Get\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Offset position of the trigger from the objects translation. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriggerComponent_af2159e7d62a5dade58a8d5d390b8dbe4}\label{classTriggerComponent_af2159e7d62a5dade58a8d5d390b8dbe4}} 
+\index{Trigger\+Component@{Trigger\+Component}!Get\+Scale@{Get\+Scale}}
+\index{Get\+Scale@{Get\+Scale}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Get\+Scale()}{GetScale()}}
+{\footnotesize\ttfamily const Vector3 \& Trigger\+Component\+::\+Get\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Scale of the trigger. Note that this is treated separetly from objects transform scale and used as it is in the world space. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriggerComponent_a4d843989a23752f91dfd1fe8c75c2b7c}\label{classTriggerComponent_a4d843989a23752f91dfd1fe8c75c2b7c}} 
+\index{Trigger\+Component@{Trigger\+Component}!Init@{Init}}
+\index{Init@{Init}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Trigger\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classTriggerComponent_a2c4f80d4162ca6903d96fb7e88a26496}\label{classTriggerComponent_a2c4f80d4162ca6903d96fb7e88a26496}} 
+\index{Trigger\+Component@{Trigger\+Component}!Set\+Offset@{Set\+Offset}}
+\index{Set\+Offset@{Set\+Offset}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Set\+Offset()}{SetOffset()}}
+{\footnotesize\ttfamily void Trigger\+Component\+::\+Set\+Offset (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{offset }\end{DoxyParamCaption})}
+
+
+
+Set the Offset of the trigger. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTriggerComponent_add3b5a16e795c2cbd20600329cefd1b6}\label{classTriggerComponent_add3b5a16e795c2cbd20600329cefd1b6}} 
+\index{Trigger\+Component@{Trigger\+Component}!Set\+Scale@{Set\+Scale}}
+\index{Set\+Scale@{Set\+Scale}!Trigger\+Component@{Trigger\+Component}}
+\subsubsection{\texorpdfstring{Set\+Scale()}{SetScale()}}
+{\footnotesize\ttfamily void Trigger\+Component\+::\+Set\+Scale (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{scale }\end{DoxyParamCaption})}
+
+
+
+Set the Scale of the trigger. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/\hyperlink{TriggerComponent_8h}{Trigger\+Component.\+h}\item 
+Components/\hyperlink{TriggerComponent_8cpp}{Trigger\+Component.\+cpp}\end{DoxyCompactItemize}

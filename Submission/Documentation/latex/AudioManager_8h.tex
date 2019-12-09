@@ -1,0 +1,59 @@
+\hypertarget{AudioManager_8h}{}\section{Managers/\+Audio\+Manager.h File Reference}
+\label{AudioManager_8h}\index{Managers/\+Audio\+Manager.\+h@{Managers/\+Audio\+Manager.\+h}}
+
+
+Audio Manager Class for reacting to play/pause/stop events, and adjusting audio settings.  
+
+
+{\ttfamily \#include \char`\"{}Resource\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Audio/\+Audio\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Events/\+Audio/\+Audio\+Events.\+h\char`\"{}}\newline
+Include dependency graph for Audio\+Manager.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{AudioManager_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{AudioManager_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structSoundData}{Sound\+Data}
+\begin{DoxyCompactList}\small\item\em Information to the loaded audio file. \end{DoxyCompactList}\item 
+class \hyperlink{classAudioManager}{Audio\+Manager}
+\begin{DoxyCompactList}\small\item\em Reacts to song and sfx events. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{AudioManager_8h_ad624c99b96f676253494c113dcad06bf}\label{AudioManager_8h_ad624c99b96f676253494c113dcad06bf}} 
+typedef F\+M\+O\+D\+::\+Sound $\ast$ {\bfseries Sound\+Ptr}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{AudioManager_8h_a30b47622279c51e64aeb20a6234c9030}\label{AudioManager_8h_a30b47622279c51e64aeb20a6234c9030}} 
+enum {\bfseries Fade\+State} \{ {\bfseries F\+A\+D\+E\+\_\+\+N\+O\+NE}, 
+{\bfseries F\+A\+D\+E\+\_\+\+IN}, 
+{\bfseries F\+A\+D\+E\+\_\+\+O\+UT}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Audio Manager Class for reacting to play/pause/stop events, and adjusting audio settings. 
+
+\begin{DoxyAuthor}{Author}
+Ramzi Mourtada 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}

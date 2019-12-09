@@ -1,0 +1,384 @@
+\hypertarget{classTransformComponent}{}\section{Transform\+Component Class Reference}
+\label{classTransformComponent}\index{Transform\+Component@{Transform\+Component}}
+
+
+Stores and updates all position, orientation and scale data.  
+
+
+
+
+{\ttfamily \#include $<$Transform\+Component.\+h$>$}
+
+
+
+Inheritance diagram for Transform\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classTransformComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Transform\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classTransformComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTransformComponent_a7502ad57bb3aabeeb5860c7fae4b8a20}\label{classTransformComponent_a7502ad57bb3aabeeb5860c7fae4b8a20}} 
+{\bfseries Transform\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classTransformComponent_a7c7e1222f008772fb4998c2b93e3c0f7}{Translate} (float dx, float dy, float dz)
+\begin{DoxyCompactList}\small\item\em Translate in world space. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_a2ec6de20875d08069e2c4f89e9ac9cca}{Translate} (Vector3 const \&translate)
+\begin{DoxyCompactList}\small\item\em Translate in world space. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_a305b12762fc44d18713ebe31664c92f2}{Rotate} (float pitch, float yaw, float roll)
+\begin{DoxyCompactList}\small\item\em Rotate with pitch, yaw, roll in degrees. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_a0328d56a74c66c77c2348e233268f53f}{Rotate} (Vector3 const \&rotation)
+\begin{DoxyCompactList}\small\item\em Rotate with pitch, yaw, roll in degrees. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_a82b208965988bd45e7d8b40d9ce27e1c}{Scale} (float val)
+\begin{DoxyCompactList}\small\item\em Uniform scale. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_a61ef441f9449ba0b34ae73c71da30852}{Scale} (float x, float y, float z)
+\begin{DoxyCompactList}\small\item\em Non-\/uniform scale. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_ad7f67d4a0962e928cd7df730002d4dc8}{Scale} (Vector3 const \&scale)
+\begin{DoxyCompactList}\small\item\em Non-\/uniform scale. \end{DoxyCompactList}\item 
+Vector3 const  \& \hyperlink{classTransformComponent_a31ce3a262b59b97eadd0187319ed812d}{Get\+Position} () const
+\begin{DoxyCompactList}\small\item\em Get the object\textquotesingle{}s world space position. \end{DoxyCompactList}\item 
+Vector3 const  \& \hyperlink{classTransformComponent_a66072d2fe63c96e8cded35fca0579400}{Get\+Rotation} () const
+\begin{DoxyCompactList}\small\item\em Get the object\textquotesingle{}s rotation euler angles (in degrees) \end{DoxyCompactList}\item 
+Vector3 const  \& \hyperlink{classTransformComponent_af9a3c385a334fadeac09a18149e89d05}{Get\+Scale} () const
+\begin{DoxyCompactList}\small\item\em Get the object\textquotesingle{}s scale factors. \end{DoxyCompactList}\item 
+Matrix const  \& \hyperlink{classTransformComponent_a558145da72066c99bec2a4a8ec3e2fa1}{Get\+Model} () const
+\begin{DoxyCompactList}\small\item\em Get the obejct\textquotesingle{}s model Matrix (computed per frame) \end{DoxyCompactList}\item 
+Matrix const  \& \hyperlink{classTransformComponent_a95adaed6de8c45ab76479fe990dbb5cc}{Get\+Rotation\+Matrix} () const
+\begin{DoxyCompactList}\small\item\em Get the object\textquotesingle{}s rotation matrix (computed per frame) \end{DoxyCompactList}\item 
+Matrix const  \& \hyperlink{classTransformComponent_af55f4a1e6167f8a260e581850848299d}{Get\+Scale\+Matrix} () const
+\begin{DoxyCompactList}\small\item\em Get the object\textquotesingle{}s scale matrix (computed every frame) \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classTransformComponent_a71e0adb8dd3a35fdca3b50817bb807a4}{Get\+Forward} () const
+\begin{DoxyCompactList}\small\item\em Gets the forward vector based on current orientation. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classTransformComponent_a5fe2a35d3bcb6a07a231b0f463d6a64b}{Get\+Right} () const
+\begin{DoxyCompactList}\small\item\em Get the right vector based on current orientation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTransformComponent_a859926592b1550b27fc93ccb4da1e163}\label{classTransformComponent_a859926592b1550b27fc93ccb4da1e163}} 
+Vector3 {\bfseries Get\+Position\+Normalized} () const
+\item 
+\mbox{\Hypertarget{classTransformComponent_ae220c31211dd608d79d6eed78598562e}\label{classTransformComponent_ae220c31211dd608d79d6eed78598562e}} 
+Vector3 {\bfseries Get\+Scale\+Normalized} () const
+\item 
+void \hyperlink{classTransformComponent_a63fa0293901b73ed16151fb3ca0c81f3}{Set\+Local\+Position} (float x, float y, float z)
+\begin{DoxyCompactList}\small\item\em Set the position of the object in world space. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_ac25ddafb688708cba6001e221fdd0b9d}{Set\+Local\+Position} (const Vector3 \&position)
+\begin{DoxyCompactList}\small\item\em Set the position of the object in world space. \end{DoxyCompactList}\item 
+void \hyperlink{classTransformComponent_aa1c412032c23c21644c84646e1e271ce}{Set\+Local\+Rotation} (float eulerX, float eulerY, float eulerZ)
+\begin{DoxyCompactList}\small\item\em Set the rotation directly with euler angles. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTransformComponent_ae600cd0a90c25a1881c9b8b08cb8bde0}\label{classTransformComponent_ae600cd0a90c25a1881c9b8b08cb8bde0}} 
+void {\bfseries Set\+Local\+Rotation\+Matrix} (const Matrix \&rotation\+Matrix)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTransformComponent_a5d4711ad2a25a2d649a779d4d2842d14}\label{classTransformComponent_a5d4711ad2a25a2d649a779d4d2842d14}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTransformComponent_a328c093d609680cca505905c6d49901a}\label{classTransformComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classTransformComponent_a318469cfd809ba3993eb0331cba48707}\label{classTransformComponent_a318469cfd809ba3993eb0331cba48707}} 
+class {\bfseries Transform\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Stores and updates all position, orientation and scale data. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTransformComponent_a71e0adb8dd3a35fdca3b50817bb807a4}\label{classTransformComponent_a71e0adb8dd3a35fdca3b50817bb807a4}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Forward@{Get\+Forward}}
+\index{Get\+Forward@{Get\+Forward}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Forward()}{GetForward()}}
+{\footnotesize\ttfamily Vector3 Transform\+Component\+::\+Get\+Forward (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the forward vector based on current orientation. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a558145da72066c99bec2a4a8ec3e2fa1}\label{classTransformComponent_a558145da72066c99bec2a4a8ec3e2fa1}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Model@{Get\+Model}}
+\index{Get\+Model@{Get\+Model}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Model()}{GetModel()}}
+{\footnotesize\ttfamily Matrix const  \& Transform\+Component\+::\+Get\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the obejct\textquotesingle{}s model Matrix (computed per frame) 
+
+\begin{DoxyReturn}{Returns}
+Matrix const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a31ce3a262b59b97eadd0187319ed812d}\label{classTransformComponent_a31ce3a262b59b97eadd0187319ed812d}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Position@{Get\+Position}}
+\index{Get\+Position@{Get\+Position}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Position()}{GetPosition()}}
+{\footnotesize\ttfamily Vector3 const  \& Transform\+Component\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the object\textquotesingle{}s world space position. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a5fe2a35d3bcb6a07a231b0f463d6a64b}\label{classTransformComponent_a5fe2a35d3bcb6a07a231b0f463d6a64b}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Right@{Get\+Right}}
+\index{Get\+Right@{Get\+Right}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Right()}{GetRight()}}
+{\footnotesize\ttfamily Vector3 Transform\+Component\+::\+Get\+Right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the right vector based on current orientation. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a66072d2fe63c96e8cded35fca0579400}\label{classTransformComponent_a66072d2fe63c96e8cded35fca0579400}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Rotation@{Get\+Rotation}}
+\index{Get\+Rotation@{Get\+Rotation}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Rotation()}{GetRotation()}}
+{\footnotesize\ttfamily Vector3 const  \& Transform\+Component\+::\+Get\+Rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the object\textquotesingle{}s rotation euler angles (in degrees) 
+
+\begin{DoxyReturn}{Returns}
+Vector3 const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a95adaed6de8c45ab76479fe990dbb5cc}\label{classTransformComponent_a95adaed6de8c45ab76479fe990dbb5cc}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Rotation\+Matrix@{Get\+Rotation\+Matrix}}
+\index{Get\+Rotation\+Matrix@{Get\+Rotation\+Matrix}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Rotation\+Matrix()}{GetRotationMatrix()}}
+{\footnotesize\ttfamily Matrix const  \& Transform\+Component\+::\+Get\+Rotation\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the object\textquotesingle{}s rotation matrix (computed per frame) 
+
+\begin{DoxyReturn}{Returns}
+Matrix const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_af9a3c385a334fadeac09a18149e89d05}\label{classTransformComponent_af9a3c385a334fadeac09a18149e89d05}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Scale@{Get\+Scale}}
+\index{Get\+Scale@{Get\+Scale}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Scale()}{GetScale()}}
+{\footnotesize\ttfamily Vector3 const  \& Transform\+Component\+::\+Get\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the object\textquotesingle{}s scale factors. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_af55f4a1e6167f8a260e581850848299d}\label{classTransformComponent_af55f4a1e6167f8a260e581850848299d}} 
+\index{Transform\+Component@{Transform\+Component}!Get\+Scale\+Matrix@{Get\+Scale\+Matrix}}
+\index{Get\+Scale\+Matrix@{Get\+Scale\+Matrix}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Get\+Scale\+Matrix()}{GetScaleMatrix()}}
+{\footnotesize\ttfamily Matrix const  \& Transform\+Component\+::\+Get\+Scale\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the object\textquotesingle{}s scale matrix (computed every frame) 
+
+\begin{DoxyReturn}{Returns}
+Matrix const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTransformComponent_a305b12762fc44d18713ebe31664c92f2}\label{classTransformComponent_a305b12762fc44d18713ebe31664c92f2}} 
+\index{Transform\+Component@{Transform\+Component}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Rotate()}{Rotate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Rotate (\begin{DoxyParamCaption}\item[{float}]{pitch,  }\item[{float}]{yaw,  }\item[{float}]{roll }\end{DoxyParamCaption})}
+
+
+
+Rotate with pitch, yaw, roll in degrees. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pitch} & \\
+\hline
+{\em yaw} & \\
+\hline
+{\em roll} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a0328d56a74c66c77c2348e233268f53f}\label{classTransformComponent_a0328d56a74c66c77c2348e233268f53f}} 
+\index{Transform\+Component@{Transform\+Component}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Rotate()}{Rotate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Rotate (\begin{DoxyParamCaption}\item[{Vector3 const \&}]{rotation }\end{DoxyParamCaption})}
+
+
+
+Rotate with pitch, yaw, roll in degrees. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rotation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a82b208965988bd45e7d8b40d9ce27e1c}\label{classTransformComponent_a82b208965988bd45e7d8b40d9ce27e1c}} 
+\index{Transform\+Component@{Transform\+Component}!Scale@{Scale}}
+\index{Scale@{Scale}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Scale()}{Scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Scale (\begin{DoxyParamCaption}\item[{float}]{val }\end{DoxyParamCaption})}
+
+
+
+Uniform scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a61ef441f9449ba0b34ae73c71da30852}\label{classTransformComponent_a61ef441f9449ba0b34ae73c71da30852}} 
+\index{Transform\+Component@{Transform\+Component}!Scale@{Scale}}
+\index{Scale@{Scale}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Scale()}{Scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Scale (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z }\end{DoxyParamCaption})}
+
+
+
+Non-\/uniform scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em z} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_ad7f67d4a0962e928cd7df730002d4dc8}\label{classTransformComponent_ad7f67d4a0962e928cd7df730002d4dc8}} 
+\index{Transform\+Component@{Transform\+Component}!Scale@{Scale}}
+\index{Scale@{Scale}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Scale()}{Scale()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Scale (\begin{DoxyParamCaption}\item[{Vector3 const \&}]{scale }\end{DoxyParamCaption})}
+
+
+
+Non-\/uniform scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a63fa0293901b73ed16151fb3ca0c81f3}\label{classTransformComponent_a63fa0293901b73ed16151fb3ca0c81f3}} 
+\index{Transform\+Component@{Transform\+Component}!Set\+Local\+Position@{Set\+Local\+Position}}
+\index{Set\+Local\+Position@{Set\+Local\+Position}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Set\+Local\+Position()}{SetLocalPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Set\+Local\+Position (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z }\end{DoxyParamCaption})}
+
+
+
+Set the position of the object in world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em z} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_ac25ddafb688708cba6001e221fdd0b9d}\label{classTransformComponent_ac25ddafb688708cba6001e221fdd0b9d}} 
+\index{Transform\+Component@{Transform\+Component}!Set\+Local\+Position@{Set\+Local\+Position}}
+\index{Set\+Local\+Position@{Set\+Local\+Position}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Set\+Local\+Position()}{SetLocalPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Set\+Local\+Position (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{position }\end{DoxyParamCaption})}
+
+
+
+Set the position of the object in world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_aa1c412032c23c21644c84646e1e271ce}\label{classTransformComponent_aa1c412032c23c21644c84646e1e271ce}} 
+\index{Transform\+Component@{Transform\+Component}!Set\+Local\+Rotation@{Set\+Local\+Rotation}}
+\index{Set\+Local\+Rotation@{Set\+Local\+Rotation}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Set\+Local\+Rotation()}{SetLocalRotation()}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Set\+Local\+Rotation (\begin{DoxyParamCaption}\item[{float}]{eulerX,  }\item[{float}]{eulerY,  }\item[{float}]{eulerZ }\end{DoxyParamCaption})}
+
+
+
+Set the rotation directly with euler angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em eulerX} & \\
+\hline
+{\em eulerY} & \\
+\hline
+{\em eulerZ} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a7c7e1222f008772fb4998c2b93e3c0f7}\label{classTransformComponent_a7c7e1222f008772fb4998c2b93e3c0f7}} 
+\index{Transform\+Component@{Transform\+Component}!Translate@{Translate}}
+\index{Translate@{Translate}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Translate()}{Translate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Translate (\begin{DoxyParamCaption}\item[{float}]{dx,  }\item[{float}]{dy,  }\item[{float}]{dz }\end{DoxyParamCaption})}
+
+
+
+Translate in world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dx} & \\
+\hline
+{\em dy} & \\
+\hline
+{\em dz} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classTransformComponent_a2ec6de20875d08069e2c4f89e9ac9cca}\label{classTransformComponent_a2ec6de20875d08069e2c4f89e9ac9cca}} 
+\index{Transform\+Component@{Transform\+Component}!Translate@{Translate}}
+\index{Translate@{Translate}!Transform\+Component@{Transform\+Component}}
+\subsubsection{\texorpdfstring{Translate()}{Translate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Transform\+Component\+::\+Translate (\begin{DoxyParamCaption}\item[{Vector3 const \&}]{translate }\end{DoxyParamCaption})}
+
+
+
+Translate in world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em translate} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/\hyperlink{TransformComponent_8h}{Transform\+Component.\+h}\item 
+Components/Transform\+Component.\+cpp\end{DoxyCompactItemize}

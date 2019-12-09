@@ -1,0 +1,50 @@
+<map id="BaseEvent" name="BaseEvent">
+<area shape="rect" id="node2" href="$classEvent.html" title="CRTP Pattern for Event Inheritance. " alt="" coords="196,5,336,32"/>
+<area shape="rect" id="node3" href="$classEvent.html" title="Event\&lt; CameraDestruction\lEvent \&gt;" alt="" coords="166,57,366,98"/>
+<area shape="rect" id="node5" href="$classEvent.html" title="Event\&lt; CameraRegistration\lEvent \&gt;" alt="" coords="165,122,367,163"/>
+<area shape="rect" id="node7" href="$classEvent.html" title="Event\&lt; DestroyGameObject \&gt;" alt="" coords="155,188,377,215"/>
+<area shape="rect" id="node9" href="$classEvent.html" title="Event\&lt; GameObjectCreated \&gt;" alt="" coords="155,239,377,265"/>
+<area shape="rect" id="node11" href="$classEvent.html" title="Event\&lt; GameObjectDestroyed \&gt;" alt="" coords="147,289,385,316"/>
+<area shape="rect" id="node13" href="$classEvent.html" title="Event\&lt; GameWindowSizeEvent \&gt;" alt="" coords="144,340,388,367"/>
+<area shape="rect" id="node15" href="$classEvent.html" title="Event\&lt; JoystickButtonEvent \&gt;" alt="" coords="156,391,376,417"/>
+<area shape="rect" id="node17" href="$classEvent.html" title="Event\&lt; JoystickEvent \&gt;" alt="" coords="177,441,355,468"/>
+<area shape="rect" id="node19" href="$classEvent.html" title="Event\&lt; JoystickMotionEvent \&gt;" alt="" coords="155,492,377,519"/>
+<area shape="rect" id="node21" href="$classEvent.html" title="Event\&lt; KeyEvent \&gt;" alt="" coords="191,543,341,569"/>
+<area shape="rect" id="node23" href="$classEvent.html" title="Event\&lt; LoadStateEvent \&gt;" alt="" coords="171,593,361,620"/>
+<area shape="rect" id="node25" href="$classEvent.html" title="Event\&lt; MouseClickEvent \&gt;" alt="" coords="166,644,366,671"/>
+<area shape="rect" id="node27" href="$classEvent.html" title="Event\&lt; MouseMotionEvent \&gt;" alt="" coords="160,695,372,721"/>
+<area shape="rect" id="node29" href="$classEvent.html" title="Event\&lt; MouseScrollEvent \&gt;" alt="" coords="164,745,368,772"/>
+<area shape="rect" id="node31" href="$classEvent.html" title="Event\&lt; PlaySFXEvent \&gt;" alt="" coords="177,796,355,823"/>
+<area shape="rect" id="node33" href="$classEvent.html" title="Event\&lt; PlaySongEvent \&gt;" alt="" coords="173,847,359,873"/>
+<area shape="rect" id="node35" href="$classEvent.html" title="Event\&lt; PopStateEvent \&gt;" alt="" coords="174,897,358,924"/>
+<area shape="rect" id="node37" href="$classEvent.html" title="Event\&lt; PushLoadedStateEvent \&gt;" alt="" coords="147,948,385,975"/>
+<area shape="rect" id="node39" href="$classEvent.html" title="Event\&lt; PushStateEvent \&gt;" alt="" coords="171,999,361,1025"/>
+<area shape="rect" id="node41" href="$classEvent.html" title="Event\&lt; QuitEvent \&gt;" alt="" coords="189,1049,343,1076"/>
+<area shape="rect" id="node43" href="$classEvent.html" title="Event\&lt; ReloadResourcesEvent \&gt;" alt="" coords="148,1100,384,1127"/>
+<area shape="rect" id="node44" href="$classEvent.html" title="Event\&lt; ResourcesLoadedEvent \&gt;" alt="" coords="147,1151,385,1177"/>
+<area shape="rect" id="node45" href="$classEvent.html" title="Event\&lt; SetVolumeEvent \&gt;" alt="" coords="168,1201,364,1228"/>
+<area shape="rect" id="node46" href="$classEvent.html" title="Event\&lt; StopSongEvent \&gt;" alt="" coords="173,1252,359,1279"/>
+<area shape="rect" id="node47" href="$classEvent.html" title="Event\&lt; ToggleMouseWarpEvent \&gt;" alt="" coords="145,1303,387,1329"/>
+<area shape="rect" id="node48" href="$classEvent.html" title="Event\&lt; WindowFocusEvent \&gt;" alt="" coords="159,1353,373,1380"/>
+<area shape="rect" id="node49" href="$classEvent.html" title="Event\&lt; WindowSizeEvent \&gt;" alt="" coords="163,1404,369,1431"/>
+<area shape="rect" id="node4" href="$classCameraDestructionEvent.html" title="Broadcasted when a camera gets destroyed. " alt="" coords="437,64,623,91"/>
+<area shape="rect" id="node6" href="$classCameraRegistrationEvent.html" title="Broadcasted when a camera gets created for registration. " alt="" coords="436,129,624,156"/>
+<area shape="rect" id="node8" href="$classDestroyGameObject.html" title="Pass when you want to destroy a game object and you know it&#39;s ID. " alt="" coords="453,188,607,215"/>
+<area shape="rect" id="node10" href="$classGameObjectCreated.html" title="Broadcasted when a game object is created (mainly used for DEVELOPER) " alt="" coords="453,239,607,265"/>
+<area shape="rect" id="node12" href="$classGameObjectDestroyed.html" title="Broadcasted when a game object is destroyed (Mainly used for DEVELOPER) " alt="" coords="445,289,615,316"/>
+<area shape="rect" id="node14" href="$classGameWindowSizeEvent.html" title="This is to send requests to the Input Manager for resizing. " alt="" coords="441,340,619,367"/>
+<area shape="rect" id="node16" href="$classJoystickButtonEvent.html" title="Joystick button pressed/released. " alt="" coords="453,391,607,417"/>
+<area shape="rect" id="node18" href="$classJoystickEvent.html" title="Joystick connected/disconnected (ID is managed by input manager) " alt="" coords="475,441,585,468"/>
+<area shape="rect" id="node20" href="$classJoystickMotionEvent.html" title="Joystick axis moved. Motion is normalized. " alt="" coords="453,492,607,519"/>
+<area shape="rect" id="node22" href="$classKeyEvent.html" title="Keyboard event. " alt="" coords="489,543,571,569"/>
+<area shape="rect" id="node24" href="$classLoadStateEvent.html" title="Request state get loaded in the background. State is stored in temporary load buffer. " alt="" coords="468,593,592,620"/>
+<area shape="rect" id="node26" href="$classMouseClickEvent.html" title="Broadcast by Input Manager when Mouse is clicked. " alt="" coords="463,644,597,671"/>
+<area shape="rect" id="node28" href="$classMouseMotionEvent.html" title="Broadcasted by Input Manager when mouse moves. " alt="" coords="457,695,603,721"/>
+<area shape="rect" id="node30" href="$classMouseScrollEvent.html" title="Braodcasted by Input Manager when mouse scrolls. " alt="" coords="461,745,599,772"/>
+<area shape="rect" id="node32" href="$classPlaySFXEvent.html" title="Plays a sound effect. " alt="" coords="475,796,585,823"/>
+<area shape="rect" id="node34" href="$classPlaySongEvent.html" title="Plays a song. " alt="" coords="471,847,589,873"/>
+<area shape="rect" id="node36" href="$classPopStateEvent.html" title="Pops current state. " alt="" coords="471,897,589,924"/>
+<area shape="rect" id="node38" href="$classPushLoadedStateEvent.html" title="Pushes loaded state if there is one. " alt="" coords="445,948,615,975"/>
+<area shape="rect" id="node40" href="$classPushStateEvent.html" title="Pushes a new state. " alt="" coords="468,999,592,1025"/>
+<area shape="rect" id="node42" href="$classQuitEvent.html" title="Broadcast to safely shut down the engine. " alt="" coords="487,1049,573,1076"/>
+</map>

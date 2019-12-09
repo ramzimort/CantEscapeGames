@@ -1,0 +1,8 @@
+<map id="RenderingCompNode" name="RenderingCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="Includes. " alt="" coords="5,171,180,197"/>
+<area shape="rect" id="node3" href="$classMeshComponent.html" title="MeshComponent" alt="" coords="205,171,335,197"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="372,95,501,121"/>
+<area shape="rect" id="node6" href="$classRendererComponent.html" title="RendererComponent" alt="" coords="359,171,514,197"/>
+<area shape="rect" id="node7" href="$classTransformComponent.html" title="Stores and updates all position, orientation and scale data. " alt="" coords="538,171,701,197"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="385,5,488,32"/>
+</map>

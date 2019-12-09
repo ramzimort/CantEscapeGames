@@ -1,0 +1,125 @@
+\hypertarget{classSupportShape}{}\section{Support\+Shape Class Reference}
+\label{classSupportShape}\index{Support\+Shape@{Support\+Shape}}
+
+
+Base class for any shape.  
+
+
+
+
+{\ttfamily \#include $<$Support\+Shape.\+h$>$}
+
+
+
+Inheritance diagram for Support\+Shape\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{classSupportShape__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Vector3 \hyperlink{classSupportShape_ac81f62a38aeadbf03d637e5134479467}{Get\+Center} () const =0
+\begin{DoxyCompactList}\small\item\em Every suport shape needs to return its center. \end{DoxyCompactList}\item 
+virtual Vector3 \hyperlink{classSupportShape_ad6aca93d79a36c7db3a449a4364a2c1e}{Support} (const Vector3 \&world\+Direction) const =0
+\begin{DoxyCompactList}\small\item\em Every support shape need to be able to calculate furthest point away in the given direction in that shape. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classSupportShape_a2cda78c3f08e49269c830d6ab0595244}{Get\+Center} (const std\+::vector$<$ \hyperlink{structVertexData}{Vertex\+Data} $>$ \&local\+Points, const Matrix \&local\+To\+World\+Transform) const
+\begin{DoxyCompactList}\small\item\em give a collection of points in local space, Get\+Center will calculate their center and transform it to world space \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classSupportShape_a105572c175fd14661261a7d189d409a2}{Support} (const Vector3 \&world\+Direction, const std\+::vector$<$ \hyperlink{structVertexData}{Vertex\+Data} $>$ \&local\+Points, const Matrix \&local\+To\+World\+Transform) const
+\begin{DoxyCompactList}\small\item\em Calculatess furthest point in the direction in the local space and transfoorms it to world space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for any shape. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSupportShape_ac81f62a38aeadbf03d637e5134479467}\label{classSupportShape_ac81f62a38aeadbf03d637e5134479467}} 
+\index{Support\+Shape@{Support\+Shape}!Get\+Center@{Get\+Center}}
+\index{Get\+Center@{Get\+Center}!Support\+Shape@{Support\+Shape}}
+\subsubsection{\texorpdfstring{Get\+Center()}{GetCenter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual Vector3 Support\+Shape\+::\+Get\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Every suport shape needs to return its center. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classModelSupportShape_a006fee2a4fca1a9b15194512a072a8e0}{Model\+Support\+Shape}, and \hyperlink{classObbSupportShape_a0e18c90f510e3829d73e8b4478e68a81}{Obb\+Support\+Shape}.
+
+\mbox{\Hypertarget{classSupportShape_a2cda78c3f08e49269c830d6ab0595244}\label{classSupportShape_a2cda78c3f08e49269c830d6ab0595244}} 
+\index{Support\+Shape@{Support\+Shape}!Get\+Center@{Get\+Center}}
+\index{Get\+Center@{Get\+Center}!Support\+Shape@{Support\+Shape}}
+\subsubsection{\texorpdfstring{Get\+Center()}{GetCenter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Vector3 Support\+Shape\+::\+Get\+Center (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \hyperlink{structVertexData}{Vertex\+Data} $>$ \&}]{local\+Points,  }\item[{const Matrix \&}]{local\+To\+World\+Transform }\end{DoxyParamCaption}) const}
+
+
+
+give a collection of points in local space, Get\+Center will calculate their center and transform it to world space 
+
+
+\begin{DoxyParams}{Parameters}
+{\em local\+Points} & \\
+\hline
+{\em local\+To\+World\+Transform} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSupportShape_ad6aca93d79a36c7db3a449a4364a2c1e}\label{classSupportShape_ad6aca93d79a36c7db3a449a4364a2c1e}} 
+\index{Support\+Shape@{Support\+Shape}!Support@{Support}}
+\index{Support@{Support}!Support\+Shape@{Support\+Shape}}
+\subsubsection{\texorpdfstring{Support()}{Support()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual Vector3 Support\+Shape\+::\+Support (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{world\+Direction }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Every support shape need to be able to calculate furthest point away in the given direction in that shape. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em world\+Direction} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classModelSupportShape_aa15c689024a0e86594fec5461c67f808}{Model\+Support\+Shape}, and \hyperlink{classObbSupportShape_ae47da1aea42eedb3327bc71aa08a0d65}{Obb\+Support\+Shape}.
+
+\mbox{\Hypertarget{classSupportShape_a105572c175fd14661261a7d189d409a2}\label{classSupportShape_a105572c175fd14661261a7d189d409a2}} 
+\index{Support\+Shape@{Support\+Shape}!Support@{Support}}
+\index{Support@{Support}!Support\+Shape@{Support\+Shape}}
+\subsubsection{\texorpdfstring{Support()}{Support()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Vector3 Support\+Shape\+::\+Support (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{world\+Direction,  }\item[{const std\+::vector$<$ \hyperlink{structVertexData}{Vertex\+Data} $>$ \&}]{local\+Points,  }\item[{const Matrix \&}]{local\+To\+World\+Transform }\end{DoxyParamCaption}) const}
+
+
+
+Calculatess furthest point in the direction in the local space and transfoorms it to world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em world\+Direction} & \\
+\hline
+{\em local\+Points} & \\
+\hline
+{\em local\+To\+World\+Transform} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Suppport\+Shape/\hyperlink{SupportShape_8h}{Support\+Shape.\+h}\item 
+Physics/\+Suppport\+Shape/\hyperlink{SupportShape_8cpp}{Support\+Shape.\+cpp}\end{DoxyCompactItemize}

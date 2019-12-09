@@ -1,0 +1,143 @@
+\hypertarget{namespaceCantReflect}{}\section{Cant\+Reflect Namespace Reference}
+\label{namespaceCantReflect}\index{Cant\+Reflect@{Cant\+Reflect}}
+
+
+Reflection Helpers and Functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a6f5300608727b106c9e63994f7990a9a}\label{namespaceCantReflect_a6f5300608727b106c9e63994f7990a9a}} 
+bool {\bfseries Write\+Base\+Type} (const type \&t, const variant \&var, Pretty\+Writer$<$ String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a0cff3a65f99e0441e842cebcc6933399}\label{namespaceCantReflect_a0cff3a65f99e0441e842cebcc6933399}} 
+void {\bfseries Write\+Array} (const variant\+\_\+sequential\+\_\+view \&view, Pretty\+Writer$<$ String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a314f7963e3d0f6cc249e2ed1629b2d62}\label{namespaceCantReflect_a314f7963e3d0f6cc249e2ed1629b2d62}} 
+void {\bfseries Write\+Map} (const variant\+\_\+associative\+\_\+view \&view, Pretty\+Writer$<$ String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ab7b21b9d406f248fb2fe3a3f6b93db50}\label{namespaceCantReflect_ab7b21b9d406f248fb2fe3a3f6b93db50}} 
+void {\bfseries Write\+Recursive} (const instance \&obj2, Pretty\+Writer$<$ String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a657ad95b2aa2d7e86d52a229a7c5b48f}\label{namespaceCantReflect_a657ad95b2aa2d7e86d52a229a7c5b48f}} 
+bool {\bfseries Write\+Variant} (const variant \&var, Pretty\+Writer$<$ String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a286a765f077d80e1e49b7a9f1477cae1}\label{namespaceCantReflect_a286a765f077d80e1e49b7a9f1477cae1}} 
+variant {\bfseries Read\+Base\+Type} (Value \&json\+\_\+value, const type \&var\+\_\+t)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a15f83c05d500935bbda67efaf17cba45}\label{namespaceCantReflect_a15f83c05d500935bbda67efaf17cba45}} 
+void {\bfseries Read\+Array} (variant\+\_\+sequential\+\_\+view \&view, Value \&json\+\_\+array\+\_\+value)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a6d58793a5969035943b6e865f69e7a04}\label{namespaceCantReflect_a6d58793a5969035943b6e865f69e7a04}} 
+variant {\bfseries Read\+Variant} (Value\+::\+Member\+Iterator \&itr, const type \&t, const std\+::vector$<$ argument $>$ \&args)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ab489df42e2ef816ab6d2271b6fbe3d46}\label{namespaceCantReflect_ab489df42e2ef816ab6d2271b6fbe3d46}} 
+void {\bfseries Read\+Map} (variant\+\_\+associative\+\_\+view \&view, Value \&json\+\_\+array\+\_\+value)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ad9e924f4061a7b0bb76d1a31662aa5b4}\label{namespaceCantReflect_ad9e924f4061a7b0bb76d1a31662aa5b4}} 
+void {\bfseries Read\+Recursive} (instance obj2, Value \&json\+\_\+object)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_aa8550db7b5e7de43a09110862572d612}\label{namespaceCantReflect_aa8550db7b5e7de43a09110862572d612}} 
+bool {\bfseries Write\+Base\+Type} (const rttr\+::type \&t, const rttr\+::variant \&var, rapidjson\+::\+Pretty\+Writer$<$ rapidjson\+::\+String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ab1e383156bbbd6a7b8740a906ead18d2}\label{namespaceCantReflect_ab1e383156bbbd6a7b8740a906ead18d2}} 
+void {\bfseries Write\+Array} (const rttr\+::variant\+\_\+sequential\+\_\+view \&view, rapidjson\+::\+Pretty\+Writer$<$ rapidjson\+::\+String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ac80b637fe19ac34abdc9d03c36380fd6}\label{namespaceCantReflect_ac80b637fe19ac34abdc9d03c36380fd6}} 
+void {\bfseries Write\+Map} (const rttr\+::variant\+\_\+associative\+\_\+view \&view, rapidjson\+::\+Pretty\+Writer$<$ rapidjson\+::\+String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_aa8b04ebf3af344e3a5184c9975ccb0e6}\label{namespaceCantReflect_aa8b04ebf3af344e3a5184c9975ccb0e6}} 
+void {\bfseries Write\+Recursive} (const rttr\+::instance \&obj2, rapidjson\+::\+Pretty\+Writer$<$ rapidjson\+::\+String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_af7cf9fe2e409091304d3578aaf003c48}\label{namespaceCantReflect_af7cf9fe2e409091304d3578aaf003c48}} 
+bool {\bfseries Write\+Variant} (const rttr\+::variant \&var, rapidjson\+::\+Pretty\+Writer$<$ rapidjson\+::\+String\+Buffer $>$ \&writer)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a3eea443d6cb0e28710cb2b2bbbeafd21}\label{namespaceCantReflect_a3eea443d6cb0e28710cb2b2bbbeafd21}} 
+rttr\+::variant {\bfseries Read\+Base\+Type} (rapidjson\+::\+Value \&json\+\_\+value, const rttr\+::type \&t)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_ae3d2846d87c6c6ee540ec247e2488f4a}\label{namespaceCantReflect_ae3d2846d87c6c6ee540ec247e2488f4a}} 
+void {\bfseries Read\+Array} (rttr\+::variant\+\_\+sequential\+\_\+view \&view, rapidjson\+::\+Value \&json\+\_\+array\+\_\+value)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a187b1c9100c2a36f9cc594480b25f71c}\label{namespaceCantReflect_a187b1c9100c2a36f9cc594480b25f71c}} 
+void {\bfseries Read\+Map} (rttr\+::variant\+\_\+associative\+\_\+view \&view, rapidjson\+::\+Value \&json\+\_\+array\+\_\+value)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a7e66d2c3107cef9534c1179b4d35040f}\label{namespaceCantReflect_a7e66d2c3107cef9534c1179b4d35040f}} 
+rttr\+::variant {\bfseries Read\+Variant} (rapidjson\+::\+Value\+::\+Member\+Iterator \&itr, const rttr\+::type \&t, const std\+::vector$<$ rttr\+::argument $>$ \&arg\+Type)
+\item 
+\mbox{\Hypertarget{namespaceCantReflect_a5f0227a7aa8820eb678bfba7d96178b9}\label{namespaceCantReflect_a5f0227a7aa8820eb678bfba7d96178b9}} 
+void {\bfseries Read\+Recursive} (rttr\+::instance obj2, rapidjson\+::\+Value \&json\+\_\+object)
+\item 
+const std\+::string \hyperlink{namespaceCantReflect_a88e14086a9520f73b48c09264bf48320}{To\+Json} (rttr\+::instance instance)
+\begin{DoxyCompactList}\small\item\em Convert any object or component to a J\+S\+ON string format. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{namespaceCantReflect_a0d0bda4a4ed1b950d754ccd8544deec3}\label{namespaceCantReflect_a0d0bda4a4ed1b950d754ccd8544deec3}} 
+bool {\bfseries From\+Json} (const std\+::string \&json, instance obj)
+\item 
+const std\+::string \hyperlink{namespaceCantReflect_a9503ff01819825b8309343e134fecf40}{Stringify\+Json} (const std\+::string \&file\+Path)
+\begin{DoxyCompactList}\small\item\em Load J\+S\+ON string from file. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceCantReflect_a9f92a2d70c4eee62a67e9931f75f36ab}{From\+Json} (const std\+::string \&json, rttr\+::instance obj)
+\begin{DoxyCompactList}\small\item\em Load an obj and set its parameters based on the J\+S\+ON string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Reflection Helpers and Functions. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCantReflect_a9f92a2d70c4eee62a67e9931f75f36ab}\label{namespaceCantReflect_a9f92a2d70c4eee62a67e9931f75f36ab}} 
+\index{Cant\+Reflect@{Cant\+Reflect}!From\+Json@{From\+Json}}
+\index{From\+Json@{From\+Json}!Cant\+Reflect@{Cant\+Reflect}}
+\subsubsection{\texorpdfstring{From\+Json()}{FromJson()}}
+{\footnotesize\ttfamily bool Cant\+Reflect\+::\+From\+Json (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{json,  }\item[{rttr\+::instance}]{obj }\end{DoxyParamCaption})}
+
+
+
+Load an obj and set its parameters based on the J\+S\+ON string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em json} & \\
+\hline
+{\em obj} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantReflect_a9503ff01819825b8309343e134fecf40}\label{namespaceCantReflect_a9503ff01819825b8309343e134fecf40}} 
+\index{Cant\+Reflect@{Cant\+Reflect}!Stringify\+Json@{Stringify\+Json}}
+\index{Stringify\+Json@{Stringify\+Json}!Cant\+Reflect@{Cant\+Reflect}}
+\subsubsection{\texorpdfstring{Stringify\+Json()}{StringifyJson()}}
+{\footnotesize\ttfamily const std\+::string Cant\+Reflect\+::\+Stringify\+Json (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Load J\+S\+ON string from file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const std\+::string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceCantReflect_a88e14086a9520f73b48c09264bf48320}\label{namespaceCantReflect_a88e14086a9520f73b48c09264bf48320}} 
+\index{Cant\+Reflect@{Cant\+Reflect}!To\+Json@{To\+Json}}
+\index{To\+Json@{To\+Json}!Cant\+Reflect@{Cant\+Reflect}}
+\subsubsection{\texorpdfstring{To\+Json()}{ToJson()}}
+{\footnotesize\ttfamily const std\+::string Cant\+Reflect\+::\+To\+Json (\begin{DoxyParamCaption}\item[{rttr\+::instance}]{instance }\end{DoxyParamCaption})}
+
+
+
+Convert any object or component to a J\+S\+ON string format. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const std\+::string 
+\end{DoxyReturn}

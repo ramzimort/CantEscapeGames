@@ -1,0 +1,105 @@
+\hypertarget{structAnimTransition}{}\section{Anim\+Transition Struct Reference}
+\label{structAnimTransition}\index{Anim\+Transition@{Anim\+Transition}}
+
+
+Describes a animation transition. This will be the structures running when jumping from one animation state to the next.  
+
+
+
+
+{\ttfamily \#include $<$Animator\+Controller.\+h$>$}
+
+
+
+Collaboration diagram for Anim\+Transition\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structAnimTransition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structAnimTransition_adae6a616bfb3af473694a911f6a454f8}{Anim\+Transition} (\hyperlink{structAnimState}{Anim\+State} $\ast$\hyperlink{structAnimTransition_a3a3a68577c477a031437d5f246141db7}{from}, \hyperlink{structAnimState}{Anim\+State} $\ast$\hyperlink{structAnimTransition_a73bd8f29355ac7b233647d296d9a061e}{to}, float dur)
+\begin{DoxyCompactList}\small\item\em Construct a new Anim Transition object. \end{DoxyCompactList}\item 
+bool \hyperlink{structAnimTransition_aff53599578475f1726655aefa40f67d2}{Check\+Condition} (std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&triggers, int \&dirty\+Flag, bool anim\+End=false)
+\begin{DoxyCompactList}\small\item\em Checks and \char`\"{}logical ands\char`\"{} the conditions. Returns true if every condition is true. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimTransition_a3a3a68577c477a031437d5f246141db7}\label{structAnimTransition_a3a3a68577c477a031437d5f246141db7}} 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ \hyperlink{structAnimTransition_a3a3a68577c477a031437d5f246141db7}{from}
+\begin{DoxyCompactList}\small\item\em Origin animation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimTransition_a73bd8f29355ac7b233647d296d9a061e}\label{structAnimTransition_a73bd8f29355ac7b233647d296d9a061e}} 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ \hyperlink{structAnimTransition_a73bd8f29355ac7b233647d296d9a061e}{to}
+\begin{DoxyCompactList}\small\item\em Target animation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimTransition_acd901f21fdabd3da04664b909b50b7de}\label{structAnimTransition_acd901f21fdabd3da04664b909b50b7de}} 
+float \hyperlink{structAnimTransition_acd901f21fdabd3da04664b909b50b7de}{transition\+Duration}
+\begin{DoxyCompactList}\small\item\em Duration of transition, in ticks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimTransition_aee7a43acbecd5bb1220a1c478af2732d}\label{structAnimTransition_aee7a43acbecd5bb1220a1c478af2732d}} 
+float \hyperlink{structAnimTransition_aee7a43acbecd5bb1220a1c478af2732d}{transition\+Time}
+\begin{DoxyCompactList}\small\item\em Time the transition has been running. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimTransition_af3fa828e2da65031824d064e33d1c522}\label{structAnimTransition_af3fa828e2da65031824d064e33d1c522}} 
+std\+::vector$<$ \hyperlink{structAnimCondition}{Anim\+Condition} $>$ \hyperlink{structAnimTransition_af3fa828e2da65031824d064e33d1c522}{conditions}
+\begin{DoxyCompactList}\small\item\em Vector of conditions. If empty, we can enter this transition freely. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Describes a animation transition. This will be the structures running when jumping from one animation state to the next. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structAnimTransition_adae6a616bfb3af473694a911f6a454f8}\label{structAnimTransition_adae6a616bfb3af473694a911f6a454f8}} 
+\index{Anim\+Transition@{Anim\+Transition}!Anim\+Transition@{Anim\+Transition}}
+\index{Anim\+Transition@{Anim\+Transition}!Anim\+Transition@{Anim\+Transition}}
+\subsubsection{\texorpdfstring{Anim\+Transition()}{AnimTransition()}}
+{\footnotesize\ttfamily Anim\+Transition\+::\+Anim\+Transition (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{from,  }\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{to,  }\item[{float}]{dur }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new Anim Transition object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & \\
+\hline
+{\em to} & \\
+\hline
+{\em dur} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structAnimTransition_aff53599578475f1726655aefa40f67d2}\label{structAnimTransition_aff53599578475f1726655aefa40f67d2}} 
+\index{Anim\+Transition@{Anim\+Transition}!Check\+Condition@{Check\+Condition}}
+\index{Check\+Condition@{Check\+Condition}!Anim\+Transition@{Anim\+Transition}}
+\subsubsection{\texorpdfstring{Check\+Condition()}{CheckCondition()}}
+{\footnotesize\ttfamily bool Anim\+Transition\+::\+Check\+Condition (\begin{DoxyParamCaption}\item[{std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&}]{triggers,  }\item[{int \&}]{dirty\+Flag,  }\item[{bool}]{anim\+End = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks and \char`\"{}logical ands\char`\"{} the conditions. Returns true if every condition is true. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em triggers} & \\
+\hline
+{\em dirty\+Flag} & \\
+\hline
+{\em anim\+End} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+Output\+Debug\+String(\char`\"{}\+Dirtyflag-\/-\/ cause of using trigger. -\/\+Prev\+Val\+: \char`\"{} + dirty\+Flag); //////
+
+Output\+Debug\+String(\char`\"{} -\/\+New\+Val\+: \char`\"{} + dirty\+Flag); ////// Output\+Debug\+String(\char`\"{}\textbackslash{}n\char`\"{}); ////// 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Animation/\hyperlink{AnimatorController_8h}{Animator\+Controller.\+h}\end{DoxyCompactItemize}

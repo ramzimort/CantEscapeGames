@@ -1,0 +1,10 @@
+<map id="Managers/AudioManager.h" name="Managers/AudioManager.h">
+<area shape="rect" id="node2" href="$ResourceManager_8h.html" title="Responsible for storing resource pointer table and respective memory management. " alt="" coords="190,80,338,107"/>
+<area shape="rect" id="node4" href="$AudioTypes_8h.html" title="Audio Enum. " alt="" coords="5,155,155,181"/>
+<area shape="rect" id="node6" href="$AudioEvents_8h.html" title="Audio Events. " alt="" coords="415,80,619,107"/>
+<area shape="rect" id="node3" href="$Hash_8h.html" title="64 bit based string hashing functions for paths " alt="" coords="373,155,488,181"/>
+<area shape="rect" id="node7" href="$Event_8h.html" title="CRTP Derived Event Class. " alt="" coords="513,155,631,181"/>
+<area shape="rect" id="node9" href="$Multicast_8h_source.html" title="Multicast.h" alt="" coords="623,229,716,256"/>
+<area shape="rect" id="node8" href="$BaseEvent_8h.html" title="Base Event Class. " alt="" coords="495,229,598,256"/>
+<area shape="rect" id="node10" href="$Delegate_8h_source.html" title="Delegate.h" alt="" coords="623,304,716,331"/>
+</map>

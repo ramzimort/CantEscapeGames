@@ -1,0 +1,91 @@
+\hypertarget{classParticleEmitterSystem}{}\section{Particle\+Emitter\+System Class Reference}
+\label{classParticleEmitterSystem}\index{Particle\+Emitter\+System@{Particle\+Emitter\+System}}
+
+
+Inheritance diagram for Particle\+Emitter\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classParticleEmitterSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Particle\+Emitter\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{classParticleEmitterSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classParticleEmitterSystem_af96ef720b35ac0f5c3b64d7ecfdd7981}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classParticleEmitterSystem_a58c14c4c3318b2fe31e35c93789da998}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleEmitterSystem_afdc76f4da82b037339dac60955dc3834}\label{classParticleEmitterSystem_afdc76f4da82b037339dac60955dc3834}} 
+virtual void \hyperlink{classParticleEmitterSystem_afdc76f4da82b037339dac60955dc3834}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleEmitterSystem_add279bc4259282ec0ea81cea790393ce}\label{classParticleEmitterSystem_add279bc4259282ec0ea81cea790393ce}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterSystem_af81be45f022465f9e1b5c10efeb44f11}\label{classParticleEmitterSystem_af81be45f022465f9e1b5c10efeb44f11}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classParticleEmitterSystem_af96ef720b35ac0f5c3b64d7ecfdd7981}\label{classParticleEmitterSystem_af96ef720b35ac0f5c3b64d7ecfdd7981}} 
+\index{Particle\+Emitter\+System@{Particle\+Emitter\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Particle\+Emitter\+System@{Particle\+Emitter\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Particle\+Emitter\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classParticleEmitterSystem_a58c14c4c3318b2fe31e35c93789da998}\label{classParticleEmitterSystem_a58c14c4c3318b2fe31e35c93789da998}} 
+\index{Particle\+Emitter\+System@{Particle\+Emitter\+System}!Update@{Update}}
+\index{Update@{Update}!Particle\+Emitter\+System@{Particle\+Emitter\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Particle\+Emitter\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Particle\+Emitter\+System.\+h\item 
+Systems/Particle\+Emitter\+System.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,84 @@
+\hypertarget{classParticleRendering}{}\section{Particle\+Rendering Class Reference}
+\label{classParticleRendering}\index{Particle\+Rendering@{Particle\+Rendering}}
+
+
+Contains all the interface for rendering particle.  
+
+
+
+
+{\ttfamily \#include $<$Particle\+Rendering.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleRendering_a220b3b49f3a4eeef7e4bd711626651d7}\label{classParticleRendering_a220b3b49f3a4eeef7e4bd711626651d7}} 
+{\bfseries Particle\+Rendering} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\item 
+void \hyperlink{classParticleRendering_a38e0d5b06ee499c355b592c071527a7e}{Load\+Content} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\begin{DoxyCompactList}\small\item\em Load all of the high level resources for particle rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleRendering_adcec4227f9e8223a70fc513dba6eb434}\label{classParticleRendering_adcec4227f9e8223a70fc513dba6eb434}} 
+void \hyperlink{classParticleRendering_adcec4227f9e8223a70fc513dba6eb434}{Render} ()
+\begin{DoxyCompactList}\small\item\em Render the render info list related to particle rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleRendering_ad87f18215d9de1a288b15f96203582c1}\label{classParticleRendering_ad87f18215d9de1a288b15f96203582c1}} 
+void \hyperlink{classParticleRendering_ad87f18215d9de1a288b15f96203582c1}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release all the graphic resources related for \hyperlink{structParticle}{Particle} Rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleRendering_aa7c1d5b5f3fb05f54cb9d4ff24c7caf0}\label{classParticleRendering_aa7c1d5b5f3fb05f54cb9d4ff24c7caf0}} 
+void {\bfseries Update} (float dt, float game\+Time)
+\item 
+void \hyperlink{classParticleRendering_a766307f91238afe4da6af25b858f472b}{Register\+Particle\+Emitter\+Instance} (const \hyperlink{structParticleEmitterInstanceData}{Particle\+Emitter\+Instance\+Data} \&particle\+Emmiter\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass render info request for particle rendering. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleRendering_a9a3893e69f75dd572537b9d2486ebf37}\label{classParticleRendering_a9a3893e69f75dd572537b9d2486ebf37}} 
+void \hyperlink{classParticleRendering_a9a3893e69f75dd572537b9d2486ebf37}{Clear\+Instances} ()
+\begin{DoxyCompactList}\small\item\em Clear all of the render info request related to particle rendering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleRendering_a5f3d064e51c4a3bf9409801632b9a7af}\label{classParticleRendering_a5f3d064e51c4a3bf9409801632b9a7af}} 
+class {\bfseries App\+Renderer}
+\item 
+\mbox{\Hypertarget{classParticleRendering_aba9f3240241811e775ef4280a9df4333}\label{classParticleRendering_aba9f3240241811e775ef4280a9df4333}} 
+class {\bfseries Particle\+Rendering\+Instance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains all the interface for rendering particle. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classParticleRendering_a38e0d5b06ee499c355b592c071527a7e}\label{classParticleRendering_a38e0d5b06ee499c355b592c071527a7e}} 
+\index{Particle\+Rendering@{Particle\+Rendering}!Load\+Content@{Load\+Content}}
+\index{Load\+Content@{Load\+Content}!Particle\+Rendering@{Particle\+Rendering}}
+\subsubsection{\texorpdfstring{Load\+Content()}{LoadContent()}}
+{\footnotesize\ttfamily void Particle\+Rendering\+::\+Load\+Content (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})}
+
+
+
+Load all of the high level resources for particle rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dxrenderer} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classParticleRendering_a766307f91238afe4da6af25b858f472b}\label{classParticleRendering_a766307f91238afe4da6af25b858f472b}} 
+\index{Particle\+Rendering@{Particle\+Rendering}!Register\+Particle\+Emitter\+Instance@{Register\+Particle\+Emitter\+Instance}}
+\index{Register\+Particle\+Emitter\+Instance@{Register\+Particle\+Emitter\+Instance}!Particle\+Rendering@{Particle\+Rendering}}
+\subsubsection{\texorpdfstring{Register\+Particle\+Emitter\+Instance()}{RegisterParticleEmitterInstance()}}
+{\footnotesize\ttfamily void Particle\+Rendering\+::\+Register\+Particle\+Emitter\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structParticleEmitterInstanceData}{Particle\+Emitter\+Instance\+Data} \&}]{particle\+Emmiter\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for particle rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em particle\+Emmiter\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\+Particles/\hyperlink{ParticleRendering_8h}{Particle\+Rendering.\+h}\item 
+Graphics/\+Particles/Particle\+Rendering.\+cpp\end{DoxyCompactItemize}

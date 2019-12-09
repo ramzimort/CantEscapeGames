@@ -1,0 +1,5 @@
+<map id="AnimState" name="AnimState">
+<area shape="rect" id="node2" href="$structAnimTransition.html" title="Describes a animation transition. This will be the structures running when jumping from one animation..." alt="" coords="33,303,151,329"/>
+<area shape="rect" id="node3" href="$structAnimation.html" title="Describes a keyframe animation for a skeleton. " alt="" coords="47,109,137,136"/>
+<area shape="rect" id="node4" href="$classMulticast.html" title="Multicast\&lt; void(void)\&gt;" alt="" coords="5,5,179,32"/>
+</map>
