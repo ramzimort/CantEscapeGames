@@ -1,0 +1,52 @@
+\hypertarget{RigidbodySystem_8h}{}\section{Systems/\+Rigidbody\+System.h File Reference}
+\label{RigidbodySystem_8h}\index{Systems/\+Rigidbody\+System.\+h@{Systems/\+Rigidbody\+System.\+h}}
+
+
+System that controls all the rigidbodies in the engine, most of the physics happens here.  
+
+
+{\ttfamily \#include \char`\"{}Base\+System.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Spatial\+Partition/\+Dynamic\+Aabb\+Tree.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Collision\+Table.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Components/\+Mesh\+Component.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Gjk/\+Collision\+Manifold.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Managers/\+Event\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Events/\+Input/\+Key\+Event.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Events/\+Game\+Object/\+Game\+Object\+Events.\+h\char`\"{}}\newline
+Include dependency graph for Rigidbody\+System.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{RigidbodySystem_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{RigidbodySystem_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structRigidbodyCompNode}{Rigidbody\+Comp\+Node}
+\begin{DoxyCompactList}\small\item\em Rigidbody component node, for fast access of transform, mesh, rigidbody. \end{DoxyCompactList}\item 
+class \hyperlink{classRigidbodySystem}{Rigidbody\+System}
+\begin{DoxyCompactList}\small\item\em Controls all the rigidbodies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+System that controls all the rigidbodies in the engine, most of the physics happens here. 
+
+\begin{DoxyAuthor}{Author}
+Aleksey Perfilev 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2019 Digi\+Pen Institute of Technology 
+\end{DoxyCopyright}

@@ -1,0 +1,51 @@
+\hypertarget{TriggerComponent_8cpp}{}\section{Components/\+Trigger\+Component.cpp File Reference}
+\label{TriggerComponent_8cpp}\index{Components/\+Trigger\+Component.\+cpp@{Components/\+Trigger\+Component.\+cpp}}
+{\ttfamily \#include \char`\"{}Trigger\+Component.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Game\+Objects/\+Game\+Object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Managers/\+Resource\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Managers/\+Game\+Object\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Graphics/\+D3\+D11\+\_\+\+Renderer.\+h\char`\"{}}\newline
+Include dependency graph for Trigger\+Component.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TriggerComponent_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Aleksey Perfilev 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2019 Digi\+Pen Institute of Technology 
+\end{DoxyCopyright}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{TriggerComponent_8cpp_aa85998502208f6b5493127968965072a}\label{TriggerComponent_8cpp_aa85998502208f6b5493127968965072a}} 
+\index{Trigger\+Component.\+cpp@{Trigger\+Component.\+cpp}!R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON@{R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON}}
+\index{R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON@{R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON}!Trigger\+Component.\+cpp@{Trigger\+Component.\+cpp}}
+\subsubsection{\texorpdfstring{R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON}{RTTR\_REGISTRATION}}
+{\footnotesize\ttfamily R\+T\+T\+R\+\_\+\+R\+E\+G\+I\+S\+T\+R\+A\+T\+I\+ON}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+\{
+    rttr::registration::class\_<TriggerComponent>(\textcolor{stringliteral}{"TriggerComponent"})
+        .constructor<GameObject*>()(rttr::policy::ctor::as\_raw\_ptr)
+        .method(\textcolor{stringliteral}{"Init"}, &\hyperlink{classTriggerComponent_a4d843989a23752f91dfd1fe8c75c2b7c}{TriggerComponent::Init})
+        .property(\textcolor{stringliteral}{"Scale"}, &TriggerComponent::m\_scale)
+        .property(\textcolor{stringliteral}{"Offset"}, &TriggerComponent::m\_offset)
+        .property(\textcolor{stringliteral}{"CollisionMask"}, &TriggerComponent::m\_collisionMask)
+\end{DoxyCode}

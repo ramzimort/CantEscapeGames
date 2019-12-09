@@ -1,0 +1,233 @@
+\hypertarget{classDXResourceLoader}{}\section{D\+X\+Resource\+Loader Class Reference}
+\label{classDXResourceLoader}\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+
+
+The public middle level interface for loading DirectX 11 graphic resources.  
+
+
+
+
+{\ttfamily \#include $<$D\+X\+Resource\+Loader.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classBuffer}{Buffer} $\ast$ \hyperlink{classDXResourceLoader_a771cd595ba597d3e048e5d7120d1c0ef}{Create\+\_\+\+Buffer} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, \hyperlink{structBufferLoadDesc}{Buffer\+Load\+Desc} \&load\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classBuffer}{Buffer}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXResourceLoader_a2ff7bd4c1bafec9f9be8d245e11a9b5a}\label{classDXResourceLoader_a2ff7bd4c1bafec9f9be8d245e11a9b5a}} 
+static void {\bfseries Update\+\_\+\+Buffer} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&buffer\+\_\+update\+\_\+desc)
+\item 
+static \hyperlink{classRenderTarget}{Render\+Target} $\ast$ \hyperlink{classDXResourceLoader_ae0466f57fe0391dd008e6810a27abf3e}{Create\+\_\+\+Render\+Target} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, \hyperlink{structRenderTargetDesc}{Render\+Target\+Desc} \&render\+\_\+target\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create Render Target. \end{DoxyCompactList}\item 
+static \hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classDXResourceLoader_a8c8513cb2314e5d67aa60ef0d8c0d039}{Create\+\_\+\+Texture} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, \hyperlink{structTextureLoadDesc}{Texture\+Load\+Desc} \&load\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classTexture}{Texture} either from hard disk, internal raw memory(raw pointer), or create empty texture for render target or straight up normal empty texture. \end{DoxyCompactList}\item 
+static \hyperlink{classShader}{Shader} $\ast$ \hyperlink{classDXResourceLoader_afc2a341f6271142b090fe1b51502882c}{Create\+\_\+\+Shader} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, const \hyperlink{structShaderLoadDesc}{Shader\+Load\+Desc} \&shader\+\_\+load\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classShader}{Shader}. \end{DoxyCompactList}\item 
+static \hyperlink{classPipeline}{Pipeline} $\ast$ \hyperlink{classDXResourceLoader_a72a314827079951bfe5dd41fbab56229}{Create\+\_\+\+Pipeline} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, const \hyperlink{structPipelineDesc}{Pipeline\+Desc} \&pipeline\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classPipeline}{Pipeline}. D\+X11 input layout is initialized here as well. \end{DoxyCompactList}\item 
+static \hyperlink{classRasterizerState}{Rasterizer\+State} $\ast$ \hyperlink{classDXResourceLoader_a3c7d160030a87f4973a9c2ec1893188f}{Create\+\_\+\+Rasterizer\+State} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, const \hyperlink{structRasterizerStateDesc}{Rasterizer\+State\+Desc} \&rasterizer\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classRasterizerState}{Rasterizer\+State}. \end{DoxyCompactList}\item 
+static \hyperlink{classDepthState}{Depth\+State} $\ast$ \hyperlink{classDXResourceLoader_a470927b59b264d5ca7fc22b63d20801e}{Create\+\_\+\+Depth\+State} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, const \hyperlink{structDepthStateDesc}{Depth\+State\+Desc} \&depth\+\_\+state\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classDepthState}{Depth\+State}. \end{DoxyCompactList}\item 
+static \hyperlink{classBlendState}{Blend\+State} $\ast$ \hyperlink{classDXResourceLoader_a9dffe29c8089cefc88b40f4972d13869}{Create\+\_\+\+Blend\+State} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer, const \hyperlink{structBlendStateDesc}{Blend\+State\+Desc} \&blend\+\_\+state\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classBlendState}{Blend\+State}. \end{DoxyCompactList}\item 
+static \hyperlink{classSampler}{Sampler} $\ast$ \hyperlink{classDXResourceLoader_aa1dac912b27e610a2c6a453c541bac02}{Create\+\_\+\+Sampler} (\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$renderer, const \hyperlink{structSamplerDesc}{Sampler\+Desc} \&sampler\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Create \hyperlink{classSampler}{Sampler}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXResourceLoader_ae28fea88e1f6f96d526b58219d5de6ac}\label{classDXResourceLoader_ae28fea88e1f6f96d526b58219d5de6ac}} 
+static bool {\bfseries is\+\_\+depth\+\_\+format} (D\+X\+G\+I\+\_\+\+F\+O\+R\+M\+AT image\+\_\+format)
+\item 
+\mbox{\Hypertarget{classDXResourceLoader_aba7dbf81d5e8a3bf81406465c10f8bd6}\label{classDXResourceLoader_aba7dbf81d5e8a3bf81406465c10f8bd6}} 
+static uint32\+\_\+t {\bfseries Image\+Format\+To\+Element\+Count} (D\+X\+G\+I\+\_\+\+F\+O\+R\+M\+AT image\+Format)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The public middle level interface for loading DirectX 11 graphic resources. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDXResourceLoader_a9dffe29c8089cefc88b40f4972d13869}\label{classDXResourceLoader_a9dffe29c8089cefc88b40f4972d13869}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Blend\+State@{Create\+\_\+\+Blend\+State}}
+\index{Create\+\_\+\+Blend\+State@{Create\+\_\+\+Blend\+State}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Blend\+State()}{Create\_BlendState()}}
+{\footnotesize\ttfamily \hyperlink{classBlendState}{Blend\+State} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Blend\+State (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer,  }\item[{const \hyperlink{structBlendStateDesc}{Blend\+State\+Desc} \&}]{blend\+\_\+state\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classBlendState}{Blend\+State}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dxrenderer} & \\
+\hline
+{\em blend\+\_\+state\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Blend\+State$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_a771cd595ba597d3e048e5d7120d1c0ef}\label{classDXResourceLoader_a771cd595ba597d3e048e5d7120d1c0ef}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Buffer@{Create\+\_\+\+Buffer}}
+\index{Create\+\_\+\+Buffer@{Create\+\_\+\+Buffer}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Buffer()}{Create\_Buffer()}}
+{\footnotesize\ttfamily \hyperlink{classBuffer}{Buffer} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{\hyperlink{structBufferLoadDesc}{Buffer\+Load\+Desc} \&}]{load\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classBuffer}{Buffer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em load\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Buffer$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_a470927b59b264d5ca7fc22b63d20801e}\label{classDXResourceLoader_a470927b59b264d5ca7fc22b63d20801e}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Depth\+State@{Create\+\_\+\+Depth\+State}}
+\index{Create\+\_\+\+Depth\+State@{Create\+\_\+\+Depth\+State}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Depth\+State()}{Create\_DepthState()}}
+{\footnotesize\ttfamily \hyperlink{classDepthState}{Depth\+State} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Depth\+State (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{const \hyperlink{structDepthStateDesc}{Depth\+State\+Desc} \&}]{depth\+\_\+state\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classDepthState}{Depth\+State}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em depth\+\_\+state\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Depth\+State$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_a72a314827079951bfe5dd41fbab56229}\label{classDXResourceLoader_a72a314827079951bfe5dd41fbab56229}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Pipeline@{Create\+\_\+\+Pipeline}}
+\index{Create\+\_\+\+Pipeline@{Create\+\_\+\+Pipeline}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Pipeline()}{Create\_Pipeline()}}
+{\footnotesize\ttfamily \hyperlink{classPipeline}{Pipeline} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Pipeline (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{const \hyperlink{structPipelineDesc}{Pipeline\+Desc} \&}]{pipeline\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classPipeline}{Pipeline}. D\+X11 input layout is initialized here as well. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em pipeline\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pipeline$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_a3c7d160030a87f4973a9c2ec1893188f}\label{classDXResourceLoader_a3c7d160030a87f4973a9c2ec1893188f}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Rasterizer\+State@{Create\+\_\+\+Rasterizer\+State}}
+\index{Create\+\_\+\+Rasterizer\+State@{Create\+\_\+\+Rasterizer\+State}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Rasterizer\+State()}{Create\_RasterizerState()}}
+{\footnotesize\ttfamily \hyperlink{classRasterizerState}{Rasterizer\+State} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Rasterizer\+State (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{const \hyperlink{structRasterizerStateDesc}{Rasterizer\+State\+Desc} \&}]{rasterizer\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classRasterizerState}{Rasterizer\+State}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em rasterizer\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Rasterizer\+State$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_ae0466f57fe0391dd008e6810a27abf3e}\label{classDXResourceLoader_ae0466f57fe0391dd008e6810a27abf3e}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Render\+Target@{Create\+\_\+\+Render\+Target}}
+\index{Create\+\_\+\+Render\+Target@{Create\+\_\+\+Render\+Target}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Render\+Target()}{Create\_RenderTarget()}}
+{\footnotesize\ttfamily \hyperlink{classRenderTarget}{Render\+Target} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Render\+Target (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{\hyperlink{structRenderTargetDesc}{Render\+Target\+Desc} \&}]{render\+\_\+target\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create Render Target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em render\+\_\+target\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Render\+Target$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_aa1dac912b27e610a2c6a453c541bac02}\label{classDXResourceLoader_aa1dac912b27e610a2c6a453c541bac02}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Sampler@{Create\+\_\+\+Sampler}}
+\index{Create\+\_\+\+Sampler@{Create\+\_\+\+Sampler}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Sampler()}{Create\_Sampler()}}
+{\footnotesize\ttfamily \hyperlink{classSampler}{Sampler} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Sampler (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{const \hyperlink{structSamplerDesc}{Sampler\+Desc} \&}]{sampler\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classSampler}{Sampler}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em sampler\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Sampler$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_afc2a341f6271142b090fe1b51502882c}\label{classDXResourceLoader_afc2a341f6271142b090fe1b51502882c}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Shader@{Create\+\_\+\+Shader}}
+\index{Create\+\_\+\+Shader@{Create\+\_\+\+Shader}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Shader()}{Create\_Shader()}}
+{\footnotesize\ttfamily \hyperlink{classShader}{Shader} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Shader (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{const \hyperlink{structShaderLoadDesc}{Shader\+Load\+Desc} \&}]{shader\+\_\+load\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classShader}{Shader}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em shader\+\_\+load\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shader$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXResourceLoader_a8c8513cb2314e5d67aa60ef0d8c0d039}\label{classDXResourceLoader_a8c8513cb2314e5d67aa60ef0d8c0d039}} 
+\index{D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}!Create\+\_\+\+Texture@{Create\+\_\+\+Texture}}
+\index{Create\+\_\+\+Texture@{Create\+\_\+\+Texture}!D\+X\+Resource\+Loader@{D\+X\+Resource\+Loader}}
+\subsubsection{\texorpdfstring{Create\+\_\+\+Texture()}{Create\_Texture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ D\+X\+Resource\+Loader\+::\+Create\+\_\+\+Texture (\begin{DoxyParamCaption}\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{renderer,  }\item[{\hyperlink{structTextureLoadDesc}{Texture\+Load\+Desc} \&}]{load\+\_\+desc }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create \hyperlink{classTexture}{Texture} either from hard disk, internal raw memory(raw pointer), or create empty texture for render target or straight up normal empty texture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & \\
+\hline
+{\em load\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\hyperlink{DXResourceLoader_8h}{D\+X\+Resource\+Loader.\+h}\item 
+Graphics/D\+X\+Resource\+Loader.\+cpp\end{DoxyCompactItemize}

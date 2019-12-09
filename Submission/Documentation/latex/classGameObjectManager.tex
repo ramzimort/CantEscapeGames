@@ -1,0 +1,193 @@
+\hypertarget{classGameObjectManager}{}\section{Game\+Object\+Manager Class Reference}
+\label{classGameObjectManager}\index{Game\+Object\+Manager@{Game\+Object\+Manager}}
+
+
+Manager that handles creation and destruction of every \hyperlink{classGameObject}{Game\+Object} in the current game state.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Object\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGameObjectManager_af092ff9e97731c99cb0d4f258d7d4949}{Game\+Object\+Manager} (\hyperlink{classSystemManager}{System\+Manager} $\ast$sys\+Mgr, \hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$lua\+Mgr)
+\begin{DoxyCompactList}\small\item\em Construct a new Game Object Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameObjectManager_a91d57baff47ce5090e5e4590f531051d}\label{classGameObjectManager_a91d57baff47ce5090e5e4590f531051d}} 
+\hyperlink{classGameObjectManager_a91d57baff47ce5090e5e4590f531051d}{$\sim$\+Game\+Object\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Game Object Manager object. \end{DoxyCompactList}\item 
+void \hyperlink{classGameObjectManager_a9456fff658ca2a9c13490a8a5635644c}{Process\+Queues} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+Renderer, \hyperlink{classResourceManager}{Resource\+Manager} $\ast$p\+Res\+Mgr)
+\begin{DoxyCompactList}\small\item\em Process the instantiation and destruction queues. Called once per frame (start of frame) \end{DoxyCompactList}\item 
+void \hyperlink{classGameObjectManager_a031d2e21f35fb9c84ad01b25330a75a1}{Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation} (\hyperlink{structGameObjectDesc}{Game\+Object\+Desc} $\ast$go\+Desc)
+\begin{DoxyCompactList}\small\item\em Queues a \hyperlink{classGameObject}{Game\+Object} descriptor so later a new \hyperlink{classGameObject}{Game\+Object} can be instantiated based on it. \end{DoxyCompactList}\item 
+void \hyperlink{classGameObjectManager_a79fb81780af71ad130541f47dc281a4c}{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction} (size\+\_\+t go\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Queues an ID, so the \hyperlink{classGameObject}{Game\+Object} represented by it can be destroyed in the next call to Process\+Queues. \end{DoxyCompactList}\item 
+void \hyperlink{classGameObjectManager_ac6d00fb01e702114b16784cf71221798}{Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE} (const \hyperlink{classDestroyGameObject}{Destroy\+Game\+Object} $\ast$e)
+\begin{DoxyCompactList}\small\item\em Queues a \hyperlink{classDestroyGameObject}{Destroy\+Game\+Object} for destruction. \end{DoxyCompactList}\item 
+void \hyperlink{classGameObjectManager_a8520515811ae62ac9c1a086ae2a886f3}{Add\+To\+Script\+Instantiate\+Queue} (\hyperlink{classGameObject}{Game\+Object} $\ast$scripted\+GO)
+\begin{DoxyCompactList}\small\item\em Adds a \hyperlink{classGameObject}{Game\+Object} created in the script to a instantiation queue, which will be emptied in the next call to Instantiate\+\_\+\+Queued\+\_\+\+Game\+Objects. \end{DoxyCompactList}\item 
+\hyperlink{classGameObject}{Game\+Object} $\ast$ \hyperlink{classGameObjectManager_a7507d2f3f5628774a47528705cf9ed49}{Find\+Game\+Object\+By\+Id} (size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Returns, if it exist, a pointer to the \hyperlink{classGameObject}{Game\+Object} with unique ID id. \end{DoxyCompactList}\item 
+\hyperlink{classGameObject}{Game\+Object} $\ast$ \hyperlink{classGameObjectManager_adeda63433f7f441ad4d48fc4b9758444}{Find\+Game\+Object} (std\+::string const \&tag)
+\begin{DoxyCompactList}\small\item\em Returns, if it exists, a pointer to the \hyperlink{classGameObject}{Game\+Object} with T\+AG tag. \end{DoxyCompactList}\item 
+\hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$ \hyperlink{classGameObjectManager_a28a54b6450a5e24621dd582d6bee3f1a}{Get\+Scripting\+Manager} () const
+\begin{DoxyCompactList}\small\item\em Get the Scripting Manager object that we hold a pointer to (not owned by the \hyperlink{classGameObjectManager}{Game\+Object\+Manager}) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manager that handles creation and destruction of every \hyperlink{classGameObject}{Game\+Object} in the current game state. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameObjectManager_af092ff9e97731c99cb0d4f258d7d4949}\label{classGameObjectManager_af092ff9e97731c99cb0d4f258d7d4949}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Game\+Object\+Manager()}{GameObjectManager()}}
+{\footnotesize\ttfamily Game\+Object\+Manager\+::\+Game\+Object\+Manager (\begin{DoxyParamCaption}\item[{\hyperlink{classSystemManager}{System\+Manager} $\ast$}]{sys\+Mgr,  }\item[{\hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$}]{lua\+Mgr }\end{DoxyParamCaption})}
+
+
+
+Construct a new Game Object Manager object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sys\+Mgr} & System Manager, passed to register new Game\+Objects to the required systems \\
+\hline
+{\em lua\+Mgr} & Scripting Manager, passed to setup the scripting components for the \hyperlink{classGameObject}{Game\+Object} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameObjectManager_a8520515811ae62ac9c1a086ae2a886f3}\label{classGameObjectManager_a8520515811ae62ac9c1a086ae2a886f3}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Add\+To\+Script\+Instantiate\+Queue@{Add\+To\+Script\+Instantiate\+Queue}}
+\index{Add\+To\+Script\+Instantiate\+Queue@{Add\+To\+Script\+Instantiate\+Queue}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Add\+To\+Script\+Instantiate\+Queue()}{AddToScriptInstantiateQueue()}}
+{\footnotesize\ttfamily void Game\+Object\+Manager\+::\+Add\+To\+Script\+Instantiate\+Queue (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{scripted\+GO }\end{DoxyParamCaption})}
+
+
+
+Adds a \hyperlink{classGameObject}{Game\+Object} created in the script to a instantiation queue, which will be emptied in the next call to Instantiate\+\_\+\+Queued\+\_\+\+Game\+Objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scripted\+GO} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObjectManager_adeda63433f7f441ad4d48fc4b9758444}\label{classGameObjectManager_adeda63433f7f441ad4d48fc4b9758444}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Find\+Game\+Object@{Find\+Game\+Object}}
+\index{Find\+Game\+Object@{Find\+Game\+Object}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Find\+Game\+Object()}{FindGameObject()}}
+{\footnotesize\ttfamily \hyperlink{classGameObject}{Game\+Object} $\ast$ Game\+Object\+Manager\+::\+Find\+Game\+Object (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{tag }\end{DoxyParamCaption})}
+
+
+
+Returns, if it exists, a pointer to the \hyperlink{classGameObject}{Game\+Object} with T\+AG tag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Game\+Object$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObjectManager_a7507d2f3f5628774a47528705cf9ed49}\label{classGameObjectManager_a7507d2f3f5628774a47528705cf9ed49}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Find\+Game\+Object\+By\+Id@{Find\+Game\+Object\+By\+Id}}
+\index{Find\+Game\+Object\+By\+Id@{Find\+Game\+Object\+By\+Id}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Find\+Game\+Object\+By\+Id()}{FindGameObjectById()}}
+{\footnotesize\ttfamily \hyperlink{classGameObject}{Game\+Object} $\ast$ Game\+Object\+Manager\+::\+Find\+Game\+Object\+By\+Id (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Returns, if it exist, a pointer to the \hyperlink{classGameObject}{Game\+Object} with unique ID id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Game\+Object$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObjectManager_a28a54b6450a5e24621dd582d6bee3f1a}\label{classGameObjectManager_a28a54b6450a5e24621dd582d6bee3f1a}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Get\+Scripting\+Manager@{Get\+Scripting\+Manager}}
+\index{Get\+Scripting\+Manager@{Get\+Scripting\+Manager}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Scripting\+Manager()}{GetScriptingManager()}}
+{\footnotesize\ttfamily \hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$ Game\+Object\+Manager\+::\+Get\+Scripting\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Scripting Manager object that we hold a pointer to (not owned by the \hyperlink{classGameObjectManager}{Game\+Object\+Manager}) 
+
+\begin{DoxyReturn}{Returns}
+Scripting\+Manager$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObjectManager_a9456fff658ca2a9c13490a8a5635644c}\label{classGameObjectManager_a9456fff658ca2a9c13490a8a5635644c}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Process\+Queues@{Process\+Queues}}
+\index{Process\+Queues@{Process\+Queues}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Process\+Queues()}{ProcessQueues()}}
+{\footnotesize\ttfamily void Game\+Object\+Manager\+::\+Process\+Queues (\begin{DoxyParamCaption}\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{p\+Renderer,  }\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{p\+Res\+Mgr }\end{DoxyParamCaption})}
+
+
+
+Process the instantiation and destruction queues. Called once per frame (start of frame) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Renderer} & Graphics Manager \\
+\hline
+{\em p\+Res\+Mgr} & \hyperlink{structResource}{Resource} Manager \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObjectManager_a79fb81780af71ad130541f47dc281a4c}\label{classGameObjectManager_a79fb81780af71ad130541f47dc281a4c}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Queue\+\_\+\+Game\+Object\+\_\+\+Destruction@{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction}}
+\index{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction@{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction()}{Queue\_GameObject\_Destruction()}}
+{\footnotesize\ttfamily void Game\+Object\+Manager\+::\+Queue\+\_\+\+Game\+Object\+\_\+\+Destruction (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{go\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Queues an ID, so the \hyperlink{classGameObject}{Game\+Object} represented by it can be destroyed in the next call to Process\+Queues. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObjectManager_ac6d00fb01e702114b16784cf71221798}\label{classGameObjectManager_ac6d00fb01e702114b16784cf71221798}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE@{Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE}}
+\index{Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE@{Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Queue\+\_\+\+Game\+Object\+\_\+\+Destruction\+E()}{Queue\_GameObject\_DestructionE()}}
+{\footnotesize\ttfamily void Game\+Object\+Manager\+::\+Queue\+\_\+\+Game\+Object\+\_\+\+DestructionE (\begin{DoxyParamCaption}\item[{const \hyperlink{classDestroyGameObject}{Destroy\+Game\+Object} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+Queues a \hyperlink{classDestroyGameObject}{Destroy\+Game\+Object} for destruction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObjectManager_a031d2e21f35fb9c84ad01b25330a75a1}\label{classGameObjectManager_a031d2e21f35fb9c84ad01b25330a75a1}} 
+\index{Game\+Object\+Manager@{Game\+Object\+Manager}!Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation@{Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation}}
+\index{Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation@{Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation}!Game\+Object\+Manager@{Game\+Object\+Manager}}
+\subsubsection{\texorpdfstring{Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation()}{Queue\_GameObject\_Instantiation()}}
+{\footnotesize\ttfamily void Game\+Object\+Manager\+::\+Queue\+\_\+\+Game\+Object\+\_\+\+Instantiation (\begin{DoxyParamCaption}\item[{\hyperlink{structGameObjectDesc}{Game\+Object\+Desc} $\ast$}]{go\+Desc }\end{DoxyParamCaption})}
+
+
+
+Queues a \hyperlink{classGameObject}{Game\+Object} descriptor so later a new \hyperlink{classGameObject}{Game\+Object} can be instantiated based on it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Desc} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{GameObjectManager_8h}{Game\+Object\+Manager.\+h}\item 
+Managers/Game\+Object\+Manager.\+cpp\end{DoxyCompactItemize}

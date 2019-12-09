@@ -1,0 +1,63 @@
+\hypertarget{classCastResult}{}\section{Cast\+Result Class Reference}
+\label{classCastResult}\index{Cast\+Result@{Cast\+Result}}
+
+
+Stores information of a single collision of a ray in a ray cast -\/ its time of collision and related user data.  
+
+
+
+
+{\ttfamily \#include $<$Cast\+Results.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCastResult_a0bfa7f1f5b34b2a2c6846ab07e10584c}\label{classCastResult_a0bfa7f1f5b34b2a2c6846ab07e10584c}} 
+{\bfseries Cast\+Result} (void $\ast$client\+Data)
+\item 
+\mbox{\Hypertarget{classCastResult_aac9e9fc20559d0312a4a2b67472e21ad}\label{classCastResult_aac9e9fc20559d0312a4a2b67472e21ad}} 
+{\bfseries Cast\+Result} (void $\ast$client\+Data, float time)
+\item 
+bool \hyperlink{classCastResult_aa93d9222beba3f31dafeba8761ab0979}{operator$<$} (const \hyperlink{classCastResult}{Cast\+Result} \&rhs) const
+\begin{DoxyCompactList}\small\item\em Compares 2 results, first by time of collision, then resolve conflicts by client data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCastResult_a8bdd91efbc7ac7c3cee5692bb1cd12ff}\label{classCastResult_a8bdd91efbc7ac7c3cee5692bb1cd12ff}} 
+float {\bfseries m\+\_\+\+Time}
+\item 
+\mbox{\Hypertarget{classCastResult_a05176a3b71d4958ba65e99c800ecadb3}\label{classCastResult_a05176a3b71d4958ba65e99c800ecadb3}} 
+void $\ast$ {\bfseries m\+\_\+\+Client\+Data}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores information of a single collision of a ray in a ray cast -\/ its time of collision and related user data. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCastResult_aa93d9222beba3f31dafeba8761ab0979}\label{classCastResult_aa93d9222beba3f31dafeba8761ab0979}} 
+\index{Cast\+Result@{Cast\+Result}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Cast\+Result@{Cast\+Result}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool Cast\+Result\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classCastResult}{Cast\+Result} \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Compares 2 results, first by time of collision, then resolve conflicts by client data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Spatial\+Partition/\hyperlink{CastResults_8h}{Cast\+Results.\+h}\item 
+Physics/\+Spatial\+Partition/Cast\+Results.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,121 @@
+\hypertarget{classSplineCurvesComponent}{}\section{Spline\+Curves\+Component Class Reference}
+\label{classSplineCurvesComponent}\index{Spline\+Curves\+Component@{Spline\+Curves\+Component}}
+
+
+Inheritance diagram for Spline\+Curves\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classSplineCurvesComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Spline\+Curves\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classSplineCurvesComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a3aa898ed46fd1a0a264b5740a5b0aba6}\label{classSplineCurvesComponent_a3aa898ed46fd1a0a264b5740a5b0aba6}} 
+{\bfseries Spline\+Curves\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classSplineCurvesComponent_abe3105f9717c863725a4cfb84b63383a}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+void \hyperlink{classSplineCurvesComponent_ac6d31d7ca12412c0a35065a77ea956a6}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a39898f49e1a4a383ef1c1f2c2788bf66}\label{classSplineCurvesComponent_a39898f49e1a4a383ef1c1f2c2788bf66}} 
+Vector3 {\bfseries Evaluate} (float global\+\_\+t) const
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_af5dd6865e9872d9a5c16d97ff0e0a30f}\label{classSplineCurvesComponent_af5dd6865e9872d9a5c16d97ff0e0a30f}} 
+Vector3 {\bfseries Evaluate\+Derivative} (float global\+\_\+t) const
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a97cc01ff485ce7499b55198bf35aff9a}\label{classSplineCurvesComponent_a97cc01ff485ce7499b55198bf35aff9a}} 
+void {\bfseries Get\+World\+Control\+Points} (std\+::vector$<$ Vector3 $>$ \&world\+Points) const
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_abcff1b9a16e49fabb89453682a53d23d}\label{classSplineCurvesComponent_abcff1b9a16e49fabb89453682a53d23d}} 
+const std\+::vector$<$ Vector3 $>$ \& {\bfseries Get\+Control\+Points} () const
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a38d8371f2180a0cef01e19e8c129a5da}\label{classSplineCurvesComponent_a38d8371f2180a0cef01e19e8c129a5da}} 
+void {\bfseries Set\+Spline\+Control\+Points\+Num} (int32\+\_\+t spline\+Control\+Points\+Num)
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_aacc755b8bb2d968103f3d665c79b4cfd}\label{classSplineCurvesComponent_aacc755b8bb2d968103f3d665c79b4cfd}} 
+void {\bfseries Set\+Spline\+Alternate\+Point} (uint32\+\_\+t index, const Vector3 \&p)
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_ab9aec72d6fc17e4b46e06ff085ce53cc}\label{classSplineCurvesComponent_ab9aec72d6fc17e4b46e06ff085ce53cc}} 
+int32\+\_\+t {\bfseries Get\+Spline\+Control\+Points\+Num} () const
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a5a6c3b95cb0a002d1b391d4a743eaffa}\label{classSplineCurvesComponent_a5a6c3b95cb0a002d1b391d4a743eaffa}} 
+std\+::vector$<$ \hyperlink{structSplineControlPoint}{Spline\+Control\+Point} $>$ \& {\bfseries Get\+Alternate\+Points} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_a8f4033bb5b77c17e6fef58bfef3434e9}\label{classSplineCurvesComponent_a8f4033bb5b77c17e6fef58bfef3434e9}} 
+static Component\+Id const {\bfseries static\+\_\+type}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_acf9526ddc1cae0aba473a2eeb87cebd8}\label{classSplineCurvesComponent_acf9526ddc1cae0aba473a2eeb87cebd8}} 
+class {\bfseries Spline\+Curves\+System}
+\item 
+\mbox{\Hypertarget{classSplineCurvesComponent_aa81a2e787af81f4fb4b7322fce0b27be}\label{classSplineCurvesComponent_aa81a2e787af81f4fb4b7322fce0b27be}} 
+class {\bfseries Debug\+Manager}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSplineCurvesComponent_abe3105f9717c863725a4cfb84b63383a}\label{classSplineCurvesComponent_abe3105f9717c863725a4cfb84b63383a}} 
+\index{Spline\+Curves\+Component@{Spline\+Curves\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Spline\+Curves\+Component@{Spline\+Curves\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Spline\+Curves\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classSplineCurvesComponent_ac6d31d7ca12412c0a35065a77ea956a6}\label{classSplineCurvesComponent_ac6d31d7ca12412c0a35065a77ea956a6}} 
+\index{Spline\+Curves\+Component@{Spline\+Curves\+Component}!Init@{Init}}
+\index{Init@{Init}!Spline\+Curves\+Component@{Spline\+Curves\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Spline\+Curves\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Spline\+Curves\+Component.\+h\item 
+Components/Spline\+Curves\+Component.\+cpp\end{DoxyCompactItemize}

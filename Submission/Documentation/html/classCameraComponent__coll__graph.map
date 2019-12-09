@@ -1,0 +1,4 @@
+<map id="CameraComponent" name="CameraComponent">
+<area shape="rect" id="node2" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="15,95,144,121"/>
+<area shape="rect" id="node3" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="28,5,131,32"/>
+</map>

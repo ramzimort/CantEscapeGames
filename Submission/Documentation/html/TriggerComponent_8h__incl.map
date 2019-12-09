@@ -1,0 +1,9 @@
+<map id="Components/TriggerComponent.h" name="Components/TriggerComponent.h">
+<area shape="rect" id="node2" href="$BaseComponent_8h.html" title="Base class for all components (engine and scripted) " alt="" coords="5,80,147,107"/>
+<area shape="rect" id="node3" href="$Aabb_8h.html" title="Defenition of axis alligned bounding box. " alt="" coords="171,80,360,107"/>
+<area shape="rect" id="node6" href="$Multicast_8h_source.html" title="Events/Multicast.h" alt="" coords="384,80,525,107"/>
+<area shape="rect" id="node8" href="$CollisionTable_8h.html" title="Stores a table of which collision masks collide with which. " alt="" coords="550,80,727,107"/>
+<area shape="rect" id="node4" href="$Shape_8h.html" title="Base class of the other shape classes. " alt="" coords="189,229,264,256"/>
+<area shape="rect" id="node5" href="$Sphere_8h.html" title="Defenition of the Sphere shape. " alt="" coords="226,155,305,181"/>
+<area shape="rect" id="node7" href="$Delegate_8h_source.html" title="Delegate.h" alt="" coords="408,155,501,181"/>
+</map>

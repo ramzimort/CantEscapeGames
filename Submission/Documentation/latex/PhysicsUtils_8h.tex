@@ -1,0 +1,385 @@
+\hypertarget{PhysicsUtils_8h}{}\section{Physics/\+Physics\+Utils.h File Reference}
+\label{PhysicsUtils_8h}\index{Physics/\+Physics\+Utils.\+h@{Physics/\+Physics\+Utils.\+h}}
+
+
+Constants, settings, helper functions for physics.  
+
+
+{\ttfamily \#include \char`\"{}Cant\+Debug/\+Cant\+Debug.\+h\char`\"{}}\newline
+Include dependency graph for Physics\+Utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{PhysicsUtils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{PhysicsUtils_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Vector3 $>$ \hyperlink{PhysicsUtils_8h_a91fb46720c341ee6277e7fd3a29c6332}{Physics\+Utils\+::\+Uniform\+Distibution\+In\+Sphere} ()
+\begin{DoxyCompactList}\small\item\em Generates uniformly distributed vectors from origin to the surface of a unit sphere. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{PhysicsUtils_8h_ae129221e6448009ac87a2813271b6ca4}{Physics\+Utils\+::\+Min} (const T lhs, const T rhs)
+\begin{DoxyCompactList}\small\item\em Minimum between two objects. Note\+: Objects have to have operator$<$. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{PhysicsUtils_8h_aa1e2e1af46b648f64885d7cef81d9948}{Physics\+Utils\+::\+Max} (const T lhs, const T rhs)
+\begin{DoxyCompactList}\small\item\em Maximum between two objects. Note\+: Objects have to have operator$<$. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{PhysicsUtils_8h_a90e0894b1a6f652c3a4d2e43ad8d21e6}{Physics\+Utils\+::\+Max} (const Vector3 \&lhs, const Vector3 \&rhs)
+\begin{DoxyCompactList}\small\item\em Maximum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{PhysicsUtils_8h_aa70eb6b9fb5065bac74bf8189909f9c2}{Physics\+Utils\+::\+Min} (const Vector3 \&lhs, const Vector3 \&rhs)
+\begin{DoxyCompactList}\small\item\em Minimum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{PhysicsUtils_8h_af5e4ac9cf5aa85e8b991a55147d56d5c}{Physics\+Utils\+::\+Abs} (T rhs)
+\begin{DoxyCompactList}\small\item\em Absulute value of the two class objects. Note\+: Objects have to have operator$<$ and operator-\/ (as a unari negate operator) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \hyperlink{PhysicsUtils_8h_ad6860db9f4e80216f4e1402b98674ce1}{Physics\+Utils\+::\+Sqr} (T rhs)
+\begin{DoxyCompactList}\small\item\em Calculates Square of the value. Note\+: has to has operator$\ast$ (binary multiplication) \end{DoxyCompactList}\item 
+bool \hyperlink{PhysicsUtils_8h_a6ca0576d93a37c8e051d270cd2fdd3d1}{Physics\+Utils\+::\+Barycentric\+Coordinates} (const Vector3 \&point, const Vector3 \&a, const Vector3 \&b, float \&u, float \&v, float expansion\+Epsilon=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Barrycentric coordinates of a point in respect to two points. \end{DoxyCompactList}\item 
+bool \hyperlink{PhysicsUtils_8h_a0205bee92aa7a633998d5f052af878e1}{Physics\+Utils\+::\+Barycentric\+Coordinates} (const Vector3 \&point, const Vector3 \&a, const Vector3 \&b, const Vector3 \&c, float \&u, float \&v, float \&w, float expansion\+Epsilon=0.\+0f)
+\begin{DoxyCompactList}\small\item\em Barrycentric coordinates of a point in respect to three points. \end{DoxyCompactList}\item 
+Vector3 \hyperlink{PhysicsUtils_8h_a14a7584c1bbdaac9523f4aac8f4e5d99}{Physics\+Utils\+::\+World\+To\+Model} (const Matrix \&model\+To\+World, const Vector3 \&vec)
+\begin{DoxyCompactList}\small\item\em Transforms a vector in a model space to world space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_aa1cb894ac56407e03aae468726741425}\label{PhysicsUtils_8h_aa1cb894ac56407e03aae468726741425}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::pi} = 4 $\ast$ atanf(1)
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a42107b0f59b6314d7c3fd80e8d496c5d}\label{PhysicsUtils_8h_a42107b0f59b6314d7c3fd80e8d496c5d}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::pi\+\_\+2} = pi / 2
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_ac18aac92776e09192922160133d71ef9}\label{PhysicsUtils_8h_ac18aac92776e09192922160133d71ef9}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::pi\+\_\+3} = pi / 3
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a9187f8f16c937f85e5fbe2fc27ff1659}\label{PhysicsUtils_8h_a9187f8f16c937f85e5fbe2fc27ff1659}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::pi\+\_\+4} = pi / 4
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_abc0efd80543982d80c02fc524f5b2b08}\label{PhysicsUtils_8h_abc0efd80543982d80c02fc524f5b2b08}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::pi\+\_\+6} = pi / 6
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a2f0bffb01231d46004562748c0e81411}\label{PhysicsUtils_8h_a2f0bffb01231d46004562748c0e81411}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::e} = 2.\+71828182845904523536028747135266249775724709369995f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_aef0124089beaeaf0e70066e5b7275a16}\label{PhysicsUtils_8h_aef0124089beaeaf0e70066e5b7275a16}} 
+const double {\bfseries Physics\+Utils\+::\+Consts\+::sqrt2} = std\+::sqrt(2.\+0)
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_aa0ae9af49ae9708e818fcdd86d3e0a79}\label{PhysicsUtils_8h_aa0ae9af49ae9708e818fcdd86d3e0a79}} 
+const int {\bfseries Physics\+Utils\+::\+Consts\+::max\+Physics\+Iterations\+Per\+Frame} = 1
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a6e0438e0f9e23627b2684a680dff2d42}\label{PhysicsUtils_8h_a6e0438e0f9e23627b2684a680dff2d42}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::fixed\+Time\+Step} = 1.\+0f / (60.\+0f $\ast$ max\+Physics\+Iterations\+Per\+Frame)
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a74495a7efdf2fa40ae1270276becdc26}\label{PhysicsUtils_8h_a74495a7efdf2fa40ae1270276becdc26}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::fattening\+Factor} = 1.\+0f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a7b93273d189ad5e520146bf1f7de1bfc}\label{PhysicsUtils_8h_a7b93273d189ad5e520146bf1f7de1bfc}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::gravity} = -\/9.\+8f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a7d7a6ff03bd96695b94da3d06b10e398}\label{PhysicsUtils_8h_a7d7a6ff03bd96695b94da3d06b10e398}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::min\+Mass} = 0.\+000001f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_ae032f8de3c250930e4a04e3d8e9110d2}\label{PhysicsUtils_8h_ae032f8de3c250930e4a04e3d8e9110d2}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::penetration\+Epsilon} = 0.\+001f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_aaa71b895815cd7c44f08e14608bd1034}\label{PhysicsUtils_8h_aaa71b895815cd7c44f08e14608bd1034}} 
+const std\+::vector$<$ Vector3 $>$ {\bfseries Physics\+Utils\+::\+Consts\+::directions\+In\+Unit\+Sphere} = Physics\+Utils\+::\+Uniform\+Distibution\+In\+Sphere()
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a6dea753b96bf72b19d7cd64fe2898030}\label{PhysicsUtils_8h_a6dea753b96bf72b19d7cd64fe2898030}} 
+const int {\bfseries Physics\+Utils\+::\+Consts\+::\+Constraints\+::num\+Gauss\+Seidel\+Iterations} = 10
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a8455a8f8c0db4ff37eba2b2026be8b2b}\label{PhysicsUtils_8h_a8455a8f8c0db4ff37eba2b2026be8b2b}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::\+Constraints\+::bias} = 0.\+2f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_af57146faef0f4cea2d35c5449389a2c5}\label{PhysicsUtils_8h_af57146faef0f4cea2d35c5449389a2c5}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::\+Constraints\+::restitution} = 0.\+4f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a7be771d99bcbd36c23eeac8007405078}\label{PhysicsUtils_8h_a7be771d99bcbd36c23eeac8007405078}} 
+const float {\bfseries Physics\+Utils\+::\+Consts\+::\+Constraints\+::friction} = 0.\+2f
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_abc838fd53065d957bad9a333aa848d27}\label{PhysicsUtils_8h_abc838fd53065d957bad9a333aa848d27}} 
+const std\+::string {\bfseries Physics\+Utils\+::\+Consts\+::\+Assets\+\_\+\+Dir} = \char`\"{}Assets\textbackslash{}\textbackslash{}\char`\"{}
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a6799b4baf3e1a41a21b71625215fc892}\label{PhysicsUtils_8h_a6799b4baf3e1a41a21b71625215fc892}} 
+const std\+::string {\bfseries Physics\+Utils\+::\+Consts\+::\+Physics\+\_\+\+Dir} = Assets\+\_\+\+Dir + \char`\"{}Physics\textbackslash{}\textbackslash{}\char`\"{}
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a9174d4b6b53df9a8aa7f5352f690e82d}\label{PhysicsUtils_8h_a9174d4b6b53df9a8aa7f5352f690e82d}} 
+const std\+::string {\bfseries Physics\+Utils\+::\+Consts\+::\+Collision\+\_\+\+Matrix\+\_\+\+Dir} = Physics\+\_\+\+Dir + \char`\"{}Collision\+\_\+\+Matrix\textbackslash{}\textbackslash{}\char`\"{}
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a38f4c5e5fa32d7fe84cfaacaa4e5f92f}\label{PhysicsUtils_8h_a38f4c5e5fa32d7fe84cfaacaa4e5f92f}} 
+bool {\bfseries Physics\+Utils\+::\+Settings\+::is\+Draw\+Contact\+Points} = false
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_ab4ba21e1f7e675979996e06e004594a5}\label{PhysicsUtils_8h_ab4ba21e1f7e675979996e06e004594a5}} 
+bool {\bfseries Physics\+Utils\+::\+Settings\+::is\+Draw\+G\+J\+K\+Result} = false
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_aa8dbdf74b062d96fdd1ee04e83d65360}\label{PhysicsUtils_8h_aa8dbdf74b062d96fdd1ee04e83d65360}} 
+bool {\bfseries Physics\+Utils\+::\+Settings\+::is\+Draw\+E\+P\+A\+Final\+Triangle} = false
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a58edb611c9ee0a29c2b2666ff9633669}\label{PhysicsUtils_8h_a58edb611c9ee0a29c2b2666ff9633669}} 
+int {\bfseries Physics\+Utils\+::\+Settings\+::dynamic\+Aabb\+Level\+Draw} = -\/1
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_ae3f4da8c58100d18d66ea1fcbba53ced}\label{PhysicsUtils_8h_ae3f4da8c58100d18d66ea1fcbba53ced}} 
+bool {\bfseries Physics\+Utils\+::\+Settings\+::\+Draw\+\_\+\+Dynamic\+\_\+\+A\+A\+B\+B\+\_\+\+Tree} = false
+\item 
+\mbox{\Hypertarget{PhysicsUtils_8h_a9b2bc5dd465dd552226b403ceb43b619}\label{PhysicsUtils_8h_a9b2bc5dd465dd552226b403ceb43b619}} 
+bool {\bfseries Physics\+Utils\+::\+Settings\+::is\+Draw\+Triggers\+Tree} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Constants, settings, helper functions for physics. 
+
+\begin{DoxyAuthor}{Author}
+Aleksey Perfilev 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2019 Digi\+Pen Institute of Technology 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_af5e4ac9cf5aa85e8b991a55147d56d5c}\label{PhysicsUtils_8h_file_af5e4ac9cf5aa85e8b991a55147d56d5c}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Abs@{Abs}}
+\index{Abs@{Abs}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Abs()}{Abs()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Physics\+Utils\+::\+Abs (\begin{DoxyParamCaption}\item[{T}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Absulute value of the two class objects. Note\+: Objects have to have operator$<$ and operator-\/ (as a unari negate operator) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_a6ca0576d93a37c8e051d270cd2fdd3d1}\label{PhysicsUtils_8h_file_a6ca0576d93a37c8e051d270cd2fdd3d1}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Barycentric\+Coordinates@{Barycentric\+Coordinates}}
+\index{Barycentric\+Coordinates@{Barycentric\+Coordinates}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Barycentric\+Coordinates()}{BarycentricCoordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Physics\+Utils\+::\+Barycentric\+Coordinates (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector3 \&}]{a,  }\item[{const Vector3 \&}]{b,  }\item[{float \&}]{u,  }\item[{float \&}]{v,  }\item[{float}]{expansion\+Epsilon = {\ttfamily 0.0f} }\end{DoxyParamCaption})}
+
+
+
+Barrycentric coordinates of a point in respect to two points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+{\em u} & \\
+\hline
+{\em v} & \\
+\hline
+{\em expansion\+Epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_a0205bee92aa7a633998d5f052af878e1}\label{PhysicsUtils_8h_file_a0205bee92aa7a633998d5f052af878e1}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Barycentric\+Coordinates@{Barycentric\+Coordinates}}
+\index{Barycentric\+Coordinates@{Barycentric\+Coordinates}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Barycentric\+Coordinates()}{BarycentricCoordinates()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Physics\+Utils\+::\+Barycentric\+Coordinates (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector3 \&}]{a,  }\item[{const Vector3 \&}]{b,  }\item[{const Vector3 \&}]{c,  }\item[{float \&}]{u,  }\item[{float \&}]{v,  }\item[{float \&}]{w,  }\item[{float}]{expansion\+Epsilon = {\ttfamily 0.0f} }\end{DoxyParamCaption})}
+
+
+
+Barrycentric coordinates of a point in respect to three points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+{\em c} & \\
+\hline
+{\em u} & \\
+\hline
+{\em v} & \\
+\hline
+{\em w} & \\
+\hline
+{\em expansion\+Epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_aa1e2e1af46b648f64885d7cef81d9948}\label{PhysicsUtils_8h_file_aa1e2e1af46b648f64885d7cef81d9948}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Max@{Max}}
+\index{Max@{Max}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Max()}{Max()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Physics\+Utils\+::\+Max (\begin{DoxyParamCaption}\item[{const T}]{lhs,  }\item[{const T}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Maximum between two objects. Note\+: Objects have to have operator$<$. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_a90e0894b1a6f652c3a4d2e43ad8d21e6}\label{PhysicsUtils_8h_file_a90e0894b1a6f652c3a4d2e43ad8d21e6}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Max@{Max}}
+\index{Max@{Max}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Max()}{Max()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Vector3 Physics\+Utils\+::\+Max (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{lhs,  }\item[{const Vector3 \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Maximum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_ae129221e6448009ac87a2813271b6ca4}\label{PhysicsUtils_8h_file_ae129221e6448009ac87a2813271b6ca4}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Min@{Min}}
+\index{Min@{Min}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Min()}{Min()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Physics\+Utils\+::\+Min (\begin{DoxyParamCaption}\item[{const T}]{lhs,  }\item[{const T}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Minimum between two objects. Note\+: Objects have to have operator$<$. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_aa70eb6b9fb5065bac74bf8189909f9c2}\label{PhysicsUtils_8h_file_aa70eb6b9fb5065bac74bf8189909f9c2}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Min@{Min}}
+\index{Min@{Min}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Min()}{Min()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Vector3 Physics\+Utils\+::\+Min (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{lhs,  }\item[{const Vector3 \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Minimum between two Vector3 component by component and returns Vector3 in which each entry is the result on that axis. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_ad6860db9f4e80216f4e1402b98674ce1}\label{PhysicsUtils_8h_file_ad6860db9f4e80216f4e1402b98674ce1}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Sqr@{Sqr}}
+\index{Sqr@{Sqr}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Sqr()}{Sqr()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Physics\+Utils\+::\+Sqr (\begin{DoxyParamCaption}\item[{T}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calculates Square of the value. Note\+: has to has operator$\ast$ (binary multiplication) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_a91fb46720c341ee6277e7fd3a29c6332}\label{PhysicsUtils_8h_file_a91fb46720c341ee6277e7fd3a29c6332}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!Uniform\+Distibution\+In\+Sphere@{Uniform\+Distibution\+In\+Sphere}}
+\index{Uniform\+Distibution\+In\+Sphere@{Uniform\+Distibution\+In\+Sphere}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{Uniform\+Distibution\+In\+Sphere()}{UniformDistibutionInSphere()}}
+{\footnotesize\ttfamily std\+::vector$<$ Vector3 $>$ Physics\+Utils\+::\+Uniform\+Distibution\+In\+Sphere (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Generates uniformly distributed vectors from origin to the surface of a unit sphere. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Vector3$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{PhysicsUtils_8h_file_a14a7584c1bbdaac9523f4aac8f4e5d99}\label{PhysicsUtils_8h_file_a14a7584c1bbdaac9523f4aac8f4e5d99}} 
+\index{Physics\+Utils.\+h@{Physics\+Utils.\+h}!World\+To\+Model@{World\+To\+Model}}
+\index{World\+To\+Model@{World\+To\+Model}!Physics\+Utils.\+h@{Physics\+Utils.\+h}}
+\subsubsection{\texorpdfstring{World\+To\+Model()}{WorldToModel()}}
+{\footnotesize\ttfamily Vector3 Physics\+Utils\+::\+World\+To\+Model (\begin{DoxyParamCaption}\item[{const Matrix \&}]{model\+To\+World,  }\item[{const Vector3 \&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Transforms a vector in a model space to world space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model\+To\+World} & \\
+\hline
+{\em vec} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}

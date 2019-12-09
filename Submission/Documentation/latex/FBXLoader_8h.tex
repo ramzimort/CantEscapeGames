@@ -1,0 +1,56 @@
+\hypertarget{FBXLoader_8h}{}\section{Animation/\+F\+B\+X\+Loader.h File Reference}
+\label{FBXLoader_8h}\index{Animation/\+F\+B\+X\+Loader.\+h@{Animation/\+F\+B\+X\+Loader.\+h}}
+
+
+In charge of loading the animation information from F\+BX format.  
+
+
+{\ttfamily \#include \char`\"{}Bone.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Animation.\+h\char`\"{}}\newline
+Include dependency graph for F\+B\+X\+Loader.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{FBXLoader_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceFBXLoader}{F\+B\+X\+Loader}
+\begin{DoxyCompactList}\small\item\em Class in charge of loading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespaceFBXLoader_ab8afca89259e2c7c946cb25151f0b248}{F\+B\+X\+Loader\+::\+Load\+Skeletal\+Data} (\hyperlink{classModel}{Model} $\ast$model, ai\+Scene const $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Reads the assimp F\+BX and starts the unwrapping process. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a091c2cfe5695ef3ed1c608ae715c4e5a}{F\+B\+X\+Loader\+::\+Load\+Animation\+Data} (std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&anim\+Map, ai\+Scene const $\ast$scene, std\+::string const  \&name)
+\begin{DoxyCompactList}\small\item\em Reads the assimp F\+BX and starts the unwrapping process. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a339ce5cb5980d1e7003fbd8b203ab071}{F\+B\+X\+Loader\+::\+Get\+Per\+Vertex\+Data} (\hyperlink{classAnimModel}{Anim\+Model} $\ast$model, ai\+Mesh $\ast$mesh, std\+::unordered\+\_\+map$<$ std\+::string, Matrix $>$ \&Bone\+Offset\+Map, std\+::unordered\+\_\+map$<$ std\+::string, int $>$ const  \&Bones\+Name\+Id\+Map)
+\begin{DoxyCompactList}\small\item\em Process the ai\+Mesh and get all the information. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a5d956918f0d65bb07a68044fa1c10077}{F\+B\+X\+Loader\+::\+Process\+Animation} (ai\+Animation $\ast$ai\+Anim, std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&anim\+Map, std\+::string const  \&name)
+\begin{DoxyCompactList}\small\item\em Process an animation and stores all the channels and info in my\+Anim\+List. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a0abc3a09454706533a9e071f04f8333f}{F\+B\+X\+Loader\+::\+Process\+Bone\+Hierarchy} (ai\+Node const $\ast$node, std\+::string const  \&parent\+Name, \hyperlink{classAnimModel}{Anim\+Model} $\ast$model, std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&Bone\+Name\+Id\+Map, int bone\+Index)
+\begin{DoxyCompactList}\small\item\em Process the nodes and get some bone information from here. \end{DoxyCompactList}\item 
+Matrix \hyperlink{namespaceFBXLoader_adc013872047ea03643d9763d8c7a4afb}{F\+B\+X\+Loader\+::ai\+Mat\+\_\+\+To\+\_\+\+Matrix} (ai\+Matrix4x4 const  \&in\+Mat)
+\begin{DoxyCompactList}\small\item\em Convert from ai\+Matrix4x4 to Matrix4. \end{DoxyCompactList}\item 
+int \hyperlink{namespaceFBXLoader_ac93d38d8445e4d743a879a0ffcaabef0}{F\+B\+X\+Loader\+::\+Calculate\+Total\+Vertex\+Count} (ai\+Scene const $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Calculates the sum of vertices from all meshes. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structPosKey}{Pos\+Key} $>$ \hyperlink{namespaceFBXLoader_a8bb4d8d10bc2bda99438203d9ab68fe8}{F\+B\+X\+Loader\+::\+Get\+Position\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Position Key Frames object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structRotKey}{Rot\+Key} $>$ \hyperlink{namespaceFBXLoader_ac2d362a5987d378985fc830901774b2f}{F\+B\+X\+Loader\+::\+Get\+Rotation\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Rotation Key Frames object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structScaKey}{Sca\+Key} $>$ \hyperlink{namespaceFBXLoader_a09106d8a6aa754730867873b6cc1625f}{F\+B\+X\+Loader\+::\+Get\+Scaling\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Scaling Key Frames object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+In charge of loading the animation information from F\+BX format. 
+
+\begin{DoxyAuthor}{Author}
+Jose Rosenbluth 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2019-\/11-\/21 
+\end{DoxyDate}

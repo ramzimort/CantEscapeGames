@@ -1,0 +1,134 @@
+\hypertarget{classEventCallback}{}\section{Event\+Callback$<$ T $>$ Class Template Reference}
+\label{classEventCallback}\index{Event\+Callback$<$ T $>$@{Event\+Callback$<$ T $>$}}
+
+
+Derived \hyperlink{classEvent}{Event} Callback Class that is mirrored for Event$<$\+T$>$.  
+
+
+
+
+{\ttfamily \#include $<$Event\+Callback.\+h$>$}
+
+
+
+Inheritance diagram for Event\+Callback$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{classEventCallback__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Event\+Callback$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{classEventCallback__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classEventCallback_a112460a3346f78962e5280945bc8e0ce}\label{classEventCallback_a112460a3346f78962e5280945bc8e0ce}} 
+typedef std\+::function$<$ void(const T $\ast$)$>$ {\bfseries Callback}
+\item 
+\mbox{\Hypertarget{classEventCallback_ad2ce15e4f574dcc5a87e80fbb2f92e71}\label{classEventCallback_ad2ce15e4f574dcc5a87e80fbb2f92e71}} 
+typedef std\+::unique\+\_\+ptr$<$ \hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$ $>$ {\bfseries Ptr}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEventCallback_ab3a3dabfd2f7a9e13905a2aa9dc3e237}{Event\+Callback} (const void $\ast$owner, const Callback \&callback)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classEvent}{Event} Callback object. \end{DoxyCompactList}\item 
+\hyperlink{classEventCallback_a1d072cf214664b7cc9d4fbf3ec8ec9ca}{Event\+Callback} (const \hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$ \&cb)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classEvent}{Event} Callback object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEventCallback_afcc0df21beca3957c0b4722f201dc922}\label{classEventCallback_afcc0df21beca3957c0b4722f201dc922}} 
+const void $\ast$ {\bfseries Get\+Owner} () const
+\item 
+virtual void \hyperlink{classEventCallback_ad34e4a69e56733e07342d0c56cd15dfc}{Call} (const void $\ast$event)
+\begin{DoxyCompactList}\small\item\em Cast the base event to its derived type and perform the callback using the event as a parameter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classEventCallback_aab5c8d82f8c4b712e30c258a7f733fc1}\label{classEventCallback_aab5c8d82f8c4b712e30c258a7f733fc1}} 
+void {\bfseries operator()} (const void $\ast$event)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Event\+Callback$<$ T $>$}
+
+Derived \hyperlink{classEvent}{Event} Callback Class that is mirrored for Event$<$\+T$>$. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEventCallback_ab3a3dabfd2f7a9e13905a2aa9dc3e237}\label{classEventCallback_ab3a3dabfd2f7a9e13905a2aa9dc3e237}} 
+\index{Event\+Callback@{Event\+Callback}!Event\+Callback@{Event\+Callback}}
+\index{Event\+Callback@{Event\+Callback}!Event\+Callback@{Event\+Callback}}
+\subsubsection{\texorpdfstring{Event\+Callback()}{EventCallback()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+\hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$\+::\hyperlink{classEventCallback}{Event\+Callback} (\begin{DoxyParamCaption}\item[{const void $\ast$}]{owner,  }\item[{const Callback \&}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{classEvent}{Event} Callback object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & \\
+\hline
+{\em callback} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classEventCallback_a1d072cf214664b7cc9d4fbf3ec8ec9ca}\label{classEventCallback_a1d072cf214664b7cc9d4fbf3ec8ec9ca}} 
+\index{Event\+Callback@{Event\+Callback}!Event\+Callback@{Event\+Callback}}
+\index{Event\+Callback@{Event\+Callback}!Event\+Callback@{Event\+Callback}}
+\subsubsection{\texorpdfstring{Event\+Callback()}{EventCallback()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+\hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$\+::\hyperlink{classEventCallback}{Event\+Callback} (\begin{DoxyParamCaption}\item[{const \hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$ \&}]{cb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \hyperlink{classEvent}{Event} Callback object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cb} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classEventCallback_ad34e4a69e56733e07342d0c56cd15dfc}\label{classEventCallback_ad34e4a69e56733e07342d0c56cd15dfc}} 
+\index{Event\+Callback@{Event\+Callback}!Call@{Call}}
+\index{Call@{Call}!Event\+Callback@{Event\+Callback}}
+\subsubsection{\texorpdfstring{Call()}{Call()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+virtual void \hyperlink{classEventCallback}{Event\+Callback}$<$ T $>$\+::Call (\begin{DoxyParamCaption}\item[{const void $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Cast the base event to its derived type and perform the callback using the event as a parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseCallback_af87d16a88aaf3c429e5f020798f97a8b}{Base\+Callback}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Events/\hyperlink{EventCallback_8h}{Event\+Callback.\+h}\end{DoxyCompactItemize}

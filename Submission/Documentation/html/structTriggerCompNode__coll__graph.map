@@ -1,0 +1,8 @@
+<map id="TriggerCompNode" name="TriggerCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="Includes. " alt="" coords="5,213,180,240"/>
+<area shape="rect" id="node3" href="$classTriggerComponent.html" title="Trgger component. " alt="" coords="391,213,533,240"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="221,102,351,129"/>
+<area shape="rect" id="node7" href="$classTransformComponent.html" title="Stores and updates all position, orientation and scale data. " alt="" coords="205,213,367,240"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="235,5,337,32"/>
+<area shape="rect" id="node6" href="$classMulticast.html" title="Multicast\&lt; void(GameObject\l *, GameObject *)\&gt;" alt="" coords="375,95,586,136"/>
+</map>

@@ -1,0 +1,206 @@
+\hypertarget{classMaterial}{}\section{Material Class Reference}
+\label{classMaterial}\index{Material@{Material}}
+
+
+\hyperlink{classMaterial}{Material} describes how a 3D mesh should be rendered.  
+
+
+
+
+{\ttfamily \#include $<$Material.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMaterial_aba9619e1e3776d59fe5d92e2d08cb6bc}\label{classMaterial_aba9619e1e3776d59fe5d92e2d08cb6bc}} 
+void {\bfseries Init} ()
+\item 
+uint32\+\_\+t \hyperlink{classMaterial_a22f3cbf6ae1a551a73138673f8c019f2}{Get\+Shader\+Material\+Type} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classShader}{Shader} \hyperlink{classMaterial}{Material} Type ID. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a1b9db07af0385115afb5d16056a93f88}{Get\+Diffuse\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Diffuse \hyperlink{classTexture}{Texture} pointer. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a308bae8e2917d3dabceb2921c87d6e6f}{Get\+Normal\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Normal \hyperlink{classTexture}{Texture} pointer. This gives Normal Mapping effect. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a7fee2a74eae077dfea902c05ef438326}{Get\+Height\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Height \hyperlink{classTexture}{Texture} pointer. This gives Parallax Mapping effect. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a0d3d4ef96719146ae94a36500f603a35}{Get\+Specular\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Specular \hyperlink{classTexture}{Texture} pointer. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a29ba7e0e96585a71dbc639ef1f576f04}{Get\+Metallic\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Metallic \hyperlink{classTexture}{Texture} pointer. This define the P\+BR metallic map. \end{DoxyCompactList}\item 
+\hyperlink{classTexture}{Texture} $\ast$ \hyperlink{classMaterial_a6b55a54f7f10121c760abb79f2f7a410}{Get\+Roughness\+Texture} () const
+\begin{DoxyCompactList}\small\item\em Get the Roughness \hyperlink{classTexture}{Texture} pointer. This define the P\+BR roughness map. \end{DoxyCompactList}\item 
+Vector4 \hyperlink{classMaterial_af34f2b2d5ef3ee26f81dd9fc7e90162f}{Get\+Diffuse\+Color} () const
+\begin{DoxyCompactList}\small\item\em Get the Diffuse Color of the 3D mesh. Only valid if there is no Diffuse \hyperlink{classTexture}{Texture}. \end{DoxyCompactList}\item 
+Vector4 \hyperlink{classMaterial_af730a062421aa6a8cb85f24e6b7074da}{Get\+Specular\+Color} () const
+\begin{DoxyCompactList}\small\item\em Get the Specular Color of the 3D mesh. Only valid if there is no Specular \hyperlink{classTexture}{Texture}. \end{DoxyCompactList}\item 
+float \hyperlink{classMaterial_a491f2523cf8b159352c0137057c94212}{Get\+Metallic\+Value} () const
+\begin{DoxyCompactList}\small\item\em Get the Metallic Value of the 3D mesh. Only valid if there is no Metallic \hyperlink{classTexture}{Texture}. \end{DoxyCompactList}\item 
+float \hyperlink{classMaterial_a83d88169ada8d6094df872c1a0d82765}{Get\+Roughness\+Value} () const
+\begin{DoxyCompactList}\small\item\em Get the Roughness Value of the 3D mesh. Only valid if there is no Roughness \hyperlink{classTexture}{Texture}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMaterial_a54c1252abc87a78a301e6b6984470408}\label{classMaterial_a54c1252abc87a78a301e6b6984470408}} 
+class {\bfseries Resource\+Manager}
+\item 
+\mbox{\Hypertarget{classMaterial_ac22dade55c1e8f81ea3e0892cd321190}\label{classMaterial_ac22dade55c1e8f81ea3e0892cd321190}} 
+class {\bfseries Model\+Loader}
+\item 
+\mbox{\Hypertarget{classMaterial_a328c093d609680cca505905c6d49901a}\label{classMaterial_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classMaterial}{Material} describes how a 3D mesh should be rendered. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMaterial_af34f2b2d5ef3ee26f81dd9fc7e90162f}\label{classMaterial_af34f2b2d5ef3ee26f81dd9fc7e90162f}} 
+\index{Material@{Material}!Get\+Diffuse\+Color@{Get\+Diffuse\+Color}}
+\index{Get\+Diffuse\+Color@{Get\+Diffuse\+Color}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Diffuse\+Color()}{GetDiffuseColor()}}
+{\footnotesize\ttfamily Vector4 Material\+::\+Get\+Diffuse\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Diffuse Color of the 3D mesh. Only valid if there is no Diffuse \hyperlink{classTexture}{Texture}. 
+
+\begin{DoxyReturn}{Returns}
+Vector4 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a1b9db07af0385115afb5d16056a93f88}\label{classMaterial_a1b9db07af0385115afb5d16056a93f88}} 
+\index{Material@{Material}!Get\+Diffuse\+Texture@{Get\+Diffuse\+Texture}}
+\index{Get\+Diffuse\+Texture@{Get\+Diffuse\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Diffuse\+Texture()}{GetDiffuseTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Diffuse\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Diffuse \hyperlink{classTexture}{Texture} pointer. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a7fee2a74eae077dfea902c05ef438326}\label{classMaterial_a7fee2a74eae077dfea902c05ef438326}} 
+\index{Material@{Material}!Get\+Height\+Texture@{Get\+Height\+Texture}}
+\index{Get\+Height\+Texture@{Get\+Height\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Height\+Texture()}{GetHeightTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Height\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Height \hyperlink{classTexture}{Texture} pointer. This gives Parallax Mapping effect. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a29ba7e0e96585a71dbc639ef1f576f04}\label{classMaterial_a29ba7e0e96585a71dbc639ef1f576f04}} 
+\index{Material@{Material}!Get\+Metallic\+Texture@{Get\+Metallic\+Texture}}
+\index{Get\+Metallic\+Texture@{Get\+Metallic\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Metallic\+Texture()}{GetMetallicTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Metallic\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Metallic \hyperlink{classTexture}{Texture} pointer. This define the P\+BR metallic map. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a491f2523cf8b159352c0137057c94212}\label{classMaterial_a491f2523cf8b159352c0137057c94212}} 
+\index{Material@{Material}!Get\+Metallic\+Value@{Get\+Metallic\+Value}}
+\index{Get\+Metallic\+Value@{Get\+Metallic\+Value}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Metallic\+Value()}{GetMetallicValue()}}
+{\footnotesize\ttfamily float Material\+::\+Get\+Metallic\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Metallic Value of the 3D mesh. Only valid if there is no Metallic \hyperlink{classTexture}{Texture}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a308bae8e2917d3dabceb2921c87d6e6f}\label{classMaterial_a308bae8e2917d3dabceb2921c87d6e6f}} 
+\index{Material@{Material}!Get\+Normal\+Texture@{Get\+Normal\+Texture}}
+\index{Get\+Normal\+Texture@{Get\+Normal\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Normal\+Texture()}{GetNormalTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Normal\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Normal \hyperlink{classTexture}{Texture} pointer. This gives Normal Mapping effect. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a6b55a54f7f10121c760abb79f2f7a410}\label{classMaterial_a6b55a54f7f10121c760abb79f2f7a410}} 
+\index{Material@{Material}!Get\+Roughness\+Texture@{Get\+Roughness\+Texture}}
+\index{Get\+Roughness\+Texture@{Get\+Roughness\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Roughness\+Texture()}{GetRoughnessTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Roughness\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Roughness \hyperlink{classTexture}{Texture} pointer. This define the P\+BR roughness map. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a83d88169ada8d6094df872c1a0d82765}\label{classMaterial_a83d88169ada8d6094df872c1a0d82765}} 
+\index{Material@{Material}!Get\+Roughness\+Value@{Get\+Roughness\+Value}}
+\index{Get\+Roughness\+Value@{Get\+Roughness\+Value}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Roughness\+Value()}{GetRoughnessValue()}}
+{\footnotesize\ttfamily float Material\+::\+Get\+Roughness\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Roughness Value of the 3D mesh. Only valid if there is no Roughness \hyperlink{classTexture}{Texture}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a22f3cbf6ae1a551a73138673f8c019f2}\label{classMaterial_a22f3cbf6ae1a551a73138673f8c019f2}} 
+\index{Material@{Material}!Get\+Shader\+Material\+Type@{Get\+Shader\+Material\+Type}}
+\index{Get\+Shader\+Material\+Type@{Get\+Shader\+Material\+Type}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Shader\+Material\+Type()}{GetShaderMaterialType()}}
+{\footnotesize\ttfamily uint32\+\_\+t Material\+::\+Get\+Shader\+Material\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{classShader}{Shader} \hyperlink{classMaterial}{Material} Type ID. 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_af730a062421aa6a8cb85f24e6b7074da}\label{classMaterial_af730a062421aa6a8cb85f24e6b7074da}} 
+\index{Material@{Material}!Get\+Specular\+Color@{Get\+Specular\+Color}}
+\index{Get\+Specular\+Color@{Get\+Specular\+Color}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Specular\+Color()}{GetSpecularColor()}}
+{\footnotesize\ttfamily Vector4 Material\+::\+Get\+Specular\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Specular Color of the 3D mesh. Only valid if there is no Specular \hyperlink{classTexture}{Texture}. 
+
+\begin{DoxyReturn}{Returns}
+Vector4 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMaterial_a0d3d4ef96719146ae94a36500f603a35}\label{classMaterial_a0d3d4ef96719146ae94a36500f603a35}} 
+\index{Material@{Material}!Get\+Specular\+Texture@{Get\+Specular\+Texture}}
+\index{Get\+Specular\+Texture@{Get\+Specular\+Texture}!Material@{Material}}
+\subsubsection{\texorpdfstring{Get\+Specular\+Texture()}{GetSpecularTexture()}}
+{\footnotesize\ttfamily \hyperlink{classTexture}{Texture} $\ast$ Material\+::\+Get\+Specular\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Specular \hyperlink{classTexture}{Texture} pointer. 
+
+\begin{DoxyReturn}{Returns}
+Texture$\ast$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\hyperlink{Material_8h}{Material.\+h}\item 
+Graphics/Material.\+cpp\end{DoxyCompactItemize}

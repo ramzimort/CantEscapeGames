@@ -1,0 +1,4 @@
+<map id="SpatialPartitionData" name="SpatialPartitionData">
+<area shape="rect" id="node2" href="$classAabb.html" title="Axis alligned bounding box, represented by aposite corners min and max. " alt="" coords="54,81,109,108"/>
+<area shape="rect" id="node3" href="$classShape.html" title="Base class of the other shape classes. " alt="" coords="50,5,113,32"/>
+</map>

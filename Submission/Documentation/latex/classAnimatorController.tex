@@ -1,0 +1,198 @@
+\hypertarget{classAnimatorController}{}\section{Animator\+Controller Class Reference}
+\label{classAnimatorController}\index{Animator\+Controller@{Animator\+Controller}}
+
+
+Class that represents the animation state machine itself.  
+
+
+
+
+{\ttfamily \#include $<$Animator\+Controller.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAnimatorController_a9b32e8e7a4b72e80c6ae7a88fc961c4e}{Animator\+Controller} ()
+\begin{DoxyCompactList}\small\item\em Construct a new Animator Controller object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimatorController_a9f96c39d24c29d96c6d343737411c0bd}\label{classAnimatorController_a9f96c39d24c29d96c6d343737411c0bd}} 
+\hyperlink{classAnimatorController_a9f96c39d24c29d96c6d343737411c0bd}{$\sim$\+Animator\+Controller} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Animator Controller object. \end{DoxyCompactList}\item 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ \hyperlink{classAnimatorController_ae84a0064dd344fb2a2b4bb6de69557e1}{Get\+Current\+State} () const
+\begin{DoxyCompactList}\small\item\em Get the Current \hyperlink{classState}{State} on the state machine. \end{DoxyCompactList}\item 
+\hyperlink{structAnimState}{Anim\+State} $\ast$ \hyperlink{classAnimatorController_aa2b6d02748cb880d596122448f685f9f}{Get\+State} (std\+::string const \&name) const
+\begin{DoxyCompactList}\small\item\em Get a state of name equal to parameter name. \end{DoxyCompactList}\item 
+bool \hyperlink{classAnimatorController_ac079dc6e19c4284fa941033577ddd45d}{Is\+State\+Name\+Valid} (std\+::string const \&name)
+\begin{DoxyCompactList}\small\item\em Returns true if the name for the state is valid. \end{DoxyCompactList}\item 
+void \hyperlink{classAnimatorController_a7e2acba88b4bc663c3bc3a04c20962c8}{Add\+State} (\hyperlink{structAnimState}{Anim\+State} $\ast$new\+State)
+\begin{DoxyCompactList}\small\item\em Adds a new state to the state machine. Used in setup from script. \end{DoxyCompactList}\item 
+void \hyperlink{classAnimatorController_adec385ab87a34b0919a040b1540f8b86}{Set\+Entry\+State} (\hyperlink{structAnimState}{Anim\+State} $\ast$entry)
+\begin{DoxyCompactList}\small\item\em Set the Entry \hyperlink{classState}{State} for the animation state machine (this will be the first state to be entered when it runs) \end{DoxyCompactList}\item 
+void \hyperlink{classAnimatorController_a4717fb9e8e96c4cd7fff48ed38db6ae8}{Enter\+State} (\hyperlink{structAnimState}{Anim\+State} $\ast$state)
+\begin{DoxyCompactList}\small\item\em Called when entering a state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimatorController_a1dfd902754b35be9c44dfeb86ddc70c2}\label{classAnimatorController_a1dfd902754b35be9c44dfeb86ddc70c2}} 
+void \hyperlink{classAnimatorController_a1dfd902754b35be9c44dfeb86ddc70c2}{Exit\+State} ()
+\begin{DoxyCompactList}\small\item\em Called when exiting a state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimatorController_a0ebaa0dc9f103ce98f5f330d6e36cb73}\label{classAnimatorController_a0ebaa0dc9f103ce98f5f330d6e36cb73}} 
+void \hyperlink{classAnimatorController_a0ebaa0dc9f103ce98f5f330d6e36cb73}{Reset\+Triggers} ()
+\begin{DoxyCompactList}\small\item\em Resets all trigger values to zero. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimatorController_a873290f0299ceeb9356cc87ff14d5a63}\label{classAnimatorController_a873290f0299ceeb9356cc87ff14d5a63}} 
+void \hyperlink{classAnimatorController_a873290f0299ceeb9356cc87ff14d5a63}{Clean\+Dirty\+Flag} ()
+\begin{DoxyCompactList}\small\item\em Makes the dirty flag match the trigger count. \end{DoxyCompactList}\item 
+void \hyperlink{classAnimatorController_ac98dc31939a3e9b4377f01a0461b158d}{Set\+Trigger} (std\+::string const \&trigger)
+\begin{DoxyCompactList}\small\item\em Sets a trigger object to one. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAnimatorController_a51a8be9bb0e31ea4d63742ff972a6512}\label{classAnimatorController_a51a8be9bb0e31ea4d63742ff972a6512}} 
+void {\bfseries Force\+Reset\+Triggers\+And\+Flag} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAnimatorController_a47f9e2ec6ae5b27770bda1ead192dd55}\label{classAnimatorController_a47f9e2ec6ae5b27770bda1ead192dd55}} 
+class {\bfseries Animation\+Component}
+\item 
+\mbox{\Hypertarget{classAnimatorController_a4c8fb761c777f1a874c5d97e052686ad}\label{classAnimatorController_a4c8fb761c777f1a874c5d97e052686ad}} 
+class {\bfseries Animation\+System}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that represents the animation state machine itself. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAnimatorController_a9b32e8e7a4b72e80c6ae7a88fc961c4e}\label{classAnimatorController_a9b32e8e7a4b72e80c6ae7a88fc961c4e}} 
+\index{Animator\+Controller@{Animator\+Controller}!Animator\+Controller@{Animator\+Controller}}
+\index{Animator\+Controller@{Animator\+Controller}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Animator\+Controller()}{AnimatorController()}}
+{\footnotesize\ttfamily Animator\+Controller\+::\+Animator\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Construct a new Animator Controller object. 
+
+H\+E\+A\+D\+ER S\+T\+U\+FF. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classAnimatorController_a7e2acba88b4bc663c3bc3a04c20962c8}\label{classAnimatorController_a7e2acba88b4bc663c3bc3a04c20962c8}} 
+\index{Animator\+Controller@{Animator\+Controller}!Add\+State@{Add\+State}}
+\index{Add\+State@{Add\+State}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Add\+State()}{AddState()}}
+{\footnotesize\ttfamily void Animator\+Controller\+::\+Add\+State (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{new\+State }\end{DoxyParamCaption})}
+
+
+
+Adds a new state to the state machine. Used in setup from script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+State} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAnimatorController_a4717fb9e8e96c4cd7fff48ed38db6ae8}\label{classAnimatorController_a4717fb9e8e96c4cd7fff48ed38db6ae8}} 
+\index{Animator\+Controller@{Animator\+Controller}!Enter\+State@{Enter\+State}}
+\index{Enter\+State@{Enter\+State}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Enter\+State()}{EnterState()}}
+{\footnotesize\ttfamily void Animator\+Controller\+::\+Enter\+State (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{state }\end{DoxyParamCaption})}
+
+
+
+Called when entering a state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAnimatorController_ae84a0064dd344fb2a2b4bb6de69557e1}\label{classAnimatorController_ae84a0064dd344fb2a2b4bb6de69557e1}} 
+\index{Animator\+Controller@{Animator\+Controller}!Get\+Current\+State@{Get\+Current\+State}}
+\index{Get\+Current\+State@{Get\+Current\+State}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Get\+Current\+State()}{GetCurrentState()}}
+{\footnotesize\ttfamily \hyperlink{structAnimState}{Anim\+State} $\ast$ Animator\+Controller\+::\+Get\+Current\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Current \hyperlink{classState}{State} on the state machine. 
+
+\begin{DoxyReturn}{Returns}
+Anim\+State$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAnimatorController_aa2b6d02748cb880d596122448f685f9f}\label{classAnimatorController_aa2b6d02748cb880d596122448f685f9f}} 
+\index{Animator\+Controller@{Animator\+Controller}!Get\+State@{Get\+State}}
+\index{Get\+State@{Get\+State}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Get\+State()}{GetState()}}
+{\footnotesize\ttfamily \hyperlink{structAnimState}{Anim\+State} $\ast$ Animator\+Controller\+::\+Get\+State (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{name }\end{DoxyParamCaption}) const}
+
+
+
+Get a state of name equal to parameter name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Anim\+State$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAnimatorController_ac079dc6e19c4284fa941033577ddd45d}\label{classAnimatorController_ac079dc6e19c4284fa941033577ddd45d}} 
+\index{Animator\+Controller@{Animator\+Controller}!Is\+State\+Name\+Valid@{Is\+State\+Name\+Valid}}
+\index{Is\+State\+Name\+Valid@{Is\+State\+Name\+Valid}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Is\+State\+Name\+Valid()}{IsStateNameValid()}}
+{\footnotesize\ttfamily bool Animator\+Controller\+::\+Is\+State\+Name\+Valid (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Returns true if the name for the state is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAnimatorController_adec385ab87a34b0919a040b1540f8b86}\label{classAnimatorController_adec385ab87a34b0919a040b1540f8b86}} 
+\index{Animator\+Controller@{Animator\+Controller}!Set\+Entry\+State@{Set\+Entry\+State}}
+\index{Set\+Entry\+State@{Set\+Entry\+State}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Set\+Entry\+State()}{SetEntryState()}}
+{\footnotesize\ttfamily void Animator\+Controller\+::\+Set\+Entry\+State (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Set the Entry \hyperlink{classState}{State} for the animation state machine (this will be the first state to be entered when it runs) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entry} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAnimatorController_ac98dc31939a3e9b4377f01a0461b158d}\label{classAnimatorController_ac98dc31939a3e9b4377f01a0461b158d}} 
+\index{Animator\+Controller@{Animator\+Controller}!Set\+Trigger@{Set\+Trigger}}
+\index{Set\+Trigger@{Set\+Trigger}!Animator\+Controller@{Animator\+Controller}}
+\subsubsection{\texorpdfstring{Set\+Trigger()}{SetTrigger()}}
+{\footnotesize\ttfamily void Animator\+Controller\+::\+Set\+Trigger (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{trigger }\end{DoxyParamCaption})}
+
+
+
+Sets a trigger object to one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trigger} & \\
+\hline
+\end{DoxyParams}
+Output\+Debug\+String(\char`\"{}\+Dirtyflag++ cause of setting trigger. -\/\+Prev\+Val\+: \char`\"{} + dirty\+Flag); //////
+
+Output\+Debug\+String(\char`\"{} -\/\+New\+Val\+: \char`\"{} + dirty\+Flag); ////// Output\+Debug\+String(\char`\"{}\textbackslash{}n\char`\"{}); //////
+
+Output\+Debug\+String(\char`\"{}\+Dirtyflag++ cause of setting trigger. -\/\+Prev\+Val\+: \char`\"{} + dirty\+Flag); //////
+
+Output\+Debug\+String(\char`\"{} -\/\+New\+Val\+: \char`\"{} + dirty\+Flag); //////
+
+Output\+Debug\+String(\char`\"{}\textbackslash{}n\char`\"{}); ////// 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Animation/\hyperlink{AnimatorController_8h}{Animator\+Controller.\+h}\item 
+Animation/Animator\+Controller.\+cpp\end{DoxyCompactItemize}

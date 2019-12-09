@@ -1,0 +1,5 @@
+<map id="Physics/CollisionTable.cpp" name="Physics/CollisionTable.cpp">
+<area shape="rect" id="node2" href="$stdafx_8h_source.html" title="stdafx.h" alt="" coords="2179,80,2253,107"/>
+<area shape="rect" id="node49" href="$CollisionTable_8h.html" title="Stores a table of which collision masks collide with which. " alt="" coords="2278,80,2402,107"/>
+<area shape="rect" id="node50" href="$PhysicsUtils_8h.html" title="Constants, settings, helper functions for physics. " alt="" coords="2426,80,2593,107"/>
+</map>

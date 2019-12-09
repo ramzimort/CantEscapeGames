@@ -1,0 +1,184 @@
+\hypertarget{classUIComponent}{}\section{U\+I\+Component Class Reference}
+\label{classUIComponent}\index{U\+I\+Component@{U\+I\+Component}}
+
+
+Inheritance diagram for U\+I\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classUIComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for U\+I\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classUIComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUIComponent_ab7b881b2d2604cbf0a96c4046abc5f04}\label{classUIComponent_ab7b881b2d2604cbf0a96c4046abc5f04}} 
+{\bfseries U\+I\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classUIComponent_ab4632b919bcdf5954cbee5c32b01a38d}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+void \hyperlink{classUIComponent_ace6f4cbb1c52f59378b3a33c127dda2c}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classUIComponent_a18bda3b790b4daeefd3177faa43aec54}\label{classUIComponent_a18bda3b790b4daeefd3177faa43aec54}} 
+void {\bfseries Register\+Child} (\hyperlink{classUIComponent}{U\+I\+Component} $\ast$child)
+\item 
+\mbox{\Hypertarget{classUIComponent_adcb498cb2275edd50622bba422b79788}\label{classUIComponent_adcb498cb2275edd50622bba422b79788}} 
+void {\bfseries Unregister\+Child} (\hyperlink{classUIComponent}{U\+I\+Component} $\ast$child)
+\item 
+\mbox{\Hypertarget{classUIComponent_ab4148b5b50cdb2e678126f3aca78e06e}\label{classUIComponent_ab4148b5b50cdb2e678126f3aca78e06e}} 
+const \hyperlink{classUIComponent}{U\+I\+Component} $\ast$ {\bfseries Get\+Parent} () const
+\item 
+\mbox{\Hypertarget{classUIComponent_adb25a8abbfbcd980b5415315b7c4da3c}\label{classUIComponent_adb25a8abbfbcd980b5415315b7c4da3c}} 
+const \hyperlink{classUIComponent}{U\+I\+Component} $\ast$ {\bfseries Get\+Child} (int index) const
+\item 
+\mbox{\Hypertarget{classUIComponent_ae6d41c31f9dea151b518164d5f7ffe91}\label{classUIComponent_ae6d41c31f9dea151b518164d5f7ffe91}} 
+const int {\bfseries Get\+Number\+Of\+Children} () const
+\item 
+\mbox{\Hypertarget{classUIComponent_a22f923d6805f5034836ca06ff7579729}\label{classUIComponent_a22f923d6805f5034836ca06ff7579729}} 
+const std\+::string {\bfseries Get\+Parent\+Name} () const
+\item 
+\mbox{\Hypertarget{classUIComponent_afcd30b071ba3255994029c3fa216d162}\label{classUIComponent_afcd30b071ba3255994029c3fa216d162}} 
+int {\bfseries Get\+Button\+Index} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ac91e12dc794bb30f8f867862c49b1410}\label{classUIComponent_ac91e12dc794bb30f8f867862c49b1410}} 
+void {\bfseries Set\+Render\+Enable} (bool val)
+\item 
+\mbox{\Hypertarget{classUIComponent_aeb1eb9113d271651453100f4b1bceb5c}\label{classUIComponent_aeb1eb9113d271651453100f4b1bceb5c}} 
+bool {\bfseries Get\+Render\+Enable} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a1d49394ef822dd7ce1c2a5ce7b67966f}\label{classUIComponent_a1d49394ef822dd7ce1c2a5ce7b67966f}} 
+Vector3 {\bfseries Get\+Un\+Touched\+Scale} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ab38a81650988a482fe95bc593b051569}\label{classUIComponent_ab38a81650988a482fe95bc593b051569}} 
+Vector3 {\bfseries Get\+Un\+Touched\+Scale\+Normalized} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a1c8558f61451d7718ebb63b2105a3e93}\label{classUIComponent_a1c8558f61451d7718ebb63b2105a3e93}} 
+void {\bfseries Set\+Un\+Touched\+Scale} (const Vector3 \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_acf70841ffe9f4eacb572121f4f8e5588}\label{classUIComponent_acf70841ffe9f4eacb572121f4f8e5588}} 
+Vector3 {\bfseries Get\+Touched\+Scale} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ac857805fd369d969cb06ab60cbfe70ce}\label{classUIComponent_ac857805fd369d969cb06ab60cbfe70ce}} 
+Vector3 {\bfseries Get\+Touched\+Scale\+Normalized} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a7920aca794a69343c1e16d1c457c328b}\label{classUIComponent_a7920aca794a69343c1e16d1c457c328b}} 
+void {\bfseries Set\+Touched\+Scale} (const Vector3 \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_a272f84a2e00097ae8138374896d489ed}\label{classUIComponent_a272f84a2e00097ae8138374896d489ed}} 
+Vector3 {\bfseries Get\+Initial\+Position} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a25a886548f331f4668f5ae27faee0e71}\label{classUIComponent_a25a886548f331f4668f5ae27faee0e71}} 
+Vector3 {\bfseries Get\+Final\+Position} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ad0850c699c44fda860915e1f35903fc6}\label{classUIComponent_ad0850c699c44fda860915e1f35903fc6}} 
+Vector3 {\bfseries Get\+Initial\+Position\+Normalized} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a3539578ff8b52b827552d9701fa0a9c0}\label{classUIComponent_a3539578ff8b52b827552d9701fa0a9c0}} 
+Vector3 {\bfseries Get\+Final\+Position\+Normalized} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a29a2e1cd9cc4ea8eb889152a962a9147}\label{classUIComponent_a29a2e1cd9cc4ea8eb889152a962a9147}} 
+void {\bfseries Set\+Initial\+Position} (const Vector3 \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_a420d395a7e6f7cf6e8d06d5462c35318}\label{classUIComponent_a420d395a7e6f7cf6e8d06d5462c35318}} 
+void {\bfseries Set\+Final\+Position} (const Vector3 \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_a253ef99d479ddf08ab212852f1d00668}\label{classUIComponent_a253ef99d479ddf08ab212852f1d00668}} 
+Vector3 {\bfseries Get\+Velocity} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a8c463e8fb54d3d6553373d5d275a1dc8}\label{classUIComponent_a8c463e8fb54d3d6553373d5d275a1dc8}} 
+float {\bfseries Get\+Delta\+Time} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a3d3064b86d8204f75bd2b61ad45bb64c}\label{classUIComponent_a3d3064b86d8204f75bd2b61ad45bb64c}} 
+float {\bfseries Get\+Initial\+Rotation} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_a726eb48a423d5eced75e4c109051aea5}\label{classUIComponent_a726eb48a423d5eced75e4c109051aea5}} 
+float {\bfseries Get\+Final\+Rotation} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_aca6ee5c09157243fe13cecb665d4afa7}\label{classUIComponent_aca6ee5c09157243fe13cecb665d4afa7}} 
+float {\bfseries Get\+Rotation\+Rate} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ab1dc46fe63d17c5520948e6a81764cd6}\label{classUIComponent_ab1dc46fe63d17c5520948e6a81764cd6}} 
+void {\bfseries Set\+Text\+Scale} (const Vector3 \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_a94e0086e0f64810b6bfd0de31a1b5e96}\label{classUIComponent_a94e0086e0f64810b6bfd0de31a1b5e96}} 
+Vector3 {\bfseries Get\+Text\+Scale} ()
+\item 
+\mbox{\Hypertarget{classUIComponent_ab9139c6c1e7298ca46fcc36e752a24ed}\label{classUIComponent_ab9139c6c1e7298ca46fcc36e752a24ed}} 
+void {\bfseries Set\+Text} (const std\+::wstring \&val)
+\item 
+\mbox{\Hypertarget{classUIComponent_ab9063507aba8641fc46c6bfab649d2b3}\label{classUIComponent_ab9063507aba8641fc46c6bfab649d2b3}} 
+std\+::string {\bfseries Get\+Text} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUIComponent_a58909a9d1900904429ae4070bf1e2f0a}\label{classUIComponent_a58909a9d1900904429ae4070bf1e2f0a}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUIComponent_a3c5cff3eae5326599fd1851d48d2a07b}\label{classUIComponent_a3c5cff3eae5326599fd1851d48d2a07b}} 
+class {\bfseries U\+I\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classUIComponent_ace6f4cbb1c52f59378b3a33c127dda2c}\label{classUIComponent_ace6f4cbb1c52f59378b3a33c127dda2c}} 
+\index{U\+I\+Component@{U\+I\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!U\+I\+Component@{U\+I\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void U\+I\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classUIComponent_ab4632b919bcdf5954cbee5c32b01a38d}\label{classUIComponent_ab4632b919bcdf5954cbee5c32b01a38d}} 
+\index{U\+I\+Component@{U\+I\+Component}!Init@{Init}}
+\index{Init@{Init}!U\+I\+Component@{U\+I\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void U\+I\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/U\+I\+Component.\+h\item 
+Components/U\+I\+Component.\+cpp\end{DoxyCompactItemize}

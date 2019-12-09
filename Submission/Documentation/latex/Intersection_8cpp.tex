@@ -1,0 +1,276 @@
+\hypertarget{Intersection_8cpp}{}\section{Physics/\+Geometry/\+Intersection.cpp File Reference}
+\label{Intersection_8cpp}\index{Physics/\+Geometry/\+Intersection.\+cpp@{Physics/\+Geometry/\+Intersection.\+cpp}}
+{\ttfamily \#include \char`\"{}Intersection.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Physics\+Utils.\+h\char`\"{}}\newline
+Include dependency graph for Intersection.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{Intersection_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Intersection\+Type \hyperlink{Intersection_8cpp_a57ba6af7b0b5effee67dbaec739774cb}{Intersection\+::\+Point\+Plane} (const Vector3 \&point, const Vector4 \&plane, float epsilon)
+\begin{DoxyCompactList}\small\item\em Intersection test between a point and a plane. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_aba7f4cfd1e0e64dc947ef08955adaaf9}{Intersection\+::\+Point\+Sphere} (const Vector3 \&point, const Vector3 \&sphere\+Center, float sphere\+Radius)
+\begin{DoxyCompactList}\small\item\em Intersection test between a point and a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_aa7ecf7aab88a44cf7d10433307cf2245}{Intersection\+::\+Point\+Aabb} (const Vector3 \&point, const Vector3 \&aabb\+Min, const Vector3 \&aabb\+Max)
+\begin{DoxyCompactList}\small\item\em Intersection test between a point and an aabb. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_a5ccee4735503c4e41659841e43705a77}{Intersection\+::\+Aabb\+Aabb} (const Vector3 \&aabb\+MinA, const Vector3 \&aabb\+MaxA, const Vector3 \&aabb\+MinB, const Vector3 \&aabb\+MaxB)
+\begin{DoxyCompactList}\small\item\em Intersection test between an aabb and an aabb. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_acfb4c77429a2b45396af2a2231bf9657}{Intersection\+::\+Sphere\+Sphere} (const Vector3 \&sphere\+CenterA, float sphere\+RadiusA, const Vector3 \&sphere\+CenterB, float sphere\+RadiusB)
+\begin{DoxyCompactList}\small\item\em Intersection test between a sphere and a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_a4246d263f49ff73e1d25e52a0015b3cc}{Intersection\+::\+Aabb\+Sphere} (const Vector3 \&aabb\+Min, const Vector3 \&aabb\+Max, const Vector3 \&sphere\+Center, float sphere\+Radius)
+\begin{DoxyCompactList}\small\item\em Intersection test between an aabb and a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_ae69a1d80fe02984572df1187d764f139}{Intersection\+::\+Ray\+Sphere} (const Vector3 \&ray\+Start, const Vector3 \&ray\+Dir, const Vector3 \&sphere\+Center, float sphere\+Radius, float \&t)
+\begin{DoxyCompactList}\small\item\em Intersection test between a ray and a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{Intersection_8cpp_a53ea8d4079849f58983b539884a093eb}{Intersection\+::\+Ray\+Aabb} (const Vector3 \&ray\+Start, const Vector3 \&ray\+Dir, const Vector3 \&aabb\+Min, const Vector3 \&aabb\+Max, float \&t, float parallel\+Check\+Epsilon=0.\+0001f)
+\begin{DoxyCompactList}\small\item\em Intersection test between a ray and an aabb. \end{DoxyCompactList}\item 
+float \hyperlink{Intersection_8cpp_ab783a0120f82ace6aa264a7a300ccef9}{Intersection\+::\+Sq\+Dist\+Point\+Aabb} (const Vector3 \&point, const Vector3 \&aabb\+Min, const Vector3 \&aabb\+Max)
+\begin{DoxyCompactList}\small\item\em Computes square distance between point and aabb. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Aleksey Perfilev 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2019 Digi\+Pen Institute of Technology 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{Intersection_8cpp_file_a5ccee4735503c4e41659841e43705a77}\label{Intersection_8cpp_file_a5ccee4735503c4e41659841e43705a77}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Aabb\+Aabb@{Aabb\+Aabb}}
+\index{Aabb\+Aabb@{Aabb\+Aabb}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Aabb\+Aabb()}{AabbAabb()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Aabb\+Aabb (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{aabb\+MinA,  }\item[{const Vector3 \&}]{aabb\+MaxA,  }\item[{const Vector3 \&}]{aabb\+MinB,  }\item[{const Vector3 \&}]{aabb\+MaxB }\end{DoxyParamCaption})}
+
+
+
+Intersection test between an aabb and an aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb\+MinA} & \\
+\hline
+{\em aabb\+MaxA} & \\
+\hline
+{\em aabb\+MinB} & \\
+\hline
+{\em aabb\+MaxB} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_a4246d263f49ff73e1d25e52a0015b3cc}\label{Intersection_8cpp_file_a4246d263f49ff73e1d25e52a0015b3cc}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Aabb\+Sphere@{Aabb\+Sphere}}
+\index{Aabb\+Sphere@{Aabb\+Sphere}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Aabb\+Sphere()}{AabbSphere()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Aabb\+Sphere (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{aabb\+Min,  }\item[{const Vector3 \&}]{aabb\+Max,  }\item[{const Vector3 \&}]{sphere\+Center,  }\item[{float}]{sphere\+Radius }\end{DoxyParamCaption})}
+
+
+
+Intersection test between an aabb and a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb\+Min} & \\
+\hline
+{\em aabb\+Max} & \\
+\hline
+{\em sphere\+Center} & \\
+\hline
+{\em sphere\+Radius} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_aa7ecf7aab88a44cf7d10433307cf2245}\label{Intersection_8cpp_file_aa7ecf7aab88a44cf7d10433307cf2245}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Point\+Aabb@{Point\+Aabb}}
+\index{Point\+Aabb@{Point\+Aabb}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Point\+Aabb()}{PointAabb()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Point\+Aabb (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector3 \&}]{aabb\+Min,  }\item[{const Vector3 \&}]{aabb\+Max }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a point and an aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em aabb\+Min} & \\
+\hline
+{\em aabb\+Max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_a57ba6af7b0b5effee67dbaec739774cb}\label{Intersection_8cpp_file_a57ba6af7b0b5effee67dbaec739774cb}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Point\+Plane@{Point\+Plane}}
+\index{Point\+Plane@{Point\+Plane}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Point\+Plane()}{PointPlane()}}
+{\footnotesize\ttfamily Intersection\+Type Intersection\+::\+Point\+Plane (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector4 \&}]{plane,  }\item[{float}]{epsilon }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a point and a plane. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em plane} & \\
+\hline
+{\em epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Intersection\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_aba7f4cfd1e0e64dc947ef08955adaaf9}\label{Intersection_8cpp_file_aba7f4cfd1e0e64dc947ef08955adaaf9}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Point\+Sphere@{Point\+Sphere}}
+\index{Point\+Sphere@{Point\+Sphere}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Point\+Sphere()}{PointSphere()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Point\+Sphere (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector3 \&}]{sphere\+Center,  }\item[{float}]{sphere\+Radius }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a point and a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em sphere\+Center} & \\
+\hline
+{\em sphere\+Radius} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if intersects 
+
+false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_a53ea8d4079849f58983b539884a093eb}\label{Intersection_8cpp_file_a53ea8d4079849f58983b539884a093eb}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Ray\+Aabb@{Ray\+Aabb}}
+\index{Ray\+Aabb@{Ray\+Aabb}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Ray\+Aabb()}{RayAabb()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Ray\+Aabb (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{ray\+Start,  }\item[{const Vector3 \&}]{ray\+Dir,  }\item[{const Vector3 \&}]{aabb\+Min,  }\item[{const Vector3 \&}]{aabb\+Max,  }\item[{float \&}]{t,  }\item[{float}]{parallel\+Check\+Epsilon = {\ttfamily 0.0001f} }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a ray and an aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ray\+Start} & \\
+\hline
+{\em ray\+Dir} & \\
+\hline
+{\em aabb\+Min} & \\
+\hline
+{\em aabb\+Max} & \\
+\hline
+{\em t} & \\
+\hline
+{\em parallel\+Check\+Epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_ae69a1d80fe02984572df1187d764f139}\label{Intersection_8cpp_file_ae69a1d80fe02984572df1187d764f139}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Ray\+Sphere@{Ray\+Sphere}}
+\index{Ray\+Sphere@{Ray\+Sphere}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Ray\+Sphere()}{RaySphere()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Ray\+Sphere (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{ray\+Start,  }\item[{const Vector3 \&}]{ray\+Dir,  }\item[{const Vector3 \&}]{sphere\+Center,  }\item[{float}]{sphere\+Radius,  }\item[{float \&}]{t }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a ray and a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ray\+Start} & \\
+\hline
+{\em ray\+Dir} & \\
+\hline
+{\em sphere\+Center} & \\
+\hline
+{\em sphere\+Radius} & \\
+\hline
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_acfb4c77429a2b45396af2a2231bf9657}\label{Intersection_8cpp_file_acfb4c77429a2b45396af2a2231bf9657}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Sphere\+Sphere@{Sphere\+Sphere}}
+\index{Sphere\+Sphere@{Sphere\+Sphere}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Sphere\+Sphere()}{SphereSphere()}}
+{\footnotesize\ttfamily bool Intersection\+::\+Sphere\+Sphere (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{sphere\+CenterA,  }\item[{float}]{sphere\+RadiusA,  }\item[{const Vector3 \&}]{sphere\+CenterB,  }\item[{float}]{sphere\+RadiusB }\end{DoxyParamCaption})}
+
+
+
+Intersection test between a sphere and a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sphere\+CenterA} & \\
+\hline
+{\em sphere\+RadiusA} & \\
+\hline
+{\em sphere\+CenterB} & \\
+\hline
+{\em sphere\+RadiusB} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Intersection_8cpp_file_ab783a0120f82ace6aa264a7a300ccef9}\label{Intersection_8cpp_file_ab783a0120f82ace6aa264a7a300ccef9}} 
+\index{Intersection.\+cpp@{Intersection.\+cpp}!Sq\+Dist\+Point\+Aabb@{Sq\+Dist\+Point\+Aabb}}
+\index{Sq\+Dist\+Point\+Aabb@{Sq\+Dist\+Point\+Aabb}!Intersection.\+cpp@{Intersection.\+cpp}}
+\subsubsection{\texorpdfstring{Sq\+Dist\+Point\+Aabb()}{SqDistPointAabb()}}
+{\footnotesize\ttfamily float Intersection\+::\+Sq\+Dist\+Point\+Aabb (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point,  }\item[{const Vector3 \&}]{aabb\+Min,  }\item[{const Vector3 \&}]{aabb\+Max }\end{DoxyParamCaption})}
+
+
+
+Computes square distance between point and aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+{\em aabb\+Min} & \\
+\hline
+{\em aabb\+Max} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}

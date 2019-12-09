@@ -1,0 +1,17 @@
+<map id="BaseSystem" name="BaseSystem">
+<area shape="rect" id="node2" href="$classAnimationSystem.html" title="AnimationSystem" alt="" coords="180,5,319,32"/>
+<area shape="rect" id="node3" href="$classCameraSystem.html" title="CameraSystem" alt="" coords="188,56,311,83"/>
+<area shape="rect" id="node4" href="$classCustomSystem.html" title="System that handles Update for the scripted component of GameObjects. " alt="" coords="189,107,310,133"/>
+<area shape="rect" id="node5" href="$classFollowCurvesPathSystem.html" title="FollowCurvesPathSystem" alt="" coords="156,157,343,184"/>
+<area shape="rect" id="node6" href="$classHaloEffectSystem.html" title="HaloEffectSystem" alt="" coords="180,208,319,235"/>
+<area shape="rect" id="node7" href="$classLightSystem.html" title="LightSystem" alt="" coords="198,259,301,285"/>
+<area shape="rect" id="node8" href="$classParticleEmitterSystem.html" title="ParticleEmitterSystem" alt="" coords="166,309,333,336"/>
+<area shape="rect" id="node9" href="$classRenderingSystem.html" title="RenderingSystem" alt="" coords="181,360,317,387"/>
+<area shape="rect" id="node10" href="$classRigidbodySystem.html" title="Controls all the rigidbodies. " alt="" coords="181,411,317,437"/>
+<area shape="rect" id="node11" href="$classSkyboxIrradianceSystem.html" title="SkyboxIrradianceSystem" alt="" coords="157,461,341,488"/>
+<area shape="rect" id="node12" href="$classSplineCurvesSystem.html" title="SplineCurvesSystem" alt="" coords="171,512,327,539"/>
+<area shape="rect" id="node13" href="$classTestSystem.html" title="TestSystem" alt="" coords="201,563,298,589"/>
+<area shape="rect" id="node14" href="$classTransformSystem.html" title="TransformSystem" alt="" coords="181,613,317,640"/>
+<area shape="rect" id="node15" href="$classTriggerSystem.html" title="TriggerSystem" alt="" coords="192,664,307,691"/>
+<area shape="rect" id="node16" href="$classUISystem.html" title="UISystem" alt="" coords="207,715,292,741"/>
+</map>

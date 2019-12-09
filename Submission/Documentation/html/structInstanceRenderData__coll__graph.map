@@ -1,0 +1,5 @@
+<map id="InstanceRenderData" name="InstanceRenderData">
+<area shape="rect" id="node2" href="$classMaterial.html" title="Material describes how a 3D mesh should be rendered. " alt="" coords="5,109,80,136"/>
+<area shape="rect" id="node3" href="$classModel.html" title="Contains all the interface for getting Model&#39;s graphic data. " alt="" coords="143,109,204,136"/>
+<area shape="rect" id="node4" href="$classBuffer.html" title="Buffer" alt="" coords="143,5,204,32"/>
+</map>

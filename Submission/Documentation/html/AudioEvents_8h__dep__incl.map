@@ -1,0 +1,5 @@
+<map id="Events/Audio/AudioEvents.h" name="Events/Audio/AudioEvents.h">
+<area shape="rect" id="node2" href="$AudioManager_8h.html" title="Audio Manager Class for reacting to play/pause/stop events, and adjusting audio settings. " alt="" coords="36,80,229,107"/>
+<area shape="rect" id="node3" href="$ResourceManager_8h.html" title="Responsible for storing resource pointer table and respective memory management. " alt="" coords="25,155,240,181"/>
+<area shape="rect" id="node4" href="$TriggerComponent_8cpp.html" title="Components/TriggerComponent.cpp" alt="" coords="5,229,260,256"/>
+</map>

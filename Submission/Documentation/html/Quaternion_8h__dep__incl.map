@@ -1,0 +1,10 @@
+<map id="Animation/Quaternion.h" name="Animation/Quaternion.h">
+<area shape="rect" id="node2" href="$Animation_8h.html" title="Contains classes related to keyframe animation. " alt="" coords="583,80,755,107"/>
+<area shape="rect" id="node8" href="$AnimationSystem_8h_source.html" title="Systems/AnimationSystem.h" alt="" coords="946,155,1157,181"/>
+<area shape="rect" id="node9" href="$Interpolation_8h.html" title="Contains Math interpolation functions. " alt="" coords="960,80,1148,107"/>
+<area shape="rect" id="node3" href="$AnimatorController_8h.html" title="AnimatorController holds many classes related to the animation state machine. " alt="" coords="5,155,233,181"/>
+<area shape="rect" id="node4" href="$AnimModel_8h.html" title="Defines 3D Model data. " alt="" coords="258,155,437,181"/>
+<area shape="rect" id="node5" href="$FBXLoader_8h.html" title="In charge of loading the animation information from FBX format. " alt="" coords="461,155,634,181"/>
+<area shape="rect" id="node6" href="$AnimationComponent_8h_source.html" title="Components/AnimationComponent.h" alt="" coords="659,155,921,181"/>
+<area shape="rect" id="node7" href="$AllComponentHeaders_8h_source.html" title="Components/AllComponentHeaders.h" alt="" coords="657,229,923,256"/>
+</map>

@@ -1,0 +1,174 @@
+\hypertarget{classSphere}{}\section{Sphere Class Reference}
+\label{classSphere}\index{Sphere@{Sphere}}
+
+
+Inheritance diagram for Sphere\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{classSphere__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sphere\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{classSphere__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSphere_aca7691f5e4744113f60a5e1ba643c207}\label{classSphere_aca7691f5e4744113f60a5e1ba643c207}} 
+{\bfseries Sphere} (const Vector3 \&center, float radius)
+\item 
+virtual bool \hyperlink{classSphere_aea1571e835842f502a64e4ddb30847e4}{Is\+Intersect} (const \hyperlink{classAabb}{Aabb} \&aabb) const override
+\begin{DoxyCompactList}\small\item\em Interseection test with an aabb. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSphere_aa97baa4e07d8b042f99150df0757d623}{Is\+Intersect} (const \hyperlink{classSphere}{Sphere} \&sphere) const override
+\begin{DoxyCompactList}\small\item\em Intersection test with a sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{classSphere_afb32becb53288c8be90572047e996042}{Contains\+Point} (const Vector3 \&point)
+\begin{DoxyCompactList}\small\item\em checks if the given point is inside the sphere \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classSphere_ab0d5d17030115760a276545a1362ce93}{Get\+Center} () const
+\begin{DoxyCompactList}\small\item\em Get the Center of the sphere. \end{DoxyCompactList}\item 
+float \hyperlink{classSphere_a1be9f865028172ade600ed25ca0aee4f}{Get\+Radius} () const
+\begin{DoxyCompactList}\small\item\em Get the Radius of the sphere. \end{DoxyCompactList}\item 
+bool \hyperlink{classSphere_adf99590b58fce09c26fa79041efa0b65}{Compare} (const \hyperlink{classSphere}{Sphere} \&rhs, float epsilon) const
+\begin{DoxyCompactList}\small\item\em compare if spheres are close enough to be same \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSphere_a246d1e074e26dab165c5e7847618649c}\label{classSphere_a246d1e074e26dab165c5e7847618649c}} 
+Vector3 {\bfseries m\+\_\+\+Center}
+\item 
+\mbox{\Hypertarget{classSphere_a013e6356f37b24bddda33ff36bfdcd76}\label{classSphere_a013e6356f37b24bddda33ff36bfdcd76}} 
+float {\bfseries m\+\_\+\+Radius}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSphere_adf99590b58fce09c26fa79041efa0b65}\label{classSphere_adf99590b58fce09c26fa79041efa0b65}} 
+\index{Sphere@{Sphere}!Compare@{Compare}}
+\index{Compare@{Compare}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Compare()}{Compare()}}
+{\footnotesize\ttfamily bool Sphere\+::\+Compare (\begin{DoxyParamCaption}\item[{const \hyperlink{classSphere}{Sphere} \&}]{rhs,  }\item[{float}]{epsilon }\end{DoxyParamCaption}) const}
+
+
+
+compare if spheres are close enough to be same 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \\
+\hline
+{\em epsilon} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSphere_afb32becb53288c8be90572047e996042}\label{classSphere_afb32becb53288c8be90572047e996042}} 
+\index{Sphere@{Sphere}!Contains\+Point@{Contains\+Point}}
+\index{Contains\+Point@{Contains\+Point}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Contains\+Point()}{ContainsPoint()}}
+{\footnotesize\ttfamily bool Sphere\+::\+Contains\+Point (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{point }\end{DoxyParamCaption})}
+
+
+
+checks if the given point is inside the sphere 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSphere_ab0d5d17030115760a276545a1362ce93}\label{classSphere_ab0d5d17030115760a276545a1362ce93}} 
+\index{Sphere@{Sphere}!Get\+Center@{Get\+Center}}
+\index{Get\+Center@{Get\+Center}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Get\+Center()}{GetCenter()}}
+{\footnotesize\ttfamily Vector3 Sphere\+::\+Get\+Center (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Center of the sphere. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSphere_a1be9f865028172ade600ed25ca0aee4f}\label{classSphere_a1be9f865028172ade600ed25ca0aee4f}} 
+\index{Sphere@{Sphere}!Get\+Radius@{Get\+Radius}}
+\index{Get\+Radius@{Get\+Radius}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Get\+Radius()}{GetRadius()}}
+{\footnotesize\ttfamily float Sphere\+::\+Get\+Radius (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Radius of the sphere. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classSphere_aea1571e835842f502a64e4ddb30847e4}\label{classSphere_aea1571e835842f502a64e4ddb30847e4}} 
+\index{Sphere@{Sphere}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Sphere\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Interseection test with an aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classShape_a1bfc3d6c995c4326d4691b22d16d2f12}{Shape}.
+
+\mbox{\Hypertarget{classSphere_aa97baa4e07d8b042f99150df0757d623}\label{classSphere_aa97baa4e07d8b042f99150df0757d623}} 
+\index{Sphere@{Sphere}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Sphere@{Sphere}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Sphere\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classSphere}{Sphere} \&}]{sphere }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Intersection test with a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sphere} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classShape_a1c942dca54e0d81f685624f33f2ce6c8}{Shape}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Geometry/\hyperlink{Sphere_8h}{Sphere.\+h}\item 
+Physics/\+Geometry/\hyperlink{Sphere_8cpp}{Sphere.\+cpp}\end{DoxyCompactItemize}

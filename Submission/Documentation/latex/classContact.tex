@@ -1,0 +1,66 @@
+\hypertarget{classContact}{}\section{Contact Class Reference}
+\label{classContact}\index{Contact@{Contact}}
+
+
+Stores all the information relative to the contact.  
+
+
+
+
+{\ttfamily \#include $<$Constraint.\+h$>$}
+
+
+
+Collaboration diagram for Contact\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classContact__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classContact_a1af30adc27b3cc1b971dcfe01959f9e9}\label{classContact_a1af30adc27b3cc1b971dcfe01959f9e9}} 
+void \hyperlink{classContact_a1af30adc27b3cc1b971dcfe01959f9e9}{Build\+Constraints} ()
+\begin{DoxyCompactList}\small\item\em Builds the 3 constraints for the contact from the previously initialized data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classContact_a5db355d00ddb18ce037309fb6cbc9500}\label{classContact_a5db355d00ddb18ce037309fb6cbc9500}} 
+std\+::vector$<$ \hyperlink{classConstraint}{Constraint} $>$ {\bfseries m\+\_\+constraints}
+\item 
+\mbox{\Hypertarget{classContact_a9380549ad60a64820bb6ed0a3caf4e97}\label{classContact_a9380549ad60a64820bb6ed0a3caf4e97}} 
+\hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$ {\bfseries m\+\_\+objectA}
+\item 
+\mbox{\Hypertarget{classContact_a9f1e0f5aa29a630f107040c33961066a}\label{classContact_a9f1e0f5aa29a630f107040c33961066a}} 
+\hyperlink{classRigidbodyComponent}{Rigidbody\+Component} $\ast$ {\bfseries m\+\_\+objectB}
+\item 
+\mbox{\Hypertarget{classContact_a6d0ef9e980ba29be6929f5aa62047f17}\label{classContact_a6d0ef9e980ba29be6929f5aa62047f17}} 
+Vector3 {\bfseries m\+\_\+p\+A\+Local}
+\item 
+\mbox{\Hypertarget{classContact_a9d86be919bd954292afec22b844a2800}\label{classContact_a9d86be919bd954292afec22b844a2800}} 
+Vector3 {\bfseries m\+\_\+p\+B\+Local}
+\item 
+\mbox{\Hypertarget{classContact_a50c33e277ddeb3bd1f6ab69ee91e00e7}\label{classContact_a50c33e277ddeb3bd1f6ab69ee91e00e7}} 
+Vector3 {\bfseries m\+\_\+pA}
+\item 
+\mbox{\Hypertarget{classContact_a29ab504566025807593cc61f9348695a}\label{classContact_a29ab504566025807593cc61f9348695a}} 
+Vector3 {\bfseries m\+\_\+pB}
+\item 
+\mbox{\Hypertarget{classContact_a351480a3ed43b421ee758c3c8ec33e2c}\label{classContact_a351480a3ed43b421ee758c3c8ec33e2c}} 
+float {\bfseries m\+\_\+depth}
+\item 
+\mbox{\Hypertarget{classContact_af92b4be8a55d8655e0e3264d5f83f40c}\label{classContact_af92b4be8a55d8655e0e3264d5f83f40c}} 
+Vector3 {\bfseries m\+\_\+normal}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores all the information relative to the contact. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\hyperlink{Constraint_8h}{Constraint.\+h}\item 
+Physics/\hyperlink{Constraint_8cpp}{Constraint.\+cpp}\end{DoxyCompactItemize}

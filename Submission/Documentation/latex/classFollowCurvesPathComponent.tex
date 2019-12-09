@@ -1,0 +1,136 @@
+\hypertarget{classFollowCurvesPathComponent}{}\section{Follow\+Curves\+Path\+Component Class Reference}
+\label{classFollowCurvesPathComponent}\index{Follow\+Curves\+Path\+Component@{Follow\+Curves\+Path\+Component}}
+
+
+Inheritance diagram for Follow\+Curves\+Path\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classFollowCurvesPathComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Follow\+Curves\+Path\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{classFollowCurvesPathComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a0a8305b97943ca46e8d98e18a2482d07}\label{classFollowCurvesPathComponent_a0a8305b97943ca46e8d98e18a2482d07}} 
+{\bfseries Follow\+Curves\+Path\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner\+Game\+Obj)
+\item 
+void \hyperlink{classFollowCurvesPathComponent_aa66f258486a50ebc5bbbc0cf83c18d9f}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+void \hyperlink{classFollowCurvesPathComponent_aec67ef723e9aae80f28e76800d93f87c}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a865b08196002ca81a53b670e4c11a464}\label{classFollowCurvesPathComponent_a865b08196002ca81a53b670e4c11a464}} 
+void {\bfseries Set\+Motion\+Speed} (float motion\+Speed)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_afae7f49e923f7576f0aab9b17d45f165}\label{classFollowCurvesPathComponent_afae7f49e923f7576f0aab9b17d45f165}} 
+float {\bfseries Get\+Motion\+Speed} () const
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a3bcecb9a1953a6e5f1b5563c26bb42a5}\label{classFollowCurvesPathComponent_a3bcecb9a1953a6e5f1b5563c26bb42a5}} 
+void {\bfseries Set\+Enable\+Motion\+Along\+Path} (bool flag)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_ad5b43ac975b11fc478e3a20beb4634fc}\label{classFollowCurvesPathComponent_ad5b43ac975b11fc478e3a20beb4634fc}} 
+bool {\bfseries Is\+Motion\+Along\+Path\+Enabled} () const
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_af6dd425939814dc977aad8cd4a774297}\label{classFollowCurvesPathComponent_af6dd425939814dc977aad8cd4a774297}} 
+void {\bfseries Set\+Enable\+Motion\+Orientation} (bool flag)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a7b463c0d943acb832a6e182d3e29d096}\label{classFollowCurvesPathComponent_a7b463c0d943acb832a6e182d3e29d096}} 
+bool {\bfseries Is\+Motion\+Orientation\+Enabled} () const
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a742c9d8bbe754a8207a11956e505dae2}\label{classFollowCurvesPathComponent_a742c9d8bbe754a8207a11956e505dae2}} 
+float {\bfseries Get\+Spline\+Curves\+Parameter\+From\+Distance} (float distance) const
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a4026d047ff1956a546c00d01ea471d70}\label{classFollowCurvesPathComponent_a4026d047ff1956a546c00d01ea471d70}} 
+void {\bfseries Set\+Before\+Init\+Curve\+Game\+Object\+To\+Follow} (const std\+::string \&game\+Object\+Tag)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_adb34d633e7943b6465e3d41101f47bb8}\label{classFollowCurvesPathComponent_adb34d633e7943b6465e3d41101f47bb8}} 
+void {\bfseries Set\+Curve\+Game\+Object\+To\+Follow} (const std\+::string \&game\+Object\+Tag)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a2066381c9873ed82c159978ba6158301}\label{classFollowCurvesPathComponent_a2066381c9873ed82c159978ba6158301}} 
+void {\bfseries Reset\+Motion\+Time} ()
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a1676b114b2bb829de5010c18200221f0}\label{classFollowCurvesPathComponent_a1676b114b2bb829de5010c18200221f0}} 
+void {\bfseries Set\+Enable\+Reverse\+Motion} (bool flag)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a2933908450f44d9a49376137f6c36708}\label{classFollowCurvesPathComponent_a2933908450f44d9a49376137f6c36708}} 
+void {\bfseries Set\+Offset\+Follow\+Path\+Position} (float x, float y, float z)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a0510f04653b219e91a021da837019fe7}\label{classFollowCurvesPathComponent_a0510f04653b219e91a021da837019fe7}} 
+void {\bfseries Set\+Offset\+Follow\+Path\+Position} (const Vector3 \&pos)
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a907ebc75d715442527124883043875ea}\label{classFollowCurvesPathComponent_a907ebc75d715442527124883043875ea}} 
+Vector3 {\bfseries Get\+Off\+Set\+Follow\+Path\+Position} () const
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a8e9921eb44efb09eb449dbfb106d4162}\label{classFollowCurvesPathComponent_a8e9921eb44efb09eb449dbfb106d4162}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFollowCurvesPathComponent_a7303da499a5bb9fb502b47f63e2d0ff2}\label{classFollowCurvesPathComponent_a7303da499a5bb9fb502b47f63e2d0ff2}} 
+class {\bfseries Follow\+Curves\+Path\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classFollowCurvesPathComponent_aa66f258486a50ebc5bbbc0cf83c18d9f}\label{classFollowCurvesPathComponent_aa66f258486a50ebc5bbbc0cf83c18d9f}} 
+\index{Follow\+Curves\+Path\+Component@{Follow\+Curves\+Path\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Follow\+Curves\+Path\+Component@{Follow\+Curves\+Path\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Follow\+Curves\+Path\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classFollowCurvesPathComponent_aec67ef723e9aae80f28e76800d93f87c}\label{classFollowCurvesPathComponent_aec67ef723e9aae80f28e76800d93f87c}} 
+\index{Follow\+Curves\+Path\+Component@{Follow\+Curves\+Path\+Component}!Init@{Init}}
+\index{Init@{Init}!Follow\+Curves\+Path\+Component@{Follow\+Curves\+Path\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Follow\+Curves\+Path\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Follow\+Curves\+Path\+Component.\+h\item 
+Components/Follow\+Curves\+Path\+Component.\+cpp\end{DoxyCompactItemize}

@@ -1,9 +1,0 @@
-<map id="RigidbodyCompNode" name="RigidbodyCompNode">
-<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="BaseSystemCompNode" alt="" coords="5,199,180,225"/>
-<area shape="rect" id="node3" href="$classMeshComponent.html" title="MeshComponent" alt="" coords="391,199,522,225"/>
-<area shape="rect" id="node4" href="$classBaseComponent.html" title="BaseComponent" alt="" coords="408,102,537,129"/>
-<area shape="rect" id="node6" href="$classTransformComponent.html" title="Stores and updates all position related data. " alt="" coords="546,199,709,225"/>
-<area shape="rect" id="node7" href="$classRigidbodyComponent.html" title="RigidbodyComponent" alt="" coords="205,199,367,225"/>
-<area shape="rect" id="node5" href="$classGameObject.html" title="GameObject" alt="" coords="421,5,524,32"/>
-<area shape="rect" id="node8" href="$classMulticast.html" title="Multicast\&lt; void(GameObject\l *, GameObject *)\&gt;" alt="" coords="174,95,385,136"/>
-</map>

@@ -1,0 +1,85 @@
+\hypertarget{classCameraSystem}{}\section{Camera\+System Class Reference}
+\label{classCameraSystem}\index{Camera\+System@{Camera\+System}}
+
+
+Inheritance diagram for Camera\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classCameraSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Camera\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classCameraSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classCameraSystem_a2cbe7b251450e9693cf49759fba120e6}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCameraSystem_ab0ea25c2a8f704f0a0674a3bc61ddd68}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCameraSystem_a321e590f18ebbd92290c3922d5c18924}\label{classCameraSystem_a321e590f18ebbd92290c3922d5c18924}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCameraSystem_a2cbe7b251450e9693cf49759fba120e6}\label{classCameraSystem_a2cbe7b251450e9693cf49759fba120e6}} 
+\index{Camera\+System@{Camera\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Camera\+System@{Camera\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Camera\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classCameraSystem_ab0ea25c2a8f704f0a0674a3bc61ddd68}\label{classCameraSystem_ab0ea25c2a8f704f0a0674a3bc61ddd68}} 
+\index{Camera\+System@{Camera\+System}!Update@{Update}}
+\index{Update@{Update}!Camera\+System@{Camera\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Camera\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Camera\+System.\+h\item 
+Systems/Camera\+System.\+cpp\end{DoxyCompactItemize}

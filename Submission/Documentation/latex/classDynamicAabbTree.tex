@@ -1,0 +1,230 @@
+\hypertarget{classDynamicAabbTree}{}\section{Dynamic\+Aabb\+Tree Class Reference}
+\label{classDynamicAabbTree}\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+
+
+Defenition of the Dynamic \hyperlink{classAabb}{Aabb} tree.  
+
+
+
+
+{\ttfamily \#include $<$Dynamic\+Aabb\+Tree.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDynamicAabbTree_af94357cbb891f9e969f742b24e3ffb70}\label{classDynamicAabbTree_af94357cbb891f9e969f742b24e3ffb70}} 
+void \hyperlink{classDynamicAabbTree_af94357cbb891f9e969f742b24e3ffb70}{Clear} ()
+\begin{DoxyCompactList}\small\item\em Destroys the tree. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTree_a32d608fc624edf024e369a7ac334d1e7}{New\+Node} (unsigned int \&key, const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&data)
+\begin{DoxyCompactList}\small\item\em Adds new node into the tree. \end{DoxyCompactList}\item 
+float \hyperlink{classDynamicAabbTree_a6ba7bea87bd61579da6ee83f744cee00}{Surface\+Area} (const \hyperlink{classAabb}{Aabb} \&aabb1, const \hyperlink{classAabb}{Aabb} \&aabb2) const
+\begin{DoxyCompactList}\small\item\em Builds \hyperlink{classAabb}{Aabb} around two given aabb and computes its surface area. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTree_acc10af3765dfe7db89416e87f9c0c304}{Select\+Node} (\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$new\+Node, \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$left\+Node, \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$right\+Node, bool \&is\+Left) const
+\begin{DoxyCompactList}\small\item\em Selects the child which in combination with the new\+Nodes aabb result in a smaller difference in the surface area of their combined aabb. \end{DoxyCompactList}\item 
+void \hyperlink{classDynamicAabbTree_a5b1ccfaeccdac45d57316b61eb9a49ac}{Balance\+Tree} (\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$tree, bool is\+Left)
+\begin{DoxyCompactList}\small\item\em Balances the tree. \end{DoxyCompactList}\item 
+void \hyperlink{classDynamicAabbTree_a1ede16b26b57e97564fb605f65acb4b6}{Insert\+Data} (unsigned int \&key, const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&data)
+\begin{DoxyCompactList}\small\item\em Creates a new Node and inserts it into the tree based on the data provided. \end{DoxyCompactList}\item 
+void \hyperlink{classDynamicAabbTree_acacce0180628f79c049fde2af0c64a33}{Update\+Data} (unsigned int \&key, const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&data)
+\begin{DoxyCompactList}\small\item\em Reinserts the node with the given key. \end{DoxyCompactList}\item 
+void \hyperlink{classDynamicAabbTree_a57bb2fa78ba6a3932f125be5e06200db}{Remove\+Data} (unsigned int \&key)
+\begin{DoxyCompactList}\small\item\em Removes the node with the give key from the tree. \end{DoxyCompactList}\item 
+void \hyperlink{classDynamicAabbTree_a6b696b5d7886bc26ec7ee81a090bbbb9}{Cast\+Ray} (const \hyperlink{classRayCant}{Ray\+Cant} \&ray, \hyperlink{classCastResults}{Cast\+Results} \&results)
+\begin{DoxyCompactList}\small\item\em casts a ray agains the tree \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDynamicAabbTree_abaf141451bf5b62373a6a8d978bd877f}\label{classDynamicAabbTree_abaf141451bf5b62373a6a8d978bd877f}} 
+void {\bfseries Clear\+Rec} (\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$node)
+\item 
+\mbox{\Hypertarget{classDynamicAabbTree_a414b8be117907a2663d3545f991893b4}\label{classDynamicAabbTree_a414b8be117907a2663d3545f991893b4}} 
+void {\bfseries Split\+Nodes} (\hyperlink{classQueryResults}{Query\+Results} \&results, \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$left, \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$right) const
+\item 
+void \hyperlink{classDynamicAabbTree_aeac77e79abc258f405a0a31e6bfe76e6}{Self\+Query} (\hyperlink{classQueryResults}{Query\+Results} \&results)
+\begin{DoxyCompactList}\small\item\em Returns a query of all the colliding leafs in the tree. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTree_ad0e823a4a4e9bef83b3fb8d846d078e0}{Get\+Root} () const
+\begin{DoxyCompactList}\small\item\em Get the Root of the tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defenition of the Dynamic \hyperlink{classAabb}{Aabb} tree. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDynamicAabbTree_a5b1ccfaeccdac45d57316b61eb9a49ac}\label{classDynamicAabbTree_a5b1ccfaeccdac45d57316b61eb9a49ac}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Balance\+Tree@{Balance\+Tree}}
+\index{Balance\+Tree@{Balance\+Tree}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Balance\+Tree()}{BalanceTree()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Balance\+Tree (\begin{DoxyParamCaption}\item[{\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$}]{tree,  }\item[{bool}]{is\+Left }\end{DoxyParamCaption})}
+
+
+
+Balances the tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & \\
+\hline
+{\em is\+Left} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDynamicAabbTree_a6b696b5d7886bc26ec7ee81a090bbbb9}\label{classDynamicAabbTree_a6b696b5d7886bc26ec7ee81a090bbbb9}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Cast\+Ray@{Cast\+Ray}}
+\index{Cast\+Ray@{Cast\+Ray}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Cast\+Ray()}{CastRay()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Cast\+Ray (\begin{DoxyParamCaption}\item[{const \hyperlink{classRayCant}{Ray\+Cant} \&}]{ray,  }\item[{\hyperlink{classCastResults}{Cast\+Results} \&}]{results }\end{DoxyParamCaption})}
+
+
+
+casts a ray agains the tree 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ray} & \\
+\hline
+{\em results} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDynamicAabbTree_ad0e823a4a4e9bef83b3fb8d846d078e0}\label{classDynamicAabbTree_ad0e823a4a4e9bef83b3fb8d846d078e0}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Get\+Root@{Get\+Root}}
+\index{Get\+Root@{Get\+Root}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Get\+Root()}{GetRoot()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+::\+Get\+Root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Root of the tree. 
+
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTree_a1ede16b26b57e97564fb605f65acb4b6}\label{classDynamicAabbTree_a1ede16b26b57e97564fb605f65acb4b6}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Insert\+Data@{Insert\+Data}}
+\index{Insert\+Data@{Insert\+Data}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Insert\+Data()}{InsertData()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Insert\+Data (\begin{DoxyParamCaption}\item[{unsigned int \&}]{key,  }\item[{const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Creates a new Node and inserts it into the tree based on the data provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & \\
+\hline
+{\em data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDynamicAabbTree_a32d608fc624edf024e369a7ac334d1e7}\label{classDynamicAabbTree_a32d608fc624edf024e369a7ac334d1e7}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!New\+Node@{New\+Node}}
+\index{New\+Node@{New\+Node}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{New\+Node()}{NewNode()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+::\+New\+Node (\begin{DoxyParamCaption}\item[{unsigned int \&}]{key,  }\item[{const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Adds new node into the tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & \\
+\hline
+{\em data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTree_a57bb2fa78ba6a3932f125be5e06200db}\label{classDynamicAabbTree_a57bb2fa78ba6a3932f125be5e06200db}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Remove\+Data@{Remove\+Data}}
+\index{Remove\+Data@{Remove\+Data}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Remove\+Data()}{RemoveData()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Remove\+Data (\begin{DoxyParamCaption}\item[{unsigned int \&}]{key }\end{DoxyParamCaption})}
+
+
+
+Removes the node with the give key from the tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDynamicAabbTree_acc10af3765dfe7db89416e87f9c0c304}\label{classDynamicAabbTree_acc10af3765dfe7db89416e87f9c0c304}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Select\+Node@{Select\+Node}}
+\index{Select\+Node@{Select\+Node}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Select\+Node()}{SelectNode()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+::\+Select\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$}]{new\+Node,  }\item[{\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$}]{left\+Node,  }\item[{\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$}]{right\+Node,  }\item[{bool \&}]{is\+Left }\end{DoxyParamCaption}) const}
+
+
+
+Selects the child which in combination with the new\+Nodes aabb result in a smaller difference in the surface area of their combined aabb. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Node} & \\
+\hline
+{\em left\+Node} & \\
+\hline
+{\em right\+Node} & \\
+\hline
+{\em is\+Left} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTree_aeac77e79abc258f405a0a31e6bfe76e6}\label{classDynamicAabbTree_aeac77e79abc258f405a0a31e6bfe76e6}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Self\+Query@{Self\+Query}}
+\index{Self\+Query@{Self\+Query}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Self\+Query()}{SelfQuery()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Self\+Query (\begin{DoxyParamCaption}\item[{\hyperlink{classQueryResults}{Query\+Results} \&}]{results }\end{DoxyParamCaption})}
+
+
+
+Returns a query of all the colliding leafs in the tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em results} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDynamicAabbTree_a6ba7bea87bd61579da6ee83f744cee00}\label{classDynamicAabbTree_a6ba7bea87bd61579da6ee83f744cee00}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Surface\+Area@{Surface\+Area}}
+\index{Surface\+Area@{Surface\+Area}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Surface\+Area()}{SurfaceArea()}}
+{\footnotesize\ttfamily float Dynamic\+Aabb\+Tree\+::\+Surface\+Area (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb1,  }\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb2 }\end{DoxyParamCaption}) const}
+
+
+
+Builds \hyperlink{classAabb}{Aabb} around two given aabb and computes its surface area. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb1} & \\
+\hline
+{\em aabb2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTree_acacce0180628f79c049fde2af0c64a33}\label{classDynamicAabbTree_acacce0180628f79c049fde2af0c64a33}} 
+\index{Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}!Update\+Data@{Update\+Data}}
+\index{Update\+Data@{Update\+Data}!Dynamic\+Aabb\+Tree@{Dynamic\+Aabb\+Tree}}
+\subsubsection{\texorpdfstring{Update\+Data()}{UpdateData()}}
+{\footnotesize\ttfamily void Dynamic\+Aabb\+Tree\+::\+Update\+Data (\begin{DoxyParamCaption}\item[{unsigned int \&}]{key,  }\item[{const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&}]{data }\end{DoxyParamCaption})}
+
+
+
+Reinserts the node with the given key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & \\
+\hline
+{\em data} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Spatial\+Partition/\hyperlink{DynamicAabbTree_8h}{Dynamic\+Aabb\+Tree.\+h}\item 
+Physics/\+Spatial\+Partition/\hyperlink{DynamicAabbTree_8cpp}{Dynamic\+Aabb\+Tree.\+cpp}\end{DoxyCompactItemize}

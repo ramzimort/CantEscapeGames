@@ -1,0 +1,80 @@
+\hypertarget{classScriptingManager}{}\section{Scripting\+Manager Class Reference}
+\label{classScriptingManager}\index{Scripting\+Manager@{Scripting\+Manager}}
+
+
+Class that manages the scripting and the bindings from cpp to lua.  
+
+
+
+
+{\ttfamily \#include $<$Scripting\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classScriptingManager_afc9f4dc0241ba5a7aec3258757b18bff}{Scripting\+Manager} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$p\+Resourcemanager, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$p\+App\+Renderer, \hyperlink{classUserManager}{User\+Manager} $\ast$p\+User\+Manager)
+\begin{DoxyCompactList}\small\item\em Construct a new Scripting Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScriptingManager_a2266b308e615f0d19b823c3c38f76ad6}\label{classScriptingManager_a2266b308e615f0d19b823c3c38f76ad6}} 
+\hyperlink{classScriptingManager_a2266b308e615f0d19b823c3c38f76ad6}{$\sim$\+Scripting\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Scripting Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classScriptingManager_a992e8bd3e6d21e793abceb684d4717ae}\label{classScriptingManager_a992e8bd3e6d21e793abceb684d4717ae}} 
+void \hyperlink{classScriptingManager_a992e8bd3e6d21e793abceb684d4717ae}{Update} ()
+\begin{DoxyCompactList}\small\item\em Update call for the scripting manager. \end{DoxyCompactList}\item 
+sol\+::table \hyperlink{classScriptingManager_a11b9b6914dd4f5c2daa8ece918e0131c}{Get\+Script\+Deep\+Copy} (\hyperlink{classStringId}{String\+Id} script\+Name)
+\begin{DoxyCompactList}\small\item\em Given a script\textquotesingle{}s name, it will search for the lua table reference, deep copy it, and return it. This way, several objects can have the same scripted component while also having their own state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classScriptingManager_a168106b9f3693d9237b4445b177ba477}\label{classScriptingManager_a168106b9f3693d9237b4445b177ba477}} 
+sol\+::state \hyperlink{classScriptingManager_a168106b9f3693d9237b4445b177ba477}{lua\+State}
+\begin{DoxyCompactList}\small\item\em Main Lua state. All the scripts in the game are ran from the same state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that manages the scripting and the bindings from cpp to lua. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classScriptingManager_afc9f4dc0241ba5a7aec3258757b18bff}\label{classScriptingManager_afc9f4dc0241ba5a7aec3258757b18bff}} 
+\index{Scripting\+Manager@{Scripting\+Manager}!Scripting\+Manager@{Scripting\+Manager}}
+\index{Scripting\+Manager@{Scripting\+Manager}!Scripting\+Manager@{Scripting\+Manager}}
+\subsubsection{\texorpdfstring{Scripting\+Manager()}{ScriptingManager()}}
+{\footnotesize\ttfamily Scripting\+Manager\+::\+Scripting\+Manager (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{p\+Resourcemanager,  }\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{p\+App\+Renderer,  }\item[{\hyperlink{classUserManager}{User\+Manager} $\ast$}]{p\+User\+Manager }\end{DoxyParamCaption})}
+
+
+
+Construct a new Scripting Manager object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Resourcemanager} & \\
+\hline
+{\em p\+App\+Renderer} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classScriptingManager_a11b9b6914dd4f5c2daa8ece918e0131c}\label{classScriptingManager_a11b9b6914dd4f5c2daa8ece918e0131c}} 
+\index{Scripting\+Manager@{Scripting\+Manager}!Get\+Script\+Deep\+Copy@{Get\+Script\+Deep\+Copy}}
+\index{Get\+Script\+Deep\+Copy@{Get\+Script\+Deep\+Copy}!Scripting\+Manager@{Scripting\+Manager}}
+\subsubsection{\texorpdfstring{Get\+Script\+Deep\+Copy()}{GetScriptDeepCopy()}}
+{\footnotesize\ttfamily sol\+::table Scripting\+Manager\+::\+Get\+Script\+Deep\+Copy (\begin{DoxyParamCaption}\item[{\hyperlink{classStringId}{String\+Id}}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Given a script\textquotesingle{}s name, it will search for the lua table reference, deep copy it, and return it. This way, several objects can have the same scripted component while also having their own state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sol\+::table 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{ScriptingManager_8h}{Scripting\+Manager.\+h}\item 
+Managers/Scripting\+Manager.\+cpp\end{DoxyCompactItemize}

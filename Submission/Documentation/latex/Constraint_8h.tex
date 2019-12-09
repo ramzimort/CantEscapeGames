@@ -1,0 +1,54 @@
+\hypertarget{Constraint_8h}{}\section{Physics/\+Constraint.h File Reference}
+\label{Constraint_8h}\index{Physics/\+Constraint.\+h@{Physics/\+Constraint.\+h}}
+
+
+Everything that is related to constraints.  
+
+
+{\ttfamily \#include \char`\"{}Physics/\+Gjk/\+Collision\+Manifold.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Suppport\+Shape/\+Obb\+Support\+Shape.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Suppport\+Shape/\+Model\+Support\+Shape.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics/\+Gjk/\+Gjk.\+h\char`\"{}}\newline
+Include dependency graph for Constraint.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Constraint_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Constraint_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classMassMatrix}{Mass\+Matrix}
+\begin{DoxyCompactList}\small\item\em Mass matrix 12x12, with 3x3 matrices on the diagonal and zeros everywhere else. \end{DoxyCompactList}\item 
+class \hyperlink{classJacobian}{Jacobian}
+\begin{DoxyCompactList}\small\item\em Stores 12x1 \hyperlink{classJacobian}{Jacobian} vector where every 3 entry is a 3x1 vector. \end{DoxyCompactList}\item 
+class \hyperlink{classConstraint}{Constraint}
+\begin{DoxyCompactList}\small\item\em Stores and computes all the constraint information. \end{DoxyCompactList}\item 
+class \hyperlink{classContact}{Contact}
+\begin{DoxyCompactList}\small\item\em Stores all the information relative to the contact. \end{DoxyCompactList}\item 
+class \hyperlink{classContactManifold}{Contact\+Manifold}
+\begin{DoxyCompactList}\small\item\em Stores up to 4 contacts per collision between 2 rigid bodies. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Everything that is related to constraints. 
+
+\begin{DoxyAuthor}{Author}
+Aleksey Perfilev 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+12/4/2019 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright(\+C) 2019 Digi\+Pen Institute of Technology 
+\end{DoxyCopyright}

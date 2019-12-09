@@ -1,0 +1,144 @@
+\hypertarget{structAnimation}{}\section{Animation Struct Reference}
+\label{structAnimation}\index{Animation@{Animation}}
+
+
+Describes a keyframe animation for a skeleton.  
+
+
+
+
+{\ttfamily \#include $<$Animation.\+h$>$}
+
+
+
+Collaboration diagram for Animation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{structAnimation__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_ac07104f8333840b8c2fca7fe620ace19}\label{structAnimation_ac07104f8333840b8c2fca7fe620ace19}} 
+typedef \hyperlink{classMulticast}{Multicast}$<$ void(void)$>$ \hyperlink{structAnimation_ac07104f8333840b8c2fca7fe620ace19}{Anim\+Multicast}
+\begin{DoxyCompactList}\small\item\em Typedef used to define animation events (stored in a multicast form) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_ae4eef1e6d0194258f4bf2a6bbcc874f5}\label{structAnimation_ae4eef1e6d0194258f4bf2a6bbcc874f5}} 
+void \hyperlink{structAnimation_ae4eef1e6d0194258f4bf2a6bbcc874f5}{Events\+Setup} ()
+\begin{DoxyCompactList}\small\item\em Setups the animation event\textquotesingle{}s vector so it is of the right size. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimation_a0b4ff938810fc4f137b004b2a04d3c1d}{Add\+Anim\+Event} (int tick, sol\+::table entry)
+\begin{DoxyCompactList}\small\item\em Used for adding an animation event from L\+UA script. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimation_a724a8cd4b9958010758cd76a88a7853d}{Add\+Anim\+End\+Event} (sol\+::table entry)
+\begin{DoxyCompactList}\small\item\em Used for adding an animation to the end. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimation_a8178c273c3890085c4a39da1fb1531fb}{Add\+Interrupt\+Event} (sol\+::table entry)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} that fires when a transition interrupts this animation. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimation_a4bfa0e66492903e4435233193ad4979a}{Call\+Event} (float anim\+Time)
+\begin{DoxyCompactList}\small\item\em Fires an animation event (if there is one) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimation_a0447169235a9232787743cd944752b3f}\label{structAnimation_a0447169235a9232787743cd944752b3f}} 
+std\+::string \hyperlink{structAnimation_a0447169235a9232787743cd944752b3f}{anim\+Name}
+\begin{DoxyCompactList}\small\item\em \hyperlink{structAnimation}{Animation} name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a66cc7333638f071b0401072ba95c55fd}\label{structAnimation_a66cc7333638f071b0401072ba95c55fd}} 
+float \hyperlink{structAnimation_a66cc7333638f071b0401072ba95c55fd}{duration}
+\begin{DoxyCompactList}\small\item\em Duration in ticks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a929555773b65c756af1519fc39317560}\label{structAnimation_a929555773b65c756af1519fc39317560}} 
+float \hyperlink{structAnimation_a929555773b65c756af1519fc39317560}{ticks\+Per\+Second}
+\begin{DoxyCompactList}\small\item\em Ticks per second (to transform between ticks and seconds or other units) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_aad5027023051d9891c36539a27e2df3d}\label{structAnimation_aad5027023051d9891c36539a27e2df3d}} 
+bool \hyperlink{structAnimation_aad5027023051d9891c36539a27e2df3d}{loops}
+\begin{DoxyCompactList}\small\item\em If this animation loops or not. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a20f3a503b821838808d517a2230c4b94}\label{structAnimation_a20f3a503b821838808d517a2230c4b94}} 
+std\+::vector$<$ \hyperlink{structAnimation_ac07104f8333840b8c2fca7fe620ace19}{Anim\+Multicast} $>$ \hyperlink{structAnimation_a20f3a503b821838808d517a2230c4b94}{animation\+Events}
+\begin{DoxyCompactList}\small\item\em Vector of animation events, potentially one per keyframe. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a8f971c5370b646d026147098db0bd66b}\label{structAnimation_a8f971c5370b646d026147098db0bd66b}} 
+\hyperlink{structAnimation_ac07104f8333840b8c2fca7fe620ace19}{Anim\+Multicast} \hyperlink{structAnimation_a8f971c5370b646d026147098db0bd66b}{on\+Anim\+End\+Event}
+\begin{DoxyCompactList}\small\item\em This will fire if the animation ends. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a589b561e4143d544f9d3eb678650efd1}\label{structAnimation_a589b561e4143d544f9d3eb678650efd1}} 
+\hyperlink{structAnimation_ac07104f8333840b8c2fca7fe620ace19}{Anim\+Multicast} \hyperlink{structAnimation_a589b561e4143d544f9d3eb678650efd1}{on\+Anim\+Interrupt\+Event}
+\begin{DoxyCompactList}\small\item\em This will fire if the animation is interrupted. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_a929158d26b6d71f1d297820625e46fc7}\label{structAnimation_a929158d26b6d71f1d297820625e46fc7}} 
+std\+::vector$<$ \hyperlink{structAnimChannel}{Anim\+Channel} $>$ \hyperlink{structAnimation_a929158d26b6d71f1d297820625e46fc7}{channels}
+\begin{DoxyCompactList}\small\item\em Vector of animation channels. Each channel has information about which bone is animated and its keyframe information. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimation_ab0ec7a6ccca71fc844b62e2309a7a539}\label{structAnimation_ab0ec7a6ccca71fc844b62e2309a7a539}} 
+std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimChannel}{Anim\+Channel} $>$ \hyperlink{structAnimation_ab0ec7a6ccca71fc844b62e2309a7a539}{bone\+Channel\+Map}
+\begin{DoxyCompactList}\small\item\em Hash table for bone channels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Describes a keyframe animation for a skeleton. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structAnimation_a724a8cd4b9958010758cd76a88a7853d}\label{structAnimation_a724a8cd4b9958010758cd76a88a7853d}} 
+\index{Animation@{Animation}!Add\+Anim\+End\+Event@{Add\+Anim\+End\+Event}}
+\index{Add\+Anim\+End\+Event@{Add\+Anim\+End\+Event}!Animation@{Animation}}
+\subsubsection{\texorpdfstring{Add\+Anim\+End\+Event()}{AddAnimEndEvent()}}
+{\footnotesize\ttfamily void Animation\+::\+Add\+Anim\+End\+Event (\begin{DoxyParamCaption}\item[{sol\+::table}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Used for adding an animation to the end. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entry} & Table which contains the lua self reference and the method it has to run \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structAnimation_a0b4ff938810fc4f137b004b2a04d3c1d}\label{structAnimation_a0b4ff938810fc4f137b004b2a04d3c1d}} 
+\index{Animation@{Animation}!Add\+Anim\+Event@{Add\+Anim\+Event}}
+\index{Add\+Anim\+Event@{Add\+Anim\+Event}!Animation@{Animation}}
+\subsubsection{\texorpdfstring{Add\+Anim\+Event()}{AddAnimEvent()}}
+{\footnotesize\ttfamily void Animation\+::\+Add\+Anim\+Event (\begin{DoxyParamCaption}\item[{int}]{tick,  }\item[{sol\+::table}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Used for adding an animation event from L\+UA script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tick} & Which tick we want this event to happen \\
+\hline
+{\em entry} & Table which contains the lua self reference and the method it has to run \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structAnimation_a8178c273c3890085c4a39da1fb1531fb}\label{structAnimation_a8178c273c3890085c4a39da1fb1531fb}} 
+\index{Animation@{Animation}!Add\+Interrupt\+Event@{Add\+Interrupt\+Event}}
+\index{Add\+Interrupt\+Event@{Add\+Interrupt\+Event}!Animation@{Animation}}
+\subsubsection{\texorpdfstring{Add\+Interrupt\+Event()}{AddInterruptEvent()}}
+{\footnotesize\ttfamily void Animation\+::\+Add\+Interrupt\+Event (\begin{DoxyParamCaption}\item[{sol\+::table}]{entry }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\hyperlink{classEvent}{Event} that fires when a transition interrupts this animation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entry} & Table which contains the lua self reference and the method it has to run \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structAnimation_a4bfa0e66492903e4435233193ad4979a}\label{structAnimation_a4bfa0e66492903e4435233193ad4979a}} 
+\index{Animation@{Animation}!Call\+Event@{Call\+Event}}
+\index{Call\+Event@{Call\+Event}!Animation@{Animation}}
+\subsubsection{\texorpdfstring{Call\+Event()}{CallEvent()}}
+{\footnotesize\ttfamily void Animation\+::\+Call\+Event (\begin{DoxyParamCaption}\item[{float}]{anim\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Fires an animation event (if there is one) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anim\+Time} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Animation/\hyperlink{Animation_8h}{Animation.\+h}\end{DoxyCompactItemize}

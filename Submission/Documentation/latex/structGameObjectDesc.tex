@@ -1,0 +1,43 @@
+\hypertarget{structGameObjectDesc}{}\section{Game\+Object\+Desc Struct Reference}
+\label{structGameObjectDesc}\index{Game\+Object\+Desc@{Game\+Object\+Desc}}
+
+
+Descriptor of a \hyperlink{classGameObject}{Game\+Object}. Used when deferring creation of new instances, to store the information wanted on instantiation.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Object\+Manager.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structGameObjectDesc_aa55e1f89cdd761bf046cf6ee18d847ab}\label{structGameObjectDesc_aa55e1f89cdd761bf046cf6ee18d847ab}} 
+using \hyperlink{structGameObjectDesc_aa55e1f89cdd761bf046cf6ee18d847ab}{Initialize\+Component\+Setup} = std\+::function$<$ void(\hyperlink{classGameObject}{Game\+Object} $\ast$)$>$
+\begin{DoxyCompactList}\small\item\em Typedef of lambda function pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structGameObjectDesc_a52bf912e7837baadfebbf8e52dd17434}\label{structGameObjectDesc_a52bf912e7837baadfebbf8e52dd17434}} 
+\hyperlink{structGameObjectDesc_a52bf912e7837baadfebbf8e52dd17434}{Game\+Object\+Desc} ()
+\begin{DoxyCompactList}\small\item\em Construct a new Game Object Desc object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structGameObjectDesc_a2bc7ae1aa92483492a6c5459af99267b}\label{structGameObjectDesc_a2bc7ae1aa92483492a6c5459af99267b}} 
+std\+::string \hyperlink{structGameObjectDesc_a2bc7ae1aa92483492a6c5459af99267b}{tag}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classGameObject}{Game\+Object}\textquotesingle{}s tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structGameObjectDesc_a2ccd0952107fff3b7f7973ba5aa14676}\label{structGameObjectDesc_a2ccd0952107fff3b7f7973ba5aa14676}} 
+std\+::string \hyperlink{structGameObjectDesc_a2ccd0952107fff3b7f7973ba5aa14676}{prefab\+Name}
+\begin{DoxyCompactList}\small\item\em Prefab name, used when trying to instantiate from an existing prefab. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structGameObjectDesc_a0efb2764311a0e433d929362dcab57d0}\label{structGameObjectDesc_a0efb2764311a0e433d929362dcab57d0}} 
+\hyperlink{structGameObjectDesc_aa55e1f89cdd761bf046cf6ee18d847ab}{Initialize\+Component\+Setup} \hyperlink{structGameObjectDesc_a0efb2764311a0e433d929362dcab57d0}{initialize\+Component\+Setup}
+\begin{DoxyCompactList}\small\item\em Function pointer that holds the lambda that will be ran when instantiating the \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Descriptor of a \hyperlink{classGameObject}{Game\+Object}. Used when deferring creation of new instances, to store the information wanted on instantiation. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{GameObjectManager_8h}{Game\+Object\+Manager.\+h}\end{DoxyCompactItemize}

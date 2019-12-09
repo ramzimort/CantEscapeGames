@@ -1,0 +1,232 @@
+\hypertarget{classStateManager}{}\section{State\+Manager Class Reference}
+\label{classStateManager}\index{State\+Manager@{State\+Manager}}
+
+
+Class that manages the running and switching of game states.  
+
+
+
+
+{\ttfamily \#include $<$State\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classStateManager_ace918db0f769af43e0067ac425ef640a}{State\+Manager} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$m\+\_\+p\+App\+Renderer, \hyperlink{classResourceManager}{Resource\+Manager} $\ast$m\+\_\+p\+Resource\+Manager, \hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$m\+\_\+p\+Scripting\+Manager)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classState}{State} Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStateManager_a05a43504a033f1befad5c5118249ec6f}\label{classStateManager_a05a43504a033f1befad5c5118249ec6f}} 
+\hyperlink{classStateManager_a05a43504a033f1befad5c5118249ec6f}{$\sim$\+State\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \hyperlink{classState}{State} Manager object. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a5e4bd4cb8c5928d33a04506dc8c8f350}{Update\+Stack} (float dt)
+\begin{DoxyCompactList}\small\item\em Updates the current top \hyperlink{classState}{State} in the main stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a2c6bb716a4c6a388f971544c6c23e1d9}{Draw\+Stack} (float dt)
+\begin{DoxyCompactList}\small\item\em Draws, from bottom to top, every state in the stack (top state draws last, on top of other states) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStateManager_ac88d4e1ff5fab43b754bd3831be4ca97}\label{classStateManager_ac88d4e1ff5fab43b754bd3831be4ca97}} 
+void \hyperlink{classStateManager_ac88d4e1ff5fab43b754bd3831be4ca97}{Process\+Instantiation\+And\+Destruction} ()
+\begin{DoxyCompactList}\small\item\em Calls Process\+Queues on the top of the stack state. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_aca3d023f833f9b85b28668e3d3acd2d3}{Switch\+State} (const std\+::string \&level\+Path=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Switch state will wipe the current stack clean, and then push a new state defined by the level\+Path parameter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStateManager_a59a5d52d71d785b267f50f386b554787}\label{classStateManager_a59a5d52d71d785b267f50f386b554787}} 
+void \hyperlink{classStateManager_a59a5d52d71d785b267f50f386b554787}{Clear\+Stack} ()
+\begin{DoxyCompactList}\small\item\em Clears the state stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a608027305a6a97bdbc958c7e68fcb5bc}{Push\+State} (const std\+::string \&level\+Path=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Pushes a new state on top of the stack. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classStateManager_a01cd6f5dafc0add0633b0be231cce665}\label{classStateManager_a01cd6f5dafc0add0633b0be231cce665}} 
+void \hyperlink{classStateManager_a01cd6f5dafc0add0633b0be231cce665}{Pop\+State} ()
+\begin{DoxyCompactList}\small\item\em Pops the state on top of the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a7d0685d71de4237f8e5162b1a5008d71}{Load\+State} (const std\+::string \&level\+Path=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Loads a state defined by the parameter level\+Path. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_ae296599b6c4332317d9ce844f5e3bad4}{Push\+Loaded\+State} ()
+\begin{DoxyCompactList}\small\item\em Pushes the loaded state onto the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a6183ca80b9da1ff95457d070565bfb72}{On\+Push\+State\+Event} (const \hyperlink{classPushStateEvent}{Push\+State\+Event} $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} fired when a state is pushed onto the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_ad50899842a3951f45bb6a0fd8d02742e}{On\+Pop\+State\+Event} (const \hyperlink{classPopStateEvent}{Pop\+State\+Event} $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} fired when a state is popped from the stack. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a133f491b1a698d5122c26f03fe16e3a7}{On\+Load\+State\+Event} (const \hyperlink{classLoadStateEvent}{Load\+State\+Event} $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} fired when loading a state. \end{DoxyCompactList}\item 
+void \hyperlink{classStateManager_a08fd8358ae6f2258dfad8fce0b89a10a}{On\+Push\+Loaded\+State\+Event} (const \hyperlink{classPushLoadedStateEvent}{Push\+Loaded\+State\+Event} $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} fired when pushing a loaded state onto the stack. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that manages the running and switching of game states. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classStateManager_ace918db0f769af43e0067ac425ef640a}\label{classStateManager_ace918db0f769af43e0067ac425ef640a}} 
+\index{State\+Manager@{State\+Manager}!State\+Manager@{State\+Manager}}
+\index{State\+Manager@{State\+Manager}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{State\+Manager()}{StateManager()}}
+{\footnotesize\ttfamily State\+Manager\+::\+State\+Manager (\begin{DoxyParamCaption}\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{m\+\_\+p\+App\+Renderer,  }\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{m\+\_\+p\+Resource\+Manager,  }\item[{\hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$}]{m\+\_\+p\+Scripting\+Manager }\end{DoxyParamCaption})}
+
+
+
+Construct a new \hyperlink{classState}{State} Manager object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m\+\_\+p\+App\+Renderer} & \\
+\hline
+{\em m\+\_\+p\+Resource\+Manager} & \\
+\hline
+{\em m\+\_\+p\+Scripting\+Manager} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classStateManager_a2c6bb716a4c6a388f971544c6c23e1d9}\label{classStateManager_a2c6bb716a4c6a388f971544c6c23e1d9}} 
+\index{State\+Manager@{State\+Manager}!Draw\+Stack@{Draw\+Stack}}
+\index{Draw\+Stack@{Draw\+Stack}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Draw\+Stack()}{DrawStack()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Draw\+Stack (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Draws, from bottom to top, every state in the stack (top state draws last, on top of other states) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a7d0685d71de4237f8e5162b1a5008d71}\label{classStateManager_a7d0685d71de4237f8e5162b1a5008d71}} 
+\index{State\+Manager@{State\+Manager}!Load\+State@{Load\+State}}
+\index{Load\+State@{Load\+State}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Load\+State()}{LoadState()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Load\+State (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{level\+Path = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Loads a state defined by the parameter level\+Path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level\+Path} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a133f491b1a698d5122c26f03fe16e3a7}\label{classStateManager_a133f491b1a698d5122c26f03fe16e3a7}} 
+\index{State\+Manager@{State\+Manager}!On\+Load\+State\+Event@{On\+Load\+State\+Event}}
+\index{On\+Load\+State\+Event@{On\+Load\+State\+Event}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{On\+Load\+State\+Event()}{OnLoadStateEvent()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+On\+Load\+State\+Event (\begin{DoxyParamCaption}\item[{const \hyperlink{classLoadStateEvent}{Load\+State\+Event} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classEvent}{Event} fired when loading a state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_ad50899842a3951f45bb6a0fd8d02742e}\label{classStateManager_ad50899842a3951f45bb6a0fd8d02742e}} 
+\index{State\+Manager@{State\+Manager}!On\+Pop\+State\+Event@{On\+Pop\+State\+Event}}
+\index{On\+Pop\+State\+Event@{On\+Pop\+State\+Event}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{On\+Pop\+State\+Event()}{OnPopStateEvent()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+On\+Pop\+State\+Event (\begin{DoxyParamCaption}\item[{const \hyperlink{classPopStateEvent}{Pop\+State\+Event} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classEvent}{Event} fired when a state is popped from the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a08fd8358ae6f2258dfad8fce0b89a10a}\label{classStateManager_a08fd8358ae6f2258dfad8fce0b89a10a}} 
+\index{State\+Manager@{State\+Manager}!On\+Push\+Loaded\+State\+Event@{On\+Push\+Loaded\+State\+Event}}
+\index{On\+Push\+Loaded\+State\+Event@{On\+Push\+Loaded\+State\+Event}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{On\+Push\+Loaded\+State\+Event()}{OnPushLoadedStateEvent()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+On\+Push\+Loaded\+State\+Event (\begin{DoxyParamCaption}\item[{const \hyperlink{classPushLoadedStateEvent}{Push\+Loaded\+State\+Event} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classEvent}{Event} fired when pushing a loaded state onto the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a6183ca80b9da1ff95457d070565bfb72}\label{classStateManager_a6183ca80b9da1ff95457d070565bfb72}} 
+\index{State\+Manager@{State\+Manager}!On\+Push\+State\+Event@{On\+Push\+State\+Event}}
+\index{On\+Push\+State\+Event@{On\+Push\+State\+Event}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{On\+Push\+State\+Event()}{OnPushStateEvent()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+On\+Push\+State\+Event (\begin{DoxyParamCaption}\item[{const \hyperlink{classPushStateEvent}{Push\+State\+Event} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classEvent}{Event} fired when a state is pushed onto the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_ae296599b6c4332317d9ce844f5e3bad4}\label{classStateManager_ae296599b6c4332317d9ce844f5e3bad4}} 
+\index{State\+Manager@{State\+Manager}!Push\+Loaded\+State@{Push\+Loaded\+State}}
+\index{Push\+Loaded\+State@{Push\+Loaded\+State}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Push\+Loaded\+State()}{PushLoadedState()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Push\+Loaded\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Pushes the loaded state onto the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level\+Path} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a608027305a6a97bdbc958c7e68fcb5bc}\label{classStateManager_a608027305a6a97bdbc958c7e68fcb5bc}} 
+\index{State\+Manager@{State\+Manager}!Push\+State@{Push\+State}}
+\index{Push\+State@{Push\+State}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Push\+State()}{PushState()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Push\+State (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{level\+Path = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Pushes a new state on top of the stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level\+Path} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_aca3d023f833f9b85b28668e3d3acd2d3}\label{classStateManager_aca3d023f833f9b85b28668e3d3acd2d3}} 
+\index{State\+Manager@{State\+Manager}!Switch\+State@{Switch\+State}}
+\index{Switch\+State@{Switch\+State}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Switch\+State()}{SwitchState()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Switch\+State (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{level\+Path = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Switch state will wipe the current stack clean, and then push a new state defined by the level\+Path parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em level\+Path} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classStateManager_a5e4bd4cb8c5928d33a04506dc8c8f350}\label{classStateManager_a5e4bd4cb8c5928d33a04506dc8c8f350}} 
+\index{State\+Manager@{State\+Manager}!Update\+Stack@{Update\+Stack}}
+\index{Update\+Stack@{Update\+Stack}!State\+Manager@{State\+Manager}}
+\subsubsection{\texorpdfstring{Update\+Stack()}{UpdateStack()}}
+{\footnotesize\ttfamily void State\+Manager\+::\+Update\+Stack (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Updates the current top \hyperlink{classState}{State} in the main stack. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{StateManager_8h}{State\+Manager.\+h}\item 
+Managers/State\+Manager.\+cpp\end{DoxyCompactItemize}

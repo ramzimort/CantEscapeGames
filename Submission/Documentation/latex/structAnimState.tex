@@ -1,0 +1,154 @@
+\hypertarget{structAnimState}{}\section{Anim\+State Struct Reference}
+\label{structAnimState}\index{Anim\+State@{Anim\+State}}
+
+
+Represents a node in the animation state machine.  
+
+
+
+
+{\ttfamily \#include $<$Animator\+Controller.\+h$>$}
+
+
+
+Collaboration diagram for Anim\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{structAnimState__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structAnimState_aade1f3a6b816a8ca9848891d9907a3b0}{Anim\+State} (std\+::string name, \hyperlink{structAnimation}{Animation} $\ast$anim)
+\begin{DoxyCompactList}\small\item\em Construct a new Anim \hyperlink{classState}{State} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a6b1a2fd5b38143d7230ec3e9e7803d8b}\label{structAnimState_a6b1a2fd5b38143d7230ec3e9e7803d8b}} 
+\hyperlink{structAnimState_a6b1a2fd5b38143d7230ec3e9e7803d8b}{$\sim$\+Anim\+State} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Anim \hyperlink{classState}{State} object. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimState_a3f768e0e2231e5ef88cc5c99ba504530}{Set\+Transition} (\hyperlink{structAnimState}{Anim\+State} $\ast$target, float duration, std\+::vector$<$ std\+::string $>$ triggers)
+\begin{DoxyCompactList}\small\item\em Adds a new transition to this state. Used in setting up state from script. \end{DoxyCompactList}\item 
+bool \hyperlink{structAnimState_a5093653b23837023c0f077388915af20}{Check\+All\+Transitions} (std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&triggers, int \&dirty\+Flag, bool anim\+End=false)
+\begin{DoxyCompactList}\small\item\em Check for all transitions and enters the first one it can. \end{DoxyCompactList}\item 
+void \hyperlink{structAnimState_aceb8e4d8277433e1963513e09efdfd13}{Enter\+Transition} (\hyperlink{structAnimTransition}{Anim\+Transition} $\ast$transition)
+\begin{DoxyCompactList}\small\item\em Called when entering a transition. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a9cf2327df0e266aa2b0b997cb657e8c7}\label{structAnimState_a9cf2327df0e266aa2b0b997cb657e8c7}} 
+void \hyperlink{structAnimState_a9cf2327df0e266aa2b0b997cb657e8c7}{Exit\+Transition} ()
+\begin{DoxyCompactList}\small\item\em Called when exiting a transition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAnimState_a3fc2bc133d23f7e11646e98b21a509b7}\label{structAnimState_a3fc2bc133d23f7e11646e98b21a509b7}} 
+std\+::string \hyperlink{structAnimState_a3fc2bc133d23f7e11646e98b21a509b7}{state\+Name}
+\begin{DoxyCompactList}\small\item\em Name of the state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a69e8df8ec31e861fa4313081a0114091}\label{structAnimState_a69e8df8ec31e861fa4313081a0114091}} 
+\hyperlink{structAnimation}{Animation} $\ast$ \hyperlink{structAnimState_a69e8df8ec31e861fa4313081a0114091}{animation}
+\begin{DoxyCompactList}\small\item\em Name of the animation stores in the state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a83742f16bd6f9650fbc493523d8b5b6c}\label{structAnimState_a83742f16bd6f9650fbc493523d8b5b6c}} 
+float \hyperlink{structAnimState_a83742f16bd6f9650fbc493523d8b5b6c}{anim\+Time}
+\begin{DoxyCompactList}\small\item\em \hyperlink{structAnimation}{Animation} time describes how much time the animation has been running (in ticks) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a25790df877ce752e839f7f4db199f446}\label{structAnimState_a25790df877ce752e839f7f4db199f446}} 
+float \hyperlink{structAnimState_a25790df877ce752e839f7f4db199f446}{speed}
+\begin{DoxyCompactList}\small\item\em Speed of the animation (1.\+0 is default) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a6162838804ebe7bbe208d3affa089308}\label{structAnimState_a6162838804ebe7bbe208d3affa089308}} 
+bool \hyperlink{structAnimState_a6162838804ebe7bbe208d3affa089308}{is\+Anim\+Running}
+\begin{DoxyCompactList}\small\item\em Returns true if the animation is running. False if we are in transition. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a8dbd55f6f675b10fe2449df761018e19}\label{structAnimState_a8dbd55f6f675b10fe2449df761018e19}} 
+bool \hyperlink{structAnimState_a8dbd55f6f675b10fe2449df761018e19}{is\+In\+Transition}
+\begin{DoxyCompactList}\small\item\em Returns true if we are in a transition, true if the animation is running. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a5836adc57bcbc24a7c43c9021afec4c0}\label{structAnimState_a5836adc57bcbc24a7c43c9021afec4c0}} 
+\hyperlink{structAnimTransition}{Anim\+Transition} $\ast$ \hyperlink{structAnimState_a5836adc57bcbc24a7c43c9021afec4c0}{current\+Transition}
+\begin{DoxyCompactList}\small\item\em Returns the current transition (if we are in a transition, Null otherwise) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAnimState_a11936add4f5684603ddfd767749128b7}\label{structAnimState_a11936add4f5684603ddfd767749128b7}} 
+std\+::vector$<$ \hyperlink{structAnimTransition}{Anim\+Transition} $\ast$ $>$ \hyperlink{structAnimState_a11936add4f5684603ddfd767749128b7}{transitions}
+\begin{DoxyCompactList}\small\item\em Vector of transitions that this animation state has. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents a node in the animation state machine. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structAnimState_aade1f3a6b816a8ca9848891d9907a3b0}\label{structAnimState_aade1f3a6b816a8ca9848891d9907a3b0}} 
+\index{Anim\+State@{Anim\+State}!Anim\+State@{Anim\+State}}
+\index{Anim\+State@{Anim\+State}!Anim\+State@{Anim\+State}}
+\subsubsection{\texorpdfstring{Anim\+State()}{AnimState()}}
+{\footnotesize\ttfamily Anim\+State\+::\+Anim\+State (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{\hyperlink{structAnimation}{Animation} $\ast$}]{anim }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new Anim \hyperlink{classState}{State} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & \\
+\hline
+{\em anim} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structAnimState_a5093653b23837023c0f077388915af20}\label{structAnimState_a5093653b23837023c0f077388915af20}} 
+\index{Anim\+State@{Anim\+State}!Check\+All\+Transitions@{Check\+All\+Transitions}}
+\index{Check\+All\+Transitions@{Check\+All\+Transitions}!Anim\+State@{Anim\+State}}
+\subsubsection{\texorpdfstring{Check\+All\+Transitions()}{CheckAllTransitions()}}
+{\footnotesize\ttfamily bool Anim\+State\+::\+Check\+All\+Transitions (\begin{DoxyParamCaption}\item[{std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&}]{triggers,  }\item[{int \&}]{dirty\+Flag,  }\item[{bool}]{anim\+End = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Check for all transitions and enters the first one it can. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em triggers} & \\
+\hline
+{\em dirty\+Flag} & \\
+\hline
+{\em anim\+End} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structAnimState_aceb8e4d8277433e1963513e09efdfd13}\label{structAnimState_aceb8e4d8277433e1963513e09efdfd13}} 
+\index{Anim\+State@{Anim\+State}!Enter\+Transition@{Enter\+Transition}}
+\index{Enter\+Transition@{Enter\+Transition}!Anim\+State@{Anim\+State}}
+\subsubsection{\texorpdfstring{Enter\+Transition()}{EnterTransition()}}
+{\footnotesize\ttfamily void Anim\+State\+::\+Enter\+Transition (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimTransition}{Anim\+Transition} $\ast$}]{transition }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Called when entering a transition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em transition} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structAnimState_a3f768e0e2231e5ef88cc5c99ba504530}\label{structAnimState_a3f768e0e2231e5ef88cc5c99ba504530}} 
+\index{Anim\+State@{Anim\+State}!Set\+Transition@{Set\+Transition}}
+\index{Set\+Transition@{Set\+Transition}!Anim\+State@{Anim\+State}}
+\subsubsection{\texorpdfstring{Set\+Transition()}{SetTransition()}}
+{\footnotesize\ttfamily void Anim\+State\+::\+Set\+Transition (\begin{DoxyParamCaption}\item[{\hyperlink{structAnimState}{Anim\+State} $\ast$}]{target,  }\item[{float}]{duration,  }\item[{std\+::vector$<$ std\+::string $>$}]{triggers }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a new transition to this state. Used in setting up state from script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \\
+\hline
+{\em duration} & \\
+\hline
+{\em triggers} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Animation/\hyperlink{AnimatorController_8h}{Animator\+Controller.\+h}\end{DoxyCompactItemize}

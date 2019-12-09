@@ -1,0 +1,68 @@
+\hypertarget{structCustomCompNode}{}\section{Custom\+Comp\+Node Struct Reference}
+\label{structCustomCompNode}\index{Custom\+Comp\+Node@{Custom\+Comp\+Node}}
+
+
+\hyperlink{classCustomSystem}{Custom\+System} will only update \hyperlink{classCustomComponent}{Custom\+Component}. One game\+Obj can have multiple Custom\+Components, so that has to be accounted for in the node.  
+
+
+
+
+{\ttfamily \#include $<$Custom\+System.\+h$>$}
+
+
+
+Inheritance diagram for Custom\+Comp\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{structCustomCompNode__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Custom\+Comp\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{structCustomCompNode__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structCustomCompNode_aad97992d43d962acbb3662a9af2a7d68}{Custom\+Comp\+Node} (std\+::vector$<$ \hyperlink{classCustomComponent}{Custom\+Component} $\ast$$>$ const \&comp\+List)
+\begin{DoxyCompactList}\small\item\em Construct a new Custom Comp Node object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structCustomCompNode_a96e3609cd8ee658e78951d46e968ef49}\label{structCustomCompNode_a96e3609cd8ee658e78951d46e968ef49}} 
+std\+::vector$<$ \hyperlink{classCustomComponent}{Custom\+Component} $\ast$ $>$ \hyperlink{structCustomCompNode_a96e3609cd8ee658e78951d46e968ef49}{n\+\_\+components}
+\begin{DoxyCompactList}\small\item\em In this case, we can have an arbitrary number of custom components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classCustomSystem}{Custom\+System} will only update \hyperlink{classCustomComponent}{Custom\+Component}. One game\+Obj can have multiple Custom\+Components, so that has to be accounted for in the node. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structCustomCompNode_aad97992d43d962acbb3662a9af2a7d68}\label{structCustomCompNode_aad97992d43d962acbb3662a9af2a7d68}} 
+\index{Custom\+Comp\+Node@{Custom\+Comp\+Node}!Custom\+Comp\+Node@{Custom\+Comp\+Node}}
+\index{Custom\+Comp\+Node@{Custom\+Comp\+Node}!Custom\+Comp\+Node@{Custom\+Comp\+Node}}
+\subsubsection{\texorpdfstring{Custom\+Comp\+Node()}{CustomCompNode()}}
+{\footnotesize\ttfamily Custom\+Comp\+Node\+::\+Custom\+Comp\+Node (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{classCustomComponent}{Custom\+Component} $\ast$$>$ const \&}]{comp\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new Custom Comp Node object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em comp\+List} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Systems/\+Custom\+System/\hyperlink{CustomSystem_8h}{Custom\+System.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,195 @@
+\hypertarget{classModel}{}\section{Model Class Reference}
+\label{classModel}\index{Model@{Model}}
+
+
+Contains all the interface for getting \hyperlink{classModel}{Model}\textquotesingle{}s graphic data.  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+
+
+Inheritance diagram for Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classModel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classModel__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structModel_1_1Triangle}{Triangle}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classModel_a1383a9f3b27fa6afaeec834f98787469}\label{classModel_a1383a9f3b27fa6afaeec834f98787469}} 
+typedef std\+::vector$<$ \hyperlink{classMesh}{Mesh} $>$ {\bfseries Meshes\+List}
+\item 
+\mbox{\Hypertarget{classModel_acd01edc2653c0488d1cdb852b3b5312f}\label{classModel_acd01edc2653c0488d1cdb852b3b5312f}} 
+typedef std\+::vector$<$ \hyperlink{structVertexData}{Vertex\+Data} $>$ {\bfseries Vertices\+List}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBuffer}{Buffer} $\ast$ \hyperlink{classModel_a48c5723ee018e1fb2875d510b32372e4}{Get\+Vertex\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classModel}{Model}\textquotesingle{}s Vertex \hyperlink{classBuffer}{Buffer} object. \end{DoxyCompactList}\item 
+\hyperlink{classBuffer}{Buffer} $\ast$ \hyperlink{classModel_a22b66b76c6f8e17f9239d500ff03d09f}{Get\+Index\+Buffer} ()
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classModel}{Model}\textquotesingle{}s Index \hyperlink{classBuffer}{Buffer} object. \end{DoxyCompactList}\item 
+uint32\+\_\+t \hyperlink{classModel_a6a2d8f9eddca5db21295de9c90b87421}{Get\+Index\+Total\+Count} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classModel}{Model}\textquotesingle{}s Index Total Count. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classModel_a2fc308f7267e7034ff3cf07f3e62c09d}\label{classModel_a2fc308f7267e7034ff3cf07f3e62c09d}} 
+void \hyperlink{classModel_a2fc308f7267e7034ff3cf07f3e62c09d}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release all graphics resources related to \hyperlink{classModel}{Model}. \end{DoxyCompactList}\item 
+const Meshes\+List \& \hyperlink{classModel_a759f50783d758801f2893d8991acb349}{Get\+Meshes\+List} () const
+\begin{DoxyCompactList}\small\item\em Get the Meshes List of the \hyperlink{classModel}{Model}. \end{DoxyCompactList}\item 
+const Vertices\+List \& \hyperlink{classModel_a188605e846853ac0020678922e898015}{Get\+Vertices\+List} () const
+\begin{DoxyCompactList}\small\item\em Get the Vertices List of the \hyperlink{classModel}{Model}. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \hyperlink{structModel_1_1Triangle}{Triangle} $>$ \& \hyperlink{classModel_a4bceb2cedfa99f87ae84763d27a00986}{Get\+Triangle\+List} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{structModel_1_1Triangle}{Triangle} List of the \hyperlink{classModel}{Model}. \end{DoxyCompactList}\item 
+const \hyperlink{classAabb}{Aabb} \& \hyperlink{classModel_a3dd43b49bf52682994f40fa7303bcf20}{Get\+A\+A\+BB} () const
+\begin{DoxyCompactList}\small\item\em Get the bounding boxes of the \hyperlink{classModel}{Model} in object space. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classModel_a51e447ea04f6d3bf69c1c202329ee2b8}\label{classModel_a51e447ea04f6d3bf69c1c202329ee2b8}} 
+std\+::vector$<$ \hyperlink{structModel_1_1Triangle}{Triangle} $>$ {\bfseries m\+\_\+triangle\+\_\+indices}
+\item 
+\mbox{\Hypertarget{classModel_a982acd4df21f2fb90d583a11936a78ca}\label{classModel_a982acd4df21f2fb90d583a11936a78ca}} 
+Vertices\+List {\bfseries m\+\_\+vertices}
+\item 
+\mbox{\Hypertarget{classModel_a295c0501a70eefeaf1f229ed8b40ec20}\label{classModel_a295c0501a70eefeaf1f229ed8b40ec20}} 
+\hyperlink{classBuffer}{Buffer} $\ast$ {\bfseries m\+\_\+vertex\+\_\+buffer}
+\item 
+\mbox{\Hypertarget{classModel_a3e9022d69f8be6082af1435b0874fba2}\label{classModel_a3e9022d69f8be6082af1435b0874fba2}} 
+\hyperlink{classBuffer}{Buffer} $\ast$ {\bfseries m\+\_\+index\+\_\+buffer}
+\item 
+\mbox{\Hypertarget{classModel_aee6bb51234b290c65fce759602a624c9}\label{classModel_aee6bb51234b290c65fce759602a624c9}} 
+bool {\bfseries m\+\_\+has\+Bones}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classModel_ac22dade55c1e8f81ea3e0892cd321190}\label{classModel_ac22dade55c1e8f81ea3e0892cd321190}} 
+class {\bfseries Model\+Loader}
+\item 
+\mbox{\Hypertarget{classModel_a54c1252abc87a78a301e6b6984470408}\label{classModel_a54c1252abc87a78a301e6b6984470408}} 
+class {\bfseries Resource\+Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Contains all the interface for getting \hyperlink{classModel}{Model}\textquotesingle{}s graphic data. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classModel_a3dd43b49bf52682994f40fa7303bcf20}\label{classModel_a3dd43b49bf52682994f40fa7303bcf20}} 
+\index{Model@{Model}!Get\+A\+A\+BB@{Get\+A\+A\+BB}}
+\index{Get\+A\+A\+BB@{Get\+A\+A\+BB}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+A\+A\+B\+B()}{GetAABB()}}
+{\footnotesize\ttfamily const \hyperlink{classAabb}{Aabb} \& Model\+::\+Get\+A\+A\+BB (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the bounding boxes of the \hyperlink{classModel}{Model} in object space. 
+
+\begin{DoxyReturn}{Returns}
+const \hyperlink{classAabb}{Aabb}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a22b66b76c6f8e17f9239d500ff03d09f}\label{classModel_a22b66b76c6f8e17f9239d500ff03d09f}} 
+\index{Model@{Model}!Get\+Index\+Buffer@{Get\+Index\+Buffer}}
+\index{Get\+Index\+Buffer@{Get\+Index\+Buffer}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Index\+Buffer()}{GetIndexBuffer()}}
+{\footnotesize\ttfamily \hyperlink{classBuffer}{Buffer} $\ast$ Model\+::\+Get\+Index\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \hyperlink{classModel}{Model}\textquotesingle{}s Index \hyperlink{classBuffer}{Buffer} object. 
+
+\begin{DoxyReturn}{Returns}
+Buffer$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a6a2d8f9eddca5db21295de9c90b87421}\label{classModel_a6a2d8f9eddca5db21295de9c90b87421}} 
+\index{Model@{Model}!Get\+Index\+Total\+Count@{Get\+Index\+Total\+Count}}
+\index{Get\+Index\+Total\+Count@{Get\+Index\+Total\+Count}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Index\+Total\+Count()}{GetIndexTotalCount()}}
+{\footnotesize\ttfamily uint32\+\_\+t Model\+::\+Get\+Index\+Total\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{classModel}{Model}\textquotesingle{}s Index Total Count. 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a759f50783d758801f2893d8991acb349}\label{classModel_a759f50783d758801f2893d8991acb349}} 
+\index{Model@{Model}!Get\+Meshes\+List@{Get\+Meshes\+List}}
+\index{Get\+Meshes\+List@{Get\+Meshes\+List}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Meshes\+List()}{GetMeshesList()}}
+{\footnotesize\ttfamily const Model\+::\+Meshes\+List \& Model\+::\+Get\+Meshes\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Meshes List of the \hyperlink{classModel}{Model}. 
+
+\begin{DoxyReturn}{Returns}
+const Meshes\+List\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a4bceb2cedfa99f87ae84763d27a00986}\label{classModel_a4bceb2cedfa99f87ae84763d27a00986}} 
+\index{Model@{Model}!Get\+Triangle\+List@{Get\+Triangle\+List}}
+\index{Get\+Triangle\+List@{Get\+Triangle\+List}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Triangle\+List()}{GetTriangleList()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \hyperlink{structModel_1_1Triangle}{Model\+::\+Triangle} $>$ \& Model\+::\+Get\+Triangle\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{structModel_1_1Triangle}{Triangle} List of the \hyperlink{classModel}{Model}. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::vector$<$\+Triangle$>$\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a48c5723ee018e1fb2875d510b32372e4}\label{classModel_a48c5723ee018e1fb2875d510b32372e4}} 
+\index{Model@{Model}!Get\+Vertex\+Buffer@{Get\+Vertex\+Buffer}}
+\index{Get\+Vertex\+Buffer@{Get\+Vertex\+Buffer}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Vertex\+Buffer()}{GetVertexBuffer()}}
+{\footnotesize\ttfamily \hyperlink{classBuffer}{Buffer} $\ast$ Model\+::\+Get\+Vertex\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \hyperlink{classModel}{Model}\textquotesingle{}s Vertex \hyperlink{classBuffer}{Buffer} object. 
+
+\begin{DoxyReturn}{Returns}
+Buffer$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classModel_a188605e846853ac0020678922e898015}\label{classModel_a188605e846853ac0020678922e898015}} 
+\index{Model@{Model}!Get\+Vertices\+List@{Get\+Vertices\+List}}
+\index{Get\+Vertices\+List@{Get\+Vertices\+List}!Model@{Model}}
+\subsubsection{\texorpdfstring{Get\+Vertices\+List()}{GetVerticesList()}}
+{\footnotesize\ttfamily const Model\+::\+Vertices\+List \& Model\+::\+Get\+Vertices\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Vertices List of the \hyperlink{classModel}{Model}. 
+
+\begin{DoxyReturn}{Returns}
+const Vertices\+List\& 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\+Models/\hyperlink{Model_8h}{Model.\+h}\item 
+Graphics/\+Models/Model.\+cpp\end{DoxyCompactItemize}

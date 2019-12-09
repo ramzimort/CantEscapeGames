@@ -1,0 +1,32 @@
+<map id="Components/TriggerComponent.cpp" name="Components/TriggerComponent.cpp">
+<area shape="rect" id="node2" href="$TriggerComponent_8h.html" title="Trigger component to detect non physical collisions. " alt="" coords="265,162,418,189"/>
+<area shape="rect" id="node11" href="$GameObject_8h.html" title="Class representing the most basic game unit on our engine. " alt="" coords="630,80,837,107"/>
+<area shape="rect" id="node18" href="$ResourceManager_8h.html" title="Responsible for storing resource pointer table and respective memory management. " alt="" coords="1106,80,1321,107"/>
+<area shape="rect" id="node25" href="$GameObjectManager_8h.html" title="Manager that handles creation and destruction of every GameObject in the current game state..." alt="" coords="1345,80,1583,107"/>
+<area shape="rect" id="node26" href="$D3D11__Renderer_8h.html" title="The public middle level interface for executing DirectX 11 API. " alt="" coords="2100,80,2303,107"/>
+<area shape="rect" id="node3" href="$BaseComponent_8h.html" title="Base class for all components (engine and scripted) " alt="" coords="511,244,652,271"/>
+<area shape="rect" id="node4" href="$Aabb_8h.html" title="Defenition of axis alligned bounding box. " alt="" coords="247,244,436,271"/>
+<area shape="rect" id="node7" href="$Multicast_8h_source.html" title="Events/Multicast.h" alt="" coords="1187,393,1328,420"/>
+<area shape="rect" id="node9" href="$CollisionTable_8h.html" title="Stores a table of which collision masks collide with which. " alt="" coords="39,244,217,271"/>
+<area shape="rect" id="node5" href="$Shape_8h.html" title="Base class of the other shape classes. " alt="" coords="271,393,345,420"/>
+<area shape="rect" id="node6" href="$Sphere_8h.html" title="Defenition of the Sphere shape. " alt="" coords="307,319,386,345"/>
+<area shape="rect" id="node8" href="$Delegate_8h_source.html" title="Delegate.h" alt="" coords="1211,468,1304,495"/>
+<area shape="rect" id="node13" href="$CustomComponent_8h.html" title="Class that represents the CPP class behind a scripted component. " alt="" coords="617,155,850,196"/>
+<area shape="rect" id="node15" href="$CantMemory_8h.html" title="Pool and Stack Resource Allocation functions. " alt="" coords="874,162,1046,189"/>
+<area shape="rect" id="node14" href="$Hash_8h.html" title="64 bit based string hashing functions for paths " alt="" coords="1021,319,1136,345"/>
+<area shape="rect" id="node16" href="$StackAllocator_8h_source.html" title="StackAllocator.h" alt="" coords="771,244,898,271"/>
+<area shape="rect" id="node17" href="$PoolAllocator_8h.html" title="Pool Memory Management by class type definition. " alt="" coords="922,244,1041,271"/>
+<area shape="rect" id="node19" href="$AudioTypes_8h.html" title="Audio Enum. " alt="" coords="1116,244,1265,271"/>
+<area shape="rect" id="node20" href="$AudioManager_8h.html" title="Audio Manager Class for reacting to play/pause/stop events, and adjusting audio settings. " alt="" coords="1201,162,1327,189"/>
+<area shape="rect" id="node21" href="$AudioEvents_8h.html" title="Audio Events. " alt="" coords="1290,244,1494,271"/>
+<area shape="rect" id="node22" href="$Event_8h.html" title="CRTP Derived Event Class. " alt="" coords="1333,319,1451,345"/>
+<area shape="rect" id="node23" href="$BaseEvent_8h.html" title="Base Event Class. " alt="" coords="1353,393,1455,420"/>
+<area shape="rect" id="node27" href="$Common__Renderer_8h_source.html" title="Common_Renderer.h" alt="" coords="2195,393,2352,420"/>
+<area shape="rect" id="node28" href="$DescriptorData_8h_source.html" title="DescriptorData.h" alt="" coords="2011,244,2143,271"/>
+<area shape="rect" id="node30" href="$Pipeline_8h_source.html" title="Pipeline.h" alt="" coords="2281,162,2367,189"/>
+<area shape="rect" id="node32" href="$D3D__Commands_8h_source.html" title="D3D_Commands.h" alt="" coords="1995,162,2138,189"/>
+<area shape="rect" id="node35" href="$RenderTarget_8h_source.html" title="RenderTarget.h" alt="" coords="2167,244,2286,271"/>
+<area shape="rect" id="node31" href="$VertexLayout_8h_source.html" title="VertexLayout.h" alt="" coords="2361,244,2481,271"/>
+<area shape="rect" id="node33" href="$Buffer_8h_source.html" title="Buffer.h" alt="" coords="1915,244,1987,271"/>
+<area shape="rect" id="node36" href="$Texture_8h_source.html" title="Texture.h" alt="" coords="2153,319,2236,345"/>
+</map>

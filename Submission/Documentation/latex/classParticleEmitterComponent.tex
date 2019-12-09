@@ -1,0 +1,127 @@
+\hypertarget{classParticleEmitterComponent}{}\section{Particle\+Emitter\+Component Class Reference}
+\label{classParticleEmitterComponent}\index{Particle\+Emitter\+Component@{Particle\+Emitter\+Component}}
+
+
+Inheritance diagram for Particle\+Emitter\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classParticleEmitterComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Particle\+Emitter\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classParticleEmitterComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a86231997dc231c5575116784ea6aaaa3}\label{classParticleEmitterComponent_a86231997dc231c5575116784ea6aaaa3}} 
+{\bfseries Particle\+Emitter\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classParticleEmitterComponent_ace8b753108a862794dacc0455707d791}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$resource\+Manager, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer)
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+void \hyperlink{classParticleEmitterComponent_a67e362d6c3791ded19c4011f2fe12c19}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_afc4bb362afd3a8ca0617dc718290dcf8}\label{classParticleEmitterComponent_afc4bb362afd3a8ca0617dc718290dcf8}} 
+void {\bfseries Emit} ()
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a4d91b32c053338e691b371aafbdd9436}\label{classParticleEmitterComponent_a4d91b32c053338e691b371aafbdd9436}} 
+bool {\bfseries Finished\+Emitting} () const
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_aedc54d8473869460a848a1a1d29f2a35}\label{classParticleEmitterComponent_aedc54d8473869460a848a1a1d29f2a35}} 
+void {\bfseries Set\+Particle\+Size} (const Vector2 \&particle\+Size)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_af3b8d001c86a67fb09cf955c1a735af5}\label{classParticleEmitterComponent_af3b8d001c86a67fb09cf955c1a735af5}} 
+void {\bfseries Set\+Particle\+Emitter} (Particle\+Emitter\+Type particle\+Emitter\+Type)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a1c6e97911f6348863f78d9a37306e7cb}\label{classParticleEmitterComponent_a1c6e97911f6348863f78d9a37306e7cb}} 
+void {\bfseries Set\+Particle\+Emitter\+Main\+Direction} (const Vector3 \&emitter\+Direction)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_ad600125d3f9a5989c60a7726dea2dec2}\label{classParticleEmitterComponent_ad600125d3f9a5989c60a7726dea2dec2}} 
+void {\bfseries Set\+Emitter\+Direction} (const Vector3 \&dir)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a4e0615191415af6d3534e66b1cfa3b1c}\label{classParticleEmitterComponent_a4e0615191415af6d3534e66b1cfa3b1c}} 
+void {\bfseries Set\+Emitter\+Spread\+Angle\+Yaw} (float degree)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a9ca65ff05b2dfe29d99af163b67d84e9}\label{classParticleEmitterComponent_a9ca65ff05b2dfe29d99af163b67d84e9}} 
+void {\bfseries Set\+Emitter\+Spread\+Angle\+Pitch} (float degree)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a162492a203be9765f0d0e893d8dc26f9}\label{classParticleEmitterComponent_a162492a203be9765f0d0e893d8dc26f9}} 
+void {\bfseries Set\+Emitter\+Rate} (float rate)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a91972e2829066cc0bdddae9af191ec26}\label{classParticleEmitterComponent_a91972e2829066cc0bdddae9af191ec26}} 
+void {\bfseries Set\+Emitter\+Lifetime} (float lifetime)
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_af4f1eb7736e98bc8cc74a51e62517549}\label{classParticleEmitterComponent_af4f1eb7736e98bc8cc74a51e62517549}} 
+void {\bfseries Set\+Emit\+Particles\+Count} (uint32\+\_\+t emit\+Count)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a2a53fbaf367f600cf660daa875af0efd}\label{classParticleEmitterComponent_a2a53fbaf367f600cf660daa875af0efd}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classParticleEmitterComponent_a7a7b1382ea68c94bf040783d1e68bfaf}\label{classParticleEmitterComponent_a7a7b1382ea68c94bf040783d1e68bfaf}} 
+class {\bfseries Particle\+Emitter\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classParticleEmitterComponent_a67e362d6c3791ded19c4011f2fe12c19}\label{classParticleEmitterComponent_a67e362d6c3791ded19c4011f2fe12c19}} 
+\index{Particle\+Emitter\+Component@{Particle\+Emitter\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Particle\+Emitter\+Component@{Particle\+Emitter\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Particle\+Emitter\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classParticleEmitterComponent_ace8b753108a862794dacc0455707d791}\label{classParticleEmitterComponent_ace8b753108a862794dacc0455707d791}} 
+\index{Particle\+Emitter\+Component@{Particle\+Emitter\+Component}!Init@{Init}}
+\index{Init@{Init}!Particle\+Emitter\+Component@{Particle\+Emitter\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Particle\+Emitter\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Particle\+Emitter\+Component.\+h\item 
+Components/Particle\+Emitter\+Component.\+cpp\end{DoxyCompactItemize}

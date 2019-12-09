@@ -1,0 +1,421 @@
+\hypertarget{classAppRenderer}{}\section{App\+Renderer Class Reference}
+\label{classAppRenderer}\index{App\+Renderer@{App\+Renderer}}
+
+
+The high level renderer interface.  
+
+
+
+
+{\ttfamily \#include $<$App\+Renderer.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classAppRenderer_a01b9e6fe7b454466ea00c81d0eb8a89c}{App\+Renderer} (S\+D\+L\+\_\+\+Window \&sdl\+Window, \hyperlink{classResourceManager}{Resource\+Manager} $\ast$resource\+Manager, \hyperlink{classCameraManager}{Camera\+Manager} $\ast$camera\+Manager)
+\begin{DoxyCompactList}\small\item\em Construct a new App Renderer object. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_afef47670f4584e2caa6fa750aacd089e}{Update\+App\+Renderer} (float dt)
+\begin{DoxyCompactList}\small\item\em Contains update logic for \hyperlink{classAppRenderer}{App\+Renderer}. No render api is called in this function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_a2a094187727c735aeb1ca376f4d02f29}\label{classAppRenderer_a2a094187727c735aeb1ca376f4d02f29}} 
+void \hyperlink{classAppRenderer_a2a094187727c735aeb1ca376f4d02f29}{Render\+App} ()
+\begin{DoxyCompactList}\small\item\em Render all queued render request info to swap chain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_a393b3c6f865bc07612f26e185100ca6a}\label{classAppRenderer_a393b3c6f865bc07612f26e185100ca6a}} 
+void \hyperlink{classAppRenderer_a393b3c6f865bc07612f26e185100ca6a}{Present\+App} ()
+\begin{DoxyCompactList}\small\item\em Present rendered data to swapchain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_ab0d289c6d6375e274c91f42d3256d584}\label{classAppRenderer_ab0d289c6d6375e274c91f42d3256d584}} 
+void \hyperlink{classAppRenderer_ab0d289c6d6375e274c91f42d3256d584}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release all graphics related resources. \end{DoxyCompactList}\item 
+\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$ \hyperlink{classAppRenderer_a22dc8c3e1972281376b321336d6451a3}{Get\+D\+X\+Renderer} ()
+\begin{DoxyCompactList}\small\item\em Get \hyperlink{classDXRenderer}{D\+X\+Renderer}, a D3\+D11 interface renderer. \end{DoxyCompactList}\item 
+S\+D\+L\+\_\+\+Window \& \hyperlink{classAppRenderer_ae523d428966c527b385a65bae7bdb086}{Get\+S\+D\+L\+Window} ()
+\begin{DoxyCompactList}\small\item\em Get reference to S\+D\+L\+Window. \end{DoxyCompactList}\item 
+\hyperlink{classDebugRendering}{Debug\+Rendering} \& \hyperlink{classAppRenderer_af4f38db33ff5ff4a321e9c44e9472b41}{Get\+Debug\+Rendering} ()
+\begin{DoxyCompactList}\small\item\em Get the Debug Rendering object. \end{DoxyCompactList}\item 
+\hyperlink{classParticleRendering}{Particle\+Rendering} \& \hyperlink{classAppRenderer_a0e5afe33f9a99df3c7b546710d20aa45}{Get\+Particle\+Rendering} ()
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{structParticle}{Particle} Rendering object. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_af7ca20884c77f5d17a59835742611803}{Register\+Basic\+Instance} (const \hyperlink{structInstanceRenderData}{Instance\+Render\+Data} \&instance\+Render\+Data)
+\begin{DoxyCompactList}\small\item\em Pass render info request for any primitive meshes or artist defined meshes. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_ab12a770688fb1d142c6701acebfdd6b4}{Register\+Directional\+Light\+Instance} (const \hyperlink{structDirectionalLightInstanceData}{Directional\+Light\+Instance\+Data} \&directional\+Light\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass directional lighting info to the current scene. Used to illuminate scene globally. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a8dcf762bbcbdce2de5e3f0a8810ab5dc}{Register\+Halo\+Effect\+Instance} (const \hyperlink{structHaloEffectInstanceData}{Halo\+Effect\+Instance\+Data} \&halo\+Effect\+Data)
+\begin{DoxyCompactList}\small\item\em Pass halo effect info to the current scene. Sphere-\/like glow effect. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a214f01562badba6e4f10038a239917f8}{Register\+Point\+Light\+Instance} (const \hyperlink{structPointLightInstanceData}{Point\+Light\+Instance\+Data} \&point\+Light\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass point lighting info to the current scene. Used to illuminate portion of the scene. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a28300e8e65298f09dff5d469dea3f85c}{Register\+Bone\+Mesh\+Instance} (const \hyperlink{structBoneMeshInstanceRenderData}{Bone\+Mesh\+Instance\+Render\+Data} \&bone\+Mesh\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass render info request for animated skinned model. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_ac80c3259382af5a0bd7163132da9c718}{Register\+U\+I\+Object\+Instance} (const \hyperlink{structUIObjectInstanceRenderData}{U\+I\+Object\+Instance\+Render\+Data} \&ui\+Object\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass render info request for orthographic UI rendering. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_aaca975e8c6b1ac11095591926d942e4c}{Register\+Text\+Font\+Instance} (const \hyperlink{structTextFontInstanceRenderData}{Text\+Font\+Instance\+Render\+Data} \&text\+Font\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass render info request for D\+X11 screen space text rendering. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a9d8be5bfc486bd5bf432366784477ecf}{Register\+Text\+Font\+Instance} (const std\+::string \&text, uint32\+\_\+t font\+Type, const Vector2 \&position, const Vector3 \&color, const Vector3 \&scale, float rotation)
+\begin{DoxyCompactList}\small\item\em Pass render info request for D\+X11 screen space text rendering. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_ab636c593d1bb6b85dae508ee2945c9a8}{Register\+Text\+Font\+Instance} (const std\+::wstring \&text, Font\+Type font\+Type, const Vector2 \&position, const Vector3 \&color, const Vector3 \&scale, float rotation)
+\begin{DoxyCompactList}\small\item\em Pass render info request for D\+X11 screen space text rendering. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a46cea9dbc355592e2b3d74b8ef297175}{Register\+Process\+Skybox\+Irradiance\+Instance} (const \hyperlink{structProcessSkyboxIrradianceInstanceData}{Process\+Skybox\+Irradiance\+Instance\+Data} \&process\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass unbaked skybox data to the internal app renderer. App rendere bake the skybox to irradiance \& specular data. \end{DoxyCompactList}\item 
+void \hyperlink{classAppRenderer_a596152f75036dfc597666d3ead6e0959}{Register\+Baked\+Skybox\+Irradiance\+Instance} (const \hyperlink{structBakedSkyboxIrradianceInstanceData}{Baked\+Skybox\+Irradiance\+Instance\+Data} \&baked\+Instance\+Data)
+\begin{DoxyCompactList}\small\item\em Pass baked skybox irradiance data to the scene. Will illuminate the scene globally based on skybox H\+DR illumination. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_abcb06ec3a4f44df9a6b93c9da882e150}\label{classAppRenderer_abcb06ec3a4f44df9a6b93c9da882e150}} 
+void \hyperlink{classAppRenderer_abcb06ec3a4f44df9a6b93c9da882e150}{Initialize\+Renderer} ()
+\begin{DoxyCompactList}\small\item\em Initialize D\+X11 renderer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_a469d6a18301eabc3c4942a2a7d95a5fe}\label{classAppRenderer_a469d6a18301eabc3c4942a2a7d95a5fe}} 
+void \hyperlink{classAppRenderer_a469d6a18301eabc3c4942a2a7d95a5fe}{Initialize\+Resources} ()
+\begin{DoxyCompactList}\small\item\em Initialize high level resources. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAppRenderer_a243e0f5390b30ead7661cda98fd606a6}\label{classAppRenderer_a243e0f5390b30ead7661cda98fd606a6}} 
+void \hyperlink{classAppRenderer_a243e0f5390b30ead7661cda98fd606a6}{Load\+Content} ()
+\begin{DoxyCompactList}\small\item\em Load high level resources (this is set to be called for every windows resize event in the future) \end{DoxyCompactList}\item 
+\hyperlink{classMomentShadowMapRendering}{Moment\+Shadow\+Map\+Rendering} \& \hyperlink{classAppRenderer_af86218b9be6d10b9a5f39e89dc828d53}{Get\+Moment\+Shadow\+Map} ()
+\begin{DoxyCompactList}\small\item\em Get the Moment Shadow Map Rendering object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a355bf32616f2e1751ee46bd315e905e5}\label{classAppRenderer_a355bf32616f2e1751ee46bd315e905e5}} 
+class {\bfseries Deferred\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a6611940d699c1a465f439495d9ad98d3}\label{classAppRenderer_a6611940d699c1a465f439495d9ad98d3}} 
+class {\bfseries Debug\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_ad456619a35eac3a6efbe8557a0ccc425}\label{classAppRenderer_ad456619a35eac3a6efbe8557a0ccc425}} 
+class {\bfseries Depth\+Pass\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a23797ad96fd0436c2365d4c86df7adde}\label{classAppRenderer_a23797ad96fd0436c2365d4c86df7adde}} 
+class {\bfseries Moment\+Shadow\+Map\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_ac54ffcb054b1f5a95256118dbdeae9f2}\label{classAppRenderer_ac54ffcb054b1f5a95256118dbdeae9f2}} 
+class {\bfseries M\+S\+A\+A\+Resolve\+Pass}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a0cb4dedb676c1c060cf82ddb22f668bf}\label{classAppRenderer_a0cb4dedb676c1c060cf82ddb22f668bf}} 
+class {\bfseries Particle\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a7bec99218ac38952a4baa8888bc7fedc}\label{classAppRenderer_a7bec99218ac38952a4baa8888bc7fedc}} 
+class {\bfseries Deferred\+Rendering\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_aa2fce3a4ae64b69f01e0fd64ba26023a}\label{classAppRenderer_aa2fce3a4ae64b69f01e0fd64ba26023a}} 
+class {\bfseries Debug\+Rendering\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_aba9f3240241811e775ef4280a9df4333}\label{classAppRenderer_aba9f3240241811e775ef4280a9df4333}} 
+class {\bfseries Particle\+Rendering\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a0afda4cbff6d9e5529eca6ee18a2a129}\label{classAppRenderer_a0afda4cbff6d9e5529eca6ee18a2a129}} 
+class {\bfseries App\+Renderer\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a1b9897dd2ae9e6c35d99de6c02d2b693}\label{classAppRenderer_a1b9897dd2ae9e6c35d99de6c02d2b693}} 
+class {\bfseries Equirectangular\+To\+Skybox\+Render}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a2ed53da06aa8c96971b58644b85ea2d3}\label{classAppRenderer_a2ed53da06aa8c96971b58644b85ea2d3}} 
+class {\bfseries Equirectangular\+To\+Skybox\+Render\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_afeb3653020f8cc65d4b08c7ea9559a43}\label{classAppRenderer_afeb3653020f8cc65d4b08c7ea9559a43}} 
+class {\bfseries I\+B\+L\+Filter\+Env\+Map\+Pass}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a931e3cacb3eb1341332fd7477decd15d}\label{classAppRenderer_a931e3cacb3eb1341332fd7477decd15d}} 
+class {\bfseries U\+I\+Object\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_af8087aef5ebe8f9a42bfabe1e0672728}\label{classAppRenderer_af8087aef5ebe8f9a42bfabe1e0672728}} 
+class {\bfseries U\+I\+Object\+Rendering\+Instance}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a4708d497b34a7f0c5e0a38cfa536a26c}\label{classAppRenderer_a4708d497b34a7f0c5e0a38cfa536a26c}} 
+class {\bfseries Text\+Rendering}
+\item 
+\mbox{\Hypertarget{classAppRenderer_a5532c3b535b4f2a814054dba701936df}\label{classAppRenderer_a5532c3b535b4f2a814054dba701936df}} 
+class {\bfseries Text\+Rendering\+Instance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The high level renderer interface. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAppRenderer_a01b9e6fe7b454466ea00c81d0eb8a89c}\label{classAppRenderer_a01b9e6fe7b454466ea00c81d0eb8a89c}} 
+\index{App\+Renderer@{App\+Renderer}!App\+Renderer@{App\+Renderer}}
+\index{App\+Renderer@{App\+Renderer}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{App\+Renderer()}{AppRenderer()}}
+{\footnotesize\ttfamily App\+Renderer\+::\+App\+Renderer (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Window \&}]{sdl\+Window,  }\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{resource\+Manager,  }\item[{\hyperlink{classCameraManager}{Camera\+Manager} $\ast$}]{camera\+Manager }\end{DoxyParamCaption})}
+
+
+
+Construct a new App Renderer object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sdl\+Window} & \\
+\hline
+{\em resource\+Manager} & \\
+\hline
+{\em camera\+Manager} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classAppRenderer_af4f38db33ff5ff4a321e9c44e9472b41}\label{classAppRenderer_af4f38db33ff5ff4a321e9c44e9472b41}} 
+\index{App\+Renderer@{App\+Renderer}!Get\+Debug\+Rendering@{Get\+Debug\+Rendering}}
+\index{Get\+Debug\+Rendering@{Get\+Debug\+Rendering}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Debug\+Rendering()}{GetDebugRendering()}}
+{\footnotesize\ttfamily \hyperlink{classDebugRendering}{Debug\+Rendering} \& App\+Renderer\+::\+Get\+Debug\+Rendering (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Debug Rendering object. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classDebugRendering}{Debug\+Rendering}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppRenderer_a22dc8c3e1972281376b321336d6451a3}\label{classAppRenderer_a22dc8c3e1972281376b321336d6451a3}} 
+\index{App\+Renderer@{App\+Renderer}!Get\+D\+X\+Renderer@{Get\+D\+X\+Renderer}}
+\index{Get\+D\+X\+Renderer@{Get\+D\+X\+Renderer}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+D\+X\+Renderer()}{GetDXRenderer()}}
+{\footnotesize\ttfamily \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$ App\+Renderer\+::\+Get\+D\+X\+Renderer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get \hyperlink{classDXRenderer}{D\+X\+Renderer}, a D3\+D11 interface renderer. 
+
+\begin{DoxyReturn}{Returns}
+D\+X\+Renderer$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppRenderer_af86218b9be6d10b9a5f39e89dc828d53}\label{classAppRenderer_af86218b9be6d10b9a5f39e89dc828d53}} 
+\index{App\+Renderer@{App\+Renderer}!Get\+Moment\+Shadow\+Map@{Get\+Moment\+Shadow\+Map}}
+\index{Get\+Moment\+Shadow\+Map@{Get\+Moment\+Shadow\+Map}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Moment\+Shadow\+Map()}{GetMomentShadowMap()}}
+{\footnotesize\ttfamily \hyperlink{classMomentShadowMapRendering}{Moment\+Shadow\+Map\+Rendering} \& App\+Renderer\+::\+Get\+Moment\+Shadow\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Moment Shadow Map Rendering object. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classMomentShadowMapRendering}{Moment\+Shadow\+Map\+Rendering}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppRenderer_a0e5afe33f9a99df3c7b546710d20aa45}\label{classAppRenderer_a0e5afe33f9a99df3c7b546710d20aa45}} 
+\index{App\+Renderer@{App\+Renderer}!Get\+Particle\+Rendering@{Get\+Particle\+Rendering}}
+\index{Get\+Particle\+Rendering@{Get\+Particle\+Rendering}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Particle\+Rendering()}{GetParticleRendering()}}
+{\footnotesize\ttfamily \hyperlink{classParticleRendering}{Particle\+Rendering} \& App\+Renderer\+::\+Get\+Particle\+Rendering (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \hyperlink{structParticle}{Particle} Rendering object. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classParticleRendering}{Particle\+Rendering}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppRenderer_ae523d428966c527b385a65bae7bdb086}\label{classAppRenderer_ae523d428966c527b385a65bae7bdb086}} 
+\index{App\+Renderer@{App\+Renderer}!Get\+S\+D\+L\+Window@{Get\+S\+D\+L\+Window}}
+\index{Get\+S\+D\+L\+Window@{Get\+S\+D\+L\+Window}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+S\+D\+L\+Window()}{GetSDLWindow()}}
+{\footnotesize\ttfamily S\+D\+L\+\_\+\+Window \& App\+Renderer\+::\+Get\+S\+D\+L\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get reference to S\+D\+L\+Window. 
+
+\begin{DoxyReturn}{Returns}
+S\+D\+L\+\_\+\+Window\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAppRenderer_a596152f75036dfc597666d3ead6e0959}\label{classAppRenderer_a596152f75036dfc597666d3ead6e0959}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Baked\+Skybox\+Irradiance\+Instance@{Register\+Baked\+Skybox\+Irradiance\+Instance}}
+\index{Register\+Baked\+Skybox\+Irradiance\+Instance@{Register\+Baked\+Skybox\+Irradiance\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Baked\+Skybox\+Irradiance\+Instance()}{RegisterBakedSkyboxIrradianceInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Baked\+Skybox\+Irradiance\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structBakedSkyboxIrradianceInstanceData}{Baked\+Skybox\+Irradiance\+Instance\+Data} \&}]{baked\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass baked skybox irradiance data to the scene. Will illuminate the scene globally based on skybox H\+DR illumination. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em baked\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_af7ca20884c77f5d17a59835742611803}\label{classAppRenderer_af7ca20884c77f5d17a59835742611803}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Basic\+Instance@{Register\+Basic\+Instance}}
+\index{Register\+Basic\+Instance@{Register\+Basic\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Basic\+Instance()}{RegisterBasicInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Basic\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structInstanceRenderData}{Instance\+Render\+Data} \&}]{instance\+Render\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for any primitive meshes or artist defined meshes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance\+Render\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_a28300e8e65298f09dff5d469dea3f85c}\label{classAppRenderer_a28300e8e65298f09dff5d469dea3f85c}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Bone\+Mesh\+Instance@{Register\+Bone\+Mesh\+Instance}}
+\index{Register\+Bone\+Mesh\+Instance@{Register\+Bone\+Mesh\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Bone\+Mesh\+Instance()}{RegisterBoneMeshInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Bone\+Mesh\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structBoneMeshInstanceRenderData}{Bone\+Mesh\+Instance\+Render\+Data} \&}]{bone\+Mesh\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for animated skinned model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bone\+Mesh\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_ab12a770688fb1d142c6701acebfdd6b4}\label{classAppRenderer_ab12a770688fb1d142c6701acebfdd6b4}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Directional\+Light\+Instance@{Register\+Directional\+Light\+Instance}}
+\index{Register\+Directional\+Light\+Instance@{Register\+Directional\+Light\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Directional\+Light\+Instance()}{RegisterDirectionalLightInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Directional\+Light\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structDirectionalLightInstanceData}{Directional\+Light\+Instance\+Data} \&}]{directional\+Light\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass directional lighting info to the current scene. Used to illuminate scene globally. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em directional\+Light\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_a8dcf762bbcbdce2de5e3f0a8810ab5dc}\label{classAppRenderer_a8dcf762bbcbdce2de5e3f0a8810ab5dc}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Halo\+Effect\+Instance@{Register\+Halo\+Effect\+Instance}}
+\index{Register\+Halo\+Effect\+Instance@{Register\+Halo\+Effect\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Halo\+Effect\+Instance()}{RegisterHaloEffectInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Halo\+Effect\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structHaloEffectInstanceData}{Halo\+Effect\+Instance\+Data} \&}]{halo\+Effect\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass halo effect info to the current scene. Sphere-\/like glow effect. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em halo\+Effect\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_a214f01562badba6e4f10038a239917f8}\label{classAppRenderer_a214f01562badba6e4f10038a239917f8}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Point\+Light\+Instance@{Register\+Point\+Light\+Instance}}
+\index{Register\+Point\+Light\+Instance@{Register\+Point\+Light\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Point\+Light\+Instance()}{RegisterPointLightInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Point\+Light\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structPointLightInstanceData}{Point\+Light\+Instance\+Data} \&}]{point\+Light\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass point lighting info to the current scene. Used to illuminate portion of the scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point\+Light\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_a46cea9dbc355592e2b3d74b8ef297175}\label{classAppRenderer_a46cea9dbc355592e2b3d74b8ef297175}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Process\+Skybox\+Irradiance\+Instance@{Register\+Process\+Skybox\+Irradiance\+Instance}}
+\index{Register\+Process\+Skybox\+Irradiance\+Instance@{Register\+Process\+Skybox\+Irradiance\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Process\+Skybox\+Irradiance\+Instance()}{RegisterProcessSkyboxIrradianceInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Process\+Skybox\+Irradiance\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structProcessSkyboxIrradianceInstanceData}{Process\+Skybox\+Irradiance\+Instance\+Data} \&}]{process\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass unbaked skybox data to the internal app renderer. App rendere bake the skybox to irradiance \& specular data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_aaca975e8c6b1ac11095591926d942e4c}\label{classAppRenderer_aaca975e8c6b1ac11095591926d942e4c}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}}
+\index{Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Text\+Font\+Instance()}{RegisterTextFontInstance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Text\+Font\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structTextFontInstanceRenderData}{Text\+Font\+Instance\+Render\+Data} \&}]{text\+Font\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for D\+X11 screen space text rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text\+Font\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_a9d8be5bfc486bd5bf432366784477ecf}\label{classAppRenderer_a9d8be5bfc486bd5bf432366784477ecf}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}}
+\index{Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Text\+Font\+Instance()}{RegisterTextFontInstance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Text\+Font\+Instance (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{text,  }\item[{uint32\+\_\+t}]{font\+Type,  }\item[{const Vector2 \&}]{position,  }\item[{const Vector3 \&}]{color,  }\item[{const Vector3 \&}]{scale,  }\item[{float}]{rotation }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for D\+X11 screen space text rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & \\
+\hline
+{\em font\+Type} & \\
+\hline
+{\em position} & \\
+\hline
+{\em color} & \\
+\hline
+{\em scale} & \\
+\hline
+{\em rotation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_ab636c593d1bb6b85dae508ee2945c9a8}\label{classAppRenderer_ab636c593d1bb6b85dae508ee2945c9a8}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}}
+\index{Register\+Text\+Font\+Instance@{Register\+Text\+Font\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+Text\+Font\+Instance()}{RegisterTextFontInstance()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+Text\+Font\+Instance (\begin{DoxyParamCaption}\item[{const std\+::wstring \&}]{text,  }\item[{Font\+Type}]{font\+Type,  }\item[{const Vector2 \&}]{position,  }\item[{const Vector3 \&}]{color,  }\item[{const Vector3 \&}]{scale,  }\item[{float}]{rotation }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for D\+X11 screen space text rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & \\
+\hline
+{\em font\+Type} & \\
+\hline
+{\em position} & \\
+\hline
+{\em color} & \\
+\hline
+{\em scale} & \\
+\hline
+{\em rotation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_ac80c3259382af5a0bd7163132da9c718}\label{classAppRenderer_ac80c3259382af5a0bd7163132da9c718}} 
+\index{App\+Renderer@{App\+Renderer}!Register\+U\+I\+Object\+Instance@{Register\+U\+I\+Object\+Instance}}
+\index{Register\+U\+I\+Object\+Instance@{Register\+U\+I\+Object\+Instance}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Register\+U\+I\+Object\+Instance()}{RegisterUIObjectInstance()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Register\+U\+I\+Object\+Instance (\begin{DoxyParamCaption}\item[{const \hyperlink{structUIObjectInstanceRenderData}{U\+I\+Object\+Instance\+Render\+Data} \&}]{ui\+Object\+Instance\+Data }\end{DoxyParamCaption})}
+
+
+
+Pass render info request for orthographic UI rendering. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ui\+Object\+Instance\+Data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classAppRenderer_afef47670f4584e2caa6fa750aacd089e}\label{classAppRenderer_afef47670f4584e2caa6fa750aacd089e}} 
+\index{App\+Renderer@{App\+Renderer}!Update\+App\+Renderer@{Update\+App\+Renderer}}
+\index{Update\+App\+Renderer@{Update\+App\+Renderer}!App\+Renderer@{App\+Renderer}}
+\subsubsection{\texorpdfstring{Update\+App\+Renderer()}{UpdateAppRenderer()}}
+{\footnotesize\ttfamily void App\+Renderer\+::\+Update\+App\+Renderer (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Contains update logic for \hyperlink{classAppRenderer}{App\+Renderer}. No render api is called in this function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\hyperlink{AppRenderer_8h}{App\+Renderer.\+h}\item 
+Graphics/App\+Renderer.\+cpp\end{DoxyCompactItemize}

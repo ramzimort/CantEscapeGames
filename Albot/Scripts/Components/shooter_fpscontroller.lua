@@ -141,7 +141,7 @@ shooter_fpscontroller.OnKey = function(self, key, state)
 end
 
 shooter_fpscontroller.OnMouseMotion = function(self, position, deltaposition)
-	LOG("Delta: " ..  deltaposition.x .. " " .. deltaposition.y .. "\n");
+	--LOG("Delta: " ..  deltaposition.x .. " " .. deltaposition.y .. "\n");
 	self.Rotation.x = -1.0*deltaposition.y * self.Sensitivity.y;
 	self.Rotation.y = -1.0*deltaposition.x * self.Sensitivity.x;
 	self.Rotation.z = 0.0;
