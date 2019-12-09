@@ -1,7 +1,0 @@
-<map id="Constraint" name="Constraint">
-<area shape="rect" id="node2" href="$classJacobian.html" title="Jacobian" alt="" coords="22,199,99,225"/>
-<area shape="rect" id="node3" href="$classRigidbodyComponent.html" title="RigidbodyComponent" alt="" coords="123,199,286,225"/>
-<area shape="rect" id="node4" href="$classBaseComponent.html" title="BaseComponent" alt="" coords="5,102,135,129"/>
-<area shape="rect" id="node5" href="$classGameObject.html" title="GameObject" alt="" coords="19,5,121,32"/>
-<area shape="rect" id="node6" href="$classMulticast.html" title="Multicast\&lt; void(GameObject\l *, GameObject *)\&gt;" alt="" coords="159,95,370,136"/>
-</map>

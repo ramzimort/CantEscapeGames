@@ -1,8 +1,0 @@
-<map id="GraphicsPipelineDesc" name="GraphicsPipelineDesc">
-<area shape="rect" id="node2" href="$classShader.html" title="Shader" alt="" coords="5,95,72,121"/>
-<area shape="rect" id="node3" href="$classDepthState.html" title="DepthState" alt="" coords="97,95,191,121"/>
-<area shape="rect" id="node4" href="$structVertexLayout.html" title="VertexLayout" alt="" coords="222,95,330,121"/>
-<area shape="rect" id="node5" href="$structVertexAttrib.html" title="VertexAttrib" alt="" coords="226,5,326,32"/>
-<area shape="rect" id="node6" href="$classBlendState.html" title="BlendState" alt="" coords="375,95,468,121"/>
-<area shape="rect" id="node7" href="$classRasterizerState.html" title="RasterizerState" alt="" coords="492,95,615,121"/>
-</map>

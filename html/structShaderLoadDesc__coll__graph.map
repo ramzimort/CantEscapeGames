@@ -1,7 +1,0 @@
-<map id="ShaderLoadDesc" name="ShaderLoadDesc">
-<area shape="rect" id="node2" href="$structGeometryShaderStreamoutDesc.html" title="GeometryShaderStreamoutDesc" alt="" coords="5,184,237,211"/>
-<area shape="rect" id="node3" href="$structVertexLayout.html" title="VertexLayout" alt="" coords="67,95,175,121"/>
-<area shape="rect" id="node4" href="$structVertexAttrib.html" title="VertexAttrib" alt="" coords="71,5,171,32"/>
-<area shape="rect" id="node5" href="$structShaderMacro.html" title="ShaderMacro" alt="" coords="316,184,423,211"/>
-<area shape="rect" id="node6" href="$structShaderDesc.html" title="ShaderDesc" alt="" coords="468,184,567,211"/>
-</map>

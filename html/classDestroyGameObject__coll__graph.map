@@ -1,4 +1,0 @@
-<map id="DestroyGameObject" name="DestroyGameObject">
-<area shape="rect" id="node2" href="$classEvent.html" title="Event\&lt; DestroyGameObject \&gt;" alt="" coords="5,80,227,107"/>
-<area shape="rect" id="node3" href="$classBaseEvent.html" title="Base Event Class that is mirrored for event callbacks. " alt="" coords="71,5,161,32"/>
-</map>

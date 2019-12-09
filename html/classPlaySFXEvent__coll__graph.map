@@ -1,5 +1,0 @@
-<map id="PlaySFXEvent" name="PlaySFXEvent">
-<area shape="rect" id="node2" href="$classEvent.html" title="Event\&lt; PlaySFXEvent \&gt;" alt="" coords="5,81,184,108"/>
-<area shape="rect" id="node3" href="$classBaseEvent.html" title="Base Event Class that is mirrored for event callbacks. " alt="" coords="49,5,140,32"/>
-<area shape="rect" id="node4" href="$classStringId.html" title="Hashed version of string. (Contains both size_t and string in DEVELOPER) " alt="" coords="208,81,280,108"/>
-</map>

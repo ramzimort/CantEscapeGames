@@ -1,5 +1,0 @@
-<map id="CameraDestructionEvent" name="CameraDestructionEvent">
-<area shape="rect" id="node2" href="$classEvent.html" title="Event\&lt; CameraDestruction\lEvent \&gt;" alt="" coords="5,81,205,123"/>
-<area shape="rect" id="node3" href="$classBaseEvent.html" title="Base Event Class that is mirrored for event callbacks. " alt="" coords="60,5,151,32"/>
-<area shape="rect" id="node4" href="$classCamera.html" title="Camera" alt="" coords="229,89,302,115"/>
-</map>
