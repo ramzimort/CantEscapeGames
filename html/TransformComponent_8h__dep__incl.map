@@ -1,9 +1,0 @@
-<map id="Components/TransformComponent.h" name="Components/TransformComponent.h">
-<area shape="rect" id="node2" href="$AllComponentHeaders_8h_source.html" title="Components/AllComponentHeaders.h" alt="" coords="5,319,272,345"/>
-<area shape="rect" id="node3" href="$ModelSupportShape_8h_source.html" title="Physics/SuppportShape\l/ModelSupportShape.h" alt="" coords="260,80,433,121"/>
-<area shape="rect" id="node4" href="$Constraint_8h_source.html" title="Physics/Constraint.h" alt="" coords="367,169,521,196"/>
-<area shape="rect" id="node5" href="$RigidbodyComponent_8h_source.html" title="Components/RigidbodyComponent.h" alt="" coords="93,244,353,271"/>
-<area shape="rect" id="node8" href="$Gjk_8h.html" title="Narrow phase of the physics engine. " alt="" coords="377,244,511,271"/>
-<area shape="rect" id="node6" href="$CollisionManifold_8h_source.html" title="Physics/Gjk/CollisionManifold.h" alt="" coords="366,319,591,345"/>
-<area shape="rect" id="node7" href="$RigidbodySystem_8h_source.html" title="Systems/RigidbodySystem.h" alt="" coords="375,393,583,420"/>
-</map>

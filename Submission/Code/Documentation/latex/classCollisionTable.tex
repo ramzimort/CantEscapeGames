@@ -1,0 +1,60 @@
+\hypertarget{classCollisionTable}{}\section{Collision\+Table Class Reference}
+\label{classCollisionTable}\index{Collision\+Table@{Collision\+Table}}
+
+
+Stores a table of which collision masks collide with which.  
+
+
+
+
+{\ttfamily \#include $<$Collision\+Table.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCollisionTable_abec7701fa63dce6d59a0804b0ba1a69e}\label{classCollisionTable_abec7701fa63dce6d59a0804b0ba1a69e}} 
+enum {\bfseries Collision\+Mask} \{ {\bfseries N\+UM}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCollisionTable_a1b9fda1f06ee74f2ac2539b8676322e4}\label{classCollisionTable_a1b9fda1f06ee74f2ac2539b8676322e4}} 
+void \hyperlink{classCollisionTable_a1b9fda1f06ee74f2ac2539b8676322e4}{Init\+Collision\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em Reads Collision\+Matrix.\+txt to construct the table and constructs it. \end{DoxyCompactList}\item 
+bool \hyperlink{classCollisionTable_a21c09fb6803e3da3deb9ea9b12648f27}{Check\+Collision\+Matrix} (Collision\+Mask obj1, Collision\+Mask obj2) const
+\begin{DoxyCompactList}\small\item\em Checks if the given collision masks should collide. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores a table of which collision masks collide with which. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCollisionTable_a21c09fb6803e3da3deb9ea9b12648f27}\label{classCollisionTable_a21c09fb6803e3da3deb9ea9b12648f27}} 
+\index{Collision\+Table@{Collision\+Table}!Check\+Collision\+Matrix@{Check\+Collision\+Matrix}}
+\index{Check\+Collision\+Matrix@{Check\+Collision\+Matrix}!Collision\+Table@{Collision\+Table}}
+\subsubsection{\texorpdfstring{Check\+Collision\+Matrix()}{CheckCollisionMatrix()}}
+{\footnotesize\ttfamily bool Collision\+Table\+::\+Check\+Collision\+Matrix (\begin{DoxyParamCaption}\item[{Collision\+Mask}]{obj1,  }\item[{Collision\+Mask}]{obj2 }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the given collision masks should collide. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj1} & \\
+\hline
+{\em obj2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\hyperlink{CollisionTable_8h}{Collision\+Table.\+h}\item 
+Physics/\hyperlink{CollisionTable_8cpp}{Collision\+Table.\+cpp}\end{DoxyCompactItemize}

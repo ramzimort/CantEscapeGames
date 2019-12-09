@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\Shading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Albot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\streamout_particle_vert.hlsl" />
+    <Text Include="Shaders\blur_filter_comp.hlsl" />
+    <Text Include="Shaders\debug_frag.hlsl" />
+    <Text Include="Shaders\debug_instance_vert.hlsl" />
+    <Text Include="Shaders\debug_line_vert.hlsl" />
+    <Text Include="Shaders\deferred_pass_frag.hlsl" />
+    <Text Include="Shaders\deferred_pass_vert.hlsl" />
+    <Text Include="Shaders\deferred_shade_frag.hlsl" />
+    <Text Include="Shaders\deferred_shade_pointlight_frag.hlsl" />
+    <Text Include="Shaders\deferred_shade_pointlight_vert.hlsl" />
+    <Text Include="Shaders\depth_pass_vert.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_frag.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_geom.hlsl" />
+    <Text Include="Shaders\fire_streamout_particle_vert.hlsl" />
+    <Text Include="Shaders\fullscreen_quad_vert.hlsl" />
+    <Text Include="Shaders\msaa_resolve_frag.hlsl" />
+    <Text Include="Shaders\msaa_resolve_vert.hlsl" />
+    <Text Include="Shaders\skybox_frag.hlsl" />
+    <Text Include="Shaders\skybox_vert.hlsl" />
+    <Text Include="Shaders\streamout_particle_geom.hlsl" />
+    <Text Include="Shaders\resolve_texture_frag.hlsl" />
+    <Text Include="Shaders\resolve_texture_vert.hlsl" />
+    <Text Include="Shaders\moment_depth_pass_frag.hlsl" />
+    <Text Include="Shaders\moment_shadow.hlsl" />
+    <Text Include="Shaders\shade_halo_effect_frag.hlsl" />
+    <Text Include="Shaders\shade_halo_effect_vert.hlsl" />
+    <Text Include="Shaders\equirectangular_to_skybox_comp.hlsl" />
+    <Text Include="Shaders\ibl_prefilter_env_map_comp.hlsl" />
+    <Text Include="Shaders\PBR.hlsl" />
+    <Text Include="Shaders\process_brdf_lut_comp.hlsl" />
+    <Text Include="Shaders\ui_quad_frag.hlsl" />
+    <Text Include="Shaders\ui_quad_vert.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Prefabs\Projectiles\ProjectilePlayer.json" />
+    <None Include="Assets\Prefabs\Projectiles\EnemyProjectile.json" />
+  </ItemGroup>
+</Project>

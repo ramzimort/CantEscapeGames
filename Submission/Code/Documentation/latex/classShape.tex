@@ -1,0 +1,87 @@
+\hypertarget{classShape}{}\section{Shape Class Reference}
+\label{classShape}\index{Shape@{Shape}}
+
+
+Base class of the other shape classes.  
+
+
+
+
+{\ttfamily \#include $<$Shape.\+h$>$}
+
+
+
+Inheritance diagram for Shape\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classShape__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{classShape_a1bfc3d6c995c4326d4691b22d16d2f12}{Is\+Intersect} (const \hyperlink{classAabb}{Aabb} \&aabb) const =0
+\begin{DoxyCompactList}\small\item\em Every derived shape have to define on its own how to detect intersection with an \hyperlink{classAabb}{Aabb}. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classShape_a1c942dca54e0d81f685624f33f2ce6c8}{Is\+Intersect} (const \hyperlink{classSphere}{Sphere} \&sphere) const =0
+\begin{DoxyCompactList}\small\item\em Every derived shape have to define on its own how to detect intersection with a sphere. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class of the other shape classes. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classShape_a1bfc3d6c995c4326d4691b22d16d2f12}\label{classShape_a1bfc3d6c995c4326d4691b22d16d2f12}} 
+\index{Shape@{Shape}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Shape@{Shape}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual bool Shape\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classAabb}{Aabb} \&}]{aabb }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Every derived shape have to define on its own how to detect intersection with an \hyperlink{classAabb}{Aabb}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aabb} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classAabb_a98746a9bae7409bd1cf3734125b62da6}{Aabb}, and \hyperlink{classSphere_aea1571e835842f502a64e4ddb30847e4}{Sphere}.
+
+\mbox{\Hypertarget{classShape_a1c942dca54e0d81f685624f33f2ce6c8}\label{classShape_a1c942dca54e0d81f685624f33f2ce6c8}} 
+\index{Shape@{Shape}!Is\+Intersect@{Is\+Intersect}}
+\index{Is\+Intersect@{Is\+Intersect}!Shape@{Shape}}
+\subsubsection{\texorpdfstring{Is\+Intersect()}{IsIntersect()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool Shape\+::\+Is\+Intersect (\begin{DoxyParamCaption}\item[{const \hyperlink{classSphere}{Sphere} \&}]{sphere }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Every derived shape have to define on its own how to detect intersection with a sphere. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sphere} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classAabb_af08568647c234b68334892b20885084a}{Aabb}, and \hyperlink{classSphere_aa97baa4e07d8b042f99150df0757d623}{Sphere}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Geometry/\hyperlink{Shape_8h}{Shape.\+h}\end{DoxyCompactItemize}

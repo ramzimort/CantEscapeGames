@@ -1,0 +1,91 @@
+\hypertarget{classRenderingSystem}{}\section{Rendering\+System Class Reference}
+\label{classRenderingSystem}\index{Rendering\+System@{Rendering\+System}}
+
+
+Inheritance diagram for Rendering\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classRenderingSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Rendering\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classRenderingSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classRenderingSystem_ab2cc7b17f6ab2201994450081f120f78}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classRenderingSystem_a658cdef75c3fc6d555347fb787eec460}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classRenderingSystem_ad09a69b504d3cd12c0e0c7d36352b2b5}\label{classRenderingSystem_ad09a69b504d3cd12c0e0c7d36352b2b5}} 
+virtual void \hyperlink{classRenderingSystem_ad09a69b504d3cd12c0e0c7d36352b2b5}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classRenderingSystem_a5c20d01e1b0004d87c97e4d376968cad}\label{classRenderingSystem_a5c20d01e1b0004d87c97e4d376968cad}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classRenderingSystem_aec9ac56134f6e5ef071be60a218dc7ca}\label{classRenderingSystem_aec9ac56134f6e5ef071be60a218dc7ca}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classRenderingSystem_ab2cc7b17f6ab2201994450081f120f78}\label{classRenderingSystem_ab2cc7b17f6ab2201994450081f120f78}} 
+\index{Rendering\+System@{Rendering\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Rendering\+System@{Rendering\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Rendering\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classRenderingSystem_a658cdef75c3fc6d555347fb787eec460}\label{classRenderingSystem_a658cdef75c3fc6d555347fb787eec460}} 
+\index{Rendering\+System@{Rendering\+System}!Update@{Update}}
+\index{Update@{Update}!Rendering\+System@{Rendering\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Rendering\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/Rendering\+System.\+h\item 
+Systems/Rendering\+System.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,225 @@
+\hypertarget{namespaceFBXLoader}{}\section{F\+B\+X\+Loader Namespace Reference}
+\label{namespaceFBXLoader}\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+
+
+Class in charge of loading.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespaceFBXLoader_ab8afca89259e2c7c946cb25151f0b248}{Load\+Skeletal\+Data} (\hyperlink{classModel}{Model} $\ast$model, ai\+Scene const $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Reads the assimp F\+BX and starts the unwrapping process. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a091c2cfe5695ef3ed1c608ae715c4e5a}{Load\+Animation\+Data} (std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&anim\+Map, ai\+Scene const $\ast$scene, std\+::string const  \&name)
+\begin{DoxyCompactList}\small\item\em Reads the assimp F\+BX and starts the unwrapping process. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a339ce5cb5980d1e7003fbd8b203ab071}{Get\+Per\+Vertex\+Data} (\hyperlink{classAnimModel}{Anim\+Model} $\ast$model, ai\+Mesh $\ast$mesh, std\+::unordered\+\_\+map$<$ std\+::string, Matrix $>$ \&Bone\+Offset\+Map, std\+::unordered\+\_\+map$<$ std\+::string, int $>$ const  \&Bones\+Name\+Id\+Map)
+\begin{DoxyCompactList}\small\item\em Process the ai\+Mesh and get all the information. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a5d956918f0d65bb07a68044fa1c10077}{Process\+Animation} (ai\+Animation $\ast$ai\+Anim, std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&anim\+Map, std\+::string const  \&name)
+\begin{DoxyCompactList}\small\item\em Process an animation and stores all the channels and info in my\+Anim\+List. \end{DoxyCompactList}\item 
+void \hyperlink{namespaceFBXLoader_a0abc3a09454706533a9e071f04f8333f}{Process\+Bone\+Hierarchy} (ai\+Node const $\ast$node, std\+::string const  \&parent\+Name, \hyperlink{classAnimModel}{Anim\+Model} $\ast$model, std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&Bone\+Name\+Id\+Map, int bone\+Index)
+\begin{DoxyCompactList}\small\item\em Process the nodes and get some bone information from here. \end{DoxyCompactList}\item 
+Matrix \hyperlink{namespaceFBXLoader_adc013872047ea03643d9763d8c7a4afb}{ai\+Mat\+\_\+\+To\+\_\+\+Matrix} (ai\+Matrix4x4 const  \&in\+Mat)
+\begin{DoxyCompactList}\small\item\em Convert from ai\+Matrix4x4 to Matrix4. \end{DoxyCompactList}\item 
+int \hyperlink{namespaceFBXLoader_ac93d38d8445e4d743a879a0ffcaabef0}{Calculate\+Total\+Vertex\+Count} (ai\+Scene const $\ast$scene)
+\begin{DoxyCompactList}\small\item\em Calculates the sum of vertices from all meshes. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structPosKey}{Pos\+Key} $>$ \hyperlink{namespaceFBXLoader_a8bb4d8d10bc2bda99438203d9ab68fe8}{Get\+Position\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Position Key Frames object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structRotKey}{Rot\+Key} $>$ \hyperlink{namespaceFBXLoader_ac2d362a5987d378985fc830901774b2f}{Get\+Rotation\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Rotation Key Frames object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{structScaKey}{Sca\+Key} $>$ \hyperlink{namespaceFBXLoader_a09106d8a6aa754730867873b6cc1625f}{Get\+Scaling\+Key\+Frames} (ai\+Node\+Anim $\ast$anim\+Node)
+\begin{DoxyCompactList}\small\item\em Get the Scaling Key Frames object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class in charge of loading. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{namespaceFBXLoader_adc013872047ea03643d9763d8c7a4afb}\label{namespaceFBXLoader_adc013872047ea03643d9763d8c7a4afb}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!ai\+Mat\+\_\+\+To\+\_\+\+Matrix@{ai\+Mat\+\_\+\+To\+\_\+\+Matrix}}
+\index{ai\+Mat\+\_\+\+To\+\_\+\+Matrix@{ai\+Mat\+\_\+\+To\+\_\+\+Matrix}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{ai\+Mat\+\_\+\+To\+\_\+\+Matrix()}{aiMat\_To\_Matrix()}}
+{\footnotesize\ttfamily Matrix F\+B\+X\+Loader\+::ai\+Mat\+\_\+\+To\+\_\+\+Matrix (\begin{DoxyParamCaption}\item[{ai\+Matrix4x4 const \&}]{in\+Mat }\end{DoxyParamCaption})}
+
+
+
+Convert from ai\+Matrix4x4 to Matrix4. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in\+Mat} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Matrix 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceFBXLoader_ac93d38d8445e4d743a879a0ffcaabef0}\label{namespaceFBXLoader_ac93d38d8445e4d743a879a0ffcaabef0}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Calculate\+Total\+Vertex\+Count@{Calculate\+Total\+Vertex\+Count}}
+\index{Calculate\+Total\+Vertex\+Count@{Calculate\+Total\+Vertex\+Count}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Calculate\+Total\+Vertex\+Count()}{CalculateTotalVertexCount()}}
+{\footnotesize\ttfamily int F\+B\+X\+Loader\+::\+Calculate\+Total\+Vertex\+Count (\begin{DoxyParamCaption}\item[{ai\+Scene const $\ast$}]{scene }\end{DoxyParamCaption})}
+
+
+
+Calculates the sum of vertices from all meshes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceFBXLoader_a339ce5cb5980d1e7003fbd8b203ab071}\label{namespaceFBXLoader_a339ce5cb5980d1e7003fbd8b203ab071}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Get\+Per\+Vertex\+Data@{Get\+Per\+Vertex\+Data}}
+\index{Get\+Per\+Vertex\+Data@{Get\+Per\+Vertex\+Data}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Get\+Per\+Vertex\+Data()}{GetPerVertexData()}}
+{\footnotesize\ttfamily void F\+B\+X\+Loader\+::\+Get\+Per\+Vertex\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{classAnimModel}{Anim\+Model} $\ast$}]{model,  }\item[{ai\+Mesh $\ast$}]{mesh,  }\item[{std\+::unordered\+\_\+map$<$ std\+::string, Matrix $>$ \&}]{Bone\+Offset\+Map,  }\item[{std\+::unordered\+\_\+map$<$ std\+::string, int $>$ const \&}]{Bones\+Name\+Id\+Map }\end{DoxyParamCaption})}
+
+
+
+Process the ai\+Mesh and get all the information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & anim\+Model pointer \\
+\hline
+{\em mesh} & ai\+Mesh pointer from which we will get per vertex data \\
+\hline
+{\em Bone\+Offset\+Map} & Hash table that maps bone name to Offset transformation \\
+\hline
+{\em Bones\+Name\+Id\+Map} & Hash table that maps bone name to bone id \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceFBXLoader_a8bb4d8d10bc2bda99438203d9ab68fe8}\label{namespaceFBXLoader_a8bb4d8d10bc2bda99438203d9ab68fe8}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Get\+Position\+Key\+Frames@{Get\+Position\+Key\+Frames}}
+\index{Get\+Position\+Key\+Frames@{Get\+Position\+Key\+Frames}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Get\+Position\+Key\+Frames()}{GetPositionKeyFrames()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{structPosKey}{Pos\+Key} $>$ F\+B\+X\+Loader\+::\+Get\+Position\+Key\+Frames (\begin{DoxyParamCaption}\item[{ai\+Node\+Anim $\ast$}]{anim\+Node }\end{DoxyParamCaption})}
+
+
+
+Get the Position Key Frames object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anim\+Node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Pos\+Key$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceFBXLoader_ac2d362a5987d378985fc830901774b2f}\label{namespaceFBXLoader_ac2d362a5987d378985fc830901774b2f}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Get\+Rotation\+Key\+Frames@{Get\+Rotation\+Key\+Frames}}
+\index{Get\+Rotation\+Key\+Frames@{Get\+Rotation\+Key\+Frames}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Get\+Rotation\+Key\+Frames()}{GetRotationKeyFrames()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{structRotKey}{Rot\+Key} $>$ F\+B\+X\+Loader\+::\+Get\+Rotation\+Key\+Frames (\begin{DoxyParamCaption}\item[{ai\+Node\+Anim $\ast$}]{anim\+Node }\end{DoxyParamCaption})}
+
+
+
+Get the Rotation Key Frames object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anim\+Node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Rot\+Key$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceFBXLoader_a09106d8a6aa754730867873b6cc1625f}\label{namespaceFBXLoader_a09106d8a6aa754730867873b6cc1625f}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Get\+Scaling\+Key\+Frames@{Get\+Scaling\+Key\+Frames}}
+\index{Get\+Scaling\+Key\+Frames@{Get\+Scaling\+Key\+Frames}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Get\+Scaling\+Key\+Frames()}{GetScalingKeyFrames()}}
+{\footnotesize\ttfamily std\+::vector$<$ \hyperlink{structScaKey}{Sca\+Key} $>$ F\+B\+X\+Loader\+::\+Get\+Scaling\+Key\+Frames (\begin{DoxyParamCaption}\item[{ai\+Node\+Anim $\ast$}]{anim\+Node }\end{DoxyParamCaption})}
+
+
+
+Get the Scaling Key Frames object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anim\+Node} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Sca\+Key$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{namespaceFBXLoader_a091c2cfe5695ef3ed1c608ae715c4e5a}\label{namespaceFBXLoader_a091c2cfe5695ef3ed1c608ae715c4e5a}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Load\+Animation\+Data@{Load\+Animation\+Data}}
+\index{Load\+Animation\+Data@{Load\+Animation\+Data}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Load\+Animation\+Data()}{LoadAnimationData()}}
+{\footnotesize\ttfamily void F\+B\+X\+Loader\+::\+Load\+Animation\+Data (\begin{DoxyParamCaption}\item[{std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&}]{anim\+Map,  }\item[{ai\+Scene const $\ast$}]{scene,  }\item[{std\+::string const \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Reads the assimp F\+BX and starts the unwrapping process. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anim\+Map} & Hash table that maps the animation name to the \hyperlink{structAnimation}{Animation} \\
+\hline
+{\em scene} & ai\+Scene, the whole scene as stored by assimp \\
+\hline
+{\em name} & Name of the animation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceFBXLoader_ab8afca89259e2c7c946cb25151f0b248}\label{namespaceFBXLoader_ab8afca89259e2c7c946cb25151f0b248}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Load\+Skeletal\+Data@{Load\+Skeletal\+Data}}
+\index{Load\+Skeletal\+Data@{Load\+Skeletal\+Data}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Load\+Skeletal\+Data()}{LoadSkeletalData()}}
+{\footnotesize\ttfamily void F\+B\+X\+Loader\+::\+Load\+Skeletal\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{classModel}{Model} $\ast$}]{model,  }\item[{ai\+Scene const $\ast$}]{scene }\end{DoxyParamCaption})}
+
+
+
+Reads the assimp F\+BX and starts the unwrapping process. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & \hyperlink{classModel}{Model} pointer \\
+\hline
+{\em scene} & ai\+Scene, the whole scene as stored by assimp \\
+\hline
+\end{DoxyParams}
+model-\/$>$Resize\+Bone\+Data\+List(); \mbox{\Hypertarget{namespaceFBXLoader_a5d956918f0d65bb07a68044fa1c10077}\label{namespaceFBXLoader_a5d956918f0d65bb07a68044fa1c10077}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Process\+Animation@{Process\+Animation}}
+\index{Process\+Animation@{Process\+Animation}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Process\+Animation()}{ProcessAnimation()}}
+{\footnotesize\ttfamily void F\+B\+X\+Loader\+::\+Process\+Animation (\begin{DoxyParamCaption}\item[{ai\+Animation $\ast$}]{ai\+Anim,  }\item[{std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{structAnimation}{Animation} $>$ \&}]{anim\+Map,  }\item[{std\+::string const \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Process an animation and stores all the channels and info in my\+Anim\+List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ai\+Anim} & pointer to ai\+Animation object with which we will get data to create an \hyperlink{structAnimation}{Animation} object \\
+\hline
+{\em anim\+Map} & Hash table that maps animation anme to \hyperlink{structAnimation}{Animation} object \\
+\hline
+{\em name} & Name of the animation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{namespaceFBXLoader_a0abc3a09454706533a9e071f04f8333f}\label{namespaceFBXLoader_a0abc3a09454706533a9e071f04f8333f}} 
+\index{F\+B\+X\+Loader@{F\+B\+X\+Loader}!Process\+Bone\+Hierarchy@{Process\+Bone\+Hierarchy}}
+\index{Process\+Bone\+Hierarchy@{Process\+Bone\+Hierarchy}!F\+B\+X\+Loader@{F\+B\+X\+Loader}}
+\subsubsection{\texorpdfstring{Process\+Bone\+Hierarchy()}{ProcessBoneHierarchy()}}
+{\footnotesize\ttfamily void F\+B\+X\+Loader\+::\+Process\+Bone\+Hierarchy (\begin{DoxyParamCaption}\item[{ai\+Node const $\ast$}]{node,  }\item[{std\+::string const \&}]{parent\+Name,  }\item[{\hyperlink{classAnimModel}{Anim\+Model} $\ast$}]{model,  }\item[{std\+::unordered\+\_\+map$<$ std\+::string, int $>$ \&}]{Bone\+Name\+Id\+Map,  }\item[{int}]{bone\+Index }\end{DoxyParamCaption})}
+
+
+
+Process the nodes and get some bone information from here. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & Current node evaluated \\
+\hline
+{\em parent\+Name} & Name of the parent node \\
+\hline
+{\em model} & \hyperlink{classAnimModel}{Anim\+Model} pointer \\
+\hline
+{\em Bone\+Name\+Id\+Map} & Hash table between bone name and id \\
+\hline
+{\em bone\+Index} & \hyperlink{structBone}{Bone} index \\
+\hline
+\end{DoxyParams}

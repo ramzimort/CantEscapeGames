@@ -1,0 +1,89 @@
+\hypertarget{classUISystem}{}\section{U\+I\+System Class Reference}
+\label{classUISystem}\index{U\+I\+System@{U\+I\+System}}
+
+
+Inheritance diagram for U\+I\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classUISystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for U\+I\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classUISystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classUISystem_a24d58ab299fd47c10948230793ff135c}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classUISystem_ac7e49ca17db397a2321a8b89dbc5bd47}{Early\+Update} (float dt) override
+\begin{DoxyCompactList}\small\item\em Early update called once before main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classUISystem_a898a6c2d363122cc62cfdb1516b2f792}\label{classUISystem_a898a6c2d363122cc62cfdb1516b2f792}} 
+virtual void \hyperlink{classUISystem_a898a6c2d363122cc62cfdb1516b2f792}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classUISystem_a1b42bb2b9d953c402826eb9aa93cbed5}\label{classUISystem_a1b42bb2b9d953c402826eb9aa93cbed5}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUISystem_acd7560147af6e4ff8393309b0e7ac0aa}\label{classUISystem_acd7560147af6e4ff8393309b0e7ac0aa}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classUISystem_ac7e49ca17db397a2321a8b89dbc5bd47}\label{classUISystem_ac7e49ca17db397a2321a8b89dbc5bd47}} 
+\index{U\+I\+System@{U\+I\+System}!Early\+Update@{Early\+Update}}
+\index{Early\+Update@{Early\+Update}!U\+I\+System@{U\+I\+System}}
+\subsubsection{\texorpdfstring{Early\+Update()}{EarlyUpdate()}}
+{\footnotesize\ttfamily void U\+I\+System\+::\+Early\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Early update called once before main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a202ed394e663f970f181d810c86760dc}{Base\+System}.
+
+\mbox{\Hypertarget{classUISystem_a24d58ab299fd47c10948230793ff135c}\label{classUISystem_a24d58ab299fd47c10948230793ff135c}} 
+\index{U\+I\+System@{U\+I\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!U\+I\+System@{U\+I\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void U\+I\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/U\+I\+System.\+h\item 
+Systems/U\+I\+System.\+cpp\end{DoxyCompactItemize}

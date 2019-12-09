@@ -1,0 +1,106 @@
+\hypertarget{classMeshComponent}{}\section{Mesh\+Component Class Reference}
+\label{classMeshComponent}\index{Mesh\+Component@{Mesh\+Component}}
+
+
+Inheritance diagram for Mesh\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classMeshComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Mesh\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classMeshComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMeshComponent_ab67426ad3bbc1396606668eb79af31e4}\label{classMeshComponent_ab67426ad3bbc1396606668eb79af31e4}} 
+{\bfseries Mesh\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\item 
+void \hyperlink{classMeshComponent_ad99787b15690dd9ae239590dcdad6993}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. \end{DoxyCompactList}\item 
+void \hyperlink{classMeshComponent_a7ec68255fed493e34021fc15cec12581}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMeshComponent_accf409e1a5f8b4b24312f5dcec217d54}\label{classMeshComponent_accf409e1a5f8b4b24312f5dcec217d54}} 
+\hyperlink{classModel}{Model} $\ast$ {\bfseries Get\+Model} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMeshComponent_ae3fb9bc2df831c44b9c7eea23514bff1}\label{classMeshComponent_ae3fb9bc2df831c44b9c7eea23514bff1}} 
+std\+::vector$<$ Matrix $>$ {\bfseries Bone\+Transformations\+For\+Shader}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMeshComponent_ad92895ae37febf972adbd1ad6fed1854}\label{classMeshComponent_ad92895ae37febf972adbd1ad6fed1854}} 
+static Component\+Id const {\bfseries static\+\_\+type} = \hyperlink{classBaseComponent_a084ade347bc71a7f0d3b17ecdc2225a4}{Base\+Component\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMeshComponent_a328c093d609680cca505905c6d49901a}\label{classMeshComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classMeshComponent_a318469cfd809ba3993eb0331cba48707}\label{classMeshComponent_a318469cfd809ba3993eb0331cba48707}} 
+class {\bfseries Transform\+System}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMeshComponent_a7ec68255fed493e34021fc15cec12581}\label{classMeshComponent_a7ec68255fed493e34021fc15cec12581}} 
+\index{Mesh\+Component@{Mesh\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Mesh\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Begin will be called in a frame after all Objects have been spawned that frame. This is the place to put code that could ask for any data outside of the owner\textquotesingle{}s \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classMeshComponent_ad99787b15690dd9ae239590dcdad6993}\label{classMeshComponent_ad99787b15690dd9ae239590dcdad6993}} 
+\index{Mesh\+Component@{Mesh\+Component}!Init@{Init}}
+\index{Init@{Init}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Mesh\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Init will be called on \hyperlink{classGameObject}{Game\+Object} creation, after the component has been overwritten and the \hyperlink{classGameObject}{Game\+Object} has had all its components created. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \hyperlink{structResource}{Resource} manager, used if necessary to get any resource \\
+\hline
+{\em dxrenderer} & Graphic\textquotesingle{}s Manager \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/Mesh\+Component.\+h\item 
+Components/Mesh\+Component.\+cpp\end{DoxyCompactItemize}

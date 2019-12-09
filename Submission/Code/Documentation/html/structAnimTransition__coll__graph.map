@@ -1,0 +1,5 @@
+<map id="AnimTransition" name="AnimTransition">
+<area shape="rect" id="node2" href="$structAnimState.html" title="Represents a node in the animation state machine. " alt="" coords="122,213,213,240"/>
+<area shape="rect" id="node3" href="$structAnimation.html" title="Describes a keyframe animation for a skeleton. " alt="" coords="189,109,279,136"/>
+<area shape="rect" id="node4" href="$classMulticast.html" title="Multicast\&lt; void(void)\&gt;" alt="" coords="147,5,321,32"/>
+</map>

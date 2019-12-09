@@ -1,0 +1,135 @@
+\hypertarget{classSystemManager}{}\section{System\+Manager Class Reference}
+\label{classSystemManager}\index{System\+Manager@{System\+Manager}}
+
+
+Main class managing the systems on the E\+CS architecture.  
+
+
+
+
+{\ttfamily \#include $<$System\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSystemManager_ae62443992cf22979a4a70ceb8c140951}{System\+Manager} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer=nullptr)
+\begin{DoxyCompactList}\small\item\em Construct a new System Manager object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSystemManager_a0fa2e3c0906401494f6bf4e482aecc0d}\label{classSystemManager_a0fa2e3c0906401494f6bf4e482aecc0d}} 
+\hyperlink{classSystemManager_a0fa2e3c0906401494f6bf4e482aecc0d}{$\sim$\+System\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destroy the System Manager object. \end{DoxyCompactList}\item 
+void \hyperlink{classSystemManager_a077c85af7097d1420167ab3f10984a1c}{Update\+Systems} (float dt)
+\begin{DoxyCompactList}\small\item\em Calls Update on every system owned by the manager. \end{DoxyCompactList}\item 
+void \hyperlink{classSystemManager_a1bab92d089c6c9546776fabf6e1e3098}{Draw} (float dt)
+\begin{DoxyCompactList}\small\item\em Calls draw on every system owned by the manager. \end{DoxyCompactList}\item 
+void \hyperlink{classSystemManager_aaa98d81346a3d7ef4a8d8fb109525e4c}{Register\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go)
+\begin{DoxyCompactList}\small\item\em Registers the go \hyperlink{classGameObject}{Game\+Object}, so depending on which components it owns, it will be updated when the relevant systems are. \end{DoxyCompactList}\item 
+void \hyperlink{classSystemManager_a2d1b76ca9585d167063f26220d9c2d7d}{Unregister\+\_\+\+Game\+Object} (size\+\_\+t go\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Unregisters a \hyperlink{classGameObject}{Game\+Object} go from the systems in which it was previously registered. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classSystemManager_a231ba9b19cf46c62334fd9442ca66602}{Add\+System} ()
+\begin{DoxyCompactList}\small\item\em Templatized method which handles the creation of new systems. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main class managing the systems on the E\+CS architecture. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSystemManager_ae62443992cf22979a4a70ceb8c140951}\label{classSystemManager_ae62443992cf22979a4a70ceb8c140951}} 
+\index{System\+Manager@{System\+Manager}!System\+Manager@{System\+Manager}}
+\index{System\+Manager@{System\+Manager}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{System\+Manager()}{SystemManager()}}
+{\footnotesize\ttfamily System\+Manager\+::\+System\+Manager (\begin{DoxyParamCaption}\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{app\+Renderer = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Construct a new System Manager object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em app\+Renderer} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classSystemManager_a231ba9b19cf46c62334fd9442ca66602}\label{classSystemManager_a231ba9b19cf46c62334fd9442ca66602}} 
+\index{System\+Manager@{System\+Manager}!Add\+System@{Add\+System}}
+\index{Add\+System@{Add\+System}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{Add\+System()}{AddSystem()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void System\+Manager\+::\+Add\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Templatized method which handles the creation of new systems. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{classSystemManager_a1bab92d089c6c9546776fabf6e1e3098}\label{classSystemManager_a1bab92d089c6c9546776fabf6e1e3098}} 
+\index{System\+Manager@{System\+Manager}!Draw@{Draw}}
+\index{Draw@{Draw}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void System\+Manager\+::\+Draw (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Calls draw on every system owned by the manager. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSystemManager_aaa98d81346a3d7ef4a8d8fb109525e4c}\label{classSystemManager_aaa98d81346a3d7ef4a8d8fb109525e4c}} 
+\index{System\+Manager@{System\+Manager}!Register\+Game\+Object@{Register\+Game\+Object}}
+\index{Register\+Game\+Object@{Register\+Game\+Object}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{Register\+Game\+Object()}{RegisterGameObject()}}
+{\footnotesize\ttfamily void System\+Manager\+::\+Register\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})}
+
+
+
+Registers the go \hyperlink{classGameObject}{Game\+Object}, so depending on which components it owns, it will be updated when the relevant systems are. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSystemManager_a2d1b76ca9585d167063f26220d9c2d7d}\label{classSystemManager_a2d1b76ca9585d167063f26220d9c2d7d}} 
+\index{System\+Manager@{System\+Manager}!Unregister\+\_\+\+Game\+Object@{Unregister\+\_\+\+Game\+Object}}
+\index{Unregister\+\_\+\+Game\+Object@{Unregister\+\_\+\+Game\+Object}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{Unregister\+\_\+\+Game\+Object()}{Unregister\_GameObject()}}
+{\footnotesize\ttfamily void System\+Manager\+::\+Unregister\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{go\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Unregisters a \hyperlink{classGameObject}{Game\+Object} go from the systems in which it was previously registered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classSystemManager_a077c85af7097d1420167ab3f10984a1c}\label{classSystemManager_a077c85af7097d1420167ab3f10984a1c}} 
+\index{System\+Manager@{System\+Manager}!Update\+Systems@{Update\+Systems}}
+\index{Update\+Systems@{Update\+Systems}!System\+Manager@{System\+Manager}}
+\subsubsection{\texorpdfstring{Update\+Systems()}{UpdateSystems()}}
+{\footnotesize\ttfamily void System\+Manager\+::\+Update\+Systems (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Calls Update on every system owned by the manager. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Managers/\hyperlink{SystemManager_8h}{System\+Manager.\+h}\item 
+Managers/System\+Manager.\+cpp\end{DoxyCompactItemize}

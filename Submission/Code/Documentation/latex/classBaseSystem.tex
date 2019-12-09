@@ -1,0 +1,189 @@
+\hypertarget{classBaseSystem}{}\section{Base\+System Class Reference}
+\label{classBaseSystem}\index{Base\+System@{Base\+System}}
+
+
+Base class for Systems.  
+
+
+
+
+{\ttfamily \#include $<$Base\+System.\+h$>$}
+
+
+
+Inheritance diagram for Base\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBaseSystem__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseSystem_a77a342bf74a7e875f35ff1c70dd8c310}\label{classBaseSystem_a77a342bf74a7e875f35ff1c70dd8c310}} 
+\hyperlink{classBaseSystem_a77a342bf74a7e875f35ff1c70dd8c310}{Base\+System} ()
+\begin{DoxyCompactList}\small\item\em Constructor for base class. Called by inheriting classes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseSystem_a581856f116f41009f84ae359aef588b3}\label{classBaseSystem_a581856f116f41009f84ae359aef588b3}} 
+virtual \hyperlink{classBaseSystem_a581856f116f41009f84ae359aef588b3}{$\sim$\+Base\+System} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Base System object. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBaseSystem_a202ed394e663f970f181d810c86760dc}{Early\+Update} (float dt)
+\begin{DoxyCompactList}\small\item\em Early update called once before main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. \end{DoxyCompactList}\item 
+void \hyperlink{classBaseSystem_a6422693fc429d74a2b0b4c4e860d1810}{Update\+All\+Nodes} (float dt)
+\begin{DoxyCompactList}\small\item\em Iterates through all Game\+Objects registered and calls update. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBaseSystem_ab6520975a6376e59005d3a40456358d4}{Late\+Update} (float dt)
+\begin{DoxyCompactList}\small\item\em Late update called once after main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node)
+\begin{DoxyCompactList}\small\item\em Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseSystem_a94339337789820c707da572d140a0923}\label{classBaseSystem_a94339337789820c707da572d140a0923}} 
+virtual void \hyperlink{classBaseSystem_a94339337789820c707da572d140a0923}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node)
+\begin{DoxyCompactList}\small\item\em Regular Draw call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Draw\+All\+Nodes. \end{DoxyCompactList}\item 
+void \hyperlink{classBaseSystem_af8f5ce5a033d06bd9aeb944d2a193e74}{Draw\+All\+Nodes} (float dt)
+\begin{DoxyCompactList}\small\item\em Iterates through all registered Game\+Objects and calls Draw. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classBaseSystem_a672d8b7902414c5a4b46d10f5f403785}{Push\+\_\+required\+\_\+comp} ()
+\begin{DoxyCompactList}\small\item\em Used to setup the system, so for every registered \hyperlink{classGameObject}{Game\+Object} node, we have pointer to the components that are updated on this system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseSystem_ab0f0418b57f4f6fdfb12fa6f317c1921}\label{classBaseSystem_ab0f0418b57f4f6fdfb12fa6f317c1921}} 
+std\+::bitset$<$ M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+C\+O\+M\+P\+O\+N\+E\+N\+TS $>$ \hyperlink{classBaseSystem_ab0f0418b57f4f6fdfb12fa6f317c1921}{m\+\_\+required\+Comp\+Mask}
+\begin{DoxyCompactList}\small\item\em Byteset used to mask against Game\+Objects component mask and check if they can register. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseSystem_a24b890d25ee0eeed44ef6976c7188224}\label{classBaseSystem_a24b890d25ee0eeed44ef6976c7188224}} 
+std\+::unordered\+\_\+map$<$ size\+\_\+t, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$ $>$ \hyperlink{classBaseSystem_a24b890d25ee0eeed44ef6976c7188224}{m\+\_\+\+Obj\+Components\+Map}
+\begin{DoxyCompactList}\small\item\em Hash map holding the nodes of registered Game\+Objects components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}\label{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}} 
+static unsigned int \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{number\+Of\+Types} = 0
+\begin{DoxyCompactList}\small\item\em Static member. Number of system types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseSystem_a328c093d609680cca505905c6d49901a}\label{classBaseSystem_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classBaseSystem_ab1ef2aa9992dd8ae85793e1a1f980e1e}\label{classBaseSystem_ab1ef2aa9992dd8ae85793e1a1f980e1e}} 
+class {\bfseries System\+Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for Systems. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBaseSystem_af8f5ce5a033d06bd9aeb944d2a193e74}\label{classBaseSystem_af8f5ce5a033d06bd9aeb944d2a193e74}} 
+\index{Base\+System@{Base\+System}!Draw\+All\+Nodes@{Draw\+All\+Nodes}}
+\index{Draw\+All\+Nodes@{Draw\+All\+Nodes}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Draw\+All\+Nodes()}{DrawAllNodes()}}
+{\footnotesize\ttfamily void Base\+System\+::\+Draw\+All\+Nodes (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Iterates through all registered Game\+Objects and calls Draw. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBaseSystem_a202ed394e663f970f181d810c86760dc}\label{classBaseSystem_a202ed394e663f970f181d810c86760dc}} 
+\index{Base\+System@{Base\+System}!Early\+Update@{Early\+Update}}
+\index{Early\+Update@{Early\+Update}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Early\+Update()}{EarlyUpdate()}}
+{\footnotesize\ttfamily virtual void Base\+System\+::\+Early\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Early update called once before main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classUISystem_ac7e49ca17db397a2321a8b89dbc5bd47}{U\+I\+System}.
+
+\mbox{\Hypertarget{classBaseSystem_ab6520975a6376e59005d3a40456358d4}\label{classBaseSystem_ab6520975a6376e59005d3a40456358d4}} 
+\index{Base\+System@{Base\+System}!Late\+Update@{Late\+Update}}
+\index{Late\+Update@{Late\+Update}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Late\+Update()}{LateUpdate()}}
+{\footnotesize\ttfamily virtual void Base\+System\+::\+Late\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Late update called once after main Update. When called, you have access to every \hyperlink{classGameObject}{Game\+Object} registered and can manage interaction between them. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classRigidbodySystem_a3ae11c7e5a8572247fb2e01729e32af9}{Rigidbody\+System}, and \hyperlink{classTriggerSystem_a804c490350677fea99a385b1f22a85b6}{Trigger\+System}.
+
+\mbox{\Hypertarget{classBaseSystem_a672d8b7902414c5a4b46d10f5f403785}\label{classBaseSystem_a672d8b7902414c5a4b46d10f5f403785}} 
+\index{Base\+System@{Base\+System}!Push\+\_\+required\+\_\+comp@{Push\+\_\+required\+\_\+comp}}
+\index{Push\+\_\+required\+\_\+comp@{Push\+\_\+required\+\_\+comp}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Push\+\_\+required\+\_\+comp()}{Push\_required\_comp()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Base\+System\+::\+Push\+\_\+required\+\_\+comp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Used to setup the system, so for every registered \hyperlink{classGameObject}{Game\+Object} node, we have pointer to the components that are updated on this system. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}\label{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}} 
+\index{Base\+System@{Base\+System}!Update@{Update}}
+\index{Update@{Update}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void Base\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Regular Update call. Called once per registered \hyperlink{classGameObject}{Game\+Object} by Update\+All\+Nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classCustomSystem_ab8b072ffd6b4de7404b385068d735c61}{Custom\+System}, \hyperlink{classAnimationSystem_aa74600f86761b9bb47a0689665901a49}{Animation\+System}, \hyperlink{classRenderingSystem_a658cdef75c3fc6d555347fb787eec460}{Rendering\+System}, \hyperlink{classTestSystem_a3742fdf321596824bc2aac8a91a3ddb0}{Test\+System}, \hyperlink{classTransformSystem_a75de8bdeda1137447d575b30d16afb3b}{Transform\+System}, \hyperlink{classSkyboxIrradianceSystem_ad1acf756b9540bb2864e5bf9631f9539}{Skybox\+Irradiance\+System}, \hyperlink{classParticleEmitterSystem_a58c14c4c3318b2fe31e35c93789da998}{Particle\+Emitter\+System}, \hyperlink{classHaloEffectSystem_ad98bff0ea12ef7d8abb1c917318e6028}{Halo\+Effect\+System}, \hyperlink{classSplineCurvesSystem_acc8b36c8c85662437bc2020f29e4d4b6}{Spline\+Curves\+System}, \hyperlink{classFollowCurvesPathSystem_a23f3ab7e281025eb8e40ef150a05a3b4}{Follow\+Curves\+Path\+System}, \hyperlink{classLightSystem_a492572de092cdbaf76c3ca4d9806df94}{Light\+System}, and \hyperlink{classCameraSystem_ab0ea25c2a8f704f0a0674a3bc61ddd68}{Camera\+System}.
+
+\mbox{\Hypertarget{classBaseSystem_a6422693fc429d74a2b0b4c4e860d1810}\label{classBaseSystem_a6422693fc429d74a2b0b4c4e860d1810}} 
+\index{Base\+System@{Base\+System}!Update\+All\+Nodes@{Update\+All\+Nodes}}
+\index{Update\+All\+Nodes@{Update\+All\+Nodes}!Base\+System@{Base\+System}}
+\subsubsection{\texorpdfstring{Update\+All\+Nodes()}{UpdateAllNodes()}}
+{\footnotesize\ttfamily void Base\+System\+::\+Update\+All\+Nodes (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})}
+
+
+
+Iterates through all Game\+Objects registered and calls update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/\hyperlink{BaseSystem_8h}{Base\+System.\+h}\item 
+Systems/Base\+System.\+cpp\end{DoxyCompactItemize}

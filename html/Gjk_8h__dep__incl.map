@@ -1,7 +1,0 @@
-<map id="Physics/Gjk/Gjk.h" name="Physics/Gjk/Gjk.h">
-<area shape="rect" id="node2" href="$Constraint_8h_source.html" title="Physics/Constraint.h" alt="" coords="248,80,403,107"/>
-<area shape="rect" id="node3" href="$RigidbodyComponent_8h_source.html" title="Components/RigidbodyComponent.h" alt="" coords="113,155,373,181"/>
-<area shape="rect" id="node4" href="$AllComponentHeaders_8h_source.html" title="Components/AllComponentHeaders.h" alt="" coords="5,229,272,256"/>
-<area shape="rect" id="node5" href="$CollisionManifold_8h_source.html" title="Physics/Gjk/CollisionManifold.h" alt="" coords="297,229,522,256"/>
-<area shape="rect" id="node6" href="$RigidbodySystem_8h_source.html" title="Systems/RigidbodySystem.h" alt="" coords="305,304,513,331"/>
-</map>

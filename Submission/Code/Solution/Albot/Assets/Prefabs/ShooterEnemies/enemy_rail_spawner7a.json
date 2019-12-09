@@ -1,0 +1,41 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\WhiteDiffuseWhiteSpecular.json",
+    "EnableRendering": false
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\Sphere.fbx"
+  },
+  "TriggerComponent": {
+    "Scale": [ 6.0, 6.0, 6.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\SpawnRailEnemy1Comp.lua",
+      "Overrides": {
+        "spawnGameobjPrefabDir": "Assets\\Prefabs\\ShooterEnemies\\swat_enemy.json",
+        "curveGameObjTag": "enemy_rail07a",
+        "spawnTimeInterval": 0.5,
+        "numberOfSpawnGameObj": 3,
+        "minMotionSpeed": 6.0,
+        "maxMotionSpeed": 10.0,
+        "enableMotionOrientation": false,
+        "minRelativeX": -0.1,
+        "minRelativeY": -0.0,
+        "minRelativeZ": -1.5,
+        "maxRelativeX": 0.1,
+        "maxRelativeY": 0.0,
+        "maxRelativeZ": 1.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+\hypertarget{classCustomSystem}{}\section{Custom\+System Class Reference}
+\label{classCustomSystem}\index{Custom\+System@{Custom\+System}}
+
+
+System that handles Update for the scripted component of Game\+Objects.  
+
+
+
+
+{\ttfamily \#include $<$Custom\+System.\+h$>$}
+
+
+
+Inheritance diagram for Custom\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{classCustomSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Custom\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{classCustomSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCustomSystem_a452aafe02e3b43713a732d2457c271c4}\label{classCustomSystem_a452aafe02e3b43713a732d2457c271c4}} 
+\hyperlink{classCustomSystem_a452aafe02e3b43713a732d2457c271c4}{Custom\+System} ()
+\begin{DoxyCompactList}\small\item\em Construct a new Custom System object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCustomSystem_a7426abb7e961d7eb28ead6af07f751cd}\label{classCustomSystem_a7426abb7e961d7eb28ead6af07f751cd}} 
+virtual \hyperlink{classCustomSystem_a7426abb7e961d7eb28ead6af07f751cd}{$\sim$\+Custom\+System} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Custom System object. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCustomSystem_a1fe5c399dec16f2a8aff1a5c9e06760e}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go)
+\begin{DoxyCompactList}\small\item\em Registers a \hyperlink{classGameObject}{Game\+Object} onto this system. Only Game\+Objects with custom components can register. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCustomSystem_ab8b072ffd6b4de7404b385068d735c61}{Update} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node)
+\begin{DoxyCompactList}\small\item\em Calls update on all the scripts of the Game\+Objects registered with this system. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCustomSystem_a6552a2339d179ca963650e94ee1bf615}{Draw} (float dt, \hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$comp\+Node) override
+\begin{DoxyCompactList}\small\item\em Calls draw on all the scripts of the Game\+Objects registered with this system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCustomSystem_aee254ef81ede23cbbfc18ade88d9dcc5}\label{classCustomSystem_aee254ef81ede23cbbfc18ade88d9dcc5}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCustomSystem_a1c3d97bf73201a0c3e1c306440ff94a7}\label{classCustomSystem_a1c3d97bf73201a0c3e1c306440ff94a7}} 
+static unsigned int const \hyperlink{classCustomSystem_a1c3d97bf73201a0c3e1c306440ff94a7}{static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\begin{DoxyCompactList}\small\item\em To compare when using templates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCustomSystem_a328c093d609680cca505905c6d49901a}\label{classCustomSystem_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+System that handles Update for the scripted component of Game\+Objects. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCustomSystem_a6552a2339d179ca963650e94ee1bf615}\label{classCustomSystem_a6552a2339d179ca963650e94ee1bf615}} 
+\index{Custom\+System@{Custom\+System}!Draw@{Draw}}
+\index{Draw@{Draw}!Custom\+System@{Custom\+System}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Custom\+System\+::\+Draw (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calls draw on all the scripts of the Game\+Objects registered with this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a94339337789820c707da572d140a0923}{Base\+System}.
+
+\mbox{\Hypertarget{classCustomSystem_a1fe5c399dec16f2a8aff1a5c9e06760e}\label{classCustomSystem_a1fe5c399dec16f2a8aff1a5c9e06760e}} 
+\index{Custom\+System@{Custom\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Custom\+System@{Custom\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Custom\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Registers a \hyperlink{classGameObject}{Game\+Object} onto this system. Only Game\+Objects with custom components can register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+\mbox{\Hypertarget{classCustomSystem_ab8b072ffd6b4de7404b385068d735c61}\label{classCustomSystem_ab8b072ffd6b4de7404b385068d735c61}} 
+\index{Custom\+System@{Custom\+System}!Update@{Update}}
+\index{Update@{Update}!Custom\+System@{Custom\+System}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Custom\+System\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt,  }\item[{\hyperlink{structBaseSystemCompNode}{Base\+System\+Comp\+Node} $\ast$}]{comp\+Node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Calls update on all the scripts of the Game\+Objects registered with this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+{\em comp\+Node} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_a465191589a1ef8b8f3a8e20fa4656d47}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/\+Custom\+System/\hyperlink{CustomSystem_8h}{Custom\+System.\+h}\item 
+Systems/\+Custom\+System/Custom\+System.\+cpp\end{DoxyCompactItemize}

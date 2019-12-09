@@ -1,0 +1,9 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\ceramic_diffuse.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\ceramic_normal.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\ceramic_height.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Roughness_Value": 0.35,
+  "Metallic_Value": 0.3
+}

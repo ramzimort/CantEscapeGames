@@ -1,0 +1,18 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structBaseSystemCompNode.html" title="Includes. " alt="" coords="5,360,180,387"/>
+<area shape="rect" id="node2" href="$structAnimatorCompNode.html" title="TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP. " alt="" coords="255,5,410,32"/>
+<area shape="rect" id="node3" href="$structCameraCompNode.html" title="CameraCompNode" alt="" coords="260,56,405,83"/>
+<area shape="rect" id="node4" href="$structCustomCompNode.html" title="CustomSystem will only update CustomComponent. One gameObj can have multiple CustomComponents, so that has to be accounted for in the node. " alt="" coords="261,107,405,133"/>
+<area shape="rect" id="node5" href="$structFollowCurvesPathCompNode.html" title="FollowCurvesPathCompNode" alt="" coords="228,157,437,184"/>
+<area shape="rect" id="node6" href="$structHaloEffectCompNode.html" title="HaloEffectCompNode" alt="" coords="252,208,413,235"/>
+<area shape="rect" id="node7" href="$structLightCompNode.html" title="LightCompNode" alt="" coords="269,259,396,285"/>
+<area shape="rect" id="node8" href="$structParticleEmitterCompNode.html" title="ParticleEmitterCompNode" alt="" coords="237,309,428,336"/>
+<area shape="rect" id="node9" href="$structRenderingCompNode.html" title="TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP. " alt="" coords="253,360,412,387"/>
+<area shape="rect" id="node10" href="$structRigidbodyCompNode.html" title="Rigidbody component node, for fast access of transform, mesh, rigidbody. " alt="" coords="253,411,412,437"/>
+<area shape="rect" id="node11" href="$structSkyboxIrradianceCompNode.html" title="TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP. " alt="" coords="229,461,436,488"/>
+<area shape="rect" id="node12" href="$structSplineCurvesCompNode.html" title="SplineCurvesCompNode" alt="" coords="243,512,422,539"/>
+<area shape="rect" id="node13" href="$structTestCompCompNode.html" title="TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP. " alt="" coords="253,563,412,589"/>
+<area shape="rect" id="node14" href="$structTransformCompNode.html" title="TEST SYSTEM, WILL REQUIRE A TRANSFORM AND RENDERER COMP. " alt="" coords="253,613,412,640"/>
+<area shape="rect" id="node15" href="$structTriggerCompNode.html" title="Stores pointer to a transform and trigger to fast access. " alt="" coords="263,664,402,691"/>
+<area shape="rect" id="node16" href="$structUICompNode.html" title="UICompNode" alt="" coords="279,715,387,741"/>
+</map>

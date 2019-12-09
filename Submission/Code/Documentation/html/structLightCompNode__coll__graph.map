@@ -1,0 +1,7 @@
+<map id="LightCompNode" name="LightCompNode">
+<area shape="rect" id="node2" href="$structBaseSystemCompNode.html" title="Includes. " alt="" coords="5,171,180,197"/>
+<area shape="rect" id="node3" href="$classLightComponent.html" title="LightComponent" alt="" coords="204,171,333,197"/>
+<area shape="rect" id="node4" href="$classBaseComponent.html" title="Base class for all components (engine and scripted) " alt="" coords="288,95,417,121"/>
+<area shape="rect" id="node6" href="$classTransformComponent.html" title="Stores and updates all position, orientation and scale data. " alt="" coords="358,171,521,197"/>
+<area shape="rect" id="node5" href="$classGameObject.html" title="Class representing the most basic game unit on our engine. " alt="" coords="301,5,404,32"/>
+</map>

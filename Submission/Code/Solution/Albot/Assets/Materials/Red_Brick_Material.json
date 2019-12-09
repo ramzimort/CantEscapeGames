@@ -1,0 +1,9 @@
+{
+  "Diffuse_Texture_Dir": "Assets\\Textures\\redbrick.jpg",
+  "Normal_Texture_Dir": "Assets\\Textures\\redbrick_normal.jpg",
+  "Height_Texture_Dir": "Assets\\Textures\\redbrick_height_invert.jpg",
+  "Diffuse_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Specular_Color": [ 1.0, 1.0, 1.0, 1.0 ],
+  "Roughness_Value": 0.8,
+  "Metallic_Value": 0.2
+}

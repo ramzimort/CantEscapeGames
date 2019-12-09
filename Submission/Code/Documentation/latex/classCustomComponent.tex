@@ -1,0 +1,227 @@
+\hypertarget{classCustomComponent}{}\section{Custom\+Component Class Reference}
+\label{classCustomComponent}\index{Custom\+Component@{Custom\+Component}}
+
+
+Class that represents the C\+PP class behind a scripted component.  
+
+
+
+
+{\ttfamily \#include $<$Custom\+Component.\+h$>$}
+
+
+
+Inheritance diagram for Custom\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classCustomComponent__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Custom\+Component\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classCustomComponent__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCustomComponent_a748e48455ac06076251485d3a112140f}{Custom\+Component} (\hyperlink{classGameObject}{Game\+Object} $\ast$owner)
+\begin{DoxyCompactList}\small\item\em Construct a new Custom Component object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCustomComponent_a79668a223e3efff11c27180ac90959c0}\label{classCustomComponent_a79668a223e3efff11c27180ac90959c0}} 
+virtual \hyperlink{classCustomComponent_a79668a223e3efff11c27180ac90959c0}{$\sim$\+Custom\+Component} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Custom Component object. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCustomComponent_a614f2af8f444be376d83cc00f6b9c7ea}{Init} (\hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$dxrenderer) override
+\begin{DoxyCompactList}\small\item\em Will do nothing on C\+PP other than call Init on the script. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classCustomComponent_a4c2ecd49242b844479cbee2e9385371b}{Begin} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr) override
+\begin{DoxyCompactList}\small\item\em Will do nothing on C\+PP other than call Begin on the script. \end{DoxyCompactList}\item 
+void \hyperlink{classCustomComponent_a938c6db19be64cb1d83da8f9ae7ba4d1}{Destroy} ()
+\begin{DoxyCompactList}\small\item\em Will do nothing on C\+PP other than call Init on the script. \end{DoxyCompactList}\item 
+\hyperlink{classStringId}{String\+Id} const  \& \hyperlink{classCustomComponent_aefb68297be52020412723f27a3c003f0}{Get\+Name} () const
+\begin{DoxyCompactList}\small\item\em Get the Name of this scripted component (same name as script) \end{DoxyCompactList}\item 
+sol\+::table \& \hyperlink{classCustomComponent_a5d59a3fcc75fbe18c2d2ab9d1fe76576}{get\+Custom\+Comp\+Lua\+Ref} ()
+\begin{DoxyCompactList}\small\item\em Returns the lua table reference that corresponds to this Component\textquotesingle{}s script. \end{DoxyCompactList}\item 
+void \hyperlink{classCustomComponent_ac540fc607bb502790276815b55890c98}{Script\+Setup} (\hyperlink{classStringId}{String\+Id} script\+Path, std\+::string const \&name, \hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$lua\+Mgr)
+\begin{DoxyCompactList}\small\item\em Sets the script up, by deep copying and getting the table reference from the \hyperlink{classScriptingManager}{Scripting\+Manager}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classCustomComponent_ab3107db0a720c77d00f9b73060cbcef3}{Override} (std\+::string member, T value)
+\begin{DoxyCompactList}\small\item\em Overrides a value on the script. Templatized since it can override different data types (as long as they exist on L\+UA) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCustomComponent_ae490cb396ab9ececc0a619a323929bfc}\label{classCustomComponent_ae490cb396ab9ececc0a619a323929bfc}} 
+static Component\+Id const \hyperlink{classCustomComponent_ae490cb396ab9ececc0a619a323929bfc}{static\+\_\+type} = static\+\_\+cast$<$unsigned$>$(-\/1)
+\begin{DoxyCompactList}\small\item\em Unique type identifier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCustomComponent_a328c093d609680cca505905c6d49901a}\label{classCustomComponent_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classCustomComponent_ad53c39bc0891ebd13eca5e98a09ab765}\label{classCustomComponent_ad53c39bc0891ebd13eca5e98a09ab765}} 
+class {\bfseries Custom\+System}
+\item 
+\mbox{\Hypertarget{classCustomComponent_ab3d6fafb2064bace492fd6b503d044f4}\label{classCustomComponent_ab3d6fafb2064bace492fd6b503d044f4}} 
+class {\bfseries Scripting\+Manager}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Class that represents the C\+PP class behind a scripted component. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCustomComponent_a748e48455ac06076251485d3a112140f}\label{classCustomComponent_a748e48455ac06076251485d3a112140f}} 
+\index{Custom\+Component@{Custom\+Component}!Custom\+Component@{Custom\+Component}}
+\index{Custom\+Component@{Custom\+Component}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Custom\+Component()}{CustomComponent()}}
+{\footnotesize\ttfamily Custom\+Component\+::\+Custom\+Component (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{owner }\end{DoxyParamCaption})}
+
+
+
+Construct a new Custom Component object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em owner} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCustomComponent_a4c2ecd49242b844479cbee2e9385371b}\label{classCustomComponent_a4c2ecd49242b844479cbee2e9385371b}} 
+\index{Custom\+Component@{Custom\+Component}!Begin@{Begin}}
+\index{Begin@{Begin}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily void Custom\+Component\+::\+Begin (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Will do nothing on C\+PP other than call Begin on the script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classCustomComponent_a938c6db19be64cb1d83da8f9ae7ba4d1}\label{classCustomComponent_a938c6db19be64cb1d83da8f9ae7ba4d1}} 
+\index{Custom\+Component@{Custom\+Component}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Destroy()}{Destroy()}}
+{\footnotesize\ttfamily void Custom\+Component\+::\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Will do nothing on C\+PP other than call Init on the script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res\+Mgr} & \\
+\hline
+{\em dxrenderer} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCustomComponent_a5d59a3fcc75fbe18c2d2ab9d1fe76576}\label{classCustomComponent_a5d59a3fcc75fbe18c2d2ab9d1fe76576}} 
+\index{Custom\+Component@{Custom\+Component}!get\+Custom\+Comp\+Lua\+Ref@{get\+Custom\+Comp\+Lua\+Ref}}
+\index{get\+Custom\+Comp\+Lua\+Ref@{get\+Custom\+Comp\+Lua\+Ref}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{get\+Custom\+Comp\+Lua\+Ref()}{getCustomCompLuaRef()}}
+{\footnotesize\ttfamily sol\+::table \& Custom\+Component\+::get\+Custom\+Comp\+Lua\+Ref (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the lua table reference that corresponds to this Component\textquotesingle{}s script. 
+
+\begin{DoxyReturn}{Returns}
+sol\+::table\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCustomComponent_aefb68297be52020412723f27a3c003f0}\label{classCustomComponent_aefb68297be52020412723f27a3c003f0}} 
+\index{Custom\+Component@{Custom\+Component}!Get\+Name@{Get\+Name}}
+\index{Get\+Name@{Get\+Name}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Get\+Name()}{GetName()}}
+{\footnotesize\ttfamily \hyperlink{classStringId}{String\+Id} const  \& Custom\+Component\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Name of this scripted component (same name as script) 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classStringId}{String\+Id} const\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCustomComponent_a614f2af8f444be376d83cc00f6b9c7ea}\label{classCustomComponent_a614f2af8f444be376d83cc00f6b9c7ea}} 
+\index{Custom\+Component@{Custom\+Component}!Init@{Init}}
+\index{Init@{Init}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Custom\+Component\+::\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res\+Mgr,  }\item[{\hyperlink{classDXRenderer}{D\+X\+Renderer} $\ast$}]{dxrenderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Will do nothing on C\+PP other than call Init on the script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res\+Mgr} & \\
+\hline
+{\em dxrenderer} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseComponent}{Base\+Component}.
+
+\mbox{\Hypertarget{classCustomComponent_ab3107db0a720c77d00f9b73060cbcef3}\label{classCustomComponent_ab3107db0a720c77d00f9b73060cbcef3}} 
+\index{Custom\+Component@{Custom\+Component}!Override@{Override}}
+\index{Override@{Override}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Override()}{Override()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Custom\+Component\+::\+Override (\begin{DoxyParamCaption}\item[{std\+::string}]{member,  }\item[{T}]{value }\end{DoxyParamCaption})}
+
+
+
+Overrides a value on the script. Templatized since it can override different data types (as long as they exist on L\+UA) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em member} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCustomComponent_ac540fc607bb502790276815b55890c98}\label{classCustomComponent_ac540fc607bb502790276815b55890c98}} 
+\index{Custom\+Component@{Custom\+Component}!Script\+Setup@{Script\+Setup}}
+\index{Script\+Setup@{Script\+Setup}!Custom\+Component@{Custom\+Component}}
+\subsubsection{\texorpdfstring{Script\+Setup()}{ScriptSetup()}}
+{\footnotesize\ttfamily void Custom\+Component\+::\+Script\+Setup (\begin{DoxyParamCaption}\item[{\hyperlink{classStringId}{String\+Id}}]{script\+Path,  }\item[{std\+::string const \&}]{name,  }\item[{\hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$}]{lua\+Mgr }\end{DoxyParamCaption})}
+
+
+
+Sets the script up, by deep copying and getting the table reference from the \hyperlink{classScriptingManager}{Scripting\+Manager}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Path} & \\
+\hline
+{\em name} & \\
+\hline
+{\em lua\+Mgr} & \\
+\hline
+\end{DoxyParams}
+m\+\_\+lua\+Script\+Table\mbox{[}\char`\"{}\+Get\+Owner\char`\"{}\mbox{]} = \&\hyperlink{classBaseComponent_aa07f9b9c2ebdd2c314404771857e9e07}{Custom\+Component\+::\+Get\+Owner}; m\+\_\+lua\+Script\+Table\mbox{[}\char`\"{}\+Get\+Name\char`\"{}\mbox{]} = \&\hyperlink{classCustomComponent_aefb68297be52020412723f27a3c003f0}{Custom\+Component\+::\+Get\+Name}; 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Components/\+Custom\+Component/\hyperlink{CustomComponent_8h}{Custom\+Component.\+h}\item 
+Components/\+Custom\+Component/Custom\+Component.\+cpp\end{DoxyCompactItemize}

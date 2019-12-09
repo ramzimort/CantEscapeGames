@@ -1,0 +1,101 @@
+\hypertarget{classTriggerSystem}{}\section{Trigger\+System Class Reference}
+\label{classTriggerSystem}\index{Trigger\+System@{Trigger\+System}}
+
+
+Inheritance diagram for Trigger\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{classTriggerSystem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Trigger\+System\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{classTriggerSystem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classTriggerSystem_a325a3dac44863b2e07868aeb9ae97d97}{Register\+\_\+\+Game\+Object} (\hyperlink{classGameObject}{Game\+Object} $\ast$go) override
+\begin{DoxyCompactList}\small\item\em Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTriggerSystem_af5b00b1d353b5008c9d8480910926b9c}\label{classTriggerSystem_af5b00b1d353b5008c9d8480910926b9c}} 
+void {\bfseries Register\+App\+Renderer} (\hyperlink{classAppRenderer}{App\+Renderer} $\ast$renderer)
+\item 
+void \hyperlink{classTriggerSystem_a804c490350677fea99a385b1f22a85b6}{Late\+Update} (float dt) override
+\begin{DoxyCompactList}\small\item\em All the trigger components getting updated here. \end{DoxyCompactList}\item 
+const \hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree} \& \hyperlink{classTriggerSystem_a1f187d6138a8048080ba96e98044cef8}{Get\+Trigers\+Tree} ()
+\begin{DoxyCompactList}\small\item\em Get the dynamic aabb Tree that stores all the triggers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriggerSystem_a225bcf6138182bd49f00db6b497b61f2}\label{classTriggerSystem_a225bcf6138182bd49f00db6b497b61f2}} 
+static unsigned int const {\bfseries static\+\_\+type} = \hyperlink{classBaseSystem_a7ef356edab3cfb02905e0a73a645b131}{Base\+System\+::number\+Of\+Types}++
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTriggerSystem_a1f187d6138a8048080ba96e98044cef8}\label{classTriggerSystem_a1f187d6138a8048080ba96e98044cef8}} 
+\index{Trigger\+System@{Trigger\+System}!Get\+Trigers\+Tree@{Get\+Trigers\+Tree}}
+\index{Get\+Trigers\+Tree@{Get\+Trigers\+Tree}!Trigger\+System@{Trigger\+System}}
+\subsubsection{\texorpdfstring{Get\+Trigers\+Tree()}{GetTrigersTree()}}
+{\footnotesize\ttfamily const \hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree} \& Trigger\+System\+::\+Get\+Trigers\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the dynamic aabb Tree that stores all the triggers. 
+
+\begin{DoxyReturn}{Returns}
+const \hyperlink{classDynamicAabbTree}{Dynamic\+Aabb\+Tree}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriggerSystem_a804c490350677fea99a385b1f22a85b6}\label{classTriggerSystem_a804c490350677fea99a385b1f22a85b6}} 
+\index{Trigger\+System@{Trigger\+System}!Late\+Update@{Late\+Update}}
+\index{Late\+Update@{Late\+Update}!Trigger\+System@{Trigger\+System}}
+\subsubsection{\texorpdfstring{Late\+Update()}{LateUpdate()}}
+{\footnotesize\ttfamily void Trigger\+System\+::\+Late\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+All the trigger components getting updated here. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classBaseSystem_ab6520975a6376e59005d3a40456358d4}{Base\+System}.
+
+\mbox{\Hypertarget{classTriggerSystem_a325a3dac44863b2e07868aeb9ae97d97}\label{classTriggerSystem_a325a3dac44863b2e07868aeb9ae97d97}} 
+\index{Trigger\+System@{Trigger\+System}!Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}}
+\index{Register\+\_\+\+Game\+Object@{Register\+\_\+\+Game\+Object}!Trigger\+System@{Trigger\+System}}
+\subsubsection{\texorpdfstring{Register\+\_\+\+Game\+Object()}{Register\_GameObject()}}
+{\footnotesize\ttfamily void Trigger\+System\+::\+Register\+\_\+\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObject}{Game\+Object} $\ast$}]{go }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Registers \hyperlink{classGameObject}{Game\+Object} GO in this system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classBaseSystem}{Base\+System}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Systems/\hyperlink{TriggerSystem_8h}{Trigger\+System.\+h}\item 
+Systems/\hyperlink{TriggerSystem_8cpp}{Trigger\+System.\+cpp}\end{DoxyCompactItemize}

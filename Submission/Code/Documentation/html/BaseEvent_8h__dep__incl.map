@@ -1,0 +1,22 @@
+<map id="Events/BaseEvent.h" name="Events/BaseEvent.h">
+<area shape="rect" id="node2" href="$EventBus_8h.html" title="Event Callback Queue with Subsriber architecture. " alt="" coords="246,304,389,331"/>
+<area shape="rect" id="node9" href="$Event_8h.html" title="CRTP Derived Event Class. " alt="" coords="645,80,764,107"/>
+<area shape="rect" id="node3" href="$EventManager_8h.html" title="Main singleton class for Event Communication and Thread&#45;Safety. " alt="" coords="436,386,629,413"/>
+<area shape="rect" id="node4" href="$RigidbodySystem_8h.html" title="System that controls all the rigidbodies in the engine, most of the physics happens here..." alt="" coords="1015,468,1223,495"/>
+<area shape="rect" id="node6" href="$TriggerSystem_8h.html" title="Controls all the triggers in the engine. " alt="" coords="742,468,928,495"/>
+<area shape="rect" id="node8" href="$UISystem_8h_source.html" title="Systems/UISystem.h" alt="" coords="454,468,611,495"/>
+<area shape="rect" id="node5" href="$RigidbodySystem_8cpp.html" title="Systems/RigidbodySystem.cpp" alt="" coords="1008,543,1230,569"/>
+<area shape="rect" id="node7" href="$TriggerSystem_8cpp.html" title="Systems/TriggerSystem.cpp" alt="" coords="734,543,936,569"/>
+<area shape="rect" id="node10" href="$KeyEvent_8h_source.html" title="Events/Input/KeyEvent.h" alt="" coords="1276,155,1456,181"/>
+<area shape="rect" id="node12" href="$MouseClickEvent_8h_source.html" title="Events/Input/MouseClickEvent.h" alt="" coords="224,155,454,181"/>
+<area shape="rect" id="node13" href="$JoystickEvent_8h_source.html" title="Events/Input/JoystickEvent.h" alt="" coords="478,155,685,181"/>
+<area shape="rect" id="node14" href="$WindowSizeEvent_8h_source.html" title="Events/Input/WindowSizeEvent.h" alt="" coords="710,155,944,181"/>
+<area shape="rect" id="node15" href="$StateEvents_8h.html" title="State Events. " alt="" coords="36,229,234,256"/>
+<area shape="rect" id="node16" href="$AudioEvents_8h.html" title="Audio Events. " alt="" coords="1480,155,1684,181"/>
+<area shape="rect" id="node20" href="$CameraEvents_8h.html" title="Camera Events. " alt="" coords="968,155,1200,181"/>
+<area shape="rect" id="node21" href="$GameObjectEvents_8h.html" title="Game Object Events. " alt="" coords="1001,379,1237,420"/>
+<area shape="rect" id="node11" href="$Input_8h.html" title="Peripheral Input (Mouse/Keyboard/Joystick/Window) Events. " alt="" coords="506,229,658,256"/>
+<area shape="rect" id="node17" href="$AudioManager_8h.html" title="Audio Manager Class for reacting to play/pause/stop events, and adjusting audio settings. " alt="" coords="1485,229,1678,256"/>
+<area shape="rect" id="node18" href="$ResourceManager_8h.html" title="Responsible for storing resource pointer table and respective memory management. " alt="" coords="1474,304,1689,331"/>
+<area shape="rect" id="node19" href="$TriggerComponent_8cpp.html" title="Components/TriggerComponent.cpp" alt="" coords="1454,386,1709,413"/>
+</map>

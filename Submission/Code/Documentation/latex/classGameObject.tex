@@ -1,0 +1,357 @@
+\hypertarget{classGameObject}{}\section{Game\+Object Class Reference}
+\label{classGameObject}\index{Game\+Object@{Game\+Object}}
+
+
+Class representing the most basic game unit on our engine.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Object.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameObject_aec670daa4bbc9e2956937b0b1b55acbe}\label{classGameObject_aec670daa4bbc9e2956937b0b1b55acbe}} 
+typedef std\+::bitset$<$ M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+C\+O\+M\+P\+O\+N\+E\+N\+TS $>$ \hyperlink{classGameObject_aec670daa4bbc9e2956937b0b1b55acbe}{Component\+Mask}
+\begin{DoxyCompactList}\small\item\em Typedef of byteset (used for components) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGameObject_aada17b22194b4188379d8d7d56f87bc2}{Game\+Object} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr, std\+::string prefab\+Name)
+\begin{DoxyCompactList}\small\item\em Construct a new Game Object object. \end{DoxyCompactList}\item 
+\hyperlink{classGameObject_a40bdca26a41d7266495ad380169f8376}{Game\+Object} (\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$go\+Mgr, std\+::string prefab\+Name, std\+::string tag)
+\begin{DoxyCompactList}\small\item\em Construct a new Game Object object, and sets a tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}\label{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}} 
+virtual \hyperlink{classGameObject_ab82dfdb656f9051c0587e6593b2dda97}{$\sim$\+Game\+Object} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Game Object object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\bool \hyperlink{classGameObject_ace5e8a7bdb6bf548b534cae696ed0db1}{Has\+Component} ()
+\begin{DoxyCompactList}\small\item\em Templatized. Returns true if \hyperlink{classGameObject}{Game\+Object} owns a component of type T. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T $\ast$ \hyperlink{classGameObject_a5ba3b458e6bee6ea5aedd5c8cdeabf18}{Get\+Component} ()
+\begin{DoxyCompactList}\small\item\em Templatized. Returns pointer to \hyperlink{classGameObject}{Game\+Object} of type T if the \hyperlink{classGameObject}{Game\+Object} owns it. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::vector$<$ T $\ast$ $>$ \hyperlink{classGameObject_a0962252e1ed643ec1fde58da7dec4c2c}{Get\+All\+Components} ()
+\begin{DoxyCompactList}\small\item\em Templatized. Returns vector of components owned by the \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T $\ast$ \hyperlink{classGameObject_a811dc08b79009b3af153721df972e761}{Add\+Component} ()
+\begin{DoxyCompactList}\small\item\em Templatized. Adds component of type T to \hyperlink{classGameObject}{Game\+Object} (if its not already owned), and then return a T pointer to it. \end{DoxyCompactList}\item 
+\hyperlink{classCustomComponent}{Custom\+Component} $\ast$ \hyperlink{classGameObject_ad388a379be13bf21977558f1e00906c3}{Add\+Custom\+Component} (const std\+::string \&script\+Name)
+\begin{DoxyCompactList}\small\item\em Adds a custom (scripted) component to this \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\item 
+\hyperlink{classCustomComponent}{Custom\+Component} $\ast$ \hyperlink{classGameObject_af5b410a717cc1b1b1729684f75a73f36}{Get\+Custom\+Component} (std\+::string script\+Name)
+\begin{DoxyCompactList}\small\item\em Get the Custom Component (if it exists) \end{DoxyCompactList}\item 
+sol\+::table const  \& \hyperlink{classGameObject_a7838788ee6710528dbcb58e1c6400079}{Lua\+Get\+Custom\+Component} (std\+::string script\+Name)
+\begin{DoxyCompactList}\small\item\em Used to get a custom component from lua. \end{DoxyCompactList}\item 
+sol\+::table \hyperlink{classGameObject_a6fbe224c7ecc5562df50fccbaae30658}{Lua\+Add\+Custom\+Component} (std\+::string script\+Name)
+\begin{DoxyCompactList}\small\item\em Used to add a custom component to a \hyperlink{classGameObject}{Game\+Object} from lua. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGameObject_abf1959fad10ea04673a182029f1f81b9}\label{classGameObject_abf1959fad10ea04673a182029f1f81b9}} 
+void \hyperlink{classGameObject_abf1959fad10ea04673a182029f1f81b9}{Destroy} ()
+\begin{DoxyCompactList}\small\item\em Flags and queues a \hyperlink{classGameObject}{Game\+Object} for removal next frame. \end{DoxyCompactList}\item 
+bool \hyperlink{classGameObject_a812be3286e6e8d3839c844c507093395}{Is\+\_\+marked\+\_\+for\+\_\+remove} () const
+\begin{DoxyCompactList}\small\item\em Getter for flag that states if the \hyperlink{classGameObject}{Game\+Object} is marked for removal. \end{DoxyCompactList}\item 
+\hyperlink{classGameObject_aec670daa4bbc9e2956937b0b1b55acbe}{Component\+Mask} \hyperlink{classGameObject_aea7bddf2500f760afba95bb9daada51c}{Get\+Component\+Mask} () const
+\begin{DoxyCompactList}\small\item\em Get the Component Mask. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classGameObject_a47a9e2307a23923343e23d6c8c4223c1}{Get\+Id} () const
+\begin{DoxyCompactList}\small\item\em Gets the \hyperlink{classGameObject}{Game\+Object} ID (also called from scripts) \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classGameObject_a6ec65a8b875cfcf7d9155390579fcaab}{Get\+Tag} () const
+\begin{DoxyCompactList}\small\item\em Gets the Gameobject T\+AG (also called from scripts) \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classGameObject_a6f4378b0219e78cf1852e224ca6545b5}{Get\+Prefab\+Name} () const
+\begin{DoxyCompactList}\small\item\em Get the Prefab Name object. \end{DoxyCompactList}\item 
+\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$ \hyperlink{classGameObject_ade4a81b6b0ed07ef656fc5c636ae648b}{Get\+G\+O\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Gets the manager that owns this \hyperlink{classGameObject}{Game\+Object}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGameObject_a328c093d609680cca505905c6d49901a}\label{classGameObject_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\item 
+\mbox{\Hypertarget{classGameObject_a1792bd89cabd9de04209188147625921}\label{classGameObject_a1792bd89cabd9de04209188147625921}} 
+class {\bfseries Game\+Object\+Manager}
+\item 
+\mbox{\Hypertarget{classGameObject_ab3d6fafb2064bace492fd6b503d044f4}\label{classGameObject_ab3d6fafb2064bace492fd6b503d044f4}} 
+class {\bfseries Scripting\+Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class representing the most basic game unit on our engine. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGameObject_aada17b22194b4188379d8d7d56f87bc2}\label{classGameObject_aada17b22194b4188379d8d7d56f87bc2}} 
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Game\+Object()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr,  }\item[{std\+::string}]{prefab\+Name }\end{DoxyParamCaption})}
+
+
+
+Construct a new Game Object object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+{\em prefab\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGameObject_a40bdca26a41d7266495ad380169f8376}\label{classGameObject_a40bdca26a41d7266495ad380169f8376}} 
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\index{Game\+Object@{Game\+Object}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Game\+Object()}{GameObject()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Game\+Object\+::\+Game\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$}]{go\+Mgr,  }\item[{std\+::string}]{prefab\+Name,  }\item[{std\+::string}]{tag }\end{DoxyParamCaption})}
+
+
+
+Construct a new Game Object object, and sets a tag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+Mgr} & \\
+\hline
+{\em prefab\+Name} & \\
+\hline
+{\em tag} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGameObject_a811dc08b79009b3af153721df972e761}\label{classGameObject_a811dc08b79009b3af153721df972e761}} 
+\index{Game\+Object@{Game\+Object}!Add\+Component@{Add\+Component}}
+\index{Add\+Component@{Add\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Add\+Component()}{AddComponent()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ Game\+Object\+::\+Add\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Templatized. Adds component of type T to \hyperlink{classGameObject}{Game\+Object} (if its not already owned), and then return a T pointer to it. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_ad388a379be13bf21977558f1e00906c3}\label{classGameObject_ad388a379be13bf21977558f1e00906c3}} 
+\index{Game\+Object@{Game\+Object}!Add\+Custom\+Component@{Add\+Custom\+Component}}
+\index{Add\+Custom\+Component@{Add\+Custom\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Add\+Custom\+Component()}{AddCustomComponent()}}
+{\footnotesize\ttfamily \hyperlink{classCustomComponent}{Custom\+Component} $\ast$ Game\+Object\+::\+Add\+Custom\+Component (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Adds a custom (scripted) component to this \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Custom\+Component$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a0962252e1ed643ec1fde58da7dec4c2c}\label{classGameObject_a0962252e1ed643ec1fde58da7dec4c2c}} 
+\index{Game\+Object@{Game\+Object}!Get\+All\+Components@{Get\+All\+Components}}
+\index{Get\+All\+Components@{Get\+All\+Components}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+All\+Components()}{GetAllComponents()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$ T $\ast$ $>$ Game\+Object\+::\+Get\+All\+Components (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Templatized. Returns vector of components owned by the \hyperlink{classGameObject}{Game\+Object}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a5ba3b458e6bee6ea5aedd5c8cdeabf18}\label{classGameObject_a5ba3b458e6bee6ea5aedd5c8cdeabf18}} 
+\index{Game\+Object@{Game\+Object}!Get\+Component@{Get\+Component}}
+\index{Get\+Component@{Get\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Component()}{GetComponent()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ Game\+Object\+::\+Get\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Templatized. Returns pointer to \hyperlink{classGameObject}{Game\+Object} of type T if the \hyperlink{classGameObject}{Game\+Object} owns it. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_aea7bddf2500f760afba95bb9daada51c}\label{classGameObject_aea7bddf2500f760afba95bb9daada51c}} 
+\index{Game\+Object@{Game\+Object}!Get\+Component\+Mask@{Get\+Component\+Mask}}
+\index{Get\+Component\+Mask@{Get\+Component\+Mask}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Component\+Mask()}{GetComponentMask()}}
+{\footnotesize\ttfamily \hyperlink{classGameObject_aec670daa4bbc9e2956937b0b1b55acbe}{Game\+Object\+::\+Component\+Mask} Game\+Object\+::\+Get\+Component\+Mask (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Component Mask. 
+
+\begin{DoxyReturn}{Returns}
+Component\+Mask 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_af5b410a717cc1b1b1729684f75a73f36}\label{classGameObject_af5b410a717cc1b1b1729684f75a73f36}} 
+\index{Game\+Object@{Game\+Object}!Get\+Custom\+Component@{Get\+Custom\+Component}}
+\index{Get\+Custom\+Component@{Get\+Custom\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Custom\+Component()}{GetCustomComponent()}}
+{\footnotesize\ttfamily \hyperlink{classCustomComponent}{Custom\+Component} $\ast$ Game\+Object\+::\+Get\+Custom\+Component (\begin{DoxyParamCaption}\item[{std\+::string}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Get the Custom Component (if it exists) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Custom\+Component$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_ade4a81b6b0ed07ef656fc5c636ae648b}\label{classGameObject_ade4a81b6b0ed07ef656fc5c636ae648b}} 
+\index{Game\+Object@{Game\+Object}!Get\+G\+O\+Manager@{Get\+G\+O\+Manager}}
+\index{Get\+G\+O\+Manager@{Get\+G\+O\+Manager}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+G\+O\+Manager()}{GetGOManager()}}
+{\footnotesize\ttfamily \hyperlink{classGameObjectManager}{Game\+Object\+Manager} $\ast$ Game\+Object\+::\+Get\+G\+O\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the manager that owns this \hyperlink{classGameObject}{Game\+Object}. 
+
+\begin{DoxyReturn}{Returns}
+Game\+Object\+Manager$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a47a9e2307a23923343e23d6c8c4223c1}\label{classGameObject_a47a9e2307a23923343e23d6c8c4223c1}} 
+\index{Game\+Object@{Game\+Object}!Get\+Id@{Get\+Id}}
+\index{Get\+Id@{Get\+Id}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Id()}{GetId()}}
+{\footnotesize\ttfamily size\+\_\+t Game\+Object\+::\+Get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the \hyperlink{classGameObject}{Game\+Object} ID (also called from scripts) 
+
+\begin{DoxyReturn}{Returns}
+size\+\_\+t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a6f4378b0219e78cf1852e224ca6545b5}\label{classGameObject_a6f4378b0219e78cf1852e224ca6545b5}} 
+\index{Game\+Object@{Game\+Object}!Get\+Prefab\+Name@{Get\+Prefab\+Name}}
+\index{Get\+Prefab\+Name@{Get\+Prefab\+Name}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Prefab\+Name()}{GetPrefabName()}}
+{\footnotesize\ttfamily const std\+::string \& Game\+Object\+::\+Get\+Prefab\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Prefab Name object. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::string\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a6ec65a8b875cfcf7d9155390579fcaab}\label{classGameObject_a6ec65a8b875cfcf7d9155390579fcaab}} 
+\index{Game\+Object@{Game\+Object}!Get\+Tag@{Get\+Tag}}
+\index{Get\+Tag@{Get\+Tag}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Get\+Tag()}{GetTag()}}
+{\footnotesize\ttfamily const std\+::string \& Game\+Object\+::\+Get\+Tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Gets the Gameobject T\+AG (also called from scripts) 
+
+\begin{DoxyReturn}{Returns}
+const std\+::string\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_ace5e8a7bdb6bf548b534cae696ed0db1}\label{classGameObject_ace5e8a7bdb6bf548b534cae696ed0db1}} 
+\index{Game\+Object@{Game\+Object}!Has\+Component@{Has\+Component}}
+\index{Has\+Component@{Has\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Has\+Component()}{HasComponent()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool Game\+Object\+::\+Has\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Templatized. Returns true if \hyperlink{classGameObject}{Game\+Object} owns a component of type T. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a812be3286e6e8d3839c844c507093395}\label{classGameObject_a812be3286e6e8d3839c844c507093395}} 
+\index{Game\+Object@{Game\+Object}!Is\+\_\+marked\+\_\+for\+\_\+remove@{Is\+\_\+marked\+\_\+for\+\_\+remove}}
+\index{Is\+\_\+marked\+\_\+for\+\_\+remove@{Is\+\_\+marked\+\_\+for\+\_\+remove}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Is\+\_\+marked\+\_\+for\+\_\+remove()}{Is\_marked\_for\_remove()}}
+{\footnotesize\ttfamily bool Game\+Object\+::\+Is\+\_\+marked\+\_\+for\+\_\+remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Getter for flag that states if the \hyperlink{classGameObject}{Game\+Object} is marked for removal. 
+
+\begin{DoxyReturn}{Returns}
+true if its marked for removal 
+
+false if it\textquotesingle{}s not marked for removal 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a6fbe224c7ecc5562df50fccbaae30658}\label{classGameObject_a6fbe224c7ecc5562df50fccbaae30658}} 
+\index{Game\+Object@{Game\+Object}!Lua\+Add\+Custom\+Component@{Lua\+Add\+Custom\+Component}}
+\index{Lua\+Add\+Custom\+Component@{Lua\+Add\+Custom\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Lua\+Add\+Custom\+Component()}{LuaAddCustomComponent()}}
+{\footnotesize\ttfamily sol\+::table Game\+Object\+::\+Lua\+Add\+Custom\+Component (\begin{DoxyParamCaption}\item[{std\+::string}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Used to add a custom component to a \hyperlink{classGameObject}{Game\+Object} from lua. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sol\+::table 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGameObject_a7838788ee6710528dbcb58e1c6400079}\label{classGameObject_a7838788ee6710528dbcb58e1c6400079}} 
+\index{Game\+Object@{Game\+Object}!Lua\+Get\+Custom\+Component@{Lua\+Get\+Custom\+Component}}
+\index{Lua\+Get\+Custom\+Component@{Lua\+Get\+Custom\+Component}!Game\+Object@{Game\+Object}}
+\subsubsection{\texorpdfstring{Lua\+Get\+Custom\+Component()}{LuaGetCustomComponent()}}
+{\footnotesize\ttfamily sol\+::table const  \& Game\+Object\+::\+Lua\+Get\+Custom\+Component (\begin{DoxyParamCaption}\item[{std\+::string}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Used to get a custom component from lua. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em script\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sol\+::table const\& 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Game\+Objects/\hyperlink{GameObject_8h}{Game\+Object.\+h}\item 
+Game\+Objects/Game\+Object.\+cpp\end{DoxyCompactItemize}

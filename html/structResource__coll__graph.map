@@ -1,7 +1,0 @@
-<map id="Resource" name="Resource">
-<area shape="rect" id="node2" href="$unionResPtr.html" title="Union class that can store different pointer types. " alt="" coords="117,199,179,225"/>
-<area shape="rect" id="node3" href="$classMaterial.html" title="Material" alt="" coords="5,109,80,136"/>
-<area shape="rect" id="node4" href="$classModel.html" title="Model" alt="" coords="117,109,179,136"/>
-<area shape="rect" id="node5" href="$classBuffer.html" title="Buffer" alt="" coords="117,5,179,32"/>
-<area shape="rect" id="node6" href="$classTexture.html" title="Texture" alt="" coords="205,109,275,136"/>
-</map>

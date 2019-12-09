@@ -1,0 +1,67 @@
+\hypertarget{classTriangle}{}\section{Triangle Class Reference}
+\label{classTriangle}\index{Triangle@{Triangle}}
+
+
+defenition of the triangle  
+
+
+
+
+{\ttfamily \#include $<$Triangle.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriangle_a92decf8cb6085cea9ff3db39637d8539}\label{classTriangle_a92decf8cb6085cea9ff3db39637d8539}} 
+{\bfseries Triangle} (const Vector3 \&p0, const Vector3 \&p1, const Vector3 \&p2)
+\item 
+bool \hyperlink{classTriangle_a475f07ea83d763614570c820dd10230b}{Is\+Degenerate\+Triangle} () const
+\begin{DoxyCompactList}\small\item\em Checks if the triangle is degenerate(two or all 3 points are the same, or all three points lay on a line) \end{DoxyCompactList}\item 
+Vector3 \hyperlink{classTriangle_afa65f5d26672ed568b4266a66a372c3a}{Normal} () const
+\begin{DoxyCompactList}\small\item\em Calculates a normal of the triangles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTriangle_a7b7eb4c8f1bff4276ccc8a297e830767}\label{classTriangle_a7b7eb4c8f1bff4276ccc8a297e830767}} 
+Vector3 {\bfseries points} \mbox{[}3\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+defenition of the triangle 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTriangle_a475f07ea83d763614570c820dd10230b}\label{classTriangle_a475f07ea83d763614570c820dd10230b}} 
+\index{Triangle@{Triangle}!Is\+Degenerate\+Triangle@{Is\+Degenerate\+Triangle}}
+\index{Is\+Degenerate\+Triangle@{Is\+Degenerate\+Triangle}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{Is\+Degenerate\+Triangle()}{IsDegenerateTriangle()}}
+{\footnotesize\ttfamily bool Triangle\+::\+Is\+Degenerate\+Triangle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Checks if the triangle is degenerate(two or all 3 points are the same, or all three points lay on a line) 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classTriangle_afa65f5d26672ed568b4266a66a372c3a}\label{classTriangle_afa65f5d26672ed568b4266a66a372c3a}} 
+\index{Triangle@{Triangle}!Normal@{Normal}}
+\index{Normal@{Normal}!Triangle@{Triangle}}
+\subsubsection{\texorpdfstring{Normal()}{Normal()}}
+{\footnotesize\ttfamily Vector3 Triangle\+::\+Normal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Calculates a normal of the triangles. 
+
+\begin{DoxyReturn}{Returns}
+Vector3 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Geometry/\hyperlink{Triangle_8h}{Triangle.\+h}\item 
+Physics/\+Geometry/\hyperlink{Triangle_8cpp}{Triangle.\+cpp}\end{DoxyCompactItemize}

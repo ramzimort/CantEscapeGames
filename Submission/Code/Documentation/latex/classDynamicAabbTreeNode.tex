@@ -1,0 +1,136 @@
+\hypertarget{classDynamicAabbTreeNode}{}\section{Dynamic\+Aabb\+Tree\+Node Class Reference}
+\label{classDynamicAabbTreeNode}\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+
+
+Defenition of a node in the Danmic \hyperlink{classAabb}{Aabb} tree.  
+
+
+
+
+{\ttfamily \#include $<$Dynamic\+Aabb\+Tree.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDynamicAabbTreeNode_a642f29ba18e5635f7c75ec00f4b0d8a1}\label{classDynamicAabbTreeNode_a642f29ba18e5635f7c75ec00f4b0d8a1}} 
+{\bfseries Dynamic\+Aabb\+Tree\+Node} (unsigned int key, const \hyperlink{classSpatialPartitionData}{Spatial\+Partition\+Data} \&data)
+\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTreeNode_ad744f2b406abe153f6e4fc07f00d7b62}{Get\+Parent} () const
+\begin{DoxyCompactList}\small\item\em Get the Parent of this node. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTreeNode_a80c6ed32f3c5440f524ec38cdbf31a03}{Get\+Left\+Child} () const
+\begin{DoxyCompactList}\small\item\em Get the Left Child of this node. \end{DoxyCompactList}\item 
+\hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ \hyperlink{classDynamicAabbTreeNode_a0a1ff4b73424133fcd437a19ac77a320}{Get\+Right\+Child} () const
+\begin{DoxyCompactList}\small\item\em Get the Right Child of this node. \end{DoxyCompactList}\item 
+\hyperlink{classAabb}{Aabb} \hyperlink{classDynamicAabbTreeNode_a63dd9923f939cd475b90568a949e9831}{Get\+Aabb} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classAabb}{Aabb} for this node. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{classDynamicAabbTreeNode_a9c1101785913748b9f5e64b0842425a5}{Get\+Client\+Data} () const
+\begin{DoxyCompactList}\small\item\em Get the Client Data associated with this node. \end{DoxyCompactList}\item 
+int \hyperlink{classDynamicAabbTreeNode_ac36d17b0d2fe72b0cbfe513e54995ac2}{Get\+Height} () const
+\begin{DoxyCompactList}\small\item\em Get the Height of this node inside of the tree. \end{DoxyCompactList}\item 
+bool \hyperlink{classDynamicAabbTreeNode_acc87f07be4469f565cb57928b9f06c5a}{Is\+Leaf} () const
+\begin{DoxyCompactList}\small\item\em checks if this node is a leaf in the tree \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defenition of a node in the Danmic \hyperlink{classAabb}{Aabb} tree. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_a63dd9923f939cd475b90568a949e9831}\label{classDynamicAabbTreeNode_a63dd9923f939cd475b90568a949e9831}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Aabb@{Get\+Aabb}}
+\index{Get\+Aabb@{Get\+Aabb}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Aabb()}{GetAabb()}}
+{\footnotesize\ttfamily \hyperlink{classAabb}{Aabb} Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Aabb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{classAabb}{Aabb} for this node. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{classAabb}{Aabb} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_a9c1101785913748b9f5e64b0842425a5}\label{classDynamicAabbTreeNode_a9c1101785913748b9f5e64b0842425a5}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Client\+Data@{Get\+Client\+Data}}
+\index{Get\+Client\+Data@{Get\+Client\+Data}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Client\+Data()}{GetClientData()}}
+{\footnotesize\ttfamily void $\ast$ Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Client\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Client Data associated with this node. 
+
+\begin{DoxyReturn}{Returns}
+void$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_ac36d17b0d2fe72b0cbfe513e54995ac2}\label{classDynamicAabbTreeNode_ac36d17b0d2fe72b0cbfe513e54995ac2}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Height@{Get\+Height}}
+\index{Get\+Height@{Get\+Height}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Height()}{GetHeight()}}
+{\footnotesize\ttfamily int Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Height of this node inside of the tree. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_a80c6ed32f3c5440f524ec38cdbf31a03}\label{classDynamicAabbTreeNode_a80c6ed32f3c5440f524ec38cdbf31a03}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Left\+Child@{Get\+Left\+Child}}
+\index{Get\+Left\+Child@{Get\+Left\+Child}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Left\+Child()}{GetLeftChild()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Left\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Left Child of this node. 
+
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_ad744f2b406abe153f6e4fc07f00d7b62}\label{classDynamicAabbTreeNode_ad744f2b406abe153f6e4fc07f00d7b62}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Parent@{Get\+Parent}}
+\index{Get\+Parent@{Get\+Parent}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Parent()}{GetParent()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Parent of this node. 
+
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_a0a1ff4b73424133fcd437a19ac77a320}\label{classDynamicAabbTreeNode_a0a1ff4b73424133fcd437a19ac77a320}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Get\+Right\+Child@{Get\+Right\+Child}}
+\index{Get\+Right\+Child@{Get\+Right\+Child}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Get\+Right\+Child()}{GetRightChild()}}
+{\footnotesize\ttfamily \hyperlink{classDynamicAabbTreeNode}{Dynamic\+Aabb\+Tree\+Node} $\ast$ Dynamic\+Aabb\+Tree\+Node\+::\+Get\+Right\+Child (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Right Child of this node. 
+
+\begin{DoxyReturn}{Returns}
+Dynamic\+Aabb\+Tree\+Node$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDynamicAabbTreeNode_acc87f07be4469f565cb57928b9f06c5a}\label{classDynamicAabbTreeNode_acc87f07be4469f565cb57928b9f06c5a}} 
+\index{Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}!Is\+Leaf@{Is\+Leaf}}
+\index{Is\+Leaf@{Is\+Leaf}!Dynamic\+Aabb\+Tree\+Node@{Dynamic\+Aabb\+Tree\+Node}}
+\subsubsection{\texorpdfstring{Is\+Leaf()}{IsLeaf()}}
+{\footnotesize\ttfamily bool Dynamic\+Aabb\+Tree\+Node\+::\+Is\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+checks if this node is a leaf in the tree 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Physics/\+Spatial\+Partition/\hyperlink{DynamicAabbTree_8h}{Dynamic\+Aabb\+Tree.\+h}\item 
+Physics/\+Spatial\+Partition/\hyperlink{DynamicAabbTree_8cpp}{Dynamic\+Aabb\+Tree.\+cpp}\end{DoxyCompactItemize}

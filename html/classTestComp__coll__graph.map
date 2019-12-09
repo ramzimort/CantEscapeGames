@@ -1,5 +1,0 @@
-<map id="TestComp" name="TestComp">
-<area shape="rect" id="node2" href="$classBaseComponent.html" title="BaseComponent" alt="" coords="5,102,135,129"/>
-<area shape="rect" id="node3" href="$classGameObject.html" title="GameObject" alt="" coords="19,5,121,32"/>
-<area shape="rect" id="node4" href="$classMulticast.html" title="Multicast\&lt; void(std\l::string, float)\&gt;" alt="" coords="159,95,309,136"/>
-</map>

@@ -1,0 +1,40 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 0.0, 0.0, 0.0 ],
+    "Scale": [ 1.0, 1.0, 1.0 ]
+  },
+
+  "CameraComponent": {
+    "Camera": {
+      "FOV": 45.0,
+      "Near": 0.1,
+      "Far": 500.0,
+      "Position": [ 0.0, 0.0, 20.0 ],
+      "CameraName": "Main",
+	   "RenderObjectType": "Render_UI_And_Meshes",
+      "ZOrder": 0
+    }
+  },
+  "FollowCurvesPathComponent": {
+    "MotionPathCurveGameobjectTagName": "",
+    "MotionSpeed": 1.0,
+    "ArcLengthTolerance": 0.001,
+    "EnableMotionAlongPath": false,
+    "EnableMotionOrientation": false,
+    "EnableReverseMotion": false,
+    "OffsetFollowPathPosition": [ 0.0, 4.0, 0.0 ]
+  },
+  "TriggerComponent": {
+    "Scale": [ 1.0, 1.0, 1.0 ],
+    "Offset": [ 0.0, 0.0, 0.0 ],
+    "CollisionMask": "PLAYER"
+  },
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\shooter_fpscontroller.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}

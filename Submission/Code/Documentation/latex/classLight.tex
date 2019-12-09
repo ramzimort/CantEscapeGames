@@ -1,0 +1,226 @@
+\hypertarget{classLight}{}\section{Light Class Reference}
+\label{classLight}\index{Light@{Light}}
+
+
+Defines the interface for light.  
+
+
+
+
+{\ttfamily \#include $<$Light.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const Vector3 \& \hyperlink{classLight_a5183e96f3b976edc679456856c480d17}{Get\+Position} () const
+\begin{DoxyCompactList}\small\item\em Get the Position of the \hyperlink{classLight}{Light} relative to the \hyperlink{classGameObject}{Game\+Object}\textquotesingle{}s \hyperlink{classTransformComponent}{Transform\+Component}\textquotesingle{}s position. \end{DoxyCompactList}\item 
+const Vector3 \& \hyperlink{classLight_aff03e46ab768fd30fae4e9624532351a}{Get\+Color} () const
+\begin{DoxyCompactList}\small\item\em Get the Color of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+float \hyperlink{classLight_a3df6df8d3503e59227f626380b4d7a29}{Get\+Intensity} () const
+\begin{DoxyCompactList}\small\item\em Get the Intensity of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+E\+Light\+Type \hyperlink{classLight_ad825d936b6213b8cf49a6a2bd9516b1a}{Get\+Light\+Type} () const
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{classLight}{Light} Type. \end{DoxyCompactList}\item 
+float \hyperlink{classLight_acba7192fae5c7f97f41c12fb9773145c}{Get\+Radius} () const
+\begin{DoxyCompactList}\small\item\em Get the Radius of the \hyperlink{classLight}{Light}. Only applicable for Point \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+Vector2 \hyperlink{classLight_abf1be47f811217845e2381fd01e01c6d}{Get\+Attenuation\+Constant} () const
+\begin{DoxyCompactList}\small\item\em Get the Attenuation Value for Point \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+float \hyperlink{classLight_af2cd275417fec333fecadb28180805ca}{Get\+Shadow\+Intensity} () const
+\begin{DoxyCompactList}\small\item\em Get the Shadow Intensity of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+void \hyperlink{classLight_a9163be3eb36a2bee3d80664afff48a6a}{Set\+Position} (const Vector3 \&position)
+\begin{DoxyCompactList}\small\item\em Set the Position of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+void \hyperlink{classLight_a1930e36520d82d4d82779c66bba28734}{Set\+Color} (const Vector3 \&color)
+\begin{DoxyCompactList}\small\item\em Set the Color of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+void \hyperlink{classLight_a13d3927b9123987a5151f63d5d4c3fc4}{Set\+Intensity} (float intensity)
+\begin{DoxyCompactList}\small\item\em Set the Intensity of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+void \hyperlink{classLight_a304fff5378538a07af88b77a0fee81fe}{Set\+Radius} (float radius)
+\begin{DoxyCompactList}\small\item\em Set the Radius of the \hyperlink{classLight}{Light}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLight_a582c2ac8c912ef5c3301cf798e335835}\label{classLight_a582c2ac8c912ef5c3301cf798e335835}} 
+void {\bfseries Set\+Shadow\+Orthographic\+Size} (const Vector2 \&orthographic\+Size)
+\item 
+\mbox{\Hypertarget{classLight_a147e85a639e8f1cb33e7be1093759189}\label{classLight_a147e85a639e8f1cb33e7be1093759189}} 
+Vector2 {\bfseries Get\+Shadow\+Orthographic\+Size} () const
+\item 
+\mbox{\Hypertarget{classLight_ac5aa387959569c60efbfdbefe56c1e6a}\label{classLight_ac5aa387959569c60efbfdbefe56c1e6a}} 
+void {\bfseries Set\+Shadow\+Caster\+Distance\+From\+Focus\+Point} (float caster\+Distance\+From\+Focus\+Point)
+\item 
+\mbox{\Hypertarget{classLight_a33f170b88c3a2a829ccccda82715b80c}\label{classLight_a33f170b88c3a2a829ccccda82715b80c}} 
+float {\bfseries Get\+Shadow\+Caster\+Distance\+From\+Focus\+Point} () const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLight_a5f3d064e51c4a3bf9409801632b9a7af}\label{classLight_a5f3d064e51c4a3bf9409801632b9a7af}} 
+class {\bfseries App\+Renderer}
+\item 
+\mbox{\Hypertarget{classLight_a355bf32616f2e1751ee46bd315e905e5}\label{classLight_a355bf32616f2e1751ee46bd315e905e5}} 
+class {\bfseries Deferred\+Rendering}
+\item 
+\mbox{\Hypertarget{classLight_acad5260b1bd2b9cbfe38d8f2471f072b}\label{classLight_acad5260b1bd2b9cbfe38d8f2471f072b}} 
+class {\bfseries Light\+System}
+\item 
+\mbox{\Hypertarget{classLight_a328c093d609680cca505905c6d49901a}\label{classLight_a328c093d609680cca505905c6d49901a}} 
+class {\bfseries Factory}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Defines the interface for light. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classLight_abf1be47f811217845e2381fd01e01c6d}\label{classLight_abf1be47f811217845e2381fd01e01c6d}} 
+\index{Light@{Light}!Get\+Attenuation\+Constant@{Get\+Attenuation\+Constant}}
+\index{Get\+Attenuation\+Constant@{Get\+Attenuation\+Constant}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Attenuation\+Constant()}{GetAttenuationConstant()}}
+{\footnotesize\ttfamily Vector2 Light\+::\+Get\+Attenuation\+Constant (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Attenuation Value for Point \hyperlink{classLight}{Light}. 
+
+\begin{DoxyReturn}{Returns}
+Vector2 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_aff03e46ab768fd30fae4e9624532351a}\label{classLight_aff03e46ab768fd30fae4e9624532351a}} 
+\index{Light@{Light}!Get\+Color@{Get\+Color}}
+\index{Get\+Color@{Get\+Color}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Color()}{GetColor()}}
+{\footnotesize\ttfamily const Vector3 \& Light\+::\+Get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Color of the \hyperlink{classLight}{Light}. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_a3df6df8d3503e59227f626380b4d7a29}\label{classLight_a3df6df8d3503e59227f626380b4d7a29}} 
+\index{Light@{Light}!Get\+Intensity@{Get\+Intensity}}
+\index{Get\+Intensity@{Get\+Intensity}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Intensity()}{GetIntensity()}}
+{\footnotesize\ttfamily float Light\+::\+Get\+Intensity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Intensity of the \hyperlink{classLight}{Light}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_ad825d936b6213b8cf49a6a2bd9516b1a}\label{classLight_ad825d936b6213b8cf49a6a2bd9516b1a}} 
+\index{Light@{Light}!Get\+Light\+Type@{Get\+Light\+Type}}
+\index{Get\+Light\+Type@{Get\+Light\+Type}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Light\+Type()}{GetLightType()}}
+{\footnotesize\ttfamily E\+Light\+Type Light\+::\+Get\+Light\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \hyperlink{classLight}{Light} Type. 
+
+\begin{DoxyReturn}{Returns}
+E\+Light\+Type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_a5183e96f3b976edc679456856c480d17}\label{classLight_a5183e96f3b976edc679456856c480d17}} 
+\index{Light@{Light}!Get\+Position@{Get\+Position}}
+\index{Get\+Position@{Get\+Position}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Position()}{GetPosition()}}
+{\footnotesize\ttfamily const Vector3\& Light\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Position of the \hyperlink{classLight}{Light} relative to the \hyperlink{classGameObject}{Game\+Object}\textquotesingle{}s \hyperlink{classTransformComponent}{Transform\+Component}\textquotesingle{}s position. 
+
+\begin{DoxyReturn}{Returns}
+const Vector3\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_acba7192fae5c7f97f41c12fb9773145c}\label{classLight_acba7192fae5c7f97f41c12fb9773145c}} 
+\index{Light@{Light}!Get\+Radius@{Get\+Radius}}
+\index{Get\+Radius@{Get\+Radius}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Radius()}{GetRadius()}}
+{\footnotesize\ttfamily float Light\+::\+Get\+Radius (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Radius of the \hyperlink{classLight}{Light}. Only applicable for Point \hyperlink{classLight}{Light}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_af2cd275417fec333fecadb28180805ca}\label{classLight_af2cd275417fec333fecadb28180805ca}} 
+\index{Light@{Light}!Get\+Shadow\+Intensity@{Get\+Shadow\+Intensity}}
+\index{Get\+Shadow\+Intensity@{Get\+Shadow\+Intensity}!Light@{Light}}
+\subsubsection{\texorpdfstring{Get\+Shadow\+Intensity()}{GetShadowIntensity()}}
+{\footnotesize\ttfamily float Light\+::\+Get\+Shadow\+Intensity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Shadow Intensity of the \hyperlink{classLight}{Light}. 
+
+\begin{DoxyReturn}{Returns}
+float 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLight_a1930e36520d82d4d82779c66bba28734}\label{classLight_a1930e36520d82d4d82779c66bba28734}} 
+\index{Light@{Light}!Set\+Color@{Set\+Color}}
+\index{Set\+Color@{Set\+Color}!Light@{Light}}
+\subsubsection{\texorpdfstring{Set\+Color()}{SetColor()}}
+{\footnotesize\ttfamily void Light\+::\+Set\+Color (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Color of the \hyperlink{classLight}{Light}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLight_a13d3927b9123987a5151f63d5d4c3fc4}\label{classLight_a13d3927b9123987a5151f63d5d4c3fc4}} 
+\index{Light@{Light}!Set\+Intensity@{Set\+Intensity}}
+\index{Set\+Intensity@{Set\+Intensity}!Light@{Light}}
+\subsubsection{\texorpdfstring{Set\+Intensity()}{SetIntensity()}}
+{\footnotesize\ttfamily void Light\+::\+Set\+Intensity (\begin{DoxyParamCaption}\item[{float}]{intensity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Intensity of the \hyperlink{classLight}{Light}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em intensity} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLight_a9163be3eb36a2bee3d80664afff48a6a}\label{classLight_a9163be3eb36a2bee3d80664afff48a6a}} 
+\index{Light@{Light}!Set\+Position@{Set\+Position}}
+\index{Set\+Position@{Set\+Position}!Light@{Light}}
+\subsubsection{\texorpdfstring{Set\+Position()}{SetPosition()}}
+{\footnotesize\ttfamily void Light\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{const Vector3 \&}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Position of the \hyperlink{classLight}{Light}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLight_a304fff5378538a07af88b77a0fee81fe}\label{classLight_a304fff5378538a07af88b77a0fee81fe}} 
+\index{Light@{Light}!Set\+Radius@{Set\+Radius}}
+\index{Set\+Radius@{Set\+Radius}!Light@{Light}}
+\subsubsection{\texorpdfstring{Set\+Radius()}{SetRadius()}}
+{\footnotesize\ttfamily void Light\+::\+Set\+Radius (\begin{DoxyParamCaption}\item[{float}]{radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Radius of the \hyperlink{classLight}{Light}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\hyperlink{Light_8h}{Light.\+h}\item 
+Graphics/Light.\+cpp\end{DoxyCompactItemize}

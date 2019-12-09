@@ -1,0 +1,537 @@
+\hypertarget{classDXRenderer}{}\section{D\+X\+Renderer Class Reference}
+\label{classDXRenderer}\index{D\+X\+Renderer@{D\+X\+Renderer}}
+
+
+he public middle level interface for executing DirectX 11 A\+PI  
+
+
+
+
+{\ttfamily \#include $<$D3\+D11\+\_\+\+Renderer.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDXRenderer_a523a1ab5a6f1031bda1242fb105241b7}{D\+X\+Renderer} (H\+W\+ND window\+\_\+handle, bool enable\+\_\+vsync)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classDXRenderer}{D\+X\+Renderer} object. \end{DoxyCompactList}\item 
+I\+D3\+D11\+Device $\ast$ \hyperlink{classDXRenderer_a93e38bbc88225a3244e336974674774b}{get\+\_\+device} () const
+\begin{DoxyCompactList}\small\item\em Get the d3d11 device. \end{DoxyCompactList}\item 
+I\+D3\+D11\+Device\+Context $\ast$ \hyperlink{classDXRenderer_ada893f000ff5b8bd2b0f24539f6be420}{get\+\_\+device\+\_\+context} () const
+\begin{DoxyCompactList}\small\item\em Get the d3d11 device context. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a668f61d8e8ccad71f0f623c4fe05bb4e}{cmd\+\_\+bind\+\_\+render\+\_\+targets} (\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$color\+\_\+rts, uint32\+\_\+t color\+\_\+rts\+\_\+count, \hyperlink{classRenderTarget}{Render\+Target} $\ast$depth\+\_\+stencil\+\_\+rt, const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} \&load\+\_\+actions\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Bind Render Targets. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a42a9e7def6fac47bbd405ea3c539d759}{cmd\+\_\+bind\+\_\+render\+\_\+targets} (\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$color\+\_\+rts, uint32\+\_\+t color\+\_\+rts\+\_\+count, \hyperlink{classRenderTarget}{Render\+Target} $\ast$depth\+\_\+stencil\+\_\+rt, const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} $\ast$load\+\_\+actions\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Bind Render Targets. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a0196dde6384481e256d7b3d253a1520d}{cmd\+\_\+bind\+\_\+pipeline} (\hyperlink{classPipeline}{Pipeline} $\ast$pipeline)
+\begin{DoxyCompactList}\small\item\em Bind graphics/compute pipeline. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_aeed80317a026c96ee333451550d45707}{cmd\+\_\+bind\+\_\+descriptor} (\hyperlink{classPipeline}{Pipeline} $\ast$pipeline, uint32\+\_\+t descriptor\+\_\+count, \hyperlink{structDescriptorData}{Descriptor\+Data} $\ast$descriptor\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Bind hader resources (textures, samplers, buffers) \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a2030153a259929cd36f4750a60ea3a59}{cmd\+\_\+bind\+\_\+vertex\+\_\+buffer} (\hyperlink{classBuffer}{Buffer} $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Bind Vertex \hyperlink{classBuffer}{Buffer}. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_ad166d9f9ddd4d32921ec240b729c2955}{cmd\+\_\+bind\+\_\+index\+\_\+buffer} (\hyperlink{classBuffer}{Buffer} $\ast$buffer)
+\begin{DoxyCompactList}\small\item\em Bind Index \hyperlink{classBuffer}{Buffer}. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_af9ad82aae86ba75516b264dc144e23c7}{cmd\+\_\+set\+\_\+viewport} (uint32\+\_\+t x, uint32\+\_\+t y, uint32\+\_\+t width, uint32\+\_\+t height)
+\begin{DoxyCompactList}\small\item\em Set viewport. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a46c26e36f9ec86763113f135423584a5}{cmd\+\_\+draw} (uint32\+\_\+t vertex\+\_\+count, uint32\+\_\+t first\+\_\+vertex)
+\begin{DoxyCompactList}\small\item\em Execute Draw call. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a6b826fbcfd25fcbe3d2996a4c4023e8a}{cmd\+\_\+draw\+\_\+index} (uint32\+\_\+t indices\+\_\+count, uint32\+\_\+t first\+\_\+index, uint32\+\_\+t first\+\_\+vertex)
+\begin{DoxyCompactList}\small\item\em Execture Draw Index. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a10c5015e326cef27739116f1a1d18e32}{cmd\+\_\+draw\+\_\+index\+\_\+instanced} (uint32\+\_\+t instance\+\_\+count, uint32\+\_\+t first\+\_\+instance, uint32\+\_\+t indices\+\_\+count, uint32\+\_\+t first\+\_\+index, uint32\+\_\+t first\+\_\+vertex)
+\begin{DoxyCompactList}\small\item\em Execute Draw Index Instanced. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a477f9b9bec26bde95a0aeae3dd8b7395}{cmd\+\_\+dispatch} (uint32\+\_\+t thread\+\_\+group\+\_\+x, uint32\+\_\+t thread\+\_\+group\+\_\+y, uint32\+\_\+t thread\+\_\+group\+\_\+z)
+\begin{DoxyCompactList}\small\item\em Dispatch compute shader thread. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a8fdbb3e30aeeb14d719b6afcc086fe8d}{cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets} (\hyperlink{classBuffer}{Buffer} $\ast$streamout\+Vertex\+Buffer, uint32\+\_\+t offsets)
+\begin{DoxyCompactList}\small\item\em Bind streamout vertex buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_a55c751afe6f80a0b39dbad2d65d75184}\label{classDXRenderer_a55c751afe6f80a0b39dbad2d65d75184}} 
+void \hyperlink{classDXRenderer_a55c751afe6f80a0b39dbad2d65d75184}{cmd\+\_\+draw\+\_\+auto} ()
+\begin{DoxyCompactList}\small\item\em Draw Auto. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a94f294bbd65dc04cc373d19325f1649e}{cmd\+\_\+spritebatch\+\_\+begin} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch)
+\begin{DoxyCompactList}\small\item\em Execute begin sprite batch. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a711b4dc330c2e3054519d9c0321a97f8}{cmd\+\_\+spritebatch\+\_\+end} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch)
+\begin{DoxyCompactList}\small\item\em Exectue end sprite batch. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_a14cb725b85687bb34b712b93550fef45}{cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string} (Direct\+X\+::\+Sprite\+Batch $\ast$p\+Sprite\+Batch, const std\+::wstring \&text, Direct\+X\+::\+Sprite\+Font $\ast$p\+Font, const Vector2 \&position, const Vector3 \&color, const Vector3 \&scale, float rotation)
+\begin{DoxyCompactList}\small\item\em Execute internal text rendering command. \end{DoxyCompactList}\item 
+void \hyperlink{classDXRenderer_ab3e0561b3419a6583505514eb979edba}{cmd\+\_\+update\+\_\+buffer} (const \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&buffer\+\_\+update\+\_\+desc)
+\begin{DoxyCompactList}\small\item\em Execute the buffer update command. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_a75fab54cd588ea681f1ac515a487ee36}\label{classDXRenderer_a75fab54cd588ea681f1ac515a487ee36}} 
+void {\bfseries instant\+\_\+update\+\_\+buffer} (const \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&buffer\+\_\+update\+\_\+desc)
+\item 
+\mbox{\Hypertarget{classDXRenderer_a9c8fd9abd296101a41ae021057810428}\label{classDXRenderer_a9c8fd9abd296101a41ae021057810428}} 
+void \hyperlink{classDXRenderer_a9c8fd9abd296101a41ae021057810428}{present\+\_\+swap\+\_\+chain} ()
+\begin{DoxyCompactList}\small\item\em Present the internal swap chain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_a32e5bf490798b8135bdd3b9011c47a65}\label{classDXRenderer_a32e5bf490798b8135bdd3b9011c47a65}} 
+void \hyperlink{classDXRenderer_a32e5bf490798b8135bdd3b9011c47a65}{execute\+\_\+queued\+\_\+cmd} ()
+\begin{DoxyCompactList}\small\item\em Execute all queued render command list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_a9678630e33b952041223b960453a70d6}\label{classDXRenderer_a9678630e33b952041223b960453a70d6}} 
+void \hyperlink{classDXRenderer_a9678630e33b952041223b960453a70d6}{Release} ()
+\begin{DoxyCompactList}\small\item\em Release all internal renderer resources. \end{DoxyCompactList}\item 
+bool \hyperlink{classDXRenderer_a3ac6805cd3b999b5a8546c36e0cb7e2c}{init} (uint32\+\_\+t swap\+\_\+chain\+\_\+sample\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Init the renderer\textquotesingle{}s swap chain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_ac907448e814751eb71f3a06e8c011d23}\label{classDXRenderer_ac907448e814751eb71f3a06e8c011d23}} 
+void {\bfseries init\+\_\+default\+\_\+resources} ()
+\item 
+\mbox{\Hypertarget{classDXRenderer_a0d570933d5a913a98993ea7cd5bc657f}\label{classDXRenderer_a0d570933d5a913a98993ea7cd5bc657f}} 
+void {\bfseries init\+\_\+transient\+\_\+buffer} ()
+\item 
+const \hyperlink{structSwapChain}{Swap\+Chain} $\ast$ \hyperlink{classDXRenderer_a17b919b6970a81fb3f1ddc62d368d0bb}{Get\+Swap\+Chain} () const
+\begin{DoxyCompactList}\small\item\em Get the Swap Chain. \end{DoxyCompactList}\item 
+\hyperlink{structSwapChain}{Swap\+Chain} $\ast$ \hyperlink{classDXRenderer_a570a2b13bad1619410193226a2ae933b}{Get\+Swap\+Chain} ()
+\begin{DoxyCompactList}\small\item\em Get the Swap Chain. \end{DoxyCompactList}\item 
+\hyperlink{structSwapChain}{Swap\+Chain} \& \hyperlink{classDXRenderer_ab75c4ead239b0c31ff8b0b6d826d35af}{Get\+Ref\+Swap\+Chain} ()
+\begin{DoxyCompactList}\small\item\em Get the Ref Swap Chain. \end{DoxyCompactList}\item 
+const \hyperlink{structSwapChain}{Swap\+Chain} \& \hyperlink{classDXRenderer_a28d203f9cd99268797fbd869f996e1a8}{Get\+Ref\+Swap\+Chain} () const
+\begin{DoxyCompactList}\small\item\em Get the Ref Swap Chain object. \end{DoxyCompactList}\item 
+H\+W\+ND \hyperlink{classDXRenderer_a42ba6c03505ed59104538abfcd554d15}{get\+\_\+window\+\_\+handle} () const
+\begin{DoxyCompactList}\small\item\em Get the window handle object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDXRenderer_ad11199cdf6b72ffdcaff80e92e88d128}\label{classDXRenderer_ad11199cdf6b72ffdcaff80e92e88d128}} 
+std\+::string {\bfseries get\+\_\+selected\+\_\+gpu\+\_\+name} () const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDXRenderer_a871268c492209c5a9db9dc2db99f4d04}\label{classDXRenderer_a871268c492209c5a9db9dc2db99f4d04}} 
+class {\bfseries D\+X\+Resource\+Loader}
+\item 
+\mbox{\Hypertarget{classDXRenderer_aba45a46c615e2683daffdae82e2d3b8f}\label{classDXRenderer_aba45a46c615e2683daffdae82e2d3b8f}} 
+class {\bfseries Event\+Manager}
+\item 
+\mbox{\Hypertarget{classDXRenderer_a54c1252abc87a78a301e6b6984470408}\label{classDXRenderer_a54c1252abc87a78a301e6b6984470408}} 
+class {\bfseries Resource\+Manager}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+he public middle level interface for executing DirectX 11 A\+PI 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDXRenderer_a523a1ab5a6f1031bda1242fb105241b7}\label{classDXRenderer_a523a1ab5a6f1031bda1242fb105241b7}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!D\+X\+Renderer@{D\+X\+Renderer}}
+\index{D\+X\+Renderer@{D\+X\+Renderer}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{D\+X\+Renderer()}{DXRenderer()}}
+{\footnotesize\ttfamily D\+X\+Renderer\+::\+D\+X\+Renderer (\begin{DoxyParamCaption}\item[{H\+W\+ND}]{window\+\_\+handle,  }\item[{bool}]{enable\+\_\+vsync }\end{DoxyParamCaption})}
+
+
+
+Construct a new \hyperlink{classDXRenderer}{D\+X\+Renderer} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window\+\_\+handle} & \\
+\hline
+{\em enable\+\_\+vsync} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDXRenderer_aeed80317a026c96ee333451550d45707}\label{classDXRenderer_aeed80317a026c96ee333451550d45707}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+descriptor@{cmd\+\_\+bind\+\_\+descriptor}}
+\index{cmd\+\_\+bind\+\_\+descriptor@{cmd\+\_\+bind\+\_\+descriptor}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+descriptor()}{cmd\_bind\_descriptor()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+descriptor (\begin{DoxyParamCaption}\item[{\hyperlink{classPipeline}{Pipeline} $\ast$}]{pipeline,  }\item[{uint32\+\_\+t}]{descriptor\+\_\+count,  }\item[{\hyperlink{structDescriptorData}{Descriptor\+Data} $\ast$}]{descriptor\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Bind hader resources (textures, samplers, buffers) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pipeline} & \\
+\hline
+{\em descriptor\+\_\+count} & \\
+\hline
+{\em descriptor\+\_\+data} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_ad166d9f9ddd4d32921ec240b729c2955}\label{classDXRenderer_ad166d9f9ddd4d32921ec240b729c2955}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+index\+\_\+buffer@{cmd\+\_\+bind\+\_\+index\+\_\+buffer}}
+\index{cmd\+\_\+bind\+\_\+index\+\_\+buffer@{cmd\+\_\+bind\+\_\+index\+\_\+buffer}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+index\+\_\+buffer()}{cmd\_bind\_index\_buffer()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+index\+\_\+buffer (\begin{DoxyParamCaption}\item[{\hyperlink{classBuffer}{Buffer} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Bind Index \hyperlink{classBuffer}{Buffer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a0196dde6384481e256d7b3d253a1520d}\label{classDXRenderer_a0196dde6384481e256d7b3d253a1520d}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+pipeline@{cmd\+\_\+bind\+\_\+pipeline}}
+\index{cmd\+\_\+bind\+\_\+pipeline@{cmd\+\_\+bind\+\_\+pipeline}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+pipeline()}{cmd\_bind\_pipeline()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+pipeline (\begin{DoxyParamCaption}\item[{\hyperlink{classPipeline}{Pipeline} $\ast$}]{pipeline }\end{DoxyParamCaption})}
+
+
+
+Bind graphics/compute pipeline. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pipeline} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a668f61d8e8ccad71f0f623c4fe05bb4e}\label{classDXRenderer_a668f61d8e8ccad71f0f623c4fe05bb4e}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+render\+\_\+targets}}
+\index{cmd\+\_\+bind\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+render\+\_\+targets}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+render\+\_\+targets()}{cmd\_bind\_render\_targets()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+render\+\_\+targets (\begin{DoxyParamCaption}\item[{\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$}]{color\+\_\+rts,  }\item[{uint32\+\_\+t}]{color\+\_\+rts\+\_\+count,  }\item[{\hyperlink{classRenderTarget}{Render\+Target} $\ast$}]{depth\+\_\+stencil\+\_\+rt,  }\item[{const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} \&}]{load\+\_\+actions\+\_\+desc }\end{DoxyParamCaption})}
+
+
+
+Bind Render Targets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+\_\+rts} & \\
+\hline
+{\em color\+\_\+rts\+\_\+count} & \\
+\hline
+{\em depth\+\_\+stencil\+\_\+rt} & \\
+\hline
+{\em load\+\_\+actions\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a42a9e7def6fac47bbd405ea3c539d759}\label{classDXRenderer_a42a9e7def6fac47bbd405ea3c539d759}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+render\+\_\+targets}}
+\index{cmd\+\_\+bind\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+render\+\_\+targets}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+render\+\_\+targets()}{cmd\_bind\_render\_targets()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+render\+\_\+targets (\begin{DoxyParamCaption}\item[{\hyperlink{classRenderTarget}{Render\+Target} $\ast$$\ast$}]{color\+\_\+rts,  }\item[{uint32\+\_\+t}]{color\+\_\+rts\+\_\+count,  }\item[{\hyperlink{classRenderTarget}{Render\+Target} $\ast$}]{depth\+\_\+stencil\+\_\+rt,  }\item[{const \hyperlink{structLoadActionsDesc}{Load\+Actions\+Desc} $\ast$}]{load\+\_\+actions\+\_\+desc }\end{DoxyParamCaption})}
+
+
+
+Bind Render Targets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color\+\_\+rts} & \\
+\hline
+{\em color\+\_\+rts\+\_\+count} & \\
+\hline
+{\em depth\+\_\+stencil\+\_\+rt} & \\
+\hline
+{\em load\+\_\+actions\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a8fdbb3e30aeeb14d719b6afcc086fe8d}\label{classDXRenderer_a8fdbb3e30aeeb14d719b6afcc086fe8d}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets}}
+\index{cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets@{cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets()}{cmd\_bind\_streamout\_render\_targets()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+streamout\+\_\+render\+\_\+targets (\begin{DoxyParamCaption}\item[{\hyperlink{classBuffer}{Buffer} $\ast$}]{streamout\+Vertex\+Buffer,  }\item[{uint32\+\_\+t}]{offsets }\end{DoxyParamCaption})}
+
+
+
+Bind streamout vertex buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em streamout\+Vertex\+Buffer} & \\
+\hline
+{\em offsets} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a2030153a259929cd36f4750a60ea3a59}\label{classDXRenderer_a2030153a259929cd36f4750a60ea3a59}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+bind\+\_\+vertex\+\_\+buffer@{cmd\+\_\+bind\+\_\+vertex\+\_\+buffer}}
+\index{cmd\+\_\+bind\+\_\+vertex\+\_\+buffer@{cmd\+\_\+bind\+\_\+vertex\+\_\+buffer}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+bind\+\_\+vertex\+\_\+buffer()}{cmd\_bind\_vertex\_buffer()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+bind\+\_\+vertex\+\_\+buffer (\begin{DoxyParamCaption}\item[{\hyperlink{classBuffer}{Buffer} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Bind Vertex \hyperlink{classBuffer}{Buffer}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a477f9b9bec26bde95a0aeae3dd8b7395}\label{classDXRenderer_a477f9b9bec26bde95a0aeae3dd8b7395}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+dispatch@{cmd\+\_\+dispatch}}
+\index{cmd\+\_\+dispatch@{cmd\+\_\+dispatch}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+dispatch()}{cmd\_dispatch()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+dispatch (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{thread\+\_\+group\+\_\+x,  }\item[{uint32\+\_\+t}]{thread\+\_\+group\+\_\+y,  }\item[{uint32\+\_\+t}]{thread\+\_\+group\+\_\+z }\end{DoxyParamCaption})}
+
+
+
+Dispatch compute shader thread. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thread\+\_\+group\+\_\+x} & \\
+\hline
+{\em thread\+\_\+group\+\_\+y} & \\
+\hline
+{\em thread\+\_\+group\+\_\+z} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a46c26e36f9ec86763113f135423584a5}\label{classDXRenderer_a46c26e36f9ec86763113f135423584a5}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+draw@{cmd\+\_\+draw}}
+\index{cmd\+\_\+draw@{cmd\+\_\+draw}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+draw()}{cmd\_draw()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+draw (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{vertex\+\_\+count,  }\item[{uint32\+\_\+t}]{first\+\_\+vertex }\end{DoxyParamCaption})}
+
+
+
+Execute Draw call. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex\+\_\+count} & \\
+\hline
+{\em first\+\_\+vertex} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a14cb725b85687bb34b712b93550fef45}\label{classDXRenderer_a14cb725b85687bb34b712b93550fef45}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string@{cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string}}
+\index{cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string@{cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string()}{cmd\_draw\_font\_text\_string()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+draw\+\_\+font\+\_\+text\+\_\+string (\begin{DoxyParamCaption}\item[{Direct\+X\+::\+Sprite\+Batch $\ast$}]{p\+Sprite\+Batch,  }\item[{const std\+::wstring \&}]{text,  }\item[{Direct\+X\+::\+Sprite\+Font $\ast$}]{p\+Font,  }\item[{const Vector2 \&}]{position,  }\item[{const Vector3 \&}]{color,  }\item[{const Vector3 \&}]{scale,  }\item[{float}]{rotation }\end{DoxyParamCaption})}
+
+
+
+Execute internal text rendering command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Sprite\+Batch} & \\
+\hline
+{\em text} & \\
+\hline
+{\em p\+Font} & \\
+\hline
+{\em position} & \\
+\hline
+{\em color} & \\
+\hline
+{\em scale} & \\
+\hline
+{\em rotation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a6b826fbcfd25fcbe3d2996a4c4023e8a}\label{classDXRenderer_a6b826fbcfd25fcbe3d2996a4c4023e8a}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+draw\+\_\+index@{cmd\+\_\+draw\+\_\+index}}
+\index{cmd\+\_\+draw\+\_\+index@{cmd\+\_\+draw\+\_\+index}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+draw\+\_\+index()}{cmd\_draw\_index()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+draw\+\_\+index (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{indices\+\_\+count,  }\item[{uint32\+\_\+t}]{first\+\_\+index,  }\item[{uint32\+\_\+t}]{first\+\_\+vertex }\end{DoxyParamCaption})}
+
+
+
+Execture Draw Index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indices\+\_\+count} & \\
+\hline
+{\em first\+\_\+index} & \\
+\hline
+{\em first\+\_\+vertex} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a10c5015e326cef27739116f1a1d18e32}\label{classDXRenderer_a10c5015e326cef27739116f1a1d18e32}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+draw\+\_\+index\+\_\+instanced@{cmd\+\_\+draw\+\_\+index\+\_\+instanced}}
+\index{cmd\+\_\+draw\+\_\+index\+\_\+instanced@{cmd\+\_\+draw\+\_\+index\+\_\+instanced}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+draw\+\_\+index\+\_\+instanced()}{cmd\_draw\_index\_instanced()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+draw\+\_\+index\+\_\+instanced (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{instance\+\_\+count,  }\item[{uint32\+\_\+t}]{first\+\_\+instance,  }\item[{uint32\+\_\+t}]{indices\+\_\+count,  }\item[{uint32\+\_\+t}]{first\+\_\+index,  }\item[{uint32\+\_\+t}]{first\+\_\+vertex }\end{DoxyParamCaption})}
+
+
+
+Execute Draw Index Instanced. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instance\+\_\+count} & \\
+\hline
+{\em first\+\_\+instance} & \\
+\hline
+{\em indices\+\_\+count} & \\
+\hline
+{\em first\+\_\+index} & \\
+\hline
+{\em first\+\_\+vertex} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_af9ad82aae86ba75516b264dc144e23c7}\label{classDXRenderer_af9ad82aae86ba75516b264dc144e23c7}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+set\+\_\+viewport@{cmd\+\_\+set\+\_\+viewport}}
+\index{cmd\+\_\+set\+\_\+viewport@{cmd\+\_\+set\+\_\+viewport}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+set\+\_\+viewport()}{cmd\_set\_viewport()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+set\+\_\+viewport (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{x,  }\item[{uint32\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{width,  }\item[{uint32\+\_\+t}]{height }\end{DoxyParamCaption})}
+
+
+
+Set viewport. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \\
+\hline
+{\em y} & \\
+\hline
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a94f294bbd65dc04cc373d19325f1649e}\label{classDXRenderer_a94f294bbd65dc04cc373d19325f1649e}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+spritebatch\+\_\+begin@{cmd\+\_\+spritebatch\+\_\+begin}}
+\index{cmd\+\_\+spritebatch\+\_\+begin@{cmd\+\_\+spritebatch\+\_\+begin}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+spritebatch\+\_\+begin()}{cmd\_spritebatch\_begin()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+spritebatch\+\_\+begin (\begin{DoxyParamCaption}\item[{Direct\+X\+::\+Sprite\+Batch $\ast$}]{p\+Sprite\+Batch }\end{DoxyParamCaption})}
+
+
+
+Execute begin sprite batch. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Sprite\+Batch} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a711b4dc330c2e3054519d9c0321a97f8}\label{classDXRenderer_a711b4dc330c2e3054519d9c0321a97f8}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+spritebatch\+\_\+end@{cmd\+\_\+spritebatch\+\_\+end}}
+\index{cmd\+\_\+spritebatch\+\_\+end@{cmd\+\_\+spritebatch\+\_\+end}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+spritebatch\+\_\+end()}{cmd\_spritebatch\_end()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+spritebatch\+\_\+end (\begin{DoxyParamCaption}\item[{Direct\+X\+::\+Sprite\+Batch $\ast$}]{p\+Sprite\+Batch }\end{DoxyParamCaption})}
+
+
+
+Exectue end sprite batch. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Sprite\+Batch} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_ab3e0561b3419a6583505514eb979edba}\label{classDXRenderer_ab3e0561b3419a6583505514eb979edba}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!cmd\+\_\+update\+\_\+buffer@{cmd\+\_\+update\+\_\+buffer}}
+\index{cmd\+\_\+update\+\_\+buffer@{cmd\+\_\+update\+\_\+buffer}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{cmd\+\_\+update\+\_\+buffer()}{cmd\_update\_buffer()}}
+{\footnotesize\ttfamily void D\+X\+Renderer\+::cmd\+\_\+update\+\_\+buffer (\begin{DoxyParamCaption}\item[{const \hyperlink{structBufferUpdateDesc}{Buffer\+Update\+Desc} \&}]{buffer\+\_\+update\+\_\+desc }\end{DoxyParamCaption})}
+
+
+
+Execute the buffer update command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer\+\_\+update\+\_\+desc} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDXRenderer_a93e38bbc88225a3244e336974674774b}\label{classDXRenderer_a93e38bbc88225a3244e336974674774b}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!get\+\_\+device@{get\+\_\+device}}
+\index{get\+\_\+device@{get\+\_\+device}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{get\+\_\+device()}{get\_device()}}
+{\footnotesize\ttfamily I\+D3\+D11\+Device $\ast$ D\+X\+Renderer\+::get\+\_\+device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the d3d11 device. 
+
+\begin{DoxyReturn}{Returns}
+I\+D3\+D11\+Device$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_ada893f000ff5b8bd2b0f24539f6be420}\label{classDXRenderer_ada893f000ff5b8bd2b0f24539f6be420}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!get\+\_\+device\+\_\+context@{get\+\_\+device\+\_\+context}}
+\index{get\+\_\+device\+\_\+context@{get\+\_\+device\+\_\+context}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{get\+\_\+device\+\_\+context()}{get\_device\_context()}}
+{\footnotesize\ttfamily I\+D3\+D11\+Device\+Context $\ast$ D\+X\+Renderer\+::get\+\_\+device\+\_\+context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the d3d11 device context. 
+
+\begin{DoxyReturn}{Returns}
+I\+D3\+D11\+Device\+Context$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_a42ba6c03505ed59104538abfcd554d15}\label{classDXRenderer_a42ba6c03505ed59104538abfcd554d15}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!get\+\_\+window\+\_\+handle@{get\+\_\+window\+\_\+handle}}
+\index{get\+\_\+window\+\_\+handle@{get\+\_\+window\+\_\+handle}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{get\+\_\+window\+\_\+handle()}{get\_window\_handle()}}
+{\footnotesize\ttfamily H\+W\+ND D\+X\+Renderer\+::get\+\_\+window\+\_\+handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the window handle object. 
+
+\begin{DoxyReturn}{Returns}
+H\+W\+ND 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_ab75c4ead239b0c31ff8b0b6d826d35af}\label{classDXRenderer_ab75c4ead239b0c31ff8b0b6d826d35af}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!Get\+Ref\+Swap\+Chain@{Get\+Ref\+Swap\+Chain}}
+\index{Get\+Ref\+Swap\+Chain@{Get\+Ref\+Swap\+Chain}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Ref\+Swap\+Chain()}{GetRefSwapChain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structSwapChain}{Swap\+Chain} \& D\+X\+Renderer\+::\+Get\+Ref\+Swap\+Chain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Ref Swap Chain. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{structSwapChain}{Swap\+Chain}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_a28d203f9cd99268797fbd869f996e1a8}\label{classDXRenderer_a28d203f9cd99268797fbd869f996e1a8}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!Get\+Ref\+Swap\+Chain@{Get\+Ref\+Swap\+Chain}}
+\index{Get\+Ref\+Swap\+Chain@{Get\+Ref\+Swap\+Chain}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Ref\+Swap\+Chain()}{GetRefSwapChain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \hyperlink{structSwapChain}{Swap\+Chain} \& D\+X\+Renderer\+::\+Get\+Ref\+Swap\+Chain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Ref Swap Chain object. 
+
+\begin{DoxyReturn}{Returns}
+const \hyperlink{structSwapChain}{Swap\+Chain}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_a17b919b6970a81fb3f1ddc62d368d0bb}\label{classDXRenderer_a17b919b6970a81fb3f1ddc62d368d0bb}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!Get\+Swap\+Chain@{Get\+Swap\+Chain}}
+\index{Get\+Swap\+Chain@{Get\+Swap\+Chain}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Swap\+Chain()}{GetSwapChain()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const \hyperlink{structSwapChain}{Swap\+Chain} $\ast$ D\+X\+Renderer\+::\+Get\+Swap\+Chain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Swap Chain. 
+
+\begin{DoxyReturn}{Returns}
+const Swap\+Chain$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_a570a2b13bad1619410193226a2ae933b}\label{classDXRenderer_a570a2b13bad1619410193226a2ae933b}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!Get\+Swap\+Chain@{Get\+Swap\+Chain}}
+\index{Get\+Swap\+Chain@{Get\+Swap\+Chain}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{Get\+Swap\+Chain()}{GetSwapChain()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \hyperlink{structSwapChain}{Swap\+Chain} $\ast$ D\+X\+Renderer\+::\+Get\+Swap\+Chain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Swap Chain. 
+
+\begin{DoxyReturn}{Returns}
+Swap\+Chain$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDXRenderer_a3ac6805cd3b999b5a8546c36e0cb7e2c}\label{classDXRenderer_a3ac6805cd3b999b5a8546c36e0cb7e2c}} 
+\index{D\+X\+Renderer@{D\+X\+Renderer}!init@{init}}
+\index{init@{init}!D\+X\+Renderer@{D\+X\+Renderer}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool D\+X\+Renderer\+::init (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{swap\+\_\+chain\+\_\+sample\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Init the renderer\textquotesingle{}s swap chain. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em swap\+\_\+chain\+\_\+sample\+\_\+count} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/\hyperlink{D3D11__Renderer_8h}{D3\+D11\+\_\+\+Renderer.\+h}\item 
+Graphics/D3\+D11\+\_\+\+Renderer.\+cpp\end{DoxyCompactItemize}

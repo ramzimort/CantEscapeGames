@@ -1,0 +1,109 @@
+\hypertarget{classState}{}\section{State Class Reference}
+\label{classState}\index{State@{State}}
+
+
+Represent a game state. Each state will have their own \hyperlink{classGameObjectManager}{Game\+Object\+Manager} and \hyperlink{classSystemManager}{System\+Manager}.  
+
+
+
+
+{\ttfamily \#include $<$State.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classState_a935578b20d60c6ed193e96ceec1201be}{State} (std\+::string const \&path, \hyperlink{classAppRenderer}{App\+Renderer} $\ast$app\+Renderer, \hyperlink{classResourceManager}{Resource\+Manager} $\ast$res\+Mgr, \hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$lua\+Mgr)
+\begin{DoxyCompactList}\small\item\em Construct a new \hyperlink{classState}{State} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classState_afab438d92b90dc18d194dbd9c9c8bab3}\label{classState_afab438d92b90dc18d194dbd9c9c8bab3}} 
+virtual \hyperlink{classState_afab438d92b90dc18d194dbd9c9c8bab3}{$\sim$\+State} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \hyperlink{classState}{State} object. \end{DoxyCompactList}\item 
+void \hyperlink{classState_a5c3567e3ce68f000e96901099c92eda5}{On\+Resources\+Loaded} (const \hyperlink{classResourcesLoadedEvent}{Resources\+Loaded\+Event} $\ast$e)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEvent}{Event} fired when resources are loaded. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classState_a1660e74611d9e044a136bea1f96b8f8b}{Update} (float dt)
+\begin{DoxyCompactList}\small\item\em Calls Update on the system Manager belonging to the state. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classState_aacc5a196dc56e926051517bb0eb86f7c}{Draw} (float dt)
+\begin{DoxyCompactList}\small\item\em Calls draw on the system Manager belonging to the state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classState_ad0fd1771625e07bcddaf2dc7a52a5b19}\label{classState_ad0fd1771625e07bcddaf2dc7a52a5b19}} 
+void \hyperlink{classState_ad0fd1771625e07bcddaf2dc7a52a5b19}{Process\+Instantiation\+And\+Destruction} ()
+\begin{DoxyCompactList}\small\item\em Calls Process\+Queues on the \hyperlink{classGameObjectManager}{Game\+Object\+Manager} belonging to this state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represent a game state. Each state will have their own \hyperlink{classGameObjectManager}{Game\+Object\+Manager} and \hyperlink{classSystemManager}{System\+Manager}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classState_a935578b20d60c6ed193e96ceec1201be}\label{classState_a935578b20d60c6ed193e96ceec1201be}} 
+\index{State@{State}!State@{State}}
+\index{State@{State}!State@{State}}
+\subsubsection{\texorpdfstring{State()}{State()}}
+{\footnotesize\ttfamily State\+::\+State (\begin{DoxyParamCaption}\item[{std\+::string const \&}]{path,  }\item[{\hyperlink{classAppRenderer}{App\+Renderer} $\ast$}]{app\+Renderer,  }\item[{\hyperlink{classResourceManager}{Resource\+Manager} $\ast$}]{res\+Mgr,  }\item[{\hyperlink{classScriptingManager}{Scripting\+Manager} $\ast$}]{lua\+Mgr }\end{DoxyParamCaption})}
+
+
+
+Construct a new \hyperlink{classState}{State} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \\
+\hline
+{\em app\+Renderer} & \\
+\hline
+{\em res\+Mgr} & \\
+\hline
+{\em lua\+Mgr} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classState_aacc5a196dc56e926051517bb0eb86f7c}\label{classState_aacc5a196dc56e926051517bb0eb86f7c}} 
+\index{State@{State}!Draw@{Draw}}
+\index{Draw@{Draw}!State@{State}}
+\subsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void State\+::\+Draw (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Calls draw on the system Manager belonging to the state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classState_a5c3567e3ce68f000e96901099c92eda5}\label{classState_a5c3567e3ce68f000e96901099c92eda5}} 
+\index{State@{State}!On\+Resources\+Loaded@{On\+Resources\+Loaded}}
+\index{On\+Resources\+Loaded@{On\+Resources\+Loaded}!State@{State}}
+\subsubsection{\texorpdfstring{On\+Resources\+Loaded()}{OnResourcesLoaded()}}
+{\footnotesize\ttfamily void State\+::\+On\+Resources\+Loaded (\begin{DoxyParamCaption}\item[{const \hyperlink{classResourcesLoadedEvent}{Resources\+Loaded\+Event} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classEvent}{Event} fired when resources are loaded. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classState_a1660e74611d9e044a136bea1f96b8f8b}\label{classState_a1660e74611d9e044a136bea1f96b8f8b}} 
+\index{State@{State}!Update@{Update}}
+\index{Update@{Update}!State@{State}}
+\subsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void State\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Calls Update on the system Manager belonging to the state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+States/\hyperlink{State_8h}{State.\+h}\item 
+States/State.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,30 @@
+{
+  "TransformComponent": {
+    "Position": [ 0.0, 0.0, 0.0 ],
+    "Rotation": [ 90.0, 0.0, 0.0 ],
+    "Scale": [ 2.0, 2.0, 2.0 ]
+  },
+
+  "RendererComponent": {
+    "MaterialId": "Assets\\Materials\\MaterialGold.json",
+    "EnableRendering": true
+  },
+
+  "TriggerComponent": {
+    "Scale": [ 3.5, 3.5, 3.5 ],
+    "Offset": [ 0.0, 1.75, 0.0 ],
+    "CollisionMask": "DINAMIC_OBJ"
+  },
+
+  "MeshComponent": {
+    "ModelId": "Assets\\Models\\coin.obj"
+  },
+
+  "Scripts": [
+    {
+      "Name": "Scripts\\Components\\RunnerCoinComp.lua",
+      "Overrides": {
+      }
+    }
+  ]
+}
